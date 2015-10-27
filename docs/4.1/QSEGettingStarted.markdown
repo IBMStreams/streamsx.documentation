@@ -1,5 +1,4 @@
 ---
-layout: defaults
 ---
 #  Getting Started with Streams
 
