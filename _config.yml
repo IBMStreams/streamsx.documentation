@@ -4,3 +4,8 @@ baseurl:
 # Site settings
 title: IBM Streams 
 description: "IBM Streams Development Guides"
+
+# Build settings
+markdown: kramdown
+permalink: pretty
+detach:  false
