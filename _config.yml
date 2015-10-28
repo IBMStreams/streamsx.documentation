@@ -1,5 +1,5 @@
 url: http://ibmstreams.github.io/streamsx.documentation/
-baseurl: http://ibmstreams.github.io/streamsx.documentation/
+baseurl: /streamsx.documentation
 
 # Site settings
 title: IBM Streams 
