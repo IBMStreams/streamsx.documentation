@@ -12,7 +12,10 @@ The Streams Quick Start Editor VMware can help you get started with Streams quic
 The following shortcuts are available on the image desktop to help you get started: 
 
 * **Streams Domain Manager** - The Domain Manager is an application for managing your Streams domain.  With the domain manager, you can create, start, stop, or delete a domain.  You may also edit the various properties from a Streams domain.  The images are set up with Streams domain by default:  *StreamsDomain*.  
-* **Streams Studio** - Streams Studio is the integrated development environment for developing your Streams application.  To learn about Streams Studio, see this video:  [Video: Build Streams Applications](https://developer.ibm.com/streamsdev/docs/build-streaming-applications/)
+* **Streams Studio** - Streams Studio is the integrated development environment for developing your Streams application.  To learn about Streams Studio, see this video:  
+
+<iframe width="480" height="298" src="https://www.youtube.com/embed/ir_nUv4maL4" frameborder="0" allowfullscreen></iframe>
+
 * **Streams Console** - Streams Console is the web-based administrative tool for all your Streams administration and management needs.  You may use the Streams Console to monitor the health of your Streams environment.  You may also manage and modify various properties and security settings from the console.
 
 ### Streams Community
