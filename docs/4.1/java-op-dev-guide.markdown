@@ -1,5 +1,6 @@
 ---
 layout: docs
+title:  Java Operator Development Guide
 ---
 #  Java Operator Development Guide
 
