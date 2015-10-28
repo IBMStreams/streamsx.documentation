@@ -1,2 +1,3 @@
+{% include css/stylesheets/bootstrap.css %}
 {% include css/doc/simple/github-dark.css %}
 {% include css/doc/simple/styles.css %}
