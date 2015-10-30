@@ -5,6 +5,15 @@ published: true
 ---
 # Java Function Development Guide (Draft)
 
+# Before You Begin
+
+You need to have some basic understanding about Streams and the SPL language.
+
+If you are new to Streams:
+
+* [https://developer.ibm.com/streamsdev/docs/streams-quick-start-guide/](Streams Quick Start Guide)
+* [https://developer.ibm.com/streamsdev/docs/studio-quick-start/](Streams Studio Quick Start Guide)
+
 # Overview
 
 IBM Streams supports native functions to be written in Java.  A native function can be called anywhere in the SPL code.
