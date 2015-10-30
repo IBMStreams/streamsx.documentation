@@ -1,10 +1,11 @@
 ---
 layout: docs
 title:  Java Operator Development Guide
-published: false
+published: true
 ---
 #  Java Operator Development Guide
 
+# Alex
 ## Quick start guide to talk about how to develop java operators
 
 Outline:
@@ -45,3 +46,4 @@ Start with java code that does simple rabbitMQ producing
 Show how easy it is to leverage that and turn it into a Streams operator
 @Libraries and leveraging jars
 produceTuples() explanation
+
