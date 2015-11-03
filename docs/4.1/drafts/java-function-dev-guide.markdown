@@ -3,7 +3,10 @@ layout: docs
 title:  Java Functions Development Guide
 published: true
 ---
+
 # Java Function Development Guide (Draft)
+* TOC
+{:toc}
 
 # Before You Begin
 
@@ -273,12 +276,43 @@ cd JavaFunctionSample
 spl-make-toolkit -i ./
 ~~~~~~
 
-# Referencing to third-party libraries
+# Referencing to Third-Party Libraries
 
 If additional jars are required in the class path then it is recommended that the java native function implementation classes are packaged in a jar file and the jar file.  In the manifest file for the jar, add a Class-Path manifest entry that references required jars. These required jars would typically be contained within the toolkit. Typically these required jars are stored in the *opt* or *impl/lib* directory.
 
 To add Class-path entry into the manifest, see the instructions here: [https://docs.oracle.com/javase/tutorial/deployment/jar/downman.html](Adding Classes to the JAR File's Classpath)
 
-# References:
+# Exception Handling
+
+To execute Java functions, a single JVM is started for each processing element (PE) that calls into Java.  By default, any uncaught exception in the Java code will cause the PE to terminate.
+
+There are a couple of ways to handle exceptions in your Java code:
+
+* Catch all exceptions in Java and Log Errors
+
+    Streams applications are supposed to run continuously and do not end.  When dealing with exceptions in your Java code, you have to think about whether the error is recoverable from your Streams application.  If the error is recoverable, then the exception should be caught and logged, and we should prevent the PE from crashing.  A PE should only be terminated if the error is truly non-recoverable.
+
+    Here's one example of handling exception in a Java function:
+    
+* Handling Exceptions in SPL
+
+    Alternatively, you can handle any uncaught exception in SPL.  Staring in Streams 4.1, you can add a ```@catch``` annotation in the SPL code to control how uncaught exceptions from primitve operators or native functions are to be handled.  To enable exception handling,     
+
+
+
+# Log and Trace
+
+# Type Mapping
+
+# Fusion Considerations
+
+# Performance Considerations
+
+# Limitations
+
+* Unable to develop this in Studio
+* Unable to specify vm arguments
+
+# References
 
 [Java Function Development Reference on InfoCenter](https://www-01.ibm.com/support/knowledgecenter/#!/SSCRJU_4.0.0/com.ibm.streams.spl-java-operators.doc/api/com/ibm/streams/function/model/package-summary.html)

@@ -3,12 +3,6 @@ layout: docs
 title:  Getting Started with Streams
 ---
 
-## Table of Content
-* TOC
-{:toc}
-
-#  Getting Started with Streams
-
 ## Introduction to the Streams Quick Start Edition VMware
 
 The Streams Quick Start Editor VMware can help you get started with Streams quickly, without having to install a Streams cluster environment. These images are available [here](http://www.ibm.com/analytics/us/en/technology/stream-computing/).
@@ -57,4 +51,3 @@ The following Streams resources can help you connect with the Streams community 
 # Reusing Your Spark Analytics in Streams
 
 * [Getting started with SparkMLLib](http://ibmstreams.github.io/streamsx.sparkMLLib/)
-

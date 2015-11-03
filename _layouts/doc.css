@@ -1,2 +1,2 @@
-{% include css/stylesheets/bootstrap.css %}
-{% include css/doc/simple/styles_min.css %}
+{% include css/dist/css/bootstrap.css %}
+{% include css/dist/css/styles.css %}
