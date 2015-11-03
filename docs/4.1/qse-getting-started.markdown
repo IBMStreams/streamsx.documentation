@@ -2,6 +2,11 @@
 layout: docs
 title:  Getting Started with Streams
 ---
+
+## Table of Content
+* TOC
+{:toc}
+
 #  Getting Started with Streams
 
 ## Introduction to the Streams Quick Start Edition VMware
@@ -25,7 +30,7 @@ The following Streams resources can help you connect with the Streams community 
 * **[IBM Streams Support](http://www.ibm.com/support/entry/portal/Overview/Software/Information_Management/InfoSphere_Streams)** - This website provides information about InfoSphere Streams downloads, technical support tools, documentation, and other resources.
 * **[IBM Streams Product Site](http://www.ibm.com/software/data/infosphere/streams)** - This website provides a broad range of information and resources about Streams and related topics.
 
-## Getting Started with Streams and the Streams Processing Language (SPL)
+# Getting Started with Streams and the Streams Processing Language (SPL)
 
 * To learn more about Streams, see this video:
 
@@ -40,16 +45,16 @@ The following Streams resources can help you connect with the Streams community 
 * [Streams Hands-on Lab](https://developer.ibm.com/streamsdev/docs/introductory-lab-for-streams-4-0-1/)
 * [SPL Examples for Beginners](https://developer.ibm.com/streamsdev/docs/spl-examples-beginners/)
 
-## Getting Started for the Java Developer
+# Getting Started for the Java Developer
 
 * [Develop Streams Applications in Java](http://ibmstreams.github.io/streamsx.topology/)
 * [Roadmap for Java Developers](https://developer.ibm.com/streamsdev/docs/roadmap-for-java-developer/)
 
-## Getting Started for the Scala Developer
+# Getting Started for the Scala Developer
 
 * [Develop Streams Applications in Scala](http://ibmstreams.github.io/streamsx.topology/)
 
-## Reusing Your Spark Analytics in Streams
+# Reusing Your Spark Analytics in Streams
 
 * [Getting started with SparkMLLib](http://ibmstreams.github.io/streamsx.sparkMLLib/)
 
