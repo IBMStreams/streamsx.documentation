@@ -44,6 +44,11 @@ navbar-default .navbar-collapse,
 .nav > li > a.toc {
     position: relative;
     display:block;
-    padding-bottom: 5px;
+    padding-bottom: 10px;
     padding-top: 0;
+    font-size: smaller;
+}
+
+pre {
+	font-size: small;
 }
