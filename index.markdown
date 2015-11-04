@@ -2,14 +2,18 @@
 layout: docs
 ---
 
-# Under Construction
+**(Under Construction)**
+
+# Streams Quick Start Edition (QSE)
+<ul>
+{% for node in site.pages %}
+    {% unless node.url contains "drafts" %} 
+	{% if node.url contains "qse"%}
+      <li><a href='/streamsx.documentation{{node.url}}'>{{node.title}}</a></li>
+  {% endif %}
+  {%endunless%}
+{% endfor %}
+</ul>
 
 # Streams InfoCenter
 [Streams 4.0.1 Infocenter](http://www-01.ibm.com/support/knowledgecenter/#!/SSCRJU_4.0.1/com.ibm.streams.welcome.doc/doc/kc-homepage.html)
-
-# QSE
-[QSE Getting Started Guide](docs/4.1/qse-getting-started/)
-
-<!--# Java 
-[Java Operator Development Guide](docs/4.1/java-op-dev-guide/) -->
-

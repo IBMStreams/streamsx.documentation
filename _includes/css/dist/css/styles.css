@@ -36,16 +36,11 @@ navbar-default .navbar-collapse,
 	padding-top: 0;
 }
 
-.nav > li.tag-h2 {
-	margin-left: 20px;
-	list-style: circle;
-}
-
 .nav > li > a.toc {
     position: relative;
     display:block;
-    padding-bottom: 10px;
-    padding-top: 0;
+    padding-bottom: 5px;
+    padding-top: 5px;
     font-size: smaller;
 }
 
