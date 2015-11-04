@@ -47,3 +47,7 @@ navbar-default .navbar-collapse,
     padding-bottom: 5px;
     padding-top: 0;
 }
+
+.sidebar {
+	position: absolute;
+}

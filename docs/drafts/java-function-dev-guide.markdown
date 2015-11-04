@@ -5,8 +5,6 @@ published: true
 ---
 
 # Java Function Development Guide (Draft)
-* TOC
-{:toc}
 
 # Before You Begin
 

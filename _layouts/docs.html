@@ -6,21 +6,22 @@
 
 <body>
 
-<div class="container" id="content">
-	
-	
-		<div class="col-md-12">
-			{{content}}
+	<div class="container-fluid" id="content">
+
+		<div class="row">
+			<div class="sidebar col-sm-3 text-right"
+				style="padding-top:30px; background-color: aliceblue;">
+				<ul class="nav nav-sidebar" style="list-type: circle;">
+				</ul>
+			</div>
+			<div class="main col-sm-9 ">{{content}}</div>
 		</div>
-	
-	
-	<!--  <div class="col-md-3 container" role="complementary">
-		<nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm">
-			<ul class="nav toc bs-docs-sidenav">
-			</ul>
-		</nav>
-	</div>	
-		-->
 	</div>
+	<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+	<script
+		src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+	<!-- Include all compiled plugins (below), or include individual files as needed -->
+	<script src="/streamsx.documentation/css/dist/js/bootstrap.min.js"></script>
+</body>
 </body>
 </html>

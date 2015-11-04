@@ -3,11 +3,11 @@ layout: docs
 title:  Getting Started with Streams
 ---
 
-## Introduction to the Streams Quick Start Edition VMware
+# Introduction to the Streams Quick Start Edition VMware
 
 The Streams Quick Start Editor VMware can help you get started with Streams quickly, without having to install a Streams cluster environment. These images are available [here](http://www.ibm.com/analytics/us/en/technology/stream-computing/).
 
-### Getting Started with the Image Desktop
+## Getting Started with the Image Desktop
 
 The following shortcuts are available on the image desktop to help you get started: 
 
@@ -15,7 +15,7 @@ The following shortcuts are available on the image desktop to help you get start
 * **Streams Studio** - Streams Studio is the integrated development environment for developing your Streams application.  
 * **Streams Console** - Streams Console is the web-based administrative tool for all your Streams administration and management needs.  You may use the Streams Console to monitor the health of your Streams environment.  You may also manage and modify various properties and security settings from the console.
 
-### Streams Community
+## Streams Community
 The following Streams resources can help you connect with the Streams community and get support when you need it:
 
 * **[StreamsDev](https://developer.ibm.com/streamsdev/)** - This resource is a developer-to-developer website maintained by the Streams Development Team.  It contains many useful articles and getting started material.  Check back often for new articles, tips and tricks to this website.
