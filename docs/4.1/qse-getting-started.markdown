@@ -28,12 +28,17 @@ The following Streams resources can help you connect with the Streams community 
 
 * To learn more about Streams, see this video:
 
-<iframe width="480" height="298" src="https://www.youtube.com/embed/HLHGRy7Hif4" frameborder="0" allowfullscreen></iframe>
+    <!-- Launch video in modal dialog -->
+    <button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#learnStreams">
+    Video:  Learn Streams in 5 min!
+    </button>
 
 * To learn about Streams Studio, see this video:  
 
-<iframe width="480" height="298" src="https://www.youtube.com/embed/ir_nUv4maL4" frameborder="0" allowfullscreen></iframe>
-
+    <!-- Launch video in modal dialog -->
+    <button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#streamsStudioInAction">
+    Video:  Streams Studio in Action!
+    </button>
 
 * [Streams Quick Start Guide](https://developer.ibm.com/streamsdev/?p=5686)
 * [Streams Hands-on Lab](https://developer.ibm.com/streamsdev/docs/introductory-lab-for-streams-4-0-1/)
@@ -51,3 +56,40 @@ The following Streams resources can help you connect with the Streams community 
 # Reusing Your Spark Analytics in Streams
 
 * [Getting started with SparkMLLib](http://ibmstreams.github.io/streamsx.sparkMLLib/)
+
+
+<!-- Modal -->
+<div class="modal fade" id="learnStreams" tabindex="-1" role="dialog" aria-labelledby="learn-streams-in-5-min" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title" id="learn-streams-in-5-min">Learn Streams in 5 Min</h4>
+      </div>
+      <div class="modal-body">
+        <iframe width="480" height="298" src="https://www.youtube.com/embed/HLHGRy7Hif4" frameborder="0" allowfullscreen></iframe>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="streamsStudioInAction" tabindex="-1" role="dialog" aria-labelledby="streams-studio-in-action" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title" id="streams-studio-in-action">Streams Studio in Action</h4>
+      </div>
+      <div class="modal-body">
+		<iframe width="480" height="298" src="https://www.youtube.com/embed/ir_nUv4maL4" frameborder="0" allowfullscreen></iframe>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
