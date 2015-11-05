@@ -47,3 +47,15 @@ navbar-default .navbar-collapse,
 pre {
 	font-size: small;
 }
+
+td, th {
+padding-left: 5px;
+padding-right: 5px;
+border: black;
+border-style: solid;
+border-width: 1px;
+}
+
+th {
+	background-color: lightgray;
+}
