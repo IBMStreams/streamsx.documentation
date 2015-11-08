@@ -9,3 +9,6 @@ description: "IBM Streams Development Guides"
 markdown: kramdown
 permalink: pretty
 detach:  false
+port:    4001
+host:   9.26.55.129
+
