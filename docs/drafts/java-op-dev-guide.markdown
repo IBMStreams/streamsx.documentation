@@ -12,6 +12,7 @@ Page under construction
 
 ##  Operator Lifecycle
 Unless you're writing an extremely simple Java operator, it's important to understand how the operator lifecycle works. All operators written in Java must implement the following interface and implement a no-argument constructor:
+
 ~~~~~~
      com.ibm.streams.operator.Operator   
      
@@ -32,9 +33,9 @@ Here is a brief explanation of the required methods:
 
 **void allPortsReady()** - This is called once after the initialize() method has returned and all input and output ports are connected and ready to receive/submit tuples. Operators that process incoming tuples generally won't use this, since the process method is used to handle tuples. In the case of a source operator, there are no incoming tuples so this is where the production threads are started. We will cover this more in the source operator section.
 
-**void process(StreamingInput<Tuple> port, Tuple tuple)** - This is where the manipulation of incoming tuples will take place, followed by submission to an output port or an external connection (in the case of a sink operator). The performance of your operator will be decided by how efficient your process method is. See the Developing a High Performance process() method section. 
+**void process(StreamingInput\<Tuple> port, Tuple tuple)** - This is where the manipulation of incoming tuples will take place, followed by submission to an output port or an external connection (in the case of a sink operator). The performance of your operator will be decided by how efficient your process method is. See the Developing a High Performance process() method section. 
 
-**void processPunctuation(StreamingInput<Tuple> port, Punctuation mark)** - Process  incoming punctuation markers that arrived on the specified port. The two types of punctuation to be handled are window and final. 
+**void processPunctuation(StreamingInput\<Tuple> port, Punctuation mark)** - Process  incoming punctuation markers that arrived on the specified port. The two types of punctuation to be handled are window and final. 
 
 **void shutdown()** - Close connections and release resources related to any external system or data store. This method is invoked when a job is cancelled or an operator is stopped. 
 
