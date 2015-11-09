@@ -1,6 +1,6 @@
 ---
 layout: docs
-title:  Java Operator Development Guide
+title:  Java Operator Development Guide Outline - Sam
 published: true
 ---
 

@@ -1,9 +1,9 @@
 ---
 layout: docs
-title:  Java Operator Development Guide
+title:  Java Operator Development Guide Outline - Alex
 published: true
 ---
-#  Java Operator Development Guide
+#  Java Operator Development Guide Outline - Alex
 
 # Alex
 ## Quick start guide to talk about how to develop java operators
