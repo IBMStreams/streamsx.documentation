@@ -22,10 +22,11 @@ The Streams Quick Start Editor can help you get started with Streams quickly, wi
 | Disk space  | 50 GB |  |
 | Docker product | Docker Toolbox 1.9.0b or newer	| |
 
-<br>
+<p>
 <div class="alert alert-danger" role="alert"><b>IMPORTANT:</b> If you already have boot2docker installed, remove all components (docker, Git, and Oracle VirtualBox) before installing 'Docker Toolbox'</div>
 
 <div class="alert alert-danger" role="alert"><b>IMPORTANT:</b> If you have 'Docker Toolbox' already installed remove older version of Streams4Docker images and containers, and if there already exists a VirtualBox VM names 'streams4100', delete that as well. </div>
+</p>
 
 ## Windows
 
