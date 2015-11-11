@@ -2,11 +2,27 @@
 layout: docs
 title:  Installing Streams Quick Start Edition Docker 
 weight: 20
-published: false
+published: true
 ---
+
+**(Coming Soon...)**
 
 # Installing Streams Quick Start Edition Docker Image
 
+The Streams Quick Start Editor can help you get started with Streams quickly, without having to install a Streams cluster environment. 
+
+{% include download.html%}
+
+## System Requirements
+
+| Components  | Minimum Requirements | Comments |
+| ----------- | -------------------- | -------------|
+| Operating System  | 64-bit operating system that supports VMware  | VMware is supported on the following operating systems: <br>- Apple Mac OS X<br>- Microsoft Windows 
+| Memory	  |8 GB	                 |The amount of memory that is required by InfoSphere® Streams is dependent on the applications that are developed and deployed.  This minimum requirement is based on the memory requirements of the Commodity Purchasing sample application and other samples that are provided with the product.     
+| Disk space  | 50 GB |  |
+| Docker product | Docker Toolbox 1.9.0b or newer	| |
+
+<br>
 <div class="alert alert-danger" role="alert"><b>IMPORTANT:</b> If you already have boot2docker installed, remove all components (docker, Git, and Oracle VirtualBox) before installing 'Docker Toolbox'</div>
 
 <div class="alert alert-danger" role="alert"><b>IMPORTANT:</b> If you have 'Docker Toolbox' already installed remove older version of Streams4Docker images and containers, and if there already exists a VirtualBox VM names 'streams4100', delete that as well. </div>
@@ -22,12 +38,14 @@ published: false
     * Application Menu-> All Programs -> Accessories -> Windows Powershell -> Windows PowerShell
     * `cd <Directory where Streams4Docker downloaded>/Docker`
     * `powershell -ExecutionPolicy ByPass -File Streams-build.ps1`
-    
-    
-    Note: default build is 4096 MB memORY; 4 cpus; 50000 Bytes disk. 
-    
-    To change defaults, for example to 8192 MB mem; 2 cups; 60000 Bytes of disk run 
-           "powershell -ExecutionPolicy ByPass -File Streams-build.ps1 8192 2 60000"
+        
+Note: default build is 4096 MB Memory; 4 CPUs; 50000 Bytes disk. 
+
+To change defaults, for example to 8192 MB Memory; 2 CPUs; 60000 Bytes of disk run 
+
+~~~~~~
+powershell -ExecutionPolicy ByPass -File Streams-build.ps1 8192 2 60000
+~~~~~~
 
 <div class="alert alert-warning" role="alert">
 Building and running of the Docker container will take about 20 minutes. 
@@ -46,11 +64,14 @@ When completed the Powershell terminal will be sitting at the root prompt inside
 1.  Open a terminal and change to the Docker directory:  `cd Streams4Docker/Docker`
 1.  Run the script to build the docker image:  `./Streams-OSX-build.sh`
 
-    Note: default build is 4096 MB mem; 4 cpus; 50000 Bytes disk. 
+
+Note: default build is 4096 MB Memory; 4 CPUs; 50000 Bytes disk. 
           
-    To change defaults, for example to 8192 MB mem; 2 cups; 60000 Bytes of disk run 
+To change defaults, for example to 8192 MB Memory; 2 CPUs; 60000 Bytes of disk run 
     
-    `"./Streams-OSX-build.sh 8192 2 60000"`
+~~~~~~
+./Streams-OSX-build.sh 8192 2 60000
+~~~~~~
 
 <div class="alert alert-warning" role="alert">
 Build and Run of Docker Container will take about 20 minutes. You may be prompted for Administration Authentication several times. When completed the Powershell terminal will be sitting at the root prompt inside the Docker container.

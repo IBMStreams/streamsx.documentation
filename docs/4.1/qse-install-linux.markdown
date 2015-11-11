@@ -6,8 +6,10 @@ weight:  40
 
 # Installing Streams Quick Start Edition (QSE) for Linux
 
-The Streams Quick Start Editor VMware can help you get started with Streams quickly, without having to install a Streams cluster environment. These images are available [here](http://www.ibm.com/analytics/us/en/technology/stream-computing/).
+The Streams Quick Start Editor can help you get started with Streams quickly, without having to install a Streams cluster environment. 
 
+{% include download.html%}
+<br>
 This guide takes you through the process of installing and starting the QSE Linux Edition.
 
 ## Hardware Requirements

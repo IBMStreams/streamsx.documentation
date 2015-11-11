@@ -10,7 +10,7 @@ IBM Streams Quick Start Edition is a no-charge, non-production version of IBM St
 
 IBM Streams offers a continuous, complete and connected solution.  IBM Streams is always on when you need it continuously analyzing data in motion.  It speeds time to value with a complete set of tools for users and expands insight to include data in motion by connecting directly to data streams. 
 
-To download the Streams Quick Start Edition: [Download](http://www.ibm.com/analytics/us/en/technology/stream-computing/).
+{% include download.html%}
 
 ## Install Instructions
 
