@@ -1,68 +1,100 @@
 ---
 layout: docs
-title:  Installing Streams Quick Start Edition VM Image
+title:  Installing Streams Quick Start Edition for Linux
+weight:  40
 ---
 
-# Installing Streams Quick Start Edition (QSE) VM Image
+# Installing Streams Quick Start Edition (QSE) for Linux
 
 The Streams Quick Start Editor VMware can help you get started with Streams quickly, without having to install a Streams cluster environment. These images are available [here](http://www.ibm.com/analytics/us/en/technology/stream-computing/).
 
-This guide takes you through the process of installing and starting the QSE VM image.
+This guide takes you through the process of installing and starting the QSE Linux Edition.
 
-## System Requirements
+## Hardware Requirements
 
-### Operating System
+<table>
+<thead class="thead" align="left"><tr class="row" valign="bottom"><th class="entry" valign="bottom">Component</th>
+<th class="entry" align="center">Minimum requirements</th>
+<th class="entry" valign="bottom">Comments</th>
+</tr>
+</thead>
+<tbody class="tbody"><tr class="row"><td class="entry" rowspan="2" valign="top">System</td>
+<td class="entry" align="center" valign="top">x86_64 (64-bit) </td>
+<td class="entry" valign="top"><span class="keyword">InfoSphere Streams</span> supports Red Hat Enterprise Linux (RHEL), the Community Enterprise Operating
+System (CentOS), and SUSE Linux Enterprise
+Server (SLES).</td>
+</tr>
+<tr class="row"><td class="entry" align="center" valign="top">IBM® Power Systems™ (64-bit)</td>
+<td class="entry" valign="top" >IBM Streams supports the POWER7® and POWER8™ processors on RHEL.</td>
+</tr>
+<tr class="row"><td class="entry" valign="top">Display</td>
+<td class="entry" align="center" valign="top" >1280 x 1024</td>
+<td class="entry" valign="top" >Lower resolutions are supported but not preferred
+for Streams Studio.</td>
+</tr>
+<tr class="row"><td class="entry" valign="top" >Memory</td>
+<td class="entry" align="center" valign="top" >2 GB</td>
+<td class="entry" valign="top" ><span class="ph">The amount
+of memory that is required by <span class="keyword">InfoSphere Streams</span> is dependent on the applications that are developed
+and deployed.</span><p class="p" >This minimum
+requirement is based on the memory requirements of the Commodity Purchasing
+sample application and other samples that are provided with the product.</p>
+</td>
+</tr>
+<tr class="row"><td class="entry" rowspan="2" valign="top">Disk space</td>
+<td class="entry" align="left" valign="top">7.5 GB, if installing the <span class="keyword">main installation package</span></td>
+<td class="entry" rowspan="2" valign="top">Includes disk space required for
+installation and development resources. For more information about
+installation packages, see <a class="xref" href="http://www-01.ibm.com/support/knowledgecenter/?lang=en#!/SSCRJU_4.1.0/com.ibm.streams.install.doc/doc/ibminfospherestreams-install-programs-packages.html">Main and domain host installation
+packages for <span class="keyword">InfoSphere Streams</span></a>.</td>
+</tr>
+<tr class="row"><td class="entry" align="left" valign="top">2 GB, if installing the <span class="keyword">domain host installation package</span></td>
+</tr>
+</tbody>
+</table>
 
-| Components  | Minimum Requirements | Comments |
-| ----------- | -------------------- | -------------|
-| Operating System  | 64-bit operating system that supports VMware  | VMware is supported on the following operating systems: <br>- Apple Mac OS X <br>- Linux <br>- Microsoft Windows 
-| Memory	  |8 GB	                 |The amount of memory that is required by InfoSphere® Streams is dependent on the applications that are developed and deployed.  This minimum requirement is based on the memory requirements of the Commodity Purchasing sample application and other samples that are provided with the product.     
-| Disk space  | 20 GB |  |
-| VMware producet | VMware product that runs on a 64-bit operating system	| To run the Quick Start Edition VMware image, one of the following VMware products must be installed on your system:<br> - For Apple Mac OS X, VMware Fusion 4, or later<br>- For Microsoft Windows or Linux, one of the following products:  VMware Player 5, or later; VMware Workstation 8, or later; VMware Server
+## Software Requirements
 
-## Before you begin
+<table>
+<thead class="thead" align="left"><tr class="row" valign="bottom"><th class="entry" align="center" valign="bottom">Operating system</th>
+<th class="entry" align="center" valign="bottom">System hardware and architecture</th>
+<th class="entry" align="center" valign="bottom">Supported operating system versions</th>
+</tr>
+</thead>
+<tbody class="tbody"><tr class="row"><td class="entry" rowspan="4" align="center" valign="top">RHEL</td>
+<td class="entry" rowspan="2" align="center" valign="top">x86_64 (64-bit)</td>
+<td class="entry" align="center" valign="top">Version 6.1, or later</td>
+</tr>
+<tr class="row"><td class="entry" align="center" valign="top">Version 7.0, or later</td>
+</tr>
+<tr class="row"><td class="entry" rowspan="2" align="center" valign="top">IBM Power
+Systems (64-bit)<p class="p"><span class="keyword">InfoSphere Streams</span> supports the POWER7® and POWER8™ processors.</p>
+</td>
+<td class="entry" align="center" valign="top">Version 6.3, or later</td>
+</tr>
+<tr class="row"><td class="entry" align="center" valign="top">Version 7.0, or later</td>
+</tr>
+<tr class="row"><td class="entry" rowspan="2" align="center" valign="top">CentOS</td>
+<td class="entry" rowspan="2" align="center" valign="top">x86_64 (64-bit)</td>
+<td class="entry" align="center" valign="top">Version 6.1, or later</td>
+</tr>
+<tr class="row"><td class="entry" align="center" valign="top">Version 7.0, or later</td>
+</tr>
+<tr class="row"><td class="entry" align="center" valign="top">SLES</td>
+<td class="entry" align="center" valign="top">x86_64 (64-bit)</td>
+<td class="entry" align="center" valign="top">Version 11.2, or later</td>
+</tr>
+</tbody>
+</table>
 
-Your Streams ID for the Quick Start Edition is **streamsadmin**, and your password is **passw0rd**. The root ID password is also **passw0rd**.
+## Install Instructions
 
-The Quick Start Edition is only available in English.
+Refer to the InfoCenter for install instructions:
+[Install Instructions for Quick Start Edition for Linux](http://www-01.ibm.com/support/knowledgecenter/SSCRJU_4.1.0/com.ibm.streams.qse.doc/doc/ibminfospherestreams-qse-install.html?lang=en)
 
-**Performance notes:**
+## Resources
 
-* By default, the Quick Start Edition virtual machine is configured to have two processor cores and 4 GB of memory. Depending on your system resources and the applications that you develop and deploy, you might be able to improve performance by allocating more processor cores and memory to the virtual machine. You can adjust the processor and memory configuration by updating your virtual machine settings. For example, to update these settings for the VMware Player, click *Player > Manage > Virtual Machine Settings*.
-
-* If you import the VMware image into a non-VMware virtualization product and have performance problems with the image, enable any available options that can reduce guest disk input/output latency. For example, in the VirtualBox program from Oracle, select the Use Host I/O Cache option in the Storage Controller settings for the virtual machine.
-
-## Procedure
-
-1.  Download the vmware-streamsVxxx.zip file (where Vxxx is the version number of the Quick Start Edition).
-
-1.  Extract the contents of the vmware-streamsVxxx.zip file.
-
-    This .zip file contains the following files:
-
-    ~~~~~~
-    vmware-streamsVxxx-qse-v1.vmx, which is in the vmware-streamsVxxx-qse-v1.vmwarevm directory
-    ~~~~~~
-
-    Several Virtual Disk-snumber.vmdk files, which are in the vmware-streamsVxxx-qse-v1.vmwarevm directory
-
-1.  Start the Quick Start Edition VMware image by double-clicking the vmware-streamsVxxx-qse-v1.vmx file.
-
-    The first time that you start the image, several messages and prompts are displayed. Otherwise, the Quick Start Edition VMware image desktop opens.
-
-1.  The first time that you start the image, respond to the following prompts:
-
-    1.  Select **I copied it** to indicate that the virtual machine was copied. Red Hat Enterprise Linux splash screen is displayed, and then followed by several screens of status messages.
-
-    1.  To continue, accept all of the following license agreements:
-    
-        * Red Hat Enterprise Linux
-        * VMware tools
-        * IBM® Streams
-
-    To navigate in the license agreement screens, use the **Tab** and **Arrow** keys. Press the **Enter** key to continue.
-
-    After you accept the license agreements, status messages are displayed and the Quick Start Edition VMware image desktop opens.
+For details on system requirements for Streams QSE for Linux, refer to the [InfoCenter](http://www-01.ibm.com/support/knowledgecenter/?lang=en#!/SSCRJU_4.1.0/com.ibm.streams.qse.doc/doc/ibminfospherestreams-qse-before-you-begin.html).
 
 ## What to do next
 

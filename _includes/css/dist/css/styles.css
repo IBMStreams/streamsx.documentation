@@ -59,3 +59,14 @@ border-width: 1px;
 th {
 	background-color: lightgray;
 }
+
+.btn-primary {
+    color: #fff;
+    background-color: #ADD1EF;
+    border-color: #5983EF;
+}
+
+code{
+background-color: #f5f5f5;
+color:#333;
+}
