@@ -129,9 +129,9 @@ Video:  Streams and Excel Demo
 The following Streams resources can help you connect with the Streams community and get support when you need it:
 
 * **[StreamsDev](https://developer.ibm.com/streamsdev/)** - This resource is a developer-to-developer website maintained by the Streams Development Team.  It contains many useful articles and getting started material.  Check back often for new articles, tips and tricks to this website.
-* **[Streams Forum](https://www.ibmdw.net/answers/questions/?community=streamsdev&sort=newest&refine=none)** - This forum enables you to ask and answer questions that relate to InfoSphere Streams. If you have questions, start here.
+* **[Streams Forum](https://www.ibmdw.net/answers/questions/?community=streamsdev&sort=newest&refine=none)** - This forum enables you to ask and answer questions that relate to IBM Streams. If you have questions, start here.
 * **[IBMStreams on Github](http://ibmstreams.github.io)** - Streams is shipped with many useful toolkits out of the box.  IBMStreams on Github  contains many open-source toolkits.  For a list of available toolkits available on Github, see this web page:  [IBMStreams Github Toolkits](https://developer.ibm.com/streamsdev/docs/github-projects-overview/).
-* **[IBM Streams Support](http://www.ibm.com/support/entry/portal/Overview/Software/Information_Management/InfoSphere_Streams)** - This website provides information about InfoSphere Streams downloads, technical support tools, documentation, and other resources.
+* **[IBM Streams Support](http://www.ibm.com/support/entry/portal/Overview/Software/Information_Management/InfoSphere_Streams)** - This website provides information about IBM Streams downloads, technical support tools, documentation, and other resources.
 * **[IBM Streams Product Site](http://www.ibm.com/software/data/infosphere/streams)** - This website provides a broad range of information and resources about Streams and related topics.
 
 

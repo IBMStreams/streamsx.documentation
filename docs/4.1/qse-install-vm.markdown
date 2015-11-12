@@ -17,7 +17,7 @@ This guide takes you through the process of installing and starting the QSE VM i
 | Components  | Minimum Requirements | Comments |
 | ----------- | -------------------- | -------------|
 | Operating System  | 64-bit operating system that supports VMware  | VMware is supported on the following operating systems: <br>- Apple Mac OS X <br>- Linux <br>- Microsoft Windows 
-| Memory	  |8 GB	                 |The amount of memory that is required by InfoSphere® Streams is dependent on the applications that are developed and deployed.  This minimum requirement is based on the memory requirements of the Commodity Purchasing sample application and other samples that are provided with the product.     
+| Memory	  |8 GB	                 |The amount of memory that is required by IBM Streams is dependent on the applications that are developed and deployed.  This minimum requirement is based on the memory requirements of the Commodity Purchasing sample application and other samples that are provided with the product.     
 | Disk space  | 20 GB |  |
 | VMware product | VMware product that runs on a 64-bit operating system	| To run the Quick Start Edition VMware image, one of the following VMware products must be installed on your system:<br> - For Apple Mac OS X, VMware Fusion 4, or later<br>- For Microsoft Windows or Linux, one of the following products:  VMware Player 5, or later; VMware Workstation 8, or later; VMware Server
 

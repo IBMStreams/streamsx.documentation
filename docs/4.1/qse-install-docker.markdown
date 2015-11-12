@@ -18,7 +18,7 @@ The Streams Quick Start Editor can help you get started with Streams quickly, wi
 | Components  | Minimum Requirements | Comments |
 | ----------- | -------------------- | -------------|
 | Operating System  | 64-bit operating system that supports VMware  | VMware is supported on the following operating systems: <br>- Apple Mac OS X<br>- Microsoft Windows 
-| Memory	  |8 GB	                 |The amount of memory that is required by InfoSphere® Streams is dependent on the applications that are developed and deployed.  This minimum requirement is based on the memory requirements of the Commodity Purchasing sample application and other samples that are provided with the product.     
+| Memory	  |8 GB	                 |The amount of memory that is required by IBM Streams is dependent on the applications that are developed and deployed.  This minimum requirement is based on the memory requirements of the Commodity Purchasing sample application and other samples that are provided with the product.     
 | Disk space  | 50 GB |  |
 | Docker product | Docker Toolbox 1.9.0b or newer	| |
 

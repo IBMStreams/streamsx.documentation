@@ -20,7 +20,6 @@ There are several ways to try Streams QSE:
 | -------------------- | -------------------- | ----------------|
 | Native Linux Install | You may install the Streams QSE on any of the supported Linux systems.<br>  This edition contains all features supported by a full installation.  This is not supported in a production environment. | [Installing Streams Quick Start Edition for Linux](../qse-install-linux/)
 | VMWare Image         | If you do not want to set up a Linux environment, download the VMWare image.  <br>To get started, just download, unzip and run using one of the supported VM players. | [Installing Streams Quick Start Edition VM Image](../qse-install-vm/)
-| Docker Image         | For a smaller download, try out Docker image.  | [Installing Streams Quick Start Edition Docker Image](../qse-install-docker/)
 
 ## What to do next
 

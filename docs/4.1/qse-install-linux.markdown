@@ -22,7 +22,7 @@ This guide takes you through the process of installing and starting the QSE Linu
 </thead>
 <tbody class="tbody"><tr class="row"><td class="entry" rowspan="2" valign="top">System</td>
 <td class="entry" align="center" valign="top">x86_64 (64-bit) </td>
-<td class="entry" valign="top"><span class="keyword">InfoSphere Streams</span> supports Red Hat Enterprise Linux (RHEL), the Community Enterprise Operating
+<td class="entry" valign="top"><span class="keyword">IBM Streams</span> supports Red Hat Enterprise Linux (RHEL), the Community Enterprise Operating
 System (CentOS), and SUSE Linux Enterprise
 Server (SLES).</td>
 </tr>
@@ -37,7 +37,7 @@ for Streams Studio.</td>
 <tr class="row"><td class="entry" valign="top" >Memory</td>
 <td class="entry" align="center" valign="top" >2 GB</td>
 <td class="entry" valign="top" ><span class="ph">The amount
-of memory that is required by <span class="keyword">InfoSphere Streams</span> is dependent on the applications that are developed
+of memory that is required by <span class="keyword">IBM Streams</span> is dependent on the applications that are developed
 and deployed.</span><p class="p" >This minimum
 requirement is based on the memory requirements of the Commodity Purchasing
 sample application and other samples that are provided with the product.</p>
@@ -48,7 +48,7 @@ sample application and other samples that are provided with the product.</p>
 <td class="entry" rowspan="2" valign="top">Includes disk space required for
 installation and development resources. For more information about
 installation packages, see <a class="xref" href="http://www-01.ibm.com/support/knowledgecenter/?lang=en#!/SSCRJU_4.1.0/com.ibm.streams.install.doc/doc/ibminfospherestreams-install-programs-packages.html">Main and domain host installation
-packages for <span class="keyword">InfoSphere Streams</span></a>.</td>
+packages for <span class="keyword">IBM Streams</span></a>.</td>
 </tr>
 <tr class="row"><td class="entry" align="left" valign="top">2 GB, if installing the <span class="keyword">domain host installation package</span></td>
 </tr>
@@ -70,7 +70,7 @@ packages for <span class="keyword">InfoSphere Streams</span></a>.</td>
 <tr class="row"><td class="entry" align="center" valign="top">Version 7.0, or later</td>
 </tr>
 <tr class="row"><td class="entry" rowspan="2" align="center" valign="top">IBM Power
-Systems (64-bit)<p class="p"><span class="keyword">InfoSphere Streams</span> supports the POWER7® and POWER8™ processors.</p>
+Systems (64-bit)<p class="p"><span class="keyword">IBM Streams</span> supports the POWER7® and POWER8™ processors.</p>
 </td>
 <td class="entry" align="center" valign="top">Version 6.3, or later</td>
 </tr>
