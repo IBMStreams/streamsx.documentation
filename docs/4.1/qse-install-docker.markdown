@@ -17,7 +17,7 @@ The Streams Quick Start Editor can help you get started with Streams quickly, wi
 
 | Components  | Minimum Requirements | Comments |
 | ----------- | -------------------- | -------------|
-| Operating System  | 64-bit operating system that supports VMware  | VMware is supported on the following operating systems: <br>- Apple Mac OS X<br>- Microsoft Windows 
+| Operating System  | 64-bit operating system that supports Docker  | Streams Quick Start Docker image is supported on the following operating systems: <br>- Apple Mac OS X<br>- Microsoft Windows 
 | Memory	  |8 GB	                 |The amount of memory that is required by IBM Streams is dependent on the applications that are developed and deployed.  This minimum requirement is based on the memory requirements of the Commodity Purchasing sample application and other samples that are provided with the product.     
 | Disk space  | 50 GB |  |
 | Docker product | Docker Toolbox 1.9.0b or newer	| |
@@ -75,7 +75,7 @@ To change defaults, for example to 8192 MB Memory; 2 CPUs; 60000 Bytes of disk r
 ~~~~~~
 
 <div class="alert alert-warning" role="alert">
-Build and Run of Docker Container will take about 20 minutes. You may be prompted for Administration Authentication several times. When completed the Powershell terminal will be sitting at the root prompt inside the Docker container.
+Build and Run of Docker Container will take about 20 minutes. When completed the terminal will be sitting at the root prompt inside the Docker container.
 </div>
 
 ## Accessing the IBM Streams Docker container
