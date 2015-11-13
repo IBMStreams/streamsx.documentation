@@ -152,25 +152,25 @@ The following steps can be taken to download, compile and run the cybersecurity 
  4. Once the Streams Console is open, you should be presented with a screen that looks like the following: 
  
 	<a href="#/" class="pop">
-		<img src="../../../images/cybersecurity/console_start.png" style="width:25%; height: 25%; margin-left:auto; margin-right:auto; display: block;" />
+		<img src="../../../../images/cybersecurity/console_start.png" style="width:25%; height: 25%; margin-left:auto; margin-right:auto; display: block;" />
 	</a>
 	 
  5. At the top of the Streams Console, switch to the Application Dashboard, which allows you submit, cancel and monitor applications. 
 	
 	<a href="#/" class="pop">
-		<img src="../../../images/cybersecurity/streams-console1.png" style="width:25%; height: 25%; margin-left:auto; margin-right:auto; display: block;" />
+		<img src="../../../../images/cybersecurity/streams-console1.png" style="width:25%; height: 25%; margin-left:auto; margin-right:auto; display: block;" />
 	</a>
 
- 6. With the Application Dashboard open, click the **Submit Job** icon <img src="../../../images/cybersecurity/console_submit_icon.png" />. Select the *.sab file found in the 'output/' directory in the sample application. For example, for the DomainProfilingSample application, you would select this file: `/path/to/DomainProfilingSample/output/DomainProfilingBasic_Output/com.ibm.streams.cybersecurity.sample.DomainProfilingBasic.sab`
+ 6. With the Application Dashboard open, click the **Submit Job** icon <img src="../../../../images/cybersecurity/console_submit_icon.png" />. Select the *.sab file found in the 'output/' directory in the sample application. For example, for the DomainProfilingSample application, you would select this file: `/path/to/DomainProfilingSample/output/DomainProfilingBasic_Output/com.ibm.streams.cybersecurity.sample.DomainProfilingBasic.sab`
 	
 	<a href="#/" class="pop">
-	<img src="../../../images/cybersecurity/console_submit_job.png" style="width:25%; height: 25%; margin-left:auto; margin-right:auto; display: block;" />
+	<img src="../../../../images/cybersecurity/console_submit_job.png" style="width:25%; height: 25%; margin-left:auto; margin-right:auto; display: block;" />
 	</a> 
 	
  7. Once the application has been submitted, the Streams Console should display the running application:
 	
 	<a href="#/" class="pop">
-		<img src="../../../images/cybersecurity/console_running.png" style="width:25%; height: 25%; margin-left:auto; margin-right:auto; display: block;" />
+		<img src="../../../../images/cybersecurity/console_running.png" style="width:25%; height: 25%; margin-left:auto; margin-right:auto; display: block;" />
 	</a>
 	
 
