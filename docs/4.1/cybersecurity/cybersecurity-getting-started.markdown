@@ -9,23 +9,30 @@ weight: 10
 ## Introduction
 The Cybersecurity Toolkit provides operators that are capable of analyzing network traffic and detecting suspicious behaviour.
 
-In order to get started with using the Cybersecurity Toolkit, it is ***highly recommended*** that the sample applications be used as a baseline for building cybersecurity applications. In many cases, the data must be pre-processed (filtered and enriched) prior to be being analyzed, otherwise the analytics will not work correctly. The sample applications contain the necessary pre-processing operators that enable the analytics to work properly. 
+In order to get started with using the Cybersecurity Toolkit, it is ***highly recommended*** that the sample applications be used as a baseline for building cybersecurity applications. In many cases, the data must be pre-processed (filtered and enriched) prior to be being analyzed, otherwise the analytics will not work correctly. The sample applications contain the necessary pre-processing operators that enable the analytics to work properly. The three introductory sample projects are:
+ 
+ - **DomainProfiling** - Detects suspicious behaviour based on profiles built using domains found in DNS response traffic.
+ - **HostProfiling** - Detects suspicious behaviour based on profiles built using hosts found in DNS response traffic.
+ - **PredictiveBlacklisting** - Predicts where a domain should be added to a blacklist.
 
-In order to use the cybersecurity toolkit, you must download and install the com.ibm.streamsx.network toolkit, found in the [streamsx.network](https://github.com/IBMStreams/streamsx.network) GitHub repository. The build.xml file contained in each of the sample applications will automatically download the latest release of the com.ibm.streamsx.network toolkit and place it in the same directory as the samples. 
+
+Since the cybersecurity toolkit is focused on analyzing network traffic, you must download and install the com.ibm.streamsx.network toolkit, found in the [streamsx.network](https://github.com/IBMStreams/streamsx.network) GitHub repository. The build.xml file contained in each of the sample applications will automatically download the latest release of the com.ibm.streamsx.network toolkit and place it in the same directory as the samples. 
 
 
 ## Download Quick Start Edition VM
 See the [Installing Streams Quick Start Edition VM Image]({{ site.url }}/docs/4.1/qse-install-vm/) for more information.
 
+<!--
 ## Download Docker
 See the [Installing Streams Docker Image]({{ site.url }}/docs/4.1/qse-install-docker/) for more information
+-->
 
 ## Install Dependencies - Quick Start Edition VM
-The Quick Start VM requires you to download and build 3 dependencies:
+If you are using the Quick Start VM, you will need to download and build the following dependencies in order to use the cybersecurity toolkit:
 
-- GNU Bison
-- Flex
-- libpcap
+ - GNU Bison
+ - Flex
+ - libpcap
  
  
 #### GNU Bison
@@ -64,7 +71,7 @@ The Quick Start VM requires you to download and build 3 dependencies:
 	<span class="command">sudo make install</span></pre>
 	
 
-
+<!--
 ## Install Dependencies - Docker Image
 The Docker Image requires you to install the following applications: 
 
@@ -86,13 +93,12 @@ These applications can be installed at the same time using the following command
 <span class="output">Complete!</span></pre>
 
 
-The Docker Image requires you to download and install the following dependencies. See the section entitled **Install Dependencies - Quick Start Edition VM** for details on how to install these dependencies
+Furthermore, you will need to download and build the following dependencies. See the section entitled **Install Dependencies - Quick Start Edition VM** for details on how to download and build these dependencies.
 
  - GNU Bison
  - Flex
  - libpcap
-
-
+-->
 
 ## Install SPSS (Optional)
 The SPSS Modeler Solution Publisher is only required if you want to run the PredictiveBlacklistingSample application. In order to download and install this version of SPSS, you need to a license for the product. 
@@ -121,11 +127,6 @@ The cybersecurity toolkit sample applications should be used as a baseline for b
 
 By default, the sample applications will use the PacketFileSource operator (found in the com.ibm.streamsx.network toolkit) to read sample PCAP files packaged with the toolkit. However, this operator can easily be replaced with the PacketLiveSource operator, which allows for ingesting and parsing live data. 
 
-The three introductory sample projects are:
- 
- - DomainProfilingSample
- - HostProfilingSample
- - PredictiveBlacklistingSample
 
 ### Download/Build/Run
 The following steps can be taken to download, compile and run the cybersecurity samples:
