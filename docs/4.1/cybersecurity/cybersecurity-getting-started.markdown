@@ -1,7 +1,7 @@
 ---
 layout: docs
 title: Cybersecurity Toolkit - Getting Started
-weight: 20
+weight: 10
 ---
 
 # Cybersecurity Toolkit - Getting Started

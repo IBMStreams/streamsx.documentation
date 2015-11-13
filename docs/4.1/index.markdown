@@ -1,6 +1,7 @@
 ---
 layout: docs
 title:  Introduction to Streams 4.1
+weight: 1
 ---
 
 # What's New in Streams 4.1    
