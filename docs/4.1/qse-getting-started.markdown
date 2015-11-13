@@ -122,7 +122,7 @@ The Streams Processing Language is designed from the ground up for writing strea
     
 Streams is shipped with comprehensive development tooling.
 
-<img src="/streamsx.documentation/images/qse/streamsStudio.jpg" alt="Streams Studio" style="width: 750px;"/>
+<img src="/streamsx.documentation/images/qse/streamsStudio.jpg" alt="Streams Studio" style="width: 60%;"/>
 
 To learn about how to develop using Streams Studio (our drag-and-drop IDE):
 
@@ -192,7 +192,7 @@ Streams Console is the web-based administration console for monitoring and manag
 
 Prior to Streams 4.1, the Streams Console dashboard contained a fixed set of widgets.  With the latest release, you can now create customized dashboards to monitor your Streams domain, instances and applications.
 
-<img src="/streamsx.documentation/images/qse/Application-Dashboard-4.1.png" alt="Streams Console" style="width: 750px;"/>
+<img src="/streamsx.documentation/images/qse/Application-Dashboard-4.1.png" alt="Streams Console" style="width: 60%;"/>
 
 To familiarize yourself with the Streams Console, see this video:
 
@@ -212,7 +212,7 @@ Below are some resources to help you get started.
 
 ### Streams and Microsoft Excel
 
-<img src="/streamsx.documentation/images/qse/BargainIndex1.jpg" alt="Streams and Excel" style="width: 750px;"/>
+<img src="/streamsx.documentation/images/qse/BargainIndex1.jpg" alt="Streams and Excel" style="width: 60%;"/>
 
 IBM Streams integrates with Microsoft Excel, allowing you to see, analyze and visulize live streaming data in an Excel worksheet.  This article helps you get started:  [Streams for Microsoft Excel](https://developer.ibm.com/streamsdev/docs/streams-4-0-streams-for-microsoft-excel/)
 
