@@ -171,6 +171,12 @@ Streams is shipped with many toolkits out of the box to enable integration with 
 With this support, developers can easily discover the data and schema that are available for use.  By building data lineage with your Streams application, you can quickly see and control how data is consumed.
 To get started, refer to  [Streams Governance Quickstart Guide](governance-quickstart)
 
+### Cybersecurity Toolkit
+
+<div class="alert alert-success" role="alert"><b>New in Streams 4.1!</b>  Cybersecurity toolkt can protect your systems from cyber threats.</div>
+
+The Cybersecurity Toolkit provides operators that are capable of analyzing network traffic and detecting suspicious behaviour. For more information on using the Cybersecurity Toolkit, refer to [Cybersecurity Getting Started Guide](../cybersecurity/cybersecurity-getting-started/)
+
 ### Streams and SPSS
 
 SPSS is analytic predictive software enabling you to build predictive model from your data.  Your application may perform real-time predictive scoring by running these predictive models using the SPSS operators.
