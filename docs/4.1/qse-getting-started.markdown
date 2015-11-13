@@ -24,15 +24,107 @@ As a developer, you are trying to:
 
 Below are some resources to get you up and running!
 
-### Streams and SPL
+### Java and Scala
 
-To quickly get started and learn about Streams:
+<div class="alert alert-success" role="alert"><b>New in Streams 4.1!</b>  You can now write your Streams application in Java or Scala</div>
+
+Example Streams Application:
+
+<ul class="nav nav-tabs">
+  <li class="active"><a data-toggle="tab" href="#java-0">Java</a></li>
+  <li><a data-toggle="tab" href="#scala-0">Scala</a></li>
+</ul>
+
+<div class="tab-content">
+  <div id="java-0" class="tab-pane fade in active">
+<pre><code>package simple;
+
+import com.ibm.streamsx.topology.TStream;
+import com.ibm.streamsx.topology.Topology;
+import com.ibm.streamsx.topology.context.StreamsContextFactory;
+
+public static void main(String[] args) throws Exception {
+
+        /*
+         * Create the container for the topology that will
+         * hold the streams of tuples.
+         */
+        Topology topology = new Topology(&quot;HelloWorld&quot;);
+
+        /*
+         * Declare a source stream (hw) with String tuples containing two tuples,
+         * &quot;Hello&quot; and &quot;World!&quot;.
+         */
+        TStream&lt;String&gt; hw = topology.strings(&quot;Hello&quot;, &quot;World!&quot;);
+        
+        /*
+         * Sink hw by printing each of its tuples to System.out.
+         */
+        hw.print();
+        
+        /*
+         * At this point the topology is declared with a single
+         * stream that is printed to System.out.
+         */
+
+        /*
+         * Now execute the topology by submitting to a StreamsContext.
+         * If no argument is provided then the topology is executed
+         * within this JVM (StreamsContext.Type.EMBEDDED).
+         * Otherwise the first and only argument is taken as the
+         * String representation of the 
+         */
+        if (args.length == 0)
+            StreamsContextFactory.getEmbedded().submit(topology).get();
+        else
+            StreamsContextFactory.getStreamsContext(args[0]).submit(topology)
+                    .get();
+    }
+</code></pre>   
+  </div>
+  <div id="scala-0" class="tab-pane fade">
+<pre><code>package simple
+
+import com.ibm.streamsx.topology.Topology
+import com.ibm.streamsx.topology.streams.BeaconStreams
+import com.ibm.streamsx.topology.context.StreamsContextFactory
+
+import java.util.concurrent.TimeUnit
+
+import com.ibm.streamsx.topology.functions.FunctionConversions._
+
+object HelloWorldScala {
+  def main(args: Array[String]) {
+    val topology = new Topology(&quot;HelloWorldScala&quot;)
+
+    var hw = topology.strings(&quot;Hello&quot;, &quot;World!&quot;)    
+    hw.print()
+
+   StreamsContextFactory.getStreamsContext(&quot;EMBEDDED&quot;).submit(topology).get()
+  }
+}
+</code></pre>
+  </div>
+</div>
+
+To get started, follow this development guide:
+
+* [Develop Streams Applications in Java or Scala](http://ibmstreams.github.io/streamsx.topology/)
+
+
+### Streams Processing Language (SPL)
+
+The Streams Processing Language is designed from the ground up for writing streaming application.  To quickly get started:
 
 * [Streams Quick Start Guide](https://developer.ibm.com/streamsdev/?p=5686)
 * [Streams Hands-on Lab](https://developer.ibm.com/streamsdev/docs/introductory-lab-for-streams-4-0-1/)
 * [SPL Examples for Beginners](https://developer.ibm.com/streamsdev/docs/spl-examples-beginners/)
     
-Streams is shipped with comprehensive development tooling.  To learn about how to develop using Streams Studio (our drag-and-drop IDE):
+Streams is shipped with comprehensive development tooling.
+
+<img src="/streamsx.documentation/images/qse/streamsStudio.jpg" alt="Streams Studio" style="width: 750px;"/>
+
+To learn about how to develop using Streams Studio (our drag-and-drop IDE):
 
 * [Streams Studio Quick Start Guide](https://developer.ibm.com/streamsdev/docs/studio-quick-start/)
 
@@ -41,19 +133,12 @@ Streams is shipped with comprehensive development tooling.  To learn about how t
 Video:  Streams Studio in Action!
 </button>
 
-### Java and Scala
-
-<div class="alert alert-success" role="alert"><b>New in Streams 4.1!</b>  You can now write your Streams application in Java or Scala</div>
-
-To get started, follow this development guide:
-
-* [Develop Streams Applications in Java or Scala](http://ibmstreams.github.io/streamsx.topology/)
-
 ### Writing Java Operators
 
 If you have existing Java code, you may easily reuse your code by writing a Java operator or native Java functions.
 
 * [Roadmap for Java Developers](https://developer.ibm.com/streamsdev/docs/roadmap-for-java-developer/)
+
 
 ### SparkMLLib in Streams
 
@@ -94,16 +179,20 @@ To learn about Streams can integrate with SPSS:  [Streams and SPSS Lab](https://
 
 ### Stream Domain Management and Administration
 
-Streams Console is the web-based administration console for monitoring and managing your Streams domain. To familiarize yourself with the Streams Console, see this video:
+Streams Console is the web-based administration console for monitoring and managing your Streams domain. 
+
+<div class="alert alert-success" role="alert">
+<b>New in Streams 4.1! </b>Customizable Dashboard in Streams Console.</div>
+
+Prior to Streams 4.1, the Streams Console dashboard contained a fixed set of widgets.  With the latest release, you can now create customized dashboards to monitor your Streams domain, instances and applications.
+
+<img src="/streamsx.documentation/images/qse/Application-Dashboard-4.1.png" alt="Streams Console" style="width: 750px;"/>
+
+To familiarize yourself with the Streams Console, see this video:
 
 <button class="btn btn-primary btn-md" data-toggle="modal" data-target="#streamsConsole">
 Video:  Streams Console Navigation
 </button>
-
-<div class="alert alert-success" role="alert"><b>New in Streams 4.1! </b>Customizable Dashboard in Streams Console</div>
-
-Prior to Streams 4.1, the Streams Console dashboard contained a fixed set of widgets.  With the latest release, you can now create customized dashboards to monitor your Streams domain, instances and applications.
-
 
 ## Getting Started for the Business User
 
@@ -116,6 +205,8 @@ As a business user, you need to:
 Below are some resources to help you get started.
 
 ### Streams and Microsoft Excel
+
+<img src="/streamsx.documentation/images/qse/BargainIndex1.jpg" alt="Streams and Excel" style="width: 750px;"/>
 
 IBM Streams integrates with Microsoft Excel, allowing you to see, analyze and visulize live streaming data in an Excel worksheet.  This article helps you get started:  [Streams for Microsoft Excel](https://developer.ibm.com/streamsdev/docs/streams-4-0-streams-for-microsoft-excel/)
 
@@ -178,7 +269,7 @@ The following Streams resources can help you connect with the Streams community 
         <h4 class="modal-title" id="streams-and-excel">Streams and Excel</h4>
       </div>
       <div class="modal-body">
-		<iframe width="480" height="298" src="https://www.youtube.com/watch?v=8hzMXFBw7ns" frameborder="0" allowfullscreen></iframe>
+		<iframe width="480" height="298" src="https://www.youtube.com/embed/8hzMXFBw7ns" frameborder="0" allowfullscreen></iframe>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
