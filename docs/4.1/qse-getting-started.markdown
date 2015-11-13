@@ -16,7 +16,7 @@ Video:  Learn Streams in 5 min!
 
 ## Getting Started for the Developer
 
-As a developer, you are trying to:
+As a developer, you want to:
 
 * Learn about Streams
 * Write your first Streams application
@@ -183,7 +183,7 @@ SPSS is analytic predictive software enabling you to build predictive model from
 
 To learn about Streams can integrate with SPSS:  [Streams and SPSS Lab](https://developer.ibm.com/streamsdev/docs/spss-analytics-toolkit-lab/).
 
-### Stream Domain Management and Administration
+### Streams Domain Management and Administration
 
 Streams Console is the web-based administration console for monitoring and managing your Streams domain. 
 
