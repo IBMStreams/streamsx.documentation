@@ -1,6 +1,7 @@
 ---
 layout: docs
 title:  Installing Streams Quick Start Edition for Linux
+description:  Installation Guide for IBM Streams Quick Start Edition for Linux
 weight:  40
 ---
 

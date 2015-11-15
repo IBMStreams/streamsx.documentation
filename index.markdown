@@ -1,6 +1,7 @@
 ---
 layout: docs
 title:  streamsx.documentation
+description:  IBM Streams community-based documentation project.  
 ---
 
 **(Under Construction)**

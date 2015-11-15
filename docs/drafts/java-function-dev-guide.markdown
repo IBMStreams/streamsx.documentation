@@ -1,6 +1,7 @@
 ---
 layout: docs
 title:  Java Functions Development Guide
+description:  IBM Streams Java Function Development Guide
 published: true
 ---
 

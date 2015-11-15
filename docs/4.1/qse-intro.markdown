@@ -1,6 +1,7 @@
 ---
 layout: docs
 title:  Introduction to Streams Quick Start Edition (QSE)
+description:  Introduction to IBM Streams Quick Start Edition.  Learn the different ways to get started.
 weight : 0
 ---
 

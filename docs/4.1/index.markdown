@@ -1,6 +1,7 @@
 ---
 layout: docs
 title: IBM Streams 4.1
+description:  IBM Streams 4.1 Documentation Guides
 weight: 1
 ---
 

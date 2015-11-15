@@ -1,6 +1,7 @@
 ---
 layout: docs
 title:  Installing Streams Quick Start Edition VM Image
+description:  Installation Guide for IBM Streams Quick Start Edition VM
 weight:  30
 ---
 

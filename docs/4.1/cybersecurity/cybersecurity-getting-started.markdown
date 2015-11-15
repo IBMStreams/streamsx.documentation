@@ -1,6 +1,7 @@
 ---
 layout: docs
 title: Cybersecurity Toolkit - Getting Started
+description:  Getting Started Guide for IBM Streams Cybersecurity Toolkit 
 weight: 10
 ---
 

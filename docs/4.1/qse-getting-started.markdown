@@ -1,6 +1,7 @@
 ---
 layout: docs
 title:  Getting Started with Streams Quick Start Edition
+description:  Learn how to get started witH IBM Streams Quick Start Edition
 weight:  10
 ---
 
