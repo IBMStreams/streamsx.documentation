@@ -1,11 +1,11 @@
 ---
 layout: docs
-title:  Getting Started with Streams v4.1 Quick Start Edition
+title:  Getting Started with IBM Streams v4.1 Quick Start Edition
 description:  Learn how to get started witH IBM Streams Quick Start Edition
 weight:  10
 ---
 
-# Getting Started with Streams 4.1 Quick Start Edition
+# Getting Started with IBM Streams 4.1 Quick Start Edition
 
 ## Streams Overview
 
