@@ -5,7 +5,7 @@ description:  Learn how to get started witH IBM Streams Quick Start Edition
 weight:  10
 ---
 
-# Getting Started with Streams Quick Start Edition
+# Getting Started with Streams 4.1 Quick Start Edition
 
 ## Streams Overview
 
