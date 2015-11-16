@@ -1,7 +1,10 @@
 ---
 layout: docs
-title:  Introduction to Streams 4.1
+title: IBM Streams 4.1
+description:  IBM Streams 4.1 Documentation Guides
+weight: 1
 ---
-# Introduction to Streams 4.1
+
+# IBM Streams 4.1    
 
 {% include nav.html context="/docs/4.1/"%}
