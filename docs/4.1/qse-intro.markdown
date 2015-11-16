@@ -1,11 +1,11 @@
 ---
 layout: docs
-title:  Introduction to Streams Quick Start Edition (QSE)
+title:  Introduction to Streams v4.1 Quick Start Edition (QSE)
 description:  Introduction to IBM Streams Quick Start Edition.  Learn the different ways to get started.
 weight : 0
 ---
 
-# Introduction to the Streams Quick Start Edition (QSE)
+# Introduction to the Streams 4.1 Quick Start Edition (QSE)
 
 IBM Streams Quick Start Edition is a no-charge, non-production version of IBM Streams.  With no data or time limits, Streams Quick Start Edition allows you to experiment with stream computing in your own unique environment.  
 
