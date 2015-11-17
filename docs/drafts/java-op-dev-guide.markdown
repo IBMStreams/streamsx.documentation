@@ -47,36 +47,73 @@ Here is a brief explanation of the required methods:
 	<video controls width="60%" src="/streamsx.documentation/images/JavaOperatorGuide/JavaOpIn1Min5.mp4"></video>
 </div>
 
-The only requirement for running your Java code in Streams is to implement the Operator interface. The simplest way to do that is to extend your class from AbstractOperator and override the methods that you want to customize. 
+The only requirement for running your Java code in Streams is to implement the Operator interface. The simplest way to do that is to extend your class from AbstractOperator and override the methods that you want to customize. In many cases, the **process()** method is the only method that needs to be overridden. 
 
-To modify the Streams operator model for your Java operator, you will use annotations. We will introduce some of the basic ones here, and get into others as they become more relevant. The following set of annotations go above the class definition of your operator. Each definition is followed by an example. 
 
-###Annotations:
+###Annotations
 
-**@PrimitiveOperator** - Configure high-level operator properties name, namespace, and description. 
+To modify the Streams operator model for your Java operator, you will use annotations. We will introduce some of the basic ones here, and get into others as they become more relevant. Here is a snippet that shows the minimum amount of code needed to implement the StringToCaps operator that was created using the Streams Studio template in the video above. The StringToCaps operator takes in tuples from its input port with an attribute type of rstring, transforms the strings to uppercase, then submits the transformed strings as a tuple to the output port. 
+
+**Notice:**     
+
+* The required set of annotations are located above the operator class definition (highlighted in blue). Annotations define the Streams operator model discussed next. 
+* We extend AbstractOperator and use the default behavior on all required methods in the Operator interface except for the process() method. This is common for operators that don't interact with external systems. 
+* General formula for process method:
+	1. Get attributes that you want to manipulate from the incoming tuple using getter methods. 
+	2. Manipulate the attributes in the desired way. 
+	3. Write attributes to the output tuple using setter methods. 
+	4. Submit output tuple. 
+
+<pre style="font-family: Andale Mono, Lucida Console, Monaco, fixed, monospace; color: #000000; background-color: #eee;font-size: 12px;border: 1px dashed #999999;line-height: 14px;padding: 5px; overflow: auto; width: 100%"><code><b><font color="blue">@PrimitiveOperator()
+@InputPorts(@InputPortSet(cardinality=1))
+@OutputPorts(@OutputPortSet(cardinality=1))</font></b>
+public class StringToCaps extends AbstractOperator {
+    @Override
+    public final void <b>process</b>(StreamingInput&lt;Tuple&gt; inputStream, Tuple tuple)
+            throws Exception {
+        // Create a new tuple for output port 0
+        StreamingOutput&lt;OutputTuple&gt; outStream = getOutput(0);
+        OutputTuple outTuple = outStream.newTuple();
+        
+        // Get attribute from input tuple and manipulate
+        String myString = tuple.getString(&quot;myString&quot;);
+        myString = myString.toUpperCase();
+        outTuple.setString(&quot;myString&quot;, myString);
+        
+        // Submit new tuple to output port 0
+        outStream.submit(outTuple);
+    } 
+}
+</code></pre>
+
+The definitions below are followed by examples of the bare minimum requirements for the annotations. 
+
+####Annotation Definitions
+
+**@PrimitiveOperator** - Configure high-level operator properties such as name, namespace, and description. 
 
 ~~~~~~
-@PrimitiveOperator(name="StringToCaps", namespace="stringToCaps", description="Java Operator StringToCaps")
+@PrimitiveOperator()
 ~~~~~~
 **@InputPorts** - Defines one or more @InputPortSets that describe the ports for incoming tuples.  
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**@InputPortSet** - Contains the property definitions for one or more ports. The properties are description, cardinality, optional, windowingMode, and windowPunctuationInputMode. Only the last @InputPortSet within an @InputPorts definition can have a cardinality of -1 (define multiple input ports). 
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**@InputPortSet** - Contains the property definitions for one or more ports. The available properties are description, cardinality, optional, windowingMode, and windowPunctuationInputMode. Only the last @InputPortSet within an @InputPorts definition can have a cardinality of -1 (define multiple input ports). 
 
 ~~~~~~
-@InputPorts({@InputPortSet(description="Port that ingests tuples", cardinality=1, optional=false
-	, windowingMode=WindowMode.NonWindowed, windowPunctuationInputMode=WindowPunctuationInputMode.Oblivious)
-	, @InputPortSet(description="Optional input ports", cardinality=-1, optional=true
-	, windowingMode=WindowMode.NonWindowed, windowPunctuationInputMode=WindowPunctuationInputMode.Oblivious)})
+@InputPorts(@InputPortSet(cardinality=1))
 ~~~~~~
 **@OutputPorts** - Defines one or more @OutputPortSets that describe the ports for incoming tuples.   
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**@OutputPortSet** - Contains the property definitions for one or more ports. The properties are description, cardinality, optional, windowingMode, and windowPunctuationInputMode. Only the last @OutputPortSet within an @OutputPorts definition can have a cardinality of -1 (define multiple input ports). 
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**@OutputPortSet** - Contains the property definitions for one or more ports. The available properties are description, cardinality, optional, windowingMode, and windowPunctuationInputMode. Only the last @OutputPortSet within an @OutputPorts definition can have a cardinality of -1 (define multiple input ports). 
 
 ~~~~~~
-@OutputPorts({@OutputPortSet(description="Port that produces tuples", cardinality=1, optional=false
-	,windowPunctuationOutputMode=WindowPunctuationOutputMode.Generating), @OutputPortSet(description="Optional 
-	output ports", optional=true, windowPunctuationOutputMode=WindowPunctuationOutputMode.Generating)})
+@OutputPorts(@OutputPortSet(cardinality=1))
 ~~~~~~
-    
-In the video above, a simple Java operator is created that takes in tuples from its input port with an attribute type of rstring, transforms the string to uppdercase, then submits the transformed string as a tuple to the output port. This example is built on throughout the beginners portion of this developers guide. 
+
+
+
+
+
+<!--  
+In the video above, a simple Java operator is created that takes in tuples from its input port with an attribute type of rstring, transforms the string to uppercase, then submits the transformed string as a tuple to the output port. This example is built on throughout the beginners portion of this developers guide. 
 
 Creating a simple Java operator:   
 
@@ -103,14 +140,109 @@ Creating a simple Java operator:
         outStream.submit(outTuple);
     }
 ~~~~~~
+-->
 
-###Generating the Operator Model
-When the SPL compiler parses your Java code, specifically the annotations, it generates an operator model for the Java operator. Within your SPL Project, your operator model will be located at:   
-`<SPL Project>/<operator namespace>/<operator name>/<operator name>.xml`   
+###Building the Operator Model
+When the SPL compiler parses your Java code, specifically the annotations, it generates an operator model for the Java operator. Within your SPL Project(also called a toolkit), your operator model will be located at:   
+`<SPL toolkit>/<operator namespace>/<operator name>/<operator name>.xml`   
 
 **Do not modify the operator model yourself.** Change the operator model by updating the annotations in your Java code. 
 
 
+
+<ul class="nav nav-tabs">
+  <li class="active"><a data-toggle="tab" href="#command-0">Build with Command-line</a></li>
+  <li><a data-toggle="tab" href="#studio-0">Build with Streams Studio (Video Steps)</a></li>
+</ul>
+
+<div class="tab-content">
+  <div id="command-0" class="tab-pane fade in active">
+  <br>
+  The steps for building the simple Java primitive operator from above on the command line are as follows:
+  <br><br>
+<ol>
+	<li>Create a directory for your SPL toolkit (MyJavaOp in this case). Create these directories as well: </li>
+	<pre><code>MyJavaOp/impl/java/src/
+MyJavaOp/impl/java/bin/</code></pre>
+	<li>Place your StringToUpper.java operator class in <pre>MyJavaOp/impl/java/src/</pre></li>
+	<li>Compile the Java operator class from the SPL toolkit directory using:</li>
+	<pre><code>javac -cp $Streams_Install/lib/com.ibm.streams.operator.jar impl/java/src/StringToCaps.java -d impl/java/bin/</code></pre>
+	<li>Index the toolkit from the SPL toolkit directory. This will generate the operator model and build the toolkit directory structure.  </li>
+	<pre><code>spl-make-toolkit -i ./</code></pre>
+</ol>  
+  </div>
+  <div id="studio-0" class="tab-pane fade">
+  <br>
+   The steps for building the simple Java primitive operator using Streams Studio are as follows: 
+<br><br>
+<ol>
+	<li>	File -> New -> Project</li>   
+	<li>Expand InfoSphere Streams Studio</li> 
+	<li>Select SPL Project</li>
+	<li>Name your project (MyJavaOp in this case)</li>
+	<li>In the generated project, right-click and select New -> Java Primitive Operator</li>
+	<li>Name your Java operator and the namespace (StringToCaps and stringToCaps respectively)</li>
+	<li>Click Finish</li>
+	<li>In the generated template, StringToCaps.java, modify the process operator to look like this:</li> 
+<pre style="font-family: Andale Mono, Lucida Console, Monaco, fixed, monospace; color: #000000; background-color: #eee;font-size: 12px;border: 1px dashed #999999;line-height: 14px;padding: 5px; overflow: auto; width: 100%"><code>    @Override
+    public final void process(StreamingInput&lt;Tuple&gt; inputStream, Tuple tuple)
+            throws Exception {
+        // Create a new tuple for output port 0
+        StreamingOutput&lt;OutputTuple&gt; outStream = getOutput(0);
+        OutputTuple outTuple = outStream.newTuple();
+        String myString = tuple.getString(&quot;myString&quot;);
+        myString = myString.toUpperCase();
+        outTuple.setString(&quot;myString&quot;, myString);
+        // Submit new tuple to output port 0
+        outStream.submit(outTuple);
+    }
+</code></pre>
+	<li>Save your changes and Studio will automatically build your operator model and create the toolkit directory structure.</li> 
+</ol>
+  </div>
+</div>
+
+<!--
+The steps for building the simple Java primitive operator from above on the command line are as follows:
+1. Create a directory for your SPL toolkit (MyJavaOp in this case). Create these directories as well:
+	`MyJavaOp/impl/java/src/`
+	`MyJavaOp/impl/java/bin/`
+2. Place your StringToUpper.java operator class in MyJavaOp/impl/java/src/
+3. Compile the Java operator class from the SPL toolkit directory using:
+	`javac -cp $Streams_Install/lib/com.ibm.streams.operator.jar impl/java/src/StringToCaps.java -d impl/java/bin/`
+4. Index the toolkit from the SPL toolkit directory using: 
+	spl-make-toolkit -i ./
+-->
+
+In both the CLI and the Streams Studio cases, the toolkit structure will now look approximately like this: 
+
+~~~~~~
+/+ <toolkit> 
+   /* toolkit.xml 
+   /+ <name-space>
+      /+ <operator>
+      	/* <operator model>
+   /+ impl
+      /+ bin
+      /+ include
+      /+ java
+          /+ src
+          /+ bin
+      /+ lib
+      /+ src             
+~~~~~~
+	
+* **[toolkit]** - root directory of the toolkit.  Typically the name of the root directory matches the name of the toolkit in info.xml.
+* **toolkit.xml** - a generated resource by the SPL toolkit indexing processing.  This file should not be modified and is used by the compiler and various comoponents in Streams.
+* **[name-space]** - similar to packages in Java, allow you to group related SPL toolkit artifacts together.
+    * **[operator]** - a directory containing all artifacts relative to a Java / C++ primitive operator.  Each operator has its own separate directory.
+* **impl** - the impl directory contains implementation code of primitive operators or native functions
+    * **impl/java/src** - contains Java primitive operator or native function code
+    * **impl/java/bin** - contains Java class files for the Java implementation code
+* **lib** - contains any external libraries that this toolkit may require
+
+Note:  If you use Streams Studio to create a new SPL project, Streams Studio will automatically create the correct directory structure for you.	
+	
 
 ##Running and Testing Your Operator
 
