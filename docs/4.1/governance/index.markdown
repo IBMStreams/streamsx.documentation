@@ -7,4 +7,4 @@ weight: 80
 
 # Streams and Data Governance
 
-{% include nav.html context="/docs/4.1/cybersecurity/"%}
+{% include nav.html context="/docs/4.1/governance/"%}
