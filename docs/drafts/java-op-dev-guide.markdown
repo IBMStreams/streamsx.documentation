@@ -47,30 +47,12 @@ Here is a brief explanation of the required methods:
 	<video controls width="60%" src="https://developer.ibm.com/streamsdev/wp-content/uploads/sites/15/2015/11/JavaOpIn1Min5.mp4"></video>
 </div>
 
-<<<<<<< HEAD
-Here's an an example of a Java primitive operator that converts incoming strings to all upper case:
-=======
-The only requirement for running your Java code in Streams is to implement the Operator interface. The simplest way to do that is to extend your class from AbstractOperator and override the methods that you want to customize. In many cases, the **process()** method is the only method that needs to be overridden. 
 
+In our first Java primitive operator, we will create an operator that converts a string from the incoming tuple to all upper case.  This example is really simple, but it demonstrates some basic concepts about Java primitive operator.  
 
-###Annotations
-
-To modify the Streams operator model for your Java operator, you will use annotations. Understanding annotations is the key to understanding how Java works with Streams. We will introduce some of the basic ones here, and get into others as they become more relevant. Here is a snippet that shows the minimum amount of code needed to implement the StringToCaps operator that was created using the Streams Studio template in the video above. The StringToCaps operator takes in tuples from its input port with an attribute type of rstring, transforms the strings to uppercase, then submits the transformed strings as a tuple to the output port. 
-
-**Notice:**     
-
-* The required set of annotations are located above the operator class definition (highlighted in blue). Annotations define the Streams operator model discussed next. 
-* We extend AbstractOperator and use the default behavior on all required methods in the Operator interface except for the process() method. This is common for operators that don't interact with external systems. 
-* General formula for process method:
-	1. Get attributes that you want to manipulate from the incoming tuple using getter methods. 
-	2. Manipulate the attributes in the desired way. 
-	3. Write attributes to the output tuple using setter methods. 
-	4. Submit output tuple. 
->>>>>>> origin/gh-pages
-
-<pre><code><b><font color="blue">@PrimitiveOperator()
+<pre><code><b>@PrimitiveOperator()
 @InputPorts(@InputPortSet(cardinality=1))
-@OutputPorts(@OutputPortSet(cardinality=1))</font></b>
+@OutputPorts(@OutputPortSet(cardinality=1))</b>
 public class StringToCaps extends AbstractOperator {
     @Override
     public final void <b>process</b>(StreamingInput&lt;Tuple&gt; inputStream, Tuple tuple)
