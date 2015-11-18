@@ -209,7 +209,7 @@ Beacon_1_out0 : myString = "lowercase" +(rstring) IterationCount() ;
 8.	Delete the entire logic clause (up to param). 
 9.	Change the filename in the FileSink operator to results.txt. 
 10.	Go back to the graphical editor. Copy the stream between the Beacon and the Java operator and paste it to the stream between the Java operator and the FileSink. 
-11.	Save and let the application automatically build. Code will look like this: 
+11.	Save and let the application automatically build. Code will look like this:   
 	<pre style="font-family: Andale Mono, Lucida Console, Monaco, fixed, monospace; color: #000000; background-color: #eee;font-size: 12px;border: 1px dashed #999999;line-height: 14px;padding: 5px; overflow: auto; width: 100%"><code>    namespace application ;
 	
 	    use stringToCaps::StringToCaps ;
