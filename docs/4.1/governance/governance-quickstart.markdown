@@ -17,11 +17,13 @@ You also need a set of credentials (userid and password) for the IGC.  The insta
 
 You need to upload the Streams asset definition file to the IGC.  This only needs to be done once.  The file is contained in the Streams install.  This file needs to be available on host you start the browser on.
 
-1. open browser with `https://<IGC ip>/`
+1. open browser with *_`https://<IGC host:port>/ibm/iis/igc-rest-explorer/#!/bundles/registerBundle`_*
 <img src="/streamsx.documentation/images/governance/bundleupload.png" style=" margin-left:auto; margin-right:auto; display: block;" />
-2. press the browse button and navigate to `<streams_install>/4.1.0.0/etc/governance/`
+2. press the browse button and navigate to `<streams_install>/4.1.0.0/etc/governance/StreamsIGCAssetDefinitions.zip`
+3. Press try it out to upload the bundle.
 
-3. validate using this URL: and you should see InfoSphere Streams (you may have to scroll)
+Validate using this URL: `https://<IGC host:port>/ibm/iis/igc/#allAssetTypes/`
+and you should see InfoSphere Streams (you may have to scroll)
 <img src="../../../../images/governance/infospherestreamscatalogassets.png" style="margin-left:auto; margin-right:auto; display: block;" />
 
 
@@ -30,24 +32,24 @@ Governance occurs at the instance level.  An instnace is enabled for governance 
 
 1. Set the instance properties using either the Streams console or streamtool.
    * *governanceEnabled* -- set this to true
-   * *governanceUrl* -- set this to the IGC server address
-2. Set the credentials for the instance using streamtool
+   * *governanceUrl* -- *_`https://<host>:<port>`_* of the governance server
+2. Set the credentials for the instance using streamtool.
+
+*_`streamtool setigcadminconfig -d <domain> -i <instance> --igc-admin-user <userid> --igc-admin-password <password>`_*
+
 
 ### Recompile applications
-In order for operators to register flow information for lineage you need to recompile your SPL applications with Streams 4.1 compiler.  IF you submit an application without recompiling the application will register but there will not be any flow information recorded.
+In order for operators to register flow information for lineage  compiler.  IF you submit an application without recompiling the application will register but there will not be any flow information recorded.
 
 #### Operators supporting governance
-The following operators regsiter flow information for lineage
-* FileSource
-* FileSink
-* DirectoryScan
-* ODBC operators
-* Import
-* Export
-* Kafka operators
-* MQTT operators
-* JMS operators
-* HDFS2FileSource and HDFS2FileSink
+The following operators regsiter flow information for lineage:
+* FileSource, FileSink, DirectoryScan -- mapped to core catalog asset types data`_`files and data`_`folders
+* ODBC operators -- mapped to core asset type database 
+* Import, Export -- these are mapped to Import Streams and Export Streams and will show lineage between Streams applications.
+* Kafka operators -- mapped to Streams-KafkaTopic
+* MQTT operators -- mapped to Streams-MQTT
+* JMS operators -- mapped to Streams-JMS 
+* HDFS2FileSource, HDFS2FileSink -- mapped to Streams-HDFSFile
 This list may be expanded in the future.
 
 ### Submit applications to governed instance
