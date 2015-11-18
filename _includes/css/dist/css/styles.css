@@ -105,3 +105,9 @@ H1, H2, H3 {
     padding-top:15px;
     padding-top:15px;
 }
+
+div.tab-content {
+    border-width: 2.0px;
+    border-style: solid;
+    border-color: aliceblue;
+}
