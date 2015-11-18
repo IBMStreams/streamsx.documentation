@@ -18,7 +18,7 @@ You also need a set of credentials (userid and password) for the IGC.  The insta
 You need to upload the Streams asset definition file to the IGC.  This only needs to be done once.  The file is contained in the Streams install.  This file needs to be available on host you start the browser on.
 
 1. open browser with `https://<IGC ip>/`
-<img src="../../../../images/governance/bundleupload.png" style=" margin-left:auto; margin-right:auto; display: block;" />
+<img src="/streamsx.documentation/images/governance/bundleupload.png" style=" margin-left:auto; margin-right:auto; display: block;" />
 2. press the browse button and navigate to `<streams_install>/4.1.0.0/etc/governance/`
 
 3. validate using this URL: and you should see InfoSphere Streams (you may have to scroll)
