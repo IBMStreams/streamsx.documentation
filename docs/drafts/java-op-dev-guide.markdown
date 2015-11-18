@@ -6,7 +6,7 @@ published: true
 ---
 #  Introduction 
 
-Java is a deeply integrated part of Streams. Making Java easy in Streams has been a priority for years because of its extensive libraries and huge developer base. The goal of this guide is to take a two-tiered approach. Spots that are bolded and jump out at you are going to help you get your Java operators up and running as quickly and easily as possible. Streams Studio abstracts many details away from the developer, so we also go more into depth on how Java and Streams work together, rather than solely focusing on the easiest path. 
+Java is a deeply integrated part of Streams. Making Java easy in Streams has been a priority for years because of its extensive libraries and huge developer base. The goal of this guide is to take a two-tiered approach. The videos and instructions are going to help you get your Java operators up and running as quickly and easily as possible. Streams Studio abstracts many details away from the developer, so we also go more into depth on how Java and Streams work together, rather than solely focusing on the easiest path. Following the CLI versions of instructions will give you a deeper understanding of Java operators in Streams, while following the videos and Streams Studio instructions will make you fast. 
 
 #  Java Operator Development Guide (Draft)
 Page under construction
@@ -44,15 +44,18 @@ Here is a brief explanation of the required methods:
 ##**Creating Your First Java Operator**
 
 <div class="modal-body">
-	<video controls width="60%" src="/streamsx.documentation/images/JavaOperatorGuide/JavaOpIn1Min5.mp4"></video>
+	<video controls width="60%" src="https://developer.ibm.com/streamsdev/wp-content/uploads/sites/15/2015/11/JavaOpIn1Min5.mp4"></video>
 </div>
 
+<<<<<<< HEAD
+Here's an an example of a Java primitive operator that converts incoming strings to all upper case:
+=======
 The only requirement for running your Java code in Streams is to implement the Operator interface. The simplest way to do that is to extend your class from AbstractOperator and override the methods that you want to customize. In many cases, the **process()** method is the only method that needs to be overridden. 
 
 
 ###Annotations
 
-To modify the Streams operator model for your Java operator, you will use annotations. We will introduce some of the basic ones here, and get into others as they become more relevant. Here is a snippet that shows the minimum amount of code needed to implement the StringToCaps operator that was created using the Streams Studio template in the video above. The StringToCaps operator takes in tuples from its input port with an attribute type of rstring, transforms the strings to uppercase, then submits the transformed strings as a tuple to the output port. 
+To modify the Streams operator model for your Java operator, you will use annotations. Understanding annotations is the key to understanding how Java works with Streams. We will introduce some of the basic ones here, and get into others as they become more relevant. Here is a snippet that shows the minimum amount of code needed to implement the StringToCaps operator that was created using the Streams Studio template in the video above. The StringToCaps operator takes in tuples from its input port with an attribute type of rstring, transforms the strings to uppercase, then submits the transformed strings as a tuple to the output port. 
 
 **Notice:**     
 
@@ -63,8 +66,9 @@ To modify the Streams operator model for your Java operator, you will use annota
 	2. Manipulate the attributes in the desired way. 
 	3. Write attributes to the output tuple using setter methods. 
 	4. Submit output tuple. 
+>>>>>>> origin/gh-pages
 
-<pre style="font-family: Andale Mono, Lucida Console, Monaco, fixed, monospace; color: #000000; background-color: #eee;font-size: 12px;border: 1px dashed #999999;line-height: 14px;padding: 5px; overflow: auto; width: 100%"><code><b><font color="blue">@PrimitiveOperator()
+<pre><code><b><font color="blue">@PrimitiveOperator()
 @InputPorts(@InputPortSet(cardinality=1))
 @OutputPorts(@OutputPortSet(cardinality=1))</font></b>
 public class StringToCaps extends AbstractOperator {
@@ -86,23 +90,42 @@ public class StringToCaps extends AbstractOperator {
 }
 </code></pre>
 
+The only requirement for running your Java code in Streams is to implement the Operator interface. The simplest way to do that is to extend your class from AbstractOperator and override the methods that you want to customize. In many cases, the **process()** method is the only method that needs to be overridden. 
+
+
+###Annotations
+
+To modify the Streams operator model for your Java operator, you will use annotations. We will introduce some of the basic ones here, and get into others as they become more relevant. Here is a snippet that shows the minimum amount of code needed to implement the StringToCaps operator that was created using the Streams Studio template in the video above. The StringToCaps operator takes in tuples from its input port with an attribute type of rstring, transforms the strings to uppercase, then submits the transformed strings as a tuple to the output port. 
+
+**Notice:**     
+
+* The required set of annotations are located above the operator class definition (highlighted in blue). Annotations define the Streams operator model discussed next. 
+* We extend AbstractOperator and use the default behavior on all required methods in the Operator interface except for the process() method. This is common for operators that don't interact with external systems. 
+* General formula for process method:
+	1. Get attributes that you want to manipulate from the incoming tuple using getter methods. 
+	2. Manipulate the attributes in the desired way. 
+	3. Write attributes to the output tuple using setter methods. 
+	4. Submit output tuple. 
+
+
+
 The definitions below are followed by examples of the bare minimum requirements for the annotations. 
 
 ####Annotation Definitions
 
-**@PrimitiveOperator** - Configure high-level operator properties such as name, namespace, and description. 
+**<font color="blue">@PrimitiveOperator</font>** - Configure high-level operator properties such as name, namespace, and description. 
 
 ~~~~~~
-@PrimitiveOperator()
+<font color="blue">@PrimitiveOperator()</font>
 ~~~~~~
-**@InputPorts** - Defines one or more @InputPortSets that describe the ports for incoming tuples.  
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**@InputPortSet** - Contains the property definitions for one or more ports. The available properties are description, cardinality, optional, windowingMode, and windowPunctuationInputMode. Only the last @InputPortSet within an @InputPorts definition can have a cardinality of -1 (define multiple input ports). 
+**<font color="blue">@InputPorts</font>** - Defines one or more @InputPortSets that describe the ports for incoming tuples.  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**<font color="blue">@InputPortSet</font>** - Contains the property definitions for one or more ports. The available properties are description, cardinality, optional, windowingMode, and windowPunctuationInputMode. Only the last @InputPortSet within an @InputPorts definition can have a cardinality of -1 (define multiple input ports). 
 
 ~~~~~~
 @InputPorts(@InputPortSet(cardinality=1))
 ~~~~~~
-**@OutputPorts** - Defines one or more @OutputPortSets that describe the ports for incoming tuples.   
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**@OutputPortSet** - Contains the property definitions for one or more ports. The available properties are description, cardinality, optional, windowingMode, and windowPunctuationInputMode. Only the last @OutputPortSet within an @OutputPorts definition can have a cardinality of -1 (define multiple input ports). 
+**<font color="blue">@OutputPorts</font>** - Defines one or more @OutputPortSets that describe the ports for incoming tuples.   
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**<font color="blue">@OutputPortSet</font>** - Contains the property definitions for one or more ports. The available properties are description, cardinality, optional, windowingMode, and windowPunctuationInputMode. Only the last @OutputPortSet within an @OutputPorts definition can have a cardinality of -1 (define multiple input ports). 
 
 ~~~~~~
 @OutputPorts(@OutputPortSet(cardinality=1))
@@ -247,10 +270,10 @@ Note:  If you use Streams Studio to create a new SPL project, Streams Studio wil
 ##Running and Testing Your Operator
 
 <div class="modal-body">
-	<video controls width="60%" src="/streamsx.documentation/images/JavaOperatorGuide/TestJavaOp2Min3.mp4"></video>
+	<video controls width="60%" src="https://developer.ibm.com/streamsdev/wp-content/uploads/sites/15/2015/11/TestJavaOp2Min3.mp4"></video>
 </div>
 
-The best way to start testing your Java operator is to create a simple SPL application. Here are the steps I took to build an application in 2 minutes, which should approximate how to simply test any Java operator: 
+The best way to start testing your Java operator is to create a simple SPL application. The flow of a simple test application is typically **Beacon -> Java Operator -> FileSink.** Here are the steps I took to build an application in 2 minutes using Studio (I won't go into the CLI approach, since it is the same as with an Streams application): 
 
 **Project Setup**
 
@@ -264,6 +287,8 @@ The best way to start testing your Java operator is to create a simple SPL appli
 
 **Application Development**
 
+<img src="/streamsx.documentation/images/JavaOperatorGuide/testApp.png" alt="Streams Studio" style="width: 60%;"/> 
+
 1.	In the TestJavaOp.spl graphical editor, drag a beacon operator onto the palette.
 2.	Search for your Java operator and add that to the palette. 
 3.	Connect the output port of the Beacon operator with the input port of the Java operator. 
@@ -275,7 +300,33 @@ Beacon_1_out0 : myString = "lowercase" +(rstring) IterationCount() ;
 8.	Delete the entire logic clause (up to param). 
 9.	Change the filename in the FileSink operator to results.txt. 
 10.	Go back to the graphical editor. Copy the stream between the Beacon and the Java operator and paste it to the stream between the Java operator and the FileSink. 
-11.	Save and let the application automatically build. 
+11.	Save and let the application automatically build. Code will look like this: 
+	<pre style="font-family: Andale Mono, Lucida Console, Monaco, fixed, monospace; color: #000000; background-color: #eee;font-size: 12px;border: 1px dashed #999999;line-height: 14px;padding: 5px; overflow: auto; width: 100%"><code>    namespace application ;
+	
+	    use stringToCaps::StringToCaps ;
+	
+	    composite TestJavaOp
+	    {
+	        graph
+	            (stream&lt;rstring myString&gt; Beacon_1_out0) as Beacon_1 = Beacon()
+	            {
+	                param
+	                    period : 1.0 ;
+	                output
+	                    Beacon_1_out0 : myString = &quot;lowercase&quot; +(rstring) IterationCount() ;
+	            }
+	
+	            (stream&lt;rstring myString&gt; StringToCaps_2_out0) as StringToCaps_2 =
+	                <b>StringToCaps</b>(Beacon_1_out0){}
+	
+	            () as FileSink_3 = FileSink(StringToCaps_2_out0 as inputStream)
+	            {
+	                param
+	                    file : &quot;results.txt&quot; ;
+	                    flush : 1u;
+	            }
+	    }
+	</code></pre>
 
 **Application Deployment**
 
@@ -302,7 +353,7 @@ There are two simple steps that are required to start using external libraries i
 2.	Use the @Libraries parameter to add the JARs to the class path.
 
 ####New annotation  
-**@Libraries** - This operator annotation tells your operator where to find the JARs that it needs during execution in a Streams environment. 
+**<font color="blue">@Libraries</font>** - This operator annotation tells your operator where to find the JARs that it needs during execution in a Streams environment. 
 
 Options for how to specify the path:
 
@@ -314,13 +365,12 @@ To specify multiple locations for JARs, simply comma separate your locations:
 	`@Libraries("opt/Reverse.jar" , "opt/downloaded/*", "@REVERSE_HOME@")`
 
 <div class="modal-body">
-	<video controls width="60%" src="/streamsx.documentation/images/JavaOperatorGuide/AddingJar.mp4"></video>
+	<video controls width="60%" src="https://developer.ibm.com/streamsdev/wp-content/uploads/sites/15/2015/11/AddingJar2.mp4"></video>
 </div>
 
-The example above uses a JAR with a simple function that reverses a String (download here). Here are the steps taken to leverage that code: 
+The example above uses a JAR with a simple function that reverses a String [(download here)](/streamsx.documentation/images/JavaOperatorGuide/reverse.tar). Here are the steps taken to leverage that code: 
 
-1.	In your Java operator project folder, create an opt directory. Add the Reverse.jar file to it. 
-2.	In the Project Explorer, refresh your Resources folder and expand opt. Right-click on Reverse.jar and select Build Path -> Add to Build Path. 
+
 3.	Import the package:  
 	`import reverse.Reverse;`
 4.	Use the @Libraries annotation to add the JAR to the operator's class path. (If you ever get "class not found" exceptions once you submit your job, check your @Libraries annotation first).  
@@ -351,15 +401,100 @@ The example above uses a JAR with a simple function that reverses a String (down
 	"3ESACREWOL"
 	~~~~~~
 
+<ul class="nav nav-tabs">
+  <li class="active"><a data-toggle="tab" href="#command-1">Build with Command-line</a></li>
+  <li><a data-toggle="tab" href="#studio-1">Build with Streams Studio (Video Steps)</a></li>
+</ul>
+
+<div class="tab-content">
+  <div id="command-1" class="tab-pane fade in active">
+  <br>
+   The steps for using an external JAR with the command-line are as follows: 
+<br><br>
+<ol>  
+	<li>In your Java operator project toolkit directory, create an opt/ directory. Place the Reverse.jar file in the MyJavaOp/opt/ directory.</li> 
+	<li>In your operator Java code, import the package: </li>
+	<pre><code>import reverse.Reverse;</code></pre>
+	<li>Use the @Libraries annotation to add the JAR to the operator's class path. The @Libraries parameter can be placed above the operator class definition with the other annotations (If you ever get "class not found" exceptions once you submit your job, check your @Libraries annotation first). </li> 
+	<pre><code>@Libraries("opt/Reverse.jar")</code></pre>
+	<li>Go down to the process method, and before setting the "myString" attribute, add this line to reverse the String: </li>
+<pre style="font-family: Andale Mono, Lucida Console, Monaco, fixed, monospace; color: #000000; background-color: #eee;font-size: 12px;border: 1px dashed #999999;line-height: 14px;padding: 5px; overflow: auto; width: 100%"><code>    @Override
+    public final void process(StreamingInput&lt;Tuple&gt; inputStream, Tuple tuple)
+            throws Exception {
+        // Create a new tuple for output port 0
+        StreamingOutput&lt;OutputTuple&gt; outStream = getOutput(0);
+        OutputTuple outTuple = outStream.newTuple();
+        
+        // Get attribute from input tuple and manipulate
+        String myString = tuple.getString(&quot;myString&quot;);
+        myString = myString.toUpperCase();
+        <font color="blue"><b>myString = Reverse.reverse(myString);</b></font>
+        outTuple.setString(&quot;myString&quot;, myString);
+        
+        // Submit new tuple to output port 0
+        outStream.submit(outTuple);
+    } 
+</code></pre>
+	<li>Compile the Java operator class as you did before, but add the JAR to the class path:</li>
+	<pre><code>javac -cp $Streams_Install/lib/com.ibm.streams.operator.jar<font color="blue">:opt/Reverse.jar</font> impl/java/src/StringToCaps.java -d impl/java/bin/</code></pre>
+	<li>Index the toolkit again.</li>
+	<pre><code>spl-make-toolkit -i ./</code></pre>
+	<li>Rebuild your test application and submit. The output in results.txt will look like this:</li>
+	<pre><code>	"0ESACREWOL"
+	"1ESACREWOL"
+	"2ESACREWOL"
+	"3ESACREWOL"</code></pre>
+</ol> 
+  </div>
+  <div id="studio-1" class="tab-pane fade">
+  <br>
+   The steps for using an external JAR with Streams Studio are as follows: 
+<br><br>
+<ol>  
+	<li>In your Java operator project folder, create an opt directory. Add the Reverse.jar file to it.</li> 
+	<li>In the Project Explorer, refresh your Resources folder and expand opt. Right-click on Reverse.jar and select Build Path -> Add to Build Path. </li> 
+	<li>Import the package: </li>
+	<pre><code>import reverse.Reverse;</code></pre>
+	<li>Use the @Libraries annotation to add the JAR to the operator's class path. (If you ever get "class not found" exceptions once you submit your job, check your @Libraries annotation first). </li> 
+	<pre><code>@Libraries("opt/Reverse.jar")</code></pre>
+	<li>Go down to the process method, and before setting the "myString" attribute, add this line to reverse the String: </li>
+<pre style="font-family: Andale Mono, Lucida Console, Monaco, fixed, monospace; color: #000000; background-color: #eee;font-size: 12px;border: 1px dashed #999999;line-height: 14px;padding: 5px; overflow: auto; width: 100%"><code>    @Override
+    public final void process(StreamingInput&lt;Tuple&gt; inputStream, Tuple tuple)
+            throws Exception {
+        // Create a new tuple for output port 0
+        StreamingOutput&lt;OutputTuple&gt; outStream = getOutput(0);
+        OutputTuple outTuple = outStream.newTuple();
+        
+        // Get attribute from input tuple and manipulate
+        String myString = tuple.getString(&quot;myString&quot;);
+        myString = myString.toUpperCase();
+        <font color="blue"><b>myString = Reverse.reverse(myString);</b></font>
+        outTuple.setString(&quot;myString&quot;, myString);
+        
+        // Submit new tuple to output port 0
+        outStream.submit(outTuple);
+    } 
+</code></pre>
+	<li>Save and let Studio automatically build your toolkit.</li>
+	<li>Rebuild your test application and submit. The output in results.txt will look like this:</li>
+	<pre><code>	"0ESACREWOL"
+	"1ESACREWOL"
+	"2ESACREWOL"
+	"3ESACREWOL"</code></pre>
+</ol>
+  </div>
+</div>
+
+
 ##Making Your Operator Generic with Parameters
 
 Most operators will take in some kind of parameters from the SPL application. This allows your operator to be more generic, and usable under diverse circumstances. 
 
 ####New Annotation
-**@Parameter** - This operator annotation allows you to pass in configurations from the param section of the operator definition in an SPL application. 
+**<font color="blue">@Parameter</font>** - This operator annotation allows you to pass in configurations from the param section of the operator definition in an SPL application. 
 
 <div class="modal-body">
-	<video controls width="60%" src="/streamsx.documentation/images/JavaOperatorGuide/AddParameter.mp4"></video>
+	<video controls width="60%" src="https://developer.ibm.com/streamsdev/wp-content/uploads/sites/15/2015/11/AddParameter2.mp4"></video>
 </div>
 
 The example in the video above shows how to generalize the StringToCaps operator so that it reverses (or doesnt reverse) the incoming string based on a reverseString boolean parameter in the SPL operator code. Here are the steps taken, which are similar for all parameters:
@@ -424,7 +559,7 @@ Metrics are simple counters, maintained at run time, that can be read from outsi
 This section will show you how to add your own custom metrics to your Java operator. 
 
 ####New Annotation
-**@CustomMetric** - This operator annotation allows you to define your own custom metrics that will be visible to the SPL runtime. Live feed of this metric can be viewed in Streams Studio and the Streams Console.
+**<font color="blue">@CustomMetric</font>** - This operator annotation allows you to define your own custom metrics that will be visible to the SPL runtime. Live feed of this metric can be viewed in Streams Studio and the Streams Console.
 
 The **@CustomMetric** annotation can take four parameters. **name** and **description** as they are used in other annotations, and then **kind** and **mxbean** which are unique to @CustomMetric:
 
@@ -435,7 +570,7 @@ The **@CustomMetric** annotation can take four parameters. **name** and **descri
 * **mxbean** - This Boolean indicates whether to register this metric into the platform's MBean server. The default value is false. 
 
 <div class="modal-body">
-	<video controls width="60%" src="/streamsx.documentation/images/JavaOperatorGuide/AddingMetrics.mp4"></video>
+	<video controls width="60%" src="https://developer.ibm.com/streamsdev/wp-content/uploads/sites/15/2015/11/AddingMetrics2.mp4"></video>
 </div>
 
 The example in the video above shows how to add a custom metric to **count**l the number of characters processed by the StringToCaps operator. These steps are approximately the same as adding any other custom metrics.
@@ -476,10 +611,13 @@ The example in the video above shows how to add a custom metric to **count**l th
         outStream.submit(outTuple);
     }
     ~~~~~~
-5.	Once you save and build your test application, in the instance graph you will be able to hover over the StringToCaps operator and see a live update of numCharacters. 
-<img src="/streamsx.documentation/images/metrics.png" alt="Streams Studio" style="width: 60%;"/>
+5.	Once you save and build your toolkit and test application, submit your application. In the instance graph view in Studio, you will be able to hover over the StringToCaps operator and see a live update of numCharacters. 
 
-###Annotation parameters:
+	<img src="/streamsx.documentation/images/metrics.png" alt="Streams Studio" style="width: 60%;"/>
+
+##References
+
+####Annotation parameters:
 
 *	**name** - Used in @PrimitiveOperator and @Parameters.    
 *	**namespace** - Used in @PrimitiveOperator. Defines namespace of the operator. 
