@@ -107,10 +107,12 @@ Key points to note from this example:
 <ol>
 	<li>Create a directory for your SPL toolkit (MyJavaOp in this case). Create these directories as well: </li>
 	<pre><code>MyJavaOp/impl/java/src/
-MyJavaOp/impl/java/bin/</code></pre>
-	<li>Place your StringToUpper.java operator class in <pre>MyJavaOp/impl/java/src/</pre></li>
+MyJavaOp/impl/java/src/stringToCaps
+MyJavaOp/impl/java/bin/
+</code></pre>
+	<li>Place your StringToUpper.java operator class in <pre>MyJavaOp/impl/java/src/stringToCaps</pre></li>
 	<li>Compile the Java operator class from the SPL toolkit directory using:</li>
-	<pre><code>javac -cp $Streams_Install/lib/com.ibm.streams.operator.jar impl/java/src/StringToCaps.java -d impl/java/bin/</code></pre>
+	<pre><code>javac -cp $Streams_Install/lib/com.ibm.streams.operator.jar impl/java/src/stringToCaps/StringToCaps.java -d impl/java/bin/</code></pre>
 	<li>Index the toolkit from the SPL toolkit directory. This will generate the operator model and build the toolkit directory structure.  </li>
 	<pre><code>spl-make-toolkit -i ./</code></pre>
 </ol>  
@@ -345,7 +347,7 @@ The example above uses a JAR with a simple function that reverses a String [(dow
     } 
 </code></pre>
 	<li>Compile the Java operator class as you did before, but add the JAR to the class path:</li>
-	<pre><code>javac -cp $Streams_Install/lib/com.ibm.streams.operator.jar<font color="blue">:opt/Reverse.jar</font> impl/java/src/StringToCaps.java -d impl/java/bin/</code></pre>
+	<pre><code>javac -cp $Streams_Install/lib/com.ibm.streams.operator.jar<font color="blue">:opt/Reverse.jar</font> impl/java/src/stringToCaps/StringToCaps.java -d impl/java/bin/</code></pre>
 	<li>Index the toolkit again.</li>
 	<pre><code>spl-make-toolkit -i ./</code></pre>
 	<li>Rebuild your test application and submit. The output in results.txt will look like this:</li>
@@ -523,6 +525,207 @@ The example in the video above shows how to add a custom metric to **count**l th
 5.	Once you save and build your toolkit and test application, submit your application. In the instance graph view in Studio, you will be able to hover over the StringToCaps operator and see a live update of numCharacters. 
 
 	<img src="/streamsx.documentation/images/metrics.png" alt="Streams Studio" style="width: 60%;"/>
+
+##Creating a Source Operator
+Source operators are unique because they don't rely on an incoming tuple to trigger the sending of an output tuple. Source operators are typically used to bring data into your Streams application from an external source such as a database or messaging server.
+
+Here is the best-practices recipe for a Source operator:  
+
+1. Override the **initialize()** method to:
+	1. Initialize the AbstractOperator super class: `super.initialize()` 
+	1. Setup connections with external data sources.
+	2. Initialize base state for the operator.
+	3. Create a thread that will produce tuples using the produceTuples() method.
+2. Override the **allPortsReady()** method to start your production thread. 
+3. Use a **produceTuples()** to generate tuples. Typically this is done within a while loop that terminates on operator shutdown. 
+4. Override the **shutdown()** method to:
+	1. Interrupt your production thread. 
+	2. Close and cleanup connections to external data sources. 
+	3. Shutdown the AbstractOperator super class: `super.shutdown()` 
+	
+`Video showing how to create a Source operator`
+
+The simple source operator in the video above and the code below generates a string of random length based on the `stringBase` variable.  
+
+<ul class="nav nav-tabs">
+  <li class="active"><a data-toggle="tab" href="#minimum-0">Snippets</a></li>
+  <li><a data-toggle="tab" href="#fullsource-0">Full Source</a></li>
+</ul>
+
+<div class="tab-content">
+  <div id="minimum-0" class="tab-pane fade in active">
+<pre><code>@PrimitiveOperator()
+@OutputPorts(@OutputPortSet(cardinality=1))
+public class StringGenerator extends AbstractOperator {
+    private Thread processThread;
+    private String stringBase;
+    private boolean shutdown = false;
+    
+    @Override
+    public synchronized void initialize(OperatorContext context)
+            throws Exception {
+        // Must call super.initialize(context) to correctly setup an operator.
+        super.initialize(context);
+  
+        stringBase = &quot;here is a long lowercase string that i am going to use as a basis for my strings of random length.&quot;;
+        
+        processThread = getOperatorContext().getThreadFactory().newThread(
+                new Runnable() {
+
+                    @Override
+                    public void run() {
+                        try {
+                            produceTuples();
+                        } catch (Exception e) {
+                            Logger.getLogger(this.getClass()).error(&quot;Operator error&quot;, e);
+                        }                    
+                    }
+                    
+                });
+        
+        processThread.setDaemon(false);
+    }
+    
+    @Override
+    public synchronized void allPortsReady() throws Exception {
+        processThread.start();
+    }
+    
+    private void produceTuples() throws Exception  {
+        final StreamingOutput&lt;OutputTuple&gt; out = getOutput(0);
+        
+        OutputTuple tuple = out.newTuple();
+        Random rand = new Random();
+        while(!shutdown){
+            int randLength = rand.nextInt(stringBase.length());
+            String randomString = stringBase.substring(0, randLength);
+            tuple.setString(&quot;myString&quot;, randomString);
+            out.submit(tuple);
+            Thread.sleep(1000);
+        }           
+    }
+    
+    public synchronized void shutdown() throws Exception {
+        shutdown = true;
+        if (processThread != null) {
+            processThread.interrupt();
+            processThread = null;
+        }
+        super.shutdown();
+    }
+    
+}
+</code></pre>  
+  </div>
+  <div id="fullsource-0" class="tab-pane fade">
+<pre><code>package stringGenerator;
+
+import java.util.Random;
+
+import org.apache.log4j.Logger;
+
+import com.ibm.streams.operator.AbstractOperator;
+import com.ibm.streams.operator.OperatorContext;
+import com.ibm.streams.operator.OutputTuple;
+import com.ibm.streams.operator.StreamingOutput;
+import com.ibm.streams.operator.model.Libraries;
+import com.ibm.streams.operator.model.OutputPortSet;
+import com.ibm.streams.operator.model.OutputPorts;
+import com.ibm.streams.operator.model.PrimitiveOperator;
+
+@PrimitiveOperator()
+@OutputPorts(@OutputPortSet(cardinality=1))
+public class StringGenerator extends AbstractOperator {
+    private Thread processThread;
+    private String stringBase;
+    private boolean shutdown = false;
+    
+     /*
+     * Initialize this operator. Called once before any tuples are processed.
+     * @param context OperatorContext for this operator.
+     * @throws Exception Operator failure, will cause the enclosing PE to terminate.
+     */
+    @Override
+    public synchronized void initialize(OperatorContext context)
+            throws Exception {
+        // Must call super.initialize(context) to correctly setup an operator.
+        super.initialize(context);
+  
+        stringBase = &quot;here is a long lowercase string that i am going to use as a basis for my strings of random length.&quot;;
+        
+        /*
+         * Create the thread for producing tuples. 
+         * The thread is created at initialize time but started.
+         * The thread will be started by allPortsReady().
+         */
+        processThread = getOperatorContext().getThreadFactory().newThread(
+                new Runnable() {
+
+                    @Override
+                    public void run() {
+                        try {
+                            produceTuples();
+                        } catch (Exception e) {
+                            Logger.getLogger(this.getClass()).error(&quot;Operator error&quot;, e);
+                        }                    
+                    }
+                    
+                });
+        
+        /*
+         * Set the thread not to be a daemon to ensure that the SPL runtime
+         * will wait for the thread to complete before determining the
+         * operator is complete.
+         */
+        processThread.setDaemon(false);
+    }
+    
+    /**
+     * Notification that initialization is complete and all input and output ports 
+     * are connected and ready to receive and submit tuples.
+     * @throws Exception Operator failure, will cause the enclosing PE to terminate.
+     */
+    @Override
+    public synchronized void allPortsReady() throws Exception {
+        processThread.start();
+    }
+    
+    /**
+     * Submit new tuples to the output stream
+     * @throws Exception if an error occurs while submitting a tuple
+     */
+    private void produceTuples() throws Exception  {
+        final StreamingOutput&lt;OutputTuple&gt; out = getOutput(0);
+        
+        OutputTuple tuple = out.newTuple();
+        Random rand = new Random();
+        while(!shutdown){
+            int randLength = rand.nextInt(stringBase.length());
+            String randomString = stringBase.substring(0, randLength);
+            tuple.setString(&quot;myString&quot;, randomString);
+            out.submit(tuple);
+            Thread.sleep(1000);
+        }           
+    }
+    
+    /**
+     * Shutdown this operator, which will interrupt the thread
+     * executing the &lt;code&gt;produceTuples()&lt;/code&gt; method.
+     * @throws Exception Operator failure, will cause the enclosing PE to terminate.
+     */
+    public synchronized void shutdown() throws Exception {
+        shutdown = true;
+        if (processThread != null) {
+            processThread.interrupt();
+            processThread = null;
+        }
+        super.shutdown();
+    }
+    
+}
+</code></pre>
+  </div>
+</div>
 
 ##References
 
