@@ -25,8 +25,8 @@ You need to upload the Streams asset definition file to the IGC.  This only need
 Governance occurs at the instance level.  An instnace is enabled for governance by setting two instance properties and setting the userid and password for the IGC.  These credentials are used by the instance to register Streamns applications and lineage flows.
 
 1. Set the instance properties using either the Streams console or streamtool.
-   * governanceEnabled -- set this to true
-   * governanceUrl -- set this to the IGC server address
+   * *governanceEnabled* -- set this to true
+   * *governanceUrl* -- set this to the IGC server address
 2. Set the credentials for the instance using streamtool
 
 ### Recompile applications
