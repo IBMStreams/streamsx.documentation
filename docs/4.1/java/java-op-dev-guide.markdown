@@ -286,66 +286,55 @@ You should see the following output:
 
 You may also compile and run the application in distributed mode as shown in the video.  The output can be found in the Console log.
 
-##Taking Advantage of Existing Libraries
+## Referencing External Libraries
+
 Your Java operators can take advantage of all JARs and existing Java code you already have. This makes connecting to any servers, databases, etc that have Java clients easy, and it makes converting your Java code to Streams simple.
 
 There are two simple steps that are required to start using external libraries in your Java operator:
 
-1.	Add the JARs of interest to your build path.
-2.	Use the @Libraries parameter to add the JARs to the class path.
+1.	Make JARs of interest available at operator runtime
+1.	Use the @Libraries annotation to add the JARs to the operator class path.
 
-####New annotation  
-**<font color="blue">@Libraries</font>** - This operator annotation tells your operator where to find the JARs that it needs during execution in a Streams environment.
+### Accessing JARS at Runtime
 
-Options for how to specify the path:
+When the Java primitive operator is executed, the operator code must be able to access the dependent JAR files at runtime.  In designing your operator, you need to determine how the Java primitive operator can access the external JARS.  There are two general approaches, each with its own pros and cons.
+
+1.  Package the JAR as part of the toolkit
+
+	In this approach, the JAR file is packaged as part of the toolkit, and eventually as part the Streams application bundle when the application is built.  This approach simplifies the set up of the distributed environment, as you do not to need to manually set up these JARS on the resources in the domain.  When the application is run and deployed, the Streams runtime automatically copy these dependencies onto the remote systems.  The disadvantage of this approach is that it makes the size of the application bundle larger.  This affects the time required to submit the application to the Streams instance.
+
+	{% include bestpractices.html text= "External JARS should be stored in the <code>toolkit_root/opt</code> directory.  The opt directory is packaged into the application bundle by default."%}
+
+	For more information about applicaiton bundle, refer to this documentation:  [Application bundle files](http://www-01.ibm.com/support/knowledgecenter/?lang=en#!/SSCRJU_4.1.0/com.ibm.streams.dev.doc/doc/applicationbundle.html).
+
+2.  Using Environment Variable
+
+	In this approach, the JAR files are stored at the same file location on all resources that can run the operator.  The operator then defines an environment variable for the end user to indicate where to find the JAR files.  When running the application, the environment variable must be set on the instance.  The advantage of this approach is that it makes the application bundle smaller, thereby, reducing the time required to submit a job to an instance.  The disadvantage is that the end user must now manually set up the environment before the operator can be used.
+
+### Setting up Classpath
+
+To set up the classpath for the Java primitive operator, use the **@Libraries** annotation.  This annotation sets up the classpath for the Java primitive operator at run time.  
+
+Options for specifying classpaths using the @Libraries annotation:
 
 * Specific JARs: `@Libraries("opt/Reverse.jar")`
-* Entire directories using "*": `@Libraries("opt/*")`
+* Entire directories using wildcard: `@Libraries("opt/*")`
 * Environment variables: `@Libraries("@REVERSE_HOME@")` where the environment variable would be REVERSE_HOME.
 
 To specify multiple locations for JARs, simply comma separate your locations:  
 	`@Libraries("opt/Reverse.jar" , "opt/downloaded/*", "@REVERSE_HOME@")`
 
+### Sample Application
+
 <div class="modal-body">
 	<video controls width="60%" src="https://developer.ibm.com/streamsdev/wp-content/uploads/sites/15/2015/11/AddingJar2.mp4"></video>
 </div>
 
-The example above uses a JAR with a simple function that reverses a String [(download here)](/streamsx.documentation/images/JavaOperatorGuide/reverse.tar). Here are the steps taken to leverage that code:
-
-
-3.	Import the package:  
-	`import reverse.Reverse;`
-4.	Use the @Libraries annotation to add the JAR to the operator's class path. (If you ever get "class not found" exceptions once you submit your job, check your @Libraries annotation first).  
-	`@Libraries("opt/Reverse.jar")`
-5.	Go down to the process method, and before setting the "myString" attribute, add this line to reverse the String:
-
-	~~~~~~
-	    @Override
-	    public final void process(StreamingInput<Tuple> inputStream, Tuple tuple)
-	            throws Exception {
-	    	// Create a new tuple for output port 0
-	        StreamingOutput<OutputTuple> outStream = getOutput(0);
-	        OutputTuple outTuple = outStream.newTuple();
-	        String myString = tuple.getString("myString");
-	        myString = myString.toUpperCase();
-	        myString = Reverse.reverse(myString);
-	        outTuple.setString("myString", myString);
-	        // Submit new tuple to output port 0
-	        outStream.submit(outTuple);
-	    }
-	~~~~~~
-6.	The output in results.txt will look like this:   
-
-	~~~~~~
-	"0ESACREWOL"
-	"1ESACREWOL"
-	"2ESACREWOL"
-	"3ESACREWOL"
-	~~~~~~
+The example above uses a JAR with a simple function that reverses a String [(download here)](/streamsx.documentation/images/JavaOperatorGuide/reverse.tar).
 
 <ul class="nav nav-tabs">
   <li class="active"><a data-toggle="tab" href="#command-1">Build with Command-line</a></li>
-  <li><a data-toggle="tab" href="#studio-1">Build with Streams Studio (Video Steps)</a></li>
+  <li><a data-toggle="tab" href="#studio-1">Build with Streams Studio</a></li>
 </ul>
 
 <div class="tab-content">
@@ -354,13 +343,14 @@ The example above uses a JAR with a simple function that reverses a String [(dow
    The steps for using an external JAR with the command-line are as follows:
 <br><br>
 <ol>  
-	<li>In your Java operator project toolkit directory, create an opt/ directory. Place the Reverse.jar file in the MyJavaOp/opt/ directory.</li>
+	<li>In your Java primitive operator toolkit directory, create an opt/ directory.  For example, place the Reverse.jar file in the MyJavaOp/opt/ directory.</li>
 	<li>In your operator Java code, import the package: </li>
 	<pre><code>import reverse.Reverse;</code></pre>
-	<li>Use the @Libraries annotation to add the JAR to the operator's class path. The @Libraries parameter can be placed above the operator class definition with the other annotations (If you ever get "class not found" exceptions once you submit your job, check your @Libraries annotation first). </li>
+	<li>Use the @Libraries annotation to add the JAR to the operator's class path. The @Libraries parameter can be placed above the operator class definition with the other annotations.</li>
 	<pre><code>@Libraries("opt/Reverse.jar")</code></pre>
 	<li>Go down to the process method, and before setting the "myString" attribute, add this line to reverse the String: </li>
-<pre style="font-family: Andale Mono, Lucida Console, Monaco, fixed, monospace; color: #000000; background-color: #eee;font-size: 12px;border: 1px dashed #999999;line-height: 14px;padding: 5px; overflow: auto; width: 100%"><code>    @Override
+
+<pre><code>    @Override
     public final void process(StreamingInput&lt;Tuple&gt; inputStream, Tuple tuple)
             throws Exception {
         // Create a new tuple for output port 0
@@ -382,10 +372,13 @@ The example above uses a JAR with a simple function that reverses a String [(dow
 	<li>Index the toolkit again.</li>
 	<pre><code>spl-make-toolkit -i ./</code></pre>
 	<li>Rebuild your test application and submit. The output in results.txt will look like this:</li>
-	<pre><code>	"0ESACREWOL"
-	"1ESACREWOL"
-	"2ESACREWOL"
-	"3ESACREWOL"</code></pre>
+<pre>
+"0ESACREWOL"
+"1ESACREWOL"
+"2ESACREWOL"
+"3ESACREWOL"
+</pre>
+
 </ol>
   </div>
   <div id="studio-1" class="tab-pane fade">
@@ -419,10 +412,10 @@ The example above uses a JAR with a simple function that reverses a String [(dow
 </code></pre>
 	<li>Save and let Studio automatically build your toolkit.</li>
 	<li>Rebuild your test application and submit. The output in results.txt will look like this:</li>
-	<pre><code>	"0ESACREWOL"
+	<pre>"0ESACREWOL"
 	"1ESACREWOL"
 	"2ESACREWOL"
-	"3ESACREWOL"</code></pre>
+	"3ESACREWOL"</pre>
 </ol>
   </div>
 </div>
