@@ -410,8 +410,8 @@ Most operators will take in some kind of parameters from the SPL application. Th
 
 The example in the video above shows how to generalize the StringToCaps operator so that it reverses (or doesnt reverse) the incoming string based on a reverseString boolean parameter in the SPL operator code. Here are the steps taken, which are similar for all parameters:
 
-1.	In the operator class definition add a Boolean member variable that we will use to hold the parameter value. We want the default to be false if the parameter is not specified. 
-`private Boolean reverseString = false;`
+1.	In the operator class definition add a Boolean member variable that we will use to hold the parameter value. We want the default to be false if the parameter is not specified.    
+	`private Boolean reverseString = false;`
 2.	Scroll down to the `process()` method and surround the String reversal line with an if statement:
  
 	~~~~~~
@@ -484,7 +484,7 @@ The **@CustomMetric** annotation can take four parameters. **name** and **descri
 	<video controls width="60%" src="https://developer.ibm.com/streamsdev/wp-content/uploads/sites/15/2015/11/AddingMetrics2.mp4"></video>
 </div>
 
-The example in the video above shows how to add a custom metric to **count**l the number of characters processed by the StringToCaps operator. These steps are approximately the same as adding any other custom metrics.
+The example in the video above shows how to add a custom metric to **count** the number of characters processed by the StringToCaps operator. These steps are approximately the same as adding any other custom metrics.
 
 **Adding a numCharacter Metric:**
 
@@ -894,9 +894,72 @@ The following example is part of the StringToCaps operator. We have added compil
 </code></pre>
 
 ##Using Windows
+Intelligent use of Windows can allow you to use the same Streams application for real-time processing, as well as batch processing. Batch processing such as map reduce can be done in Streams by using large window sizes. 
+
+The SPL language has two kinds of windows, tumbling and sliding. They both store tuples while they preserve the order of arrival, but differ in how they handle tuple evictions. Rather than keeping all the tuples ever inserted, windows are configured to evict expired tuples.
+
+* **Tumbling** - Tumbling windows operate in batches. When a tumbling window fills up, all the tuples in the window are evicted.
+* **Sliding** - Sliding windows operate in an incremental fashion. When a sliding window fills up, the future tuple insertions result in evicting the oldest tuples in the window.
+
+For more details, read [Window Handling](http://www-01.ibm.com/support/knowledgecenter/SSCRJU_4.0.1/com.ibm.streams.dev.doc/doc/windowhandling.html?lang=en). 
+
+General strategy for implementing a windowed operator:
+
+1. Have your operator class extend AbstractWindowOperator instead of AbstractOperator. 
+2. Create a window handler class that implements StreamsWindowListener<Tuple>. This window handler class will be in place of a process method in most cases. You window handler class should:
+	1. Have a constructor that takes a `StreamingOutput<OutputTuple>` argument. 
+	2. Override the `void handleEvent(StreamWindowEvent<Tuple> event)` and develop a switch case to handle tumbling and/or sliding events.
+	* Tumbling: 
+		<pre style="font-family: Andale Mono, Lucida Console, Monaco, fixed, monospace; color: #000000; background-color: #eee;font-size: 12px;border: 1px dashed #999999;line-height: 14px;padding: 5px; overflow: auto; width: 100%"><code>  @Override
+	  public synchronized void handleEvent(StreamWindowEvent&lt;Tuple&gt; event) throws Exception {
+		
+		    switch (event.getType()) {
+		      case INSERTION:
+		           // handle insertion of tuples into the window
+		           break;
+		      case EVICTION:
+		           // handle the tumble
+		           break;
+		      case FINAL:
+		           // handle final mark
+		           break;
+		      }
+	  }
+	</code></pre>
+	* Sliding: 
+		<pre style="font-family: Andale Mono, Lucida Console, Monaco, fixed, monospace; color: #000000; background-color: #eee;font-size: 12px;border: 1px dashed #999999;line-height: 14px;padding: 5px; overflow: auto; width: 100%"><code>  @Override
+	  public synchronized void handleEvent(StreamWindowEvent&lt;Tuple&gt; event) throws Exception {
+		
+	        switch (event.getType()) {
+		        case INSERTION:
+		            // handle insertion of tuples into the window
+		            break;
+		        case INITIAL_FULL:
+		            // handle first time window fills
+		            break;
+		        case TRIGGER:
+		            // handle trigger events
+		            break;
+		        case PARTITION_EVICTION:
+		            // handle partial evictions
+		            break;
+		        case EVICTION:
+		            // handle the tumble
+		            break;
+		        case FINAL:
+		            // handle final mark
+		            break;
+	        }
+	  }
+	</code></pre>
+	3. In the initialize(...) method of the operator code, register a StreamWindowListener with your window handler class:
+	
+		`getInput(0).getStreamWindow().registerListener(new WindowHandler(getOutput(0)), false);`
+
+In the example below, we implement a windowed operator that concatenates the strings that are coming in on its input port for a given window, then submits that concatenated string to the output port and resets the concatenated string on window eviction. Read more details about [tumbling](http://www-01.ibm.com/support/knowledgecenter/SSCRJU_4.0.1/com.ibm.streams.dev.doc/doc/tumblingwindowoperator.html) and [sliding](http://www-01.ibm.com/support/knowledgecenter/SSCRJU_4.0.1/com.ibm.streams.dev.doc/doc/slidingwindow.html) windows by clicking on the links. 
 
 <ul class="nav nav-tabs">
-  <li class="active"><a data-toggle="tab" href="#minimum-3">Code</a></li>
+  <li class="active"><a data-toggle="tab" href="#minimum-3">Operator Code</a></li>
   <li><a data-toggle="tab" href="#fullsource-3">Full Source</a></li>
 </ul>
 
@@ -959,7 +1022,7 @@ public class WindowConcatenator extends AbstractWindowOperator {
 </div>
 
 <ul class="nav nav-tabs">
-  <li class="active"><a data-toggle="tab" href="#minimum-4">Code</a></li>
+  <li class="active"><a data-toggle="tab" href="#minimum-4">Window Handler Code</a></li>
   <li><a data-toggle="tab" href="#fullsource-4">Full Source</a></li>
 </ul>
 
