@@ -924,6 +924,10 @@ The following example is part of the StringToCaps operator. We have added compil
     }
 </code></pre>
 
+<pre style="font-family: Andale Mono, Lucida Console, Monaco, fixed, monospace; color: #000000; background-color: #eee;font-size: 12px;border: 1px dashed #999999;line-height: 14px;padding: 5px; overflow: auto; width: 100%"><code>        if (trace.isInfoEnabled())
+            trace.log(TraceLevel.INFO, &quot;StateHandler close&quot;);
+</code></pre>
+
 ##Using Windows
 Intelligent use of Windows can allow you to use the same Streams application for real-time processing, as well as batch processing. Batch processing such as map reduce can be done in Streams by using large window sizes.
 
@@ -1149,9 +1153,36 @@ public class WindowHandler implements StreamWindowListener&lt;Tuple&gt; {
 }
 
 </code></pre>
-</code></pre>
   </div>
 </div>
+
+
+
+##Problem Determination and Debugging
+Debugging your Java operator is similar to debugging normal Java.
+
+Here is the path that most Streams developers take to determine if their operator is working:
+
+1. Go to the instance graph in Streams Studio and see if your operator is healthy. If there is a series of three unhealthy operators, it is typically the fault of the middle one (its crashing makes the connections of the other two unhealthy). 
+2. If your operator is unhealthy, try looking at standard out for that PE:
+	**right click on your operator -> Show Log -> Show PE Console**
+3. If you still don't have the information you need, increase the level of logging (this can be set during application launch) and look through the Operator Trace:
+	**right click on your operator -> Show Log -> Show Operator Trace**
+
+##SPL to Java Type Mapping
+It's not always obvious which SPL types map to which Java types. It's important to get this mapping right when you are defining parameters, reading from input tuples, and writing to output tuples. Folow the link below a comprehensive [table of type mapping](http://www-01.ibm.com/support/knowledgecenter/SSCRJU_4.0.1/com.ibm.streams.dev.doc/doc/workingwithspltypes.html). 
+
+##Performance
+As we mentioned at the beginning of this guide, your performance will depend on the efficiency of your **process(...)** or **produceTuples(...)** methods (in the case of a windowed operator, it will be in your window handler).
+
+Here are some things to keep in mind: 
+
+* Do not print anything to standard out
+* Avoid logging. If necessary, make sure that your logging is protected by an if statement: 
+	<pre style="font-family: Andale Mono, Lucida Console, Monaco, fixed, monospace; color: #000000; background-color: #eee;font-size: 12px;border: 1px dashed #999999;line-height: 14px;padding: 5px; overflow: auto; width: 100%"><code>        if (trace.isInfoEnabled())
+	            trace.log(TraceLevel.INFO, &quot;StateHandler close&quot;);</code></pre>
+
+* Minimize the copying of variables. 
 
 
 
