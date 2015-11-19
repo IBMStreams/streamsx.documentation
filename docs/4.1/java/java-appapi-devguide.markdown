@@ -31,6 +31,7 @@ git clone git@github.com:IBMStreams/streamsx.topology.git
 ~~~~~~
 
 After cloning the repository, you must build the project to produce the *com.ibm.streamsx.topology.jar* file. Fortunately, the project provides an Ant script to take care of this automatically. The script has three requirements:
+
 * Ant version later than 1.9.1
 * [Optional] For tests, the JUnit JAR files must be stored in `~/.ant/lib`
 * [Optional] For tests, the Jacoco code coverage JAR files must be stored in `~/.ant/lib`
