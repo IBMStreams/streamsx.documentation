@@ -532,7 +532,7 @@ Source operators are unique because they don't rely on an incoming tuple to trig
 Here is the best-practices recipe for a Source operator:  
 
 1. Override the **initialize()** method to:
-	1. Initialize the AbstractOperator super class: `super.initialize()` 
+	1. Initialize the AbstractOperator super class: `super.initialize(context)` 
 	1. Setup connections with external data sources.
 	2. Initialize base state for the operator.
 	3. Create a thread that will produce tuples using the produceTuples() method.
@@ -548,7 +548,7 @@ Here is the best-practices recipe for a Source operator:
 The simple source operator in the video above and the code below generates a string of random length based on the `stringBase` variable.  
 
 <ul class="nav nav-tabs">
-  <li class="active"><a data-toggle="tab" href="#minimum-0">Snippets</a></li>
+  <li class="active"><a data-toggle="tab" href="#minimum-0">Code</a></li>
   <li><a data-toggle="tab" href="#fullsource-0">Full Source</a></li>
 </ul>
 
@@ -556,9 +556,9 @@ The simple source operator in the video above and the code below generates a str
   <div id="minimum-0" class="tab-pane fade in active">
 <pre><code>@PrimitiveOperator()
 @OutputPorts(@OutputPortSet(cardinality=1))
-public class StringGenerator extends AbstractOperator {
+public class ServerSource extends AbstractOperator {
     private Thread processThread;
-    private String stringBase;
+    private Server server;
     private boolean shutdown = false;
     
     @Override
@@ -567,8 +567,9 @@ public class StringGenerator extends AbstractOperator {
         // Must call super.initialize(context) to correctly setup an operator.
         super.initialize(context);
   
-        stringBase = &quot;here is a long lowercase string that i am going to use as a basis for my strings of random length.&quot;;
-        
+        server = new Server();
+        server.initialize(&quot;myUser&quot;, &quot;myPassw0rd&quot;);
+
         processThread = getOperatorContext().getThreadFactory().newThread(
                 new Runnable() {
 
@@ -595,14 +596,12 @@ public class StringGenerator extends AbstractOperator {
         final StreamingOutput&lt;OutputTuple&gt; out = getOutput(0);
         
         OutputTuple tuple = out.newTuple();
-        Random rand = new Random();
-        while(!shutdown){
-            int randLength = rand.nextInt(stringBase.length());
-            String randomString = stringBase.substring(0, randLength);
-            tuple.setString(&quot;myString&quot;, randomString);
+        while(!shutdown ){
+            String myString = server.getData();
+            tuple.setString(&quot;myString&quot;, myString);
             out.submit(tuple);
             Thread.sleep(1000);
-        }           
+        }        
     }
     
     public synchronized void shutdown() throws Exception {
@@ -611,6 +610,7 @@ public class StringGenerator extends AbstractOperator {
             processThread.interrupt();
             processThread = null;
         }
+        server.disconnect();
         super.shutdown();
     }
     
@@ -618,9 +618,7 @@ public class StringGenerator extends AbstractOperator {
 </code></pre>  
   </div>
   <div id="fullsource-0" class="tab-pane fade">
-<pre><code>package stringGenerator;
-
-import java.util.Random;
+<pre><code>package serverSource;
 
 import org.apache.log4j.Logger;
 
@@ -628,16 +626,15 @@ import com.ibm.streams.operator.AbstractOperator;
 import com.ibm.streams.operator.OperatorContext;
 import com.ibm.streams.operator.OutputTuple;
 import com.ibm.streams.operator.StreamingOutput;
-import com.ibm.streams.operator.model.Libraries;
 import com.ibm.streams.operator.model.OutputPortSet;
 import com.ibm.streams.operator.model.OutputPorts;
 import com.ibm.streams.operator.model.PrimitiveOperator;
 
 @PrimitiveOperator()
 @OutputPorts(@OutputPortSet(cardinality=1))
-public class StringGenerator extends AbstractOperator {
+public class ServerSource extends AbstractOperator {
     private Thread processThread;
-    private String stringBase;
+    private Server server;
     private boolean shutdown = false;
     
      /*
@@ -651,8 +648,9 @@ public class StringGenerator extends AbstractOperator {
         // Must call super.initialize(context) to correctly setup an operator.
         super.initialize(context);
   
-        stringBase = &quot;here is a long lowercase string that i am going to use as a basis for my strings of random length.&quot;;
-        
+        server = new Server();
+        server.initialize(&quot;myUser&quot;, &quot;myPassw0rd&quot;);
+
         /*
          * Create the thread for producing tuples. 
          * The thread is created at initialize time but started.
@@ -698,14 +696,12 @@ public class StringGenerator extends AbstractOperator {
         final StreamingOutput&lt;OutputTuple&gt; out = getOutput(0);
         
         OutputTuple tuple = out.newTuple();
-        Random rand = new Random();
-        while(!shutdown){
-            int randLength = rand.nextInt(stringBase.length());
-            String randomString = stringBase.substring(0, randLength);
-            tuple.setString(&quot;myString&quot;, randomString);
+        while(!shutdown ){
+            String myString = server.getData();
+            tuple.setString(&quot;myString&quot;, myString);
             out.submit(tuple);
             Thread.sleep(1000);
-        }           
+        }        
     }
     
     /**
@@ -719,6 +715,7 @@ public class StringGenerator extends AbstractOperator {
             processThread.interrupt();
             processThread = null;
         }
+        server.disconnect();
         super.shutdown();
     }
     
@@ -726,6 +723,343 @@ public class StringGenerator extends AbstractOperator {
 </code></pre>
   </div>
 </div>
+
+##Handling Errors
+Your Streams operator should never crash unless you want it to. There are cases where an exception will be thrown because of a loss of connection or other normal error causes, but it is important to handle those errors so that your operator can continue to produce and process tuples. 
+
+When an exception is thrown, the best-practice response is to:
+
+1. Catch the exception. 
+2. Log the exception as an error in the operator log. 
+3. Write the error out to an error port. 
+
+There are some cases where you will actually want your operator to fail. These cases are typically only during the initial startup of your operator and are usually related to bad configuration, connections, or parameters. 
+
+In the code below, we enhanced our ServerSource operator to include error handling in the produceTuples() method. 
+
+<ul class="nav nav-tabs">
+  <li class="active"><a data-toggle="tab" href="#minimum-1">Modified Sections</a></li>
+  <li><a data-toggle="tab" href="#fullsource-1">Full Source</a></li>
+</ul>
+
+<div class="tab-content">
+  <div id="minimum-1" class="tab-pane fade in active">
+<pre><code>@PrimitiveOperator()
+@OutputPorts({@OutputPortSet(cardinality=1),<b>@OutputPortSet(description=&quot;Error Port&quot;, cardinality=1)</b>})
+public class ServerSource extends AbstractOperator {
+    private Thread processThread;
+    private Server server;
+    private boolean shutdown = false;
+    <b>private Logger trace = Logger.getLogger(this.getClass());</b>
+	.
+	.
+	.
+    private void produceTuples() throws Exception  {
+        final StreamingOutput&lt;OutputTuple&gt; out = getOutput(0);
+        <b>final StreamingOutput&lt;OutputTuple&gt; error = getOutput(1);</b>
+        
+        OutputTuple tuple = out.newTuple();
+        while(!shutdown ){
+            <b>try{
+                String myString = server.getData();
+                tuple.setString(&quot;myString&quot;, myString);
+                out.submit(tuple);
+                Thread.sleep(1000);
+            } catch (Exception e){
+                trace.log(TraceLevel.ERROR, &quot;Error submitting tuple. Message: &quot; + e.toString());
+                OutputTuple errorTuple = error.newTuple();
+                errorTuple.setString(&quot;error_message&quot;, &quot;Error submitting tuple. Message: &quot; + e.toString());
+                error.submit(errorTuple);
+            }</b>
+        }      
+    }  
+}
+</code></pre>  
+  </div>
+  <div id="fullsource-1" class="tab-pane fade">
+<pre><code>package serverSource;
+
+<b>import org.apache.log4j.Logger;</b>
+import com.ibm.streams.operator.AbstractOperator;
+import com.ibm.streams.operator.OperatorContext;
+import com.ibm.streams.operator.OutputTuple;
+import com.ibm.streams.operator.StreamingOutput;
+import com.ibm.streams.operator.log4j.TraceLevel;
+import com.ibm.streams.operator.model.OutputPortSet;
+import com.ibm.streams.operator.model.OutputPorts;
+import com.ibm.streams.operator.model.PrimitiveOperator;
+
+@PrimitiveOperator()
+@OutputPorts({@OutputPortSet(cardinality=1),<b>@OutputPortSet(description=&quot;Error Port&quot;, cardinality=1)</b>})
+public class ServerSource extends AbstractOperator {
+    private Thread processThread;
+    private Server server;
+    private boolean shutdown = false;
+    <b>private Logger trace = Logger.getLogger(this.getClass());</b>
+    
+    @Override
+    public synchronized void initialize(OperatorContext context)
+            throws Exception {
+        super.initialize(context);
+  
+        server = new Server();
+        server.initialize(&quot;myUser&quot;, &quot;myPassw0rd&quot;);
+
+        processThread = getOperatorContext().getThreadFactory().newThread(
+                new Runnable() {
+
+                    @Override
+                    public void run() {
+                        try {
+                            produceTuples();
+                        } catch (Exception e) {
+                            Logger.getLogger(this.getClass()).error(&quot;Operator error&quot;, e);
+                        }                    
+                    }
+                    
+                });
+        
+        processThread.setDaemon(false);
+    }
+    
+    @Override
+    public synchronized void allPortsReady() throws Exception {
+        processThread.start();
+    }
+
+    private void produceTuples() throws Exception  {
+        final StreamingOutput&lt;OutputTuple&gt; out = getOutput(0);
+        <b>final StreamingOutput&lt;OutputTuple&gt; error = getOutput(1);</b>
+        
+        OutputTuple tuple = out.newTuple();
+        while(!shutdown ){
+            <b>try{
+                String myString = server.getData();
+                tuple.setString(&quot;myString&quot;, myString);
+                out.submit(tuple);
+                Thread.sleep(1000);
+            } catch (Exception e){
+                trace.log(TraceLevel.ERROR, &quot;Error submitting tuple. Message: &quot; + e.toString());
+                OutputTuple errorTuple = error.newTuple();
+                errorTuple.setString(&quot;error_message&quot;, &quot;Error submitting tuple. Message: &quot; + e.toString());
+                error.submit(errorTuple);
+            }</b>
+        }      
+    }
+    
+    public synchronized void shutdown() throws Exception {
+        shutdown = true;
+        if (processThread != null) {
+            processThread.interrupt();
+            processThread = null;
+        }
+        server.disconnect();
+        super.shutdown();
+    }
+    
+}
+</code></pre>
+  </div>
+</div>
+
+##Adding Compile-Time and Runtime Checks
+Adding compile-time checks to your Java operator can be useful for a variety of reasons and is done using the **@ContextCheck**. Here are some common checks:
+
+* Check to see if an operator that does not support consistent region is within a consistent region. 
+* Check incoming and outgoing port schemas. Make sure that the attributes you require are available at an SPL level. 
+* More ideas??
+
+**@ContextCheck** - This operator annotation allows you to run checks at operator compile-time or before the initialize() method is called at runtime. The check is done by creating a public static method that takes an argument of type `OperatorContextChecker`. At runtime @ContextCheck methods are invoked before invocation of @Parameter annotated methods. The compile-time and runtime checks use Boolean values (default is compile = true):
+
+* `@ContextCheck(compile = true)`
+* `@ContextCheck(runtime = true)`
+
+
+The following example is part of the StringToCaps operator. We have added compile-time checks to make sure that the incoming and outgoing SPL streams have an attribute named "myString" that is of type `rstring`. This code is placed inside the StringToCaps operator definition. If any of the checks run by `checker` fail, the compile is interrupted with an error message. 
+
+<pre style="font-family: Andale Mono, Lucida Console, Monaco, fixed, monospace; color: #000000; background-color: #eee;font-size: 12px;border: 1px dashed #999999;line-height: 14px;padding: 5px; overflow: auto; width: 100%"><code>    @ContextCheck
+    public static void checkAttributes(OperatorContextChecker checker){
+        OperatorContext context = checker.getOperatorContext();
+        
+        //Check that myString attributes exist
+        <b>checker.checkRequiredAttributes(context.getStreamingInputs().get(0), &quot;myString&quot;);
+        checker.checkRequiredAttributes(context.getStreamingOutputs().get(0), &quot;myString&quot;);</b>
+        
+        //Check the myString attributes are of correct type
+        Attribute incoming = context.getStreamingInputs().get(0).getStreamSchema().getAttribute(&quot;myString&quot;);
+        <b>checker.checkAttributeType(incoming, Type.MetaType.RSTRING);</b>
+        Attribute outgoing = context.getStreamingOutputs().get(0).getStreamSchema().getAttribute(&quot;myString&quot;);
+        <b>checker.checkAttributeType(outgoing, Type.MetaType.RSTRING);</b>
+    }
+</code></pre>
+
+##Using Windows
+
+<ul class="nav nav-tabs">
+  <li class="active"><a data-toggle="tab" href="#minimum-3">Code</a></li>
+  <li><a data-toggle="tab" href="#fullsource-3">Full Source</a></li>
+</ul>
+
+<div class="tab-content">
+  <div id="minimum-3" class="tab-pane fade in active">
+<pre><code>@PrimitiveOperator()
+@InputPorts(@InputPortSet(cardinality=1, windowingMode=WindowMode.Windowed))
+@OutputPorts(@OutputPortSet(cardinality=1))
+public class WindowConcatenator extends AbstractWindowOperator {
+    @Override
+    public synchronized void initialize(OperatorContext context)
+            throws Exception {
+        super.initialize(context);
+        getInput(0).getStreamWindow().registerListener(
+                new WindowHandler(getOutput(0)), false);
+        
+    }
+}
+</code></pre>  
+  </div>
+  <div id="fullsource-3" class="tab-pane fade">
+<pre><code>package windowConcatenator;
+
+import org.apache.log4j.Logger;
+
+import com.ibm.streams.operator.AbstractOperator;
+import com.ibm.streams.operator.OperatorContext;
+import com.ibm.streams.operator.StreamingData.Punctuation;
+import com.ibm.streams.operator.StreamingInput;
+import com.ibm.streams.operator.Tuple;
+import com.ibm.streams.operator.model.InputPortSet;
+import com.ibm.streams.operator.model.InputPortSet.WindowMode;
+import com.ibm.streams.operator.model.InputPortSet.WindowPunctuationInputMode;
+import com.ibm.streams.operator.model.InputPorts;
+import com.ibm.streams.operator.model.Libraries;
+import com.ibm.streams.operator.model.OutputPortSet;
+import com.ibm.streams.operator.model.OutputPortSet.WindowPunctuationOutputMode;
+import com.ibm.streams.operator.model.OutputPorts;
+import com.ibm.streams.operator.model.PrimitiveOperator;
+import com.ibm.streams.operator.window.AbstractWindowOperator;
+
+
+@PrimitiveOperator()
+@InputPorts(@InputPortSet(cardinality=1, windowingMode=WindowMode.Windowed))
+@OutputPorts(@OutputPortSet(cardinality=1))
+public class WindowConcatenator extends AbstractWindowOperator {
+    @Override
+    public synchronized void initialize(OperatorContext context)
+            throws Exception {
+        super.initialize(context);
+        getInput(0).getStreamWindow().registerListener(
+                new WindowHandler(getOutput(0)), false);
+        
+    }
+}
+
+</code></pre>
+</code></pre>
+  </div>
+</div>
+
+<ul class="nav nav-tabs">
+  <li class="active"><a data-toggle="tab" href="#minimum-4">Code</a></li>
+  <li><a data-toggle="tab" href="#fullsource-4">Full Source</a></li>
+</ul>
+
+<div class="tab-content">
+  <div id="minimum-4" class="tab-pane fade in active">
+<pre><code>public class WindowHandler implements StreamWindowListener&lt;Tuple&gt; {
+    private int tupleCount;
+    private String myConcatenatedString = &quot;&quot;;
+    private final StreamingOutput&lt;OutputTuple&gt; output;
+    
+    public WindowHandler(StreamingOutput&lt;OutputTuple&gt; output) {
+          this.output = output;
+        }
+    
+    @Override
+    public synchronized void handleEvent(StreamWindowEvent&lt;Tuple&gt; event) throws Exception {
+        
+        switch (event.getType()) {
+        case INSERTION:
+            for (Tuple tuple : event.getTuples()){
+                String myString = tuple.getString(&quot;myString&quot;);
+                myConcatenatedString += myString;
+                tupleCount++;
+            }
+            break;
+        case EVICTION:
+            if (tupleCount != 0){
+                OutputTuple tuple = output.newTuple();
+              tuple.setString(&quot;myString&quot;, myConcatenatedString);
+              output.submit(tuple);
+              output.punctuate(Punctuation.WINDOW_MARKER);
+              myConcatenatedString = &quot;&quot;;
+              tupleCount= 0;
+            }
+            break;
+        case FINAL:
+            // handle final mark
+            break;
+        default:
+            break;
+        } 
+    }
+}
+</code></pre>  
+  </div>
+  <div id="fullsource-4" class="tab-pane fade">
+<pre><code>package windowConcatenator;
+
+import com.ibm.streams.operator.OutputTuple;
+import com.ibm.streams.operator.StreamingData.Punctuation;
+import com.ibm.streams.operator.StreamingOutput;
+import com.ibm.streams.operator.Tuple;
+import com.ibm.streams.operator.window.StreamWindowEvent;
+import com.ibm.streams.operator.window.StreamWindowListener;
+
+public class WindowHandler implements StreamWindowListener&lt;Tuple&gt; {
+    private int tupleCount;
+    private String myConcatenatedString = &quot;&quot;;
+    private final StreamingOutput&lt;OutputTuple&gt; output;
+    
+    public WindowHandler(StreamingOutput&lt;OutputTuple&gt; output) {
+          this.output = output;
+        }
+    
+    @Override
+    public synchronized void handleEvent(StreamWindowEvent&lt;Tuple&gt; event) throws Exception {
+        
+        switch (event.getType()) {
+        case INSERTION:
+            for (Tuple tuple : event.getTuples()){
+                String myString = tuple.getString(&quot;myString&quot;);
+                myConcatenatedString += myString;
+                tupleCount++;
+            }
+            break;
+        case EVICTION:
+            if (tupleCount != 0){
+                OutputTuple tuple = output.newTuple();
+              tuple.setString(&quot;myString&quot;, myConcatenatedString);
+              output.submit(tuple);
+              output.punctuate(Punctuation.WINDOW_MARKER);
+              myConcatenatedString = &quot;&quot;;
+              tupleCount= 0;
+            }
+            break;
+        case FINAL:
+            // handle final mark
+            break;
+        default:
+            break;
+        } 
+    }
+}
+
+</code></pre>
+</code></pre>
+  </div>
+</div>
+
+
 
 ##References
 
