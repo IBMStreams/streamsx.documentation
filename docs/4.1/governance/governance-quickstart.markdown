@@ -58,7 +58,7 @@ Submitting an application to a governed instance will result in a Streams applic
 Each time an application is submitted a new Streams application will be created using the following naming pattern:
 *`<application name>--<submit time stamp>`*
 Here are two Vwap sample applications in the governance catalog.
-<img src="../../../../images/governance/streamsappincatalog.png" style="margin-left:auto; margin-right:auto; display: block;" />
+<img src="../../../../images/governance/streamsappincatalog.PNG" style="margin-left:auto; margin-right:auto; display: block;" />
 
 
 ### Viewing Streams Assets in the Information Governance Catalog
@@ -76,7 +76,7 @@ Opening a Streams application will show:
 * Contains Assets -- expanding this will show the Input and Output streams as well as any import or exported streams.
 * Usage information -- expanding this will show what catalog assets are used by the Streams operators.
 * Operational information -- contains a link to the execution details for this application
-<img src="../../../../images/governance/vwapcatalogdetails.png" style="margin-left:auto; margin-right:auto; display: block;" />
+<img src="../../../../images/governance/vwapcatalogdetails.PNG" style="margin-left:auto; margin-right:auto; display: block;" />
 
 
 #### Lineage
@@ -95,7 +95,7 @@ The catalog will be added to Streams explorer.
 
 #### Drag and Drop catalog assets
 The Streams Studio graphical editor palette will contain all governance catalogs defined to Streams explorer.  Expand the catalog to see the assets available.  The first time you expand a catalog you may be prompted for credentials to log into the catalog.
-<img src="../../../../images/governance/governancecatalogStudio.png" style="margin-left:auto; margin-right:auto; display: block;" />
+<img src="../../../../images/governance/governancecatalogStudio.PNG" style="margin-left:auto; margin-right:auto; display: block;" />
 
 Hovering on the palette assets may show more information.  For instance hovering on a data table will show the columns for that table.
 
