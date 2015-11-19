@@ -43,6 +43,7 @@ In order for operators to register flow information for lineage  compiler.  If y
 
 #### Operators supporting governance
 The following operators regsiter flow information for lineage:
+
 - FileSource, FileSink, DirectoryScan: mapped to core catalog asset types data`_`files  and data`_`folders 
 - ODBC operators: mapped to core asset type database 
 - Import, Export: these are mapped to Import Streams and Export Streams and will show lineage between Streams applications.
