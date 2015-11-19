@@ -8,7 +8,7 @@ weight: 1
 # Java Application API Development Guide
 If you're viewing this page, it's likely that you haven't worked with the Java Application API before, or possibly streaming applications in general. In this document, we discuss at a high level the general principles behind streaming application development and the benefits of the Java Application API, and  we demonstrate these in a sample application. 
 
-The Java Application API allows you to write programs for streaming data exclusively in Java — no SPL! You can run the programs as Java programs, you can run them as stand-alone Streams applications, or you can run them as distributed Streams applications. If you need help getting your environment set up, visit [the Java Application API setup guide](Environment_Setup).
+The Java Application API allows you to write programs for streaming data exclusively in Java — no SPL! You can run the programs as Java programs, you can run them as stand-alone Streams applications, or you can run them as distributed Streams applications. If you need help getting your environment set up, visit [the Java Application API setup guide](#setting-up-environment).
 
 The primary goals of the Java Application API are to enable the developer to:
 
