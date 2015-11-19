@@ -26,9 +26,7 @@ Although the QuickStart VM comes with a version of the Java Application API out 
 
 Alternatively, if you want the cutting edge of the API, clone the main repository directly:
 
-~~~~~~
-git clone git@github.com:IBMStreams/streamsx.topology.git
-~~~~~~
+
 
 After cloning the repository, you must build the project to produce the `com.ibm.streamsx.topology.jar`file. Fortunately, the project provides an Ant script to take care of this automatically. The script has three requirements:
 * Ant version later than 1.9.1
@@ -108,9 +106,10 @@ TStream<Double> readings = topology.endlessSource(new Supplier<Double>(){
 The `endlessSource()`method will repeatedly call the function's overridden `get()`method and return a new random temperature reading each time. Although in this case we are obtaining our data by calling `random.nextGaussian()`, in principle this could be substituted for any live data source such as reading from a Kafka cluster, or MQTT server. This will be shown in subsequent tutorials.
 
 As a side note, the API is compatible with Java 8 so this data source could be written more concisely using a lambda expression:
-``` Java
+
+~~~~~~
 TStream<Double> readings = topology.endlessSource(() -> random.nextGaussian());
-```
+~~~~~~
 
 ## Understanding TStream
 
