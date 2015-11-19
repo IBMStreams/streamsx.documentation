@@ -39,7 +39,7 @@ Governance occurs at the instance level.  An instnace is enabled for governance 
 
 
 ### Recompile applications
-In order for operators to register flow information for lineage  compiler.  IF you submit an application without recompiling the application will register but there will not be any flow information recorded.
+In order for operators to register flow information for lineage  compiler.  If you submit an application without recompiling the application will register but there will not be any flow information recorded.
 
 #### Operators supporting governance
 The following operators regsiter flow information for lineage:
@@ -76,6 +76,8 @@ Opening a Streams application will show:
 * Contains Assets -- expanding this will show the Input and Output streams as well as any import or exported streams.
 * Usage information -- expanding this will show what catalog assets are used by the Streams operators.
 * Operational information -- contains a link to the execution details for this application
+<img src="../../../../images/governance/vwapcatalogdetails.png" style="margin-left:auto; margin-right:auto; display: block;" />
+
 
 #### Lineage
 Lineage reports are available for Streams applications.  Just press the generate lineage report button for an asset in the IGC.  
