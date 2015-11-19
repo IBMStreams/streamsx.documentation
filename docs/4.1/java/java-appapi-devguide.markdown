@@ -6,26 +6,15 @@ weight: 1
 ---
 
 # Java Application API Development Guide
-~~~~~~
-package com.ibm.streamsx.sample.java;
-import com.ibm.streams.function.model.Function;
 
-public class Calculator {
-
-	@Function(name = "add", namespace = "com.ibm.streamsx.sample.java.calculator", description = "Add two integers" )
-	public static int add(int num1, int num2) {
-		return num1 + num2;
-	}
-}
-~~~~~~
 ## Setting up environment
 
 There are three primary ways to get started with the API. If you are trying the API for the first time, the Streams Quick Start Edition VM is likely the fastest way to start working with the tutorials on this page. Download it at the following link to get started: [Streams Quick Start Edition VM](http://www-01.ibm.com/software/data/infosphere/stream-computing/trials.html)
 
 The Streams Quick Start Edition VM contains a ready-to-go release of IBM  Streams. Additionally, the Quick Start VM comes bundled with IBM Streams Studio, which provides an intuitive, visual representation of your streaming application. After you've downloaded it, start the VM, open a console and type:
-``` bash
+~~~~~~
 streamtool startinstance
-```
+~~~~~~
 This starts the default IBM Streams instance that comes with the VM. This instance is disabled on startup. 
 
 If you are **not** using the IBM Streams Quick Start Edition and already have an IBM Streams installation, make sure you've followed the instructions for [setting up your domain and instance](https://github.com/wmarshall484/websiteTest/blob/master/drafts/DomainSetup.md).
@@ -34,9 +23,9 @@ If you are **not** using the IBM Streams Quick Start Edition and already have an
 Although the QuickStart VM comes with a version of the Java Application API out of the box, you might want to obtain the most recent version from GitHub. To do so, simply navigate to the [releases section](https://github.com/Ibmstreams/streamsx.topology/releases) of the GitHub site, download the latest version, and extract it to your file system.
 
 Alternatively, if you want the cutting edge of the API, clone the main repository directly:
-``` bash 
+~~~~~~
 git clone git@github.com:IBMStreams/streamsx.topology.git
-```
+~~~~~~
 After cloning the repository, you must build the project to produce the `com.ibm.streamsx.topology.jar`file. Fortunately, the project provides an Ant script to take care of this automatically. The script has three requirements:
 * Ant version later than 1.9.1
 * [Optional] For tests, the JUnit JAR files must be stored in `~/.ant/lib`
@@ -90,9 +79,9 @@ The latter features will be covered in a [subsequent tutorial](UDP_Windowing). F
 
 ## Creating a topology object
 When writing an application with the Java Application API, the very first thing to do is to create the Topology object:
-``` Java
+~~~~~~
 Topology topology = new Topology("temperatureSensor");
-```
+~~~~~~
 The topology object contains information about the structure of our graph (that is, our application), including how the data is generated and processed. The topology object also provides utility methods that allow us to define our data sources, in this case the temperature sensor. By invoking `topology.endlessSource()`, we can pass a Java Function that returns the next data item each time it is called.
 
 ## Defining a data source
