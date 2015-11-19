@@ -53,6 +53,7 @@ If you've followed the previous instructions and are ready to start writing code
   * Save this setting.
 
 If you haven't yet linked Eclipse/Streams Studio with IBM Streams, ensure the following JAR files are part of the class path:
+
 * `<streamsx.topology install path>/com.ibm.streamsx.topology/lib/com.ibm.streamsx.topology.jar`
 * `$STREAMS_INSTALL/lib/com.ibm.streams.operator.samples.jar`
 
@@ -67,6 +68,7 @@ If you're viewing this page, it's likely that you haven't worked with the Java A
 The Java Application API allows you to write programs for streaming data exclusively in Java — no SPL! You can run the programs as Java programs, you can run them as stand-alone Streams applications, or you can run them as distributed Streams applications. If you need help getting your environment set up, visit [the Java Application API setup guide](Environment_Setup).
 
 The primary goals of the Java Application API are to enable the developer to:
+
 * Define the structure of a streaming application using only Java
 * Pass Java objects as tuples on a stream 
 * Define how data is processed in a modular, scalable, and stateful manner
@@ -245,6 +247,7 @@ You'll notice that we provide a predicate function, and need to override only it
 ## Transforming Data
 
 *Transform* is the workhorse of the Java Application API. It will likely be the most frequently used method in your application. Primarily, the `.transform()`method is responsible for taking the tuples of a TStream and doing any one of the following:
+
 * Modifying the contents of the tuple
 * Changing the type of the tuple
 * Keeping track of state across tuples
@@ -510,6 +513,7 @@ SPLStream splInputStream = SPLStreams.convertStream(strings, new BiFunction<Stri
 ~~~~~~
 
 In the above lines of code, the convertStream method takes three parameters
+
 * **strings** - The TStream to convert to an SPL Stream
 * **A BiFunction** - The BiFunction may appear complicated, but its functionality is easy to understand. It takes two arguments
   * It's first argument is a Java String. This is the current Java tuple on the TStream (e.g., "Rhinoceros") to be transformed to an SPL tuple. 
