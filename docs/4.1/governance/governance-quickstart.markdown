@@ -32,10 +32,10 @@ Governance occurs at the instance level.  An instnace is enabled for governance 
 
 1. Set the instance properties using either the Streams console or streamtool.
    * *governanceEnabled* -- set this to true
-   * *governanceUrl* -- *_`https://<host>:<port>`_* of the governance server
+   * *governanceUrl* -- *`https://<host>:<port>`* of the governance server
 2. Set the credentials for the instance using streamtool.
 
-*_`streamtool setigcadminconfig -d <domain> -i <instance> --igc-admin-user <userid> --igc-admin-password <password>`_*
+*`streamtool setigcadminconfig -d <domain> -i <instance> --igc-admin-user <userid> --igc-admin-password <password>`*
 
 
 ### Recompile applications
