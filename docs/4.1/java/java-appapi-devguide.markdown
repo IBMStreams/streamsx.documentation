@@ -6,7 +6,18 @@ weight: 1
 ---
 
 # Java Application API Development Guide
+~~~~~~
+package com.ibm.streamsx.sample.java;
+import com.ibm.streams.function.model.Function;
 
+public class Calculator {
+
+	@Function(name = "add", namespace = "com.ibm.streamsx.sample.java.calculator", description = "Add two integers" )
+	public static int add(int num1, int num2) {
+		return num1 + num2;
+	}
+}
+~~~~~~
 ## Setting up environment
 
 There are three primary ways to get started with the API. If you are trying the API for the first time, the Streams Quick Start Edition VM is likely the fastest way to start working with the tutorials on this page. Download it at the following link to get started: [Streams Quick Start Edition VM](http://www-01.ibm.com/software/data/infosphere/stream-computing/trials.html)
