@@ -6,6 +6,19 @@ weight: 1
 ---
 
 # Java Application API Development Guide
+If you're viewing this page, it's likely that you haven't worked with the Java Application API before, or possibly streaming applications in general. In this document, we discuss at a high level the general principles behind streaming application development and the benefits of the Java Application API, and  we demonstrate these in a sample application. 
+
+The Java Application API allows you to write programs for streaming data exclusively in Java — no SPL! You can run the programs as Java programs, you can run them as stand-alone Streams applications, or you can run them as distributed Streams applications. If you need help getting your environment set up, visit [the Java Application API setup guide](Environment_Setup).
+
+The primary goals of the Java Application API are to enable the developer to:
+
+* Define the structure of a streaming application using only Java
+* Pass Java objects as tuples on a stream 
+* Define how data is processed in a modular, scalable, and stateful manner
+
+Each of these points is covered in further detail in the tutorials on this site and in the example here where we create an application that processes temperature readings from a device. 
+
+The Java Application API is fully compatible with IBM Streams version 4.0.0 and later. The API is open source and is available for download from our [streamsx.topology project on GitHub](https://github.com/IBMStreams/streamsx.topology).
 
 ## Setting up environment
 
@@ -61,30 +74,14 @@ This completes the installation of the streamsx.topology project. Note, however,
 
 You are now ready to go!
 
-# Writing the First Streams Java Appication
-
-If you're viewing this page, it's likely that you haven't worked with the Java Application API before, or possibly streaming applications in general. In this document, we discuss at a high level the general principles behind streaming application development and the benefits of the Java Application API, and  we demonstrate these in a sample application. 
-
-The Java Application API allows you to write programs for streaming data exclusively in Java — no SPL! You can run the programs as Java programs, you can run them as stand-alone Streams applications, or you can run them as distributed Streams applications. If you need help getting your environment set up, visit [the Java Application API setup guide](Environment_Setup).
-
-The primary goals of the Java Application API are to enable the developer to:
-
-* Define the structure of a streaming application using only Java
-* Pass Java objects as tuples on a stream 
-* Define how data is processed in a modular, scalable, and stateful manner
-
-Each of these points is covered in further detail in the tutorials on this site and in the example here where we create an application that processes temperature readings from a device. 
-
-The Java Application API is fully compatible with IBM Streams version 4.0.0 and later. The API is open source and is available for download from our [streamsx.topology project on GitHub](https://github.com/IBMStreams/streamsx.topology).
-
-# Data streaming principles & the Java Application API
+# Developing your first application
 Streaming applications are usually solutions that meet real-time data processing needs. Whereas frameworks like Apache Hadoop deal with batch jobs that eventually terminate after being submitted, data streaming applications are designed to run forever. For example, consider a company whose product scans temperature sensors across the world to determine weather patterns and trends. Because there is *always* a temperature, there is a perpetual need to process data. 
 
 The application must be allowed to run for an indeterminate amount of time, and it also must be allowed to scale flexibly. Say, for example, that the number of temperature sensors doubles, so correspondingly the speed must double at which the application must process data. With the Java Application API, you can easily parallelize your data pipeline, and you can specify which pieces of the application run on which resources across a certain number of specified processes.
 
 The latter features will be covered in a [subsequent tutorial](UDP_Windowing). For now, let's take the simple example of reading data from a temperature sensor and printing the output to the screen. 
 
-## Creating a topology object
+### Creating a topology object
 When writing an application with the Java Application API, the very first thing to do is to create the Topology object:
 
 ~~~~~~
@@ -93,7 +90,7 @@ Topology topology = new Topology("temperatureSensor");
 
 The topology object contains information about the structure of our graph (that is, our application), including how the data is generated and processed. The topology object also provides utility methods that allow us to define our data sources, in this case the temperature sensor. By invoking `topology.endlessSource()`, we can pass a Java Function that returns the next data item each time it is called.
 
-## Defining a data source
+### Defining a data source
 
 For simplicity, we will simulate a temperature sensor by reading from a Java Random object as follows.  
 
@@ -116,7 +113,7 @@ As a side note, the API is compatible with Java 8 so this data source could be w
 TStream<Double> readings = topology.endlessSource(() -> random.nextGaussian());
 ~~~~~~
 
-## Understanding TStream
+### Understanding TStream
 
 The `endlessSource()`method produces a TStream, which is arguably the most important Java class in the Java Application API. 
 
@@ -130,7 +127,7 @@ TStream<Double> readings = ...;
 
 In this case, the TStream is parameterized to a Double.
 
-## Printing to output
+### Printing to output
 
 Now, in true "Hello World" fashion, after obtaining the data we simply print it to standard output. 
 
@@ -140,7 +137,7 @@ readings.print();
 
 Because each tuple is a Java object, invoking TStream's `print()`method calls the `toString()`method on each tuple and prints the results to output using `System.out.println()`. Although TStream's `print()`method is useful in its convenience, there are likely cases where the application will need to output to a file or Kafka. These cases are covered in the [Kafka](Kafka) and [common streams operations](CommonStreamOperations) tutorials.
 
-## Submitting and running the application
+### Submitting and running the application
 
 After the application has been defined, it can be run by acquiring a *context* from the StreamsContextFactory, and invoking its `submit()`method while passing the topology object as a parameter:
 
@@ -154,7 +151,7 @@ The `getEmbedded()` method returns an EMBEDDED submission context, which runs th
 * DISTRIBUTED - Runs the application in distributed mode. When an application is submitted with this context, a Streams Application Bundle (.sab file) is produced. The .sab file contains all of the application's logic and third-party dependencies, and is submitted to an IBM Streams instance automatically.
 * STANDALONE - Runs the application in stand-alone mode. When running in this mode, the application also produces a Streams Applicaition Bundle (.sab file), but rather than submitting it to a cluster, the bundle is instead executable. The bundle will run within a single process, and can be terminated with Ctrl-C interrupts.
 
-# First Streams Java Application Complete
+### First Streams Java Application Complete
  
 The application, in its entirety, is as follows:
 
@@ -186,11 +183,11 @@ public class TemperatureTest {
 }
 ~~~~~~
 
-# Common Streams Operations
+## Common Streams Operations
 
 After creating a TStream, the three primary operations that will be performed are *filter*, *transform*, and *sink*. Each operation accepts a user-supplied function to determine how to process one of the TStream's tuples. A few best practice use cases are outlined here.
 
-## Filtering Data
+### Filtering Data
 
 Invoking *filter* on a TStream allows the user to selectively allow and reject tuples from being passed along to another stream based on a provided predicate. For example, suppose that we have a TStream of String, where each String is a word out of the English dictionary.
 
@@ -244,7 +241,7 @@ You'll notice that we provide a predicate function, and need to override only it
 
 **Important:** While the code has access to the tuples of the TStream, and thus can modify their contents, a filter is intended to be an *immutable* operation. As such, tuples should not be altered. For details about transforming the contents or type of a tuple, refer to the transform operation in the next section.
 
-## Transforming Data
+### Transforming Data
 
 *Transform* is the workhorse of the Java Application API. It will likely be the most frequently used method in your application. Primarily, the `.transform()`method is responsible for taking the tuples of a TStream and doing any one of the following:
 
@@ -386,7 +383,7 @@ Although in this case our state is a LinkedList with the ultimate goal of calcul
 | Sink | File Handle | Similar to source, except the file handle is used to write tuples to a file |
 | Sink | Socket | Similar to source, except the socket is used to write tuples to a TCP stream |
 
-## Creating Data Sink
+### Creating Data Sink
 
 *Sink* takes tuples from a stream, but does not return a stream as output. It is invoked on a TStream when the tuples themselves are output to the system. The output can take the form of a file, a log, a TCP connection, HDFS, Kafka, or anything that you can define -- because operations such as sink can be stateful, you can provide any handle that is required.
 
@@ -419,7 +416,7 @@ Since the applications written with the Java Application API are capable of runn
 
 The purpose of this guide is to demonstrate the basics of interfacing the Java Application API with such toolkits. This is important not only for backward compatibility, but also because it shows that that API can interact with C++ operators in addition to Java ones. Although it isn't assumed that the reader has an understanding of SPL and the structure of toolkits, consulting [the IBM Knowledge Center](http://www-01.ibm.com/support/knowledgecenter/SSCRJU_4.0.0/com.ibm.streams.dev.doc/doc/creating_toolkits.html?lang=en) may prove informative.
 
-## Background about Streams Toolkit
+### Background about Streams Toolkit
 
 Before the Java Application API was released, developing IBM Streams was a two-step process that involved defining C++ or Java *primitive operators* (which manipulated data), and then subsequently connecting them together into an application by using a language called SPL. Since, as a java developer, you may not want to learn an entirely new programming language to build your application, the Java Application API presents a useful alternative.
 
@@ -427,7 +424,7 @@ Yet the primitive operators are still very useful. For one thing, many primitive
 
 In this tutorial, we will not cover [the development of C++ or Java primitive operators](http://www-01.ibm.com/support/knowledgecenter/SSCRJU_4.0.0/com.ibm.streams.dev.doc/doc/developing_primitive_operators.html?lang=en), however the process for utilizing an already existing toolkit is outlined below.
 
-## Sample toolkit and operator
+### Sample toolkit and operator
 To begin, suppose that we have a 'myTk' toolkit in the home directory. In the 'myTk' toolkit, there is one package named 'myPackageName', and one operator named 'myOperatorName':
 
 ~~~~~~
@@ -472,7 +469,7 @@ You'll notice that each attribute of a tuple requires a corresponding name. This
 
 Defining stream schemas is not necessary when just developing exclusively withing the Java Application API -- it only becomes necessary with interfacing with primitive operators. We see why this is true in the next section.
 
-# Using the toolkit within the Java Application API
+### Using the toolkit within the Java Application API
 
 In the introductory tutorials to the Java Application API, we created TStream objects which represented the flows of data in our application. To utilize a primitive operator, we must first convert our TStream to a special kind of stream called an SPLStream. SPLStreams are exactly like TStreams, except instead of being templated to a Java type, as in:
 
