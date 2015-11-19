@@ -57,16 +57,25 @@ Submitting an application to a governed instance will result in a Streams applic
 
 Each time an application is submitted a new Streams application will be created using the following naming pattern:
 *`<application name>--<submit time stamp>`*
+Here are two Vwap sample applications in the governance catalog.
+<img src="../../../../images/governance/streamsappincatalog.png" style="margin-left:auto; margin-right:auto; display: block;" />
+
 
 ### Viewing Streams Assets in the Information Governance Catalog
-You can browse the Streams applications in the IGC.  
+You can browse the Streams applications in the IGC. Some of the things that you can do are:
+* see details of Streams applications that have run in the instance
+* run lineage reports and see what assets a Streams application is using
+* select an asset and see all the Streams applications that use it
+* view the history of job submission and cancellation in the instance
+* easily search ofr job submitted on a specific date, by a specfic user, by name etc...
 
 #### Streams application
 Opening a Streams application will show:
 * image == you can edit the Streams application and then upload an image for this application.  Typically this would either be a screen shot of the application graph but it could be any image.
 * execution details -- this includes submit time, submission time values etc..
-* input Streams
-* output streams
+* Contains Assets -- expanding this will show the Input and Output streams as well as any import or exported streams.
+* Usage information -- expanding this will show what catalog assets are used by the Streams operators.
+* Operational information -- contains a link to the execution details for this application
 
 #### Lineage
 Lineage reports are available for Streams applications.  Just press the generate lineage report button for an asset in the IGC.  
@@ -74,16 +83,18 @@ Lineage reports are available for Streams applications.  Just press the generate
 Use search to find Streams assets in the IGC.  For example to see all of the job submitted on a specific date fill out the seatch dialog as shown below.
 
 ### Using governed assets in Streams applications
-You can alos use assets in the IGC during construction of a Streams application.  The Streams Studio graphical editor has been extended to show IGC assets in the palette and these can be dragged and dropped into the graph and code will be generated.  For example, dragging a data base table will generate an ODBCSource operator, the output port schema and the connections.xml document for the operator.
+You can also use assets in the IGC during construction of a Streams application.  The Streams Studio graphical editor has been extended to show IGC assets in the palette and these can be dragged and dropped into the graph and code will be generated.  For example, dragging a data base table will generate an ODBCSource operator, the output port schema and the connections.xml document for the operator.
 
 #### Add catalog to Streams Explorer
-1. right click on Streams explorer and Add Catalog
-2. provide catalog URL 
+1. In Streams explorer right click on Governance Catalogs and Add Catalog...
+2. Provide catalog name and a the URL
 
 The catalog will be added to Streams explorer.
 
 #### Drag and Drop catalog assets
-The Streams Studio graphical editor palette will contain all catalogs defined to Streams explorer.  Expand the catalog to see the assets available.  The first time you expand a catalog you may be prompted for credentials to log into the catalog.
+The Streams Studio graphical editor palette will contain all governance catalogs defined to Streams explorer.  Expand the catalog to see the assets available.  The first time you expand a catalog you may be prompted for credentials to log into the catalog.
+<img src="../../../../images/governance/governancecatalogStudio.png" style="margin-left:auto; margin-right:auto; display: block;" />
+
 Hovering on the palette assets may show more information.  For instance hovering on a data table will show the columns for that table.
 
 To use an asset just drag from the palette and drop it in th canvas.  The code will be generated.  You may have to edit the operator to provide additional information.
