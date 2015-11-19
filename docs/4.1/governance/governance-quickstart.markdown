@@ -17,12 +17,12 @@ You also need a set of credentials (userid and password) for the IGC.  The insta
 
 You need to upload the Streams asset definition file to the IGC.  This only needs to be done once.  The file is contained in the Streams install.  This file needs to be available on host you start the browser on.
 
-1. open browser with *_`https://<IGC host:port>/ibm/iis/igc-rest-explorer/#!/bundles/registerBundle`_*
+1. open browser with **`https://<IGC host:port>/ibm/iis/igc-rest-explorer/#!/bundles/registerBundle`**
 <img src="/streamsx.documentation/images/governance/bundleupload.png" style=" margin-left:auto; margin-right:auto; display: block;" />
-2. press the browse button and navigate to `<streams_install>/4.1.0.0/etc/governance/StreamsIGCAssetDefinitions.zip`
+2. press the browse button and navigate to **`<streams_install>/4.1.0.0/etc/governance/StreamsIGCAssetDefinitions.zip`**
 3. Press try it out to upload the bundle.
 
-Validate using this URL: `https://<IGC host:port>/ibm/iis/igc/#allAssetTypes/`
+Validate using this URL: **`https://<IGC host:port>/ibm/iis/igc/#allAssetTypes/`**
 and you should see InfoSphere Streams (you may have to scroll)
 <img src="../../../../images/governance/infospherestreamscatalogassets.png" style="margin-left:auto; margin-right:auto; display: block;" />
 
@@ -43,13 +43,13 @@ In order for operators to register flow information for lineage  compiler.  If y
 
 #### Operators supporting governance
 The following operators regsiter flow information for lineage:
-* FileSource, FileSink, DirectoryScan: mapped to core catalog asset types data`_`files  and data`_`folders 
-* ODBC operators: mapped to core asset type database 
-* Import, Export: these are mapped to Import Streams and Export Streams and will show lineage between Streams applications.
-* Kafka operators:  mapped to Streams-KafkaTopic
-* MQTT operators: mapped to Streams-MQTT
-* JMS operators: mapped to Streams-JMS 
-* HDFS2FileSource, HDFS2FileSink: mapped to Streams-HDFSFile
+- FileSource, FileSink, DirectoryScan: mapped to core catalog asset types data`_`files  and data`_`folders 
+- ODBC operators: mapped to core asset type database 
+- Import, Export: these are mapped to Import Streams and Export Streams and will show lineage between Streams applications.
+- Kafka operators:  mapped to Streams-KafkaTopic
+- MQTT operators: mapped to Streams-MQTT
+- JMS operators: mapped to Streams-JMS 
+- HDFS2FileSource, HDFS2FileSink: mapped to Streams-HDFSFile
 This list may be expanded in the future.
 
 ### Submit applications to governed instance
