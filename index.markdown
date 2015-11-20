@@ -6,7 +6,7 @@ description:  IBM Streams community-based documentation project.
 
 # streamsx.documentation
 The streamsx.documentation is a community-based documentation project for IBM Streams.
-The goal of the project is to provide easy-to-follow documentation and development guides to help user get started with Streams.
+The goal of the project is to provide easy-to-follow documentation and development guides to help users get started with Streams.
 
 # Table of Content
 {% include nav.html context="/docs/"%}
@@ -26,10 +26,10 @@ To request new documentation, please open an issue here:
 
 # Providing Feedback
 
-To provide feedback to our documentation:
+To provide feedback on our documentation:
 
 1.  Navigate to the documentation page that you would like to provide feedback for.
-1.  Click on the **Feedback** button at the top right corner.
+1.  Click on the **Feedback** button in the top right corner.
 
 This will open an issue for the page that you are currently visiting.  
 
@@ -43,4 +43,4 @@ Refer to this documentation to get started:  [Using Jekyll with Pages](https://h
 
 To contribute, clone this project locally, make your changes, and create a pull request.
 
-To learn more how to do this, refer to this documentation:  [Contribute to IBM Streams Github Project](https://developer.ibm.com/streamsdev/docs/contribute-github-project/)
+To learn more on how to do this, refer to this documentation:  [Contribute to IBM Streams Github Project](https://developer.ibm.com/streamsdev/docs/contribute-github-project/)
