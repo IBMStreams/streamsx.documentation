@@ -484,6 +484,7 @@ Lastly, nested parallelism is not supported, so invoking `parallel()` on a TStre
 
 ### Windowing
 For operations where it's necessary to keep track of the last *n* tuples on the stream, windows provide convenient functionality. Let's suppose that we want to record the maximum temperature over the past 10 seconds from the following source `readings`:
+
 ~~~~~~
         Topology topology = new Topology("temperatureSensor");
         Random random = new Random();
@@ -499,6 +500,7 @@ For operations where it's necessary to keep track of the last *n* tuples on the 
 ~~~~~~
 
 To do this, we can invoke the TStreams's `last()` method, which creates a Window of either the last **n** tuples, or the last **n** seconds. In this case, we want a window of the last ten seconds:
+
 ~~~~~~
         TWindow<Double, ?> lastTenSeconds = readings.last(10, TimeUnit.SECONDS);
 ~~~~~~
@@ -530,7 +532,7 @@ Windows can be used inside of parallel regions. Lastly, Windows can be used insi
 
 Since the applications written with the Java Application API are capable of running on the IBM Streams platform, it's natural that the API would integrate with SPL primitive operators and toolkits. IBM Streams comes with a number of toolkits that provide functionality such as text analysis, HDFS integration, and GeoSpatial processing. Furthermore, if you're currently working with IBM Streams, it's possible that you've implemented your own toolkits that you'd like to utilize.
 
-The purpose of this guide is to demonstrate the basics of interfacing the Java Application API with such toolkits. This is important not only for backward compatibility, but also because it shows that that API can interact with C++ operators in addition to Java ones. Although it isn't assumed that the reader has an understanding of SPL and the structure of toolkits, consulting [the IBM Knowledge Center](http://www-01.ibm.com/support/knowledgecenter/SSCRJU_4.0.0/com.ibm.streams.dev.doc/doc/creating_toolkits.html?lang=en) may prove informative.
+The purpose of this guide is to demonstrate the basics of interfacing the Java Application API with such toolkits. This is important not only for backward compatibility, but also because it shows that that API can interact with C++ operators in addition to Java ones. Although it isn't assumed that the reader has an understanding of SPL and the structure of toolkits, consulting [the IBM Knowledge Center](http://www-01.ibm.com/support/knowledgecenter/SSCRJU_4.1.0/com.ibm.streams.dev.doc/doc/creating_toolkits.html?lang=en) may prove informative.
 
 #### Background about Streams Toolkit
 
@@ -616,13 +618,14 @@ Then, we convert the TStream of Strings to an SPLStream of SPL tuples -- each tu
 
 ~~~~~~
 StreamSchema rstringSchema = Type.Factory.getStreamSchema("tuple<rstring rstring_attr_name>");
+
 SPLStream splInputStream = SPLStreams.convertStream(strings, new BiFunction<String, OutputTuple, OutputTuple>(){
-			@Override
-			public OutputTuple apply(String input_string, OutputTuple output_rstring) {
-				output_rstring.setString("rstring_attr_name", input_string);
-				return output_rstring;
-			}
-		}, rstringSchema);
+  @Override
+  public OutputTuple apply(String input_string, OutputTuple output_rstring) {
+    output_rstring.setString("rstring_attr_name", input_string);
+      return output_rstring;
+    }
+  }, rstringSchema);
 ~~~~~~
 
 In the above lines of code, the convertStream method takes three parameters
@@ -645,11 +648,11 @@ Now that we have the output we desired, we'd like to print it to output. Unfortu
 
 ~~~~~~
 TStream<String> javaStrings = splOutputStream.convert(new Function<Tuple, String>(){
-			@Override
-			public String apply(Tuple inputTuple) {
-				return inputTuple.getString("rstring_attr_name");
-			}			
-		});
+    @Override
+    public String apply(Tuple inputTuple) {
+      return inputTuple.getString("rstring_attr_name");
+    }			
+  });
 ~~~~~~
 
 This time, we take a *Tuple* object, and retrieve the value of the "rstring_attr_name" parameter as a Java String by invoking ```inputTuple.getString("rstring_attr_name");```, resulting in a TStream of Strings.
@@ -678,11 +681,11 @@ When the application is run, it correctly produces the following output
 
  When using a primitive operator, the general structure of your application is the following:
 
- 1) Convert form a TStream to an SPLStream
+ 1. Convert form a TStream to an SPLStream
 
- 2) Pass the SPLStream as input when invoking the primitive operator
+ 1. Pass the SPLStream as input when invoking the primitive operator
 
- 3) Convert the output SPLStream back to a TStream
+ 1. Convert the output SPLStream back to a TStream
 
  The application, in its entirety, is as follows:
 
@@ -705,31 +708,35 @@ import com.ibm.streamsx.topology.spl.SPLStreams;
 
 
 public class SPLTest {
-	public static void main(String[] args) throws Exception{
-		Topology topology = new Topology("SPLTest");
-		SPL.addToolkit(topology, new File("/home/streamsadmin/scratch/myTk"));
+    public static void main(String[] args) throws Exception{
 
-		TStream<String> strings = topology.strings("Rhinoceros", "Modest Mouse", "The cake is a lie");
+        Topology topology = new Topology("SPLTest");
+        SPL.addToolkit(topology, new File("/home/streamsadmin/scratch/myTk"));
 
-		StreamSchema rstringSchema = Type.Factory.getStreamSchema("tuple<rstring rstring_attr_name>");
-		SPLStream splInputStream = SPLStreams.convertStream(strings, new BiFunction<String, OutputTuple, OutputTuple>(){
-			@Override
-			public OutputTuple apply(String input_string, OutputTuple output_rstring) {
-				output_rstring.setString("rstring_attr_name", input_string);
-				return output_rstring;
-			}
-		}, rstringSchema);
+        TStream<String> strings = topology.strings("Rhinoceros", "Modest Mouse", "The cake is a lie");
 
-		SPLStream splOutputStream = SPL.invokeOperator("appendPackage::appendOperator", splInputStream, rstringSchema, new HashMap());
-		TStream<String> javaStrings = splOutputStream.convert(new Function<Tuple, String>(){
-			@Override
-			public String apply(Tuple inputTuple) {
-				return inputTuple.getString("rstring_attr_name");
-			}			
-		});
+        StreamSchema rstringSchema = Type.Factory.getStreamSchema("tuple<rstring rstring_attr_name>");
+        SPLStream splInputStream = SPLStreams.convertStream(strings,
+            new BiFunction<String, OutputTuple, OutputTuple>(){
+            @Override
+            public OutputTuple apply(String input_string, OutputTuple output_rstring) {
+                output_rstring.setString("rstring_attr_name", input_string);
+                return output_rstring;
+            }
+        }, rstringSchema);
 
-		javaStrings.print();
-		StreamsContextFactory.getStreamsContext("STANDALONE").submit(topology).get();				
-	}
+        SPLStream splOutputStream = SPL.invokeOperator("appendPackage::appendOperator",
+          splInputStream, rstringSchema, new HashMap());
+
+        TStream<String> javaStrings = splOutputStream.convert(new Function<Tuple, String>(){
+            @Override
+            public String apply(Tuple inputTuple) {
+                return inputTuple.getString("rstring_attr_name");
+            }
+        });
+
+        javaStrings.print();
+        StreamsContextFactory.getStreamsContext("STANDALONE").submit(topology).get();				
+    }
 }
 ~~~~~~
