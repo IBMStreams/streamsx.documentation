@@ -81,6 +81,7 @@ The application must be allowed to run for an indeterminate amount of time, and 
 
 The latter features will be covered in the [user-defined parallelism and windowing tutorial](#api-features). For now, let's take the simple example of reading data from a temperature sensor and printing the output to the screen. 
 
+
 #### Creating a topology object
 When writing an application with the Java Application API, the very first thing to do is to create the Topology object:
 
@@ -187,6 +188,7 @@ public class TemperatureTest {
 
 After creating a TStream, the three primary operations that will be performed are *filter*, *transform*, and *sink*. Each operation accepts a user-supplied function to determine how to process one of the TStream's tuples. A few best practice use cases are outlined here.
 
+
 #### Filtering Data
 
 Invoking *filter* on a TStream allows the user to selectively allow and reject tuples from being passed along to another stream based on a provided predicate. For example, suppose that we have a TStream of String, where each String is a word out of the English dictionary.
@@ -201,20 +203,20 @@ Furthermore, suppose that we want only a TStream of dictionary words that do not
 TStream<String> words = topology.source(/*code for reading from dictionary*/);
 TStream<String> wordsWithoutA = words.filter(new Predicate<String>(){
     	@Override
-			public boolean test(String word) {
-				if(tuple.contains("a")){
-					return false;
-				}
-				return true;
-			}
-		});
+	public boolean test(String word) {
+		if(tuple.contains("a")){
+			return false;
+		}
+		return true;
+	}
+});
 ~~~~~~
 
 Or, more concisely by using Java 8 lambda expressions:
 
 ~~~~~~
 TStream<String> words = topology.source(/*code for reading from dictionary*/);
-TStream<String> wordsWithoutA = words.filter(word -> word.contains("a") ? false : true);
+TStream<String> wordsWithoutA = words.filter(word -> !word.contains("a"));
 ~~~~~~
 		
 The returned TStream, *wordsWithoutA*, now contains all words without a lowercase "a". Whereas before, the output might have been:
