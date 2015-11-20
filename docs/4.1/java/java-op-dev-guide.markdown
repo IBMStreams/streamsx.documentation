@@ -213,7 +213,7 @@ At the root of the `TestJavaOp` toolkit, create a file named `info.xml`.  In the
 
 ### Test Application
 
-In the `TestJavaOp` toolkit, we create a test application that calls the Java primitive operator, `StringsToCap`.  A common pattern for testing a primitive operator is **Beacon -> Java Operator -> FileSink** as in the following example. 
+In the `TestJavaOp` toolkit, we create a test application that calls the Java primitive operator, `StringsToCap`.  A common pattern for testing a primitive operator is **Beacon -> Java Operator -> FileSink** as in the following example.
 
 <img src="/streamsx.documentation/images/JavaOperatorGuide/testApp.png" alt="Streams Studio" style="width: 60%;"/>
 
@@ -297,7 +297,7 @@ Your Java operators can take advantage of all JARs and existing Java code you al
 
 There are two simple steps that are required to start using external libraries in your Java operator:
 
-1.	Make JARs of interest available to the Java operator at Streams runtime. 
+1.	Make JARs of interest available to the Java operator at Streams runtime.
 1.	Use the @Libraries annotation to add the JARs to the operator class path.
 
 ### Accessing JARS at Runtime
@@ -422,60 +422,77 @@ The example in the video above uses a JAR with a simple function that reverses a
   </div>
 </div>
 
-
 ##Making Your Operator Generic with Parameters
 
-Most operators will take in some kind of parameters from the SPL application. This allows your operator to be more generic, and usable under diverse circumstances.
-
-####New Annotation
-**<font color="blue">@Parameter</font>** - This operator annotation allows you to pass in configurations from the param section of the operator definition in an SPL application.
+Parameters allow your Java primitive operator to be more generic and enables the end-user to configure and control the behavior of the operator.
 
 <div class="modal-body">
 	<video controls width="60%" src="https://developer.ibm.com/streamsdev/wp-content/uploads/sites/15/2015/11/AddParameter2.mp4"></video>
 </div>
 
-The example in the video above shows how to generalize the StringToCaps operator so that it reverses (or doesnt reverse) the incoming string based on a reverseString boolean parameter in the SPL operator code. Here are the steps taken, which are similar for all parameters:
+The example in the video above shows how to generalize the StringToCaps operator so that it reverses (or doesnt reverse) the incoming string based on a reverseString boolean parameter in the SPL operator code.
 
-1.	In the operator class definition add a Boolean member variable that we will use to hold the parameter value. We want the default to be false if the parameter is not specified.    
-	`private Boolean reverseString = false;`
-2.	Scroll down to the `process()` method and surround the String reversal line with an if statement:
+Below are the general steps to create a parameter for Java primitive operator:
+
+1.  Determine how the parameter will control the behavior of the Java primitive operator.  A parameter may toggle some behavior on and off.  It can be a String that allows the end user to specify the location of some configuration file.  It can refer to an attribute that the operator should act on when a tuple is received.  To learn more about the different kinds of parameters and the supported SPL types, refer to this documentation:  [Parameter Annotation Javadoc](http://www-01.ibm.com/support/knowledgecenter/#!/SSCRJU_4.1.0/com.ibm.streams.spl-java-operators.doc/api/com/ibm/streams/operator/model/Parameter.html)
+1. Based on the SPL type that the user needs to specify in the SPL code, define a matching private member in the Java class to store the parameter value.
+1. Create a setter method for setting the newly define private field.  
+1. Annotate the setter method with the @Parameter annotation.  You may configure the parameter name, description, and cardinality, etc using this annotation.  The annotated setter method will be recognized by the Streams runtime as the method for initializing the parameter value.  The setter method will be called **before** the `initialize` method is called.
+1. Modify your operator logic to honor the parameter value.
+
+### Example Parameter
+
+In our example, we will introduce a boolean parameter named `reverseString` to control if the incoming String from a tuple should be reversed or not.
+
+1. In the operator class, add a Boolean member field that will be used to hold the parameter value. Default the parameter value to be false if it is not specified.
+
+	<pre><code>  
+	private Boolean reverseString = false;
+	</code></pre>
+
+1. Add a setter method for `reverseString`.
+1. Add the @Parameter annotation.  Since the parameter is of type Boolean, the cardinality is automatically set to 1, meaning that only a single value can be provided.
+
+	<pre><code>
+	  @Parameter(name = "reverseString", optional = true,
+	  	description = "Boolean value. Reverse strings if true. Default: false.")
+	  public void setReverseString(Boolean value){
+	  	reverseString = value;
+	  }
+	</code></pre>
+1.	In the `process()` method, modify the operator logic to only reverse the string if the `reverseString` field is true.
 
 	~~~~~~
-    public final void process(StreamingInput<Tuple> inputStream, Tuple tuple)
-            throws Exception {
+	  public final void process(StreamingInput<Tuple> inputStream, Tuple tuple)
+	          throws Exception {
 		// Create a new tuple for output port 0
-        StreamingOutput<OutputTuple> outStream = getOutput(0);
-        OutputTuple outTuple = outStream.newTuple();
-        String myString = tuple.getString("myString");
-        myString = myString.toUpperCase();
-        if (reverseString){
-        	myString = Reverse.reverse(myString);
-        }
-        outTuple.setString("myString", myString);
-        // Submit new tuple to output port 0
-        outStream.submit(outTuple);
-    }
+	      StreamingOutput<OutputTuple> outStream = getOutput(0);
+	      OutputTuple outTuple = outStream.newTuple();
+	      String myString = tuple.getString("myString");
+	      myString = myString.toUpperCase();
+	      if (reverseString){
+	      	myString = Reverse.reverse(myString);
+	      }
+	      outTuple.setString("myString", myString);
+	      // Submit new tuple to output port 0
+	      outStream.submit(outTuple);
+	  }
 	~~~~~~
-3.	Near the bottom (still within the class definition), we will use the @Parameter annotation above a set method. The name of the parameter will be "reverseString", it will be optional, and we will add a description. Since the parameter is of type Boolean, the cardinality is automatically set to 1, meaning that only a single value can be provided.
 
-	~~~~~~
-    @Parameter(name = "reverseString", optional = true,
-    	description = "Boolean value. Reverse strings if true. Default: false.")
-    public void setReverseString(Boolean value){
-    	reverseString = value;
-    }
-	~~~~~~
-4.	Once you save, you are done updating your operator. To test our modification, modify the StringToCaps operator in TestJavaOp.spl to look like this:
+1. Save and build the operator.
 
-	~~~~~~
-	(stream<rstring myString> StringToCaps_2_out0) as StringToCaps_2 =
+1. To test the parameter, add a `param` clause at the invocation of the StringToCaps operator:
+
+	<pre><code>
+	(stream&lt;rstring myString&gt; StringToCaps_2_out0) as StringToCaps_2 =
 			StringToCaps(Beacon_1_out0)
 		{
 			param
 				reverseString : true;
 		}
-	~~~~~~
-5.	Your output should look like this:
+	</code></pre>
+
+1.	Run the application.  You should see output similar to the following:
 
 	~~~~~~
 	"0ESACREWOL"
@@ -487,38 +504,48 @@ The example in the video above shows how to generalize the StringToCaps operator
 Here are some more parameter examples:
 `tabs with different parameter examples` -->
 
-##Adding Custom Metrics
-Metrics are simple counters, maintained at run time, that can be read from outside of a running job to monitor statistics of interest. Two types of metrics are provided by the SPL language runtime:
+##Defining Custom Metrics
+
+A metric represents a measurement of an element in either an operator or a processing element. A metric's value is an signed 64-bit integer value, represented as a primitive long in the Java Operator API.  A metric enables the operator keep track of current state, and allows the end-user or external systems to monitor the operator based on metric values.
+
+Two types of metrics are provided by the SPL language runtime:
 
 * **System metrics** - predefined and maintained by the SPL runtime (this includes things like number of tuples processed on a port, tuple flow rate, etc.)
 * **Custom metrics** - created and maintained by the operator.
 
-This section will show you how to add your own custom metrics to your Java operator.
+There are three kinds of metrics:
 
-####New Annotation
-**<font color="blue">@CustomMetric</font>** - This operator annotation allows you to define your own custom metrics that will be visible to the SPL runtime. Live feed of this metric can be viewed in Streams Studio and the Streams Console.
+* **Counter** indicates that this metric represents a count of occurrence of some event.
+* **Gauge** indicates a value that is continuously variable with time.
+* **Time** indicates a metric that represents a point in time.
 
-The **@CustomMetric** annotation can take four parameters. **name** and **description** as they are used in other annotations, and then **kind** and **mxbean** which are unique to @CustomMetric:
+Live feed of the system metrics and operator custom metrics can be viewed in Streams Studio and the Streams Console.  You may retrieve the latest metrics using the Streams REST APIs.  This allows you to monitor your Streams domain, and your applications using your favorite monitoring tools.  Refer to this documentation about the [Metrics REST APIs](http://www-01.ibm.com/support/knowledgecenter/#!/SSCRJU_4.0.1/com.ibm.streams.restapi.doc/doc/restapis-metrics.html).
 
-* **kind** - This describes the type of metric that is being provided. It can take one of three values as defined in the Metric.Kind enumeration:
-	* **Counter** indicates that this metric represents a count of occurrence of some event.
-	* **Gauge** indicates a value that is continuously variable with time.
-	* **Time** indicates a metric that represents a point in time.
-* **mxbean** - This Boolean indicates whether to register this metric into the platform's MBean server. The default value is false.
+For more information about metrics, refer to the [Metrics Javadoc](http://www-01.ibm.com/support/knowledgecenter/#!/SSCRJU_4.0.1/com.ibm.streams.spl-java-operators.doc/api/com/ibm/streams/operator/metrics/Metric.html).
+
+This section will show you how to add your a custom metric to your Java operator.
 
 <div class="modal-body">
 	<video controls width="60%" src="https://developer.ibm.com/streamsdev/wp-content/uploads/sites/15/2015/11/AddingMetrics2.mp4"></video>
 </div>
 
-The example in the video above shows how to add a custom metric to **count** the number of characters processed by the StringToCaps operator. These steps are approximately the same as adding any other custom metrics.
+###Custom Metric Example
 
-**Adding a numCharacter Metric:**
+Below are steps to add a custom operator metric.  In this example, we will try to create a metric that counts the number of characters the Java primitive oeprator `StringToCaps` has processed.
 
-1.	Add a private member variable of type Metric to the StringToCaps operator class:
-`private Metric numCharacters;`
-2.	Import the Metric library, com.ibm.streams.operator.Metrics:
-`import com.ibm.streams.operator.metrics.Metric;`
-3.	Add the @CustomMetric annotation. Name the Metric "numCharacters" and make the kind Metric.Kind.COUNTER. Below the annotation you will add a setter method that takes a runtime Metric object and assigns it to our local Metric class variable numCharacters. The set is done before initialization similar to the way @Parameter sets are done.
+1.	Import the Metric library, com.ibm.streams.operator.Metrics:
+
+	~~~~~~
+	import com.ibm.streams.operator.metrics.Metric;
+	~~~~~~
+
+1.	Add a private field of type Metric.  In our example, we added the `numCharacters` field in the `StringToCaps` class:
+
+	~~~~~~
+	private Metric numCharacters;
+	~~~~~~
+
+1.	Create a setter method for the Metric field.  Add the @CustomMetric annotation to the setter method.
 
 	~~~~~~
 	@CustomMetric(name = "numCharacters", kind = Metric.Kind.COUNTER)
@@ -526,7 +553,12 @@ The example in the video above shows how to add a custom metric to **count** the
 		numCharacters = runtimeMetric;
 	}
 	~~~~~~
-4.	In the process() method, the numCharacters metric is incremented by the length of myString right before the outgoing tuple is submitted:
+
+	The `@CustomMetric` annotation let you define the name and desription of the metric.  In addition, you can specify the metric kind:  COUNTER, GUAGE OR TIME.  Optionally, specify if the metric should be registerred with the platform's MBean server, using the `mxbean` property.  The default value is false.  
+
+	The setter method is called before initialization similar to the way @Parameter sets are done.
+
+1.	In the process() method, increment the numCharacters metric by the length of myString right before the outgoing tuple is submitted:
 
 	~~~~~~
     @Override
@@ -1158,26 +1190,26 @@ Debugging your Java operator is similar to debugging normal Java.
 
 Here is the path that most Streams developers take to determine if their operator is working:
 
-1. Go to the instance graph in Streams Studio and see if your operator is healthy. If there is a series of three unhealthy operators, it is typically the fault of the middle one (its crashing makes the connections of the other two unhealthy). 
+1. Go to the instance graph in Streams Studio and see if your operator is healthy. If there is a series of three unhealthy operators, it is typically the fault of the middle one (its crashing makes the connections of the other two unhealthy).
 2. If your operator is unhealthy, try looking at standard out for that PE:
 	**right click on your operator -> Show Log -> Show PE Console**
 3. If you still don't have the information you need, increase the level of logging (this can be set during application launch) and look through the Operator Trace:
 	**right click on your operator -> Show Log -> Show Operator Trace**
 
 ##SPL to Java Type Mapping
-It's not always obvious which SPL types map to which Java types. It's important to get this mapping right when you are defining parameters, reading from input tuples, and writing to output tuples. Folow the link below a comprehensive [table of type mapping](http://www-01.ibm.com/support/knowledgecenter/SSCRJU_4.0.1/com.ibm.streams.dev.doc/doc/workingwithspltypes.html). 
+It's not always obvious which SPL types map to which Java types. It's important to get this mapping right when you are defining parameters, reading from input tuples, and writing to output tuples. Folow the link below a comprehensive [table of type mapping](http://www-01.ibm.com/support/knowledgecenter/SSCRJU_4.0.1/com.ibm.streams.dev.doc/doc/workingwithspltypes.html).
 
 ##Performance
 As we mentioned at the beginning of this guide, your performance will depend on the efficiency of your **process(...)** or **produceTuples(...)** methods (in the case of a windowed operator, it will be in your window handler).
 
-Here are some things to keep in mind: 
+Here are some things to keep in mind:
 
 * Do not print anything to standard out
-* Avoid logging. If necessary, make sure that your logging is protected by an if statement: 
+* Avoid logging. If necessary, make sure that your logging is protected by an if statement:
 	<pre style="font-family: Andale Mono, Lucida Console, Monaco, fixed, monospace; color: #000000; background-color: #eee;font-size: 12px;border: 1px dashed #999999;line-height: 14px;padding: 5px; overflow: auto; width: 100%"><code>        if (trace.isInfoEnabled())
 	            trace.log(TraceLevel.INFO, &quot;StateHandler close&quot;);</code></pre>
 
-* Minimize the copying of variables. 
+* Minimize the copying of variables.
 
 
 
