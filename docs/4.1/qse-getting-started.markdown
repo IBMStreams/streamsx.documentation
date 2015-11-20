@@ -5,7 +5,11 @@ description:  Learn how to get started witH IBM Streams Quick Start Edition
 weight:  10
 ---
 
-# Getting Started with IBM Streams 4.1 Quick Start Edition
+# Getting Started with IBM Streams 4.1 Quick Start Edition (QSE)
+
+If you haven't downloaded the Streams QSE, you may download it here:
+
+{% include download.html%}
 
 ## Streams Overview
 
@@ -57,12 +61,12 @@ public static void main(String[] args) throws Exception {
          * &quot;Hello&quot; and &quot;World!&quot;.
          */
         TStream&lt;String&gt; hw = topology.strings(&quot;Hello&quot;, &quot;World!&quot;);
-        
+
         /*
          * Sink hw by printing each of its tuples to System.out.
          */
         hw.print();
-        
+
         /*
          * At this point the topology is declared with a single
          * stream that is printed to System.out.
@@ -73,7 +77,7 @@ public static void main(String[] args) throws Exception {
          * If no argument is provided then the topology is executed
          * within this JVM (StreamsContext.Type.EMBEDDED).
          * Otherwise the first and only argument is taken as the
-         * String representation of the 
+         * String representation of the
          */
         if (args.length == 0)
             StreamsContextFactory.getEmbedded().submit(topology).get();
@@ -120,7 +124,7 @@ The Streams Processing Language is designed from the ground up for writing strea
 * [Streams Quick Start Guide](https://developer.ibm.com/streamsdev/?p=5686)
 * [Streams Hands-on Lab](https://developer.ibm.com/streamsdev/docs/introductory-lab-for-streams-4-0-1/)
 * [SPL Examples for Beginners](https://developer.ibm.com/streamsdev/docs/spl-examples-beginners/)
-    
+
 Streams is shipped with comprehensive development tooling.
 
 <img src="/streamsx.documentation/images/qse/streamsStudio.jpg" alt="Streams Studio" style="width: 60%;"/>
@@ -148,7 +152,7 @@ If you have existing Java code, you may easily reuse your code by writing a Java
 To get started, follow this development guide:
 
 * [SparkMLLib Getting Started Guide](http://ibmstreams.github.io/streamsx.sparkMLLib/gettingstarted.html)
-    
+
 ## Getting Started for the Data Engineer
 
 As a Data Engineer, you are responsible for:
@@ -186,7 +190,7 @@ To learn about Streams can integrate with SPSS:  [Streams and SPSS Lab](https://
 
 ### Streams Domain Management and Administration
 
-Streams Console is the web-based administration console for monitoring and managing your Streams domain. 
+Streams Console is the web-based administration console for monitoring and managing your Streams domain.
 
 <div class="alert alert-success" role="alert">
 <b>New in Streams 4.1! </b>Customizable Dashboard in Streams Console.</div>
