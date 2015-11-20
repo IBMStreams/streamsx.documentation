@@ -112,9 +112,10 @@ object HelloWorldScala {
   </div>
 </div>
 
-To get started, follow this development guide:
+To get started, follow these development guides:
 
-* [Develop Streams Applications in Java or Scala](http://ibmstreams.github.io/streamsx.topology/)
+* [Develop Streams Applications in Java](../java/java-appapi-devguide)
+* [Develop Streams Applications in Scala](https://github.com/IBMStreams/streamsx.topology/wiki/Scala-Support)
 
 
 ### Streams Processing Language (SPL)
@@ -142,8 +143,7 @@ Video:  Streams Studio in Action!
 
 If you have existing Java code, you may easily reuse your code by writing a Java operator or native Java functions.
 
-* [Roadmap for Java Developers](https://developer.ibm.com/streamsdev/docs/roadmap-for-java-developer/)
-
+* [Java Operator Development Guide](../java/java-op-dev-guide/)
 
 ### SparkMLLib in Streams
 
@@ -151,7 +151,7 @@ If you have existing Java code, you may easily reuse your code by writing a Java
 
 To get started, follow this development guide:
 
-* [SparkMLLib Getting Started Guide](http://ibmstreams.github.io/streamsx.sparkMLLib/gettingstarted.html)
+* [SparkMLLib Getting Started Guide](https://developer.ibm.com/streamsdev/docs/getting-started-with-the-spark-mllib-toolkit/)
 
 ## Getting Started for the Data Engineer
 
@@ -174,7 +174,7 @@ Streams is shipped with many toolkits out of the box to enable integration with 
 <div class="alert alert-success" role="alert"><b>New in Streams 4.1!</b>  Integration with the IBM InfoSphere Data Governance Catalog eanbles you to manage and govern your data.</div>
 
 With this support, developers can easily discover the data and schema that are available for use.  By building data lineage with your Streams application, you can quickly see and control how data is consumed.
-To get started, refer to  [Streams Governance Quickstart Guide](governance-quickstart)
+To get started, refer to  [Streams Governance Quickstart Guide](../governance/governance-quickstart/)
 
 ### Cybersecurity Toolkit
 
@@ -234,7 +234,7 @@ The following Streams resources can help you connect with the Streams community 
 * **[Streams Forum](https://www.ibmdw.net/answers/questions/?community=streamsdev&sort=newest&refine=none)** - This forum enables you to ask, and get answers to your questions, related to IBM Streams. If you have questions, start here.
 * **[IBMStreams on Github](http://ibmstreams.github.io)** - Streams is shipped with many useful toolkits out of the box.  IBMStreams on Github  contains many open-source toolkits.  For a list of available toolkits available on Github, see this web page:  [IBMStreams Github Toolkits](https://developer.ibm.com/streamsdev/docs/github-projects-overview/).
 * **[IBM Streams Support](http://www.ibm.com/support/entry/portal/Overview/Software/Information_Management/InfoSphere_Streams)** - This website provides information about IBM Streams downloads, technical support tools, documentation, and other resources.
-* **[IBM Streams Product Site](http://www.ibm.com/software/data/infosphere/streams)** - This website provides a broad range of information and resources about Streams and related topics.
+* **[IBM Streams Product Site](http://www.ibm.com/analytics/us/en/technology/stream-computing/)** - This website provides a broad range of information and resources about Streams and related topics.
 
 
 <!-- Modal -->
