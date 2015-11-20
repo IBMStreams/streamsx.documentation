@@ -7,9 +7,9 @@ weight : 0
 
 # Introduction to the Streams 4.1 Quick Start Edition (QSE)
 
-IBM Streams Quick Start Edition is a no-charge, non-production version of IBM Streams.  With no data or time limits, Streams Quick Start Edition allows you to experiment with stream computing in your own unique environment.  
+The IBM Streams Quick Start Edition is a no-charge, non-production version of IBM Streams.  With no data or time limits, Streams Quick Start Edition allows you to experiment with stream computing in your own unique environment.  
 
-IBM Streams offers a continuous, complete and connected solution.  IBM Streams is always on when you need it continuously analyzing data in motion.  It speeds time to value with a complete set of tools for users and expands insight to include data in motion by connecting directly to data streams.
+IBM Streams offers a continuous, complete and connected solution.  IBM Streams is always on when you need it, continuously analyzing data in motion.  It speeds time to value with a complete set of tools for users and expands insight to include data in motion by connecting directly to data streams.
 
 {% include download.html%}
 
