@@ -32,7 +32,7 @@ streamtool startinstance
 
 This starts the default IBM Streams instance that comes with the VM. This instance is disabled on startup. 
 
-If you are **not** using the IBM Streams Quick Start Edition and already have an IBM Streams installation, make sure you've followed the instructions for [setting up your domain and instance](/docs/4.1/java/DomainSetup/).
+If you are **not** using the IBM Streams Quick Start Edition and already have an IBM Streams installation, make sure you've followed the instructions for [setting up your domain and instance](https://developer.ibm.com/streamsdev/docs/streams-quick-start-guide/#streams_domain_and_instance).
 
 ## Getting the Java Application API from GitHub
 Although the QuickStart VM comes with a version of the Java Application API out of the box, you might want to obtain the most recent version from GitHub. To do so, simply navigate to the [releases section](https://github.com/Ibmstreams/streamsx.topology/releases) of the GitHub site, download the latest version, and extract it to your file system.
