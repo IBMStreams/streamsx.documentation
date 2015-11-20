@@ -1,22 +1,22 @@
 ---
 layout: docs
-title: IBM Streams Java Application Development Guide
-description: IBM Streams Java Application Development Guide
+title:  Java Application API Development Guide
+description: IBM Streams Java Application API Development Guide
 weight: 1
 ---
 
 # Java Application API Development Guide
-If you're viewing this page, it's likely that you haven't worked with the Java Application API before, or possibly streaming applications in general. In this document, we discuss at a high level the general principles behind streaming application development and the benefits of the Java Application API, and  we demonstrate these in a sample application. 
+If you're viewing this page, it's likely that you haven't worked with the Java Application API before, or possibly streaming applications in general. In this document, we discuss at a high level the general principles behind streaming application development and the benefits of the Java Application API, and  we demonstrate these in a sample application.
 
 The Java Application API allows you to write programs for streaming data exclusively in Java — no SPL! You can run the programs as Java programs, you can run them as stand-alone Streams applications, or you can run them as distributed Streams applications. If you need help getting your environment set up, visit [the Java Application API setup guide](#setting-up-environment).
 
 The primary goals of the Java Application API are to enable the developer to:
 
 * Define the structure of a streaming application using only Java
-* Pass Java objects as tuples on a stream 
+* Pass Java objects as tuples on a stream
 * Define how data is processed in a modular, scalable, and stateful manner
 
-Each of these points is covered in further detail in the tutorials on this site and in the example here where we create an application that processes temperature readings from a device. 
+Each of these points is covered in further detail in the tutorials on this site and in the example here where we create an application that processes temperature readings from a device.
 
 The Java Application API is fully compatible with IBM Streams version 4.0.0 and later. The API is open source and is available for download from our [streamsx.topology project on GitHub](https://github.com/IBMStreams/streamsx.topology).
 
@@ -30,7 +30,7 @@ The Streams Quick Start Edition VM contains a ready-to-go release of IBM  Stream
 streamtool startinstance
 ~~~~~~
 
-This starts the default IBM Streams instance that comes with the VM. This instance is disabled on startup. 
+This starts the default IBM Streams instance that comes with the VM. This instance is disabled on startup.
 
 If you are **not** using the IBM Streams Quick Start Edition and already have an IBM Streams installation, make sure you've followed the instructions for [setting up your domain and instance](https://developer.ibm.com/streamsdev/docs/streams-quick-start-guide/#streams_domain_and_instance).
 
@@ -75,11 +75,11 @@ This completes the installation of the streamsx.topology project. Note, however,
 You are now ready to go!
 
 # Developing your first application
-Streaming applications are usually solutions that meet real-time data processing needs. Whereas frameworks like Apache Hadoop deal with batch jobs that eventually terminate after being submitted, data streaming applications are designed to run forever. For example, consider a company whose product scans temperature sensors across the world to determine weather patterns and trends. Because there is *always* a temperature, there is a perpetual need to process data. 
+Streaming applications are usually solutions that meet real-time data processing needs. Whereas frameworks like Apache Hadoop deal with batch jobs that eventually terminate after being submitted, data streaming applications are designed to run forever. For example, consider a company whose product scans temperature sensors across the world to determine weather patterns and trends. Because there is *always* a temperature, there is a perpetual need to process data.
 
 The application must be allowed to run for an indeterminate amount of time, and it also must be allowed to scale flexibly. Say, for example, that the number of temperature sensors doubles, so correspondingly the speed must double at which the application must process data. With the Java Application API, you can easily parallelize your data pipeline, and you can specify which pieces of the application run on which resources across a certain number of specified processes.
 
-The latter features will be covered in the [user-defined parallelism and windowing tutorial](#api-features). For now, let's take the simple example of reading data from a temperature sensor and printing the output to the screen. 
+The latter features will be covered in the [user-defined parallelism and windowing tutorial](#api-features). For now, let's take the simple example of reading data from a temperature sensor and printing the output to the screen.
 
 
 #### Creating a topology object
@@ -97,7 +97,7 @@ For simplicity, we will simulate a temperature sensor by reading from a Java Ran
 
 ~~~~~~
 Random random = new Random();
-        
+
 TStream<Double> readings = topology.endlessSource(new Supplier<Double>(){
     @Override
     public Double get() {
@@ -116,7 +116,7 @@ TStream<Double> readings = topology.endlessSource(() -> random.nextGaussian());
 
 #### Understanding TStream
 
-The `endlessSource()`method produces a TStream, which is arguably the most important Java class in the Java Application API. 
+The `endlessSource()`method produces a TStream, which is arguably the most important Java class in the Java Application API.
 
 **A TStream represents a potentially infinite flow of tuples in your application**. Because an application might run forever, there is no upper limit to the number of tuples that can flow over a TStream. Tuples flow one at a time over a TStream and are processed by subsequent data **operations**. We do not define any data operations in this example (such as filtering or transforming the data on a TStream). Data operations are covered in the [common streams operations](#common-stream-operations) tutorial.
 
@@ -130,7 +130,7 @@ In this case, the TStream is parameterized to a Double.
 
 #### Printing to output
 
-Now, in true "Hello World" fashion, after obtaining the data we simply print it to standard output. 
+Now, in true "Hello World" fashion, after obtaining the data we simply print it to standard output.
 
 ~~~~~~
 readings.print();
@@ -153,7 +153,7 @@ The `getEmbedded()` method returns an EMBEDDED submission context, which runs th
 * STANDALONE - Runs the application in stand-alone mode. When running in this mode, the application also produces a Streams Applicaition Bundle (.sab file), but rather than submitting it to a cluster, the bundle is instead executable. The bundle will run within a single process, and can be terminated with Ctrl-C interrupts.
 
 #### First Streams Java Application Complete
- 
+
 The application, in its entirety, is as follows:
 
 ~~~~~~
@@ -167,17 +167,17 @@ import com.ibm.streamsx.topology.function.Supplier;
 
 public class TemperatureTest {
     public static void main(String[] args){
-        
+
         Topology topology = new Topology("temperatureSensor");
         Random random = new Random();
-        
+
         TStream<Double> readings = topology.endlessSource(new Supplier<Double>(){
             @Override
             public Double get() {
                 return random.nextGaussian();
             }
         });
-    
+
         readings.print();
         StreamsContextFactory.getEmbedded().submit(topology);
     }
@@ -218,7 +218,7 @@ Or, more concisely by using Java 8 lambda expressions:
 TStream<String> words = topology.source(/*code for reading from dictionary*/);
 TStream<String> wordsWithoutA = words.filter(word -> !word.contains("a"));
 ~~~~~~
-		
+
 The returned TStream, *wordsWithoutA*, now contains all words without a lowercase "a". Whereas before, the output might have been:
 
 ~~~~~~
@@ -239,7 +239,7 @@ quixotic
 ...
 ~~~~~~
 
-You'll notice that we provide a predicate function, and need to override only its `test()`method to return true or false for respectively permitting and rejecting the tuple. 
+You'll notice that we provide a predicate function, and need to override only its `test()`method to return true or false for respectively permitting and rejecting the tuple.
 
 **Important:** While the code has access to the tuples of the TStream, and thus can modify their contents, a filter is intended to be an *immutable* operation. As such, tuples should not be altered. For details about transforming the contents or type of a tuple, refer to the transform operation in the next section.
 
@@ -262,7 +262,7 @@ TStream<String> firstFourLetters = words.transform(new Function<String, String>(
             public String apply(String word) {
                 return v.substring(0,4);
             }
-            
+
         });
 ~~~~~~
 
@@ -333,14 +333,14 @@ Yielding the following output:
 9
 ~~~~~~
 
-Although this example only converts Strings to Integers, in principle it could work for any two arbitrary Java types, so long as they are both serializable. 
+Although this example only converts Strings to Integers, in principle it could work for any two arbitrary Java types, so long as they are both serializable.
 
 Another strength of the API is that users aren't restricted to only passing datatypes defined by the Java runtime (String, Integer, Double, and so on) -- users can define their own classes and datatype, and pass them as tuples on a TStream.
 
 #### Transform: Keeping track of state across tuples
 The previous examples would be termed *stateless* operators. A stateless operator does not keep track of any information about tuples that have been seen in the past, for example, the number of tuples that have been passed on a TStream, or the sum of all Integers seen on a TStream. Yet keeping track of state is both an easy and powerful part of the Java Application API, enabling a much broader range of applications.
 
-Although the following example pertains primarily to the `transform()` method, in principle *any* of the source, filter, sink, modify, or transform methods can keep track of state. 
+Although the following example pertains primarily to the `transform()` method, in principle *any* of the source, filter, sink, modify, or transform methods can keep track of state.
 
 An example of a stateful operator would be one which outputs the average of the last ten Doubles in a TStream. For this example, we first define a TStreams of random numbers:
 
@@ -368,7 +368,7 @@ TStream<Double> avg = doubles.transform(new Function<Double, Double>(){
                     lastTen.removeFirst();
                 return calculateAverage(lastTen);
             }
-            
+
         });
 ~~~~~~
 
@@ -421,7 +421,7 @@ If a particular portion of your graph is bottelnecking, and there needs to be ad
     public static void main(String args[]){    
         Topology topology = new Topology("temperatureSensor");
         Random random = new Random();
-        
+
         @SuppressWarnings("unchecked")
         TStream<Double> readings = topology.endlessSource(new Supplier<Double>(){
             @Override
@@ -429,18 +429,18 @@ If a particular portion of your graph is bottelnecking, and there needs to be ad
                 // Temperature in Farenheit
                 return random.nextGaussian();
             }
-            
+
         });
-        
+
         TStream<Double> parallelReadings = readings.parallel(5);
-    
+
         TStream<Double> kelvin = parallelReadings.transform(new Function<Double, Double>(){
             @Override
             public Double apply(Double temp) {
                 return convertToKelvin(temp);
             }
         });
-        
+
         kelvin.endParallel().print();
         StreamsContextFactory.getEmbedded().submit(topology);
     }
@@ -487,14 +487,14 @@ For operations where it's necessary to keep track of the last *n* tuples on the 
 ~~~~~~
         Topology topology = new Topology("temperatureSensor");
         Random random = new Random();
-        
+
         @SuppressWarnings("unchecked")
         TStream<Double> readings = topology.endlessSource(new Supplier<Double>(){
             @Override
             public Double get() {
                 return random.nextGaussian();
             }
-            
+
         });
 ~~~~~~
 
@@ -516,7 +516,7 @@ The Window is templated to two parameters: the type of the tuple in the window (
                 }
                 return max;
             }
-            
+
         });
         maxTemp.print();
         StreamsContextFactory.getEmbedded().submit(topology);
@@ -528,7 +528,7 @@ Windows can be used inside of parallel regions. Lastly, Windows can be used insi
 
 # Integrating SPL operators with the Java Application API
 
-Since the applications written with the Java Application API are capable of running on the IBM Streams platform, it's natural that the API would integrate with SPL primitive operators and toolkits. IBM Streams comes with a number of toolkits that provide functionality such as text analysis, HDFS integration, and GeoSpatial processing. Furthermore, if you're currently working with IBM Streams, it's possible that you've implemented your own toolkits that you'd like to utilize. 
+Since the applications written with the Java Application API are capable of running on the IBM Streams platform, it's natural that the API would integrate with SPL primitive operators and toolkits. IBM Streams comes with a number of toolkits that provide functionality such as text analysis, HDFS integration, and GeoSpatial processing. Furthermore, if you're currently working with IBM Streams, it's possible that you've implemented your own toolkits that you'd like to utilize.
 
 The purpose of this guide is to demonstrate the basics of interfacing the Java Application API with such toolkits. This is important not only for backward compatibility, but also because it shows that that API can interact with C++ operators in addition to Java ones. Although it isn't assumed that the reader has an understanding of SPL and the structure of toolkits, consulting [the IBM Knowledge Center](http://www-01.ibm.com/support/knowledgecenter/SSCRJU_4.0.0/com.ibm.streams.dev.doc/doc/creating_toolkits.html?lang=en) may prove informative.
 
@@ -621,7 +621,7 @@ SPLStream splInputStream = SPLStreams.convertStream(strings, new BiFunction<Stri
 			public OutputTuple apply(String input_string, OutputTuple output_rstring) {
 				output_rstring.setString("rstring_attr_name", input_string);
 				return output_rstring;
-			}	
+			}
 		}, rstringSchema);
 ~~~~~~
 
@@ -629,11 +629,11 @@ In the above lines of code, the convertStream method takes three parameters
 
 * **strings** - The TStream to convert to an SPL Stream
 * **A BiFunction** - The BiFunction may appear complicated, but its functionality is easy to understand. It takes two arguments
-  * It's first argument is a Java String. This is the current Java tuple on the TStream (e.g., "Rhinoceros") to be transformed to an SPL tuple. 
+  * It's first argument is a Java String. This is the current Java tuple on the TStream (e.g., "Rhinoceros") to be transformed to an SPL tuple.
   * Its second argument is an OutputTuple. An OutputTuple can be thought of as a wrapper for an SPL tuple. It contains methods such as *setString* or *setDouble* which take Java types (Strings, Doubles, etc.) and converts them to SPL types according to the provided schema. In the above code, we can see that the "rstring_attr_name" attribute is set by invoking ```output_rstring.setString("rstring_attr_name", input_string);```. After being modified, the OutputTuple is returned by the BiFunction.
 * **rstringSchema** - This is the stream schema for the input to the 'appendOperator' primitive operator. This determines the name used when calling *OutputTuple.setString*.
 
-Voila! We've created an SPLStream of SPL types. To use this stream and invoke the 'appendOperator' on its tuples, it's only one line of code: 
+Voila! We've created an SPLStream of SPL types. To use this stream and invoke the 'appendOperator' on its tuples, it's only one line of code:
 
 ~~~~~~
 SPLStream splOutputStream = SPL.invokeOperator("appendPackage::appendOperator", splInputStream, rstringSchema, new HashMap());
@@ -675,15 +675,15 @@ When the application is run, it correctly produces the following output
 ~~~~~~
 
 #### Primitive Operator Summary
- 
+
  When using a primitive operator, the general structure of your application is the following:
- 
+
  1) Convert form a TStream to an SPLStream
- 
+
  2) Pass the SPLStream as input when invoking the primitive operator
- 
+
  3) Convert the output SPLStream back to a TStream
- 
+
  The application, in its entirety, is as follows:
 
 ~~~~~~
@@ -708,18 +708,18 @@ public class SPLTest {
 	public static void main(String[] args) throws Exception{
 		Topology topology = new Topology("SPLTest");
 		SPL.addToolkit(topology, new File("/home/streamsadmin/scratch/myTk"));
-		
+
 		TStream<String> strings = topology.strings("Rhinoceros", "Modest Mouse", "The cake is a lie");
-		
+
 		StreamSchema rstringSchema = Type.Factory.getStreamSchema("tuple<rstring rstring_attr_name>");
 		SPLStream splInputStream = SPLStreams.convertStream(strings, new BiFunction<String, OutputTuple, OutputTuple>(){
 			@Override
 			public OutputTuple apply(String input_string, OutputTuple output_rstring) {
 				output_rstring.setString("rstring_attr_name", input_string);
 				return output_rstring;
-			}	
+			}
 		}, rstringSchema);
-		
+
 		SPLStream splOutputStream = SPL.invokeOperator("appendPackage::appendOperator", splInputStream, rstringSchema, new HashMap());
 		TStream<String> javaStrings = splOutputStream.convert(new Function<Tuple, String>(){
 			@Override
@@ -727,12 +727,9 @@ public class SPLTest {
 				return inputTuple.getString("rstring_attr_name");
 			}			
 		});
-		
+
 		javaStrings.print();
 		StreamsContextFactory.getStreamsContext("STANDALONE").submit(topology).get();				
 	}
 }
 ~~~~~~
-
-
-

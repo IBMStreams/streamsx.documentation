@@ -1,8 +1,8 @@
 ---
 layout: docs
-title:  Installing Streams Quick Start Edition Docker 
+title:  Installing Streams Quick Start Edition Docker
 description:  Installation Guide for IBM Streams Quick Start Edition Docker
-weight: 20
+weight: 30
 published: false
 ---
 
@@ -10,7 +10,7 @@ published: false
 
 # Installing Streams Quick Start Edition Docker Image
 
-The Streams Quick Start Editor can help you get started with Streams quickly, without having to install a Streams cluster environment. 
+The Streams Quick Start Editor can help you get started with Streams quickly, without having to install a Streams cluster environment.
 
 {% include download.html%}
 
@@ -18,7 +18,7 @@ The Streams Quick Start Editor can help you get started with Streams quickly, wi
 
 | Components  | Minimum Requirements | Comments |
 | ----------- | -------------------- | -------------|
-| Operating System  | 64-bit operating system that supports Docker  | Streams Quick Start Docker image is supported on the following operating systems: <br>- Apple Mac OS X<br>- Microsoft Windows 
+| Operating System  | 64-bit operating system that supports Docker  | Streams Quick Start Docker image is supported on the following operating systems: <br>- Apple Mac OS X<br>- Microsoft Windows
 | Memory	  |8 GB	                 |The amount of memory that is required by IBM Streams is dependent on the applications that are developed and deployed.  This minimum requirement is based on the memory requirements of the Commodity Purchasing sample application and other samples that are provided with the product.     
 | Disk space  | 50 GB |  |
 | Docker product | Docker Toolbox 1.9.0b or newer	| |
@@ -34,24 +34,24 @@ The Streams Quick Start Editor can help you get started with Streams quickly, wi
 1.  Install Dockertoolbox
     * See Docker Toolbox page for instructions:  https://www.docker.com/toolbox
 1.  Install using all defaults for a 'Full Installation'
-1.  Download the Streams4Docker.zip archive 
+1.  Download the Streams4Docker.zip archive
 1.  Extract the Streams4Docker.zip archive to preferred location
 1.  Open Windows PowerShell
     * Application Menu-> All Programs -> Accessories -> Windows Powershell -> Windows PowerShell
     * `cd <Directory where Streams4Docker downloaded>/Docker`
     * `powershell -ExecutionPolicy ByPass -File Streams-build.ps1`
-        
-Note: default build is 4096 MB Memory; 4 CPUs; 50000 Bytes disk. 
 
-To change defaults, for example to 8192 MB Memory; 2 CPUs; 60000 Bytes of disk run 
+Note: default build is 4096 MB Memory; 4 CPUs; 50000 Bytes disk.
+
+To change defaults, for example to 8192 MB Memory; 2 CPUs; 60000 Bytes of disk run
 
 ~~~~~~
 powershell -ExecutionPolicy ByPass -File Streams-build.ps1 8192 2 60000
 ~~~~~~
 
 <div class="alert alert-warning" role="alert">
-Building and running of the Docker container will take about 20 minutes. 
-You may be prompted for Administration Authentication several times. 
+Building and running of the Docker container will take about 20 minutes.
+You may be prompted for Administration Authentication several times.
 When completed the Powershell terminal will be sitting at the root prompt inside the Docker container.
 </div>
 
@@ -67,10 +67,10 @@ When completed the Powershell terminal will be sitting at the root prompt inside
 1.  Run the script to build the docker image:  `./Streams-OSX-build.sh`
 
 
-Note: default build is 4096 MB Memory; 4 CPUs; 50000 Bytes disk. 
-          
-To change defaults, for example to 8192 MB Memory; 2 CPUs; 60000 Bytes of disk run 
-    
+Note: default build is 4096 MB Memory; 4 CPUs; 50000 Bytes disk.
+
+To change defaults, for example to 8192 MB Memory; 2 CPUs; 60000 Bytes of disk run
+
 ~~~~~~
 ./Streams-OSX-build.sh 8192 2 60000
 ~~~~~~
@@ -106,7 +106,7 @@ You may use the Streams Console outside of the docker container.  To open Stream
 
 1.  Open a browser on your machine (Firefox or Chrome)
 1.  Open this URL:  https://127.0.0.1:8443/streams/domain/console
- 
+
 ## Streams Studio
 
 Streams Studio may be accessed via a VNC session.  To use Streams Studio:

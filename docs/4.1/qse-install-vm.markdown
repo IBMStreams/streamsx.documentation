@@ -2,12 +2,12 @@
 layout: docs
 title:  Installing Streams Quick Start Edition VM Image
 description:  Installation Guide for IBM Streams Quick Start Edition VM
-weight:  30
+weight:  20
 ---
 
 # Installing Streams Quick Start Edition (QSE) VM Image
 
-The Streams Quick Start Editor can help you get started with Streams quickly, without having to install a Streams cluster environment. 
+The Streams Quick Start Editor can help you get started with Streams quickly, without having to install a Streams cluster environment.
 
 {% include download.html%}
 <br>
@@ -17,7 +17,7 @@ This guide takes you through the process of installing and starting the QSE VM i
 
 | Components  | Minimum Requirements | Comments |
 | ----------- | -------------------- | -------------|
-| Operating System  | 64-bit operating system that supports VMware  | VMware is supported on the following operating systems: <br>- Apple Mac OS X <br>- Linux <br>- Microsoft Windows 
+| Operating System  | 64-bit operating system that supports VMware  | VMware is supported on the following operating systems: <br>- Apple Mac OS X <br>- Linux <br>- Microsoft Windows
 | Memory	  |8 GB	                 |The amount of memory that is required by IBM Streams is dependent on the applications that are developed and deployed.  This minimum requirement is based on the memory requirements of the Commodity Purchasing sample application and other samples that are provided with the product.     
 | Disk space  | 20 GB |  |
 | VMware product | VMware product that runs on a 64-bit operating system	| To run the Quick Start Edition VMware image, one of the following VMware products must be installed on your system:<br> - For Apple Mac OS X, VMware Fusion 4, or later<br>- For Microsoft Windows or Linux, one of the following products:  VMware Player 5, or later; VMware Workstation 8, or later; VMware Server
@@ -57,7 +57,7 @@ The Quick Start Edition is only available in English.
     1.  Select **I copied it** to indicate that the virtual machine was copied. Red Hat Enterprise Linux splash screen is displayed, and then followed by several screens of status messages.
 
     1.  To continue, accept all of the following license agreements:
-    
+
         * Red Hat Enterprise Linux
         * VMware tools
         * IBM® Streams

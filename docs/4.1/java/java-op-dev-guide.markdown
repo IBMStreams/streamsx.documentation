@@ -2,7 +2,7 @@
 layout: docs
 title:  Java Operator Development Guide
 description:  IBM Streams Java Operator Development Guide
-published: true
+weight: 10
 ---
 #  Introduction
 
