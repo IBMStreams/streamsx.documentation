@@ -202,7 +202,7 @@ Prior to Streams 4.1, the Streams Console dashboard contained a fixed set of wid
 To familiarize yourself with the Streams Console, see this video:
 
 <button class="btn btn-primary btn-md" data-toggle="modal" data-target="#streamsConsole">
-Video:  Streams Console Navigation
+Video:  Streams Console
 </button>
 
 ## Getting Started for the Business User
@@ -294,10 +294,10 @@ The following Streams resources can help you connect with the Streams community 
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-        <h4 class="modal-title" id="streams-console">Streams Console Navigation</h4>
+        <h4 class="modal-title" id="streams-console">Streams Console</h4>
       </div>
       <div class="modal-body">
-		<iframe width="480" height="298" src="https://www.youtube.com/embed/wkt5k9TCaiw" frameborder="0" allowfullscreen></iframe>
+		<video controls width="480" height="298" src="https://developer.ibm.com/streamsdev/wp-content/uploads/sites/15/2015/11/streams.mp4" frameborder="0" allowfullscreen></video>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
