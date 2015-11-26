@@ -140,3 +140,8 @@ input {
   padding: 5px;
   border-radius: 5px;
 }
+
+div.nav.col-sm-2.col-md-2.col-lg-2.sidebar.text-right {
+    padding-right:0px;
+    padding-bottom: 10px;
+}
