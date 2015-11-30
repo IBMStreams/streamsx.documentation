@@ -46,6 +46,7 @@ navbar-default .navbar-collapse,
 
 pre {
 	font-size: small;
+  tab-size: 4;
 }
 
 td, th {
@@ -144,4 +145,19 @@ input {
 div.nav.col-sm-2.col-md-2.col-lg-2.sidebar.text-right {
     padding-right:0px;
     padding-bottom: 10px;
+}
+
+div.sampleNav {
+  text-align: center;
+  padding-bottom: 10px;
+}
+
+a.button {
+  width: 115px;
+  height: 25px;
+  background: #2195E1;
+  padding: 5px;
+  text-align: center;
+  border-radius: 5px;
+  color: white;
 }
