@@ -3,7 +3,7 @@ layout: samples
 title: 905_gate_load_balancer
 ---
 
-## 905_gate_load_balancer
+### 905_gate_load_balancer
 
 <div class="sampleNav"><a class="button" href="../904_primitive_round_robin_split_Main.spl/"> < </a><a class="button" href="../com.ibm.streamsx.dps_DpsTest1.spl/"> > </a>
 </div>

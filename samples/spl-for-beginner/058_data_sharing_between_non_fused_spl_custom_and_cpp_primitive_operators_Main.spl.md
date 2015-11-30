@@ -3,7 +3,7 @@ layout: samples
 title: 058_data_sharing_between_non_fused_spl_custom_and_cpp_primitive_operators
 ---
 
-## 058_data_sharing_between_non_fused_spl_custom_and_cpp_primitive_operators
+### 058_data_sharing_between_non_fused_spl_custom_and_cpp_primitive_operators
 
 <div class="sampleNav"><a class="button" href="../057_reading_nested_tuple_data_via_file_source_Test1.spl/"> < </a><a class="button" href="../059_dynamic_scaleout_of_streams_application_Pricer.spl/"> > </a>
 </div>

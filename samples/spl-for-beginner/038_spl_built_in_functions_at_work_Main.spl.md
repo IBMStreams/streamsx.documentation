@@ -3,7 +3,7 @@ layout: samples
 title: 038_spl_built_in_functions_at_work
 ---
 
-## 038_spl_built_in_functions_at_work
+### 038_spl_built_in_functions_at_work
 
 <div class="sampleNav"><a class="button" href="../037_odbc_adapters_for_solid_db_at_work_Main.spl/"> < </a><a class="button" href="../040_ingest_data_generation_in_spl_Main.spl/"> > </a>
 </div>

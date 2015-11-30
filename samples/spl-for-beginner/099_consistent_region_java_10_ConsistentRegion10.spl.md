@@ -3,7 +3,7 @@ layout: samples
 title: 099_consistent_region_java_10
 ---
 
-## 099_consistent_region_java_10
+### 099_consistent_region_java_10
 
 <div class="sampleNav"><a class="button" href="../098_consistent_region_java_09_ConsistentRegion9.spl/"> < </a><a class="button" href="../103_view_annotation_at_work_ViewAnnotationAtWork.spl/"> > </a>
 </div>

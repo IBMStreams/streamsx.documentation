@@ -3,7 +3,7 @@ layout: samples
 title: 103_view_annotation_at_work
 ---
 
-## 103_view_annotation_at_work
+### 103_view_annotation_at_work
 
 <div class="sampleNav"><a class="button" href="../099_consistent_region_java_10_ConsistentRegion10.spl/"> < </a><a class="button" href="../901_cat_example_NumberedCat.spl/"> > </a>
 </div>

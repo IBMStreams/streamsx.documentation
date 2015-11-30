@@ -3,7 +3,7 @@ layout: samples
 title: 059_dynamic_scaleout_of_streams_application
 ---
 
-## 059_dynamic_scaleout_of_streams_application
+### 059_dynamic_scaleout_of_streams_application
 
 <div class="sampleNav"><a class="button" href="../058_data_sharing_between_non_fused_spl_custom_and_cpp_primitive_operators_Main.spl/"> < </a><a class="button" href="../059_dynamic_scaleout_of_streams_application_DynamicScaleOut.spl/"> > </a>
 </div>

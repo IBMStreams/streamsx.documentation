@@ -3,7 +3,7 @@ layout: samples
 title: 073_java_operator_fusion
 ---
 
-## 073_java_operator_fusion
+### 073_java_operator_fusion
 
 <div class="sampleNav"><a class="button" href="../072_using_streams_rest_apis_UsingStreamsRestApis.spl/"> < </a><a class="button" href="../074_user_defined_parallelism_01_UDP1.spl/"> > </a>
 </div>

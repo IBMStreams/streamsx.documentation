@@ -3,7 +3,7 @@ layout: samples
 title: 064_using_spl_composite_params
 ---
 
-## 064_using_spl_composite_params
+### 064_using_spl_composite_params
 
 <div class="sampleNav"><a class="button" href="../063_on_the_fly_tuple_creation_and_encoding_decoding_in_java_primitive_operators_Main.spl/"> < </a><a class="button" href="../065_using_multiple_threads_in_java_operator_JavaOpSubmitFromMultipleThreads.spl/"> > </a>
 </div>

@@ -3,7 +3,7 @@ layout: samples
 title: 072_using_streams_rest_apis
 ---
 
-## 072_using_streams_rest_apis
+### 072_using_streams_rest_apis
 
 <div class="sampleNav"><a class="button" href="../071_java_native_functions_JavaNativeFunctions.spl/"> < </a><a class="button" href="../073_java_operator_fusion_JavaFusion.spl/"> > </a>
 </div>

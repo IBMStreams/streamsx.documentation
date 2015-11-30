@@ -3,7 +3,7 @@ layout: samples
 title: 068_tuple_introspection_inside_java_operator
 ---
 
-## 068_tuple_introspection_inside_java_operator
+### 068_tuple_introspection_inside_java_operator
 
 <div class="sampleNav"><a class="button" href="../067_simple_java_source_operator_Temp1.spl/"> < </a><a class="button" href="../069_changing_map_value_during_iteration_ChangeCollectionValue.spl/"> > </a>
 </div>

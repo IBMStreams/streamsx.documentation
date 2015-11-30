@@ -3,7 +3,7 @@ layout: samples
 title: 062_data_sharing_between_non_fused_spl_custom_and_java_primitive_operators
 ---
 
-## 062_data_sharing_between_non_fused_spl_custom_and_java_primitive_operators
+### 062_data_sharing_between_non_fused_spl_custom_and_java_primitive_operators
 
 <div class="sampleNav"><a class="button" href="../061_data_sharing_between_non_fused_spl_custom_operators_and_a_native_function_Main.spl/"> < </a><a class="button" href="../063_on_the_fly_tuple_creation_and_encoding_decoding_in_java_primitive_operators_Main.spl/"> > </a>
 </div>

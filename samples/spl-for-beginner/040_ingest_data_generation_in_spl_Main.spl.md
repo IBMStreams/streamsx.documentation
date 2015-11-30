@@ -3,7 +3,7 @@ layout: samples
 title: 040_ingest_data_generation_in_spl
 ---
 
-## 040_ingest_data_generation_in_spl
+### 040_ingest_data_generation_in_spl
 
 <div class="sampleNav"><a class="button" href="../038_spl_built_in_functions_at_work_Main.spl/"> < </a><a class="button" href="../041_real_time_streams_merger_real_time_streams_merger.spl/"> > </a>
 </div>

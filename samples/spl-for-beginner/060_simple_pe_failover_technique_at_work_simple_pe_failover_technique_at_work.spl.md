@@ -3,7 +3,7 @@ layout: samples
 title: 060_simple_pe_failover_technique_at_work
 ---
 
-## 060_simple_pe_failover_technique_at_work
+### 060_simple_pe_failover_technique_at_work
 
 <div class="sampleNav"><a class="button" href="../059_dynamic_scaleout_of_streams_application_DynamicScaleOut.spl/"> < </a><a class="button" href="../061_data_sharing_between_non_fused_spl_custom_operators_and_a_native_function_Main.spl/"> > </a>
 </div>

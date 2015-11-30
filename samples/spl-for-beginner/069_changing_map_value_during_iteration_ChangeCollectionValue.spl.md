@@ -3,7 +3,7 @@ layout: samples
 title: 069_changing_map_value_during_iteration
 ---
 
-## 069_changing_map_value_during_iteration
+### 069_changing_map_value_during_iteration
 
 <div class="sampleNav"><a class="button" href="../068_tuple_introspection_inside_java_operator_Temp2.spl/"> < </a><a class="button" href="../070_convert_block_data_into_tuples_using_parse_ConvertBlockDataWithParse.spl/"> > </a>
 </div>

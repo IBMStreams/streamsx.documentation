@@ -3,7 +3,7 @@ layout: samples
 title: 903_unique
 ---
 
-## 903_unique
+### 903_unique
 
 <div class="sampleNav"><a class="button" href="../902_word_count_WordCount.spl/"> < </a><a class="button" href="../903_unique_Uniq.spl/"> > </a>
 </div>

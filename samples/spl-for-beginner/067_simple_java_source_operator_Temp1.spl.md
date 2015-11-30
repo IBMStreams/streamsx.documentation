@@ -3,7 +3,7 @@ layout: samples
 title: 067_simple_java_source_operator
 ---
 
-## 067_simple_java_source_operator
+### 067_simple_java_source_operator
 
 <div class="sampleNav"><a class="button" href="../066_load_balancing_using_gate_LoadBalancingUsingGate.spl/"> < </a><a class="button" href="../068_tuple_introspection_inside_java_operator_Temp2.spl/"> > </a>
 </div>

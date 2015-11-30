@@ -3,7 +3,7 @@ layout: samples
 title: 025_dynamic_filter_at_work
 ---
 
-## 025_dynamic_filter_at_work
+### 025_dynamic_filter_at_work
 
 <div class="sampleNav"><a class="button" href="../024_threaded_split_at_work_Main.spl/"> < </a><a class="button" href="../026_gate_at_work_Main.spl/"> > </a>
 </div>

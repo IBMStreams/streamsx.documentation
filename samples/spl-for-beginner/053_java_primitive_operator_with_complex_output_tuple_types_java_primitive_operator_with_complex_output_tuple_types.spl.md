@@ -3,7 +3,7 @@ layout: samples
 title: 053_java_primitive_operator_with_complex_output_tuple_types
 ---
 
-## 053_java_primitive_operator_with_complex_output_tuple_types
+### 053_java_primitive_operator_with_complex_output_tuple_types
 
 <div class="sampleNav"><a class="button" href="../052_streams_to_python_streams_to_python.spl/"> < </a><a class="button" href="../054_serialize_deserialize_tuples_serialize_deserialize_tuples.spl/"> > </a>
 </div>

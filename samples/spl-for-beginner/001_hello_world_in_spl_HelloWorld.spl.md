@@ -3,7 +3,7 @@ layout: samples
 title: 001_hello_world_in_spl
 ---
 
-## 001_hello_world_in_spl
+### 001_hello_world_in_spl
 
 <div class="sampleNav"><a class="button" href="../002_source_sink_at_work_source_sink_at_work.spl/"> > </a>
 </div>

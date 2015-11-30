@@ -3,7 +3,7 @@ layout: samples
 title: com.ibm.streamsx.ps
 ---
 
-## com.ibm.streamsx.ps
+### com.ibm.streamsx.ps
 
 <div class="sampleNav"><a class="button" href="../com.ibm.streamsx.dps_DpsTest1.spl/"> < </a></div>
 

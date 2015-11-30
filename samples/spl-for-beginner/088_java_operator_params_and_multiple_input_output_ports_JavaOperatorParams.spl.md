@@ -3,7 +3,7 @@ layout: samples
 title: 088_java_operator_params_and_multiple_input_output_ports
 ---
 
-## 088_java_operator_params_and_multiple_input_output_ports
+### 088_java_operator_params_and_multiple_input_output_ports
 
 <div class="sampleNav"><a class="button" href="../087_email_alerts_via_java_native_function_EmailAlerts.spl/"> < </a><a class="button" href="../089_integrating_streams_apps_with_web_apps_WebCalculator.spl/"> > </a>
 </div>

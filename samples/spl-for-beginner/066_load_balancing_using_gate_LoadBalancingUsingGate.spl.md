@@ -3,7 +3,7 @@ layout: samples
 title: 066_load_balancing_using_gate
 ---
 
-## 066_load_balancing_using_gate
+### 066_load_balancing_using_gate
 
 <div class="sampleNav"><a class="button" href="../065_using_multiple_threads_in_java_operator_JavaOpSubmitFromMultipleThreads.spl/"> < </a><a class="button" href="../067_simple_java_source_operator_Temp1.spl/"> > </a>
 </div>

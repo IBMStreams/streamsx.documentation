@@ -3,7 +3,7 @@ layout: samples
 title: 079_user_defined_parallelism_06
 ---
 
-## 079_user_defined_parallelism_06
+### 079_user_defined_parallelism_06
 
 <div class="sampleNav"><a class="button" href="../078_user_defined_parallelism_05_UDP5.spl/"> < </a><a class="button" href="../080_user_defined_parallelism_07_UDP7.spl/"> > </a>
 </div>

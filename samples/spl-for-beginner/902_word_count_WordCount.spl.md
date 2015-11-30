@@ -3,7 +3,7 @@ layout: samples
 title: 902_word_count
 ---
 
-## 902_word_count
+### 902_word_count
 
 <div class="sampleNav"><a class="button" href="../902_word_count_Helpers.spl/"> < </a><a class="button" href="../903_unique_Main.spl/"> > </a>
 </div>

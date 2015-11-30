@@ -3,7 +3,7 @@ layout: samples
 title: 008_get_submission_time_value
 ---
 
-## 008_get_submission_time_value
+### 008_get_submission_time_value
 
 <div class="sampleNav"><a class="button" href="../007_split_at_work_split_at_work.spl/"> < </a><a class="button" href="../009_custom_operator_using_get_submission_time_value_Main.spl/"> > </a>
 </div>

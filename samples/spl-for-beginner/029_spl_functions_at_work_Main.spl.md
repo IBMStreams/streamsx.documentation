@@ -3,7 +3,7 @@ layout: samples
 title: 029_spl_functions_at_work
 ---
 
-## 029_spl_functions_at_work
+### 029_spl_functions_at_work
 
 <div class="sampleNav"><a class="button" href="../029_spl_functions_at_work_Calculator.spl/"> < </a><a class="button" href="../030_spl_config_at_work_Main.spl/"> > </a>
 </div>

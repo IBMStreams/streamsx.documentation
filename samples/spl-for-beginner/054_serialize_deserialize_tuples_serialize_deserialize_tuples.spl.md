@@ -3,7 +3,7 @@ layout: samples
 title: 054_serialize_deserialize_tuples
 ---
 
-## 054_serialize_deserialize_tuples
+### 054_serialize_deserialize_tuples
 
 <div class="sampleNav"><a class="button" href="../053_java_primitive_operator_with_complex_output_tuple_types_java_primitive_operator_with_complex_output_tuple_types.spl/"> < </a><a class="button" href="../055_json_to_tuple_to_json_using_c++_json_to_tuple_to_json_using_cpp.spl/"> > </a>
 </div>

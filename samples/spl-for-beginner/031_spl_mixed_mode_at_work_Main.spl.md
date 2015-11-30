@@ -3,7 +3,7 @@ layout: samples
 title: 031_spl_mixed_mode_at_work
 ---
 
-## 031_spl_mixed_mode_at_work
+### 031_spl_mixed_mode_at_work
 
 <div class="sampleNav"><a class="button" href="../030_spl_config_at_work_Main.spl/"> < </a><a class="button" href="../032_native_function_at_work_Main.spl/"> > </a>
 </div>

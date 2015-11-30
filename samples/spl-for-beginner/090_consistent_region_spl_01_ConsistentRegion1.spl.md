@@ -3,7 +3,7 @@ layout: samples
 title: 090_consistent_region_spl_01
 ---
 
-## 090_consistent_region_spl_01
+### 090_consistent_region_spl_01
 
 <div class="sampleNav"><a class="button" href="../089_integrating_streams_apps_with_web_apps_WebCalculator.spl/"> < </a><a class="button" href="../091_consistent_region_spl_02_ConsistentRegion2.spl/"> > </a>
 </div>

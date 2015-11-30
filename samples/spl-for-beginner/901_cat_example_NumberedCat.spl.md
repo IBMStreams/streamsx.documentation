@@ -3,7 +3,7 @@ layout: samples
 title: 901_cat_example
 ---
 
-## 901_cat_example
+### 901_cat_example
 
 <div class="sampleNav"><a class="button" href="../103_view_annotation_at_work_ViewAnnotationAtWork.spl/"> < </a><a class="button" href="../902_word_count_Helpers.spl/"> > </a>
 </div>

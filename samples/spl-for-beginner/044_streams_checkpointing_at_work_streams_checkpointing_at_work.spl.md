@@ -3,7 +3,7 @@ layout: samples
 title: 044_streams_checkpointing_at_work
 ---
 
-## 044_streams_checkpointing_at_work
+### 044_streams_checkpointing_at_work
 
 <div class="sampleNav"><a class="button" href="../043_import_export_filter_at_work_import_with_filter.spl/"> < </a><a class="button" href="../045_file_source_using_spl_custom_operator_file_source_using_spl_custom_operator.spl/"> > </a>
 </div>

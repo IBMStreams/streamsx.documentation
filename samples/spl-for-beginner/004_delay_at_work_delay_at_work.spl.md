@@ -3,7 +3,7 @@ layout: samples
 title: 004_delay_at_work
 ---
 
-## 004_delay_at_work
+### 004_delay_at_work
 
 <div class="sampleNav"><a class="button" href="../003_sink_at_work_sink_at_work.spl/"> < </a><a class="button" href="../005_throttle_at_work_throttle_at_work.spl/"> > </a>
 </div>

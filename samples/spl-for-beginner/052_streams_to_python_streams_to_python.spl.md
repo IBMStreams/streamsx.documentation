@@ -3,7 +3,7 @@ layout: samples
 title: 052_streams_to_python
 ---
 
-## 052_streams_to_python
+### 052_streams_to_python
 
 <div class="sampleNav"><a class="button" href="../051_native_functions_with_collection_types_native_functions_with_collection_types.spl/"> < </a><a class="button" href="../053_java_primitive_operator_with_complex_output_tuple_types_java_primitive_operator_with_complex_output_tuple_types.spl/"> > </a>
 </div>

@@ -3,7 +3,7 @@ layout: samples
 title: 071_java_native_functions
 ---
 
-## 071_java_native_functions
+### 071_java_native_functions
 
 <div class="sampleNav"><a class="button" href="../070_convert_block_data_into_tuples_using_parse_ConvertBlockDataWithParse.spl/"> < </a><a class="button" href="../072_using_streams_rest_apis_UsingStreamsRestApis.spl/"> > </a>
 </div>

@@ -3,7 +3,7 @@ layout: samples
 title: 009_custom_operator_using_get_submission_time_value
 ---
 
-## 009_custom_operator_using_get_submission_time_value
+### 009_custom_operator_using_get_submission_time_value
 
 <div class="sampleNav"><a class="button" href="../008_get_submission_time_value_Main.spl/"> < </a><a class="button" href="../010_get_compile_time_value_Main.spl/"> > </a>
 </div>

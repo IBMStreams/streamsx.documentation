@@ -3,7 +3,7 @@ layout: samples
 title: 065_using_multiple_threads_in_java_operator
 ---
 
-## 065_using_multiple_threads_in_java_operator
+### 065_using_multiple_threads_in_java_operator
 
 <div class="sampleNav"><a class="button" href="../064_using_spl_composite_params_CompositeParams.spl/"> < </a><a class="button" href="../066_load_balancing_using_gate_LoadBalancingUsingGate.spl/"> > </a>
 </div>

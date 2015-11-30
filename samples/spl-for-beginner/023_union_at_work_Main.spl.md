@@ -3,7 +3,7 @@ layout: samples
 title: 023_union_at_work
 ---
 
-## 023_union_at_work
+### 023_union_at_work
 
 <div class="sampleNav"><a class="button" href="../022_deduplicate_at_work_Main.spl/"> < </a><a class="button" href="../024_threaded_split_at_work_Main.spl/"> > </a>
 </div>

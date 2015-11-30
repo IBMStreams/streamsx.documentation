@@ -3,7 +3,7 @@ layout: samples
 title: 059_dynamic_scaleout_of_streams_application
 ---
 
-## 059_dynamic_scaleout_of_streams_application
+### 059_dynamic_scaleout_of_streams_application
 
 <div class="sampleNav"><a class="button" href="../059_dynamic_scaleout_of_streams_application_Pricer.spl/"> < </a><a class="button" href="../060_simple_pe_failover_technique_at_work_simple_pe_failover_technique_at_work.spl/"> > </a>
 </div>

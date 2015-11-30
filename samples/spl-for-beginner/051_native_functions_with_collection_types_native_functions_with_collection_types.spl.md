@@ -3,7 +3,7 @@ layout: samples
 title: 051_native_functions_with_collection_types
 ---
 
-## 051_native_functions_with_collection_types
+### 051_native_functions_with_collection_types
 
 <div class="sampleNav"><a class="button" href="../050_recursive_dir_scan_recursive_dir_scan.spl/"> < </a><a class="button" href="../052_streams_to_python_streams_to_python.spl/"> > </a>
 </div>

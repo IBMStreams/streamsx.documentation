@@ -3,7 +3,7 @@ layout: samples
 title: 007_split_at_work
 ---
 
-## 007_split_at_work
+### 007_split_at_work
 
 <div class="sampleNav"><a class="button" href="../006_barrier_at_work_barrier_at_work.spl/"> < </a><a class="button" href="../008_get_submission_time_value_Main.spl/"> > </a>
 </div>

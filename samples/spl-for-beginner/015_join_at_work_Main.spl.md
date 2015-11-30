@@ -3,7 +3,7 @@ layout: samples
 title: 015_join_at_work
 ---
 
-## 015_join_at_work
+### 015_join_at_work
 
 <div class="sampleNav"><a class="button" href="../014_sort_at_work_Main.spl/"> < </a><a class="button" href="../016_aggregate_at_work_Main.spl/"> > </a>
 </div>

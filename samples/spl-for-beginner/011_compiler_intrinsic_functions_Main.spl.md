@@ -3,7 +3,7 @@ layout: samples
 title: 011_compiler_intrinsic_functions
 ---
 
-## 011_compiler_intrinsic_functions
+### 011_compiler_intrinsic_functions
 
 <div class="sampleNav"><a class="button" href="../010_get_compile_time_value_Main.spl/"> < </a><a class="button" href="../012_filter_functor_at_work_Main.spl/"> > </a>
 </div>

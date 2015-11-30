@@ -3,7 +3,7 @@ layout: samples
 title: 010_get_compile_time_value
 ---
 
-## 010_get_compile_time_value
+### 010_get_compile_time_value
 
 <div class="sampleNav"><a class="button" href="../009_custom_operator_using_get_submission_time_value_Main.spl/"> < </a><a class="button" href="../011_compiler_intrinsic_functions_Main.spl/"> > </a>
 </div>

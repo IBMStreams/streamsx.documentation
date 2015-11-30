@@ -3,7 +3,7 @@ layout: samples
 title: 903_unique
 ---
 
-## 903_unique
+### 903_unique
 
 <div class="sampleNav"><a class="button" href="../903_unique_Main.spl/"> < </a><a class="button" href="../904_primitive_round_robin_split_Main.spl/"> > </a>
 </div>

@@ -3,7 +3,7 @@ layout: samples
 title: 036_shared_lib_primitive_operator_at_work
 ---
 
-## 036_shared_lib_primitive_operator_at_work
+### 036_shared_lib_primitive_operator_at_work
 
 <div class="sampleNav"><a class="button" href="../035_c++_primitive_operator_at_work_Main.spl/"> < </a><a class="button" href="../037_odbc_adapters_for_solid_db_at_work_Main.spl/"> > </a>
 </div>

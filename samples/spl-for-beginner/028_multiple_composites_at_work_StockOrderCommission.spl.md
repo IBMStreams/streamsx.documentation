@@ -3,7 +3,7 @@ layout: samples
 title: 028_multiple_composites_at_work
 ---
 
-## 028_multiple_composites_at_work
+### 028_multiple_composites_at_work
 
 <div class="sampleNav"><a class="button" href="../028_multiple_composites_at_work_StockMatch.spl/"> < </a><a class="button" href="../029_spl_functions_at_work_Calculator.spl/"> > </a>
 </div>

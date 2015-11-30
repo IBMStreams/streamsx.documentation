@@ -3,7 +3,7 @@ layout: samples
 title: 095_consistent_region_spl_06
 ---
 
-## 095_consistent_region_spl_06
+### 095_consistent_region_spl_06
 
 <div class="sampleNav"><a class="button" href="../095_consistent_region_spl_06_ConsistentRegion6.spl/"> < </a><a class="button" href="../096_consistent_region_cpp_07_ConsistentRegion7.spl/"> > </a>
 </div>

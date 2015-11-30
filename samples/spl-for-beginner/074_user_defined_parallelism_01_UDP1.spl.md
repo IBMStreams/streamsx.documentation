@@ -3,7 +3,7 @@ layout: samples
 title: 074_user_defined_parallelism_01
 ---
 
-## 074_user_defined_parallelism_01
+### 074_user_defined_parallelism_01
 
 <div class="sampleNav"><a class="button" href="../073_java_operator_fusion_JavaFusion.spl/"> < </a><a class="button" href="../075_user_defined_parallelism_02_UDP2.spl/"> > </a>
 </div>

@@ -3,7 +3,7 @@ layout: samples
 title: 061_data_sharing_between_non_fused_spl_custom_operators_and_a_native_function
 ---
 
-## 061_data_sharing_between_non_fused_spl_custom_operators_and_a_native_function
+### 061_data_sharing_between_non_fused_spl_custom_operators_and_a_native_function
 
 <div class="sampleNav"><a class="button" href="../060_simple_pe_failover_technique_at_work_simple_pe_failover_technique_at_work.spl/"> < </a><a class="button" href="../062_data_sharing_between_non_fused_spl_custom_and_java_primitive_operators_Main.spl/"> > </a>
 </div>

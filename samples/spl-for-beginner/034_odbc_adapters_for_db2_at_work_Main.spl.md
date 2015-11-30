@@ -3,7 +3,7 @@ layout: samples
 title: 034_odbc_adapters_for_db2_at_work
 ---
 
-## 034_odbc_adapters_for_db2_at_work
+### 034_odbc_adapters_for_db2_at_work
 
 <div class="sampleNav"><a class="button" href="../033_java_primitive_operator_at_work_Main.spl/"> < </a><a class="button" href="../035_c++_primitive_operator_at_work_Main.spl/"> > </a>
 </div>

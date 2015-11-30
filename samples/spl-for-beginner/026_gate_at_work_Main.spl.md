@@ -3,7 +3,7 @@ layout: samples
 title: 026_gate_at_work
 ---
 
-## 026_gate_at_work
+### 026_gate_at_work
 
 <div class="sampleNav"><a class="button" href="../025_dynamic_filter_at_work_Main.spl/"> < </a><a class="button" href="../027_java_op_at_work_Main.spl/"> > </a>
 </div>

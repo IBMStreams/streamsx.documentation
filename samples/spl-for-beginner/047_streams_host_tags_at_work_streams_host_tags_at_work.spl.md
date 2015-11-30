@@ -3,7 +3,7 @@ layout: samples
 title: 047_streams_host_tags_at_work
 ---
 
-## 047_streams_host_tags_at_work
+### 047_streams_host_tags_at_work
 
 <div class="sampleNav"><a class="button" href="../046_launching_external_apps_in_spl_launching_external_apps.spl/"> < </a><a class="button" href="../048_source_operator_with_control_port_source_operator_with_control_port.spl/"> > </a>
 </div>

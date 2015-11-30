@@ -41,7 +41,7 @@ def splToMd(splFile, mdFile, title, prev, next):
         f.write("layout: samples\n")
         f.write("title: " + title + "\n")
         f.write("---\n\n")
-        f.write("## " + title + "\n\n")
+        f.write("### " + title + "\n\n")
 
         writeButtons(f, prev, next)
 

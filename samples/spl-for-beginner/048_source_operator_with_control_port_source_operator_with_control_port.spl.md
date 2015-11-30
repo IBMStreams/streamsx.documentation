@@ -3,7 +3,7 @@ layout: samples
 title: 048_source_operator_with_control_port
 ---
 
-## 048_source_operator_with_control_port
+### 048_source_operator_with_control_port
 
 <div class="sampleNav"><a class="button" href="../047_streams_host_tags_at_work_streams_host_tags_at_work.spl/"> < </a><a class="button" href="../049_json_to_tuple_to_json_using_java_Main.spl/"> > </a>
 </div>

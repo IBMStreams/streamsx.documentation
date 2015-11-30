@@ -3,7 +3,7 @@ layout: samples
 title: 024_threaded_split_at_work
 ---
 
-## 024_threaded_split_at_work
+### 024_threaded_split_at_work
 
 <div class="sampleNav"><a class="button" href="../023_union_at_work_Main.spl/"> < </a><a class="button" href="../025_dynamic_filter_at_work_Main.spl/"> > </a>
 </div>

@@ -3,7 +3,7 @@ layout: samples
 title: 086_jms_source_sink_using_activemq
 ---
 
-## 086_jms_source_sink_using_activemq
+### 086_jms_source_sink_using_activemq
 
 <div class="sampleNav"><a class="button" href="../085_user_defined_parallelism_12_UDP12.spl/"> < </a><a class="button" href="../087_email_alerts_via_java_native_function_EmailAlerts.spl/"> > </a>
 </div>

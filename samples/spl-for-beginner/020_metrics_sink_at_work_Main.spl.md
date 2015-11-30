@@ -3,7 +3,7 @@ layout: samples
 title: 020_metrics_sink_at_work
 ---
 
-## 020_metrics_sink_at_work
+### 020_metrics_sink_at_work
 
 <div class="sampleNav"><a class="button" href="../019_import_export_at_work_Main.spl/"> < </a><a class="button" href="../021_pair_at_work_Main.spl/"> > </a>
 </div>

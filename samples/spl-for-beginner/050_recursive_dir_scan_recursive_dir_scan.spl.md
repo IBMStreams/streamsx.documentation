@@ -3,7 +3,7 @@ layout: samples
 title: 050_recursive_dir_scan
 ---
 
-## 050_recursive_dir_scan
+### 050_recursive_dir_scan
 
 <div class="sampleNav"><a class="button" href="../049_json_to_tuple_to_json_using_java_Main.spl/"> < </a><a class="button" href="../051_native_functions_with_collection_types_native_functions_with_collection_types.spl/"> > </a>
 </div>

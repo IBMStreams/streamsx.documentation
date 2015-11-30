@@ -3,7 +3,7 @@ layout: samples
 title: 087_email_alerts_via_java_native_function
 ---
 
-## 087_email_alerts_via_java_native_function
+### 087_email_alerts_via_java_native_function
 
 <div class="sampleNav"><a class="button" href="../086_jms_source_sink_using_activemq_JMSSourceSink.spl/"> < </a><a class="button" href="../088_java_operator_params_and_multiple_input_output_ports_JavaOperatorParams.spl/"> > </a>
 </div>

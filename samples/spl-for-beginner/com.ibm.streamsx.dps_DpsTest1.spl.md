@@ -3,7 +3,7 @@ layout: samples
 title: com.ibm.streamsx.dps
 ---
 
-## com.ibm.streamsx.dps
+### com.ibm.streamsx.dps
 
 <div class="sampleNav"><a class="button" href="../905_gate_load_balancer_Main.spl/"> < </a><a class="button" href="../com.ibm.streamsx.ps_PsTest1.spl/"> > </a>
 </div>

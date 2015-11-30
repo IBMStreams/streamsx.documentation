@@ -3,7 +3,7 @@ layout: samples
 title: 016_aggregate_at_work
 ---
 
-## 016_aggregate_at_work
+### 016_aggregate_at_work
 
 <div class="sampleNav"><a class="button" href="../015_join_at_work_Main.spl/"> < </a><a class="button" href="../017_filesource_filesink_at_work_Main.spl/"> > </a>
 </div>

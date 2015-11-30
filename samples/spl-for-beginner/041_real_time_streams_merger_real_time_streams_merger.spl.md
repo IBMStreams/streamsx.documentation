@@ -3,7 +3,7 @@ layout: samples
 title: 041_real_time_streams_merger
 ---
 
-## 041_real_time_streams_merger
+### 041_real_time_streams_merger
 
 <div class="sampleNav"><a class="button" href="../040_ingest_data_generation_in_spl_Main.spl/"> < </a><a class="button" href="../042_dynamic_import_export_api_at_work_dynamic_export.spl/"> > </a>
 </div>
