@@ -18,7 +18,7 @@ The primary goals of the Java Application API are to enable the developer to:
 
 Each of these points is covered in further detail in the tutorials on this site and in the example here where we create an application that processes temperature readings from a device.
 
-The Java Application API is fully compatible with IBM Streams version 4.0.0 and later. The API is open source and is available for download from our [streamsx.topology project on GitHub](https://github.com/IBMStreams/streamsx.topology).
+The Java Application API is fully compatible with IBM Streams version 4.0.0 and later. The API is open source and is available for download from our [streamsx.topology project on GitHub](http://ibmstreams.github.io/streamsx.topology/).
 
 ## Setting up environment
 
