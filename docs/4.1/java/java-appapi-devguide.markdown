@@ -37,22 +37,6 @@ If you are **not** using the IBM Streams Quick Start Edition and already have an
 ## Getting the Java Application API from GitHub
 Although the QuickStart VM comes with a version of the Java Application API out of the box, you might want to obtain the most recent version from GitHub. To do so, simply navigate to the [releases section](https://github.com/Ibmstreams/streamsx.topology/releases) of the GitHub site, download the latest version, and extract it to your file system.
 
-Alternatively, if you want the cutting edge of the API, clone the main repository directly:
-
-~~~~~~
-git clone git@github.com:IBMStreams/streamsx.topology.git
-~~~~~~
-
-After cloning the repository, you must build the project to produce the *com.ibm.streamsx.topology.jar* file. Fortunately, the project provides an Ant script to take care of this automatically. The script has three requirements:
-
-* Ant version later than 1.9.1
-* [Optional] For tests, the JUnit JAR files must be stored in `~/.ant/lib`
-* [Optional] For tests, the Jacoco code coverage JAR files must be stored in `~/.ant/lib`
-
-To build the project, navigate to the project root and simply type ```ant```. The `com.ibm.streamsx.topology.jar`file is produced in the `<project_root>/com.ibm.streamsx.topology/lib directory`.
-
-To run the suite of unit tests, type ```ant test```.
-
 ## Setting up with Eclipse/Streams Studio
 If you've followed the previous instructions and are ready to start writing code in Eclipse or StreamsStudio, take the following steps.
 
