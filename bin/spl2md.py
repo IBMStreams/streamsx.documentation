@@ -8,8 +8,7 @@ def generateIndex( indexFile,  title,  url):
         os.makedirs(os.path.dirname(indexFile))
 
     with open(indexFile, "a+") as f:
-        title = textwrap.wrap(title, 28)
-        f.write("<li><a href=\"" + url + "\">" + title[0] + "</a></li>\n")
+        f.write("<li><a href=\"" + url + "\">" + title + "</a></li>\n")
 
 def nextUrl(url):
     return "<a class=\"button\" href=\"" + url + "\">"  + " > </a>"
@@ -58,6 +57,7 @@ outPath = "/Users/chanskw/git/streamsx.documentation/samples/spl-for-beginner"
 spl = ".spl"
 md = ".md"
 index = os.path.join("/Users/chanskw/git/streamsx.documentation/_includes" + "/sampleIndex.html")
+htmlPrefix = "/streamsx.documentation/samples/spl-for-beginner/"
 
 if (os.path.exists(index)):
     os.remove(index)
@@ -66,13 +66,21 @@ indexList = []
 
 for root, subdirs, files in os.walk(path):
     for oneFile in files:
+
+        # for each file in the directories
         absPath = os.path.join(root, oneFile)
         relOutPath = os.path.relpath(absPath, path)
 
         splitted = relOutPath.split("/")
+
+        # Find the sample name, sample name is the toolkit name of the sample
         sampleName = splitted[0]
 
-        absOutPath = os.path.join(outPath, sampleName + md)
+        # Generate name of md file.  This file needs to be unique by namespace and composite name
+        mdName = relOutPath.replace("/", "_")
+        mdName = mdName.replace(".", "_")
+
+        absOutPath = os.path.join(outPath, mdName + md)
 
         outPathLen = len(absOutPath)
         end = outPathLen-len(spl) + 1
@@ -80,8 +88,11 @@ for root, subdirs, files in os.walk(path):
         absOutPath = absOutPath + md
 
         if absPath.endswith(spl):
-            htmlPath = "../" + sampleName + "_" + oneFile + "/"
-            generateIndex(index, sampleName, htmlPath)
+            # HTML path must take md name
+            htmlPath = htmlPrefix + mdName + "/"
+            displayTitle = sampleName
+            # Generate sampleIndex.html
+            generateIndex(index, displayTitle, htmlPath)
             indexList.append(htmlPath)
 
 i = 0
@@ -90,21 +101,28 @@ print max
 
 for root, subdirs, files in os.walk(path):
     for oneFile in files:
+
+        # for each file in the directories
         absPath = os.path.join(root, oneFile)
         relOutPath = os.path.relpath(absPath, path)
 
         splitted = relOutPath.split("/")
+
+        # Find the sample name, sample name is the toolkit name of the sample
         sampleName = splitted[0]
 
-        absOutPath = os.path.join(outPath, sampleName + "_" + oneFile + md)
+        # Generate name of md file.  This file needs to be unique by namespace and composite name
+        mdName = relOutPath.replace("/", "_")
+        mdName = mdName.replace(".", "_")
+
+        absOutPath = os.path.join(outPath, mdName + md)
 
         outPathLen = len(absOutPath)
         end = outPathLen-len(spl) + 1
         absOutPath = absOutPath[0:end]
         absOutPath = absOutPath + md
 
-        if absPath.endswith(spl):
-
+        if oneFile.endswith(spl):
             print i
 
             if i > 0:
@@ -117,6 +135,7 @@ for root, subdirs, files in os.walk(path):
             else:
                 next=""
 
+            # Generate the actual md file
             splToMd(absPath, absOutPath, sampleName, prev, next)
 
             i=i+1
