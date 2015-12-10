@@ -5,7 +5,11 @@ description:  Learn how to get started witH IBM Streams Quick Start Edition
 weight:  10
 ---
 
-# Getting Started with IBM Streams 4.1 Quick Start Edition
+# Getting Started with IBM Streams 4.1 Quick Start Edition (QSE)
+
+If you haven't downloaded the Streams QSE, you may download it here:
+
+{% include download.html%}
 
 ## Streams Overview
 
@@ -57,12 +61,12 @@ public static void main(String[] args) throws Exception {
          * &quot;Hello&quot; and &quot;World!&quot;.
          */
         TStream&lt;String&gt; hw = topology.strings(&quot;Hello&quot;, &quot;World!&quot;);
-        
+
         /*
          * Sink hw by printing each of its tuples to System.out.
          */
         hw.print();
-        
+
         /*
          * At this point the topology is declared with a single
          * stream that is printed to System.out.
@@ -73,7 +77,7 @@ public static void main(String[] args) throws Exception {
          * If no argument is provided then the topology is executed
          * within this JVM (StreamsContext.Type.EMBEDDED).
          * Otherwise the first and only argument is taken as the
-         * String representation of the 
+         * String representation of the
          */
         if (args.length == 0)
             StreamsContextFactory.getEmbedded().submit(topology).get();
@@ -108,9 +112,10 @@ object HelloWorldScala {
   </div>
 </div>
 
-To get started, follow this development guide:
+To get started, follow these development guides:
 
-* [Develop Streams Applications in Java or Scala](http://ibmstreams.github.io/streamsx.topology/)
+* [Develop Streams Applications in Java](../java/java-appapi-devguide)
+* [Develop Streams Applications in Scala](https://github.com/IBMStreams/streamsx.topology/wiki/Scala-Support)
 
 
 ### Streams Processing Language (SPL)
@@ -120,7 +125,7 @@ The Streams Processing Language is designed from the ground up for writing strea
 * [Streams Quick Start Guide](https://developer.ibm.com/streamsdev/?p=5686)
 * [Streams Hands-on Lab](https://developer.ibm.com/streamsdev/docs/introductory-lab-for-streams-4-0-1/)
 * [SPL Examples for Beginners](https://developer.ibm.com/streamsdev/docs/spl-examples-beginners/)
-    
+
 Streams is shipped with comprehensive development tooling.
 
 <img src="/streamsx.documentation/images/qse/streamsStudio.jpg" alt="Streams Studio" style="width: 60%;"/>
@@ -138,8 +143,7 @@ Video:  Streams Studio in Action!
 
 If you have existing Java code, you may easily reuse your code by writing a Java operator or native Java functions.
 
-* [Roadmap for Java Developers](https://developer.ibm.com/streamsdev/docs/roadmap-for-java-developer/)
-
+* [Java Operator Development Guide](../java/java-op-dev-guide/)
 
 ### SparkMLLib in Streams
 
@@ -147,8 +151,8 @@ If you have existing Java code, you may easily reuse your code by writing a Java
 
 To get started, follow this development guide:
 
-* [SparkMLLib Getting Started Guide](http://ibmstreams.github.io/streamsx.sparkMLLib/gettingstarted.html)
-    
+* [SparkMLLib Getting Started Guide](https://developer.ibm.com/streamsdev/docs/getting-started-with-the-spark-mllib-toolkit/)
+
 ## Getting Started for the Data Engineer
 
 As a Data Engineer, you are responsible for:
@@ -170,7 +174,7 @@ Streams is shipped with many toolkits out of the box to enable integration with 
 <div class="alert alert-success" role="alert"><b>New in Streams 4.1!</b>  Integration with the IBM InfoSphere Data Governance Catalog eanbles you to manage and govern your data.</div>
 
 With this support, developers can easily discover the data and schema that are available for use.  By building data lineage with your Streams application, you can quickly see and control how data is consumed.
-To get started, refer to  [Streams Governance Quickstart Guide](governance-quickstart)
+To get started, refer to  [Streams Governance Quickstart Guide](../governance/governance-quickstart/)
 
 ### Cybersecurity Toolkit
 
@@ -186,7 +190,7 @@ To learn about Streams can integrate with SPSS:  [Streams and SPSS Lab](https://
 
 ### Streams Domain Management and Administration
 
-Streams Console is the web-based administration console for monitoring and managing your Streams domain. 
+Streams Console is the web-based administration console for monitoring and managing your Streams domain.
 
 <div class="alert alert-success" role="alert">
 <b>New in Streams 4.1! </b>Customizable Dashboard in Streams Console.</div>
@@ -198,7 +202,7 @@ Prior to Streams 4.1, the Streams Console dashboard contained a fixed set of wid
 To familiarize yourself with the Streams Console, see this video:
 
 <button class="btn btn-primary btn-md" data-toggle="modal" data-target="#streamsConsole">
-Video:  Streams Console Navigation
+Video:  Streams Console
 </button>
 
 ## Getting Started for the Business User
@@ -230,7 +234,7 @@ The following Streams resources can help you connect with the Streams community 
 * **[Streams Forum](https://www.ibmdw.net/answers/questions/?community=streamsdev&sort=newest&refine=none)** - This forum enables you to ask, and get answers to your questions, related to IBM Streams. If you have questions, start here.
 * **[IBMStreams on Github](http://ibmstreams.github.io)** - Streams is shipped with many useful toolkits out of the box.  IBMStreams on Github  contains many open-source toolkits.  For a list of available toolkits available on Github, see this web page:  [IBMStreams Github Toolkits](https://developer.ibm.com/streamsdev/docs/github-projects-overview/).
 * **[IBM Streams Support](http://www.ibm.com/support/entry/portal/Overview/Software/Information_Management/InfoSphere_Streams)** - This website provides information about IBM Streams downloads, technical support tools, documentation, and other resources.
-* **[IBM Streams Product Site](http://www.ibm.com/software/data/infosphere/streams)** - This website provides a broad range of information and resources about Streams and related topics.
+* **[IBM Streams Product Site](http://www.ibm.com/analytics/us/en/technology/stream-computing/)** - This website provides a broad range of information and resources about Streams and related topics.
 
 
 <!-- Modal -->
@@ -290,10 +294,10 @@ The following Streams resources can help you connect with the Streams community 
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-        <h4 class="modal-title" id="streams-console">Streams Console Navigation</h4>
+        <h4 class="modal-title" id="streams-console">Streams Console</h4>
       </div>
       <div class="modal-body">
-		<iframe width="480" height="298" src="https://www.youtube.com/embed/wkt5k9TCaiw" frameborder="0" allowfullscreen></iframe>
+		<video controls width="480" height="298" src="https://developer.ibm.com/streamsdev/wp-content/uploads/sites/15/2015/11/streams.mp4" frameborder="0" allowfullscreen></video>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>

@@ -5,7 +5,7 @@ body {
 navbar-default .navbar-collapse,
 .navbar-default .navbar-form {
   border-color: #1995dc;
-} 
+}
 
 .navbar {
   background-image: -webkit-linear-gradient(#54b4eb, #2fa4e7 60%, #1d9ce5);
@@ -19,7 +19,7 @@ navbar-default .navbar-collapse,
           filter: none;
   -webkit-box-shadow: 0 1px 10px rgba(0, 0, 0, 0.1);
   box-shadow: 0 1px 10px rgba(0, 0, 0, 0.1);
-} 
+}
 
 .navbar-default .navbar-nav > li > a {
   color: #ffffff;
@@ -46,6 +46,7 @@ navbar-default .navbar-collapse,
 
 pre {
 	font-size: small;
+  tab-size: 4;
 }
 
 td, th {
@@ -74,7 +75,7 @@ color:#333;
 .terminal {
 	border:2px solid;
 	background-color: #333;
-	color : #fff;	
+	color : #fff;
 	padding : 10px;
 	font-size: 14px;
 	font-family: monospace;
@@ -110,4 +111,53 @@ div.tab-content {
     border-width: 2.0px;
     border-style: solid;
     border-color: aliceblue;
+}
+
+form.nav.navbar-nav.navbar-right {
+  padding-top:10px;
+}
+
+button,
+html input[type="button"],
+input[type="reset"],
+input[type="submit"] {
+  -webkit-appearance: button;
+  cursor: pointer;
+  border-color: whitesmoke;
+  background-color: #2195E1;
+  color: white;
+}
+
+.btn-primary {
+  -webkit-appearance: button;
+  cursor: pointer;
+  border-color: whitesmoke;
+  background-color: #2195E1;
+  color: white;
+}
+
+input {
+  border: solid 1px whitesmoke;
+  padding: 5px;
+  border-radius: 5px;
+}
+
+div.nav.col-sm-2.col-md-2.col-lg-2.sidebar.text-right {
+    padding-right:0px;
+    padding-bottom: 10px;
+}
+
+div.sampleNav {
+  text-align: center;
+  padding-bottom: 10px;
+}
+
+a.button {
+  width: 115px;
+  height: 25px;
+  background: #2195E1;
+  padding: 5px;
+  text-align: center;
+  border-radius: 5px;
+  color: white;
 }

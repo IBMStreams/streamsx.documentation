@@ -2,7 +2,7 @@
 layout: docs
 title:  Cybersecurity Toolkit
 description:  Introduction to IBM Streams Cybersecurity Toolkit
-weight: 80
+weight: 70
 ---
 
 # Cybersecurity Toolkit

@@ -2,7 +2,7 @@
 layout: docs
 title:  IBM Streams Java Support
 description: IBM Streams Java Support
-weight: 80
+weight: 50
 ---
 
 # IBM Streams Java Support

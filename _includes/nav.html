@@ -6,19 +6,21 @@
         </li>
     {% endif %}
 
-    {% assign entries = site.pages | sort: "weight" %}
-    {% for entry in entries %}
+    {% assign pages = site.pages | sort: "weight" %}
+    {% for currentPage in pages %}
 
-        {% capture slug    %}{{ entry.url | split: "/"   | last                       }}{% endcapture %}
-        {% capture current %}{{ entry.url | remove: slug | remove: "//" | append: "/" }}{% endcapture %}
+        {% capture slug    %}{{ currentPage.url | split: "/"   | last                       }}{% endcapture %}
+        {% capture current %}{{ currentPage.url | remove: slug | remove: "//" | append: "/" }}{% endcapture %}
 
         {% if current == include.context %}
+          {% unless currentPage.url contains 'drafts'%}
             <li>
-                <a href="{{ site.baseurl }}{{ entry.url }}">{{ entry.title }}</a>
-                {% include nav.html context=entry.url %}
+                <a href="{{ site.baseurl }}{{ currentPage.url }}">{{ currentPage.title }}</a>
+                {% include nav.html context=currentPage.url %}
             </li>
+          {% endunless %}
         {% endif %}
 
     {% endfor %}
 </ul>
-{% endcapture %}{{ html | strip_newlines | replace:'    ','' | replace:'    ','' | replace:'  ',' ' }}
+{% endcapture %}{{ html | strip_newlines}}
