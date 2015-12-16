@@ -426,7 +426,7 @@ The example in the video above uses a JAR with a simple function that reverses a
 Parameters allow your Java primitive operator to be more generic and enables the end-user to configure and control the behavior of the operator.
 
 <div class="modal-body">
-	<video controls width="60%" src="https://developer.ibm.com/streamsdev/wp-content/uploads/sites/15/2015/11/AddParameter2.mp4"></video>
+	<iframe width="560" height="315" src="https://www.youtube.com/embed/RkOkiDJYe8o?rel=0" frameborder="0" allowfullscreen></iframe>
 </div>
 
 The example in the video above shows how to generalize the StringToCaps operator so that it reverses (or doesn't reverse) the incoming string based on a reverseString boolean parameter in the SPL operator code.
