@@ -39,7 +39,7 @@ The Streams Quick Start Editor can help you get started with Streams quickly, wi
 1.  Open Windows PowerShell
     * Application Menu-> All Programs -> Accessories -> Windows Powershell -> Windows PowerShell
     * `cd <Directory where Streams4Docker downloaded>/Docker`
-    * `powershell -ExecutionPolicy ByPass -File Streams-build.ps1`
+    * `powershell -ExecutionPolicy ByPass -File Streams-windows-build.ps1`
 
 Note: default build is 4096 MB Memory; 4 CPUs; 50000 Bytes disk.
 
