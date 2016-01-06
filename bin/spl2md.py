@@ -82,10 +82,7 @@ for root, subdirs, files in os.walk(path):
 
         absOutPath = os.path.join(outPath, mdName + md)
 
-        outPathLen = len(absOutPath)
-        end = outPathLen-len(spl) + 1
-        absOutPath = absOutPath[0:end]
-        absOutPath = absOutPath + md
+        print absOutPath
 
         if absPath.endswith(spl):
             # HTML path must take md name
@@ -116,11 +113,6 @@ for root, subdirs, files in os.walk(path):
         mdName = mdName.replace(".", "_")
 
         absOutPath = os.path.join(outPath, mdName + md)
-
-        outPathLen = len(absOutPath)
-        end = outPathLen-len(spl) + 1
-        absOutPath = absOutPath[0:end]
-        absOutPath = absOutPath + md
 
         if oneFile.endswith(spl):
             print i
