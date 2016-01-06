@@ -44,7 +44,7 @@ Here is a brief explanation of the required methods:
 ##**Creating Your First Java Operator**
 
 <div class="modal-body">
-	<video controls width="60%" src="https://developer.ibm.com/streamsdev/wp-content/uploads/sites/15/2015/11/JavaOpIn1Min5.mp4"></video>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/3B_IO3U2xVY" frameborder="0" allowfullscreen></iframe>
 </div>
 
 In our first Java primitive operator, we will create an operator that converts a string from the incoming tuple to all upper case.  This example is really simple, but it demonstrates some basic concepts about Java primitive operator.  
@@ -176,7 +176,7 @@ Note:  If you use Streams Studio to create a new SPL project, Streams Studio wil
 ##Running and Testing Your Operator
 
 <div class="modal-body">
-	<video controls width="60%" src="https://developer.ibm.com/streamsdev/wp-content/uploads/sites/15/2015/11/TestJavaOp2Min3.mp4"></video>
+	<iframe width="560" height="315" src="https://www.youtube.com/embed/CZNXqQCBASU" frameborder="0" allowfullscreen></iframe>
 </div>
 
 ### SPL Toolkit Dependency
@@ -289,7 +289,7 @@ You may also compile and run the application in distributed mode as shown in the
 ## Referencing External Libraries
 
 <div class="modal-body">
-	<video controls width="60%" src="https://developer.ibm.com/streamsdev/wp-content/uploads/sites/15/2015/11/AddingJar2.mp4"></video>
+	<iframe width="560" height="315" src="https://www.youtube.com/embed/H9ZB1bNs7AI" frameborder="0" allowfullscreen></iframe>
 </div>
 
 Your Java operators can take advantage of all JARs and existing Java code you already have. This makes connecting to any servers, databases, etc that have Java clients easy, and it makes converting your Java code to Streams simple.
@@ -426,10 +426,10 @@ The example in the video above uses a JAR with a simple function that reverses a
 Parameters allow your Java primitive operator to be more generic and enables the end-user to configure and control the behavior of the operator.
 
 <div class="modal-body">
-	<video controls width="60%" src="https://developer.ibm.com/streamsdev/wp-content/uploads/sites/15/2015/11/AddParameter2.mp4"></video>
+	<iframe width="560" height="315" src="https://www.youtube.com/embed/RkOkiDJYe8o?rel=0" frameborder="0" allowfullscreen></iframe>
 </div>
 
-The example in the video above shows how to generalize the StringToCaps operator so that it reverses (or doesnt reverse) the incoming string based on a reverseString boolean parameter in the SPL operator code.
+The example in the video above shows how to generalize the StringToCaps operator so that it reverses (or doesn't reverse) the incoming string based on a reverseString boolean parameter in the SPL operator code.
 
 Below are the general steps to create a parameter for Java primitive operator:
 
@@ -525,7 +525,7 @@ For more information about metrics, refer to the [Metrics Javadoc](http://www-01
 This section will show you how to add your a custom metric to your Java operator.
 
 <div class="modal-body">
-	<video controls width="60%" src="https://developer.ibm.com/streamsdev/wp-content/uploads/sites/15/2015/11/AddingMetrics2.mp4"></video>
+	<iframe width="560" height="315" src="https://www.youtube.com/embed/hLjuJqNJ86Q" frameborder="0" allowfullscreen></iframe>
 </div>
 
 ###Custom Metric Example
