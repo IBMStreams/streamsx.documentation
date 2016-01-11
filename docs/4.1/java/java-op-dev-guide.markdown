@@ -322,11 +322,11 @@ To set up the classpath for the Java primitive operator, use the **@Libraries** 
 Options for specifying classpaths using the @Libraries annotation:
 
 * Specific JARs: `@Libraries("opt/Reverse.jar")`
-* Entire directories using wildcard: `@Libraries("opt/*")`
-* Environment variables: `@Libraries("@REVERSE_HOME@")` where the environment variable would be REVERSE_HOME.
+* Entire directories using wildcard (this adds all files with extension .jar or .JAR): `@Libraries("opt/*")`
+* Environment variables: `@Libraries("@REVERSE_HOME@")` where the environment variable would be REVERSE_HOME. **WARNING:** The environment variable is resolved at compile-time, resulting in an application bundle that is not relocatable. 
 
 To specify multiple locations for JARs, simply comma separate your locations:  
-	`@Libraries("opt/Reverse.jar" , "opt/downloaded/*", "@REVERSE_HOME@")`
+	`@Libraries({"opt/Reverse.jar" , "opt/downloaded/*", "@REVERSE_HOME@"})`
 
 ### Sample Application
 
