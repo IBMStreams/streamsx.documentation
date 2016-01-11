@@ -39,20 +39,21 @@ The Streams Quick Start Editor can help you get started with Streams quickly, wi
 1.  Open Windows PowerShell
     * Application Menu-> All Programs -> Accessories -> Windows Powershell -> Windows PowerShell
     * `cd <Directory where Streams4Docker downloaded>/Docker`
-    * `powershell -ExecutionPolicy ByPass -File Streams-build.ps1`
+    * `powershell -ExecutionPolicy ByPass -File Streams-windows-build.ps1`
 
 Note: default build is 4096 MB Memory; 4 CPUs; 50000 Bytes disk.
 
 To change defaults, for example to 8192 MB Memory; 2 CPUs; 60000 Bytes of disk run
 
 ~~~~~~
-powershell -ExecutionPolicy ByPass -File Streams-build.ps1 8192 2 60000
+powershell -ExecutionPolicy ByPass -File Streams-windows-build.ps1 8192 2 60000
 ~~~~~~
 
 <div class="alert alert-warning" role="alert">
 Building and running of the Docker container will take about 20 minutes.
 You may be prompted for Administration Authentication several times.
 When completed the Powershell terminal will be sitting at the root prompt inside the Docker container.
+It is recommended that you leave the terminal open.
 </div>
 
 ## Mac OSx
@@ -76,7 +77,7 @@ To change defaults, for example to 8192 MB Memory; 2 CPUs; 60000 Bytes of disk r
 ~~~~~~
 
 <div class="alert alert-warning" role="alert">
-Build and Run of Docker Container will take about 20 minutes. When completed the terminal will be sitting at the root prompt inside the Docker container.
+Build and Run of Docker Container will take about 20 minutes. When completed the terminal will be sitting at the root prompt inside the Docker container.  It is recommended that you leave the terminal open.
 </div>
 
 ## Accessing the IBM Streams Docker container
@@ -87,7 +88,7 @@ The Streams Docker container is set up with the following user id and password:
 * Password:  passw0rd
 * Root:  passw0rd
 
-After the containers finish the stratup process, you should be able to access the container via:
+After the containers finish the startup process, you should be able to access the container via:
 
 * Remote Desktop Support from OSx:
     1. Open Finder Window
@@ -125,6 +126,48 @@ When connecting Streams Studio to the docker container:
 * When making a connection, check the "Establish SSH Tunnel' check box
 * Keep everything else as defaults.
 
+## Attaching to a Running Docker Container
+
+In case you have closed the powershell, you may need to attach to the running docker container again.  Please note that attaching to the container will cause the domain and instances to be restarted.
+
+Follow these commands to attach to a container:
+
+For Windows:
+
+1.  `docker-machine env streams4100 --shell powershell |Invoke-Expression`
+2.  `docker attach streams4100`
+
+For Mac OSx:
+
+1.  `eval "$(/usr/local/bin/docker-machine env streams4100)"`
+2.  `docker attach streams4100`
+
+## Restarting Docker Image
+
+To restart the docker image, follow these commands:
+
+For Windows:
+
+1.  `docker-machne stop streams4100`
+1.  `docker-machine start streams4100`
+1.  `docker-machine env streams4100 --shell powershell |Invoke-Expression`
+1.  `docker restart streams4100`
+
+For Mac OSx:
+
+1.  `docker-machne stop streams4100`
+1.  `docker-machine start streams4100`
+1.  `eval "$(/usr/local/bin/docker-machine env streams4100)"`
+1.  `docker restart streams4100`
+
+Note:  After the restart, you may need to wait for about 30 seconds before attempting to VNC into the docker image.  You may also need to manually force the Streams domain and instances to be restarted to assure all services come up properly.
+
+To restart the domain:
+
+1.  open the streamsadmin terminal
+1.  `streamstool stopdomain -d streamsdomain --force`
+1.  `streamstool startdomain -d streamsdomain`
+
 # Useful Docker Commands
 ~~~~~~
   docker images    (list local images)
@@ -133,16 +176,21 @@ When connecting Streams Studio to the docker container:
   docker rm <container name/ID>  (delete a container)
   docker rmi <image name/ID>     (delte an image)
   docker restart <container name/ID>  (restart an existing stopped container - same ports and volumes will be used as when the container was created.)
+  docker attach <container name/ID> (attach to a running container)
 ~~~~~~
 
 # Useful Docker Machine Commands
 
 ~~~~~~
   docker-machine ls    (list machines and state)
-  docker-machine start <VM>  (start a VM
+  docker-machine start <VM>  (start a VM)
   docker-machine stop <VM>   (stop VM)
   docker-machine rm <VM>     (delete the VM, use '--force' at end of command to force delete)
-  docker-machine env streams4100 --shell powershell |Invoke-Expression    (set the enviroment vars for docker to access for VM 'streams4100')
+
+  To set environment variables for docker to access for VM 'streams4100':
+  On Window:  docker-machine env streams4100 --shell powershell |Invoke-Expression
+  On Mac OSx: eval "$(/usr/local/bin/docker-machine env streams4100)"
+
 ~~~~~~
 
 ## What to do next
