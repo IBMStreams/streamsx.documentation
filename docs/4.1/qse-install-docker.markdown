@@ -148,14 +148,14 @@ To restart the docker image, follow these commands:
 
 For Windows:
 
-1.  `docker-machne stop streams4100`
+1.  `docker-machine stop streams4100`
 1.  `docker-machine start streams4100`
 1.  `docker-machine env streams4100 --shell powershell |Invoke-Expression`
 1.  `docker restart streams4100`
 
 For Mac OSx:
 
-1.  `docker-machne stop streams4100`
+1.  `docker-machine stop streams4100`
 1.  `docker-machine start streams4100`
 1.  `eval "$(/usr/local/bin/docker-machine env streams4100)"`
 1.  `docker restart streams4100`
