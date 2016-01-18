@@ -115,6 +115,7 @@ MyJavaOp/impl/java/bin/
 	<li>Index the toolkit from the SPL toolkit directory. This will generate the operator model and build the toolkit directory structure.  </li>
 	<pre><code>spl-make-toolkit -i ./</code></pre>
 </ol>  
+<div class="alert alert-info" role="alert"><b>Best Practice: </b>In our example, we used com.ibm.streams.operator.jar to demonstrate key concepts with Java primitive operator.  As a best practice, you should include the com.ibm.streams.operator.samples.jar in the classpath.  This jar provides common patterns, like source and sink operators, that you can extend when implementing your Java primitive operator.   For more details, refer to <a href="https://www-01.ibm.com/support/knowledgecenter/#!/SSCRJU_4.1.0/com.ibm.streams.spl-java-operators.doc/samples/overview-summary.html">Java Primitive Operator Sample Javadoc</a></div>
   </div>
   <div id="studio-0" class="tab-pane fade">
   <br>
@@ -124,9 +125,9 @@ MyJavaOp/impl/java/bin/
 	<li>	File -> New -> Project</li>   
 	<li>Expand InfoSphere Streams Studio</li>
 	<li>Select SPL Project</li>
-	<li>Name your project (MyJavaOp in this case)</li>
+	<li>Name your project (MyJavaOp in this case) and then click Finish</li>
 	<li>In the generated project, right-click and select New -> Java Primitive Operator</li>
-	<li>Name your Java operator and the namespace (StringToCaps and stringToCaps respectively)</li>
+	<li>Set the namespace to stringToCaps and the Name to be StringToCaps</li>
 	<li>Click Finish</li>
 	<li>In the generated template, StringToCaps.java, modify the process operator to look like the example above.</li>
 	<li>Save your changes and Studio will automatically build your operator model and create the toolkit directory structure.</li>
@@ -136,8 +137,6 @@ MyJavaOp/impl/java/bin/
 <br>
 
 When the Java compiler is run, by having the com.ibm.streams.operator.jar file in the class path, the Java compiler invokes the Streams annotation processor to process the annotations on the Java primitive operator class.  The Streams annotation processor generates an `operatorName$StreamsModel.class' which contains all the information required to run the Java operator from SPL.  Using this information, the annotation processor then generates the operator model for the Java primitive operator.  
-
-<div class="alert alert-info" role="alert"><b>Best Practice: </b>In our example, we used com.ibm.streams.operator.jar to demonstrate key concepts with Java primitive operator.  As a best practice, you should include the com.ibm.streams.operator.samples.jar in the classpath.  This jar provides common patterns, like source and sink operators, that you can extend when implementing your Java primitive operator.   For more details, refer to <a href="https://www-01.ibm.com/support/knowledgecenter/#!/SSCRJU_4.1.0/com.ibm.streams.spl-java-operators.doc/samples/overview-summary.html">Java Primitive Operator Sample Javadoc</a></div>
 
 When `spl-make-toolkit` is run, the toolkit indexer scans the toolkit for operator model.  It includes operators defined in the operator model into the toolkit index.  This step is required to make the Java primitive operator accessible from SPL.
 
@@ -309,7 +308,7 @@ When the Java primitive operator is executed, the operator code must be able to 
 
 	{% include bestpractices.html text= "External JARS should be stored in the <code>toolkit_root/opt</code> directory.  The opt directory is packaged into the application bundle by default."%}
 
-	For more information about applicaiton bundles, refer to this documentation:  [Application bundle files](http://www-01.ibm.com/support/knowledgecenter/?lang=en#!/SSCRJU_4.1.0/com.ibm.streams.dev.doc/doc/applicationbundle.html).
+	For more information about application bundles, refer to this documentation: <a target="_blank" href="http://www-01.ibm.com/support/knowledgecenter/?lang=en#!/SSCRJU_4.1.0/com.ibm.streams.dev.doc/doc/applicationbundle.html">Application bundle files</a>. 
 
 2.  Using Environment Variables
 
@@ -323,7 +322,8 @@ Options for specifying classpaths using the @Libraries annotation:
 
 * Specific JARs: `@Libraries("opt/Reverse.jar")`
 * Entire directories using wildcard (this adds all files with extension .jar or .JAR): `@Libraries("opt/*")`
-* Environment variables: `@Libraries("@REVERSE_HOME@")` where the environment variable would be REVERSE_HOME. **WARNING:** The environment variable is resolved at compile-time, resulting in an application bundle that is not relocatable. 
+* Environment variables: `@Libraries("@REVERSE_HOME@")`where the environment variable would be REVERSE_HOME. 
+<br>**WARNING:** The environment variable is resolved at compile-time, resulting in an application bundle that is not relocatable. 
 
 To specify multiple locations for JARs, simply comma separate your locations:  
 	`@Libraries({"opt/Reverse.jar" , "opt/downloaded/*", "@REVERSE_HOME@"})`
@@ -433,7 +433,7 @@ The example in the video above shows how to generalize the StringToCaps operator
 
 Below are the general steps to create a parameter for Java primitive operator:
 
-1.  Determine how the parameter will control the behavior of the Java primitive operator.  A parameter may toggle some behavior on and off.  It can be a String that allows the end user to specify the location of some configuration file.  It can refer to an attribute that the operator should act on when a tuple is received.  To learn more about the different kinds of parameters and the supported SPL types, refer to this documentation:  [Parameter Annotation Javadoc](http://www-01.ibm.com/support/knowledgecenter/#!/SSCRJU_4.1.0/com.ibm.streams.spl-java-operators.doc/api/com/ibm/streams/operator/model/Parameter.html)
+1.  Determine how the parameter will control the behavior of the Java primitive operator.  A parameter may toggle some behavior on and off.  It can be a String that allows the end user to specify the location of some configuration file.  It can refer to an attribute that the operator should act on when a tuple is received.  To learn more about the different kinds of parameters and the supported SPL types, refer to this documentation: <a href="http://www-01.ibm.com/support/knowledgecenter/#!/SSCRJU_4.1.0/com.ibm.streams.spl-java-operators.doc/api/com/ibm/streams/operator/model/Parameter.html" target="_blank">Parameter Annotation Javadoc</a>
 1. Based on the SPL type that the user needs to specify in the SPL code, define a matching private member in the Java class to store the parameter value.
 1. Create a setter method for setting the newly define private field.  
 1. Annotate the setter method with the @Parameter annotation.  You may configure the parameter name, description, and cardinality, etc using this annotation.  The annotated setter method will be recognized by the Streams runtime as the method for initializing the parameter value.  The setter method will be called **before** the `initialize` method is called.
@@ -518,9 +518,9 @@ There are three kinds of metrics:
 * **Gauge** indicates a value that is continuously variable with time.
 * **Time** indicates a metric that represents a point in time.
 
-Live feed of the system metrics and operator custom metrics can be viewed in Streams Studio and the Streams Console.  You may retrieve the latest metrics using the Streams REST APIs.  This allows you to monitor your Streams domain, and your applications using your favorite monitoring tools.  Refer to this documentation about the [Metrics REST APIs](http://www-01.ibm.com/support/knowledgecenter/#!/SSCRJU_4.1.0/com.ibm.streams.restapi.doc/doc/restapis-metrics.html).
+Live feed of the system metrics and operator custom metrics can be viewed in Streams Studio and the Streams Console.  You may retrieve the latest metrics using the Streams REST APIs.  This allows you to monitor your Streams domain, and your applications using your favorite monitoring tools.  Refer to this documentation about the <a target="_blank" href="http://www-01.ibm.com/support/knowledgecenter/#!/SSCRJU_4.1.0/com.ibm.streams.restapi.doc/doc/restapis-metrics.html">Metrics REST APIs</a>.
 
-For more information about metrics, refer to the [Metrics Javadoc](http://www-01.ibm.com/support/knowledgecenter/#!/SSCRJU_4.1.0/com.ibm.streams.spl-java-operators.doc/api/com/ibm/streams/operator/metrics/Metric.html).
+For more information about metrics, refer to the <a target="_blank" href="http://www-01.ibm.com/support/knowledgecenter/#!/SSCRJU_4.1.0/com.ibm.streams.spl-java-operators.doc/api/com/ibm/streams/operator/metrics/Metric.html">Metrics Javadoc</a>.
 
 This section will show you how to add your a custom metric to your Java operator.
 
@@ -841,10 +841,10 @@ Key things to note from this example:
 	* Disconnect from the server
 	* Always call super.shutdown() in the shutdown method
 
-This covers the basics of creating a source operator.  Streams Java Operator APIs come with many useful patterns and samples.  You may extend from these patterns when implementing the source operator.  To have access to these patterns, include the com.ibm.streams.operator.sample.jar in your classpath.  For more information about these samples and patterns, refer to this documentation.  <a target="_blank" href="http://www-01.ibm.com/support/knowledgecenter/#!/SSCRJU_4.1.0/com.ibm.streams.spl-java-operators.doc/samples/overview-summary.html">Java Operator Samples</a>
+This covers the basics of creating a source operator.  Streams Java Operator APIs come with many useful patterns and samples.  You may extend from these patterns when implementing the source operator.  To have access to these patterns, include the com.ibm.streams.operator.sample.jar in your classpath.  For more information about these samples and patterns, refer to this documentation:  <a target="_blank" href="http://www-01.ibm.com/support/knowledgecenter/#!/SSCRJU_4.1.0/com.ibm.streams.spl-java-operators.doc/samples/overview-summary.html">Java Operator Samples</a>
 
 ## Next steps
 
-This covers the basics of writing a Java primitive operator.  To learn more about the details, refer to the [knowledge center](http://www-01.ibm.com/support/knowledgecenter/#!/SSCRJU_4.1.0/com.ibm.streams.spl-java-operators.doc/api/overview-summary.html).
+This covers the basics of writing a Java primitive operator.  To learn more about the details, refer to the <a target="_blank" href="http://www-01.ibm.com/support/knowledgecenter/#!/SSCRJU_4.1.0/com.ibm.streams.spl-java-operators.doc/api/overview-summary.html">knowledge center</a>.
 
 We will continue to improve this development guide.  If you have any feedback, please click on the **Feedback** button at the top and let us know what you think!
