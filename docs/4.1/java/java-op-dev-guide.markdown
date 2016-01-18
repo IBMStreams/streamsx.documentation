@@ -530,7 +530,7 @@ This section will show you how to add your a custom metric to your Java operator
 
 ###Custom Metric Example
 
-Below are steps to add a custom operator metric.  In this example, we will try to create a metric that counts the number of characters the Java primitive oeprator `StringToCaps` has processed.
+Below are steps to add a custom operator metric.  In this example, we will try to create a metric that counts the number of characters the Java primitive operator `StringToCaps` has processed.
 
 1.	Import the Metric library, com.ibm.streams.operator.Metrics:
 
@@ -547,13 +547,14 @@ Below are steps to add a custom operator metric.  In this example, we will try t
 1.	Create a setter method for the Metric field.  Add the @CustomMetric annotation to the setter method.
 
 	~~~~~~
-	@CustomMetric(name = "numCharacters", kind = Metric.Kind.COUNTER)
+	@CustomMetric(name = "numCharacters", kind = Metric.Kind.COUNTER,
+		description = "Count of the number of characters processed."))
 	public void setNumCharacters(Metric runtimeMetric){
 		numCharacters = runtimeMetric;
 	}
 	~~~~~~
 
-	The `@CustomMetric` annotation let you define the name and desription of the metric.  In addition, you can specify the metric kind:  COUNTER, GUAGE OR TIME.  Optionally, specify if the metric should be registerred with the platform's MBean server, using the `mxbean` property.  The default value is false.  
+	The `@CustomMetric` annotation let you define the name and description of the metric.  In addition, you can specify the metric kind:  COUNTER, GUAGE OR TIME.  Optionally, specify if the metric should be registered with the platform's MBean server, using the `mxbean` property.  The default value is false.  
 
 	The setter method is called before initialization similar to the way @Parameter sets are done.
 
