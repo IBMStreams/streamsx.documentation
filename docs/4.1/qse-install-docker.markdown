@@ -174,7 +174,7 @@ To restart the domain:
   docker ps        (list running containers)
   docker ps -a     (list all containers)
   docker rm <container name/ID>  (delete a container)
-  docker rmi <image name/ID>     (delte an image)
+  docker rmi <image name/ID>     (delete an image)
   docker restart <container name/ID>  (restart an existing stopped container - same ports and volumes will be used as when the container was created.)
   docker attach <container name/ID> (attach to a running container)
 ~~~~~~
