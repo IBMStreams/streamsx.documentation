@@ -109,9 +109,9 @@ Key points to note from this example:
 MyJavaOp/impl/java/src/stringToCaps
 MyJavaOp/impl/java/bin/
 </code></pre>
-	<li>Place your StringToUpper.java operator class in <pre>MyJavaOp/impl/java/src/stringToCaps</pre></li>
-	<li>Compile the Java operator class from the SPL toolkit directory using:</li>
-	<pre><code>javac -cp $Streams_Install/lib/com.ibm.streams.operator.jar impl/java/src/stringToCaps/StringToCaps.java -d impl/java/bin/</code></pre>
+	<li>Place your StringToCaps.java operator class in <pre>MyJavaOp/impl/java/src/stringToCaps</pre></li>
+	<li>Compile the Java operator class from the SPL toolkit directory (MyJavaOp) using:</li>
+	<pre><code>javac -cp $STREAMS_INSTALL/lib/com.ibm.streams.operator.jar impl/java/src/stringToCaps/StringToCaps.java -d impl/java/bin/</code></pre>
 	<li>Index the toolkit from the SPL toolkit directory. This will generate the operator model and build the toolkit directory structure.  </li>
 	<pre><code>spl-make-toolkit -i ./</code></pre>
 </ol>  
@@ -142,7 +142,7 @@ When `spl-make-toolkit` is run, the toolkit indexer scans the toolkit for operat
 
 <div class="alert alert-danger" role="alert"><b>IMPORTANT: </b>Do not modify the generated operator model.  Any changes made to the model will be overwritten when the toolkit is built.  To modify the operator model, use annotations.</div>
 
-In both the CLI and the Streams Studio cases, the toolkit structure will now look approximately like this:
+In both the CLI and the Streams Studio cases, the standard toolkit structure will lookds approximately like this:
 
 ~~~~~~
 /+ <toolkit>
@@ -158,6 +158,26 @@ In both the CLI and the Streams Studio cases, the toolkit structure will now loo
           /+ bin
       /+ lib
       /+ src             
+~~~~~~
+
+If you followed the CLI instructions, this should be your directory structure:
+
+~~~~~~
+/+ MyJavaOp
+   /* toolkit.xml
+   /+ stringToCaps
+      /+ StringToCaps
+      	/* StringToCaps.xml
+   /+ impl
+      /+ java
+          /+ src
+          	/+ stringToCaps
+          		/+ StringToCaps.java
+          /+ bin
+          	/+ stringToCaps
+          		/* StringToCaps.class   
+          		/* StringToCaps$StreamsModel.java 
+          		/* StringToCaps$StreamsModel.class          
 ~~~~~~
 
 * **[toolkit]** - root directory of the toolkit.  Typically the name of the root directory matches the name of the toolkit in info.xml.
