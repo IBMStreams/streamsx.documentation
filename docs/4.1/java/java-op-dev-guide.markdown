@@ -202,11 +202,51 @@ Note:  If you use Streams Studio to create a new SPL project, Streams Studio wil
 
 The best way to start testing your Java operator is to create a simple SPL application. Typically, you want this test application in a separate SPL toolkit, such that the test code is independent from the Java primitive operator.  We will create a new toolkit called `TestJavaOp`.
 
-For your test application to be able to access the Java primitive operator, the `TestJavaOp` toolkit must specify the toolkit that contains the Java primitive operator as part of its toolkit dependency.
+For your test application to be able to access the Java primitive operator, the `TestJavaOp` toolkit must specify the toolkit that contains the Java primitive operator as part of its toolkit dependency using an info.xml file.
 
-At the root of the `TestJavaOp` toolkit, create a file named `info.xml`.  In the info.xml, specify toolkit dependency:
 
-~~~~~~
+
+<ul class="nav nav-tabs">
+  <li class="active"><a data-toggle="tab" href="#command-01">Build with Command-line</a></li>
+  <li><a data-toggle="tab" href="#studio-01">Build with Streams Studio</a></li>
+</ul>
+
+
+
+<div class="tab-content">
+  <div id="command-01" class="tab-pane fade in active">
+  <br>
+  At the root of the `TestJavaOp` toolkit, create a file named `info.xml`. In the info.xml, specify toolkit dependency as shown in the file below.
+  	<ol>
+	    <li>We specify `MyJavaOp` toolkit as a dependency for `TestJavaOp`</li>
+	    <li>We specify that `TestJavaOp` depends on version `1.0.0` to `2.0.0` (exclusive) of the `TestJavaOp` toolkit.</li>
+    </ol>
+  </div>
+  <div id="studio-01" class="tab-pane fade">
+  <br>
+   There are two ways to do this in Studio. You can specify the dependency on MyJavaOp during the creation of a new SPL Application Project (as shown in the video above). If the application is already created, you can edit the dependencies. 
+    <br><br>
+        <ol>  
+            <li>Add dependency during project creation:</li>
+                <ol>  
+                    <li>File -> New -> Project. Select SPL Application Project and click Next.</li>
+                    <li>Type in your Project, Namespace, and Main composite names. Click Next.</li>
+                    <li>In the Dependencies section, expand Workspace Projects and select MyJavaOp. In cases where you are using an external toolkit, they will show up in this box for selection as well. Click Finish.</li>
+                </ol>
+            <li>Add dependency to an existing project by editing dependencies.</li>
+                <ol>  
+                    <li>Expand the SPL Application Project that you want to add a dependency to.</li>
+                    <li>Right-click on Dependencies and select Edit Dependencies...</li>
+                    <li>Click Add... and select the toolkit dependency you want to add. Note: If you don't see the toolkit that you want to add a dependency on, then you probably haven't added the toolkit location to your workspace. Read how to do that <a href="http://www-01.ibm.com/support/knowledgecenter/SSCRJU_4.1.0/com.ibm.streams.studio.doc/doc/tusing-working-with-toolkits-adding-toolkit-locations.html" target="_blank">here</a>.</li>      
+                </ol>
+        </ol>
+  </div>
+</div>
+<br>
+
+The resulting info.xml file should look like this: 
+
+~~~
 <?xml version="1.0" encoding="UTF-8"?>
 <info:toolkitInfoModel xmlns:common="http://www.ibm.com/xmlns/prod/streams/spl/common" xmlns:info="http://www.ibm.com/xmlns/prod/streams/spl/toolkitInfo">
   <info:identity>
@@ -222,10 +262,8 @@ At the root of the `TestJavaOp` toolkit, create a file named `info.xml`.  In the
     </info:toolkit>
   </info:dependencies>
 </info:toolkitInfoModel>
-~~~~~~
+~~~
 
-* We specify `MyJavaOp` toolkit as a dependency for `TestJavaOp`
-* We specify that `TestJavaOp` depends on version `1.0.0` to `2.0.0` (exclusive) of the `TestJavaOp` toolkit.
 
 {% include bestpractices.html text= "info.xml is an optional file for a SPL toolkit.  However, it is a best practice to always create this file.  It helps the SPL compiler builds dependency trees among other things.  This file is also used by Streams Studio to help scope content assist suggestions."%}
 
@@ -453,11 +491,13 @@ The example in the video above shows how to generalize the StringToCaps operator
 
 Below are the general steps to create a parameter for Java primitive operator:
 
-1.  Determine how the parameter will control the behavior of the Java primitive operator.  A parameter may toggle some behavior on and off.  It can be a String that allows the end user to specify the location of some configuration file.  It can refer to an attribute that the operator should act on when a tuple is received.  To learn more about the different kinds of parameters and the supported SPL types, refer to this documentation: <a href="http://www-01.ibm.com/support/knowledgecenter/#!/SSCRJU_4.1.0/com.ibm.streams.spl-java-operators.doc/api/com/ibm/streams/operator/model/Parameter.html" target="_blank">Parameter Annotation Javadoc</a>
-1. Based on the SPL type that the user needs to specify in the SPL code, define a matching private member in the Java class to store the parameter value.
+1. Create a private member variable for the parameter for your operator class.  
 1. Create a setter method for setting the newly define private field.  
-1. Annotate the setter method with the @Parameter annotation.  You may configure the parameter name, description, and cardinality, etc using this annotation.  The annotated setter method will be recognized by the Streams runtime as the method for initializing the parameter value.  The setter method will be called **before** the `initialize` method is called.
-1. Modify your operator logic to honor the parameter value.
+1. Annotate the setter method with the @Parameter annotation.  You may configure the parameter name, description, and cardinality, etc using this annotation.  The annotated setter method will be recognized by the Streams runtime as the method for initializing the parameter value.  The setter method will be called **before** the `initialize` method is called. 
+**Note:** The default name for a parameter is the portion of the setter method name after "set". For example, setReverseString defaults to an SPL parameter name of reverseString if the name property is not specified. 
+1. Modify your operator logic/code to honor the parameter value.
+
+To learn more about the different kinds of parameters and the supported SPL types, refer to this documentation: <a href="http://www-01.ibm.com/support/knowledgecenter/#!/SSCRJU_4.1.0/com.ibm.streams.spl-java-operators.doc/api/com/ibm/streams/operator/model/Parameter.html" target="_blank">Parameter Annotation Javadoc</a>
 
 ### Example Parameter
 
@@ -522,6 +562,45 @@ In our example, we will introduce a boolean parameter named `reverseString` to c
 <!--
 Here are some more parameter examples:
 `tabs with different parameter examples` -->
+
+### More Parameter Examples
+
+**String parameter** - SPL parameter **queueName** of type ustring (rstring also works). 
+
+<pre style="font-family: Andale Mono, Lucida Console, Monaco, fixed, monospace; color: #000000; background-color: #eee;font-size: 12px;border: 1px dashed #999999;line-height: 14px;padding: 5px; overflow: auto; width: 100%"><code>    private String queueName = &quot;&quot;;
+    ...
+    ...
+    ...
+    @Parameter(optional = true, description = &quot;Name of the queue. If not specified, a name will be randomly generated name.&quot;)
+    public void setQueueName(String value) {
+        queueName = value;
+    }
+</code></pre>
+
+**int parameter** - SPL parameter **messageSendRetryDelay** of type int32. 
+
+<pre style="font-family: Andale Mono, Lucida Console, Monaco, fixed, monospace; color: #000000; background-color: #eee;font-size: 12px;border: 1px dashed #999999;line-height: 14px;padding: 5px; overflow: auto; width: 100%"><code>    int messageSendRetryDelay = 10000;
+    ...
+    ...
+    ...
+    @Parameter(optional = true, description = &quot;This optional parameter specifies the time in milliseconds before the retrying delivery.&quot;)
+    public void setMessageSendRetryDelay(int value) {
+        messageSendRetryDelay = value; 
+    }
+</code></pre>
+
+**List\<String\> parameter** - SPL parameter **routingKey** of type list\<ustring\>. 
+
+<pre style="font-family: Andale Mono, Lucida Console, Monaco, fixed, monospace; color: #000000; background-color: #eee;font-size: 12px;border: 1px dashed #999999;line-height: 14px;padding: 5px; overflow: auto; width: 100%"><code>    private List&lt;String&gt; routingKeys = new ArrayList&lt;String&gt;();
+    ...
+    ...
+    ...
+    @Parameter(optional = true, description = &quot;Routing key/keys to bind the queue to.&quot;)
+    public void setRoutingKey(List&lt;String&gt; values) {
+        if(values!=null)
+            routingKeys.addAll(values);
+    }
+</code></pre>
 
 ##Defining Custom Metrics
 
