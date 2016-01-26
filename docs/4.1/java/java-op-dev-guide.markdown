@@ -71,7 +71,10 @@ public class StringToCaps extends AbstractOperator {
         // Create a new tuple for output port 0
         StreamingOutput&lt;OutputTuple&gt; outStream = getOutput(0);
         OutputTuple outTuple = outStream.newTuple();
-
+        
+		// Copy incoming attributes to output tuple if they're in the output schema
+        outTuple.assign(tuple);
+        
         // Get attribute from input tuple and manipulate
         String myString = tuple.getString(&quot;myString&quot;);
         myString = myString.toUpperCase();
@@ -84,7 +87,7 @@ public class StringToCaps extends AbstractOperator {
 </code></pre>
  </div>
   <div id="fullSource-0" class="tab-pane fade">
-  <pre style="font-family: Andale Mono, Lucida Console, Monaco, fixed, monospace; color: #000000; background-color: #eee;font-size: 12px;border: 1px dashed #999999;line-height: 14px;padding: 5px; overflow: auto; width: 100%"><code>package stringToCaps;
+  <pre><code>package stringToCaps;
 
 import com.ibm.streams.operator.AbstractOperator;
 import com.ibm.streams.operator.OutputTuple;
@@ -108,7 +111,10 @@ public class StringToCaps extends AbstractOperator {
         // Create a new tuple for output port 0
         StreamingOutput&lt;OutputTuple&gt; outStream = getOutput(0);
         OutputTuple outTuple = outStream.newTuple();
-
+        
+		// Copy incoming attributes to output tuple if they're in the output schema
+        outTuple.assign(tuple);
+        
         // Get attribute from input tuple and manipulate
         String myString = tuple.getString(&quot;myString&quot;);
         myString = myString.toUpperCase();
@@ -138,7 +144,8 @@ Key points to note from this example:
 * **@OutputPorts** - Defines one or more @OutputPortSets that describe the ports for outgoing tuples.   
     * **@OutputPortSet** - Contains the property definitions for one or more ports. The available properties are description, cardinality, optional, windowingMode, and windowPunctuationOutputMode. Only the last `@OutputPortSet` within an `@OutputPorts` definition can have a cardinality of -1 (define multiple input ports).   
 
-* **process(StreamingInput&lt;Tuple&gt; inputStream, Tuple tuple)** - This is the main method that gets called when a tuple is received by the operator.  In our example, the operator gets the `myString` attribute from the incoming stream.  It converts the string to upper case, and assigns the resulting string to the output tuple.  The operator then submits the output tuple to the output port.  This example demonstrates a common pattern in the process method for a Java primitive operator:
+* **process(StreamingInput&lt;Tuple&gt; inputStream, Tuple tuple)** - This is the main method that gets called when a tuple is received by the operator.  In our example, the operator first copies any incoming attributes to the outgoing tuple (in cases where attribute names match). Next, the operator gets the `myString` attribute from the incoming stream.  It converts the string to upper case, and assigns the resulting string to the output tuple.  The operator then submits the output tuple to the output port.  This example demonstrates a common pattern in the process method for a Java primitive operator:
+	1. Forward all attributes that aren't getting manipulated by this operator. 
     1. Get attributes that you want to manipulate from the incoming tuple using getter methods.
 	1. Manipulate the attributes in the desired way.
 	1. Write attributes to the output tuple using setter methods.
@@ -471,7 +478,10 @@ The example in the video above uses a JAR with a simple function that reverses a
         // Create a new tuple for output port 0
         StreamingOutput&lt;OutputTuple&gt; outStream = getOutput(0);
         OutputTuple outTuple = outStream.newTuple();
-
+        
+		// Copy incoming attributes to output tuple if they're in the output schema
+        outTuple.assign(tuple);
+        
         // Get attribute from input tuple and manipulate
         String myString = tuple.getString(&quot;myString&quot;);
         myString = myString.toUpperCase();
@@ -508,13 +518,16 @@ The example in the video above uses a JAR with a simple function that reverses a
 	<li>Use the @Libraries annotation to add the JAR to the operator's class path. (If you ever get "class not found" exceptions once you submit your job, check your @Libraries annotation first). </li>
 	<pre><code>@Libraries("opt/Reverse.jar")</code></pre>
 	<li>Go down to the process method, and before setting the "myString" attribute, add this line to reverse the String: </li>
-<pre style="font-family: Andale Mono, Lucida Console, Monaco, fixed, monospace; color: #000000; background-color: #eee;font-size: 12px;border: 1px dashed #999999;line-height: 14px;padding: 5px; overflow: auto; width: 100%"><code>    @Override
+<pre><code>    @Override
     public final void process(StreamingInput&lt;Tuple&gt; inputStream, Tuple tuple)
             throws Exception {
         // Create a new tuple for output port 0
         StreamingOutput&lt;OutputTuple&gt; outStream = getOutput(0);
         OutputTuple outTuple = outStream.newTuple();
-
+        
+		// Copy incoming attributes to output tuple if they're in the output schema
+        outTuple.assign(tuple);
+        
         // Get attribute from input tuple and manipulate
         String myString = tuple.getString(&quot;myString&quot;);
         myString = myString.toUpperCase();
@@ -580,10 +593,14 @@ In our example, we will introduce a boolean parameter named `reverseString` to c
 	~~~~~~
 	  public final void process(StreamingInput<Tuple> inputStream, Tuple tuple)
 	          throws Exception {
-		// Create a new tuple for output port 0
+		  // Create a new tuple for output port 0
 	      StreamingOutput<OutputTuple> outStream = getOutput(0);
 	      OutputTuple outTuple = outStream.newTuple();
-	      String myString = tuple.getString("myString");
+	        
+		  // Copy incoming attributes to output tuple if they're in the output schema
+          outTuple.assign(tuple);
+         
+		  String myString = tuple.getString("myString");
 	      myString = myString.toUpperCase();
 	      if (reverseString){
 	      	myString = Reverse.reverse(myString);
@@ -623,7 +640,7 @@ Here are some more parameter examples:
 
 **String parameter** - SPL parameter **queueName** of type ustring (rstring also works). 
 
-<pre style="font-family: Andale Mono, Lucida Console, Monaco, fixed, monospace; color: #000000; background-color: #eee;font-size: 12px;border: 1px dashed #999999;line-height: 14px;padding: 5px; overflow: auto; width: 100%"><code>    private String queueName = &quot;&quot;;
+<pre><code>    private String queueName = &quot;&quot;;
     ...
     ...
     ...
@@ -635,7 +652,7 @@ Here are some more parameter examples:
 
 **int parameter** - SPL parameter **messageSendRetryDelay** of type int32. 
 
-<pre style="font-family: Andale Mono, Lucida Console, Monaco, fixed, monospace; color: #000000; background-color: #eee;font-size: 12px;border: 1px dashed #999999;line-height: 14px;padding: 5px; overflow: auto; width: 100%"><code>    int messageSendRetryDelay = 10000;
+<pre><code>    int messageSendRetryDelay = 10000;
     ...
     ...
     ...
@@ -647,7 +664,7 @@ Here are some more parameter examples:
 
 **List\<String\> parameter** - SPL parameter **routingKey** of type list\<ustring\>. 
 
-<pre style="font-family: Andale Mono, Lucida Console, Monaco, fixed, monospace; color: #000000; background-color: #eee;font-size: 12px;border: 1px dashed #999999;line-height: 14px;padding: 5px; overflow: auto; width: 100%"><code>    private List&lt;String&gt; routingKeys = new ArrayList&lt;String&gt;();
+<pre><code>    private List&lt;String&gt; routingKeys = new ArrayList&lt;String&gt;();
     ...
     ...
     ...
@@ -667,7 +684,7 @@ Below are the basic steps for creating a source operator:
 
 1. Override the **initialize()** method to:
 	1. Initialize the AbstractOperator super class: `super.initialize(context)`
-	1. Setup connections with external data sources.
+	1. Set up connections with external data sources.
 	2. Initialize base state for the operator.
 	3. Create a thread that will produce tuples using the produceTuples() method.
 2. Override the **allPortsReady()** method to start your production thread.
@@ -679,7 +696,7 @@ Below are the basic steps for creating a source operator:
 
 ### Example Source Operator
 
-In this example, we will implement a source operator that gets data from an external server system.  This is a simulated server.  The server provides the following interface to get data from the server.  While this example is simple, and the interface does not reflect a real external system, this example demonstrates the key concepts required for implementing a source operator.
+In this example, we will implement a source operator that gets data from an external server system.  This is a simulated server.  The server provides the following interface to get data from the server.  While this example is simple, and the interface does not reflect a real external system, this example demonstrates the key concepts required for implementing a source operator. You can download [Server.java](/streamsx.documentation/images/JavaOperatorGuide/Server.java) or try with your own external system. 
 
 ~~~~~~~
 
@@ -710,7 +727,7 @@ public interface Server {
 
 ~~~~~~~
 
-Below is the `ServerSource` operator that uses this interface:
+Below is the `ServerSource` operator that uses this interface. Place this code in its own "serverConnections" namespace directory (`<workspace>/MyJavaOp/impl/java/src/serverConnections`). Refer to the [Creating Your first Java Operator section](/streamsx.documentation/docs/4.1/java/java-op-dev-guide/#creating-your-first-java-operator) for help on how to do this. 
 
 <ul class="nav nav-tabs">
   <li class="active"><a data-toggle="tab" href="#minimum-0">Code</a></li>
@@ -956,7 +973,7 @@ Below is the `ServerSink` operator:
 
 <div class="tab-content">
   <div id="minimum-1" class="tab-pane fade in active">
-<pre style="font-family: Andale Mono, Lucida Console, Monaco, fixed, monospace; color: #000000; background-color: #eee;font-size: 12px;border: 1px dashed #999999;line-height: 14px;padding: 5px; overflow: auto; width: 100%"><code>@PrimitiveOperator()
+<pre><code>@PrimitiveOperator()
 @InputPorts({@InputPortSet(cardinality=1)})
 public class ServerSink extends AbstractOperator {
     private Server server;
@@ -997,7 +1014,7 @@ public class ServerSink extends AbstractOperator {
 
   </div>
   <div id="fullsource-1" class="tab-pane fade">
-<pre style="font-family: Andale Mono, Lucida Console, Monaco, fixed, monospace; color: #000000; background-color: #eee;font-size: 12px;border: 1px dashed #999999;line-height: 14px;padding: 5px; overflow: auto; width: 100%"><code>package serverConnections;
+<pre><code>package serverConnections;
 
 
 import org.apache.log4j.Logger;
@@ -1127,12 +1144,12 @@ There are some cases where you will actually want your operator to fail. These c
 In the code below, we enhanced our ServerSource operator to include error handling in the produceTuples() method.
 
 <ul class="nav nav-tabs">
-  <li class="active"><a data-toggle="tab" href="#minimum-1">Modified Sections</a></li>
-  <li><a data-toggle="tab" href="#fullsource-1">Full Source</a></li>
+  <li class="active"><a data-toggle="tab" href="#minimum-2">Modified Sections</a></li>
+  <li><a data-toggle="tab" href="#fullsource-2">Full Source</a></li>
 </ul>
 
 <div class="tab-content">
-  <div id="minimum-1" class="tab-pane fade in active">
+  <div id="minimum-2" class="tab-pane fade in active">
 <pre><code>@PrimitiveOperator()
 @OutputPorts({@OutputPortSet(cardinality=1),<b>@OutputPortSet(description=&quot;Error Port&quot;, cardinality=1)</b>})
 public class ServerSource extends AbstractOperator {
@@ -1165,7 +1182,7 @@ public class ServerSource extends AbstractOperator {
 }
 </code></pre>  
   </div>
-  <div id="fullsource-1" class="tab-pane fade">
+  <div id="fullsource-2" class="tab-pane fade">
 <pre><code>package serverSource;
 
 <b>import org.apache.log4j.Logger;</b>
@@ -1270,9 +1287,14 @@ Adding compile-time and runtime checks to your Java operator is done using the *
 *	`@ContextCheck(runtime = true)`
 
 
-The following example is part of the StringToCaps operator. We have added compile-time checks to make sure that the incoming and outgoing SPL streams have an attribute named "myString" that is of type `rstring`. This code is placed inside the StringToCaps operator definition. If any of the checks run by `checker` fail, the compile is interrupted with an error message.
+The following example is part of the StringToCaps operator. We have added compile-time checks to make sure that the incoming and outgoing SPL streams have an attribute named "myString" that is of type `rstring`. This code is placed inside the StringToCaps operator definition. If any of the checks run by `checker` fail, the compile is interrupted with an error message. Be sure to import the two libraries that are needed. 
 
-<pre style="font-family: Andale Mono, Lucida Console, Monaco, fixed, monospace; color: #000000; background-color: #eee;font-size: 12px;border: 1px dashed #999999;line-height: 14px;padding: 5px; overflow: auto; width: 100%"><code>    @ContextCheck
+<pre><code>	import com.ibm.streams.operator.OperatorContext.ContextCheck;
+	import com.ibm.streams.operator.compile.OperatorContextChecker;
+	.
+	.
+	.
+    @ContextCheck
     public static void checkAttributes(OperatorContextChecker checker){
         OperatorContext context = checker.getOperatorContext();
 
@@ -1305,7 +1327,7 @@ For more details, read [Window Handling](http://www-01.ibm.com/support/knowledge
 	*	Have a constructor that takes a `StreamingOutput<OutputTuple>` argument.
 	*	Override the `void handleEvent(StreamWindowEvent<Tuple> event)` and develop a switch case to handle tumbling and/or sliding events.
 			**Tumbling:**
-		<pre style="font-family: Andale Mono, Lucida Console, Monaco, fixed, monospace; color: #000000; background-color: #eee;font-size: 12px;border: 1px dashed #999999;line-height: 14px;padding: 5px; overflow: auto; width: 100%"><code>  @Override
+		<pre><code>  @Override
 	  public synchronized void handleEvent(StreamWindowEvent&lt;Tuple&gt; event) throws Exception {
 
 		    switch (event.getType()) {
@@ -1322,7 +1344,7 @@ For more details, read [Window Handling](http://www-01.ibm.com/support/knowledge
 	  }
 	</code></pre>
 		**Sliding:**
-		<pre style="font-family: Andale Mono, Lucida Console, Monaco, fixed, monospace; color: #000000; background-color: #eee;font-size: 12px;border: 1px dashed #999999;line-height: 14px;padding: 5px; overflow: auto; width: 100%"><code>  @Override
+		<pre><code>  @Override
 	  public synchronized void handleEvent(StreamWindowEvent&lt;Tuple&gt; event) throws Exception {
 
 	        switch (event.getType()) {
@@ -1425,7 +1447,7 @@ public class MinWindowString extends AbstractWindowOperator {
 
 <div class="tab-content">
   <div id="minimum-4" class="tab-pane fade in active">
-<pre style="font-family: Andale Mono, Lucida Console, Monaco, fixed, monospace; color: #000000; background-color: #eee;font-size: 12px;border: 1px dashed #999999;line-height: 14px;padding: 5px; overflow: auto; width: 100%"><code>public class WindowHandler implements StreamWindowListener&lt;Tuple&gt; {
+<pre><code>public class WindowHandler implements StreamWindowListener&lt;Tuple&gt; {
     private int tupleCount;
     <b>private List&lt;String&gt; stringList = new ArrayList&lt;String&gt;();</b>
     private final StreamingOutput&lt;OutputTuple&gt; output;
@@ -1472,7 +1494,7 @@ public class MinWindowString extends AbstractWindowOperator {
 </code></pre>
   </div>
   <div id="fullsource-4" class="tab-pane fade">
-<pre style="font-family: Andale Mono, Lucida Console, Monaco, fixed, monospace; color: #000000; background-color: #eee;font-size: 12px;border: 1px dashed #999999;line-height: 14px;padding: 5px; overflow: auto; width: 100%"><code>package minWindow;
+<pre><code>package minWindow;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -1599,7 +1621,10 @@ Below are steps to add a custom operator metric.  In this example, we will try t
     	// Create a new tuple for output port 0
         StreamingOutput<OutputTuple> outStream = getOutput(0);
         OutputTuple outTuple = outStream.newTuple();
-
+        
+		// Copy incoming attributes to output tuple if they're in the output schema
+        outTuple.assign(tuple);
+        
         String myString = tuple.getString("myString");
         myString = myString.toUpperCase();
         if (reverseString){
@@ -1638,8 +1663,8 @@ Here are some things to keep in mind:
 
 * Do not print anything to standard out.
 * Avoid excessive logging in your process method. If necessary, make sure that your logging is protected by an if statement: 
-	<pre style="font-family: Andale Mono, Lucida Console, Monaco, fixed, monospace; color: #000000; background-color: #eee;font-size: 12px;border: 1px dashed #999999;line-height: 14px;padding: 5px; overflow: auto; width: 100%"><code>        if (trace.isInfoEnabled())
-	            trace.log(TraceLevel.INFO, &quot;StateHandler close&quot;);</code></pre>
+	<pre><code>if (trace.isInfoEnabled())
+	 trace.log(TraceLevel.INFO, &quot;StateHandler close&quot;);</code></pre>
 
 * Minimize the copying of variables. 
 * Avoid type conversion (e.g. byte[] to String).
