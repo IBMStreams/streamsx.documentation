@@ -16,8 +16,7 @@ The goal of the project is to provide easy-to-follow documentation and developme
 * [Over 100 useful SPL Samples for Beginners](samples/)
 
 # Streams Product Documentation
-* [Streams 4.0.1 Product Documentation](http://www-01.ibm.com/support/knowledgecenter/#!/SSCRJU_4.0.1/com.ibm.streams.welcome.doc/doc/kc-homepage.html)
-* [Streams 4.1.0 Product Documentation](http://www-01.ibm.com/support/knowledgecenter/#!/SSCRJU_4.1.0/com.ibm.streams.welcome.doc/doc/kc-homepage.html)
+* [Streams Product Documentation (versions 1.2.1 - current)](http://www.ibm.com/support/knowledgecenter/SSCRJU/SSCRJU_welcome.html)
 
 # New Documentation
 
