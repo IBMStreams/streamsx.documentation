@@ -1,14 +1,11 @@
 url: http://ibmstreams.github.io/streamsx.documentation/
 baseurl: /streamsx.documentation
+github_editme_path: IBMStreams/streamsx.documentation/blob/gh-pages
 
-# Site settings
-title: IBM Streams
-description: "IBM Streams Development Guides"
 
 # Build settings
 markdown: kramdown
 permalink: pretty
 detach:  false
-
-port:    4002
+port:    4000
 host:    127.0.0.1
