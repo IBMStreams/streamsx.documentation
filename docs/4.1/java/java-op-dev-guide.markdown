@@ -45,14 +45,14 @@ Here is a brief explanation of the required methods:
 <iframe width="560" height="315" src="https://www.youtube.com/embed/3B_IO3U2xVY" frameborder="0" allowfullscreen></iframe>
 </div>
 
-####Types of Operators
+#### Types of Operators
 * **Process Operator** - Data comes in as a tuple on an input data stream. That data is processed and the result is submitted as a tuple to an output stream. Process operators make up most of a typical Streams operator graph. 
 * **[Source Operator](/streamsx.documentation/docs/4.1/java/java-op-dev-guide/#creating-a-source-operator)** - Data is read from an external system (or generated) and submitted to an output port as a tuple stream.
 * **[Sink Operator](/streamsx.documentation/docs/4.1/java/java-op-dev-guide/#creating-a-sink-operator)** - Data comes in as a tuple on an input data stream, and is then written to an external system. 
 
 In our first Java primitive operator, we will create an operator that converts incoming strings to upper case.  This example is really simple, but it demonstrates some basic concepts about Java primitive operators. This guide will build on this example to demonstrate the concepts in each section.
 
-####StringToCaps.java
+#### StringToCaps.java
 
 <ul class="nav nav-tabs">
   <li class="active"><a data-toggle="tab" href="#simpleSource-0">Code</a></li>
@@ -254,7 +254,7 @@ If you followed the CLI instructions, this should be your directory structure:
 **Note:**  If you use Streams Studio to create a new SPL project, Streams Studio will automatically create the correct directory structure for you.
 
 
-##Running and Testing Your Operator
+## Running and Testing Your Operator
 
 <div class="modal-body">
 	<iframe width="560" height="315" src="https://www.youtube.com/embed/CZNXqQCBASU" frameborder="0" allowfullscreen></iframe>
@@ -548,7 +548,7 @@ The example in the video above uses a JAR with a simple function that reverses a
   </div>
 </div>
 
-##Making Your Operator Generic with Parameters
+## Making Your Operator Generic with Parameters
 
 Parameters allow your Java primitive operator to be more generic and enables the end-user to configure and control the behavior of the operator.
 
@@ -675,7 +675,7 @@ Here are some more parameter examples:
     }
 </code></pre>
 
-##Creating a Source Operator
+## Creating a Source Operator
 At this point, you have learned the most important Java operator basics. Before getting into more advanced topics, we will introduce Source and Sink operators. 
 
 Source operators are unique because they don't rely on an incoming tuple to trigger the sending of an output tuple. Source operators are typically used to bring data into your Streams application from an external source such as a database or messaging server.
@@ -944,7 +944,7 @@ Key things to note from this example:
 
 This covers the basics of creating a source operator.  Streams Java Operator APIs come with many useful patterns and samples.  You may extend from these patterns when implementing the source operator.  To have access to these patterns, include the com.ibm.streams.operator.sample.jar in your classpath.  For more information about these samples and patterns, refer to this documentation:  <a target="_blank" href="http://www-01.ibm.com/support/knowledgecenter/#!/SSCRJU_4.1.0/com.ibm.streams.spl-java-operators.doc/samples/overview-summary.html">Java Operator Samples</a>
 
-##Creating a Sink Operator
+## Creating a Sink Operator
 Sink operators are unique because they don't send output tuples (unless there is an error port). Sink operators are typically used to send data to an external system such as a database or messaging server.
 
 Below are the basic steps for creating a sink operator:  
@@ -1130,7 +1130,7 @@ Key things to note from this example:
 
 This covers the basics of creating a sink operator.  Streams Java Operator APIs come with patterns and samples that you can extend when implementing a sink operator. For more information about these samples and patterns, refer to this documentation:  <a target="_blank" href="http://www-01.ibm.com/support/knowledgecenter/#!/SSCRJU_4.1.0/com.ibm.streams.spl-java-operators.doc/samples/overview-summary.html">Java Operator Samples</a>
 
-##Handling Errors
+## Handling Errors
 Your Streams operator should never crash unless you want it to. There are cases where an exception will be thrown because of a loss of connection or other normal error causes, but it is important to handle those errors so that your operator can continue to process data.
 
 **When an exception is thrown, the best-practice response is to:**
@@ -1269,7 +1269,7 @@ public class ServerSource extends AbstractOperator {
 </div>
 
 
-##Adding Compile-Time and Runtime Checks
+## Adding Compile-Time and Runtime Checks
 Adding compile-time and runtime checks to your Java operator is done using the **@ContextCheck**.
 
 **Common compile-time checks:**
@@ -1310,17 +1310,17 @@ The following example is part of the StringToCaps operator. We have added compil
     }
 </code></pre>
 
-##Using Windows
+## Using Windows
 Windows are an important part of most Streams applications. Intelligent use of windows can allow you to use the same Streams application for real-time processing, as well as batch processing. Batch processing such as map reduce can be done in Streams by using large window sizes.
 
-####Types of Windows:
+#### Types of Windows:
 
 * **Tumbling** - Tumbling windows operate in batches. When a tumbling window fills up, all of the tuples in the window are evicted.
 * **Sliding** - Sliding windows operate in an incremental fashion. When a sliding window fills up, the future tuple insertions result in evicting the oldest tuples in the window.
 
 For more details, read [Window Handling](http://www-01.ibm.com/support/knowledgecenter/SSCRJU_4.0.1/com.ibm.streams.dev.doc/doc/windowhandling.html?lang=en).
 
-####General strategy for implementing a windowed operator:
+#### General strategy for implementing a windowed operator:
 
 1. Have your operator class extend AbstractWindowOperator (instead of AbstractOperator).
 2. Create a window handler class that implements StreamsWindowListener<Tuple>. This window handler class will be in place of a process method in most cases. Your window handler class should:
@@ -1374,7 +1374,7 @@ For more details, read [Window Handling](http://www-01.ibm.com/support/knowledge
 		getInput(0).getStreamWindow().registerListener(new WindowHandler(getOutput(0)), false);
 
 
-###Window Example
+### Window Example
 
 In the example below, we implement a tumbling window operator that submits the alphabetic minimium String for a given window. The operator maintains a List\<String\> that is cleared every time the window tumbles. Read more details about [tumbling](http://www-01.ibm.com/support/knowledgecenter/SSCRJU_4.0.1/com.ibm.streams.dev.doc/doc/tumblingwindowoperator.html) and [sliding](http://www-01.ibm.com/support/knowledgecenter/SSCRJU_4.0.1/com.ibm.streams.dev.doc/doc/slidingwindow.html) windows by clicking on the links.
 
@@ -1556,7 +1556,7 @@ public class WindowHandler implements StreamWindowListener&lt;Tuple&gt; {
   </div>
 </div>
 
-##Defining Custom Metrics
+## Defining Custom Metrics
 
 A metric represents a measurement of an element in either an operator or a processing element. A metric's value is an signed 64-bit integer value, represented as a primitive long in the Java Operator API.  A metric enables the operator keep track of current state, and allows the end-user or external systems to monitor the operator performance based on metric values.
 
@@ -1581,7 +1581,7 @@ This section will show you how to add your a custom metric to your Java operator
 	<iframe width="560" height="315" src="https://www.youtube.com/embed/hLjuJqNJ86Q" frameborder="0" allowfullscreen></iframe>
 </div>
 
-###Custom Metric Example
+### Custom Metric Example
 
 Below are steps to add a custom operator metric.  In this example, we will try to create a metric that counts the number of characters the Java primitive operator `StringToCaps` has processed.
 
@@ -1640,7 +1640,7 @@ Below are steps to add a custom operator metric.  In this example, we will try t
 
 	<img src="/streamsx.documentation/images/metrics.png" alt="Streams Studio" style="width: 60%;"/>
 
-##Problem Determination and Debugging
+## Problem Determination and Debugging
 Debugging your Java operator is similar to debugging normal Java.
 
 Here is the path that most Streams developers take to determine if their operator is working:
@@ -1653,10 +1653,10 @@ Here is the path that most Streams developers take to determine if their operato
 	
 You can also use the Eclipse Java Debugger by following [these instructions](https://developer.ibm.com/streamsdev/2013/12/11/debug-java-operator-using-eclipse-java-debugger/). 
 
-##SPL to Java Type Mapping
+## SPL to Java Type Mapping
 It's not always obvious which SPL types map to which Java types. It's important to get this mapping right when you are defining parameters, reading from input tuples, and writing to output tuples. Follow this link for a comprehensive [table of type mapping](http://www-01.ibm.com/support/knowledgecenter/SSCRJU_4.0.1/com.ibm.streams.dev.doc/doc/workingwithspltypes.html). 
 
-##Improving Performance
+## Improving Performance
 As we mentioned at the beginning of this guide, your performance will depend on the efficiency of your **process(...)** or **produceTuples(...)** methods (in the case of a windowed operator, it will be in your window handler).
 
 Here are some things to keep in mind: 
