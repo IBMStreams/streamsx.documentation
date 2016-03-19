@@ -44,6 +44,6 @@ Refer to this documentation on Github Markdown:  [Writing on Github](https://hel
 
 Refer to this documentation to get started:  [Using Jekyll with Pages](https://help.github.com/articles/using-jekyll-with-pages/)  
 
-To contribute, clone this project locally, make your changes, and create a pull request. You can also click on the "Edit Me" button, then click on "Edit this File" to make changes right in your browser. 
+To contribute, clone this project locally, make your changes, and create a pull request. You can also click on the "Edit Me" button, then click on "Edit this file" to make changes right in your browser. 
 
 To learn more on how to do this, refer to this documentation:  [Contribute to IBM Streams Github Project](https://developer.ibm.com/streamsdev/docs/contribute-github-project/)
