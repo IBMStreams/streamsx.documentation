@@ -65,7 +65,7 @@ packages for <span class="keyword">IBM Streams</span></a>.</td>
 <th class="entry" align="center" valign="bottom">Supported operating system versions</th>
 </tr>
 </thead>
-<tbody class="tbody"><tr class="row"><td class="entry" rowspan="4" align="center" valign="top">RHEL</td>
+<tbody class="tbody"><tr class="row"><td class="entry" rowspan="5" align="center" valign="top">RHEL</td>
 <td class="entry" rowspan="2" align="center" valign="top">x86_64 (64-bit)</td>
 <td class="entry" align="center" valign="top">Version 6.1, or later</td>
 </tr>
@@ -78,6 +78,13 @@ Systems (64-bit)<p class="p"><span class="keyword">IBM Streams</span> supports t
 </tr>
 <tr class="row"><td class="entry" align="center" valign="top">Version 7.0, or later</td>
 </tr>
+
+<tr class="row"><td class="entry" rowspan="1" align="center" valign="top">IBM Power
+Systems (64-bit)<p class="p"><span class="keyword">IBM Streams</span> supports the POWER8™ processors (little endian).</p>
+</td>
+<td class="entry" align="center" valign="top">Version 7.1, or later</td>
+</tr>
+
 <tr class="row"><td class="entry" rowspan="2" align="center" valign="top">CentOS</td>
 <td class="entry" rowspan="2" align="center" valign="top">x86_64 (64-bit)</td>
 <td class="entry" align="center" valign="top">Version 6.1, or later</td>
