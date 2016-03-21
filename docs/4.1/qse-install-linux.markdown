@@ -1,17 +1,17 @@
 ---
 layout: docs
-title:  Installing Streams Quick Start Edition for Linux
+title:  Installing the Streams Quick Start Edition for Linux
 description:  Installation Guide for IBM Streams Quick Start Edition for Linux
 weight:  40
 ---
 
-# Installing Streams Quick Start Edition (QSE) for Linux
+# Installing the Streams Quick Start Edition for Linux
 
-The Streams Quick Start Editor can help you get started with Streams quickly, without having to install a Streams cluster environment. 
+The Streams Quick Start Edition (QSE) can help you get started with Streams quickly, without having to install a Streams cluster environment. 
 
 {% include download.html%}
 <br>
-This guide takes you through the process of installing and starting the QSE Linux Edition.
+This guide takes you through the process of installing QSE Linux Edition.
 
 ## Hardware Requirements
 
@@ -93,12 +93,12 @@ Systems (64-bit)<p class="p"><span class="keyword">IBM Streams</span> supports t
 
 ## Installation Instructions
 
-Refer to the InfoCenter for install instructions:
+Refer to the Knowledge Center for install instructions:
 [Install Instructions for Quick Start Edition for Linux](http://www-01.ibm.com/support/knowledgecenter/SSCRJU_4.1.0/com.ibm.streams.qse.doc/doc/ibminfospherestreams-qse-install.html?lang=en)
 
 ## Resources
 
-For details on system requirements for Streams QSE for Linux, refer to the [InfoCenter](http://www-01.ibm.com/support/knowledgecenter/?lang=en#!/SSCRJU_4.1.0/com.ibm.streams.qse.doc/doc/ibminfospherestreams-qse-before-you-begin.html).
+For details on system requirements for Streams QSE for Linux, refer to the [Knowledge Center](http://www-01.ibm.com/support/knowledgecenter/?lang=en#!/SSCRJU_4.1.0/com.ibm.streams.qse.doc/doc/ibminfospherestreams-qse-before-you-begin.html).
 
 ## What to do next
 
