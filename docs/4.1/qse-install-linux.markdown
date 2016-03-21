@@ -28,7 +28,8 @@ System (CentOS), and SUSE Linux Enterprise
 Server (SLES).</td>
 </tr>
 <tr class="row"><td class="entry" align="center" valign="top">IBM® Power Systems™ (64-bit)</td>
-<td class="entry" valign="top" >IBM Streams supports the POWER7® and POWER8™ processors on RHEL.</td>
+<td class="entry" valign="top" >On RHEL systems that are running big endian, IBM Streams supports the POWER7® and POWER8® processors.<br><br>
+RHEL systems that are running little endian support the POWER8 processor only.</td>
 </tr>
 <tr class="row"><td class="entry" valign="top">Display</td>
 <td class="entry" align="center" valign="top" >1280 x 1024</td>
@@ -71,7 +72,7 @@ packages for <span class="keyword">IBM Streams</span></a>.</td>
 <tr class="row"><td class="entry" align="center" valign="top">Version 7.0, or later</td>
 </tr>
 <tr class="row"><td class="entry" rowspan="2" align="center" valign="top">IBM Power
-Systems (64-bit)<p class="p"><span class="keyword">IBM Streams</span> supports the POWER7® and POWER8™ processors.</p>
+Systems (64-bit)<p class="p"><span class="keyword">IBM Streams</span> supports the POWER7® and POWER8™ processors (big endian).</p>
 </td>
 <td class="entry" align="center" valign="top">Version 6.3, or later</td>
 </tr>
@@ -90,7 +91,7 @@ Systems (64-bit)<p class="p"><span class="keyword">IBM Streams</span> supports t
 </tbody>
 </table>
 
-## Install Instructions
+## Installation Instructions
 
 Refer to the InfoCenter for install instructions:
 [Install Instructions for Quick Start Edition for Linux](http://www-01.ibm.com/support/knowledgecenter/SSCRJU_4.1.0/com.ibm.streams.qse.doc/doc/ibminfospherestreams-qse-install.html?lang=en)
