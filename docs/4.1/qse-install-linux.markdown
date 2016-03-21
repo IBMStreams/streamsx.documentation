@@ -15,20 +15,20 @@ This guide takes you through the process of installing QSE for Linux.
 
 ## Hardware Requirements
 
-<div class="tablenoborder"><table cellpadding="4" cellspacing="0" summary="This table lists the system, display, memory, and disk space requirements for InfoSphere Streams." class="table" width="100%" rules="all" frame="border" border="1"><thead class="thead" align="left"><tr class="row" valign="bottom"><th class="entry thleft thbot" valign="bottom" width="10.795454545454545%" id="d68e56">Component</th>
+<div class="tablenoborder"><table cellpadding="4" cellspacing="0" summary="This table lists the system, display, memory, and disk space requirements for IBM Streams." class="table" width="100%" rules="all" frame="border" border="1"><thead class="thead" align="left"><tr class="row" valign="bottom"><th class="entry thleft thbot" valign="bottom" width="10.795454545454545%" id="d68e56">Component</th>
 <th class="entry thcenter thbot" align="center" valign="bottom" width="30.113636363636363%" id="d68e58">Minimum requirements</th>
 <th class="entry thleft thbot" valign="bottom" width="59.09090909090909%" id="d68e60">Comments</th>
 </tr>
 </thead>
 <tbody class="tbody"><tr class="row"><td class="entry" rowspan="2" valign="top" width="10.795454545454545%" headers="d68e56 ">System</td>
 <td class="entry tdcenter" align="center" valign="top" width="30.113636363636363%" headers="d68e58 ">x86_64 (64-bit) </td>
-<td class="entry" valign="top" width="59.09090909090909%" headers="d68e60 "><span class="keyword">InfoSphere
+<td class="entry" valign="top" width="59.09090909090909%" headers="d68e60 "><span class="keyword">IBM 
 Streams</span> supports Red Hat Enterprise Linux (RHEL), the Community Enterprise Operating
 System (CentOS), and SUSE Linux Enterprise
 Server (SLES).</td>
 </tr>
 <tr class="row"><td class="entry tdcenter" align="center" valign="top" width="30.113636363636363%" headers="d68e58 ">IBM® Power Systems™ (64-bit)</td>
-<td class="entry" valign="top" width="59.09090909090909%" headers="d68e60 ">On RHEL systems that are running <span class="keyword">big endian</span>, <span class="keyword">InfoSphere
+<td class="entry" valign="top" width="59.09090909090909%" headers="d68e60 ">On RHEL systems that are running <span class="keyword">big endian</span>, <span class="keyword">IBM 
 Streams</span> supports the POWER7® and POWER8® processors.<p class="p">RHEL systems
 that are running <span class="keyword">little
 endian</span> support
@@ -43,7 +43,7 @@ for Streams Studio.</td>
 <tr class="row"><td class="entry" valign="top" width="10.795454545454545%" headers="d68e56 ">Memory</td>
 <td class="entry tdcenter" align="center" valign="top" width="30.113636363636363%" headers="d68e58 ">2 GB</td>
 <td class="entry" valign="top" width="59.09090909090909%" headers="d68e60 "><span class="ph" id="ibminfospherestreams-qse-hardware__d32e2110">The amount
-of memory that is required by <span class="keyword">InfoSphere
+of memory that is required by <span class="keyword">IBM 
 Streams</span> is dependent on the applications that are developed
 and deployed.</span><p class="p" id="ibminfospherestreams-qse-hardware__d32e2114">This minimum
 requirement is based on the memory requirements of the Commodity Purchasing
@@ -67,7 +67,7 @@ package</span>.</td>
 
 ## Software Requirements
 
-<div class="tablenoborder"><table cellpadding="4" cellspacing="0" summary="The first column of this table lists the Linux operating systems that are supported by InfoSphere Streams. The supported system hardware and architecture for each operating system is in the second column, and the supported operating system versions are in the third column." class="table" rules="all" frame="border" border="1"><thead class="thead" align="left"><tr class="row" valign="bottom"><th class="entry thcenter thbot" align="center" valign="bottom" width="15.753424657534246%" id="d68e79">Operating system</th>
+<div class="tablenoborder"><table cellpadding="4" cellspacing="0" summary="The first column of this table lists the Linux operating systems that are supported by IBM Streams. The supported system hardware and architecture for each operating system is in the second column, and the supported operating system versions are in the third column." class="table" rules="all" frame="border" border="1"><thead class="thead" align="left"><tr class="row" valign="bottom"><th class="entry thcenter thbot" align="center" valign="bottom" width="15.753424657534246%" id="d68e79">Operating system</th>
 <th class="entry thcenter thbot" align="center" valign="bottom" width="45.20547945205479%" id="d68e81">System hardware and architecture</th>
 <th class="entry thcenter thbot" align="center" valign="bottom" width="39.04109589041096%" id="d68e83">Supported operating system versions</th>
 </tr>
@@ -79,14 +79,14 @@ package</span>.</td>
 <tr class="row"><td class="entry tdcenter" align="center" valign="top" width="39.04109589041096%" headers="d68e83 ">Version 7.0, or later</td>
 </tr>
 <tr class="row"><td class="entry tdcenter" rowspan="2" align="center" valign="top" width="45.20547945205479%" headers="d68e81 ">IBM Power
-Systems (64-bit)<p class="p"><span class="keyword">InfoSphere
+Systems (64-bit)<p class="p"><span class="keyword">IBM 
 Streams</span> supports the POWER7® and POWER8® processors (<span class="keyword">big endian</span>).</p>
 </td>
 <td class="entry tdcenter" align="center" valign="top" width="39.04109589041096%" headers="d68e83 ">Version 6.3, or later</td>
 </tr>
 <tr class="row"><td class="entry tdcenter" align="center" valign="top" width="39.04109589041096%" headers="d68e83 ">Version 7.0, or later</td>
 </tr>
-<tr class="row"><td class="entry tdcenter" align="center" valign="top" width="45.20547945205479%" headers="d68e81 ">IBM Power Systems (64-bit)<p class="p"><span class="keyword">InfoSphere
+<tr class="row"><td class="entry tdcenter" align="center" valign="top" width="45.20547945205479%" headers="d68e81 ">IBM Power Systems (64-bit)<p class="p"><span class="keyword">IBM 
 Streams</span> supports the POWER8 processor
 (<span class="keyword">little
 endian</span>).</p>
