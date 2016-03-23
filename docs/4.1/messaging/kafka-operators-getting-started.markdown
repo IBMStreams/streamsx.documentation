@@ -31,7 +31,7 @@ Once you have your Kafka server (or servers) set up, you will need their hostnam
 port=9092
 
 # Hostname the broker will bind to. If not set, the server will bind to all interfaces
-host.name=f0701b01.pok.hpc-ng.ibm.com
+host.name=myhost.mycompany.com
 ~~~~~~
 
 ## Steps
