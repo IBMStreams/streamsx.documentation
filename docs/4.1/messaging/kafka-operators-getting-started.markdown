@@ -21,6 +21,8 @@ Prior to using Kafka operators, the following software must be installed and con
 * **Messaging Toolkit** - An official version of the toolkit is shipped with Streams or you can download it from the IBM Streams Github Messaging Toolkit Repository <a target="_blank" href="https://github.com/IBMStreams/streamsx.messaging/releases">Release Page</a>.
 * **Kafka servers** - This guide will assume you are using Kafka 0.9 or above. To quickly get a Kafka server up and running, follow <a target="_blank" href="http://kafka.apache.org/documentation.html#quickstart">this guide</a>. If you are using Kafka 0.8 servers, make sure that you download a version of the messaging toolkit that supports Kafka 0.8 (product versions of the Kafka operators up through Streams 4.1 support Kafka 0.8). 
 
+[Sam:  The last part about version is confusing.  Can we make this a bit clear?  Perhaps we should say, for 0.8, use these toolkits, for 0.9, use another set of toolkit?]
+
 ## Information to Collect
 Once you have your Kafka server (or servers) set up, you will need their hostnames and listener ports. You can find them in your configuration file for each server (default is server.properties): 
 
