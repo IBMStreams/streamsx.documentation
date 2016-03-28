@@ -26,6 +26,8 @@ Prior to using Kafka operators, the following software must be installed and con
 ## Information to Collect
 Once you have your Kafka server (or servers) set up, you will need their hostnames and listener ports. You can find them in your configuration file for each server (default is server.properties): 
 
+[Sam:  Please specify where the properties file can be found.]
+
 ~~~~~~
 # The port the socket server listens on
 port=9092
@@ -39,13 +41,22 @@ host.name=myhost.mycompany.com
    * *Set the STREAMS_SPLPATH environment variable to the root directory of a toolkit or multiple toolkits (with : as a separator)*
 
      `echo "export STREAMS_SPLPATH=$STREAMS_INSTALL/toolkits/com.ibm.streamsx.messaging" >> /home/streamsadmin/.bashrc`
+     
+     [Sam:  This is not a good way to set this.  This will overwrite STREAMS_SPLPATH that the user may have set up.  Perhaps we can do something like this:  
+     
+     export STREAMS_SPLPATH=<messaging toolkit location>/com.ibm.streamsx.messaging:$STREAMS_SPLPATH
+     
+     I also changed it such that we are not tied to a STREAMS_INSTALL, as user may have downloaded the toolkit from github.  We should mention that a version of the toolkit can be found in the STREAMS_INSTALL directory]
 
    * *Specify the -t or --spl-path command parameter when you run the sc command.*
 
      `sc -t $STREAMS_INSTALL/toolkits/com.ibm.streamsx.messaging -M MyMain`
 
    * *If  Streams Studio is used to compile and run SPL application, add messaging toolkit to toolkit locations in Streams Explorer.*
-2. Create an SPL application and add the Kafka operator use directives to it. If Streams Studio is used, this directive is automatically added when dragging and dropping a Kafka operator to SPL application (you can also just start with the <a target="_blank" href="https://github.com/IBMStreams/streamsx.messaging/tree/master/samples/KafkaSample">KafkaSample</a> to skip this and the following step). 
+   
+   [Sam:  Please add link to Streams studio documentation on how to do this] 
+   
+2. Create an SPL application and add the Kafka operator use directives to it. If Streams Studio is used, this directive is automatically added when dragging and dropping a Kafka operator to SPL application in the graphical editor.  (you can also just start with the <a target="_blank" href="https://github.com/IBMStreams/streamsx.messaging/tree/master/samples/KafkaSample">KafkaSample</a> to skip this and the following step). 
 
 	`use com.ibm.streamsx.messaging.kafka::*;`
 	
@@ -55,7 +66,15 @@ host.name=myhost.mycompany.com
 	
 	`use com.ibm.streamsx.messaging.kafka::KafkaConsumer;`
 4. Add a toolkit dependency on the Messaging toolkit in your application. You can do this by editing the application dependency in Streams Studio, or by editing the info.xml for the application (if you start with an sample from the messaging toolkit, this step is already done for you). 
+[Sam:  toolkit dependency should be added before use statements are added.  This allows user to have content assist when typing in use statements.] 
+
 5. The Kafka Producer and Kafka Consumer require that either the propertiesFile parameter or the KafkaProperty parameter are set. The KafkaConsumer operator also requires that the topic parameter be specified, while the KafkaProducer can either get the topic as a parameter or an incoming attribute. 
+
+`[Sam:  I find this confusing in that we are mixing KafkaProducer and KafkaConsumer together.  A tutorial is not a post, and should provide step-by-step instructions on how to get sometihng going. Therefore, I suggest that we add the following flow to this tutorial:
+    * Provide for an application to read messages from a Kafka server - I think this is majority of the use cases.
+    * Provide a separate application to send messages to the first application via a Kafka server.
+Instead of providing a high-level overview, please provide more detailed instructions and explanations.]`
+
 Here is the sample beacon and KafkaProducer code from the <a target="_blank" href="https://github.com/IBMStreams/streamsx.messaging/tree/master/samples/KafkaSample">KafkaSample</a>:
 
 	<pre><code>//create some messages and send to KafkaProducer
@@ -74,8 +93,10 @@ Here is the sample beacon and KafkaProducer code from the <a target="_blank" hre
     }
 	</code></pre>
 	The producer.properties file will be placed in the `etc` directory of the application. This ensures that it will be included in the .sab application bundle (important for cloud and HA deployment). You can also specify an absolute or relative file path, where the path is relative to the application directory. The following is a sample producer.properties file. bootstrap.servers refers to Kafka brokers (the host and port information you gathered at the start of this guide).      
+	
 	<pre><code>bootstrap.servers=broker.host.1:9092,broker.host.2:9092,broker.host.3:9092
 acks=0</code></pre>
+
 	Notice that we don't specify the topic as a parameter, it is part of the incoming tuple. This means that each incoming tuple could be directed towards a different topic. The key is an optional attribute that will be null if you don't set it. 
 
 	Here is the KafkaConsumer operator from the <a target="_blank" href="https://github.com/IBMStreams/streamsx.messaging/tree/master/samples/KafkaSample">KafkaSample</a>: 
@@ -86,15 +107,17 @@ acks=0</code></pre>
             propertiesFile : &quot;etc/consumer.properties&quot;;
             topic : $topic;
     }</code></pre>
-	The standard consumer.properties file will be placed in the etc directory of the application and look like this:
-	<pre><code>bootstrap.servers=broker.host.1:9092,broker.host.2:9092,broker.host.3:9092
-group.id=mygroup</code></pre>
+	
+The standard consumer.properties file will be placed in the etc directory of the application and look like this:
+
+`bootstrap.servers=broker.host.1:9092,broker.host.2:9092,broker.host.3:9092
+ group.id=mygroup`
 
    <div class="alert alert-success" role="alert"><b>Tip: </b>Not seeing any messages coming into your consumer? You may have stray consumers in the same consumer group reading from your topic. Try adding this as a KafkaProperty parameter:<br>
 &nbsp;&nbsp;&nbsp;&nbsp;<b>kafkaProperty : "group.id=" +(rstring) getTimestampInSecs() ;</b></div>
 
 ##Consistent Region
-Kafka operators support consistent regions. The KafkaConsumer can be the start of a consistent region and supports exactly-once tuple processing. The KafkaProducer can participate in a consistent region (it cannot be the start), and can guarantee at-least-once tuple processing. For general questions on consistent region, read this <a target="_blank" href="https://developer.ibm.com/streamsdev/2015/02/20/processing-tuples-least-infosphere-streams-consistent-regions/">overview</a> and these <a target="_blank" href="https://www-01.ibm.com/support/knowledgecenter/SSCRJU_4.1.0/com.ibm.streams.dev.doc/doc/consistentregions.html">docs</a>. 
+Kafka operators support consistent regions. The KafkaConsumer can be the start of a consistent region and supports exactly-once tuple processing. The KafkaProducer can participate in a consistent region (it cannot be the start), and can guarantee at-least-once tuple processing. [Sam:  Move this to the beginning.  The flow of this section needs to be rewored.  It's very hard to follow.  As with previous section, I suggest breaking up the discussion for producer and consumer, and not having them intermixed.]  For general questions on consistent region, read this <a target="_blank" href="https://developer.ibm.com/streamsdev/2015/02/20/processing-tuples-least-infosphere-streams-consistent-regions/">overview</a> and these <a target="_blank" href="https://www-01.ibm.com/support/knowledgecenter/SSCRJU_4.1.0/com.ibm.streams.dev.doc/doc/consistentregions.html">docs</a>. 
 To use the KafkaProducer operator in a consistent region, you can simply use it as you normally would (no special configuration is necessary). 
 Since the KafkaConsumer will start any consistent region that it is a part of, it will have the `@consistent` annotation and you must specify the topic partitions that you want to consume from. 
 Here is the KafkaConsumer from the <a target="_blank" href="https://github.com/IBMStreams/streamsx.messaging/tree/master/samples/KafkaConsistentRegionConsumerSimple">KafkaConsistentRegionConsumerSimple</a> sample:
@@ -118,9 +141,13 @@ Key points to notice:
 ##Parallel Consuming
 Consuming in parallel lets you take advantage of the scalability of both Kafka and Streams. For a multi-partition topic, you can have as many consumers as you have partitions (if you have more consumers than partitions, they will just sit idly). 
 
+[Sam:  Suggest to remove the warning?  Maybe we should focus on the best practice before going into the warning?]
+
 <div class="alert alert-danger" role="alert"><b>Warning: </b>Do not rely on Kafka consumer rebalancing to consume in parallel. We have experienced many issues with failed rebalancing, and there is no way to know ahead of time which partitions each consumer will be reading from.</div>
  
 <div class="alert alert-info" role="alert"><b>Best Practice: </b>To consume in parallel, specify the partition parameter. You can specify one or more partitions per operator. Partition numbers start at 0, so a 3-partition topic will have partitions 0, 1, and 2.</div>
+
+[Sam:  Point documentation to 4.1.1 instead of 4.1.0]
 
 Here is a simple example of using three consumers to read from a 3-partition topic using <a href="https://www-01.ibm.com/support/knowledgecenter/SSCRJU_4.1.0/com.ibm.streams.dev.doc/doc/udpoverview.html" target="_blank">User Defined Parallelism</a> (from the <a target="_blank" href="https://github.com/IBMStreams/streamsx.messaging/blob/master/samples/KafkaParallelConsumers/application/KafkaParallelConsumers.spl">KafkaParallelConsumers sample</a>):
 
@@ -133,6 +160,8 @@ Here is a simple example of using three consumers to read from a 3-partition top
             partition : getChannel() ;
     }
 </code></pre>
+
+[Sam:  Anything we should discuss here?  strange that we are pointing to a sample, without really talking about why people should look at this.]
 
 If you would like to consume in parallel within a consistent region, check out this <a target="_blank" href="https://github.com/IBMStreams/streamsx.messaging/tree/master/samples/KafkaConsistentRegionConsumerParallel">KafkaConsistentRegionConsumerParallel sample</a>.
 
