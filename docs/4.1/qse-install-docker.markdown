@@ -62,9 +62,9 @@ It is recommended that you leave the terminal open.
     * See Docker Toolbox page for instructions:  https://www.docker.com/toolbox
 1.  Install using all defaults for a 'Full Installation'
 1.  Download the Streams4Docker.zip.  
-1.  Copy the zip file to your home directory or any directory under your home directory:  `cp Streams4Docker.zip /home/<userid>`
+1.  Copy the zip file to your home directory or any directory under your home directory:  `cp Streams4Docker.zip /Users/<userid>`
 1.  Extract the zip file:  `unzip Streams4Docker.zip`
-1.  Open a terminal and change to the Docker directory:  `cd Streams4Docker/Docker`
+1.  Open a terminal and change to the Docker directory:  `cd Docker`
 1.  Run the script to build the docker image:  `./Streams-OSX-build.sh`
 
 

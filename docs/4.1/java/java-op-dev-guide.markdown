@@ -39,7 +39,7 @@ Here is a brief explanation of the required methods:
 
 <div class="alert alert-success" role="alert"><b>Thread Safety:</b> Aside from the initialize(...) method, all other methods from the Operator interface can be called concurrently from multiple threads.  For the operator to work correctly, you must ensure that these methods are implemented in a thread-safe manner.</div>
 
-##**Creating Your First Java Operator**
+## **Creating Your First Java Operator**
 
 <div class="modal-body">
 <iframe width="560" height="315" src="https://www.youtube.com/embed/3B_IO3U2xVY" frameborder="0" allowfullscreen></iframe>
@@ -153,7 +153,7 @@ Key points to note from this example:
 
 <div class="alert alert-success" role="alert"><b>Tip: </b>The performance of your Java primitive operator is highly dependent on how efficient the process method is. See the <a href="/streamsx.documentation/docs/4.1/java/java-op-dev-guide/#improving-performance" target="_blank" >Improving Performance</a> section later for details.</div>
 
-###Building Java Primitive Operator
+### Building Java Primitive Operator
 
 <ul class="nav nav-tabs">
   <li class="active"><a data-toggle="tab" href="#command-0">Build with Command-line</a></li>
