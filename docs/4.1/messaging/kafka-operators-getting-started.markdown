@@ -78,7 +78,7 @@ host.name=myhost.mycompany.com
 	`use com.ibm.streamsx.messaging.kafka::KafkaConsumer;`
 
 5. **Configure the Kafka Producer to produce messages.** You must:
-    * **Create a producer.properties file and place it in the `etc` directory of your application.** This ensures that it will be included in the .sab application bundle (important for cloud and HA deployment). The following is a sample producer.properties file. See [here](http://kafka.apache.org/documentation.html#producerconfigs) for more producer configuration details.
+    * **Create a producer.properties file and place it in the `etc` directory of your application.** This ensures that it will be included in the .sab application bundle (important for cloud and HA deployment). The following is a sample producer.properties file. See <a target="_blank" href="http://kafka.apache.org/documentation.html#producerconfigs">here</a> for more producer configuration details.
         <pre><code>bootstrap.servers=broker.host.1:9092,broker.host.2:9092,broker.host.3:9092
    acks=0</code></pre>
     * **Specify the location of the producer.properties file in the KafkaProducer operator using the propertiesFile parameter.** You can specify either an absolute or a relative file path, where the path is relative to the application directory:
@@ -113,7 +113,7 @@ host.name=myhost.mycompany.com
     <div class="alert alert-success" role="alert"><b>Notice: </b>We don't specify the topic as a parameter, but instead as a part of the incoming tuple. This means that each incoming tuple can be directed towards a different topic.</div>
 
 6. **Configure the Kafka Consumer to receive messages.** You must: 
-    * **Create a consumer.properties file and place it in the `etc` directory of your application.** Here is a sample consumer.properties file (for more details on Kafka Consumer configs, see (here)[http://kafka.apache.org/documentation.html#newconsumerconfigs]):
+    * **Create a consumer.properties file and place it in the `etc` directory of your application.** Here is a sample consumer.properties file (for more details on Kafka Consumer configs, see <a target="_blank" href="http://kafka.apache.org/documentation.html#newconsumerconfigs">here</a>:
         <pre><code>bootstrap.servers=broker.host.1:9092,broker.host.2:9092,broker.host.3:9092
 group.id=mygroup</code></pre>
     * **Specify the location of the consumer.properties file in the KafkaConsumer operator using the propertiesFile parameter:**
@@ -135,9 +135,9 @@ group.id=mygroup</code></pre>
    <div class="alert alert-success" role="alert"><b>Tip: </b>Not seeing any messages coming into your consumer? You may have stray consumers in the same consumer group reading from your topic. Try adding this as a KafkaProperty parameter:<br>
 &nbsp;&nbsp;&nbsp;&nbsp;<b>kafkaProperty : "group.id=" + (rstring) getTimestampInSecs() ;</b></div>
 
-## Consistent Region
+## Consistent Regions
 
-Kafka operators support consistent regions. The KafkaProducer can participate in a consistent region (it cannot be the start), and can guarantee at-least-once tuple processing. No special configuration is required to use the KafkaProducer in a consistent region, so this section will only focus on the KafkaConsumer. 
+Kafka operators support consistent regions, which are sections of your operator graph where tuple processing is guaranteed. The KafkaProducer can participate in a consistent region (it cannot be the start), and can guarantee at-least-once tuple processing. No special configuration is required to use the KafkaProducer in a consistent region, so this section will only focus on the KafkaConsumer. 
 
 The KafkaConsumer supports exactly-once tuple processing and starts a consistent region (since it is a source). 
   For general questions on consistent region, read this <a target="_blank" href="https://developer.ibm.com/streamsdev/2015/02/20/processing-tuples-least-infosphere-streams-consistent-regions/">overview</a> and these <a target="_blank" href="https://www-01.ibm.com/support/knowledgecenter/SSCRJU_4.1.0/com.ibm.streams.dev.doc/doc/consistentregions.html">docs</a>. 
@@ -146,11 +146,11 @@ To start a consistent region with a KafkaConsumer, you must:
 
 * **Place an `@consistent` annotation above the operator**
 
-* **Specify the partition parameter**  - This example is for a single-partition topic, but for a three-partition topic you can simple specify: `partition: 0,1,2;`
-* **Specify triggerCount parameter for operatorDriven trigger**  - The trigger count gives the approximate number of messages between checkpointing. If you are using a periodic trigger for your consistent region, you do not need to specify this. 
+* **Specify the partition parameter**  - The partition refers to the Kafka topic partition that we will maintain exactly-once processing for. This example is for a single-partition topic, but for a three-partition topic you can simple specify: `partition: 0,1,2;`
+* **Specify triggerCount parameter for operatorDriven trigger** - The trigger count gives you control over the approximate number of messages between checkpointing. If you are using a periodic trigger for your consistent region, you do not need to specify this. 
 Here is the KafkaConsumer from the <a target="_blank" href="https://github.com/IBMStreams/streamsx.messaging/tree/master/samples/KafkaConsistentRegionConsumerSimple">KafkaConsistentRegionConsumerSimple</a> sample:
 <pre class="source-code"><code>    //Read in from a kafka server and start consistent region
-    @consistent(trigger = operatorDriven) 
+    <b style="color:blue">@consistent(trigger = operatorDriven)</b>
     stream&lt;rstring message, rstring key&gt; KafkaConsumerOut = KafkaConsumer()
     {
         param
