@@ -94,9 +94,10 @@ host.name=myhost.mycompany.com
         param
             initDelay : 5.0;
             period : 0.2;
-        output OutputStream: <b style="color:blue">topic = $topic
-                            , message = &quot;Reality is merely an illusion, albeit a very persistent one.&quot; 
-                            , key = &quot;Einstein&quot;</b>;
+        output 
+            OutputStream: <b style="color:blue">topic = $topic
+                        , message = &quot;Reality is merely an illusion, albeit a very persistent one.&quot; 
+                        , key = &quot;Einstein&quot;</b>;
     }
 
 
