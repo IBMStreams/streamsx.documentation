@@ -1,12 +1,12 @@
 ---
 layout: docs
-title: Getting started with Kafka operators
+title: Getting Started with Kafka Operators
 description:  Getting Started Guide for IBM Streams Messaging Toolkit - Kafka operators
 weight: 10
 published: true
 ---
 
-# Messaging Toolkit - Getting started with Kafka operators
+# Messaging Toolkit - Getting Started with Kafka Operators
 
 ## Introduction
 The IBM Streams Messaging Toolkit is designed to get you connected to your messaging servers as quickly as possible. Kafka is an ideal messaging server for stream computing. This guide will get you sending and receiving messages in no time, and will highlight some of the best practices. We will also cover how to get the Kafka operators running in a consistent region. 
@@ -34,7 +34,7 @@ port=9092
 host.name=myhost.mycompany.com
 ~~~~~~
 
-## Steps
+## Steps - Send and Receive Messages
 2. **Configure the SPL compiler to find the messaging toolkit directory. Use one of the following methods.**
    * *Set the STREAMS_SPLPATH environment variable to the root directory of the toolkit (with : as a separator)*
 
@@ -77,7 +77,7 @@ host.name=myhost.mycompany.com
 	
 	`use com.ibm.streamsx.messaging.kafka::KafkaConsumer;`
 
-5. **Configure the Kafka Producer to produce messages.** You must:
+5. **Configure the Kafka Producer to send messages.** You must:
     * **Create a producer.properties file and place it in the `etc` directory of your application.** This ensures that it will be included in the .sab application bundle (important for cloud and HA deployment). The following is a sample producer.properties file. See <a target="_blank" href="http://kafka.apache.org/documentation.html#producerconfigs">here</a> for more producer configuration details.
         <pre><code>bootstrap.servers=broker.host.1:9092,broker.host.2:9092,broker.host.3:9092
    acks=0</code></pre>
@@ -195,6 +195,7 @@ If you would like to consume in parallel within a consistent region, check out t
 
 ## Advanced Parallel Processing
 **This section is under construction**
+
 
 ## Additional Resources
 * <a target="_blank" href="http://ibmstreams.github.io/streamsx.messaging/com.ibm.streamsx.messaging/doc/spldoc/html/index.html">Streams Messaging Toolkit SPLDoc</a>
