@@ -6,8 +6,6 @@ weight: 10
 published: true
 ---
 
-# Messaging Toolkit - Getting Started with Kafka Operators
-
 ## Introduction
 The IBM Streams Messaging Toolkit is designed to get you connected to your messaging servers as quickly as possible. Kafka is an ideal messaging server for stream computing. This guide will get you sending and receiving messages in no time, and will highlight some of the best practices. We will also cover how to get the Kafka operators running in a consistent region. 
 

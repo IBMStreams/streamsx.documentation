@@ -5,6 +5,4 @@ description: IBM Streams Java Support
 weight: 50
 ---
 
-# IBM Streams Java Support
-
 {% include nav.html context="/docs/4.1/java/"%}

@@ -5,8 +5,6 @@ description:  Getting Started Guide for IBM Streams Cybersecurity Toolkit
 weight: 10
 ---
 
-# Cybersecurity Toolkit - Getting Started
-
 ## Introduction
 The Cybersecurity Toolkit provides operators that are capable of analyzing network traffic and detecting suspicious behaviour.
 

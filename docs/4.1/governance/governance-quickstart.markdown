@@ -4,7 +4,6 @@ title: IBM Streams Data Governance Quickstart
 description:  IBM Streams Data Governance Quickstart
 weight: 50
 ---
-# IBM Streams Data Governance Quickstart
 
 ## What you need to get started
 *IBM Information Governance Catalog*
