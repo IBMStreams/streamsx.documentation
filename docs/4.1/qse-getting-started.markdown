@@ -5,8 +5,6 @@ description:  Learn how to get started witH IBM Streams Quick Start Edition
 weight:  10
 ---
 
-# Getting Started with IBM Streams 4.1 Quick Start Edition (QSE)
-
 If you haven't downloaded the Streams QSE, you may download it here:
 
 {% include download.html%}

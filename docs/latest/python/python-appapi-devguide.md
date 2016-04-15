@@ -6,8 +6,6 @@ description:  Learn how to develop a sample IBM Streams application in Python by
 
 **Important:** The Python Application API is currently an alpha release.
 
-
-# Python Application API overview
 Python is a popular language with a large and comprehensive standard library as well as many [third-party libraries](https://pypi.python.org). The IBM Streams Python Application API enables you to create streaming analytics applications in Python.
 
 The API is open source. An alpha release of the API is available for download from the [streamsx.topology](http://ibmstreams.github.io/streamsx.topology/) project on GitHub.

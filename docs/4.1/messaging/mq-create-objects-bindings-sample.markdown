@@ -1,11 +1,9 @@
 ---
 layout: docs
-title: Example - create WebSphere MQ objects and bindings file
+title: WebSphere MQ - Sample steps for creating queues and bindings file
 description:  Sample scripts for creating MQ objects and bindings.
 weight: 80
 ---
-
-# WebSphere MQ - Sample steps for creating queues and bindings file
 
 ## Introduction
  Streams messaging toolkit provides operators for sending and receiving messages from WebSphere MQ. This article shows a simple sample for creating WebSphere MQ administered objects and generating bindings file.

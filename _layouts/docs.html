@@ -13,11 +13,22 @@
                 
 				<ul class="nav nav-sidebar">
 				</ul>
+                
+			</div>
+                
+			<div class="main col-sm-10 col-md-10 col-lg-10">
+            <h1>{{page.title}}
                 {% if site.github_editme_path %}
                 <a target="_blank" href="https://github.com/{{site.github_editme_path}}/{{page.path | replace: '.html', '.markdown'}}" class="btn btn-default githubEditButton text-center" role="button"><i class="fa fa-github fa-lg"></i> Edit me</a>
                 {% endif %}
-			</div>
-			<div class="main col-sm-10 col-md-10 col-lg-10">{{content}}</div>
+            
+            </h1>
+            
+            
+            
+            {{content}}
+                     
+            </div>
 		</div>
 
 	</div>

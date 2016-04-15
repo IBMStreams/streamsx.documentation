@@ -3,8 +3,6 @@ layout: docs
 title:  streamsx.documentation
 description:  IBM Streams community-based documentation project.  
 ---
-
-# streamsx.documentation
 The streamsx.documentation is a community-based documentation project for IBM Streams.
 The goal of the project is to provide easy-to-follow documentation and development guides to help users get started with Streams.
 

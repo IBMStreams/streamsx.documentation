@@ -8,8 +8,6 @@ published: false
 
 **(Coming Soon...)**
 
-# Installing Streams Quick Start Edition Docker Image
-
 The Streams Quick Start Editor can help you get started with Streams quickly, without having to install a Streams cluster environment.
 
 {% include download.html%}

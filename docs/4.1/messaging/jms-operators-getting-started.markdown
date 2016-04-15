@@ -1,11 +1,9 @@
 ---
 layout: docs
-title: Getting started with JMS operators
+title: Getting Started with JMS operators
 description:  Getting Started Guide for IBM Streams Messaging Toolkit - JMS operators
 weight: 10
 ---
-
-# Messaging Toolkit - Getting started with JMS operators
 
 ## Introduction
 IBM  Streams messaging toolkit provides several operators allowing users to source and sink messages from and to different types of messaging systems. This article will focus on explaining how to configure JMS operators to work with either WebSphere MQ or ActiveMQ messaging systems.
