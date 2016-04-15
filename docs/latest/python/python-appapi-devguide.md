@@ -833,7 +833,7 @@ import random
 
 def readings():
     while True:
-        yield random.gauss(0.0, 1.0)i
+        yield random.gauss(0.0, 1.0)
 
 def convertToKelvin(tuple) :
         return tuple +  273.15
