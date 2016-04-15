@@ -679,7 +679,7 @@ stream3 = stream1.filter(...)
 
 A visual representation of this code would look something like this:
 
-![Visual representation of splitting a stream](../../images/python/stream_split.jpg)
+![Visual representation of splitting a stream](../../../../images/python/stream_split.jpg)
 
 The following example shows how you can distribute tuples from a `source` function to two `sink` functions.  Each `sink` function receives a copy of the tuples from the `source` `Stream`.
 
