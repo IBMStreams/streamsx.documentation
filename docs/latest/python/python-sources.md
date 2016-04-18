@@ -2,6 +2,7 @@
 layout: docs
 title:  Creating source streams in Python
 description:  Learn how to develop a source stream in Python by using the the Python Application API
+weight:  20
 ---
 
 **Important:** The Python Application API is currently an alpha release.
