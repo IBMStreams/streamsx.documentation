@@ -75,7 +75,7 @@ host.name=myhost.mycompany.com
 	
 	`use com.ibm.streamsx.messaging.kafka::KafkaConsumer;`
 
-5. **Configure the Kafka Producer to send messages.** You must:
+5. **Configure the Kafka Producer to send messages to a Kafka Broker.** You must:
     * **Create a producer.properties file and place it in the `etc` directory of your application.** This ensures that it will be included in the .sab application bundle (important for cloud and HA deployment). The following is a sample producer.properties file. See <a target="_blank" href="http://kafka.apache.org/documentation.html#producerconfigs">here</a> for more producer configuration details.
         <pre><code>bootstrap.servers=broker.host.1:9092,broker.host.2:9092,broker.host.3:9092
    acks=0</code></pre>
@@ -110,7 +110,7 @@ host.name=myhost.mycompany.com
         
     <div class="alert alert-success" role="alert"><b>Notice: </b>We don't specify the topic as a parameter, but instead as a part of the incoming tuple. This means that each incoming tuple can be directed towards a different topic.</div>
 
-6. **Configure the Kafka Consumer to receive messages.** You must: 
+6. **Configure the Kafka Consumer to receive messages from the Kafka Broker.** You must: 
     * **Create a consumer.properties file and place it in the `etc` directory of your application.** Here is a sample consumer.properties file (for more details on Kafka Consumer configs, see <a target="_blank" href="http://kafka.apache.org/documentation.html#newconsumerconfigs">here</a>:
         <pre><code>bootstrap.servers=broker.host.1:9092,broker.host.2:9092,broker.host.3:9092
 group.id=mygroup</code></pre>
