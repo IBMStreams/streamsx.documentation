@@ -234,7 +234,9 @@ You'll notice that we provide a predicate function, and need to override only it
 * Keeping track of state across tuples
 
 For each of these, we'll walk through an example.
+
 #### Transform: Modifying tuple contents
+
 Let's take the previous example of reading words from a dictionary. It's not necessarily the case that we want *exactly* the tuples of a stream; we might need to modify them before we use them. Instead of having a TStream of dictionary words, what if we wanted a TStream of only the first four letters of each word? The transform operation is best suited to this task because it permits data-modifying operations on the tuple:
 
 ~~~~~~
