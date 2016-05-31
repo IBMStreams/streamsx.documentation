@@ -34,6 +34,12 @@ To provide feedback on our documentation:
 
 This will open an issue for the page that you are currently visiting.  
 
+# Need Help with IBM Streams?
+
+1.  Ask your questions on [Streams Forum](https://developer.ibm.com/answers/smart-spaces/22/streamsdev.html)
+2.  If project is on IBM Streams Github, open an issue to the related project.
+3.  Ask your questions on [StackOverflow](http://stackoverflow.com/questions/tagged/infosphere-spl)
+
 # Contributing
 
 If you have ideas on how we can better document or explain some of the concepts, we would love to have your contribution!  The streamsx.documentation site uses Github Pages and Jekyll markdown for our documentation.
