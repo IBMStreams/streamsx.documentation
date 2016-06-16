@@ -274,7 +274,7 @@ To achieve this:
 
 
 
-    Include the following code in the filter_words_function.py file:
+    Include the following code in the filter_words_functions.py file:
 
 
         def words_in_dictionary():
@@ -404,7 +404,7 @@ qual
 quiz
 ~~~~~~
 
-As you can see, the `transform` operation modifies the tuples. In this instance, it the operation modifies the tuples so that only the first four letters of each word are returned.
+As you can see, the `transform` operation modifies the tuples. In this instance, the operation modifies the tuples so that only the first four letters of each word are returned.
 
 
 ### Transform: Changing the type of a tuple
@@ -541,7 +541,7 @@ A **stateful** function references data that is preserved across calls to the fu
 
 You can define stateful data within the scope of a callable object. The data is local to the function. When the function exits, the data is no longer accessible.
 
-For example, you have a `Stream` of random numbers and you want to define an function that consumes the `Stream` and keeps track of the moving average across the last ten tuples. You can define a list in the callable object to keep track of the tuples on the `Stream`. The state of the list persists across calls to the function.
+For example, you have a `Stream` of random numbers and you want to define a function that consumes the `Stream` and keeps track of the moving average across the last ten tuples. You can define a list in the callable object to keep track of the tuples on the `Stream`. The state of the list persists across calls to the function.
 
 To achieve this:
 
