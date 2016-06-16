@@ -161,21 +161,17 @@ Here is the KafkaConsumer from the <a target="_blank" href="https://github.com/I
 
 
 ## Parallel Consuming
-Consuming in parallel lets you take advantage of the scalability of both Kafka and Streams. For a multi-partition topic, you can have as many consumers as you have partitions (if you have more consumers than partitions, they will just sit idly). 
+Consuming in parallel lets you take advantage of the scalability of both Kafka and Streams. Kafka allows for parallel consumption of multi-topic partitions via <a href="http://kafka.apache.org/documentation.html#intro_consumers" target="_blank">consumer groups</a>. Any consumer with the same `group.id=<consumer-group-name>` will be a part of the same consumer group and will share the partitions of a topic. If you would like to directly control which partitions your consumer is reading from, you can do that by specifying the `partition` parameter in the KafkaConsumer operator. 
  
-<div class="alert alert-info" role="alert"><b>Best Practice: </b>To consume in parallel, specify the partition parameter. You can specify one or more partitions per operator. Partition numbers start at 0, so a 3-partition topic will have partitions 0, 1, and 2.</div>
+<div class="alert alert-info" role="alert"><b>Best Practice: </b>For a multi-partition topic, you can have as many consumers as you have partitions (if you have more consumers than partitions, they will just sit idly).</div>
 
 The easiest way to consume from a single topic in parallel is to:
 
 * **Use @parallel with a width equal to the number of partitions in your topic:**
     
     `@parallel(width = $numTopicPartitions)`
-    
-* **Use `getChannel()` as the partition parameter value.**
 
-    `partition : getChannel();`
-
-Here is a simple example of using three consumers to read from a 3-partition topic using <a href="https://www-01.ibm.com/support/knowledgecenter/SSCRJU_4.1.1/com.ibm.streams.dev.doc/doc/udpoverview.html" target="_blank">User Defined Parallelism</a> (from the <a target="_blank" href="https://github.com/IBMStreams/streamsx.messaging/blob/master/samples/KafkaParallelConsumers/application/KafkaParallelConsumers.spl">KafkaParallelConsumers sample</a>):
+Here is a simple example of using three consumers to read from a 3-partition topic using <a href="https://www-01.ibm.com/support/knowledgecenter/SSCRJU_4.1.1/com.ibm.streams.dev.doc/doc/udpoverview.html" target="_blank">User Defined Parallelism</a>:
 
 <pre class="source-code"><code>    <b style="color:blue">@parallel(width = 3)</b>
     stream&lt;rstring message, rstring key&gt; KafkaConsumerOut = KafkaConsumer()
@@ -183,13 +179,10 @@ Here is a simple example of using three consumers to read from a 3-partition top
         param
             propertiesFile : &quot;etc/consumer.properties&quot; ;
             topic : $topic ;
-            <b style="color:blue">partition : getChannel()</b> ;
     }
 </code></pre>
 
 If you would like to consume in parallel within a consistent region, check out this <a target="_blank" href="https://github.com/IBMStreams/streamsx.messaging/tree/master/samples/KafkaConsistentRegionConsumerParallel">KafkaConsistentRegionConsumerParallel sample</a>.
-
-<div class="alert alert-danger" role="alert"><b>Warning: </b>Do not rely on Kafka consumer rebalancing to consume in parallel. We have experienced many issues with failed rebalancing, and there is no way to know ahead of time which partitions each consumer will be reading from.</div>
 
 ## Advanced Parallel Processing
 **This section is under construction**
