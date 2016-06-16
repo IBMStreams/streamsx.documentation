@@ -42,7 +42,7 @@ If you're new to IBM Streams and want to learn more about the terms in this guid
 # Prerequites
 Before you can use the Python Application API, you must complete the following tasks:
 
-1. Install IBM Streams Version 4.0.0 (or later) or IBM Streams Quick Start Edition Version 4.0.0 (or later):
+1. Install IBM Streams Version 4.0.1 (or later) or IBM Streams Quick Start Edition Version 4.0.1 (or later):
 
     * [IBM Streams Version 4.1.1 installation documentation](http://www.ibm.com/support/knowledgecenter/SSCRJU_4.1.1/com.ibm.streams.install.doc/doc/installstreams-container.html)
 
@@ -61,8 +61,13 @@ Before you can use the Python Application API, you must complete the following t
 
     After the toolkit downloads, extract it to your file system.
 
-1. Install CPython 3.5.0 or later [https://www.python.org](https://www.python.org).
-The Python Application API has been tested with Python 3.5.1
+1. Install a supported version of Python:
+
+   * CPython 3.5.0 or later [https://www.python.org](https://www.python.org).
+
+   * Anaconda 4.0.0 or later, which includes Python 3.5.0 [https://www.continuum.io/downloads](https://www.continuum.io/downloads).
+   
+   The Python Application API has been tested with Python 3.5.1
 
 1. Include the fully qualified path of the `com.ibm.streamsx.topology/opt/python/packages` directory in the PYTHONPATH environment variable. For example:
 
