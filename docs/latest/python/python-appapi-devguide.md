@@ -987,9 +987,9 @@ Include the following lines in the publish_mqtt.py file:
 
 ~~~~~
 from streamsx.topology.topology import *
-from streamsx.topology.schema import *
+from streamsx.topology import schema
+import streamsx.topology.context
 from streamsx.topology.mqtt import *
-import streamsx.topology.context;
 
 def main():
    topo = Topology("An MQTT application")
