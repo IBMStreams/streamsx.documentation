@@ -1,11 +1,3 @@
----
-layout: docs
-title:  Developing IBM Streams applications with Python
-description:  Learn how to develop a sample IBM Streams application in Python by using the the Python Application API in the Topology Toolkit
-weight:  10
-published: true
----
-
 **Important:** The Python Application API is currently a beta release.
 
 Python is a popular language with a large and comprehensive standard library as well as many [third-party libraries](https://pypi.python.org). The IBM Streams Python Application API enables you to create streaming analytics applications in Python.
@@ -36,7 +28,7 @@ If you'd prefer to dig in to the Pydoc yourself, you can find the documentation 
 
 
 # Terminology
-If you're new to IBM Streams and want to learn more about the terms in this guide, see the [IBM Streams glossary](www.ibm.com/support/knowledgecenter/SSCRJU_4.1.1/com.ibm.streams.glossary.doc/doc/glossary_streams.html) in IBM Knowledge Center.
+If you're new to IBM Streams and want to learn more about the terms in this guide, see the [IBM Streams glossary](http://www.ibm.com/support/knowledgecenter/SSCRJU_4.1.1/com.ibm.streams.glossary.doc/doc/glossary_streams.html) in IBM Knowledge Center.
 
 
 # Prerequites
@@ -244,7 +236,7 @@ Stream
 
 The following sections outline best practices for each type of operation.
 
-You can also find more information about IBM Streams operations in the [Python Application API SPLDOC](http://ibmstreams.github.io/streamsx.topology/experimental/python/doc/spldoc/html/tk$com.ibm.streamsx.topology/ns$com.ibm.streamsx.topology.python$8.html)
+You can also find more information about IBM Streams operations in the [Python Application API SPLDOC](http://ibmstreams.github.io/streamsx.topology/experimental/python/doc/spldoc/html/tk$com.ibm.streamsx.topology/ns$com.ibm.streamsx.topology.python$1.html)
 
 
 ## Creating data sources
@@ -1089,7 +1081,7 @@ Your application should look like this:
 
 The following code should be in the temperature_sensor.py file:
 
-~~~~~~
+```Python
 from streamsx.topology.topology import Topology
 import streamsx.topology.context
 import temperature_sensor_functions
@@ -1103,11 +1095,11 @@ def main():
 
 if __name__ == '__main__':
     main()
-~~~~~~
+```
 
 The following code should be in the temperature_sensor_functions.py file:
 
-~~~~~~
+```Python
 import random
 
 def readings():
@@ -1116,7 +1108,7 @@ def readings():
 
 def convertToKelvin(tuple) :
         return tuple +  273.15
-~~~~~~
+```
 
 Converting a temperature reading from Celsius to Kelvin is not a resource-intensive task. However, you can use this example to see how using a parallel region can help distribute processing across resources when an operation is resource-intensive or inefficient and is causing a bottleneck in your application.
 
@@ -1128,7 +1120,7 @@ To end parallel processing, invoke `.end_parallel()` on the parallelized `Stream
 
 The above example becomes:
 
-~~~~~~
+```Python
 def main():
     topo = Topology("temperature_sensor")
     source = topo.source(temperature_sensor_functions.readings)
@@ -1136,6 +1128,6 @@ def main():
     end = kelvin.end_parallel()
     end.sink(print)
           streamsx.topology.context.submit("STANDALONE", topo.graph)
-~~~~~~
+```
 
 Any operations that are performed on the parallelized `Stream` occur in parallel to the degree that is specified in the `.parallel()` function. In the example above, you specified 4, which means that four channels process the data in the parallel region on the graph.
