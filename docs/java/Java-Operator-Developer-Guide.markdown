@@ -3,8 +3,8 @@ Java is a deeply integrated part of Streams. Making Java easy in Streams has bee
 ##  Operator Life Cycle
 Unless you're writing an extremely simple Java operator, it's important to understand how the operator life cycle works. All operators written in Java must implement the following interface and implement a no-argument constructor:
 
-~~~~~~
-com.ibm.streams.operator.Operator   
+```Java
+//com.ibm.streams.operator.Operator   
 
 public interface Operator {
 	public void initialize(OperatorContext context) throws Exception;
@@ -13,7 +13,7 @@ public interface Operator {
 	public void processPunctuation(StreamingInput<Tuple> port, Punctuation mark) throws Exception;
 	public void shutdown() throws Exception;
 }      
-~~~~~~
+```
 
 
 In general, you will extend AbstractOperator, which implements the Operator interface and takes default actions. You will then override the methods that need to be customized.
@@ -21,9 +21,9 @@ Here is a brief explanation of the required methods:
 
 * **void initialize(OperatorContext context)** - This is called once before any tuples are processed and before any of the other required methods. Here is where you should put code to establish connections to external systems and data. You will have access to parameters set in the SPL operator invocation.
 
-* **void allPortsReady()** - This is called once after the **initialize()** method has returned and all input and output ports are connected and ready to receive/submit tuples. Operators that process incoming tuples generally won't use this, since the process method is used to handle tuples. In the case of a source operator, there are no incoming tuples so this is where the tuple producing threads are started. We will cover this more in the [source operator](/streamsx.documentation/docs/4.1/java/java-op-dev-guide/#creating-a-source-operator) section.
+* **void allPortsReady()** - This is called once after the **initialize()** method has returned and all input and output ports are connected and ready to receive/submit tuples. Operators that process incoming tuples generally won't use this, since the process method is used to handle tuples. In the case of a source operator, there are no incoming tuples so this is where the tuple producing threads are started. We will cover this more in the [source operator](#creating-a-source-operator) section.
 
-* **void process(StreamingInput\<Tuple> port, Tuple tuple)** - This is where the manipulation of incoming tuples will take place, followed by submission to an output port or an external connection (in the case of a sink operator). **The performance of your operator is almost completely dependent on how efficient your process method is.** See the [Improving Performance](/streamsx.documentation/docs/4.1/java/java-op-dev-guide/#improving-performance) section for some tips.
+* **void process(StreamingInput\<Tuple> port, Tuple tuple)** - This is where the manipulation of incoming tuples will take place, followed by submission to an output port or an external connection (in the case of a sink operator). **The performance of your operator is almost completely dependent on how efficient your process method is.** See the [Improving Performance](#improving-performance) section for some tips.
 
 * **void processPunctuation(StreamingInput\<Tuple> port, Punctuation mark)** - This is where incoming punctuation markers that arrived on the specified port are processed. The two types of punctuation to be handled are window and final.
 
@@ -39,47 +39,42 @@ Here is a brief explanation of the required methods:
 
 #### Types of Operators
 * **Process Operator** - Data comes in as a tuple on an input data stream. That data is processed and the result is submitted as a tuple to an output stream. Process operators make up most of a typical Streams operator graph. 
-* **[Source Operator](/streamsx.documentation/docs/4.1/java/java-op-dev-guide/#creating-a-source-operator)** - Data is read from an external system (or generated) and submitted to an output port as a tuple stream.
-* **[Sink Operator](/streamsx.documentation/docs/4.1/java/java-op-dev-guide/#creating-a-sink-operator)** - Data comes in as a tuple on an input data stream, and is then written to an external system. 
+* **[Source Operator](#creating-a-source-operator)** - Data is read from an external system (or generated) and submitted to an output port as a tuple stream.
+* **[Sink Operator](#creating-a-sink-operator)** - Data comes in as a tuple on an input data stream, and is then written to an external system. 
 
 In our first Java primitive operator, we will create an operator that converts incoming strings to upper case.  This example is really simple, but it demonstrates some basic concepts about Java primitive operators. This guide will build on this example to demonstrate the concepts in each section.
 
 #### StringToCaps.java
 
-<ul class="nav nav-tabs">
-  <li class="active"><a data-toggle="tab" href="#simpleSource-0">Code</a></li>
-  <li><a data-toggle="tab" href="#fullSource-0">Full Source</a></li>
-</ul>
-
-<div class="tab-content">
-  <div id="simpleSource-0" class="tab-pane fade in active">
- <pre><code><b>@PrimitiveOperator()
+```Java
+@PrimitiveOperator()
 @InputPorts(@InputPortSet(cardinality=1))
-@OutputPorts(@OutputPortSet(cardinality=1))</b>
+@OutputPorts(@OutputPortSet(cardinality=1))
 public class StringToCaps extends AbstractOperator {
     @Override
-    public final void <b>process</b>(StreamingInput&lt;Tuple&gt; inputStream, Tuple tuple)
+    public final void process(StreamingInput<Tuple> inputStream, Tuple tuple)
             throws Exception {
         // Create a new tuple for output port 0
-        StreamingOutput&lt;OutputTuple&gt; outStream = getOutput(0);
+        StreamingOutput<OutputTuple> outStream = getOutput(0);
         OutputTuple outTuple = outStream.newTuple();
         
-		// Copy incoming attributes to output tuple if they're in the output schema
+	    // Copy incoming attributes to output tuple if they're in the output schema
         outTuple.assign(tuple);
         
         // Get attribute from input tuple and manipulate
-        String myString = tuple.getString(&quot;myString&quot;);
+        String myString = tuple.getString("myString");
         myString = myString.toUpperCase();
-        outTuple.setString(&quot;myString&quot;, myString);
+        outTuple.setString("myString", myString);
 
         // Submit new tuple to output port 0
         outStream.submit(outTuple);
     }
 }
-</code></pre>
- </div>
-  <div id="fullSource-0" class="tab-pane fade">
-  <pre><code>package stringToCaps;
+```
+
+Full Source:
+```Java
+package stringToCaps;
 
 import com.ibm.streams.operator.AbstractOperator;
 import com.ibm.streams.operator.OutputTuple;
@@ -98,31 +93,25 @@ import com.ibm.streams.operator.model.PrimitiveOperator;
 @OutputPorts(@OutputPortSet(cardinality=1))
 public class StringToCaps extends AbstractOperator {
     @Override
-    public final void process(StreamingInput&lt;Tuple&gt; inputStream, Tuple tuple)
+    public final void process(StreamingInput<Tuple> inputStream, Tuple tuple)
             throws Exception {
         // Create a new tuple for output port 0
-        StreamingOutput&lt;OutputTuple&gt; outStream = getOutput(0);
+        StreamingOutput<OutputTuple> outStream = getOutput(0);
         OutputTuple outTuple = outStream.newTuple();
         
-		// Copy incoming attributes to output tuple if they're in the output schema
+	    // Copy incoming attributes to output tuple if they're in the output schema
         outTuple.assign(tuple);
         
         // Get attribute from input tuple and manipulate
-        String myString = tuple.getString(&quot;myString&quot;);
+        String myString = tuple.getString("myString");
         myString = myString.toUpperCase();
-        outTuple.setString(&quot;myString&quot;, myString);
+        outTuple.setString("myString", myString);
 
         // Submit new tuple to output port 0
         outStream.submit(outTuple);
     }
 }
-</code></pre>
-  </div>
-</div>
-
-
-
-
+```
 
 Key points to note from this example:
 
@@ -136,69 +125,56 @@ Key points to note from this example:
 * **@OutputPorts** - Defines one or more @OutputPortSets that describe the ports for outgoing tuples.   
     * **@OutputPortSet** - Contains the property definitions for one or more ports. The available properties are description, cardinality, optional, windowingMode, and windowPunctuationOutputMode. Only the last `@OutputPortSet` within an `@OutputPorts` definition can have a cardinality of -1 (define multiple input ports).   
 
-* **process(StreamingInput&lt;Tuple&gt; inputStream, Tuple tuple)** - This is the main method that gets called when a tuple is received by the operator.  In our example, the operator first copies any incoming attributes to the outgoing tuple (in cases where attribute names match). Next, the operator gets the `myString` attribute from the incoming stream.  It converts the string to upper case, and assigns the resulting string to the output tuple.  The operator then submits the output tuple to the output port.  This example demonstrates a common pattern in the process method for a Java primitive operator:
+* **process(StreamingInput<Tuple> inputStream, Tuple tuple)** - This is the main method that gets called when a tuple is received by the operator.  In our example, the operator first copies any incoming attributes to the outgoing tuple (in cases where attribute names match). Next, the operator gets the `myString` attribute from the incoming stream.  It converts the string to upper case, and assigns the resulting string to the output tuple.  The operator then submits the output tuple to the output port.  This example demonstrates a common pattern in the process method for a Java primitive operator:
 	1. Forward all attributes that aren't getting manipulated by this operator. 
     1. Get attributes that you want to manipulate from the incoming tuple using getter methods.
 	1. Manipulate the attributes in the desired way.
 	1. Write attributes to the output tuple using setter methods.
 	1. Submit output tuple.
 
-<div class="alert alert-success" role="alert"><b>Tip: </b>The performance of your Java primitive operator is highly dependent on how efficient the process method is. See the <a href="/streamsx.documentation/docs/4.1/java/java-op-dev-guide/#improving-performance" target="_blank" >Improving Performance</a> section later for details.</div>
+**Tip:** The performance of your Java primitive operator is highly dependent on how efficient the process method is. See the [improving performance](#improving-performance) section later for details.
 
 ### Building Java Primitive Operator
 
-<ul class="nav nav-tabs">
-  <li class="active"><a data-toggle="tab" href="#command-0">Build with Command-line</a></li>
-  <li><a data-toggle="tab" href="#studio-0">Build with Streams Studio</a></li>
-</ul>
+#### Command line instructions
+The steps for building the simple Java primitive operator from above on the command line are as follows:
 
-<div class="tab-content">
-  <div id="command-0" class="tab-pane fade in active">
-  <br>
-  The steps for building the simple Java primitive operator from above on the command line are as follows:
-  <br><br>
-<ol>
-	<li>Create a directory for your SPL toolkit (MyJavaOp in this case). Create these directories as well: </li>
-	<pre><code>MyJavaOp/impl/java/src/
-MyJavaOp/impl/java/src/stringToCaps
-MyJavaOp/impl/java/bin/
-</code></pre>
-	<li>Place your <a href="/streamsx.documentation/docs/4.1/java/java-op-dev-guide/creating-your-first-java-operator">StringToCaps.java</a> operator class in <pre>MyJavaOp/impl/java/src/stringToCaps</pre></li>
-	<li>Compile the Java operator class from the SPL toolkit directory (MyJavaOp) using:</li>
-	<pre><code>javac -cp $STREAMS_INSTALL/lib/com.ibm.streams.operator.jar impl/java/src/stringToCaps/StringToCaps.java -d impl/java/bin/</code></pre>
-	<li>Index the toolkit from the SPL toolkit directory. This will generate the operator model and build the toolkit directory structure.  </li>
-	<pre><code>spl-make-toolkit -i ./</code></pre>
-</ol>  
-<div class="alert alert-info" role="alert"><b>Best Practice: </b>In our example, we used com.ibm.streams.operator.jar to demonstrate key concepts with Java primitive operator.  As a best practice, you should include the com.ibm.streams.operator.samples.jar in the classpath.  This jar provides common patterns, like source and sink operators, that you can extend when implementing your Java primitive operator.   For more details, refer to <a href="https://www-01.ibm.com/support/knowledgecenter/#!/SSCRJU_4.1.0/com.ibm.streams.spl-java-operators.doc/samples/overview-summary.html">Java Primitive Operator Sample Javadoc</a></div>
-  </div>
-  <div id="studio-0" class="tab-pane fade">
-  <br>
-   The steps for building the simple Java primitive operator using Streams Studio are as follows:
-<br><br>
-<ol>
-	<li>	File -> New -> Project</li>   
-	<li>Expand InfoSphere Streams Studio</li>
-	<li>Select SPL Project</li>
-	<li>Name your project (MyJavaOp in this case) and then click Finish</li>
-	<li>In the generated project, right-click and select New -> Java Primitive Operator</li>
-	<li>Set the namespace to stringToCaps and the Name to be StringToCaps</li>
-	<li>Click Finish</li>
-	<li>In the generated template, StringToCaps.java, modify the process operator to look like the <a href="/streamsx.documentation/docs/4.1/java/java-op-dev-guide/creating-your-first-java-operator">example above</a>.</li>
-	<li>Save your changes and Studio will automatically build your operator model and create the toolkit directory structure.</li>
-</ol>
-  </div>
-</div>
-<br>
+1.  Create a directory for your SPL toolkit (MyJavaOp in this case). Create these directories as well:
+	* MyJavaOp/impl/java/src/
+	* MyJavaOp/impl/java/src/stringToCaps
+	* MyJavaOp/impl/java/bin/
+
+2.  Place your [StringToCaps.java](#creating-your-first-java-operator) operator class in `MyJavaOp/impl/java/src/stringToCaps`.
+
+3.  Compile the Java operator class from the SPL toolkit directory (MyJavaOp) using:`javac -cp $STREAMS_INSTALL/lib/com.ibm.streams.operator.jar impl/java/src/stringToCaps/StringToCaps.java -d impl/java/bin/`
+
+4.  Index the toolkit from the SPL toolkit directory. This will generate the operator model and build the toolkit directory structure: `spl-make-toolkit -i ./`
+ 
+In our example, we used com.ibm.streams.operator.jar to demonstrate key concepts with Java primitive operator. As a best practice, you should include the com.ibm.streams.operator.samples.jar in the classpath. This jar provides common patterns, like source and sink operators, that you can extend when implementing your Java primitive operator. For more details, refer to <a href="https://www-01.ibm.com/support/knowledgecenter/#!/SSCRJU_4.1.0/com.ibm.streams.spl-java-operators.doc/samples/overview-summary.html">Java Primitive Operator Sample Javadoc</a>.
+#### Streams Studio instructions
+
+The steps for building the simple Java primitive operator using Streams Studio are as follows:
+
+1.  File -> New -> Project 
+2.  Expand InfoSphere Streams Studio
+3.  Select SPL Project
+4.  Name your project (MyJavaOp in this case) and then click Finish
+5.  In the generated project, right-click and select New -> Java Primitive Operator
+6.  Set the namespace to stringToCaps and the Name to be StringToCaps
+7.  Click Finish
+8.  In the generated template, StringToCaps.java, modify the process operator to look like the <a href="/streamsx.documentation/docs/4.1/java/java-op-dev-guide/creating-your-first-java-operator">example above</a>.
+9.  Save your changes and Studio will automatically build your operator model and create the toolkit directory structure.</li>
+
 
 When the Java compiler is run, by having the com.ibm.streams.operator.jar file in the class path, the Java compiler invokes the Streams annotation processor to process the annotations on the Java primitive operator class.  The Streams annotation processor generates an `operatorName$StreamsModel.class` which contains all the information required to run the Java operator from SPL.  Using this information, the annotation processor then generates the operator model for the Java primitive operator.  
 
 When `spl-make-toolkit` is run, the toolkit indexer scans the toolkit for operator models.  It includes operators defined in the operator model into the toolkit index.  This step is required to make the Java primitive operator accessible from SPL.
 
-<div class="alert alert-danger" role="alert"><b>IMPORTANT: </b>Do not modify the generated operator model.  Any changes made to the model will be overwritten when the toolkit is built.  To modify the operator model, use annotations.</div>
+**IMPORTANT:** Do not modify the generated operator model.  Any changes made to the model will be overwritten when the toolkit is built.  To modify the operator model, use annotations.
 
 In both the CLI and the Streams Studio cases, the standard toolkit structure will look approximately like this:
 
-~~~~~~
+```
 /+ <toolkit>
    /* toolkit.xml
    /+ <name-space>
@@ -212,11 +188,11 @@ In both the CLI and the Streams Studio cases, the standard toolkit structure wil
           /+ bin
       /+ lib
       /+ src             
-~~~~~~
+```
 
 If you followed the CLI instructions, this should be your directory structure:
 
-~~~~~~
+```
 /+ MyJavaOp
    /* toolkit.xml
    /+ stringToCaps
@@ -232,7 +208,7 @@ If you followed the CLI instructions, this should be your directory structure:
           		/* StringToCaps.class   
           		/* StringToCaps$StreamsModel.java 
           		/* StringToCaps$StreamsModel.class          
-~~~~~~
+```
 
 * **[toolkit]** - root directory of the toolkit.  Typically the name of the root directory matches the name of the toolkit in info.xml.
 * **toolkit.xml** - a generated resource by the SPL toolkit indexing processing.  This file should not be modified and is used by the compiler and various components in Streams.
@@ -260,49 +236,35 @@ For your test application to be able to access the Java primitive operator, the 
 
 
 
-<ul class="nav nav-tabs">
-  <li class="active"><a data-toggle="tab" href="#command-01">Build with Command-line</a></li>
-  <li><a data-toggle="tab" href="#studio-01">Build with Streams Studio</a></li>
-</ul>
+#### Build with Command-line
+Create `TestJavaOp` directory for your toolkit. In that directory, create a file named `info.xml`. In the info.xml, specify toolkit dependency as shown in the file below.
 
+1. We specify `MyJavaOp` toolkit as a dependency for `TestJavaOp`
+2. We specify that `TestJavaOp` depends on version `1.0.0` to `2.0.0` (exclusive) of the `TestJavaOp` toolkit.
 
+####Build with Streams Studio
 
-<div class="tab-content">
-  <div id="command-01" class="tab-pane fade in active">
-  <br>
-  Create `TestJavaOp` directory for your toolkit. In that directory, create a file named `info.xml`. In the info.xml, specify toolkit dependency as shown in the file below.
-  	<ol>
-	    <li>We specify `MyJavaOp` toolkit as a dependency for `TestJavaOp`</li>
-	    <li>We specify that `TestJavaOp` depends on version `1.0.0` to `2.0.0` (exclusive) of the `TestJavaOp` toolkit.</li>
-    </ol>
-  </div>
-  <div id="studio-01" class="tab-pane fade">
-  <br>
-   There are two ways to do this in Studio. You can specify the dependency on MyJavaOp during the creation of a new SPL Application Project (as shown in the video above). If the application is already created, you can edit the dependencies. 
-    <br><br>
-        <ol>  
-            <li>Add dependency during project creation:</li>
-                <ol>  
-                    <li>File -> New -> Project. Select SPL Application Project and click Next.</li>
-                    <li>Type in your Project, Namespace, and Main composite names. Click Next.</li>
-                    <li>In the Dependencies section, expand Workspace Projects and select MyJavaOp. In cases where you are using an external toolkit, they will show up in this box for selection as well. Click Finish.</li>
-                </ol>
-            <li>Add dependency to an existing project by editing dependencies.</li>
-                <ol>  
-                    <li>Expand the SPL Application Project that you want to add a dependency to.</li>
-                    <li>Right-click on Dependencies and select Edit Dependencies...</li>
-                    <li>Click Add... and select the toolkit dependency you want to add. Note: If you don't see the toolkit that you want to add a dependency on, then you probably haven't added the toolkit location to your workspace. Read how to do that <a href="http://www-01.ibm.com/support/knowledgecenter/SSCRJU_4.1.0/com.ibm.streams.studio.doc/doc/tusing-working-with-toolkits-adding-toolkit-locations.html" target="_blank">here</a>.</li>      
-                </ol>
-        </ol>
-  </div>
-</div>
-<br>
+There are two ways to do this in Studio. You can specify the dependency on MyJavaOp during the creation of a new SPL Application Project (as shown in the video above). If the application is already created, you can edit the dependencies.
+
+**Add dependency during project creation:**
+
+1. File -> New -> Project. Select SPL Application Project and click Next.
+2. Type in your Project, Namespace, and Main composite names. Click Next.
+3. In the Dependencies section, expand Workspace Projects and select MyJavaOp. In cases where you are using an external toolkit, they will show up in this box for selection as well. Click Finish.
+  
+**Add dependency to an existing project by editing dependencies.**
+
+1. Expand the SPL Application Project that you want to add a dependency to.
+2. Right-click on Dependencies and select Edit Dependencies...
+3. Click Add... and select the toolkit dependency you want to add. Note: If you don't see the toolkit that you want to add a dependency on, then you probably haven't added the toolkit location to your workspace. Read how to do that here.
+
 
 The resulting info.xml file should look like this: 
 
-~~~
+```xml
 <?xml version="1.0" encoding="UTF-8"?>
-<info:toolkitInfoModel xmlns:common="http://www.ibm.com/xmlns/prod/streams/spl/common" xmlns:info="http://www.ibm.com/xmlns/prod/streams/spl/toolkitInfo">
+<info:toolkitInfoModel xmlns:common="http://www.ibm.com/xmlns/prod/streams/spl/common" 
+  xmlns:info="http://www.ibm.com/xmlns/prod/streams/spl/toolkitInfo">
   <info:identity>
     <info:name>TestJavaOp</info:name>
     <info:description></info:description>
@@ -316,10 +278,10 @@ The resulting info.xml file should look like this:
     </info:toolkit>
   </info:dependencies>
 </info:toolkitInfoModel>
-~~~
+```
 
 
-{% include bestpractices.html text= "info.xml is an optional file for a SPL toolkit.  However, it is a best practice to always create this file.  It helps the SPL compiler builds dependency trees among other things.  This file is also used by Streams Studio to help scope content assist suggestions."%}
+info.xml is an optional file for a SPL toolkit.  However, it is a best practice to always create this file.  It helps the SPL compiler builds dependency trees among other things.  This file is also used by Streams Studio to help scope content assist suggestions.
 
 ### Test Application
 
@@ -330,31 +292,32 @@ In the `TestJavaOp` toolkit, we create a test application that calls the Java pr
 
 SPL Code for `TestJavaOp` (TestJavaOp.spl, located in <workspace>/TestJavaOp/application/):
 
-<pre><code>namespace application ;
+```
+namespace application;
 
-use stringToCaps::StringToCaps ;
+use stringToCaps::StringToCaps;
 
 composite TestJavaOp
 {
   graph
-    (stream&lt;rstring myString&gt; Beacon_1_out0) as Beacon_1 = Beacon()
+    (stream<rstring myString>; Beacon_1_out0) as Beacon_1 = Beacon()
     {
       param
-        period : 1.0 ;
+        period : 1.0;
       output
-        Beacon_1_out0 : myString = &quot;lowercase&quot; +(rstring) IterationCount() ;
+        Beacon_1_out0 : myString = "lowercase" +(rstring) IterationCount();
     }
-    (stream&lt;rstring myString&gt; StringToCaps_2_out0) as StringToCaps_2 =
-    <b>StringToCaps</b>(Beacon_1_out0){}
+    (stream<rstring myString> StringToCaps_2_out0) as StringToCaps_2 =
+    StringToCaps(Beacon_1_out0){}
 
     () as FileSink_3 = FileSink(StringToCaps_2_out0 as inputStream)
     {
       param
-        file : &quot;results.txt&quot; ;
+        file : "results.txt";
         flush : 1u;
     }
 }
-</code></pre>
+```
 
 Key points to note from this example:
 
@@ -366,11 +329,12 @@ Key points to note from this example:
 
 Compile and launch the `TestJavaOp` main composite.  The quickest way to test an application is to run it in stand-alone mode.  
 
-~~~~~~
+```bash
 cd [root directory  of TestJavaOp toolkit]
 
-sc -M application::TestJavaOp --output-directory=[build-output-dir] --data-directory=data -T -a -t ../MyJavaOp
-~~~~~~
+sc -M application::TestJavaOp --output-directory=[build-output-dir] \
+    --data-directory=data -T -a -t ../MyJavaOp
+```
 
 Key points to note from the command above:
 
@@ -381,19 +345,19 @@ Key points to note from the command above:
 
 To run this program:
 
-~~~~~~
+```bash
 cd [build-output-dir]
 standalone
-~~~~~~
+```
 
 You should see the following output in `<workspace>/TestJavaOp/data/results.txt`:
 
-~~~~~~
+```
 "LOWERCASE0"
 "LOWERCASE1"
 "LOWERCASE2"
 "LOWERCASE3"
-~~~~~~
+```
 
 You may also compile and run the application in distributed mode as shown in the video.
 
@@ -418,7 +382,7 @@ When the Java primitive operator is executed, the operator code must be able to 
 
 	In this approach, the JAR file is packaged as part of the toolkit, and eventually as part the Streams application bundle when the application is built.  This approach simplifies the set up of the distributed environment, as you do not to need to manually set up these JARs on the resources in the domain.  When the application is run and deployed, the Streams runtime automatically copies these dependencies to the remote systems.  The disadvantage of this approach is that it makes the size of the application bundle larger.  This affects the time required to submit the application to the Streams instance.
 
-	{% include bestpractices.html text= "External JARS should be stored in the <code>toolkit_root/opt</code> directory.  The opt directory is packaged into the application bundle by default."%}
+	External JARS should be stored in the `toolkit_root/opt` directory.  The opt directory is packaged into the application bundle by default."
 
 	For more information about application bundles, refer to this documentation: <a target="_blank" href="http://www-01.ibm.com/support/knowledgecenter/?lang=en#!/SSCRJU_4.1.0/com.ibm.streams.dev.doc/doc/applicationbundle.html">Application bundle files</a>. 
 
@@ -435,7 +399,7 @@ Options for specifying classpaths using the @Libraries annotation:
 * Specific JARs: `@Libraries("opt/Reverse.jar")`
 * Entire directories using wildcard (this adds all files with extension .jar or .JAR): `@Libraries("opt/*")`
 * Environment variables: `@Libraries("@REVERSE_HOME@")`where the environment variable would be REVERSE_HOME. 
-<br>**WARNING:** The environment variable is resolved at compile-time, resulting in an application bundle that is not relocatable. 
+  **WARNING:** The environment variable is resolved at compile-time, resulting in an application bundle that is not relocatable. 
 
 To specify multiple locations for JARs, simply comma separate your locations:  
 	`@Libraries({"opt/Reverse.jar" , "opt/downloaded/*", "@REVERSE_HOME@"})`
@@ -444,101 +408,122 @@ To specify multiple locations for JARs, simply comma separate your locations:
 
 The example in the video above uses a JAR with a simple function that reverses a String [(download here)](/streamsx.documentation/images/JavaOperatorGuide/reverse.tar).
 
-<ul class="nav nav-tabs">
-  <li class="active"><a data-toggle="tab" href="#command-1">Build with Command-line</a></li>
-  <li><a data-toggle="tab" href="#studio-1">Build with Streams Studio</a></li>
-</ul>
+####Build with Command-line
 
-<div class="tab-content">
-  <div id="command-1" class="tab-pane fade in active">
-  <br>
-   The steps for using an external JAR with the command-line are as follows:
-<br><br>
-<ol>  
-	<li>In your Java primitive operator toolkit directory, create an opt/ directory.  Place the Reverse.jar file in the MyJavaOp/opt/ directory.</li>
-	<li>In your operator Java code, import the package: </li>
-	<pre><code>import reverse.Reverse;</code></pre>
-	<li>Use the @Libraries annotation to add the JAR to the operator's class path. The @Libraries parameter can be placed above the operator class definition with the other annotations. You will also need to import the @Libraries library (Yes, you're importing a library in order to import a library :-) ).</li>
-	<pre><code>import com.ibm.streams.operator.model.Libraries;
-...
-@Libraries("opt/Reverse.jar")</code></pre>
-	<li>Go down to the process method, and before setting the "myString" output attribute, add this line to reverse the String: </li>
+The steps for using an external JAR with the command-line are as follows:
 
-<pre><code>    @Override
-    public final void process(StreamingInput&lt;Tuple&gt; inputStream, Tuple tuple)
+* In your Java primitive operator toolkit directory, create an `opt/` directory.  Place the `Reverse.jar` file in the `MyJavaOp/opt/` directory.
+* In your operator Java code, import the package:
+
+```
+    import reverse.Reverse;
+```
+
+* Use the @Libraries annotation to add the JAR to the operator's class path. The @Libraries parameter can be placed above the operator class definition with the other annotations. You will also need to import the @Libraries library(Yes, you're importing a library in order to import a library :-) ).
+
+```Java
+    import com.ibm.streams.operator.model.Libraries;
+    ...
+    @Libraries("opt/Reverse.jar")
+```
+
+* Go down to the process method, and before setting the "myString" output attribute, add this line to reverse the String:
+
+```Java
+    @Override
+    public final void process(StreamingInput<Tuple> inputStream, Tuple tuple)
             throws Exception {
         // Create a new tuple for output port 0
-        StreamingOutput&lt;OutputTuple&gt; outStream = getOutput(0);
+        StreamingOutput<OutputTuple>; outStream = getOutput(0);
         OutputTuple outTuple = outStream.newTuple();
         
 		// Copy incoming attributes to output tuple if they're in the output schema
         outTuple.assign(tuple);
         
         // Get attribute from input tuple and manipulate
-        String myString = tuple.getString(&quot;myString&quot;);
+        String myString = tuple.getString("myString");
         myString = myString.toUpperCase();
-        <font color="blue"><b>myString = Reverse.reverse(myString);</b></font>
-        outTuple.setString(&quot;myString&quot;, myString);
+        myString = Reverse.reverse(myString);
+        outTuple.setString("myString", myString);
 
         // Submit new tuple to output port 0
         outStream.submit(outTuple);
     }
-</code></pre>
-	<li>Compile the Java operator class as you did before, but add the JAR to the class path:</li>
-	<pre><code>javac -cp $STREAMS_INSTALL/lib/com.ibm.streams.operator.jar<font color="blue">:opt/Reverse.jar</font> impl/java/src/stringToCaps/StringToCaps.java -d impl/java/bin/</code></pre>
-	<li>Index the toolkit again.</li>
-	<pre><code>spl-make-toolkit -i ./</code></pre>
-	<li>Rebuild your test application and submit. The output in results.txt will look like this:</li>
-<pre>
-"0ESACREWOL"
-"1ESACREWOL"
-"2ESACREWOL"
-"3ESACREWOL"
-</pre>
+```
 
-</ol>
-  </div>
-  <div id="studio-1" class="tab-pane fade">
-  <br>
-   The steps for using an external JAR with Streams Studio are as follows:
-<br><br>
-<ol>  
-	<li>In your Java operator project folder, create an opt directory. Add the Reverse.jar file to it.</li>
-	<li>In the Project Explorer, refresh your Resources folder and expand opt. Right-click on Reverse.jar and select Build Path -> Add to Build Path. </li>
-	<li>Import the package: </li>
-	<pre><code>import reverse.Reverse;</code></pre>
-	<li>Use the @Libraries annotation to add the JAR to the operator's class path. (If you ever get "class not found" exceptions once you submit your job, check your @Libraries annotation first). </li>
-	<pre><code>@Libraries("opt/Reverse.jar")</code></pre>
-	<li>Go down to the process method, and before setting the "myString" attribute, add this line to reverse the String: </li>
-<pre><code>    @Override
-    public final void process(StreamingInput&lt;Tuple&gt; inputStream, Tuple tuple)
+* Compile the Java operator class as you did before, but add the JAR to the class path:
+
+```bash
+    javac -cp $STREAMS_INSTALL/lib/com.ibm.streams.operator.jar:opt/Reverse.jar \
+          impl/java/src/stringToCaps/StringToCaps.java -d impl/java/bin/
+```
+
+* Index the toolkit again.
+
+```
+    spl-make-toolkit -i ./
+```
+
+* Rebuild your test application and submit. The output in results.txt will look like this:
+
+```
+    "0ESACREWOL"
+    "1ESACREWOL"
+    "2ESACREWOL"
+    "3ESACREWOL"
+```
+
+####Build with Streams Studio
+
+The steps for using an external JAR with Streams Studio are as follows:
+ 
+* In your Java operator project folder, create an opt directory. Add the Reverse.jar file to it.
+* In the Project Explorer, refresh your Resources folder and expand opt. Right-click on Reverse.jar and select `Build Path -> Add to Build Path`. 
+* Import the package: 
+
+```Java
+    import reverse.Reverse;
+```
+
+* Use the @Libraries annotation to add the JAR to the operator's class path. (If you ever get "class not found" exceptions once you submit your job, check your @Libraries annotation first). 
+
+```Java
+    @Libraries("opt/Reverse.jar")
+```
+
+* Go down to the process method, and before setting the "myString" attribute, add this line to reverse the String: 
+
+```Java
+    @Override
+    public final void process(StreamingInput<Tuple> inputStream, Tuple tuple)
             throws Exception {
         // Create a new tuple for output port 0
-        StreamingOutput&lt;OutputTuple&gt; outStream = getOutput(0);
+        StreamingOutput<OutputTuple> outStream = getOutput(0);
         OutputTuple outTuple = outStream.newTuple();
         
 		// Copy incoming attributes to output tuple if they're in the output schema
         outTuple.assign(tuple);
         
         // Get attribute from input tuple and manipulate
-        String myString = tuple.getString(&quot;myString&quot;);
+        String myString = tuple.getString("myString");
         myString = myString.toUpperCase();
-        <font color="blue"><b>myString = Reverse.reverse(myString);</b></font>
-        outTuple.setString(&quot;myString&quot;, myString);
+        myString = Reverse.reverse(myString);
+        outTuple.setString("myString", myString);
 
         // Submit new tuple to output port 0
         outStream.submit(outTuple);
     }
-</code></pre>
-	<li>Save and let Studio automatically build your toolkit.</li>
-	<li>Rebuild your test application and submit. The output in results.txt will look like this:</li>
-	<pre>"0ESACREWOL"
-	"1ESACREWOL"
-	"2ESACREWOL"
-	"3ESACREWOL"</pre>
-</ol>
-  </div>
-</div>
+```
+
+* Save and let Studio automatically build your toolkit.
+* Rebuild your test application and submit. The output in results.txt will look like this:
+
+```
+    "0ESACREWOL"
+    "1ESACREWOL"
+    "2ESACREWOL"
+    "3ESACREWOL"
+```
 
 ## Making Your Operator Generic with Parameters
 
@@ -564,25 +549,25 @@ To learn more about the different kinds of parameters and the supported SPL type
 
 In our example, we will introduce a boolean parameter named `reverseString` to control if the incoming String from a tuple should be reversed or not.
 
-1. In the operator class, add a Boolean member field that will be used to hold the parameter value. Default the parameter value to be false if it is not specified.
+* In the operator class, add a Boolean member field that will be used to hold the parameter value. Default the parameter value to be false if it is not specified.
 
-	<pre><code>  
+```Java
 	private Boolean reverseString = false;
-	</code></pre>
+```
 
-1. Add a setter method for `reverseString`.
-1. Annotate the setter method with the @Parameter annotation.  Since the parameter is of type Boolean, the cardinality is automatically set to 1, meaning that only a single value can be provided. (You will need to import: `import com.ibm.streams.operator.model.Parameter;`) l
+* Add a setter method for `reverseString`.
+* Annotate the setter method with the @Parameter annotation.  Since the parameter is of type Boolean, the cardinality is automatically set to 1, meaning that only a single value can be provided. (You will need to import: `import com.ibm.streams.operator.model.Parameter;`) 
 
-	<pre><code>
-	  @Parameter(name = "reverseString", optional = true,
-	  	description = "Boolean value. Reverse strings if true. Default: false.")
-	  public void setReverseString(Boolean value){
-	  	reverseString = value;
-	  }
-	</code></pre>
-1.	In the `process()` method, modify the operator logic to only reverse the string if the `reverseString` field is true.
+```Java
+    @Parameter(name = "reverseString", optional = true,
+               description = "Boolean value. Reverse strings if true. Default: false.")
+    public void setReverseString(Boolean value){
+        reverseString = value;
+    }
+```
+*	In the `process()` method, modify the operator logic to only reverse the string if the `reverseString` field is true.
 
-	~~~~~~
+```Java
 	  public final void process(StreamingInput<Tuple> inputStream, Tuple tuple)
 	          throws Exception {
 		  // Create a new tuple for output port 0
@@ -601,29 +586,28 @@ In our example, we will introduce a boolean parameter named `reverseString` to c
 	      // Submit new tuple to output port 0
 	      outStream.submit(outTuple);
 	  }
-	~~~~~~
+```
+* Save and build the operator.
 
-1. Save and build the operator.
+* To test the parameter, add a `param` clause at the invocation of the StringToCaps operator:
 
-1. To test the parameter, add a `param` clause at the invocation of the StringToCaps operator:
-
-	<pre><code>
-	(stream&lt;rstring myString&gt; StringToCaps_2_out0) as StringToCaps_2 =
+```
+	(stream<rstring myString> StringToCaps_2_out0) as StringToCaps_2 =
 			StringToCaps(Beacon_1_out0)
 		{
 			param
 				reverseString : true;
 		}
-	</code></pre>
+```
 
-1.	Run the application.  You should see output similar to the following:
+*	Run the application.  You should see output similar to the following:
 
-	~~~~~~
+```
 	"0ESACREWOL"
 	"1ESACREWOL"
 	"2ESACREWOL"
 	"3ESACREWOL"
-	~~~~~~
+```
 <!--
 Here are some more parameter examples:
 `tabs with different parameter examples` -->
@@ -632,40 +616,44 @@ Here are some more parameter examples:
 
 **String parameter** - SPL parameter **queueName** of type ustring (rstring also works). 
 
-<pre><code>    private String queueName = &quot;&quot;;
+```Java
+private String queueName = "";
     ...
     ...
     ...
-    @Parameter(optional = true, description = &quot;Name of the queue. If not specified, a name will be randomly generated name.&quot;)
+    @Parameter(optional = true, description = "Name of the queue. If not specified, a name will be randomly generated name.")
     public void setQueueName(String value) {
         queueName = value;
     }
-</code></pre>
+```
 
 **int parameter** - SPL parameter **messageSendRetryDelay** of type int32. 
 
-<pre><code>    int messageSendRetryDelay = 10000;
+
+```Java
+int messageSendRetryDelay = 10000;
     ...
     ...
     ...
-    @Parameter(optional = true, description = &quot;This optional parameter specifies the time in milliseconds before the retrying delivery.&quot;)
+    @Parameter(optional = true, description = "This optional parameter specifies the time in milliseconds before the retrying delivery.")
     public void setMessageSendRetryDelay(int value) {
         messageSendRetryDelay = value; 
     }
-</code></pre>
+```
 
 **List\<String\> parameter** - SPL parameter **routingKey** of type list\<ustring\>. 
 
-<pre><code>    private List&lt;String&gt; routingKeys = new ArrayList&lt;String&gt;();
+```Java
+private List<String> routingKeys = new ArrayList<String>();
     ...
     ...
     ...
-    @Parameter(optional = true, description = &quot;Routing key/keys to bind the queue to.&quot;)
-    public void setRoutingKey(List&lt;String&gt; values) {
+    @Parameter(optional = true, description = "Routing key/keys to bind the queue to.")
+    public void setRoutingKey(List<String> values) {
         if(values!=null)
             routingKeys.addAll(values);
     }
-</code></pre>
+```
 
 ## Creating a Source Operator
 At this point, you have learned the most important Java operator basics. Before getting into more advanced topics, we will introduce Source and Sink operators. 
@@ -690,7 +678,7 @@ Below are the basic steps for creating a source operator:
 
 In this example, we will implement a source operator that gets data from an external server system.  This is a simulated server.  The server provides the following interface to get data from the server.  While this example is simple, and the interface does not reflect a real external system, this example demonstrates the key concepts required for implementing a source operator. You can download [Server.java](/streamsx.documentation/images/JavaOperatorGuide/Server.java) or try with your own external system. 
 
-~~~~~~~
+```Java
 
 /*
  * Simulated Server interface
@@ -716,19 +704,12 @@ public interface Server {
 	 */
 	public void disconnect() throws Exception;
 }
+```
 
-~~~~~~~
+Below is the `ServerSource` operator that uses this interface. Place this code in its own "serverConnections" namespace directory (`<workspace>/MyJavaOp/impl/java/src/serverConnections`). Refer to the [Creating Your first Java Operator section](#creating-your-first-java-operator) for help on how to do this. 
 
-Below is the `ServerSource` operator that uses this interface. Place this code in its own "serverConnections" namespace directory (`<workspace>/MyJavaOp/impl/java/src/serverConnections`). Refer to the [Creating Your first Java Operator section](/streamsx.documentation/docs/4.1/java/java-op-dev-guide/#creating-your-first-java-operator) for help on how to do this. 
-
-<ul class="nav nav-tabs">
-  <li class="active"><a data-toggle="tab" href="#minimum-0">Code</a></li>
-  <li><a data-toggle="tab" href="#fullsource-0">Full Source</a></li>
-</ul>
-
-<div class="tab-content">
-  <div id="minimum-0" class="tab-pane fade in active">
-<pre><code>@PrimitiveOperator()
+```Java
+@PrimitiveOperator()
 @OutputPorts(@OutputPortSet(cardinality=1))
 public class ServerSource extends AbstractOperator {
     private Thread processThread;
@@ -742,7 +723,7 @@ public class ServerSource extends AbstractOperator {
         super.initialize(context);
 
         server = new Server();
-        server.initialize(&quot;myUser&quot;, &quot;myPassw0rd&quot;);
+        server.initialize("myUser", "myPassw0rd");
 
         processThread = getOperatorContext().getThreadFactory().newThread(
                 new Runnable() {
@@ -752,7 +733,7 @@ public class ServerSource extends AbstractOperator {
                         try {
                             produceTuples();
                         } catch (Exception e) {
-                            Logger.getLogger(this.getClass()).error(&quot;Operator error&quot;, e);
+                            Logger.getLogger(this.getClass()).error("Operator error", e);
                         }                    
                     }
 
@@ -767,12 +748,12 @@ public class ServerSource extends AbstractOperator {
     }
 
     private void produceTuples() throws Exception  {
-        final StreamingOutput&lt;OutputTuple&gt; out = getOutput(0);
+        final StreamingOutput<OutputTuple> out = getOutput(0);
 
         OutputTuple tuple = out.newTuple();
         while(!shutdown ){
             String myString = server.getData();
-            tuple.setString(&quot;myString&quot;, myString);
+            tuple.setString("myString", myString);
             out.submit(tuple);
             Thread.sleep(1000);
         }        
@@ -790,10 +771,12 @@ public class ServerSource extends AbstractOperator {
     }
 
 }
-</code></pre>  
-  </div>
-  <div id="fullsource-0" class="tab-pane fade">
-<pre><code>package serverConnections;
+```
+
+Full source:
+
+```Java
+package serverConnections;
 
 import org.apache.log4j.Logger;
 
@@ -824,7 +807,7 @@ public class ServerSource extends AbstractOperator {
         super.initialize(context);
 
         server = new Server();
-        server.initialize(&quot;myUser&quot;, &quot;myPassw0rd&quot;);
+        server.initialize("myUser", "myPassw0rd");
 
         /*
          * Create the thread for producing tuples.
@@ -839,7 +822,7 @@ public class ServerSource extends AbstractOperator {
                         try {
                             produceTuples();
                         } catch (Exception e) {
-                            Logger.getLogger(this.getClass()).error(&quot;Operator error&quot;, e);
+                            Logger.getLogger(this.getClass()).error("Operator error", e);
                         }                    
                     }
 
@@ -868,12 +851,12 @@ public class ServerSource extends AbstractOperator {
      * @throws Exception if an error occurs while submitting a tuple
      */
     private void produceTuples() throws Exception  {
-        final StreamingOutput&lt;OutputTuple&gt; out = getOutput(0);
+        final StreamingOutput<OutputTuple> out = getOutput(0);
 
         while(!shutdown ){
 					  OutputTuple tuple = out.newTuple();
             String myString = server.getData();
-            tuple.setString(&quot;myString&quot;, myString);
+            tuple.setString("myString", myString);
             out.submit(tuple);
             Thread.sleep(1000);
         }        
@@ -881,7 +864,7 @@ public class ServerSource extends AbstractOperator {
 
     /**
      * Shutdown this operator, which will interrupt the thread
-     * executing the &lt;code&gt;produceTuples()&lt;/code&gt; method.
+     * executing the <code>produceTuples()</code> method.
      * @throws Exception Operator failure, will cause the enclosing PE to terminate.
      */
     @Override
@@ -896,9 +879,7 @@ public class ServerSource extends AbstractOperator {
     }
 
 }
-</code></pre>
-  </div>
-</div>
+```
 
 Key things to note from this example:
 
@@ -958,14 +939,8 @@ In this example, we will implement a sink operator that sends data to the simula
 
 Below is the `ServerSink` operator:
 
-<ul class="nav nav-tabs">
-  <li class="active"><a data-toggle="tab" href="#minimum-1">Code</a></li>
-  <li><a data-toggle="tab" href="#fullsource-1">Full Source</a></li>
-</ul>
-
-<div class="tab-content">
-  <div id="minimum-1" class="tab-pane fade in active">
-<pre><code>@PrimitiveOperator()
+```Java
+@PrimitiveOperator()
 @InputPorts({@InputPortSet(cardinality=1)})
 public class ServerSink extends AbstractOperator {
     private Server server;
@@ -977,14 +952,14 @@ public class ServerSink extends AbstractOperator {
         super.initialize(context);
   
         server = new Server();
-        server.initialize(&quot;myUser&quot;, &quot;myPassw0rd&quot;);
+        server.initialize("myUser", "myPassw0rd");
     }
     
     @Override
-    public final void process(StreamingInput&lt;Tuple&gt; inputStream, Tuple tuple)
+    public final void process(StreamingInput<Tuple> inputStream, Tuple tuple)
             throws Exception {      
         // Get message from tuple and submit to server
-        String myString = tuple.getString(&quot;myString&quot;);
+        String myString = tuple.getString("myString");
         
         try {
             server.sendData(myString);
@@ -1001,14 +976,11 @@ public class ServerSink extends AbstractOperator {
     }
     
 }
-</code></pre>
+```
 
+Full Source:
 
-  </div>
-  <div id="fullsource-1" class="tab-pane fade">
-<pre><code>package serverConnections;
-
-
+```Java
 import org.apache.log4j.Logger;
 
 import com.ibm.streams.operator.AbstractOperator;
@@ -1025,25 +997,25 @@ import com.ibm.streams.operator.model.PrimitiveOperator;
 /**
  * Class for an operator that consumes tuples and does not produce an output stream. 
  * This pattern supports a number of input streams and no output streams. 
- * &lt;P&gt;
+ * <P>
  * The following event methods from the Operator interface can be called:
- * &lt;/p&gt;
- * &lt;ul&gt;
- * &lt;li&gt;&lt;code&gt;initialize()&lt;/code&gt; to perform operator initialization&lt;/li&gt;
- * &lt;li&gt;allPortsReady() notification indicates the operator's ports are ready to process and submit tuples&lt;/li&gt; 
- * &lt;li&gt;process() handles a tuple arriving on an input port 
- * &lt;li&gt;processPuncuation() handles a punctuation mark arriving on an input port 
- * &lt;li&gt;shutdown() to shutdown the operator. A shutdown request may occur at any time, 
+ * </p>
+ * <ul>
+ * <li><code>initialize()</code> to perform operator initialization</li>
+ * <li>allPortsReady() notification indicates the operator's ports are ready to process and submit tuples</li> 
+ * <li>process() handles a tuple arriving on an input port 
+ * <li>processPuncuation() handles a punctuation mark arriving on an input port 
+ * <li>shutdown() to shutdown the operator. A shutdown request may occur at any time, 
  * such as a request to stop a PE or cancel a job. 
  * Thus the shutdown() may occur while the operator is processing tuples, punctuation marks, 
- * or even during port ready notification.&lt;/li&gt;
- * &lt;/ul&gt;
- * &lt;p&gt;With the exception of operator initialization, all the other events may occur concurrently with each other, 
- * which lead to these methods being called concurrently by different threads.&lt;/p&gt; 
+ * or even during port ready notification.</li>
+ * </ul>
+ * <p>With the exception of operator initialization, all the other events may occur concurrently with each other, 
+ * which lead to these methods being called concurrently by different threads.</p> 
  */
-@PrimitiveOperator(name=&quot;ServerSink&quot;, namespace=&quot;serverConnections&quot;,
-description=&quot;Java Operator ServerSink&quot;)
-@InputPorts({@InputPortSet(description=&quot;Port that ingests tuples&quot;, cardinality=1, optional=false, windowingMode=WindowMode.NonWindowed, windowPunctuationInputMode=WindowPunctuationInputMode.Oblivious), @InputPortSet(description=&quot;Optional input ports&quot;, optional=true, windowingMode=WindowMode.NonWindowed, windowPunctuationInputMode=WindowPunctuationInputMode.Oblivious)})
+@PrimitiveOperator(name="ServerSink", namespace="serverConnections",
+description="Java Operator ServerSink")
+@InputPorts({@InputPortSet(description="Port that ingests tuples", cardinality=1, optional=false, windowingMode=WindowMode.NonWindowed, windowPunctuationInputMode=WindowPunctuationInputMode.Oblivious), @InputPortSet(description="Optional input ports", optional=true, windowingMode=WindowMode.NonWindowed, windowPunctuationInputMode=WindowPunctuationInputMode.Oblivious)})
 public class ServerSink extends AbstractOperator {
     private Server server;
     private Logger trace = Logger.getLogger(this.getClass());
@@ -1059,7 +1031,7 @@ public class ServerSink extends AbstractOperator {
         // Must call super.initialize(context) to correctly setup an operator.
         super.initialize(context);
         server = new Server();
-        server.initialize(&quot;myUser&quot;, &quot;myPassw0rd&quot;);
+        server.initialize("myUser", "myPassw0rd");
     }
 
     /**
@@ -1069,10 +1041,10 @@ public class ServerSink extends AbstractOperator {
      * @throws Exception Operator failure, will cause the enclosing PE to terminate.
      */
     @Override
-    public void process(StreamingInput&lt;Tuple&gt; stream, Tuple tuple)
+    public void process(StreamingInput<Tuple> stream, Tuple tuple)
             throws Exception {
         // Get message from tuple and submit to server
-        String myString = tuple.getString(&quot;myString&quot;);
+        String myString = tuple.getString("myString");
         
         try {
             server.sendData(myString);
@@ -1094,10 +1066,7 @@ public class ServerSink extends AbstractOperator {
     }
     
 }
-
-</code></pre>
-  </div>
-</div>
+```
 
 Key things to note from this example:
 
@@ -1135,49 +1104,44 @@ There are some cases where you will actually want your operator to fail. These c
 
 In the code below, we enhanced our ServerSource operator to include error handling in the produceTuples() method.
 
-<ul class="nav nav-tabs">
-  <li class="active"><a data-toggle="tab" href="#minimum-2">Modified Sections</a></li>
-  <li><a data-toggle="tab" href="#fullsource-2">Full Source</a></li>
-</ul>
-
-<div class="tab-content">
-  <div id="minimum-2" class="tab-pane fade in active">
-<pre><code>@PrimitiveOperator()
-@OutputPorts({@OutputPortSet(cardinality=1),<b>@OutputPortSet(description=&quot;Error Port&quot;, cardinality=1)</b>})
+Modified Sections:
+```Java
+@PrimitiveOperator()
+@OutputPorts({@OutputPortSet(cardinality=1),@OutputPortSet(description="Error Port", cardinality=1)})
 public class ServerSource extends AbstractOperator {
     private Thread processThread;
     private Server server;
     private boolean shutdown = false;
-    <b>private Logger trace = Logger.getLogger(this.getClass());</b>
-	.
-	.
-	.
+    private Logger trace = Logger.getLogger(this.getClass());
+    
+    ...
+
     private void produceTuples() throws Exception  {
-        final StreamingOutput&lt;OutputTuple&gt; out = getOutput(0);
-        <b>final StreamingOutput&lt;OutputTuple&gt; error = getOutput(1);</b>
+        final StreamingOutput<OutputTuple> out = getOutput(0);
+        final StreamingOutput<OutputTuple> error = getOutput(1);
 
         OutputTuple tuple = out.newTuple();
         while(!shutdown ){
-            <b>try{
+            try{
                 String myString = server.getData();
-                tuple.setString(&quot;myString&quot;, myString);
+                tuple.setString("myString", myString);
                 out.submit(tuple);
                 Thread.sleep(1000);
             } catch (Exception e){
-                trace.log(TraceLevel.ERROR, &quot;Error submitting tuple. Message: &quot; + e.toString());
+                trace.log(TraceLevel.ERROR, "Error submitting tuple. Message: " + e.toString());
                 OutputTuple errorTuple = error.newTuple();
-                errorTuple.setString(&quot;error_message&quot;, &quot;Error submitting tuple. Message: &quot; + e.toString());
+                errorTuple.setString("error_message", "Error submitting tuple. Message: " + e.toString());
                 error.submit(errorTuple);
-            }</b>
+            }
         }      
     }  
 }
-</code></pre>  
-  </div>
-  <div id="fullsource-2" class="tab-pane fade">
-<pre><code>package serverSource;
+```
 
-<b>import org.apache.log4j.Logger;</b>
+Full Source:
+
+```Java
+import org.apache.log4j.Logger;
 import com.ibm.streams.operator.AbstractOperator;
 import com.ibm.streams.operator.OperatorContext;
 import com.ibm.streams.operator.OutputTuple;
@@ -1188,12 +1152,12 @@ import com.ibm.streams.operator.model.OutputPorts;
 import com.ibm.streams.operator.model.PrimitiveOperator;
 
 @PrimitiveOperator()
-@OutputPorts({@OutputPortSet(cardinality=1),<b>@OutputPortSet(description=&quot;Error Port&quot;, cardinality=1)</b>})
+@OutputPorts({@OutputPortSet(cardinality=1),@OutputPortSet(description="Error Port", cardinality=1)})
 public class ServerSource extends AbstractOperator {
     private Thread processThread;
     private Server server;
     private boolean shutdown = false;
-    <b>private Logger trace = Logger.getLogger(this.getClass());</b>
+    private Logger trace = Logger.getLogger(this.getClass());
 
     @Override
     public synchronized void initialize(OperatorContext context)
@@ -1201,7 +1165,7 @@ public class ServerSource extends AbstractOperator {
         super.initialize(context);
 
         server = new Server();
-        server.initialize(&quot;myUser&quot;, &quot;myPassw0rd&quot;);
+        server.initialize("myUser", "myPassw0rd");
 
         processThread = getOperatorContext().getThreadFactory().newThread(
                 new Runnable() {
@@ -1211,7 +1175,7 @@ public class ServerSource extends AbstractOperator {
                         try {
                             produceTuples();
                         } catch (Exception e) {
-                            Logger.getLogger(this.getClass()).error(&quot;Operator error&quot;, e);
+                            Logger.getLogger(this.getClass()).error("Operator error", e);
                         }                    
                     }
 
@@ -1226,22 +1190,22 @@ public class ServerSource extends AbstractOperator {
     }
 
     private void produceTuples() throws Exception  {
-        final StreamingOutput&lt;OutputTuple&gt; out = getOutput(0);
-        <b>final StreamingOutput&lt;OutputTuple&gt; error = getOutput(1);</b>
+        final StreamingOutput<OutputTuple> out = getOutput(0);
+        final StreamingOutput<OutputTuple> error = getOutput(1);
 
         OutputTuple tuple = out.newTuple();
         while(!shutdown ){
-            <b>try{
+            try{
                 String myString = server.getData();
-                tuple.setString(&quot;myString&quot;, myString);
+                tuple.setString("myString", myString);
                 out.submit(tuple);
                 Thread.sleep(1000);
             } catch (Exception e){
-                trace.log(TraceLevel.ERROR, &quot;Error submitting tuple. Message: &quot; + e.toString());
+                trace.log(TraceLevel.ERROR, "Error submitting tuple. Message: " + e.toString());
                 OutputTuple errorTuple = error.newTuple();
-                errorTuple.setString(&quot;error_message&quot;, &quot;Error submitting tuple. Message: &quot; + e.toString());
+                errorTuple.setString("error_message", "Error submitting tuple. Message: " + e.toString());
                 error.submit(errorTuple);
-            }</b>
+            }
         }      
     }
 
@@ -1256,9 +1220,7 @@ public class ServerSource extends AbstractOperator {
     }
 
 }
-</code></pre>
-  </div>
-</div>
+```
 
 
 ## Adding Compile-Time and Runtime Checks
@@ -1281,7 +1243,8 @@ Adding compile-time and runtime checks to your Java operator is done using the *
 
 The following example is part of the StringToCaps operator. We have added compile-time checks to make sure that the incoming and outgoing SPL streams have an attribute named "myString" that is of type `rstring`. This code is placed inside the StringToCaps operator definition. If any of the checks run by `checker` fail, the compile is interrupted with an error message. Be sure to import the two libraries that are needed. 
 
-<pre><code>	import com.ibm.streams.operator.OperatorContext.ContextCheck;
+```Java
+	import com.ibm.streams.operator.OperatorContext.ContextCheck;
 	import com.ibm.streams.operator.compile.OperatorContextChecker;
 	.
 	.
@@ -1291,16 +1254,16 @@ The following example is part of the StringToCaps operator. We have added compil
         OperatorContext context = checker.getOperatorContext();
 
         //Check that myString attributes exist
-        <b>checker.checkRequiredAttributes(context.getStreamingInputs().get(0), &quot;myString&quot;);
-        checker.checkRequiredAttributes(context.getStreamingOutputs().get(0), &quot;myString&quot;);</b>
+        checker.checkRequiredAttributes(context.getStreamingInputs().get(0), "myString");
+        checker.checkRequiredAttributes(context.getStreamingOutputs().get(0), "myString");
 
         //Check the myString attributes are of correct type
-        Attribute incoming = context.getStreamingInputs().get(0).getStreamSchema().getAttribute(&quot;myString&quot;);
-        <b>checker.checkAttributeType(incoming, Type.MetaType.RSTRING);</b>
-        Attribute outgoing = context.getStreamingOutputs().get(0).getStreamSchema().getAttribute(&quot;myString&quot;);
-        <b>checker.checkAttributeType(outgoing, Type.MetaType.RSTRING);</b>
+        Attribute incoming = context.getStreamingInputs().get(0).getStreamSchema().getAttribute("myString");
+        checker.checkAttributeType(incoming, Type.MetaType.RSTRING);
+        Attribute outgoing = context.getStreamingOutputs().get(0).getStreamSchema().getAttribute("myString");
+        checker.checkAttributeType(outgoing, Type.MetaType.RSTRING);
     }
-</code></pre>
+```
 
 ## Using Windows
 Windows are an important part of most Streams applications. Intelligent use of windows can allow you to use the same Streams application for real-time processing, as well as batch processing. Batch processing such as map reduce can be done in Streams by using large window sizes.
@@ -1314,13 +1277,16 @@ For more details, read [Window Handling](http://www-01.ibm.com/support/knowledge
 
 #### General strategy for implementing a windowed operator:
 
-1. Have your operator class extend AbstractWindowOperator (instead of AbstractOperator).
-2. Create a window handler class that implements StreamsWindowListener<Tuple>. This window handler class will be in place of a process method in most cases. Your window handler class should:
+* Have your operator class extend AbstractWindowOperator (instead of AbstractOperator).
+* Create a window handler class that implements StreamsWindowListener<Tuple>. This window handler class will be in place of a process method in most cases. Your window handler class should:
 	*	Have a constructor that takes a `StreamingOutput<OutputTuple>` argument.
 	*	Override the `void handleEvent(StreamWindowEvent<Tuple> event)` and develop a switch case to handle tumbling and/or sliding events.
-			**Tumbling:**
-		<pre><code>  @Override
-	  public synchronized void handleEvent(StreamWindowEvent&lt;Tuple&gt; event) throws Exception {
+
+**Tumbling:**
+
+```Java
+	  @Override
+	  public synchronized void handleEvent(StreamWindowEvent<Tuple> event) throws Exception {
 
 		    switch (event.getType()) {
 		      case INSERTION:
@@ -1334,10 +1300,13 @@ For more details, read [Window Handling](http://www-01.ibm.com/support/knowledge
 		           break;
 		      }
 	  }
-	</code></pre>
-		**Sliding:**
-		<pre><code>  @Override
-	  public synchronized void handleEvent(StreamWindowEvent&lt;Tuple&gt; event) throws Exception {
+```
+
+**Sliding:**
+
+```Java
+	  @Override
+	  public synchronized void handleEvent(StreamWindowEvent<Tuple> event) throws Exception {
 
 	        switch (event.getType()) {
 		        case INSERTION:
@@ -1360,24 +1329,22 @@ For more details, read [Window Handling](http://www-01.ibm.com/support/knowledge
 		            break;
 	        }
 	  }
-	</code></pre>
-3. In the initialize(...) method of the operator code, register a StreamWindowListener with your window handler class:
+```
 
-		getInput(0).getStreamWindow().registerListener(new WindowHandler(getOutput(0)), false);
+* In the initialize(...) method of the operator code, register a StreamWindowListener with your window handler class:
 
+```Java
+	getInput(0).getStreamWindow().registerListener(new WindowHandler(getOutput(0)), false);
+```
 
 ### Window Example
 
 In the example below, we implement a tumbling window operator that submits the alphabetic minimium String for a given window. The operator maintains a List\<String\> that is cleared every time the window tumbles. Read more details about [tumbling](http://www-01.ibm.com/support/knowledgecenter/SSCRJU_4.0.1/com.ibm.streams.dev.doc/doc/tumblingwindowoperator.html) and [sliding](http://www-01.ibm.com/support/knowledgecenter/SSCRJU_4.0.1/com.ibm.streams.dev.doc/doc/slidingwindow.html) windows by clicking on the links.
 
-<ul class="nav nav-tabs">
-  <li class="active"><a data-toggle="tab" href="#minimum-3">Operator Code</a></li>
-  <li><a data-toggle="tab" href="#fullsource-3">Full Source</a></li>
-</ul>
+Operator code:
 
-<div class="tab-content">
-  <div id="minimum-3" class="tab-pane fade in active">
-<pre><code>@PrimitiveOperator()
+```Java
+@PrimitiveOperator()
 @InputPorts(@InputPortSet(cardinality=1, windowingMode=WindowMode.Windowed))
 @OutputPorts(@OutputPortSet(cardinality=1))
 public class MinWindowString extends AbstractWindowOperator {
@@ -1385,16 +1352,17 @@ public class MinWindowString extends AbstractWindowOperator {
     public synchronized void initialize(OperatorContext context)
             throws Exception {
         super.initialize(context);
-        <b>getInput(0).getStreamWindow().registerListener(
-                new WindowHandler(getOutput(0)), false);</b>
+        getInput(0).getStreamWindow().registerListener(
+                new WindowHandler(getOutput(0)), false);
 
     }
 }
-</code></pre>  
-  </div>
-  <div id="fullsource-3" class="tab-pane fade">
-<pre><code>package minWindow;
+```
 
+Full Source:
+
+```Java
+package minWindow;
 
 import org.apache.log4j.Logger;
 
@@ -1426,93 +1394,27 @@ public class MinWindowString extends AbstractWindowOperator {
 
     }
 }
+```
 
-</code></pre>
-</code></pre>
-  </div>
-</div>
+Window Handler Code:
 
-<ul class="nav nav-tabs">
-  <li class="active"><a data-toggle="tab" href="#minimum-4">Window Handler Code</a></li>
-  <li><a data-toggle="tab" href="#fullsource-4">Full Source</a></li>
-</ul>
-
-<div class="tab-content">
-  <div id="minimum-4" class="tab-pane fade in active">
-<pre><code>public class WindowHandler implements StreamWindowListener&lt;Tuple&gt; {
+```Java
+public class WindowHandler implements StreamWindowListener<Tuple> {
     private int tupleCount;
-    <b>private List&lt;String&gt; stringList = new ArrayList&lt;String&gt;();</b>
-    private final StreamingOutput&lt;OutputTuple&gt; output;
+    private List<String> stringList = new ArrayList<String>();
+    private final StreamingOutput<OutputTuple> output;
     
-    public WindowHandler(StreamingOutput&lt;OutputTuple&gt; output) {
+    public WindowHandler(StreamingOutput<OutputTuple> output) {
           this.output = output;
         }
     
     @Override
-    public synchronized void handleEvent(StreamWindowEvent&lt;Tuple&gt; event) throws Exception {
+    public synchronized void handleEvent(StreamWindowEvent<Tuple> event) throws Exception {
 
         switch (event.getType()) {
         case INSERTION:
             for (Tuple tuple : event.getTuples()) {
-                String myString = tuple.getString(&quot;myString&quot;);
-                stringList.add(myString);
-                tupleCount++;
-            }
-            break;
-        case EVICTION:
-            if (tupleCount != 0) {
-                OutputTuple tuple = output.newTuple();
-                <b>java.util.Collections.sort(stringList);
-                
-                //get first alphabetical String
-                String firstString = stringList.get(0);
-                tuple.setString(&quot;myString&quot;, firstString);</b>
-                
-                output.submit(tuple);
-                output.punctuate(Punctuation.WINDOW_MARKER);
-                stringList.clear();
-                tupleCount = 0;
-            }
-            break;
-        case FINAL:
-            // handle final mark
-            break;
-        default:
-            break;
-        }
-    }
-}
-
-</code></pre>
-  </div>
-  <div id="fullsource-4" class="tab-pane fade">
-<pre><code>package minWindow;
-
-import java.util.ArrayList;
-import java.util.List;
-import com.ibm.streams.operator.OutputTuple;
-import com.ibm.streams.operator.StreamingData.Punctuation;
-import com.ibm.streams.operator.StreamingOutput;
-import com.ibm.streams.operator.Tuple;
-import com.ibm.streams.operator.window.StreamWindowEvent;
-import com.ibm.streams.operator.window.StreamWindowListener;
-
-public class WindowHandler implements StreamWindowListener&lt;Tuple&gt; {
-    private int tupleCount;
-    private List&lt;String&gt; stringList = new ArrayList&lt;String&gt;();
-    private final StreamingOutput&lt;OutputTuple&gt; output;
-    
-    public WindowHandler(StreamingOutput&lt;OutputTuple&gt; output) {
-          this.output = output;
-        }
-    
-    @Override
-    public synchronized void handleEvent(StreamWindowEvent&lt;Tuple&gt; event) throws Exception {
-
-        switch (event.getType()) {
-        case INSERTION:
-            for (Tuple tuple : event.getTuples()) {
-                String myString = tuple.getString(&quot;myString&quot;);
+                String myString = tuple.getString("myString");
                 stringList.add(myString);
                 tupleCount++;
             }
@@ -1524,7 +1426,66 @@ public class WindowHandler implements StreamWindowListener&lt;Tuple&gt; {
                 
                 //get first alphabetical String
                 String firstString = stringList.get(0);
-                tuple.setString(&quot;myString&quot;, firstString);
+                tuple.setString("myString", firstString);
+                
+                output.submit(tuple);
+                output.punctuate(Punctuation.WINDOW_MARKER);
+                stringList.clear();
+                tupleCount = 0;
+            }
+            break;
+        case FINAL:
+            // handle final mark
+            break;
+        default:
+            break;
+        }
+    }
+}
+```
+
+Full Source:
+
+```Java
+package minWindow;
+
+import java.util.ArrayList;
+import java.util.List;
+import com.ibm.streams.operator.OutputTuple;
+import com.ibm.streams.operator.StreamingData.Punctuation;
+import com.ibm.streams.operator.StreamingOutput;
+import com.ibm.streams.operator.Tuple;
+import com.ibm.streams.operator.window.StreamWindowEvent;
+import com.ibm.streams.operator.window.StreamWindowListener;
+
+public class WindowHandler implements StreamWindowListener<Tuple> {
+    private int tupleCount;
+    private List<String> stringList = new ArrayList<String>();
+    private final StreamingOutput<OutputTuple> output;
+    
+    public WindowHandler(StreamingOutput<OutputTuple> output) {
+          this.output = output;
+        }
+    
+    @Override
+    public synchronized void handleEvent(StreamWindowEvent<Tuple> event) throws Exception {
+
+        switch (event.getType()) {
+        case INSERTION:
+            for (Tuple tuple : event.getTuples()) {
+                String myString = tuple.getString("myString");
+                stringList.add(myString);
+                tupleCount++;
+            }
+            break;
+        case EVICTION:
+            if (tupleCount != 0) {
+                OutputTuple tuple = output.newTuple();
+                java.util.Collections.sort(stringList);
+                
+                //get first alphabetical String
+                String firstString = stringList.get(0);
+                tuple.setString("myString", firstString);
                 
                 output.submit(tuple);
                 output.punctuate(Punctuation.WINDOW_MARKER);
@@ -1543,10 +1504,7 @@ public class WindowHandler implements StreamWindowListener&lt;Tuple&gt; {
     }
 
 }
-
-</code></pre>
-  </div>
-</div>
+```
 
 ## Defining Custom Metrics
 
@@ -1577,35 +1535,34 @@ This section will show you how to add your a custom metric to your Java operator
 
 Below are steps to add a custom operator metric.  In this example, we will try to create a metric that counts the number of characters the Java primitive operator `StringToCaps` has processed.
 
-1.	Import the Metric library, com.ibm.streams.operator.Metrics:
+*	Import the Metric library, com.ibm.streams.operator.Metrics:
 
-	~~~~~~
+```Java
 	import com.ibm.streams.operator.metrics.Metric;
-	~~~~~~
+```
 
-1.	Add a private field of type Metric.  In our example, we added the `numCharacters` field in the `StringToCaps` class:
+*	Add a private field of type Metric.  In our example, we added the `numCharacters` field in the `StringToCaps` class:
 
-	~~~~~~
+```Java
 	private Metric numCharacters;
-	~~~~~~
+```
 
-1.	Create a setter method for the Metric field.  Add the @CustomMetric annotation to the setter method.
-
-	~~~~~~
+*	Create a setter method for the Metric field.  Add the @CustomMetric annotation to the setter method.
+```Java
 	@CustomMetric(name = "numCharacters", kind = Metric.Kind.COUNTER,
 		description = "Count of the number of characters processed."))
 	public void setNumCharacters(Metric runtimeMetric){
 		numCharacters = runtimeMetric;
 	}
-	~~~~~~
+```
 
-	The `@CustomMetric` annotation let you define the name and description of the metric.  In addition, you can specify the metric kind:  COUNTER, GUAGE OR TIME.  Optionally, specify if the metric should be registered with the platform's MBean server, using the `mxbean` property.  The default value is false.  
+The `@CustomMetric` annotation let you define the name and description of the metric.  In addition, you can specify the metric kind:  `COUNTER`, `GUAGE` or `TIME`.  Optionally, specify if the metric should be registered with the platform's MBean server, using the `mxbean` property.  The default value is false.  
 
-	The setter method is called before initialization similar to the way @Parameter sets are done.
+The setter method is called before initialization similar to the way @Parameter sets are done.
 
-1.	In the process() method, increment the numCharacters metric by the length of myString right before the outgoing tuple is submitted:
+*	In the process() method, increment the numCharacters metric by the length of myString right before the outgoing tuple is submitted:
 
-	~~~~~~
+```Java
     @Override
     public final void process(StreamingInput<Tuple> inputStream, Tuple tuple)
             throws Exception {
@@ -1627,10 +1584,10 @@ Below are steps to add a custom operator metric.  In this example, we will try t
         // Submit new tuple to output port 0
         outStream.submit(outTuple);
     }
-    ~~~~~~
-5.	Once you save and build your toolkit and test application, submit your application. In the instance graph view in Studio, you will be able to hover over the StringToCaps operator and see a live update of numCharacters.
+```
+*	Once you save and build your toolkit and test application, submit your application. In the instance graph view in Studio, you will be able to hover over the StringToCaps operator and see a live update of numCharacters.
 
-	<img src="/streamsx.documentation/images/metrics.png" alt="Streams Studio" style="width: 60%;"/>
+	<img src="/streamsx.documentation/images/metrics.png" alt="Streams Studio" style="width: 100%;"/>
 
 ## Problem Determination and Debugging
 Debugging your Java operator is similar to debugging normal Java.
@@ -1656,7 +1613,7 @@ Here are some things to keep in mind:
 * Do not print anything to standard out.
 * Avoid excessive logging in your process method. If necessary, make sure that your logging is protected by an if statement: 
 	<pre><code>if (trace.isInfoEnabled())
-	 trace.log(TraceLevel.INFO, &quot;StateHandler close&quot;);</code></pre>
+	 trace.log(TraceLevel.INFO, "StateHandler close");</code></pre>
 
 * Minimize the copying of variables. 
 * Avoid type conversion (e.g. byte[] to String).

@@ -26,12 +26,10 @@ This will open an issue for the page that you are currently visiting.
 
 ### Contributing
 
-If you have ideas on how we can better document or explain some of the concepts, we would love to have your contribution!  The streamsx.documentation site uses Github Pages and Jekyll markdown for our documentation.
+If you have ideas on how we can better document or explain some of the concepts, we would love to have your contribution!  The streamsx.documentation site uses Github Pages and Mkdocs as our documentation generator.
 
 Refer to this documentation on Github Markdown:  [Writing on Github](https://help.github.com/categories/writing-on-github)
 
-Refer to this documentation to get started:  [Using Jekyll with Pages](https://help.github.com/articles/using-jekyll-with-pages/)  
+Refer to this documentation to get started:  [Using Mkdocs](http://www.mkdocs.org/user-guide/writing-your-docs/)  
 
-To contribute, clone this project locally, make your changes, and create a pull request. You can also click on the "Edit Me" button, then click on "Edit this file" to make changes right in your browser. 
-
-To learn more on how to do this, refer to this documentation:  [Contribute to IBM Streams Github Project](https://developer.ibm.com/streamsdev/docs/contribute-github-project/)
+To contribute, fork this project in Github, clone your fork locally, make your changes in master, run `mkdocs gh-deploy --clean`, and then create a pull request from you gh-pages branch. 

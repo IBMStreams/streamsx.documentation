@@ -1051,16 +1051,19 @@ Run `python3 subscribe_mqtt.py`.
 The specific contents of your output file depend on the publisher that you subscribe to.
 
 For example, if your publish operator looked like this:
-`def mqtt_publish() : return [123, 2.344, "4.0", "Garbage text", 1.234e+15,]`
+```Python
+def mqtt_publish():
+    return [123, 2.344, "4.0", "Garbage text", 1.234e+15,]
+```
 
 Your output would look like: 
-~~~~~
+```
 123 
 2.344 
 4.0 
 Garbage text 
 1234000000000000
-~~~~~~
+```
    
  
 For more information on configuration options to connect to or subscribe to an MQTT server, see the following resources:   

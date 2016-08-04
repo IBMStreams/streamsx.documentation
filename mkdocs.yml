@@ -23,3 +23,13 @@ pages:
   - 4.1/Install-Linux.markdown
 
 theme: readthedocs
+#markdown_extensions:
+#  - codehilite
+
+extra_css:
+    - css/darcula.css
+    - css/highlight-fix.css
+    - css/extra_css.css
+
+extra_javascript:
+    - js/extra_js.js

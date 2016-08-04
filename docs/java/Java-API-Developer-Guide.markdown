@@ -13,15 +13,15 @@ Each of these points is covered in further detail in the tutorials on this site 
 
 The Java Application API is fully compatible with IBM Streams version 4.0.0 and later. The API is open source and is available for download from our [streamsx.topology project on GitHub](http://ibmstreams.github.io/streamsx.topology/).
 
-## Setting up environment
+## Setting up your environment
 
 There are three primary ways to get started with the API. If you are trying the API for the first time, the Streams Quick Start Edition VM is likely the fastest way to start working with the tutorials on this page. Download it at the following link to get started: [Streams Quick Start Edition VM](http://www-01.ibm.com/software/data/infosphere/stream-computing/trials.html)
 
 The Streams Quick Start Edition VM contains a ready-to-go release of IBM  Streams. Additionally, the Quick Start VM comes bundled with IBM Streams Studio, which provides an intuitive, visual representation of your streaming application. After you've downloaded it, start the VM, open a console and type:
 
-~~~~~~
+```bash
 streamtool startinstance
-~~~~~~
+```
 
 This starts the default IBM Streams instance that comes with the VM. This instance is disabled on startup.
 
@@ -62,9 +62,9 @@ The latter features will be covered in the [user-defined parallelism and windowi
 ### Creating a topology object
 When writing an application with the Java Application API, the very first thing to do is to create the Topology object:
 
-~~~~~~
+```Java
 Topology topology = new Topology("temperatureSensor");
-~~~~~~
+```
 
 The topology object contains information about the structure of our graph (that is, our application), including how the data is generated and processed. The topology object also provides utility methods that allow us to define our data sources, in this case the temperature sensor. By invoking `topology.endlessSource()`, we can pass a Java Function that returns the next data item each time it is called.
 
@@ -72,7 +72,7 @@ The topology object contains information about the structure of our graph (that 
 
 For simplicity, we will simulate a temperature sensor by reading from a Java Random object as follows.  
 
-~~~~~~
+```Java
 Random random = new Random();
 
 TStream<Double> readings = topology.endlessSource(new Supplier<Double>(){
@@ -81,27 +81,27 @@ TStream<Double> readings = topology.endlessSource(new Supplier<Double>(){
         return random.nextGaussian();
     }
 });
-~~~~~~
+```
 
 The `endlessSource()`method will repeatedly call the function's overridden `get()`method and return a new random temperature reading each time. Although in this case we are obtaining our data by calling `random.nextGaussian()`, in principle this could be substituted for any live data source such as reading from a Kafka cluster, or MQTT server. This will be shown in subsequent tutorials.
 
 As a side note, the API is compatible with Java 8 so this data source could be written more concisely using a lambda expression:
 
-~~~~~~
+```Java
 TStream<Double> readings = topology.endlessSource(() -> random.nextGaussian());
-~~~~~~
+```
 
 ### Understanding TStream
 
 The `endlessSource()`method produces a TStream, which is arguably the most important Java class in the Java Application API.
 
-**A TStream represents a potentially infinite flow of tuples in your application**. Because an application might run forever, there is no upper limit to the number of tuples that can flow over a TStream. Tuples flow one at a time over a TStream and are processed by subsequent data **operations**. We do not define any data operations in this example (such as filtering or transforming the data on a TStream). Data operations are covered in the [common streams operations](#common-stream-operations) tutorial.
+**A TStream represents a potentially infinite flow of tuples in your application**. Because an application might run forever, there is no upper limit to the number of tuples that can flow over a TStream. Tuples flow one at a time over a TStream and are processed by subsequent data **operations**. We do not define any data operations in this example (such as filtering or transforming the data on a TStream). Data operations are covered in the [common streams operations](#common-streams-operations) tutorial.
 
 One of the strengths of the Java Application API is that a tuple can be any Java Object, so long as it is serializable. As such, a TStream is parameterized to a Java type as shown in this line:
 
-~~~~~~
+```Java
 TStream<Double> readings = ...;
-~~~~~~
+```
 
 In this case, the TStream is parameterized to a Double.
 
@@ -109,9 +109,9 @@ In this case, the TStream is parameterized to a Double.
 
 Now, in true "Hello World" fashion, after obtaining the data we simply print it to standard output.
 
-~~~~~~
+```Java
 readings.print();
-~~~~~~
+```
 
 Because each tuple is a Java object, invoking TStream's `print()`method calls the `toString()`method on each tuple and prints the results to output using `System.out.println()`. Although TStream's `print()`method is useful in its convenience, there are likely cases where the application will need to output to a file or Kafka, in which case a custom sink operator may be implemented.
 
@@ -119,9 +119,9 @@ Because each tuple is a Java object, invoking TStream's `print()`method calls th
 
 After the application has been defined, it can be run by acquiring a *context* from the StreamsContextFactory, and invoking its `submit()`method while passing the topology object as a parameter:
 
-~~~~~~
+```Java
 StreamsContextFactory.getEmbedded().submit(topology);
-~~~~~~
+```
 
 The `getEmbedded()` method returns an EMBEDDED submission context, which runs the application in a single JVM on a single host. There are three primary submission contexts, each of which runs the application in a different manner:
 
@@ -133,7 +133,7 @@ The `getEmbedded()` method returns an EMBEDDED submission context, which runs th
 
 The application, in its entirety, is as follows:
 
-~~~~~~
+```Java
 import java.util.Arrays;
 import java.util.Random;
 
@@ -159,7 +159,7 @@ public class TemperatureTest {
         StreamsContextFactory.getEmbedded().submit(topology);
     }
 }
-~~~~~~
+```
 
 ## Common Streams Operations
 
@@ -170,13 +170,13 @@ After creating a TStream, the three primary operations that will be performed ar
 
 Invoking *filter* on a TStream allows the user to selectively allow and reject tuples from being passed along to another stream based on a provided predicate. For example, suppose that we have a TStream of String, where each String is a word out of the English dictionary.
 
-~~~~~~
+```Java
 TStream<String> words = topology.source(/*code for reading from dictionary*/);
-~~~~~~
+```
 
 Furthermore, suppose that we want only a TStream of dictionary words that do not contain the letter "a". To create such a TStream, we simply invoke `.filter()`on the TStream of words:
 
-~~~~~~
+```Java
 TStream<String> words = topology.source(/*code for reading from dictionary*/);
 TStream<String> wordsWithoutA = words.filter(new Predicate<String>(){
     	@Override
@@ -187,34 +187,34 @@ TStream<String> wordsWithoutA = words.filter(new Predicate<String>(){
 		return true;
 	}
 });
-~~~~~~
+```
 
 Or, more concisely by using Java 8 lambda expressions:
 
-~~~~~~
+```Java
 TStream<String> words = topology.source(/*code for reading from dictionary*/);
 TStream<String> wordsWithoutA = words.filter(word -> !word.contains("a"));
-~~~~~~
+```
 
 The returned TStream, *wordsWithoutA*, now contains all words without a lowercase "a". Whereas before, the output might have been:
 
-~~~~~~
+```
 ...
 qualify
 quell
 quixotic
 quizzically
 ...
-~~~~~~
+```
 
 The output now is:
 
-~~~~~~
+```
 ...
 quell
 quixotic
 ...
-~~~~~~
+```
 
 You'll notice that we provide a predicate function, and need to override only its `test()`method to return true or false for respectively permitting and rejecting the tuple.
 
@@ -234,7 +234,7 @@ For each of these, we'll walk through an example.
 
 Let's take the previous example of reading words from a dictionary. It's not necessarily the case that we want *exactly* the tuples of a stream; we might need to modify them before we use them. Instead of having a TStream of dictionary words, what if we wanted a TStream of only the first four letters of each word? The transform operation is best suited to this task because it permits data-modifying operations on the tuple:
 
-~~~~~~
+```Java
 TStream<String> words = topology.source(/*code for reading from dictionary*/);
 TStream<String> firstFourLetters = words.transform(new Function<String, String>(){
             @Override
@@ -243,39 +243,39 @@ TStream<String> firstFourLetters = words.transform(new Function<String, String>(
             }
 
         });
-~~~~~~
+```
 
 Or, more concisely by using Java 8 lambda expressions:
 
-~~~~~~
+```Java
 TStream<String> words = topology.source(/*code for reading from dictionary*/);
 TStream<String> firstFourLetters = words.transform(word -> word.substring(0,4));
-~~~~~~
+```
 
 Now, instead of the entire word, printing the *firstFourLetters* TStream produces this output:
 
-~~~~~~
+```
 ...
 qual
 quel
 quix
 quiz
 ...
-~~~~~~
+```
 
 As you can see, invoking `.transform()` allows for the modification of tuples. Yet what if your application seeks to change the type? For the previous example, both the inputs and outputs of the transform function were strings. In the next section, we will demonstrate how `transform()`can change tuple types entirely.
 
 ### Transform: Changing the tuple type
 The `transform()`method does not require that the input tuple type is the same as the output tuple type. In fact, one of the strengths of the Java Application API is that the tuples on a TStream can be used as parameters when creating tuples to pass on the output TStream. As an example, let's suppose that we have a TStream of Java Strings, each corresponding to an Integer:
 
-~~~~~~
+```Java
 // Creates a TStream with four Java Strings as tuples -- "1", "2", "3", and "4"
 TStream<String> stringIntegers = topology.strings("1","2","3","4");
-~~~~~~
+```
 
 If we want to perform an operation that treats the tuples as Java Integers (and not Java Strings), we need to transform the tuples to a new type using `.transform()`. This could be done as follows:
 
-~~~~~~
+```Java
 // Creates a TStream with four Java Strings as tuples -- "1", "2", "3", and "4"
 TStream<String> stringTuples = topology.strings("1","2","3","4");
 TStream<Integer> integerTuples = stringTuples.transform(new Function<String, Integer>(){
@@ -284,33 +284,33 @@ TStream<Integer> integerTuples = stringTuples.transform(new Function<String, Int
                 return Integer.parseInt(stringInt);
             }    
         });
-~~~~~~
+```
 
 Or, as a Java 8 lambda expression:
 
-~~~~~~
+```Java
 // Creates a TStream with four Java Strings as tuples -- "1", "2", "3", and "4"
 TStream<String> stringTuples = topology.strings("1","2","3","4");
 TStream<Integer> integerTuples = stringTuples.transform(stringTuple -> Integer.parseInt(stringTuple));
-~~~~~~
+```
 
 Now that actual Java Integers are being passed as tuples on the Stream, operations such as addition, subtraction, and multiplication can directly be invoked:
 
-~~~~~~
+```Java
 // Creates a TStream with four Java Strings as tuples -- "1", "2", "3", and "4"
 TStream<String> stringTuples = topology.strings("1","2","3","4");
 TStream<Integer> integerTuples = stringTuples.transform(stringTuple -> Integer.parseInt(stringTuple));
 integerTuples.transform(integerTuple -> integerTuple * 2 + 1).print();
-~~~~~~
+```
 
 Yielding the following output:
 
-~~~~~~
+```
 3
 5
 7
 9
-~~~~~~
+```
 
 Although this example only converts Strings to Integers, in principle it could work for any two arbitrary Java types, so long as they are both serializable.
 
@@ -323,7 +323,7 @@ Although the following example pertains primarily to the `transform()` method, i
 
 An example of a stateful operator would be one which outputs the average of the last ten Doubles in a TStream. For this example, we first define a TStreams of random numbers:
 
-~~~~~~
+```Java
 TStream<Double> doubles= topology.endlessSource(new Supplier<Double>(){
             Random random = new Random();
             @Override
@@ -331,13 +331,13 @@ TStream<Double> doubles= topology.endlessSource(new Supplier<Double>(){
                 return random.nextGaussian();
             }  
       });
-~~~~~~
+```
 
 You'll note that in defining the *doubles* TStream, Supplier contains the **random** field, which is used to generate the random numbers.
 
 Next, we want to define an operation which consumes the *doubles* stream and keeps track of its moving average across the last ten tuples. Similar to how **random** was defined as a part of the internal state of *doubles*, we can define a LinkedList to keep track of the tuples on the TStream:
 
-~~~~~~
+```Java
 TStream<Double> avg = doubles.transform(new Function<Double, Double>(){
             LinkedList<Double> lastTen = new LinkedList<>();
             @Override
@@ -349,7 +349,7 @@ TStream<Double> avg = doubles.transform(new Function<Double, Double>(){
             }
 
         });
-~~~~~~
+```
 
 This is an important point: the state of the operator does *not* reset between tuples. If there are eight tuples in the *lastTen* LinkedList at the start of the invocation of `apply()`, then the next invocation of `apply()` immediately following will see nine tuples in the LinkedList.
 
@@ -372,7 +372,7 @@ TStream comes with the `.print()`method out of the box. The `.print()`method is 
 
 The following is an example of a sink that writes the string representation of a tuple to standard error instead of standard output:
 
-~~~~~~
+```Java
 TStream<String> strings = ...;
 strings.sink(new Consumer<String>(){
             @Override
@@ -380,14 +380,14 @@ strings.sink(new Consumer<String>(){
                 System.err.println(string);             
             }     
   });
-~~~~~~
+```
 
 Or, more concisely with Java 8 lambda expressions:
 
-~~~~~~
+```Java
 TStream<String> strings = ...;
 strings.sing(string -> System.err.println(string));
-~~~~~~
+```
 
 # API Features
 
@@ -396,66 +396,66 @@ The Java Application API comes with a number of features that are of great use t
 ### User-Defined Parallelism:
 If a particular portion of your graph is bottelnecking, and there needs to be additional throughput, making it a parallel region allows multiple threads and processes to handle the various transformations and filterings of the data in parallel. Take the temperature reading example from the intro guide. Let's suppose that temperature reading are being taken so rapidly, that one thread is insufficient to convert it to Celcius to Kelvin quickly enough. In this case, parallel is a great tool:
 
-~~~~~~
-    public static void main(String args[]){    
-        Topology topology = new Topology("temperatureSensor");
-        Random random = new Random();
+```Java
+public static void main(String args[]){    
+    Topology topology = new Topology("temperatureSensor");
+    Random random = new Random();
 
-        @SuppressWarnings("unchecked")
-        TStream<Double> readings = topology.endlessSource(new Supplier<Double>(){
-            @Override
-            public Double get() {
-                // Temperature in Farenheit
-                return random.nextGaussian();
-            }
+    @SuppressWarnings("unchecked")
+    TStream<Double> readings = topology.endlessSource(new Supplier<Double>(){
+        @Override
+        public Double get() {
+            // Temperature in Farenheit
+            return random.nextGaussian();
+        }
 
-        });
+    });
 
-        TStream<Double> parallelReadings = readings.parallel(5);
+    TStream<Double> parallelReadings = readings.parallel(5);
 
-        TStream<Double> kelvin = parallelReadings.transform(new Function<Double, Double>(){
-            @Override
-            public Double apply(Double temp) {
-                return convertToKelvin(temp);
-            }
-        });
-
-        kelvin.endParallel().print();
-        StreamsContextFactory.getEmbedded().submit(topology);
-    }
-~~~~~~
-
-In the above example, we created a topology and defined a pseudo temperature source, just like in the introductory example. Now, instead of just printing it to output, we also want to convert all of the source tuples from Farenheit to Kelvin. To do this, we've applied the transformation function `convertToKelvin()`
-
-~~~~~~
-...
+    TStream<Double> kelvin = parallelReadings.transform(new Function<Double, Double>(){
+        @Override
         public Double apply(Double temp) {
             return convertToKelvin(temp);
         }
+    });
+
+    kelvin.endParallel().print();
+    StreamsContextFactory.getEmbedded().submit(topology);
+}
+```
+
+In the above example, we created a topology and defined a pseudo temperature source, just like in the introductory example. Now, instead of just printing it to output, we also want to convert all of the source tuples from Farenheit to Kelvin. To do this, we've applied the transformation function `convertToKelvin()`
+
+```Java
 ...
-~~~~~~
+public Double apply(Double temp) {
+    return convertToKelvin(temp);
+}
+...
+```
 
 Granted, converting from Farenheit to Celcious is not a particularly expensive task, however in principle it could be any expensive, inefficient, bottlenecking operation. Parallelizing an operation is simple, simply invoke `.parallel()` on a TStream whose data you wish to process in parallel:
 
-~~~~~~
+```Java
 TStream<Double> parallelReadings = readings.parallel(5);
-~~~~~~
+```
 
 then any operations performed on the returned TStream will occur in parallel to the degree specified (in this case '5', meaning five thread or processes will be used to execute the parallel portion of the graph).
 
 To end parallel processing, invoke `endParallel()` on one of the returned TStreams. This will ensure that subsequent operations on the TStream returned by `unparallel()` will **not** be in parallel. In the above code, we call unparallel on the returned `kelvin` stream before calling print:
 
-~~~~~~
+```Java
 kelvin.endParallel().print();
-~~~~~~
+```
 
 Had we not called unparallel at all, the `print()` statement would have also been performed in parallel.
 
 The general workflow for parallelizing portions of you graph should look like:
 
-~~~~~~
+```
 stream_of_data -> invoke parallel -> perform a number of parallel operations -> unparallel -> perform non-parallel operations
-~~~~~~
+```
 
 When submitting the application, parallelized TStreams will run in **n** separate threads, if running in a STANDALONE context, or in **n** separate processes if running distributed. Unfortunately, running parallel() in EMBEDDED mode is not fully supported, and currently will simply run everything serially with a single thread.
 
@@ -464,44 +464,44 @@ Lastly, nested parallelism is not supported, so invoking `parallel()` on a TStre
 ### Windowing
 For operations where it's necessary to keep track of the last *n* tuples on the stream, windows provide convenient functionality. Let's suppose that we want to record the maximum temperature over the past 10 seconds from the following source `readings`:
 
-~~~~~~
-        Topology topology = new Topology("temperatureSensor");
-        Random random = new Random();
+```Java
+Topology topology = new Topology("temperatureSensor");
+Random random = new Random();
 
-        @SuppressWarnings("unchecked")
-        TStream<Double> readings = topology.endlessSource(new Supplier<Double>(){
-            @Override
-            public Double get() {
-                return random.nextGaussian();
-            }
+@SuppressWarnings("unchecked")
+TStream<Double> readings = topology.endlessSource(new Supplier<Double>(){
+    @Override
+    public Double get() {
+        return random.nextGaussian();
+    }
 
-        });
-~~~~~~
+});
+```
 
 To do this, we can invoke the TStreams's `last()` method, which creates a Window of either the last **n** tuples, or the last **n** seconds. In this case, we want a window of the last ten seconds:
 
-~~~~~~
-        TWindow<Double, ?> lastTenSeconds = readings.last(10, TimeUnit.SECONDS);
-~~~~~~
+```Java
+TWindow<Double, ?> lastTenSeconds = readings.last(10, TimeUnit.SECONDS);
+```
 
 The Window is templated to two parameters: the type of the tuple in the window ('Double', in this case), and the type of the window's partition Key. For now, we won't go into keyable windows, so it's sufficient to simply provide '?' as an argument for the second template parameter. When a Window is defined in this manner, it can be thought of as a list of tuples upon which an operation can be performed. This operation, such as finding the maximum, can be specified using the `aggregate()` method on Window:
 
-~~~~~~
-        TStream<Double> maxTemp = lastTenSeconds.aggregate(new Function<List<Double>, Double>(){
-            @Override
-            public Double apply(List<Double> temps) {
-                Double max = temps.get(0);
-                for(Double temp : temps){
-                    if(temp > max)
-                        max = temp;
-                }
-                return max;
-            }
+```Java
+TStream<Double> maxTemp = lastTenSeconds.aggregate(new Function<List<Double>, Double>(){
+    @Override
+    public Double apply(List<Double> temps) {
+        Double max = temps.get(0);
+        for(Double temp : temps){
+            if(temp > max)
+                max = temp;
+        }
+        return max;
+    }
 
-        });
-        maxTemp.print();
-        StreamsContextFactory.getEmbedded().submit(topology);
-~~~~~~
+});
+maxTemp.print();
+StreamsContextFactory.getEmbedded().submit(topology);
+```
 
 We can see that the aggregate method loops over the list of tuples, which are java Doubles, it finds the largest value and returns it from the method. The returned values from the `aggregate()` method become tuples on the returned TStream, which in this case is called `maxTemp`. An important note is that the Function supplied to `aggregate()` is invoked every time a tuple is sent onto the TStream feeding the window. In the above example, the supplied Function would be called whenever a new tuple went over the `lastTenSeconds` TStream.
 
@@ -524,7 +524,7 @@ In this tutorial, we will not cover [the development of C++ or Java primitive op
 ### Sample toolkit and operator
 To begin, suppose that we have a 'myTk' toolkit in the home directory. In the 'myTk' toolkit, there is one package named 'myPackageName', and one operator named 'myOperatorName':
 
-~~~~~~
+```
 $ cd ~/
 $ tree
 |--  ./myTk
@@ -532,35 +532,35 @@ $ tree
 |   |   |-- ./myTk/appendPackage/appendOperator
 |   |   |   |-- <implementation of appendOperator>
 |   |--  ./myTk/toolkit.xml
-~~~~~~
+```
 
  As such, when the toolkit is included into the application, the full path of the operator will be **appendPackage::appendOperator**. The 'appendOperator' operator itself is very simple, it takes an SPL rstring, appends it with the string " appended!", and submits the resulting rstring as an output tuple. For example, if the input to the 'appendOperator' operator are the following rstring tuples (one per line):
 
-~~~~~~
+```
  Rhinoceros
  Modest Mouse
  The cake is a lie
-~~~~~~
+```
 
 The output output tuples will be:
 
-~~~~~~
+```
  Rhinoceros appended!
  Modest Mouse appended!
  The cake is a lie appended!
-~~~~~~
+```
 
 It's important to note that every primitive operator is strongly typed with respect to the tuples that are sent to and emitted from the operator. As such, each primitive operator is associated with a *stream schema*, which simply contains the types of its input and output tuples. For example, the stream schema for both the input and output tuples of 'appendOperator' would be:
 
-~~~~~~
+```Java
 tuple<rstring attribute_name>
-~~~~~~
+```
 
 Which makes sense, since 'appendOperator' both takes and produces an rstring. A hypothetical operator that takes and emits an rstring and an integer would look like:
 
-~~~~~~
+```Java
 tuple<rstring first_attribute_name, uint32 second_attribute_name>
-~~~~~~
+```
 
 You'll notice that each attribute of a tuple requires a corresponding name. This is because certain primitive operators require that an attribute have a particular name to operate correctly; however, the vast majority of operators shipped with IBM Streams are flexible and allow the usage of any name.
 
@@ -570,32 +570,32 @@ Defining stream schemas is not necessary when just developing exclusively within
 
 In the introductory tutorials to the Java Application API, we created TStream objects which represented the flows of data in our application. To utilize a primitive operator, we must first convert our TStream to a special kind of stream called an SPLStream. SPLStreams are exactly like TStreams, except instead of being templated to a Java type, as in:
 
-~~~~~~
+```Java
 TStream<Double> myStream = ...;
-~~~~~~
+```
 
 Their types are instead defined by the *stream schemas* that were mentioned in the previous section, e.g.:
 
-~~~~~~
+```Java
 tuple<rstring attribute_name>
-~~~~~~
+```
 
 To create an SPLStream it's also necessary to provide a transformation Function to convert from the types of the TStream's Java objects to the SPLStream's SPL types. To show this in action, let's suppose that we have a TStream of Java Strings that we want to run through the 'appendOperator' that is found in the 'myTk' toolkit:
 
-~~~~~~
+```Java
 Topology topology = new Topology("primitiveOperatorTest");
 TStream<String> strings = topology.strings("Rhinoceros", "Modest Mouse", "The cake is a lie");
-~~~~~~
+```
 
 The first thing we do is import the toolkit by using the *addToolkit* utility method found in com.ibm.streamsx.topology.spl.SPL:
 
-~~~~~~
+```Java
 SPL.addToolkit(topology, new File("/home/streamsadmin/myTk"));
-~~~~~~
+```
 
 Then, we convert the TStream of Strings to an SPLStream of SPL tuples -- each tuple conforming to the stream schema of the operator:
 
-~~~~~~
+```Java
 StreamSchema rstringSchema = Type.Factory.getStreamSchema("tuple<rstring rstring_attr_name>");
 
 SPLStream splInputStream = SPLStreams.convertStream(strings, new BiFunction<String, OutputTuple, OutputTuple>(){
@@ -605,7 +605,7 @@ SPLStream splInputStream = SPLStreams.convertStream(strings, new BiFunction<Stri
       return output_rstring;
     }
   }, rstringSchema);
-~~~~~~
+```
 
 In the above lines of code, the convertStream method takes three parameters
 
@@ -617,44 +617,44 @@ In the above lines of code, the convertStream method takes three parameters
 
 Voila! We've created an SPLStream of SPL types. To use this stream and invoke the 'appendOperator' on its tuples, it's only one line of code:
 
-~~~~~~
+```Java
 SPLStream splOutputStream = SPL.invokeOperator("appendPackage::appendOperator", splInputStream, rstringSchema, new HashMap());
-~~~~~~
+```
 
 Similar to the way that transforming a TStream produces another TStream, invoking a primitive operator on an SPLStream produces another SPLStream; in this case *splOutputStream*. You may have noticed that *invokeOperator* takes a Map as an argument, this is in case the primitive operator requires any parameters which, in this case, it doesn't.
 
 Now that we have the output we desired, we'd like to print it to output. Unfortunately, since the tuples on the stream are SPL tuples and not Java tuples, we can't simply invoke ```splOutputstream.print()```. First, we need to convert the SPL tuples back the Java strings in a manner similar to the earlier conversion:
 
-~~~~~~
+```Java
 TStream<String> javaStrings = splOutputStream.convert(new Function<Tuple, String>(){
     @Override
     public String apply(Tuple inputTuple) {
       return inputTuple.getString("rstring_attr_name");
     }			
   });
-~~~~~~
+```
 
 This time, we take a *Tuple* object, and retrieve the value of the "rstring_attr_name" parameter as a Java String by invoking ```inputTuple.getString("rstring_attr_name");```, resulting in a TStream of Strings.
 
 Now we can simply call print():
 
-~~~~~~
+```Java
 javaStrings.print();
-~~~~~~
+```
 
 and submit:
 
-~~~~~~
+```Java
 StreamsContextFactory.getStreamsContext("STANDALONE").submit(topology).get();
-~~~~~~
+```
 
 When the application is run, it correctly produces the following output
 
-~~~~~~
+```
  Rhinoceros appended!
  Modest Mouse appended!
  The cake is a lie appended!
-~~~~~~
+```
 
 ### Primitive Operator Summary
 
@@ -668,7 +668,7 @@ When the application is run, it correctly produces the following output
 
  The application, in its entirety, is as follows:
 
-~~~~~~
+```Java
 import java.io.File;
 import java.util.HashMap;
 
@@ -718,4 +718,4 @@ public class SPLTest {
         StreamsContextFactory.getStreamsContext("STANDALONE").submit(topology).get();				
     }
 }
-~~~~~~
+```
