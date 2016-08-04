@@ -80,10 +80,10 @@ The first component of your application is a `Topology` object.
 
 Include the following code in the temperature_sensor.py file (the main module):
 
-~~~~~~
+```Python
 from streamsx.topology.topology import Topology
 topo = Topology("temperature_sensor")
-~~~~~~
+```
 
 A streaming analytics application is a directed flow graph that specifies how data is generated and processed. The `Topology` object contains information about the structure of the directed flow graph.
 
@@ -97,19 +97,19 @@ In this example, simulate temperature sensor readings by defining a Python gener
 
 Include the following code in the temperature_sensor.py file (the main module):
 
-~~~~~~
+```Python
 import temperature_sensor_functions
 source = topo.source(temperature_sensor_functions.readings)
-~~~~~~
+```
 
 Include the following code in the temperature_sensor_functions.py file:
 
-~~~~~~
+```Python
 import random
 def readings():
     while True:
         yield random.gauss(0.0, 1.0)
-~~~~~~
+```
 
 The `Topology.source()` function takes as input a zero-argument callable object, such as a function or an instance of a callable class, that returns an iterable of tuples. In this example, the input to `source` is the `readings()` function.  The `source` function calls the `readings()` function, which returns a generator object.  The `source` function gets the iterator from the generator object and repeatedly calls the `next()` function on the iterator to get the next tuple, which returns a new random temperature reading each time.
 
@@ -125,9 +125,9 @@ A tuple can be any Python object that is serializable by using the pickle module
 
 Include the following code in the temperature_sensor.py file:
 
-~~~~~~
+```Python
 source = topo.source(temperature_sensor_functions.readings)
-~~~~~~
+```
 
 
 ## Printing to output
@@ -135,9 +135,9 @@ After obtaining the data, you print it to standard output using the `sink` opera
 
 Include the following code in the temperature_sensor.py file:
 
-~~~~~~
+```Python
 source.sink(print)
-~~~~~~
+```
 
 The `Stream.sink()` operation takes as input a callable object that takes a single tuple as an argument and returns no value. The callable object is invoked with each tuple. In this example, the `sink` operation calls the built-in `print()` function with the tuple as its argument.  
 
@@ -149,9 +149,9 @@ After you define the application, you can submit it by using `streamsx.topology.
 
 Include the following code in the temperature_sensor.py file:
 
-~~~~~~
+```Python
 streamsx.topology.context.submit("STANDALONE", topo.graph)
-~~~~~~
+```
 
 **Remember:** You can run your application in the following ways:
 
@@ -165,7 +165,7 @@ Your complete application should look like this:
 
 The following code should be in the temperature_sensor.py file:
 
-~~~~~~
+```Python
 from streamsx.topology.topology import Topology
 import streamsx.topology.context
 import temperature_sensor_functions
@@ -178,33 +178,33 @@ def main():
 
 if __name__ == '__main__':
     main()
-~~~~~~
+```
 
 
 The following code should be in the temperature_sensor_functions.py file:
 
-~~~~~~
+```Python
 import random
 
 def readings():
     while True:
         yield random.gauss(0.0, 1.0)
 
-~~~~~~
+```
 
 ## Running the application
 To run the sample application, enter the following command:
 
-~~~~~~
+```Python
 python3 temperature_sensor.py
-~~~~~~
+```
 
 Enter `Ctrl-C` to stop the application.
 
 ## Sample output
 The contents of your output should look something like this:
 
-~~~~~~
+```Python
 ...
 1.6191338426594375
 -0.3088492294198733
@@ -215,7 +215,7 @@ The contents of your output should look something like this:
 -0.11907886745291935
 -0.24096558784475972
 ...
-~~~~~~
+```
 
 
 
@@ -244,11 +244,11 @@ A `source` operation fetches information from an external system and presents th
 
 From the temperature sensor example above (temperator_sensor.py), the input to the `source` function is the user-supplied function `temperature_sensor_functions.readings`.  The `readings` function produces data for the stream.
 
-~~~~~~
+```Python
 topo = Topology("temperature_sensor")
 source =
     topo.source(temperature_sensor_functions.readings)
-~~~~~~
+```
 
 The following sections show operations that process each tuple that passes through the `Stream`.
 
@@ -266,33 +266,33 @@ To achieve this:
 
     Include the following code in the filter_words.py file:
 
-
+```Python
         words = topo.source(filter_words_functions.words_in_dictionary)
-
+```
 
 
     Include the following code in the filter_words_functions.py file:
 
-
+```Python
         def words_in_dictionary():
            return {"qualify", "quell", "quixotic", "quizzically"}
-
+```
 
 1. Define a `Stream` called `words_without_a` by calling a function that returns True if the tuple does not contain the letter "a" or False if it does. Then invoke the `filter()` function on the `Stream` named `words`.
 
     Include the following code in the filter_words.py file:
 
-
+```Python
         words = topo.source(filter_words_functions.words_in_dictionary)
         words_without_a = words.filter(filter_words_functions.words_without_a)
-
+```
 
     Include the following code in the filter_words_functions.py file:
 
-
+```Python
         def words_without_a(tuple):
            return "a" not in tuple
-
+```
 
 The `Stream` that is returned, `words_without_a`, contains only words that do not include a lowercase "a".
 
@@ -302,7 +302,7 @@ Your complete application should look like this:
 
 The following code should be in the filter_words.py file:
 
-~~~~~~
+```Python
 from streamsx.topology.topology import Topology
 import streamsx.topology.context
 import filter_words_functions
@@ -316,17 +316,17 @@ def main():
 
 if __name__ == '__main__':
     main()
-~~~~~~
+```
 
 The following code should be in the filter_words_functions.py file:
 
-~~~~~~
+```Python
 def words_in_dictionary():
    return {"qualify", "quell", "quixotic", "quizzically"}
 
 def words_without_a(tuple):
    return "a" not in tuple
-~~~~~~
+```
 
 
 ### Sample output
@@ -334,10 +334,10 @@ Run `python3 filter_words.py`.
 
 The contents of your output will look like this:
 
-~~~~~~
+```Python
 quixotic
 quell
-~~~~~~
+```
 
 
 ## Transforming data
@@ -362,7 +362,7 @@ To achieve this:
 
 Include the following code in the transform_substring.py file:
 
-~~~~~~
+```Python
 from streamsx.topology.topology import Topology
 import streamsx.topology.context
 import transform_substring_functions
@@ -376,17 +376,17 @@ def main():
 
 if __name__ == '__main__':
     main()
-~~~~~~
+```
 
 Include the following code in the transform_substring_functions.py file:
 
-~~~~~~
+```Python
 def words_in_dictionary():
    return {"qualify", "quell", "quixotic", "quizzically"}
 
 def first_four_letters(tuple):
    return tuple[:4]
-~~~~~~
+```
 
 
 #### Sample output
@@ -394,12 +394,12 @@ Run `python3 transform_substring.py`.
 
 The contents of your output looks like this:
 
-~~~~~~
+```Python
 quix
 quel
 qual
 quiz
-~~~~~~
+```
 
 As you can see, the `transform` operation modifies the tuples. In this instance, the operation modifies the tuples so that only the first four letters of each word are returned.
 
@@ -416,7 +416,7 @@ To achieve this:
 
 Include the following code in the transform_type.py file:
 
-~~~~~~
+```Python
 from streamsx.topology.topology import Topology
 import streamsx.topology.context
 import transform_type_functions
@@ -430,11 +430,11 @@ def main():
 
 if __name__ == '__main__':
     main()
-~~~~~~
+```
 
 Include the following code in the transform_type_functions.py file:
 
-~~~~~~
+```Python
 def int_strings():
    return ["1", "2", "3", "4"]
 
@@ -443,7 +443,7 @@ def string_to_int(tuple):
 
 def multiply2_add1(tuple):
    return (tuple * 2) + 1
-~~~~~~
+```
 
 
 #### Sample output
@@ -451,12 +451,12 @@ Run `python3 transform_type.py`.
 
 The contents of your output looks like this:
 
-~~~~~~
+```Python
 3
 5
 7
 9
-~~~~~~
+```
 
 **Tip:** You can transform a `Stream` tuple to any Python object if the returned object's class can be serialized using the pickle module.
 
@@ -478,7 +478,7 @@ To achieve this:
 
 Include the following code in the multi_transform_lines.py file:
 
-~~~~~~
+```Python
 from streamsx.topology.topology import Topology
 import streamsx.topology.context
 import multi_transform_lines_functions
@@ -492,17 +492,17 @@ def main():
 
 if __name__ == '__main__':
     main()
-~~~~~~
+```
 
 Include the following code in the multi_transform_lines_functions.py file:
 
-~~~~~~
+```Python
 def lines_of_text():
    return ["mary had a little lamb", "its fleece was white as snow"]
 
 def split_line(tuple):
    return tuple.split()
-~~~~~~   
+```   
 
 
 #### Sample output
@@ -510,7 +510,7 @@ Run `python3 multi_transform_lines.py`.
 
 The contents of your output looks like this:
 
-~~~~~~
+```Python
 mary
 had
 a
@@ -522,7 +522,7 @@ was
 white
 as
 snow
-~~~~~~
+```
 
 As you can see, the `multi_transform` operation broke each of the original tuples into the component pieces, in this case, the component words, and maintained the order of the pieces in the resulting tuples.
 
@@ -544,7 +544,7 @@ To achieve this:
 
 Add the following code in the transform_stateful.py file:
 
-~~~~~~
+```Python
 from streamsx.topology.topology import Topology
 import streamsx.topology.context
 import transform_stateful_functions
@@ -558,11 +558,11 @@ def main():
 
 if __name__ == '__main__':
     main()
-~~~~~~
+```
 
 Add the following code in the transform_stateful_functions.py file:
 
-~~~~~~
+```Python
 import random
 
 def readings():
@@ -578,7 +578,7 @@ class AvgLastN:
       if (len(self.last_n) > self.n):
           self.last_n.pop(0)
       return sum(self.last_n) / len(self.last_n)
-~~~~~~
+```
 
 
 ### Sample output
@@ -586,7 +586,7 @@ Run `python3 transform_stateful.py`.
 
 The contents of your output file should look something like this:
 
-~~~~~~
+```Python
 ...
 -0.129801183721193
 -0.24261908760937825
@@ -595,7 +595,7 @@ The contents of your output file should look something like this:
 -0.24643244932349337
 -0.28186826075709115
 ...
-~~~~~~
+```
 
 In this example, `AvgLastN.n`, which is initialized from the user-defined parameter n, and `AvgLastN.last_n` are examples of data whose state is kept in between tuples.
 
@@ -620,7 +620,7 @@ To achieve this:
 
 Include the following code in the sink_stderr.py file:
 
-~~~~~~
+```Python
 from streamsx.topology.topology import Topology
 import streamsx.topology.context
 import sink_stderr_functions
@@ -633,11 +633,11 @@ def main():
 
 if __name__ == '__main__':
     main()
-~~~~~~
+```
 
 Include the following code in the sink_stderr_functions.py file:
 
-~~~~~~
+```Python
 import sys
 
 def source_tuples():
@@ -646,7 +646,7 @@ def source_tuples():
 def print_stderr(tuple):
     print(tuple, file=sys.stderr)
     sys.stderr.flush()
-~~~~~~
+```
 
 Tip: If the `sink` function prints to the console, ensure the output to stdout or stderr is flushed by calling `sys.stdout.flush()` or `sys.stderr.flush()`, respectively.
 
@@ -655,11 +655,11 @@ Run `python3 sink_stderr.py`.
 
 The contents of your stderr console looks like this:
 
-~~~~~~
+```Python
 tuple1
 tuple2
 tuple3
-~~~~~~
+```
 
 
 ## Splitting streams
@@ -669,10 +669,10 @@ You can split a stream by using any operator. Each time you call a function, suc
 
 For example, the following code snippet splits the `stream1` `Stream` into two steams:
 
-~~~~~~
+```Python
 stream2 = stream1.filter(...)
 stream3 = stream1.filter(...)
-~~~~~~
+```
 
 A visual representation of this code would look something like this:
 
@@ -683,7 +683,7 @@ The following example shows how you can distribute tuples from a `source` functi
 ### Sample application
 Include the following code in the split_source.py file:
 
-~~~~~~
+```Python
 from streamsx.topology.topology import Topology
 import streamsx.topology.context
 import split_source_functions
@@ -697,11 +697,11 @@ def main():
 
 if __name__ == '__main__':
     main()
-~~~~~~
+```
 
 Include the following code in the split_source_functions.py file:  
 
-~~~~~~
+```Python
 def source_tuples():
     return ["tuple1", "tuple2", "tuple3"]i
 
@@ -710,14 +710,14 @@ def print1(tuple):
 
 def print2(tuple):
     print("print2", tuple)
-~~~~~~
+```
 
 ### Sample output
 Run `python3 split_source.py`.
 
 The contents of your output file should look something like this:
 
-~~~~~~
+```Python
 ...
 print2 tuple1
 print1 tuple1
@@ -725,7 +725,7 @@ print2 tuple2
 print1 tuple2
 print2 tuple3
 print1 tuple3
-~~~~~~
+```
 
 
 ## Joining streams (union)
@@ -738,7 +738,7 @@ To achieve this:
 
 Include the following code in the union_source.py file:
 
-~~~~~~
+```Python
 from streamsx.topology.topology import Topology
 import streamsx.topology.context
 import union_source_functions
@@ -756,11 +756,11 @@ def main():
 
 if __name__ == '__main__':
     main()
-~~~~~~
+```
 
 Include the following code in the union_source_functions.py file:
 
-~~~~~~
+```Python
 def hello() :
     return ["Hello",]
 
@@ -775,7 +775,7 @@ def world() :
 
 def print1(tuple):
     print(" - ", tuple)
-~~~~~~
+```
 
 
 ### Sample output
@@ -783,13 +783,13 @@ Run `python3 union_source.py`.
 
 The contents of your output file should look something like this:
 
-~~~~~~
+```Python
 ...
 - Hello
 - beautiful
 - crazy
 - World!
-~~~~~~
+```
 
 **Remember:** The order of the tuples might be different in your output.
 
@@ -831,7 +831,7 @@ To achieve this:
 
 Include the following lines in the publish.py file:
 
-~~~~~
+```Python
 from streamsx.topology.topology import *
 from streamsx.topology.schema import *
 import streamsx.topology.context
@@ -847,11 +847,11 @@ def main():
 
 if __name__ == '__main__':
    main()
-~~~~~
+```
 
 Include the following lines in the pubsub_functions.py file:
 
-~~~~~
+```Python
 import itertools
 import time
 
@@ -861,7 +861,7 @@ def sequence():
 def delay(v):
    time.sleep(0.1)
    return True
-~~~~~
+```
 
 This example is based on the `pubsub` sample in GitHub. If you want more information about how this application works, see [https://github.com/IBMStreams/streamsx.topology/tree/master/samples/python/topology/pubsub](https://github.com/IBMStreams/streamsx.topology/tree/master/samples/python/topology/pubsub)
 
@@ -917,7 +917,7 @@ For example, you want to subscribe to the stream that you published in [Publishi
 
 To achieve this, include the following lines in the subscribe.py file:
 
-~~~~~ 
+```Python 
 from streamsx.topology.topology import *
 import streamsx.topology.context
  
@@ -929,14 +929,15 @@ def main():
  
 if __name__ == '__main__':
    main()
-~~~~~
+```
  
 
 ###Sample output
 Run `python3 subscribe.py`.
 
 The contents of your output file should look something like this: 
-~~~~~
+
+```
 ...
 12390 
 12391 
@@ -945,7 +946,8 @@ The contents of your output file should look something like this:
 12394 
 12395
 ...
-~~~~~
+```
+
 
 ## Publishing streams to an MQTT broker
 If you are running an IBM Streams application on a remote sensor or device, you can make an output stream available to applications by using the `publish` operation. Publishing a stream to an MQTT broker is similar to publishing a stream to a topic with the following exceptions:
@@ -977,7 +979,7 @@ To achieve this:
 
 Include the following lines in the publish_mqtt.py file:
 
-~~~~~
+```Python
 from streamsx.topology.topology import *
 from streamsx.topology import schema
 import streamsx.topology.context
@@ -1002,7 +1004,7 @@ def main():
      
 if __name__ == '__main__':
    main()
-~~~~~
+```
 
 ## Subscribing to a stream on an MQTT broker
 If you are running an IBM Streams application on a remote sensor or device, you can access the tuples from the application if they are published to an MQTT broker. You can retrieve the tuples by using the `subscribe` operation. 
@@ -1019,7 +1021,7 @@ For example, you want to subscribe to the stream that you published in [Publishi
 
 To achieve this, include the following lines in the subscribe_mqtt.py file:
 
-~~~~~
+```Python
 from streamsx.topology.topology import * 
 from streamsx.topology import schema 
 import streamsx.topology.context 
@@ -1043,7 +1045,7 @@ def main():
 
 if __name__ == '__main__':
    main()
-~~~~~
+```
 
 ###Sample output
 Run `python3 subscribe_mqtt.py`.
