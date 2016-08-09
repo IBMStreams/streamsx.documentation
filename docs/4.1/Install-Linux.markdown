@@ -1,6 +1,9 @@
 The Streams Quick Start Edition (QSE) can help you get started with Streams quickly, without having to install a Streams cluster environment. 
 
-{% include download.html%}
+<form action="http://www.ibm.com/analytics/us/en/technology/stream-computing/" target="_blank">
+<input type="submit" value="Download Streams QSE">
+</form>
+
 <br>
 This guide takes you through the process of installing QSE Linux Edition.
 

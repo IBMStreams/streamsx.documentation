@@ -1,6 +1,12 @@
 site_name: streamsx.documentation
 pages:
 - Home: index.md
+- QuickStart VM -- Streams Product Version 4.1.1:
+  - 4.1/Intro.markdown
+  - 4.1/Getting-Started.markdown
+  - 4.1/Install-VM.markdown
+  - 4.1/Install-Docker.markdown
+  - 4.1/Install-Linux.markdown
 - Java API:
   - java/Java-API-Developer-Guide.markdown
   - java/Java-Operator-Developer-Guide.markdown
@@ -15,21 +21,12 @@ pages:
   - messaging/JMS-Operators-Getting-Started.markdown
   - messaging/Kafka-Operators-Getting-Started.markdown
   - messaging/MQ-Create-Object-Binding-Guide.markdown
-- QuickStart VM -- Streams Product Version 4.1.1:
-  - 4.1/Intro.markdown
-  - 4.1/Getting-Started.markdown
-  - 4.1/Install-VM.markdown
-  - 4.1/Install-Docker.markdown
-  - 4.1/Install-Linux.markdown
-
 theme: readthedocs
+markdown_extensions:
+    - codehilite:
+        linenums: True
+# Extensions
 #markdown_extensions:
-#  - codehilite
-
-extra_css:
-    - css/darcula.css
-    - css/highlight-fix.css
-    - css/extra_css.css
-
-extra_javascript:
-    - js/extra_js.js
+#    codehilite:
+#        linenums: True
+#    admonition

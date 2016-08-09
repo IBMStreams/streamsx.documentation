@@ -1,14 +1,14 @@
 If you haven't downloaded the Streams QSE, you may download it here:
-
-{% include download.html%}
+<form action="http://www.ibm.com/analytics/us/en/technology/stream-computing/" target="_blank">
+<input type="submit" value="Download Streams QSE">
+</form>
+<br>
 
 ## Streams Overview
 
-For a quick overview about Streams and developing in Streams, see the following video:
+For a quick overview about Streams and developing in Streams, refer to the following video:
 
-<button class="btn btn-primary btn-md" data-toggle="modal" data-target="#learnStreams">
-Video:  Learn Streams in 5 min!
-</button>
+<iframe width="480" height="298" src="https://www.youtube.com/embed/HLHGRy7Hif4" frameborder="10" allowfullscreen></iframe>
 
 ## Getting Started for the Developer
 
@@ -38,13 +38,13 @@ public static void main(String[] args) throws Exception {
          * Create the container for the topology that will
          * hold the streams of tuples.
          */
-        Topology topology = new Topology(&quot;HelloWorld&quot;);
+        Topology topology = new Topology("HelloWorld");
 
         /*
          * Declare a source stream (hw) with String tuples containing two tuples,
-         * &quot;Hello&quot; and &quot;World!&quot;.
+         * "Hello" and "World!".
          */
-        TStream&lt;String&gt; hw = topology.strings(&quot;Hello&quot;, &quot;World!&quot;);
+        TStream<String> hw = topology.strings("Hello", "World!");
 
         /*
          * Sink hw by printing each of its tuples to System.out.
@@ -83,19 +83,19 @@ import com.ibm.streamsx.topology.functions.FunctionConversions._
 
 object HelloWorldScala {
   def main(args: Array[String]) {
-    val topology = new Topology(&quot;HelloWorldScala&quot;)
+    val topology = new Topology("HelloWorldScala")
 
-    var hw = topology.strings(&quot;Hello&quot;, &quot;World!&quot;)    
+    var hw = topology.strings("Hello", "World!")    
     hw.print()
 
-   StreamsContextFactory.getStreamsContext(&quot;EMBEDDED&quot;).submit(topology).get()
+   StreamsContextFactory.getStreamsContext("EMBEDDED").submit(topology).get()
   }
 }
 ```
 
 To get started, follow these development guides:
 
-* [Develop Streams Applications in Java](../java/java-appapi-devguide)
+* [Develop Streams Applications in Java](../java/Java-API-Developer-Guide)
 * [Develop Streams Applications in Scala](https://github.com/IBMStreams/streamsx.topology/wiki/Scala-Support)
 
 
@@ -115,16 +115,13 @@ To learn about how to develop using Streams Studio (our drag-and-drop IDE):
 
 * [Streams Studio Quick Start Guide](https://developer.ibm.com/streamsdev/docs/studio-quick-start/)
 
-<!-- Launch video in modal dialog -->
-<button class="btn btn-primary btn-md" data-toggle="modal" data-target="#streamsStudioInAction">
-Video:  Streams Studio in Action!
-</button>
+<iframe width="480" height="298" src="https://www.youtube.com/embed/ir_nUv4maL4" frameborder="0" allowfullscreen></iframe>
 
 ### Writing Java Operators
 
 If you have existing Java code, you may easily reuse your code by writing a Java operator or native Java functions.
 
-* [Java Operator Development Guide](../java/java-op-dev-guide/)
+* [Java Operator Development Guide](../java/Java-Operator-Developer-Guide)
 
 ### SparkMLLib in Streams
 
@@ -155,13 +152,13 @@ Streams is shipped with many toolkits out of the box to enable integration with 
 <div class="alert alert-success" role="alert"><b>New in Streams 4.1!</b>  Integration with the IBM InfoSphere Data Governance Catalog eanbles you to manage and govern your data.</div>
 
 With this support, developers can easily discover the data and schema that are available for use.  By building data lineage with your Streams application, you can quickly see and control how data is consumed.
-To get started, refer to  [Streams Governance Quickstart Guide](../governance/governance-quickstart/)
+To get started, refer to  [Streams Governance Quickstart Guide](../governance/Governance-Quickstart)
 
 ### Cybersecurity Toolkit
 
 <div class="alert alert-success" role="alert"><b>New in Streams 4.1!</b>  Cybersecurity toolkt can protect your systems from cyber threats.</div>
-
-The Cybersecurity Toolkit provides operators that are capable of analyzing network traffic and detecting suspicious behaviour. For more information on using the Cybersecurity Toolkit, refer to [Cybersecurity Getting Started Guide](../cybersecurity/cybersecurity-getting-started/)
+<br>
+The Cybersecurity Toolkit provides operators that are capable of analyzing network traffic and detecting suspicious behaviour. For more information on using the Cybersecurity Toolkit, refer to [Cybersecurity Getting Started Guide](../cybersecurity/Cybersecurity-Getting-Started)
 
 ### Streams and SPSS
 
@@ -175,16 +172,15 @@ Streams Console is the web-based administration console for monitoring and manag
 
 <div class="alert alert-success" role="alert">
 <b>New in Streams 4.1! </b>Customizable Dashboard in Streams Console.</div>
-
+<br>
 Prior to Streams 4.1, the Streams Console dashboard contained a fixed set of widgets.  With the latest release, you can now create customized dashboards to monitor your Streams domain, instances and applications.
 
 <img src="/streamsx.documentation/images/qse/Application-Dashboard-4.1.png" alt="Streams Console" style="width: 60%;"/>
 
 To familiarize yourself with the Streams Console, see this video:
 
-<button class="btn btn-primary btn-md" data-toggle="modal" data-target="#streamsConsole">
-Video:  Streams Console
-</button>
+<iframe width="480" height="298" src="https://developer.ibm.com/streamsdev/wp-content/uploads/sites/15/2015/11/streams.mp4" frameborder="0" allowfullscreen></iframe>
+
 
 ## Getting Started for the Business User
 
@@ -204,9 +200,7 @@ IBM Streams integrates with Microsoft Excel, allowing you to see, analyze and vi
 
 In the following demo, we demonstrate how you may build a marketing dashboard from real-time data using Excel.
 
-<button class="btn btn-primary btn-md" data-toggle="modal" data-target="#streamsAndExcel">
-Video:  Streams and Excel Demo
-</button>
+<iframe width="480" height="298" src="https://www.youtube.com/embed/8hzMXFBw7ns" frameborder="0" allowfullscreen></iframe>
 
 ## Streams Community
 The following Streams resources can help you connect with the Streams community and get support when you need it:
@@ -216,73 +210,3 @@ The following Streams resources can help you connect with the Streams community 
 * **[IBMStreams on Github](http://ibmstreams.github.io)** - Streams is shipped with many useful toolkits out of the box.  IBMStreams on Github  contains many open-source toolkits.  For a list of available toolkits available on Github, see this web page:  [IBMStreams Github Toolkits](https://developer.ibm.com/streamsdev/docs/github-projects-overview/).
 * **[IBM Streams Support](http://www.ibm.com/support/entry/portal/Overview/Software/Information_Management/InfoSphere_Streams)** - This website provides information about IBM Streams downloads, technical support tools, documentation, and other resources.
 * **[IBM Streams Product Site](http://www.ibm.com/analytics/us/en/technology/stream-computing/)** - This website provides a broad range of information and resources about Streams and related topics.
-
-
-<!-- Modal -->
-<div class="modal fade" id="learnStreams" tabindex="-1" role="dialog" aria-labelledby="learn-streams-in-5-min" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-        <h4 class="modal-title" id="learn-streams-in-5-min">Learn Streams in 5 Min</h4>
-      </div>
-      <div class="modal-body">
-        <iframe width="480" height="298" src="https://www.youtube.com/embed/HLHGRy7Hif4" frameborder="0" allowfullscreen></iframe>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-      </div>
-    </div>
-  </div>
-</div>
-
-<div class="modal fade" id="streamsStudioInAction" tabindex="-1" role="dialog" aria-labelledby="streams-studio-in-action" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-        <h4 class="modal-title" id="streams-studio-in-action">Streams Studio in Action</h4>
-      </div>
-      <div class="modal-body">
-		<iframe width="480" height="298" src="https://www.youtube.com/embed/ir_nUv4maL4" frameborder="0" allowfullscreen></iframe>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-      </div>
-    </div>
-  </div>
-</div>
-
-<div class="modal fade" id="streamsAndExcel" tabindex="-1" role="dialog" aria-labelledby="streams-and-excel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-        <h4 class="modal-title" id="streams-and-excel">Streams and Excel</h4>
-      </div>
-      <div class="modal-body">
-		<iframe width="480" height="298" src="https://www.youtube.com/embed/8hzMXFBw7ns" frameborder="0" allowfullscreen></iframe>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-      </div>
-    </div>
-  </div>
-</div>
-
-<div class="modal fade" id="streamsConsole" tabindex="-1" role="dialog" aria-labelledby="streams-console" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-        <h4 class="modal-title" id="streams-console">Streams Console</h4>
-      </div>
-      <div class="modal-body">
-		<video controls width="480" height="298" src="https://developer.ibm.com/streamsdev/wp-content/uploads/sites/15/2015/11/streams.mp4" frameborder="0" allowfullscreen></video>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-      </div>
-    </div>
-  </div>
-</div>
