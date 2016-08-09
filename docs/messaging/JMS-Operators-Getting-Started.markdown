@@ -7,12 +7,12 @@ Readers of this article is expected to have basic understanding in JMS and WebSp
 ## Requirements
 Prior to using JMS operators, the following software must be installed and configured.
 
--  Streams - a quick start edition VM is available, see the [Installing Streams Quick Start Edition VM Image](http://ibmstreams.github.io/streamsx.documentation//docs/4.1/qse-install-vm/) for more information.
+-  Streams - a quick start edition VM is available, see the [Installing Streams Quick Start Edition VM Image](../4.1/Install-VM) for more information.
 - Messaging Toolkit - a official version of the toolkit is shipped with  Streams or download it from [IBM Streams Github Messaging Toolkit Repository](https://github.com/IBMStreams/streamsx.messaging)
 - Messaging server and client - JMS operators supports both WebSpehre MQ and ActiveMQ, depending on the target messaging system, install either WebSphere MQ or ActiveMQ. If  Streams is running on a different machine than messaging server, install WebSphere MQ client libraries for Java or ActiveMQ on the same machine where  Streams is running as JMS operators looks up certain jar files from these messaging clients at runtime.
   - WebSphere MQ: a trial version of [WebSphere MQ](https://www-01.ibm.com/marketing/iwm/iwm/web/pick.do?pkgid=&S_SRCID=ESD-WSMQ-EVAL&source=ESD-WSMQ-EVAL&S_TACT=109J84RW&S_PKG=CR9H9ML&lang=en_US&lang=en_US) is available.
   - ActiveMQ: download a supported version of [ActiveMQ](http://activemq.apache.org/download.html)
-- Bindings file (WebSphere MQ only) – see [Example - create WebSphere MQ objects and bindings file](../mq-create-objects-bindings-sample/).
+- Bindings file (WebSphere MQ only) – see [Example - create WebSphere MQ objects and bindings file](MQ-Create-Object-Binding-Guide).
 
 ## Information to collect
 Information about provider_url, connection_factory and destination identifier must be collected. These information will be entered into connections document for JMS operators to establish connection to message system.

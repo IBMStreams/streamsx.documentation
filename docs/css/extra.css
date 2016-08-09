@@ -1,11 +1,11 @@
 .codehilite code, .codehilite pre{color:#3F3F3F;background-color:#F7F7F7;
-
+overflow: auto;
 box-sizing: border-box;
 
     padding: 0.01em 16px;
-    padding-top: 0.01em;
+    padding-top: 1em;
     padding-right-value: 16px;
-    padding-bottom: 0.01em;
+    padding-bottom: 1em;
     padding-left-value: 16px;
     padding-left-ltr-source: physical;
     padding-left-rtl-source: physical;

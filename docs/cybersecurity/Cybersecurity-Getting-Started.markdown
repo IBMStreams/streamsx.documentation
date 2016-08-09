@@ -12,11 +12,11 @@ Since the cybersecurity toolkit is focused on analyzing network traffic, you mus
 
 
 ## Download Quick Start Edition VM
-See the [Installing Streams Quick Start Edition VM Image]({{ site.url }}/docs/4.1/qse-install-vm/) for more information.
+See the [Installing Streams Quick Start Edition VM Image](../4.1/Install-VM) for more information.
 
 <!--
 ## Download Docker
-See the [Installing Streams Docker Image]({{ site.url }}/docs/4.1/qse-install-docker/) for more information
+See the [Installing Streams Docker Image](../4.1/Install-Docker) for more information
 -->
 
 ## Install Dependencies - Quick Start Edition VM
@@ -28,40 +28,40 @@ If you are using the Quick Start VM, you will need to download and build the fol
 
 
 #### GNU Bison
- 1. Navigate to [http://ftp.gnu.org/gnu/bison/](http://ftp.gnu.org/gnu/bison/) and download the latest version of GNU Bison to the Quick Start VM. As of the time of this writing, the latest version of GNU Bison was 3.0.4.
- 2. Execute the following commands to extract the tarball and run the install:
+* Navigate to [http://ftp.gnu.org/gnu/bison/](http://ftp.gnu.org/gnu/bison/) and download the latest version of GNU Bison to the Quick Start VM. As of the time of this writing, the latest version of GNU Bison was 3.0.4.
+* Execute the following commands to extract the tarball and run the install:
 
-	<pre class="terminal">
-	<span class="command">tar -xvf bison-3.0.4.tar.gz</span>
-	<span class="command">cd bison-3.0.4</span>
-	<span class="command">./configure</span>
-	<span class="command">make</span>
-	<span class="command">sudo make install</span></pre>
-
+```bash
+tar -xvf bison-3.0.4.tar.gz
+cd bison-3.0.4
+./configure
+make
+sudo make install
+```
 
 #### Flex
- 1. Navigate to [http://flex.sourceforge.net](http://flex.sourceforge.net) and download the latest version of Flex to the Quick Start VM. When this guide was written, the latest version of flex was 2.5.39.
- 2. Execute the following commands to extract the tarball and run the install:
+* Navigate to [http://flex.sourceforge.net](http://flex.sourceforge.net) and download the latest version of Flex to the Quick Start VM. When this guide was written, the latest version of flex was 2.5.39.
+* Execute the following commands to extract the tarball and run the install:
 
-	<pre class="terminal">
-	<span class="command">tar -xvf flex-2.5.39.tar.gz</span>
-	<span class="command">cd flex-2.5.39</span>
-	<span class="command">./configure</span>
-	<span class="command">make</span>
-	<span class="command">sudo make install</span></pre>
-
+```bash
+tar -xvf flex-2.5.39.tar.gz
+cd flex-2.5.39
+./configure
+make
+sudo make install
+```
 
 #### libpcap
- 1. Navigate to [http://www.tcpdump.org](http://www.tcpdump.org) and download the latest version of libpcap to the Quick Start VM. When this guide was written, the latest version of libpcap was 1.7.4.
- 2. Execute the following commands to extract the tarball and run the install:
+* Navigate to [http://www.tcpdump.org](http://www.tcpdump.org) and download the latest version of libpcap to the Quick Start VM. When this guide was written, the latest version of libpcap was 1.7.4.
+* Execute the following commands to extract the tarball and run the install:
 
-	<pre class="terminal">
-	<span class="command">tar -xvf libpcap-1.7.4.tar.gz</span>
-	<span class="command">cd libpcap-1.7.4</span>
-	<span class="command">./configure</span>
-	<span class="command">make</span>
-	<span class="command">sudo make install</span></pre>
-
+```bash
+tar -xvf libpcap-1.7.4.tar.gz
+cd libpcap-1.7.4
+./configure
+make
+sudo make install
+```
 
 <!--
 ## Install Dependencies - Docker Image
@@ -95,21 +95,23 @@ Furthermore, you will need to download and build the following dependencies. See
 ## Install SPSS (Optional)
 The SPSS Modeler Solution Publisher is only required if you want to run the PredictiveBlacklistingSample application. In order to download and install this version of SPSS, you need to a license for the product.
 
- 1. Download and install SPSS Modeler Solution Publisher into the Quick Start VM
- 2. Modify the `/home/streamsadmin/.bashrc` file and set the `CLEMRUNTIME` environment variable to the SPSS install path:
+* Download and install SPSS Modeler Solution Publisher into the Quick Start VM
+* Modify the `/home/streamsadmin/.bashrc` file and set the `CLEMRUNTIME` environment variable to the SPSS install path:
 
-	<pre class="terminal">
-	<span class="command">echo "export CLEMRUNTIME=/usr/IBM/SPSS/ModelerSolutionPublisher/17.0/" >> /home/streamsadmin/.bashrc</span>
-	<span class="command">source ~/.bashrc</span></pre>
+```bash
+echo "export CLEMRUNTIME=/usr/IBM/SPSS/ModelerSolutionPublisher/17.0/" >> /home/streamsadmin/.bashrc
+source ~/.bashrc
+```
 
- 3. Download and extract the **com.ibm.spss.streams.analytics** toolkit using the following commands:
+* Download and extract the **com.ibm.spss.streams.analytics** toolkit using the following commands:
 
-	<pre class="terminal">
-	<span class="command">cd Downloads</span>
-	<span class="command">wget https://github.com/IBMPredictiveAnalytics/streamsx.spss.v4/raw/master/com.ibm.spss.streams.analytics.tar.gz</span>
-	<span class="command">tar -xvf com.ibm.spss.streams.analytics.tar.gz</span></pre>
+```bash
+cd Downloads
+wget https://github.com/IBMPredictiveAnalytics/streamsx.spss.v4/raw/master/com.ibm.spss.streams.analytics.tar.gz
+tar -xvf com.ibm.spss.streams.analytics.tar.gz
+```
 
- 4. At this point, the PredictiveBlacklisting sample application can be compiled using the steps below.
+* At this point, the PredictiveBlacklisting sample application can be compiled using the steps below.
 
 **NOTE:** When building the PredictionBlacklistingSample using ant, you must specify the `spss.toolkit.path` property on the command-line and set the value to the toolkit path. For example: `ant -Dspss.toolkit.path=/home/streamsadmin/Downloads/com.ibm.spss.streams.analytics`.
 
@@ -123,44 +125,46 @@ By default, the sample applications will use the PacketFileSource operator (foun
 ### Download/Build/Run
 The following steps can be taken to download, compile and run the cybersecurity samples:
 
- 1. From the command-line, clone the samples github repository and navigate to the 'cybersecurity' directory. Here you will find directories containing the sample applications:
+* From the command-line, clone the samples github repository and navigate to the 'cybersecurity' directory. Here you will find directories containing the sample applications:
 
-	<pre class="terminal">
-	<span class="command">git clone https://github.com/IBMStreams/samples.git</span>
-	<span class="command">cd samples/cybersecurity</span>
-	<span class="command">ls -l</span>
-	<span class="output">DomainProfilingSamples  HostProfilingSamples  PredictiveBlacklistingSamples</span></pre>
+```bash
+git clone https://github.com/IBMStreams/samples.git
+cd samples/cybersecurity
+ls -l
+    DomainProfilingSamples  HostProfilingSamples  PredictiveBlacklistingSamples
+```
+* Navigate to the DomainProfilingSamples directory. The directory contains a build.xml file that will download any necessary dependencies (including the networking toolkit) and compile one of the applications. Run the `ant` command to kick off the build.
 
- 2. Navigate to the DomainProfilingSamples directory. The directory contains a build.xml file that will download any necessary dependencies (including the networking toolkit) and compile one of the applications. Run the `ant` command to kick off the build.
+```bash
+ant
+```
 
-	<pre class="terminal">
-	<span class="command">ant</span></pre>
+* Use the Streams Console to submit the application to the instance. To get the URL for the Streams Console, run the following command:
 
- 3. Use the Streams Console to submit the application to the instance. To get the URL for the Streams Console, run the following command:
+```bash
+streamtool geturl
+    https://streamsqse.localdomain:8443/streams/domain/console
+```
 
-	<pre class="terminal">
-	<span class="command">streamtool geturl</span>
-	<span class="output">https://streamsqse.localdomain:8443/streams/domain/console</span></pre>
-
- 4. Once the Streams Console is open, you should be presented with a screen that looks like the following:
+* Once the Streams Console is open, you should be presented with a screen that looks like the following:
 
 	<a href="#/" class="pop">
 		<img src="../../../../images/cybersecurity/console_start.png" style="width:45%; height: 25%; margin-left:auto; margin-right:auto; display: block;" />
 	</a>
 
- 5. At the top of the Streams Console, switch to the Application Dashboard, which allows you submit, cancel and monitor applications.
+* At the top of the Streams Console, switch to the Application Dashboard, which allows you submit, cancel and monitor applications.
 
 	<a href="#/" class="pop">
 		<img src="../../../../images/cybersecurity/streams-console1.png" style="width:45%; height: 25%; margin-left:auto; margin-right:auto; display: block;" />
 	</a>
 
- 6. With the Application Dashboard open, click the **Submit Job** icon <img src="../../../../images/cybersecurity/console_submit_icon.png" />. Select the *.sab file found in the 'output/' directory in the sample application. For example, for the DomainProfilingSample application, you would select this file: `/path/to/DomainProfilingSample/output/DomainProfilingBasic_Output/com.ibm.streams.cybersecurity.sample.DomainProfilingBasic.sab`
+* With the Application Dashboard open, click the **Submit Job** icon <img src="../../../../images/cybersecurity/console_submit_icon.png" />. Select the *.sab file found in the 'output/' directory in the sample application. For example, for the DomainProfilingSample application, you would select this file: `/path/to/DomainProfilingSample/output/DomainProfilingBasic_Output/com.ibm.streams.cybersecurity.sample.DomainProfilingBasic.sab`
 
 	<a href="#/" class="pop">
 	<img src="../../../../images/cybersecurity/console_submit_job.png" style="width:25%; height: 25%; margin-left:auto; margin-right:auto; display: block;" />
 	</a>
 
- 7. Once the application has been submitted, the Streams Console should display the running application:
+* Once the application has been submitted, the Streams Console should display the running application:
 
 	<a href="#/" class="pop">
 		<img src="../../../../images/cybersecurity/console_running.png" style="width:45%; height: 25%; margin-left:auto; margin-right:auto; display: block;" />
