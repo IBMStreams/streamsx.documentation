@@ -185,4 +185,4 @@ To restart the domain:
 
 ## What to do next
 
-Explore the Streams QSE VMWare image following the [Quick Start Edition VM Getting Started Guide](/streamsx.documentation/docs/4.1/qse-getting-started/)
+Explore the Streams QSE VMWare image following the [Quick Start Edition VM Getting Started Guide](Getting-Started)

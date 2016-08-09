@@ -22,9 +22,12 @@ pages:
   - messaging/Kafka-Operators-Getting-Started.markdown
   - messaging/MQ-Create-Object-Binding-Guide.markdown
 theme: readthedocs
+extra_css:
+  - css/extra.css
 markdown_extensions:
     - codehilite:
-        linenums: True
+#        linenums: True
+
 # Extensions
 #markdown_extensions:
 #    codehilite:

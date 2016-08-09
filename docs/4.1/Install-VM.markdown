@@ -35,13 +35,10 @@ The Quick Start Edition is only available in English.
 
     This .zip file contains the following files:
 
-    ~~~~~~
-    vmware-streamsVxxx-qse-v1.vmx, which is in the vmware-streamsVxxx-qse-v1.vmwarevm directory
-    ~~~~~~
+     * `vmware-streamsVxxx-qse-v1.vmx` (this is in the `vmware-streamsVxxx-qse-v1.vmwarevm` directory)
+     * Several `Virtual Disk-snumber.vmdk` files (these are in the `vmware-streamsVxxx-qse-v1.vmwarevm` directory)
 
-    Several Virtual Disk-snumber.vmdk files, which are in the vmware-streamsVxxx-qse-v1.vmwarevm directory
-
-1.  Start the Quick Start Edition VMware image by double-clicking the vmware-streamsVxxx-qse-v1.vmx file.
+1.  Start the Quick Start Edition VMware image by double-clicking the `vmware-streamsVxxx-qse-v1.vmx` file.
 
     The first time that you start the image, several messages and prompts are displayed. Otherwise, the Quick Start Edition VMware image desktop opens.
 
@@ -61,4 +58,4 @@ The Quick Start Edition is only available in English.
 
 ## What to do next
 
-Explore the Streams QSE VMWare image following the [Quick Start Edition VM Getting Started Guide](/streamsx.documentation/docs/4.1/qse-getting-started/)
+Explore the Streams QSE VMWare image following the [Quick Start Edition VM Getting Started Guide](Getting-Started)
