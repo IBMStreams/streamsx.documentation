@@ -28,119 +28,116 @@ Information about provider_url, connection_factory and destination identifier mu
   - destination identifier is the name of the queue or topic.
 
 ## Steps
-*  Set environment variable that is required by JMS operators.
+1.  Set environment variable that is required by JMS operators.
 
-&nbsp;&nbsp;&nbsp;&nbsp;WebSphere MQ
+    WebSphere MQ
 
-```bash
-echo "export STREAMS_MESSAGING_WMQ_HOME=/opt/mqm" >> /home/streamsadmin/.bashrc
-```
-&nbsp;&nbsp;&nbsp;&nbsp;ActiveMQ
 
-```bash
-echo "export STREAMS_MESSAGING_AMQ_HOME=/home/streamsuser/ApacheActiveMQ" >> /home/streamsadmin/.bashrc
-```
+        echo "export STREAMS_MESSAGING_WMQ_HOME=/opt/mqm" >> /home/streamsadmin/.bashrc
+
+    ActiveMQ
+
+
+        echo "export STREAMS_MESSAGING_AMQ_HOME=/home/streamsuser/ApacheActiveMQ" >> /home/streamsadmin/.bashrc
+
 
 *  Configure the SPL compiler to find the messaging toolkit directory. Use one of the following methods.
 
-&nbsp;&nbsp;&nbsp;&nbsp;Set the STREAMS_SPLPATH environment variable to the root directory of a toolkit or multiple toolkits (with : as a separator)*
+    Set the STREAMS_SPLPATH environment variable to the root directory of a toolkit or multiple toolkits (with : as a separator)*
 
-```bash
-echo "export STREAMS_SPLPATH=$STREAMS_INSTALL/toolkits/com.ibm.streamsx.messaging" >> /home/streamsadmin/.bashrc
-```
 
-&nbsp;&nbsp;&nbsp;&nbsp;Specify the -t or --spl-path command parameter when you run the sc command.*
+        echo "export STREAMS_SPLPATH=$STREAMS_INSTALL/toolkits/com.ibm.streamsx.messaging" >> /home/streamsadmin/.bashrc
 
-     `sc -t $STREAMS_INSTALL/toolkits/com.ibm.streamsx.messaging -M MyMain`
 
-&nbsp;&nbsp;&nbsp;&nbsp; **Note:** If  Streams Studio is used to compile and run SPL application, add messaging toolkit to toolkit locations in Streams Explorer.
+    Specify the -t or --spl-path command parameter when you run the sc command.*
+
+         sc -t $STREAMS_INSTALL/toolkits/com.ibm.streamsx.messaging -M MyMain
+
+    **Note:** If  Streams Studio is used to compile and run SPL application, add messaging toolkit to toolkit locations in Streams Explorer.
 
 * Source .bashrc and verify the appropriate environment variable is set for the messaging system you use.
     * Source .bashrc: `source $HOME/.bashrc`
 
     * Verify required environment variables
-```bash
-    # For ActiveMQ
-    env | grep STREAMS_MESSAGING_AMQ_HOME
-    # For WebSphere MQ
-    env | grep STREAMS_MESSAGING_WMQ_HOME
-```
+
+            # For ActiveMQ
+            env | grep STREAMS_MESSAGING_AMQ_HOME
+            # For WebSphere MQ
+            env | grep STREAMS_MESSAGING_WMQ_HOME
+
 
 * Start  Streams domain and instance.
 
-* Create a connections.xml file, which will be used by JMS operators to establish connection to messaging system. You can name this file anything you like. Replace the value for provider_url, connection_factory and destination identifier with the actual value you obtained earlier. For example
+* Create a connections.xml file, which will be used by JMS operators to establish connection to messaging system. You can name this file anything you like. Replace the value for provider_url, connection_factory and destination identifier with the actual value you obtained earlier. For example:
+    * **Sample connection document for WebSphere MQ**
+
+            <?xml version="1.0" encoding="UTF-8"?>
+	        <st:connections xmlns:st="http://www.ibm.com/xmlns/prod/streams/adapters"
+                             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	        	<connection_specifications>
+	        		<connection_specification name="wmq">
+	        			<JMS initial_context="com.sun.jndi.fscontext.RefFSContextFactory" provider_url = "file:///homes/streamsadmin/bindings" connection_factory="confact"/>
+	        		</connection_specification>
+	        	</connection_specifications>
+	        	<access_specifications>
+	        		<access_specification name="access_wmq">
+	        			<destination identifier="dynamicQueues/STREAMS.MapQueue" delivery_mode="persistent" message_class="map" />
+	        			<uses_connection connection="wmq"/>
+	        			<native_schema>
+	        		    	<attribute name="id" type="Int" />
+	        		    	<attribute name="name" type="String" length="15" />
+	        			</native_schema>
+	        		</access_specification>
+	        	</access_specifications>  
+	        </st:connections>
 
 
-&nbsp;&nbsp;&nbsp;&nbsp;**Sample connection document for WebSphere MQ**
-```xml
-<?xml version="1.0" encoding="UTF-8"?>
-	<st:connections xmlns:st="http://www.ibm.com/xmlns/prod/streams/adapters"
+    * **Sample connection document for ActiveMQ**
+
+            <?xml version="1.0" encoding="UTF-8"?>
+	        <st:connections xmlns:st="http://www.ibm.com/xmlns/prod/streams/adapters"
                      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-		<connection_specifications>
-			<connection_specification name="wmq">
-				<JMS initial_context="com.sun.jndi.fscontext.RefFSContextFactory" provider_url = "file:///homes/streamsadmin/bindings" connection_factory="confact"/>
-			</connection_specification>
-		</connection_specifications>
-		<access_specifications>
-			<access_specification name="access_wmq">
-				<destination identifier="dynamicQueues/STREAMS.MapQueue" delivery_mode="persistent" message_class="map" />
-				<uses_connection connection="wmq"/>
-				<native_schema>
-			    	<attribute name="id" type="Int" />
-			    	<attribute name="name" type="String" length="15" />
-				</native_schema>
-			</access_specification>
-		</access_specifications>  
-	</st:connections>
-```
+	        	<connection_specifications>
+	        		<connection_specification name="activemq">
+	        			<JMS initial_context="org.apache.activemq.jndi.ActiveMQInitialContextFactory" provider_url = "tcp://activeMqHost:port" connection_factory="ConnectionFactory"/>
+	        		</connection_specification>
+	        	</connection_specifications>
+	        	<access_specifications>
+	        		<access_specification name="access_activemq">
+	        			<destination identifier="dynamicQueues/STREAMS.MapQueue" delivery_mode="persistent" message_class="map" />
+	        			<uses_connection connection="activemq"/>
+	        			<native_schema>
+	        		    	<attribute name="id" type="Int" />
+	        		    	<attribute name="name" type="String" length="15" />
+	        			</native_schema>
+	        		</access_specification>
+	        	</access_specifications>  
+	        </st:connections>
 
-&nbsp;&nbsp;&nbsp;&nbsp;**Sample connection document for ActiveMQ**
 
-```xml
-<?xml version="1.0" encoding="UTF-8"?>
-	<st:connections xmlns:st="http://www.ibm.com/xmlns/prod/streams/adapters"
-                     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-		<connection_specifications>
-			<connection_specification name="activemq">
-				<JMS initial_context="org.apache.activemq.jndi.ActiveMQInitialContextFactory" provider_url = "tcp://activeMqHost:port" connection_factory="ConnectionFactory"/>
-			</connection_specification>
-		</connection_specifications>
-		<access_specifications>
-			<access_specification name="access_activemq">
-				<destination identifier="dynamicQueues/STREAMS.MapQueue" delivery_mode="persistent" message_class="map" />
-				<uses_connection connection="activemq"/>
-				<native_schema>
-			    	<attribute name="id" type="Int" />
-			    	<attribute name="name" type="String" length="15" />
-				</native_schema>
-			</access_specification>
-		</access_specifications>  
-	</st:connections>
-```
-
-   See more details about [connection document](http://ibmstreams.github.io/streamsx.messaging/com.ibm.streamsx.messaging/doc/spldoc/html/tk$com.ibm.streamsx.messaging/tk$com.ibm.streamsx.messaging$2.html)
+    See more details about [connection document](http://ibmstreams.github.io/streamsx.messaging/com.ibm.streamsx.messaging/doc/spldoc/html/tk$com.ibm.streamsx.messaging/tk$com.ibm.streamsx.messaging$2.html)
 
 * Next, create a SPL application and add JMS operator to it. Make sure the “use” directive is present in the SPL source file. If  Streams Studio is used, these directive is automatically added when dragging and dropping a JMS operator to SPL application.
 
-```
-use com.ibm.streamsx.messaging.jms::*;
-```
 
-&nbsp;&nbsp;&nbsp;&nbsp;or
-```
-use com.ibm.streamsx.messaging.jms::JMSSink;
-use com.ibm.streamsx.messaging.jms::JMSSource;
-```
+        use com.ibm.streamsx.messaging.jms::*;
+
+
+    or
+
+        use com.ibm.streamsx.messaging.jms::JMSSink;
+        use com.ibm.streamsx.messaging.jms::JMSSource;
+
 * At minimum, both JMSSink and JMSSource operators requires two parameters to be specified namely “access” and “connection”, they are respectively referring to the name of access_specification and connection_specification elements in the connection document. <br><br>Please note that the attribute name, type and their order defined in streams schema for JMS operator must match the attribute name, type and order defined in native_schema section of connection document. See all [supported native attribute type and mapping to SPL type](http://ibmstreams.github.io/streamsx.messaging/com.ibm.streamsx.messaging/doc/spldoc/html/tk$com.ibm.streamsx.messaging/tk$com.ibm.streamsx.messaging$12.html)
 
-```
-    stream<int32 id, rstring name> myInputStream = JMSSource()
-    {
-	    param
-	    	connection : "wmq" ;
-	    	access : "access_wmq" ;
-    }
-```
+
+        stream<int32 id, rstring name> myInputStream = JMSSource()
+        {
+	        param
+	        	connection : "wmq" ;
+	        	access : "access_wmq" ;
+        }
+
 
 * Another important optional parameter is the connectionDocument, the value of this parameter tells JMS operators where to locate the connection document. Below are supported scenarios for placing connection document in a SPL application for JMS operators.
 

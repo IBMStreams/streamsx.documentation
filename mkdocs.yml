@@ -1,18 +1,18 @@
 site_name: streamsx.documentation
 pages:
 - Home: index.md
-- QuickStart VM -- Streams Product Version 4.1.1:
-  - 4.1/Intro.markdown
-  - 4.1/Getting-Started.markdown
-  - 4.1/Install-VM.markdown
-  - 4.1/Install-Docker.markdown
-  - 4.1/Install-Linux.markdown
 - Java API:
   - java/Java-API-Developer-Guide.markdown
   - java/Java-Operator-Developer-Guide.markdown
 - Python API:
   - python/Python-API-Developer-Guide.md
   - python/Python-Sources.md
+- QuickStart VM -- Streams Product Version 4.1.1:
+  - 4.1/Intro.markdown
+  - 4.1/Getting-Started.markdown
+  - 4.1/Install-VM.markdown
+  - 4.1/Install-Docker.markdown
+  - 4.1/Install-Linux.markdown
 - Cybersecurity:
   - cybersecurity/Cybersecurity-Getting-Started.markdown
 - Governance:
