@@ -34,37 +34,37 @@ If you're new to IBM Streams and want to learn more about the terms in this guid
 # Prerequites
 Before you can use the Python Application API, you must complete the following tasks:
 
-1. Install IBM Streams Version 4.0.1 (or later) or IBM Streams Quick Start Edition Version 4.0.1 (or later):
+* Install IBM Streams Version 4.0.1 (or later) or IBM Streams Quick Start Edition Version 4.0.1 (or later):
 
     * [IBM Streams Version 4.1.1 installation documentation](http://www.ibm.com/support/knowledgecenter/SSCRJU_4.1.1/com.ibm.streams.install.doc/doc/installstreams-container.html)
 
     * [IBM Streams Quick Start Edition Version 4.1.1 installation documentation](http://www.ibm.com/support/knowledgecenter/SSCRJU_4.1.1/com.ibm.streams.qse.doc/doc/installtrial-container.html)
 
-1. Ensure that you configure the IBM Streams product environment variable by entering the following command:
+* Ensure that you configure the IBM Streams product environment variable by entering the following command:
 
         source product-installation-root-directory/4.n.n.n/bin/streamsprofile.sh
 
     **Tip:** Add the source command to your `home-directory/.bashrc` shell initialization file. Otherwise, you must enter the command every time you start IBM Streams. For example, if the product is installed in the `/home/streamsadmin/InfoSphere_Streams/4.1.1.0` directory, add the following line to your `.bashrc` file:
 
-        source /home/streamsadmin/InfoSphere_Streams/4.1.1.0/bin/streamsprofile.sh
+```bash
+source /home/streamsadmin/InfoSphere_Streams/4.1.1.0/bin/streamsprofile.sh
+```
 
-
-1. Download the IBM Streams Topology Toolkit, which includes the Python Application API. You can download the most recent version of the toolkit from the IBMStreams organization on GitHub from the streamsx.topology [Releases page](https://github.com/Ibmstreams/streamsx.topology/releases).
+* Download the IBM Streams Topology Toolkit, which includes the Python Application API. You can download the most recent version of the toolkit from the IBMStreams organization on GitHub from the streamsx.topology [Releases page](https://github.com/Ibmstreams/streamsx.topology/releases).
 
     After the toolkit downloads, extract it to your file system.
 
-1. Install a supported version of Python:
+* Install a supported version of Python:
 
    * CPython 3.5.0 or later [https://www.python.org](https://www.python.org).
 
-   * Anaconda 4.0.0 or later, which includes Python 3.5.0 [https://www.continuum.io/downloads](https://www.continuum.io/downloads).
-   
-   The Python Application API has been tested with Python 3.5.1
+   * Anaconda 4.0.0 or later, which includes Python 3.5.0 [https://www.continuum.io/downloads](https://www.continuum.io/downloads). <br>The Python Application API has been tested with Python 3.5.1
 
-1. Include the fully qualified path of the `com.ibm.streamsx.topology/opt/python/packages` directory in the PYTHONPATH environment variable. For example:
+* Include the fully qualified path of the `com.ibm.streamsx.topology/opt/python/packages` directory in the PYTHONPATH environment variable. For example:
 
-        export PYTHONPATH=/home/myuser/download/com.ibm.streamsx.topology/opt/python/packages:$PYTHONPATH
-
+```bash
+export PYTHONPATH=/home/myuser/download/com.ibm.streamsx.topology/opt/python/packages:$PYTHONPATH
+```
 
 
 # Developing your first application
@@ -246,8 +246,7 @@ From the temperature sensor example above (temperator_sensor.py), the input to t
 
 ```Python
 topo = Topology("temperature_sensor")
-source =
-    topo.source(temperature_sensor_functions.readings)
+source = topo.source(temperature_sensor_functions.readings)
 ```
 
 The following sections show operations that process each tuple that passes through the `Stream`.
@@ -264,30 +263,30 @@ To achieve this:
 
 1. Define a `Stream` called `words` that is created by calling a function that generates a list of four words. (For simplicity, specify a `source` function that returns only four words.)
 
-    Include the following code in the filter_words.py file:
+Include the following code in the filter_words.py file:
 
 ```Python
-        words = topo.source(filter_words_functions.words_in_dictionary)
+words = topo.source(filter_words_functions.words_in_dictionary)
 ```
 
 
-    Include the following code in the filter_words_functions.py file:
+Include the following code in the filter_words_functions.py file:
 
 ```Python
-        def words_in_dictionary():
-           return {"qualify", "quell", "quixotic", "quizzically"}
+def words_in_dictionary():
+   return {"qualify", "quell", "quixotic", "quizzically"}
 ```
 
 1. Define a `Stream` called `words_without_a` by calling a function that returns True if the tuple does not contain the letter "a" or False if it does. Then invoke the `filter()` function on the `Stream` named `words`.
 
-    Include the following code in the filter_words.py file:
+Include the following code in the filter_words.py file:
 
 ```Python
         words = topo.source(filter_words_functions.words_in_dictionary)
         words_without_a = words.filter(filter_words_functions.words_without_a)
 ```
 
-    Include the following code in the filter_words_functions.py file:
+Include the following code in the filter_words_functions.py file:
 
 ```Python
         def words_without_a(tuple):
