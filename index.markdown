@@ -7,7 +7,12 @@ The streamsx.documentation is a community-based documentation project for IBM St
 The goal of the project is to provide easy-to-follow documentation and development guides to help users get started with Streams.
 
 # Table of Content
-{% include nav.html context="/docs/"%}
+
+### IBM Streams 4.2
+{% include nav.html context="/docs/4.2/"%}
+
+### IBM Streams 4.1
+* [Documentation for IBM Streams v4.1](/streamsx.documentation/docs/4.1/)
 
 # SPL Samples For Beginners
 
@@ -48,6 +53,6 @@ Refer to this documentation on Github Markdown:  [Writing on Github](https://hel
 
 Refer to this documentation to get started:  [Using Jekyll with Pages](https://help.github.com/articles/using-jekyll-with-pages/)  
 
-To contribute, clone this project locally, make your changes, and create a pull request. You can also click on the "Edit Me" button, then click on "Edit this file" to make changes right in your browser. 
+To contribute, clone this project locally, make your changes, and create a pull request. You can also click on the "Edit Me" button, then click on "Edit this file" to make changes right in your browser.
 
 To learn more on how to do this, refer to this documentation:  [Contribute to IBM Streams Github Project](https://developer.ibm.com/streamsdev/docs/contribute-github-project/)
