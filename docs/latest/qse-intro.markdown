@@ -1,9 +1,9 @@
 ---
 layout: docs
-title:  Introduction to Streams v4.1 Quick Start Edition (QSE)
+title:  Introduction to Streams v4.2 Quick Start Edition (QSE)
 description:  Introduction to IBM Streams Quick Start Edition.  Learn the different ways to get started.
 weight : 0
-published: false
+published: true
 ---
 
 The IBM Streams Quick Start Edition is a no-charge, non-production version of IBM Streams.  With no data or time limits, Streams Quick Start Edition allows you to experiment with stream computing in your own unique environment.  
@@ -19,7 +19,7 @@ There are several ways to try Streams QSE:
 | Quick Start Edition  | Descriptions         | Install Instructions |
 | -------------------- | -------------------- | ----------------|
 | Native Linux Install | You may install the Streams QSE on any of the supported Linux systems.<br>  This edition contains all features supported by a full installation.  This is not supported in a production environment. | [Installing Streams Quick Start Edition for Linux](../qse-install-linux/)
-| VMWare Image         | If you do not want to set up a Linux environment, download the VMWare image.  <br>To get started, just download, unzip and run using one of the supported VM players. | [Installing Streams Quick Start Edition VM Image](../qse-install-vm/)
+| VM Image         | If you do not want to set up a Linux environment, download the VM image.  <br>To get started, just download, unzip and run using one of the supported VM players. | [Installing Streams Quick Start Edition VM Image](../qse-install-vm/)
 
 ## What to do next
 
