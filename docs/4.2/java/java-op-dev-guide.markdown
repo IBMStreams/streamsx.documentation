@@ -3,7 +3,7 @@ layout: docs
 title:  Java Operator Development Guide
 description:  IBM Streams Java Operator Development Guide
 weight: 10
-published: false
+published: true
 ---
 Java is a deeply integrated part of Streams. Making Java easy in Streams has been a priority for years because of its extensive libraries and ubiquitous developer base. The goal of this guide is to take a two-tiered approach. The videos and instructions are going to help you get your Java operators up and running as quickly and easily as possible (Tier 1). However, Streams Studio abstracts many details away from the developer to make their life easy, so we also go more into depth on how Java and Streams work together under the cover (Tier 2). Following the CLI versions of instructions will give you a deeper understanding of Java operators in Streams, while following the videos and Streams Studio instructions will get your code running as fast as possible.
 
