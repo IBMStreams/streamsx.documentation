@@ -1317,7 +1317,7 @@ Windows are an important part of most Streams applications. Intelligent use of w
 * **Tumbling** - Tumbling windows operate in batches. When a tumbling window fills up, all of the tuples in the window are evicted.
 * **Sliding** - Sliding windows operate in an incremental fashion. When a sliding window fills up, the future tuple insertions result in evicting the oldest tuples in the window.
 
-For more details, read [Window Handling](http://www-01.ibm.com/support/knowledgecenter/SSCRJU_4.0.1/com.ibm.streams.dev.doc/doc/windowhandling.html?lang=en).
+For more details, read [Window Handling](http://www-01.ibm.com/support/knowledgecenter/SSCRJU_4.2.0/com.ibm.streams.dev.doc/doc/windowhandling.html?lang=en).
 
 #### General strategy for implementing a windowed operator:
 
@@ -1375,7 +1375,7 @@ For more details, read [Window Handling](http://www-01.ibm.com/support/knowledge
 
 ### Window Example
 
-In the example below, we implement a tumbling window operator that submits the alphabetic minimium String for a given window. The operator maintains a List\<String\> that is cleared every time the window tumbles. Read more details about [tumbling](http://www-01.ibm.com/support/knowledgecenter/SSCRJU_4.0.1/com.ibm.streams.dev.doc/doc/tumblingwindowoperator.html) and [sliding](http://www-01.ibm.com/support/knowledgecenter/SSCRJU_4.0.1/com.ibm.streams.dev.doc/doc/slidingwindow.html) windows by clicking on the links.
+In the example below, we implement a tumbling window operator that submits the alphabetic minimium String for a given window. The operator maintains a List\<String\> that is cleared every time the window tumbles. Read more details about [tumbling](http://www-01.ibm.com/support/knowledgecenter/SSCRJU_4.2.0/com.ibm.streams.dev.doc/doc/tumblingwindowoperator.html) and [sliding](http://www-01.ibm.com/support/knowledgecenter/SSCRJU_4.2.0/com.ibm.streams.dev.doc/doc/slidingwindow.html) windows by clicking on the links.
 
 <ul class="nav nav-tabs">
   <li class="active"><a data-toggle="tab" href="#minimum-3">Operator Code</a></li>
@@ -1653,7 +1653,7 @@ Here is the path that most Streams developers take to determine if their operato
 You can also use the Eclipse Java Debugger by following [these instructions](https://developer.ibm.com/streamsdev/2013/12/11/debug-java-operator-using-eclipse-java-debugger/).
 
 ## SPL to Java Type Mapping
-It's not always obvious which SPL types map to which Java types. It's important to get this mapping right when you are defining parameters, reading from input tuples, and writing to output tuples. Follow this link for a comprehensive [table of type mapping](http://www-01.ibm.com/support/knowledgecenter/SSCRJU_4.0.1/com.ibm.streams.dev.doc/doc/workingwithspltypes.html).
+It's not always obvious which SPL types map to which Java types. It's important to get this mapping right when you are defining parameters, reading from input tuples, and writing to output tuples. Follow this link for a comprehensive [table of type mapping](http://www-01.ibm.com/support/knowledgecenter/SSCRJU_4.2.0/com.ibm.streams.dev.doc/doc/workingwithspltypes.html).
 
 ## Improving Performance
 As we mentioned at the beginning of this guide, your performance will depend on the efficiency of your **process(...)** or **produceTuples(...)** methods (in the case of a windowed operator, it will be in your window handler).
