@@ -3,7 +3,7 @@ layout: docs
 title:  Installing Streams Quick Start Edition VM Image
 description:  Installation Guide for IBM Streams Quick Start Edition VM
 weight:  20
-published: false
+published: true
 ---
 
 The Streams Quick Start Editor can help you get started with Streams quickly, without having to install a Streams cluster environment.
@@ -35,6 +35,8 @@ The Quick Start Edition is only available in English.
 
 ## Procedure
 
+### VMware Player/Workstation
+
 1.  Download the vmware-streamsVxxx.zip file (where Vxxx is the version number of the Quick Start Edition).
 
 1.  Extract the contents of the vmware-streamsVxxx.zip file.
@@ -49,15 +51,13 @@ The Quick Start Edition is only available in English.
 
 1.  Start the Quick Start Edition VMware image by double-clicking the vmware-streamsVxxx-qse-v1.vmx file.
 
-    The first time that you start the image, several messages and prompts are displayed. Otherwise, the Quick Start Edition VMware image desktop opens.
-
 1.  The first time that you start the image, respond to the following prompts:
 
-    1.  Select **I copied it** to indicate that the virtual machine was copied. Red Hat Enterprise Linux splash screen is displayed, and then followed by several screens of status messages.
+    1.  Select **I copied it** to indicate that the virtual machine was copied. CentOS splash screen is displayed, and then followed by several screens of status messages.
 
     1.  To continue, accept all of the following license agreements:
 
-        * Red Hat Enterprise Linux
+        * CentOS
         * VMware tools
         * IBM® Streams
 
@@ -65,6 +65,28 @@ The Quick Start Edition is only available in English.
 
     After you accept the license agreements, status messages are displayed and the Quick Start Edition VMware image desktop opens.
 
+### Oracle VirtualBox
+
+1. Download the ova-streams-Vxxx-qse-v1.ova file (where Vxxx is the version number of the Quick Start Edition).
+
+1. Open the ova-streams-Vxxx-qse-v1.ova file with VirtualBox Manager.
+
+1. Select **Import** when prompted to on the Import Virtual Appliance dialog.
+
+1. Open the settings for the imported VM. Go to **Network** -> expand **Advanced** -> check **Cable Connected** -> click **OK**.
+
+1. Start the imported VM by double-clicking it.
+
+1.  The first time that you start the image, accept all of the following license agreements:
+
+      * CentOS
+      * VMware tools
+      * IBM® Streams
+
+    To navigate in the license agreement screens, use the **Tab** and **Arrow** keys. Press the **Enter** key to continue.
+
+    After you accept the license agreements, status messages are displayed and the Quick Start Edition VMware image desktop opens.
+
 ## What to do next
 
-Explore the Streams QSE VMWare image following the [Quick Start Edition VM Getting Started Guide](/streamsx.documentation/docs/4.1/qse-getting-started/)
+Explore the Streams QSE VMWare image following the [Quick Start Edition VM Getting Started Guide](/streamsx.documentation/docs/latest/qse-getting-started/)

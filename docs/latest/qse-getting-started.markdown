@@ -1,9 +1,9 @@
 ---
 layout: docs
-title:  Getting Started with IBM Streams v4.1 Quick Start Edition
+title:  Getting Started with IBM Streams v4.2 Quick Start Edition
 description:  Learn how to get started witH IBM Streams Quick Start Edition
 weight:  10
-published: false
+published: true
 ---
 
 If you haven't downloaded the Streams QSE, you may download it here:
@@ -28,15 +28,16 @@ As a developer, you want to:
 
 Below are some resources to get you up and running!
 
-### Java and Scala
+### Java, Scala and Python
 
-<div class="alert alert-success" role="alert"><b>New in Streams 4.1!</b>  You can now write your Streams application in Java or Scala</div>
+<div class="alert alert-success" role="alert"><b>New in Streams 4.2!</b>  You can now write your Streams application in Python.</div>
 
 Example Streams Application:
 
 <ul class="nav nav-tabs">
   <li class="active"><a data-toggle="tab" href="#java-0">Java</a></li>
   <li><a data-toggle="tab" href="#scala-0">Scala</a></li>
+  <li><a data-toggle="tab" href="#python-0">Python</a></li>
 </ul>
 
 <div class="tab-content">
@@ -86,7 +87,7 @@ public static void main(String[] args) throws Exception {
     }
 </code></pre>   
   </div>
-  <div id="scala-0" class="tab-pane fade">
+<div id="scala-0" class="tab-pane fade">
 <pre><code>package simple
 
 import com.ibm.streamsx.topology.Topology
@@ -109,12 +110,66 @@ object HelloWorldScala {
 }
 </code></pre>
   </div>
+
+  <div id="python-0" class="tab-pane fade">
+  <pre><code>import sys
+from streamsx.topology.topology import Topology
+import streamsx.topology.context
+import hello_world_functions
+
+
+def main():
+    """
+    Sample Hello World topology application. This Python application builds a
+    simple topology that prints Hello World to standard output.
+
+    The application implements the typical pattern
+    of code that declares a topology followed by
+    submission of the topology to a Streams context.
+
+    This demonstrates the mechanics of declaring a topology and executing it.
+
+    Example:
+        python3 hello_world.py
+    Output:
+        Hello
+        World!
+    """
+
+    # Create the container for the topology that will hold the streams of tuples.
+    topo = Topology("hello_world")
+
+    # Declare a source stream (hw) with string tuples containing two tuples,
+    # "Hello" and "World!".
+    hw = topo.source(hello_world_functions.source_tuples)
+
+    # Sink hw by printing each of its tuples to standard output
+    hw.print()
+
+    # At this point the topology is declared with a single
+    # stream that is printed to standard output
+
+    # Now execute the topology by submitting to a standalone context.
+    streamsx.topology.context.submit("STANDALONE", topo.graph)
+
+
+if __name__ == '__main__':
+    main()
+</code></pre>
+<pre><code>def source_tuples():
+    """
+    Returns an iterable of strings
+    """
+    return ["Hello", "World!"]
+</code></pre>
+  </div>
 </div>
 
 To get started, follow these development guides:
 
 * [Develop Streams Applications in Java](../java/java-appapi-devguide)
 * [Develop Streams Applications in Scala](https://github.com/IBMStreams/streamsx.topology/wiki/Scala-Support)
+* [Develop Streams Applications in Python](../python/python-appapi-devguide)
 
 
 ### Streams Processing Language (SPL)
@@ -146,11 +201,17 @@ If you have existing Java code, you may easily reuse your code by writing a Java
 
 ### SparkMLLib in Streams
 
-<div class="alert alert-success" role="alert"><b>New in Streams 4.1!</b>  You can now now reuse your SparkMLLib models and analytics in Streams.</div>
-
 To get started, follow this development guide:
 
 * [SparkMLLib Getting Started Guide](https://developer.ibm.com/streamsdev/docs/getting-started-with-the-spark-mllib-toolkit/)
+
+### Apache Edgent (aka Open Embedded Streams) Integration
+
+<div class="alert alert-success" role="alert"><b>New in Streams 4.2!</b>  Streams now supports integration with Apache Edgent.</div>
+
+Gather local, real-time analytics from equipment, vehicles, systems, appliances, devices and sensors of all kinds. To get started, check out the Apache Edgent website for more information and guides:
+
+* [Apache Edgent Official Website](https://edgent.incubator.apache.org/)
 
 ## Getting Started for the Data Engineer
 
@@ -170,14 +231,12 @@ Streams is shipped with many toolkits out of the box to enable integration with 
 [IBMStreams on Github](https://github.com/ibmstreams) provides a platform enabling Streams to rapidly deliver our support to emgerging technologies to you.  It is also a place for us to share sample applications and helpful utilities.  For a list of open-source projects hosted on Github, see: [IBM Streams Github Projects Overview](https://developer.ibm.com/streamsdev/docs/github-projects-overview/)
 
 ### Integration with IBM InfoSphere Data Governance Catalog
-<div class="alert alert-success" role="alert"><b>New in Streams 4.1!</b>  Integration with the IBM InfoSphere Data Governance Catalog eanbles you to manage and govern your data.</div>
 
 With this support, developers can easily discover the data and schema that are available for use.  By building data lineage with your Streams application, you can quickly see and control how data is consumed.
 To get started, refer to  [Streams Governance Quickstart Guide](../governance/governance-quickstart/)
 
 ### Cybersecurity Toolkit
 
-<div class="alert alert-success" role="alert"><b>New in Streams 4.1!</b>  Cybersecurity toolkt can protect your systems from cyber threats.</div>
 
 The Cybersecurity Toolkit provides operators that are capable of analyzing network traffic and detecting suspicious behaviour. For more information on using the Cybersecurity Toolkit, refer to [Cybersecurity Getting Started Guide](../cybersecurity/cybersecurity-getting-started/)
 
@@ -189,12 +248,7 @@ To learn about Streams can integrate with SPSS:  [Streams and SPSS Lab](https://
 
 ### Streams Domain Management and Administration
 
-Streams Console is the web-based administration console for monitoring and managing your Streams domain.
-
-<div class="alert alert-success" role="alert">
-<b>New in Streams 4.1! </b>Customizable Dashboard in Streams Console.</div>
-
-Prior to Streams 4.1, the Streams Console dashboard contained a fixed set of widgets.  With the latest release, you can now create customized dashboards to monitor your Streams domain, instances and applications.
+Streams Console is the web-based administration console for monitoring and managing your Streams domain. Create customized dashboards to monitor your Streams domain, instances and applications.
 
 <img src="/streamsx.documentation/images/qse/Application-Dashboard-4.1.png" alt="Streams Console" style="width: 60%;"/>
 
@@ -225,6 +279,14 @@ In the following demo, we demonstrate how you may build a marketing dashboard fr
 <button class="btn btn-primary btn-md" data-toggle="modal" data-target="#streamsAndExcel">
 Video:  Streams and Excel Demo
 </button>
+
+### Operational Decision Manager (ODM)
+
+<div class="alert alert-success" role="alert"><b>New in Streams 4.2!</b>  Streams now supports integration with ODM rules.</div>
+
+IBM Streams integrates with ODM rules, allowing you to create business rules, construct rule flows, and create and deploy rules applications to analyze data and automate decisions in real-time.  This article helps you get started:  [ODM Toolkit Lab](https://developer.ibm.com/streamsdev/docs/rules-toolkit-lab/)
+
+
 
 ## Streams Community
 The following Streams resources can help you connect with the Streams community and get support when you need it:
