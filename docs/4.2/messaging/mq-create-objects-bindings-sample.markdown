@@ -3,7 +3,7 @@ layout: docs
 title: WebSphere MQ - Sample steps for creating queues and bindings file
 description:  Sample scripts for creating MQ objects and bindings.
 weight: 80
-publisehd: false
+publisehd: true
 ---
 
 ## Introduction

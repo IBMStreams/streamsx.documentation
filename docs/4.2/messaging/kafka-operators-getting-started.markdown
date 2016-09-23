@@ -3,7 +3,7 @@ layout: docs
 title: Getting Started with Kafka Operators
 description:  Getting Started Guide for IBM Streams Messaging Toolkit - Kafka operators
 weight: 10
-published: false
+published: true
 ---
 
 ## Introduction
