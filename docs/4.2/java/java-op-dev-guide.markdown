@@ -28,9 +28,9 @@ Here is a brief explanation of the required methods:
 
 * **void initialize(OperatorContext context)** - This is called once before any tuples are processed and before any of the other required methods. Here is where you should put code to establish connections to external systems and data. You will have access to parameters set in the SPL operator invocation.
 
-* **void allPortsReady()** - This is called once after the **initialize()** method has returned and all input and output ports are connected and ready to receive/submit tuples. Operators that process incoming tuples generally won't use this, since the process method is used to handle tuples. In the case of a source operator, there are no incoming tuples so this is where the tuple producing threads are started. We will cover this more in the [source operator](/streamsx.documentation/docs/4.1/java/java-op-dev-guide/#creating-a-source-operator) section.
+* **void allPortsReady()** - This is called once after the **initialize()** method has returned and all input and output ports are connected and ready to receive/submit tuples. Operators that process incoming tuples generally won't use this, since the process method is used to handle tuples. In the case of a source operator, there are no incoming tuples so this is where the tuple producing threads are started. We will cover this more in the [source operator](/streamsx.documentation/docs/4.2/java/java-op-dev-guide/#creating-a-source-operator) section.
 
-* **void process(StreamingInput\<Tuple> port, Tuple tuple)** - This is where the manipulation of incoming tuples will take place, followed by submission to an output port or an external connection (in the case of a sink operator). **The performance of your operator is almost completely dependent on how efficient your process method is.** See the [Improving Performance](/streamsx.documentation/docs/4.1/java/java-op-dev-guide/#improving-performance) section for some tips.
+* **void process(StreamingInput\<Tuple> port, Tuple tuple)** - This is where the manipulation of incoming tuples will take place, followed by submission to an output port or an external connection (in the case of a sink operator). **The performance of your operator is almost completely dependent on how efficient your process method is.** See the [Improving Performance](/streamsx.documentation/docs/4.2/java/java-op-dev-guide/#improving-performance) section for some tips.
 
 * **void processPunctuation(StreamingInput\<Tuple> port, Punctuation mark)** - This is where incoming punctuation markers that arrived on the specified port are processed. The two types of punctuation to be handled are window and final.
 
@@ -46,8 +46,8 @@ Here is a brief explanation of the required methods:
 
 #### Types of Operators
 * **Process Operator** - Data comes in as a tuple on an input data stream. That data is processed and the result is submitted as a tuple to an output stream. Process operators make up most of a typical Streams operator graph.
-* **[Source Operator](/streamsx.documentation/docs/4.1/java/java-op-dev-guide/#creating-a-source-operator)** - Data is read from an external system (or generated) and submitted to an output port as a tuple stream.
-* **[Sink Operator](/streamsx.documentation/docs/4.1/java/java-op-dev-guide/#creating-a-sink-operator)** - Data comes in as a tuple on an input data stream, and is then written to an external system.
+* **[Source Operator](/streamsx.documentation/docs/4.w/java/java-op-dev-guide/#creating-a-source-operator)** - Data is read from an external system (or generated) and submitted to an output port as a tuple stream.
+* **[Sink Operator](/streamsx.documentation/docs/4.2/java/java-op-dev-guide/#creating-a-sink-operator)** - Data comes in as a tuple on an input data stream, and is then written to an external system.
 
 In our first Java primitive operator, we will create an operator that converts incoming strings to upper case.  This example is really simple, but it demonstrates some basic concepts about Java primitive operators. This guide will build on this example to demonstrate the concepts in each section.
 
@@ -150,7 +150,7 @@ Key points to note from this example:
 	1. Write attributes to the output tuple using setter methods.
 	1. Submit output tuple.
 
-<div class="alert alert-success" role="alert"><b>Tip: </b>The performance of your Java primitive operator is highly dependent on how efficient the process method is. See the <a href="/streamsx.documentation/docs/4.1/java/java-op-dev-guide/#improving-performance" target="_blank" >Improving Performance</a> section later for details.</div>
+<div class="alert alert-success" role="alert"><b>Tip: </b>The performance of your Java primitive operator is highly dependent on how efficient the process method is. See the <a href="/streamsx.documentation/docs/4.2/java/java-op-dev-guide/#improving-performance" target="_blank" >Improving Performance</a> section later for details.</div>
 
 ### Building Java Primitive Operator
 
@@ -170,13 +170,13 @@ Key points to note from this example:
 MyJavaOp/impl/java/src/stringToCaps
 MyJavaOp/impl/java/bin/
 </code></pre>
-	<li>Place your <a href="/streamsx.documentation/docs/4.1/java/java-op-dev-guide/creating-your-first-java-operator">StringToCaps.java</a> operator class in <pre>MyJavaOp/impl/java/src/stringToCaps</pre></li>
+	<li>Place your <a href="/streamsx.documentation/docs/4.2/java/java-op-dev-guide/creating-your-first-java-operator">StringToCaps.java</a> operator class in <pre>MyJavaOp/impl/java/src/stringToCaps</pre></li>
 	<li>Compile the Java operator class from the SPL toolkit directory (MyJavaOp) using:</li>
 	<pre><code>javac -cp $STREAMS_INSTALL/lib/com.ibm.streams.operator.jar impl/java/src/stringToCaps/StringToCaps.java -d impl/java/bin/</code></pre>
 	<li>Index the toolkit from the SPL toolkit directory. This will generate the operator model and build the toolkit directory structure.  </li>
 	<pre><code>spl-make-toolkit -i ./</code></pre>
 </ol>  
-<div class="alert alert-info" role="alert"><b>Best Practice: </b>In our example, we used com.ibm.streams.operator.jar to demonstrate key concepts with Java primitive operator.  As a best practice, you should include the com.ibm.streams.operator.samples.jar in the classpath.  This jar provides common patterns, like source and sink operators, that you can extend when implementing your Java primitive operator.   For more details, refer to <a href="https://www-01.ibm.com/support/knowledgecenter/#!/SSCRJU_4.1.0/com.ibm.streams.spl-java-operators.doc/samples/overview-summary.html">Java Primitive Operator Sample Javadoc</a></div>
+<div class="alert alert-info" role="alert"><b>Best Practice: </b>In our example, we used com.ibm.streams.operator.jar to demonstrate key concepts with Java primitive operator.  As a best practice, you should include the com.ibm.streams.operator.samples.jar in the classpath.  This jar provides common patterns, like source and sink operators, that you can extend when implementing your Java primitive operator.   For more details, refer to <a href="https://www-01.ibm.com/support/knowledgecenter/#!/SSCRJU_4.2.0/com.ibm.streams.spl-java-operators.doc/samples/overview-summary.html">Java Primitive Operator Sample Javadoc</a></div>
   </div>
   <div id="studio-0" class="tab-pane fade">
   <br>
@@ -190,7 +190,7 @@ MyJavaOp/impl/java/bin/
 	<li>In the generated project, right-click and select New -> Java Primitive Operator</li>
 	<li>Set the namespace to stringToCaps and the Name to be StringToCaps</li>
 	<li>Click Finish</li>
-	<li>In the generated template, StringToCaps.java, modify the process operator to look like the <a href="/streamsx.documentation/docs/4.1/java/java-op-dev-guide/creating-your-first-java-operator">example above</a>.</li>
+	<li>In the generated template, StringToCaps.java, modify the process operator to look like the <a href="/streamsx.documentation/docs/4.2/java/java-op-dev-guide/creating-your-first-java-operator">example above</a>.</li>
 	<li>Save your changes and Studio will automatically build your operator model and create the toolkit directory structure.</li>
 </ol>
   </div>
@@ -298,7 +298,7 @@ For your test application to be able to access the Java primitive operator, the 
                 <ol>  
                     <li>Expand the SPL Application Project that you want to add a dependency to.</li>
                     <li>Right-click on Dependencies and select Edit Dependencies...</li>
-                    <li>Click Add... and select the toolkit dependency you want to add. Note: If you don't see the toolkit that you want to add a dependency on, then you probably haven't added the toolkit location to your workspace. Read how to do that <a href="http://www-01.ibm.com/support/knowledgecenter/SSCRJU_4.1.0/com.ibm.streams.studio.doc/doc/tusing-working-with-toolkits-adding-toolkit-locations.html" target="_blank">here</a>.</li>      
+                    <li>Click Add... and select the toolkit dependency you want to add. Note: If you don't see the toolkit that you want to add a dependency on, then you probably haven't added the toolkit location to your workspace. Read how to do that <a href="http://www-01.ibm.com/support/knowledgecenter/SSCRJU_4.2.0/com.ibm.streams.studio.doc/doc/tusing-working-with-toolkits-adding-toolkit-locations.html" target="_blank">here</a>.</li>      
                 </ol>
         </ol>
   </div>
@@ -314,7 +314,7 @@ The resulting info.xml file should look like this:
     <info:name>TestJavaOp</info:name>
     <info:description></info:description>
     <info:version>1.0.0</info:version>
-    <info:requiredProductVersion>4.1.0.0</info:requiredProductVersion>
+    <info:requiredProductVersion>4.2.0.0</info:requiredProductVersion>
   </info:identity>
   <info:dependencies>
     <info:toolkit>
@@ -427,7 +427,7 @@ When the Java primitive operator is executed, the operator code must be able to 
 
 	{% include bestpractices.html text= "External JARS should be stored in the <code>toolkit_root/opt</code> directory.  The opt directory is packaged into the application bundle by default."%}
 
-	For more information about application bundles, refer to this documentation: <a target="_blank" href="http://www-01.ibm.com/support/knowledgecenter/?lang=en#!/SSCRJU_4.1.0/com.ibm.streams.dev.doc/doc/applicationbundle.html">Application bundle files</a>.
+	For more information about application bundles, refer to this documentation: <a target="_blank" href="http://www-01.ibm.com/support/knowledgecenter/?lang=en#!/SSCRJU_4.2.0/com.ibm.streams.dev.doc/doc/applicationbundle.html">Application bundle files</a>.
 
 2.  **Using Environment Variables**
 
@@ -565,7 +565,7 @@ Below are the general steps to create a parameter for a Java primitive operator:
 **Note:** The default name for a parameter is the portion of the setter method name after "set". For example, setReverseString defaults to an SPL parameter name of reverseString if the name property is not specified.
 1. Modify your operator logic/code to honor the parameter value.
 
-To learn more about the different kinds of parameters and the supported SPL types, refer to this documentation: <a href="http://www-01.ibm.com/support/knowledgecenter/#!/SSCRJU_4.1.0/com.ibm.streams.spl-java-operators.doc/api/com/ibm/streams/operator/model/Parameter.html" target="_blank">Parameter Annotation Javadoc</a>
+To learn more about the different kinds of parameters and the supported SPL types, refer to this documentation: <a href="http://www-01.ibm.com/support/knowledgecenter/#!/SSCRJU_4.2.0/com.ibm.streams.spl-java-operators.doc/api/com/ibm/streams/operator/model/Parameter.html" target="_blank">Parameter Annotation Javadoc</a>
 
 ### Example Parameter
 
@@ -726,7 +726,7 @@ public interface Server {
 
 ~~~~~~~
 
-Below is the `ServerSource` operator that uses this interface. Place this code in its own "serverConnections" namespace directory (`<workspace>/MyJavaOp/impl/java/src/serverConnections`). Refer to the [Creating Your first Java Operator section](/streamsx.documentation/docs/4.1/java/java-op-dev-guide/#creating-your-first-java-operator) for help on how to do this.
+Below is the `ServerSource` operator that uses this interface. Place this code in its own "serverConnections" namespace directory (`<workspace>/MyJavaOp/impl/java/src/serverConnections`). Refer to the [Creating Your first Java Operator section](/streamsx.documentation/docs/4.2/java/java-op-dev-guide/#creating-your-first-java-operator) for help on how to do this.
 
 <ul class="nav nav-tabs">
   <li class="active"><a data-toggle="tab" href="#minimum-0">Code</a></li>
@@ -941,7 +941,7 @@ Key things to note from this example:
 	* Disconnect from the server
 	* Always call super.shutdown() in the shutdown method
 
-This covers the basics of creating a source operator.  Streams Java Operator APIs come with many useful patterns and samples.  You may extend from these patterns when implementing the source operator.  To have access to these patterns, include the com.ibm.streams.operator.sample.jar in your classpath.  For more information about these samples and patterns, refer to this documentation:  <a target="_blank" href="http://www-01.ibm.com/support/knowledgecenter/#!/SSCRJU_4.1.0/com.ibm.streams.spl-java-operators.doc/samples/overview-summary.html">Java Operator Samples</a>
+This covers the basics of creating a source operator.  Streams Java Operator APIs come with many useful patterns and samples.  You may extend from these patterns when implementing the source operator.  To have access to these patterns, include the com.ibm.streams.operator.sample.jar in your classpath.  For more information about these samples and patterns, refer to this documentation:  <a target="_blank" href="http://www-01.ibm.com/support/knowledgecenter/#!/SSCRJU_4.2.0/com.ibm.streams.spl-java-operators.doc/samples/overview-summary.html">Java Operator Samples</a>
 
 ## Creating a Sink Operator
 Sink operators are unique because they don't send output tuples (unless there is an error port). Sink operators are typically used to send data to an external system such as a database or messaging server.
@@ -1127,7 +1127,7 @@ Key things to note from this example:
 	* Disconnect from the server
 	* Always call super.shutdown() in the shutdown method
 
-This covers the basics of creating a sink operator.  Streams Java Operator APIs come with patterns and samples that you can extend when implementing a sink operator. For more information about these samples and patterns, refer to this documentation:  <a target="_blank" href="http://www-01.ibm.com/support/knowledgecenter/#!/SSCRJU_4.1.0/com.ibm.streams.spl-java-operators.doc/samples/overview-summary.html">Java Operator Samples</a>
+This covers the basics of creating a sink operator.  Streams Java Operator APIs come with patterns and samples that you can extend when implementing a sink operator. For more information about these samples and patterns, refer to this documentation:  <a target="_blank" href="http://www-01.ibm.com/support/knowledgecenter/#!/SSCRJU_4.2.0/com.ibm.streams.spl-java-operators.doc/samples/overview-summary.html">Java Operator Samples</a>
 
 ## Handling Errors
 Your Streams operator should never crash unless you want it to. There are cases where an exception will be thrown because of a loss of connection or other normal error causes, but it is important to handle those errors so that your operator can continue to process data.
@@ -1570,9 +1570,9 @@ There are three kinds of metrics:
 * **Gauge** indicates a value that is continuously variable with time.
 * **Time** indicates a metric that represents a point in time.
 
-Live feed of the system metrics and operator custom metrics can be viewed in Streams Studio and the Streams Console.  You may retrieve the latest metrics using the Streams REST APIs.  This allows you to monitor your Streams domain, and your applications using your favorite monitoring tools.  Refer to this documentation about the <a target="_blank" href="http://www-01.ibm.com/support/knowledgecenter/#!/SSCRJU_4.1.0/com.ibm.streams.restapi.doc/doc/restapis-metrics.html">Metrics REST APIs</a>.
+Live feed of the system metrics and operator custom metrics can be viewed in Streams Studio and the Streams Console.  You may retrieve the latest metrics using the Streams REST APIs.  This allows you to monitor your Streams domain, and your applications using your favorite monitoring tools.  Refer to this documentation about the <a target="_blank" href="http://www-01.ibm.com/support/knowledgecenter/#!/SSCRJU_4.2.0/com.ibm.streams.restapi.doc/doc/restapis-metrics.html">Metrics REST APIs</a>.
 
-For more information about metrics, refer to the <a target="_blank" href="http://www-01.ibm.com/support/knowledgecenter/#!/SSCRJU_4.1.0/com.ibm.streams.spl-java-operators.doc/api/com/ibm/streams/operator/metrics/Metric.html">Metrics Javadoc</a>.
+For more information about metrics, refer to the <a target="_blank" href="http://www-01.ibm.com/support/knowledgecenter/#!/SSCRJU_4.2.0/com.ibm.streams.spl-java-operators.doc/api/com/ibm/streams/operator/metrics/Metric.html">Metrics Javadoc</a>.
 
 This section will show you how to add your a custom metric to your Java operator.
 
@@ -1672,6 +1672,6 @@ Here are some things to keep in mind:
 
 ## Next steps
 
-This covers the basics of writing a Java primitive operator.  To learn more about the details, refer to the <a target="_blank" href="http://www-01.ibm.com/support/knowledgecenter/#!/SSCRJU_4.1.0/com.ibm.streams.spl-java-operators.doc/api/overview-summary.html">knowledge center</a>.
+This covers the basics of writing a Java primitive operator.  To learn more about the details, refer to the <a target="_blank" href="http://www-01.ibm.com/support/knowledgecenter/#!/SSCRJU_4.2.0/com.ibm.streams.spl-java-operators.doc/api/overview-summary.html">knowledge center</a>.
 
 We will continue to improve this development guide.  If you have any feedback, please click on the **Feedback** button at the top and let us know what you think!

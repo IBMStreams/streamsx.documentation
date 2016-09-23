@@ -34,7 +34,7 @@ If you'd prefer to dig in to the Pydoc yourself, you can find the documentation 
 
 
 # Terminology
-If you're new to IBM Streams and want to learn more about the terms in this guide, see the [IBM Streams glossary](www.ibm.com/support/knowledgecenter/SSCRJU_4.1.1/com.ibm.streams.glossary.doc/doc/glossary_streams.html) in IBM Knowledge Center.
+If you're new to IBM Streams and want to learn more about the terms in this guide, see the [IBM Streams glossary](www.ibm.com/support/knowledgecenter/SSCRJU_4.2.0/com.ibm.streams.glossary.doc/doc/glossary_streams.html) in IBM Knowledge Center.
 
 
 # Prerequites
@@ -42,17 +42,17 @@ Before you can use the Python Application API, you must complete the following t
 
 1. Install IBM Streams Version 4.0.1 (or later) or IBM Streams Quick Start Edition Version 4.0.1 (or later):
 
-    * [IBM Streams Version 4.1.1 installation documentation](http://www.ibm.com/support/knowledgecenter/SSCRJU_4.1.1/com.ibm.streams.install.doc/doc/installstreams-container.html)
+    * [IBM Streams Version 4.2.0 installation documentation](http://www.ibm.com/support/knowledgecenter/SSCRJU_4.2.0/com.ibm.streams.install.doc/doc/installstreams-container.html)
 
-    * [IBM Streams Quick Start Edition Version 4.1.1 installation documentation](http://www.ibm.com/support/knowledgecenter/SSCRJU_4.1.1/com.ibm.streams.qse.doc/doc/installtrial-container.html)
+    * [IBM Streams Quick Start Edition Version 4.2.0 installation documentation](http://www.ibm.com/support/knowledgecenter/SSCRJU_4.2.0/com.ibm.streams.qse.doc/doc/installtrial-container.html)
 
 1. Ensure that you configure the IBM Streams product environment variable by entering the following command:
 
         source product-installation-root-directory/4.n.n.n/bin/streamsprofile.sh
 
-    **Tip:** Add the source command to your `home-directory/.bashrc` shell initialization file. Otherwise, you must enter the command every time you start IBM Streams. For example, if the product is installed in the `/home/streamsadmin/InfoSphere_Streams/4.1.1.0` directory, add the following line to your `.bashrc` file:
+    **Tip:** Add the source command to your `home-directory/.bashrc` shell initialization file. Otherwise, you must enter the command every time you start IBM Streams. For example, if the product is installed in the `/home/streamsadmin/InfoSphere_Streams/4.2.0.0` directory, add the following line to your `.bashrc` file:
 
-        source /home/streamsadmin/InfoSphere_Streams/4.1.1.0/bin/streamsprofile.sh
+        source /home/streamsadmin/InfoSphere_Streams/4.2.0.0/bin/streamsprofile.sh
 
 
 1. Download the IBM Streams Topology Toolkit, which includes the Python Application API. You can download the most recent version of the toolkit from the IBMStreams organization on GitHub from the streamsx.topology [Releases page](https://github.com/Ibmstreams/streamsx.topology/releases).
@@ -64,7 +64,7 @@ Before you can use the Python Application API, you must complete the following t
    * CPython 3.5.0 or later [https://www.python.org](https://www.python.org).
 
    * Anaconda 4.0.0 or later, which includes Python 3.5.0 [https://www.continuum.io/downloads](https://www.continuum.io/downloads).
-   
+
    The Python Application API has been tested with Python 3.5.1
 
 1. Include the fully qualified path of the `com.ibm.streamsx.topology/opt/python/packages` directory in the PYTHONPATH environment variable. For example:
@@ -804,34 +804,34 @@ The contents of your output file should look something like this:
 You can make an output stream available to applications by using the `publish` operation. The `Stream.publish()` function takes the tuples on a stream, converts the tuples to Python objects, JSON objects, or strings, and then publishes the output to a topic. (A topic is based on the MQTT topic specification. For more information, see the [MQTT protocol specification](http://public.dhe.ibm.com/software/dw/webservices/ws-mqtt/mqtt-v3r1.html))
 
 To receive the tuples, an application must subscribe to the topic that you publish by specifying the same topic and schema. For more information see [Subscribing to streams](#subscribing-to-streams).
- 
+
 **Restrictions:** The `publish` operation does not work in STANDALONE mode. Additionally, the `publish` operation and the `subscribe` operation must be running in the same instance of IBM Streams.
 
-For example, you can use the `publish` operation to make tuples from a Python streams processing application available to an SPL streams processing application. 
- 
+For example, you can use the `publish` operation to make tuples from a Python streams processing application available to an SPL streams processing application.
+
 The schema that you specify determines the type of objects that are published:
 
-* `CommonSchema.Python` publishes the tuples on the stream as Python objects. 
+* `CommonSchema.Python` publishes the tuples on the stream as Python objects.
 
-   This is the default schema. If you do not specify a schema, this schema is used. 
+   This is the default schema. If you do not specify a schema, this schema is used.
 
 * `CommonSchema.Json` publishes the tuples on the stream as JSON objects. Each tuple is converted to JSON by using the `json.dumps` function.
 
    JSON is a common interchange format between all languages that are supported by IBM Streams (SPL, Java, Scala, and Python).
 
-   **Restriction:** Each tuple object on the stream must be able to be converted to JSON. If the objects cannot be converted, an exception is thrown and the application will fail. 
+   **Restriction:** Each tuple object on the stream must be able to be converted to JSON. If the objects cannot be converted, an exception is thrown and the application will fail.
 
 * `CommonSchema.String` publishes the tuples on the stream as strings. Each tuple is converted to a string by using the `str()` function.
 
    String is a common interchange format between all languages that are supported by IBM Streams (SPL, Java, Scala, and Python).
 
-For more information about topics, see [namespace:com.ibm.streamsx.topology.topic]. 
+For more information about topics, see [namespace:com.ibm.streamsx.topology.topic].
 
 
 ### Sample code
 The `Stream.publish()` function takes as input the name of the topic that you want to publish the tuples to and the schema to publish. The function returns `None`.
 
-For example, you want to publish a stream of integers as JSON objects with the topic 'simple' so that another application in your instance can use the data. 
+For example, you want to publish a stream of integers as JSON objects with the topic 'simple' so that another application in your instance can use the data.
 
 To achieve this:
 
@@ -876,25 +876,25 @@ This example is based on the `pubsub` sample in GitHub. If you want more informa
 If an application publishes a stream to a topic, you can use the `subscribe` operation to pull that data into your application.
 
 **Remember:** The `publish` operation and the `subscribe` operation must be running in the same instance of IBM Streams.
- 
-To subscribe to a topic, the `subscribe` operation must specify the same topic and schema as the corresponding `publish` operation. The application that published the topic can be written in any language that IBM Streams supports. 
- 
+
+To subscribe to a topic, the `subscribe` operation must specify the same topic and schema as the corresponding `publish` operation. The application that published the topic can be written in any language that IBM Streams supports.
+
 The schema determines the type of objects that the application receives:
 
-* `CommonSchema.Python` receives tuples that have been published as Python objects. 
+* `CommonSchema.Python` receives tuples that have been published as Python objects.
 
-   This is the default schema. If you do not specify a schema, this schema is used. 
+   This is the default schema. If you do not specify a schema, this schema is used.
 
-* `CommonSchema.Json` receives tuples that have been published as JSON objects. Each tuple on the stream is converted to a Python dictionary object by using the `json.loads(tuple)` function. 
+* `CommonSchema.Json` receives tuples that have been published as JSON objects. Each tuple on the stream is converted to a Python dictionary object by using the `json.loads(tuple)` function.
 
-* `CommonSchema.String` receives tuples that have been published as Strings. Each tuple on the stream is converted to a Python string object. 
+* `CommonSchema.String` receives tuples that have been published as Strings. Each tuple on the stream is converted to a Python string object.
 
-You can also subscribe to topics that use SPL schema. (Most applications that publish a topic with an SPL schema are SPL applications. However, Java and Scala applications can also publish streams with an SPL schema.) 
- 
-When you use the `Topology.subscribe()` function for a topic with an SPL schema in a Python application, the tuple attributes from the topic are converted to the appropriate Python type and added to a Python dictionary object. (The name of the attribute is used as the dictionary key value.) 
- 
+You can also subscribe to topics that use SPL schema. (Most applications that publish a topic with an SPL schema are SPL applications. However, Java and Scala applications can also publish streams with an SPL schema.)
+
+When you use the `Topology.subscribe()` function for a topic with an SPL schema in a Python application, the tuple attributes from the topic are converted to the appropriate Python type and added to a Python dictionary object. (The name of the attribute is used as the dictionary key value.)
+
 The syntax that you use to subscribe to an SPL schema is `schema.StreamSchema(“tuple<attribute_type attribute_name, ...>”)`. The schema must exactly match the schema that is specified by the corresponding `publish` operation. For example:
- 
+
 * A simple schema might be `schema.StreamSchema(“tuple<ustring ustr1>”)`
 * A more complex schema might be `schema.StreamSchema(tuple“<rstring rs1, uint32 u321, list<uint32> liu321, set<uint32> setu321>")`
 
@@ -906,49 +906,49 @@ Python supports the following SPL attribute types:
 | uint8, uint16, uint36, or uint64 | int | If you plan to publish tuples as JSON, uint64 is not supported if the value is bigger than Long.MAX_VALUE |
 | float32 or float64 | float |   |
 | complex32 or complex64 | complex | If you plan to publish tuples as JSON, complex32 and complex64 are not supported. |
-| rstring | str |   | 
+| rstring | str |   |
 | ustring |str |   |
 | boolean | boolean |   |
 | list | list |   |
 | map | dictionary |   |
 | set | set | If you plan to publish tuples as JSON, set is not supported. |
 
-  
-For more information about topics, see [namespace:com.ibm.streamsx.topology.topic]. 
+
+For more information about topics, see [namespace:com.ibm.streamsx.topology.topic].
 
 ### Sample code
-The `Topology.subscribe()` function takes as input the name of the topic that you want to subscribe to and the schema to publish. The function returns a `Stream` whose tuples have been published to the topic by an IBM Streams application. 
+The `Topology.subscribe()` function takes as input the name of the topic that you want to subscribe to and the schema to publish. The function returns a `Stream` whose tuples have been published to the topic by an IBM Streams application.
 
 For example, you want to subscribe to the stream that you published in [Publishing streams](#publishing-streams).
 
 To achieve this, include the following lines in the subscribe.py file:
 
-~~~~~ 
+~~~~~
 from streamsx.topology.topology import *
 import streamsx.topology.context
- 
+
 def main():
    topo = Topology("SubscribeSimple")
    ts = topo.subscribe('simple', schema.CommonSchema.Json)
    ts.print()
    streamsx.topology.context.submit("DISTRIBUTED", topo.graph)
- 
+
 if __name__ == '__main__':
    main()
 ~~~~~
- 
+
 
 ###Sample output
 Run `python3 subscribe.py`.
 
-The contents of your output file should look something like this: 
+The contents of your output file should look something like this:
 ~~~~~
 ...
-12390 
-12391 
-12392 
-12393 
-12394 
+12390
+12391
+12392
+12393
+12394
 12395
 ...
 ~~~~~
@@ -961,23 +961,23 @@ The schema of the tuples must be rstring (`"tuple<rstring message>"`)
 
 * To receive the tuples, an application must subscribe to the topic that you publish by specifying the same topic and server URI. For more information see [Subscribing to streams on an MQTT broker](#subscribing-to-streams-on-an-mqtt-broker).
 
-An MQTT connector (`Connector`) points to a specific MQTT broker. You can use the same MqttStreams connector for any number of `publish()` and `subscribe()` connections. 
+An MQTT connector (`Connector`) points to a specific MQTT broker. You can use the same MqttStreams connector for any number of `publish()` and `subscribe()` connections.
 
 To create a connector, you must specify the URI of the MQTT server (`serverURI`). Valid formats are:
 
 * `tcp://host_name:port_number` - If you don't specify a port number, the port defaults to 1883
 * `ssl://host_name:port_number` - If you don't specify a port number, the port defaults to 8883
 
-If you need to authenticate to the server, you can specify a user ID (`userID`) and password (`password`). 
+If you need to authenticate to the server, you can specify a user ID (`userID`) and password (`password`).
 
 Additionally, you can specify other configuration parameters, such as a message queue size (`messageQueueSize`) or the fully qualified path of a key store (`keyStore`). For more information about the optional configuration parameters, see [https://github.com/IBMStreams/streamsx.topology/blob/master/com.ibm.streamsx.topology/opt/python/packages/streamsx/topology/mqtt.py](https://github.com/IBMStreams/streamsx.topology/blob/master/com.ibm.streamsx.topology/opt/python/packages/streamsx/topology/mqtt.py)
-     
+
 For more information about the MQTT implementation, see MQTT support at [http://ibmstreams.github.io/streamsx.topology/experimental/python/doc/spldoc/html/tk%24com.ibm.streamsx.topology/ns$com.ibm.streamsx.topology.python$5.html](http://ibmstreams.github.io/streamsx.topology/experimental/python/doc/spldoc/html/tk%24com.ibm.streamsx.topology/ns$com.ibm.streamsx.topology.python$5.html)
 
 ### Sample code
-The `Connector.publish()` function takes as input the name of the stream to publish and the topic on the MQTT server that you want to publish the tuples to. The function returns `None`. 
+The `Connector.publish()` function takes as input the name of the stream to publish and the topic on the MQTT server that you want to publish the tuples to. The function returns `None`.
 
-For example, you want to publish a stream to the topic 'python.topic1' on your MQTT server (`tcp://localhost:1883`) so that your central analytic server can access the data that is generated on the remote device where your application is running. 
+For example, you want to publish a stream to the topic 'python.topic1' on your MQTT server (`tcp://localhost:1883`) so that your central analytic server can access the data that is generated on the remote device where your application is running.
 
 To achieve this:
 
@@ -1003,48 +1003,48 @@ def main():
    // publish a python source stream to the topic "python.topic1"
    topic = "python.topic1"
    src = topo.source(test_functions.mqtt_publish)
-   mqs = mqstream.publish(src, topic) 
+   mqs = mqstream.publish(src, topic)
    streamsx.topology.context.submit("BUNDLE", topo.graph)
-     
+
 if __name__ == '__main__':
    main()
 ~~~~~
 
 ## Subscribing to a stream on an MQTT broker
-If you are running an IBM Streams application on a remote sensor or device, you can access the tuples from the application if they are published to an MQTT broker. You can retrieve the tuples by using the `subscribe` operation. 
+If you are running an IBM Streams application on a remote sensor or device, you can access the tuples from the application if they are published to an MQTT broker. You can retrieve the tuples by using the `subscribe` operation.
 
 * To subscribe to a stream on an MQTT broker you must configure a connector to enable IBM Streams to communicate with the broker. For more information about configuring an MQTT connector, see [Publishing streams to an MQTT broker](#publishing-streams-to-an-MQTT-broker)
-* Your application must be able to ingest rstring tuples. 
+* Your application must be able to ingest rstring tuples.
 
-Additionally, to subscribe to the stream, you must specify the same topic and server URI that is specified by the application that publishes the stream. 
+Additionally, to subscribe to the stream, you must specify the same topic and server URI that is specified by the application that publishes the stream.
 
 ### Sample code
-The `Connector.subscribe()` function takes as input the name of the topic that you want to subscribe to. The function returns a `Stream` whose tuples have been published to the topic by an IBM Streams application. 
+The `Connector.subscribe()` function takes as input the name of the topic that you want to subscribe to. The function returns a `Stream` whose tuples have been published to the topic by an IBM Streams application.
 
 For example, you want to subscribe to the stream that you published in [Publishing streams to an MQTT broker](#publishing-streams-to-an-mqtt-broker).
 
 To achieve this, include the following lines in the subscribe_mqtt.py file:
 
 ~~~~~
-from streamsx.topology.topology import * 
-from streamsx.topology import schema 
-import streamsx.topology.context 
-from streamsx.topology.mqtt import * 
+from streamsx.topology.topology import *
+from streamsx.topology import schema
+import streamsx.topology.context
+from streamsx.topology.mqtt import *
 
-def main(): 
-   topo = Topology("An MQTT application") 
+def main():
+   topo = Topology("An MQTT application")
 
-   // create the connector's configuration property map 
-   config['serverURI'] = "tcp://localhost:1883" 
-   config['userID'] = "user1id" 
-   config[' password'] = "user1passwrd" 
+   // create the connector's configuration property map
+   config['serverURI'] = "tcp://localhost:1883"
+   config['userID'] = "user1id"
+   config[' password'] = "user1passwrd"
 
-   // create the connector 
+   // create the connector
    mqstream = MqttStreams(topo,config)
- 
+
    // subscribe to the topic "python.topic1"
    topic = ["python.topic1", ]
-   mqs = mqstream.subscribe(topic) 
+   mqs = mqstream.subscribe(topic)
    mqs.print()
 
 if __name__ == '__main__':
@@ -1059,18 +1059,18 @@ The specific contents of your output file depend on the publisher that you subsc
 For example, if your publish operator looked like this:
 `def mqtt_publish() : return [123, 2.344, "4.0", "Garbage text", 1.234e+15,]`
 
-Your output would look like: 
+Your output would look like:
 ~~~~~
-123 
-2.344 
-4.0 
-Garbage text 
+123
+2.344
+4.0
+Garbage text
 1234000000000000
 ~~~~~~
-   
- 
+
+
 For more information on configuration options to connect to or subscribe to an MQTT server, see the following resources:   
-* [http://mqtt.org](http://mqtt.org) 
+* [http://mqtt.org](http://mqtt.org)
 * [http://ibmstreams.github.io/streamsx.messaging](http://ibmstreams.github.io/streamsx.messaging)
 
 

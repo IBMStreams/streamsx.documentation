@@ -20,11 +20,11 @@ Since the cybersecurity toolkit is focused on analyzing network traffic, you mus
 
 
 ## Download Quick Start Edition VM
-See the [Installing Streams Quick Start Edition VM Image]({{ site.url }}/docs/4.1/qse-install-vm/) for more information.
+See the [Installing Streams Quick Start Edition VM Image]({{ site.url }}/docs/4.2/qse-install-vm/) for more information.
 
 <!--
 ## Download Docker
-See the [Installing Streams Docker Image]({{ site.url }}/docs/4.1/qse-install-docker/) for more information
+See the [Installing Streams Docker Image]({{ site.url }}/docs/4.2/qse-install-docker/) for more information
 -->
 
 ## Install Dependencies - Quick Start Edition VM

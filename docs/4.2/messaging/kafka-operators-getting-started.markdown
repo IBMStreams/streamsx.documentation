@@ -17,7 +17,7 @@ Readers of this guide are expected to have a basic understanding of Kafka and IB
 ## Requirements
 Prior to using Kafka operators, the following software must be installed and configured:
 
-* **IBM Streams** - A <a target="_blank" href="http://ibmstreams.github.io/streamsx.documentation//docs/4.1/qse-install-vm/">Quick Start Edition VM</a> is available for free. This guide assumes that you have a Streams domain and instance up and running.
+* **IBM Streams** - A <a target="_blank" href="http://ibmstreams.github.io/streamsx.documentation//docs/4.2/qse-install-vm/">Quick Start Edition VM</a> is available for free. This guide assumes that you have a Streams domain and instance up and running.
 * **Messaging Toolkit 4.0+** - You can download it from the IBM Streams Github Messaging Toolkit Repository <a target="_blank" href="https://github.com/IBMStreams/streamsx.messaging/releases">Release Page</a>.
 * **Kafka Brokers** - This guide assumes you are using Kafka 0.9 or above. To quickly get a Kafka server up and running, follow <a target="_blank" href="http://kafka.apache.org/documentation.html#quickstart">these directions</a>.
 
@@ -42,9 +42,9 @@ host.name=myhost.mycompany.com
 
      `sc -t $STREAMS_INSTALL/toolkits/com.ibm.streamsx.messaging -M MyMain`
 
-   * *If  Streams Studio is used to compile and run SPL application, add messaging toolkit to toolkit locations in Streams Explorer by following [these directions](http://www.ibm.com/support/knowledgecenter/SSCRJU_4.1.1/com.ibm.streams.studio.doc/doc/tusing-working-with-toolkits-adding-toolkit-locations.html?lang=en).*
+   * *If  Streams Studio is used to compile and run SPL application, add messaging toolkit to toolkit locations in Streams Explorer by following [these directions](http://www.ibm.com/support/knowledgecenter/SSCRJU_4.2.0/com.ibm.streams.studio.doc/doc/tusing-working-with-toolkits-adding-toolkit-locations.html?lang=en).*
 
-2. **Create an SPL application and add a toolkit dependency on the Messaging toolkit in your application.** You can do this by [editing the application dependency](http://www.ibm.com/support/knowledgecenter/SSCRJU_4.1.1/com.ibm.streams.studio.doc/doc/tcreating-spl-toolkit-app-elements-edit-toolkit-information-dependencies.html) in Streams Studio, or by creating/editing the info.xml for the application and adding the dependency directly (you can also just start with the <a target="_blank" href="https://github.com/IBMStreams/streamsx.messaging/tree/master/samples/KafkaSample">KafkaSample</a> to skip this and the following step).
+2. **Create an SPL application and add a toolkit dependency on the Messaging toolkit in your application.** You can do this by [editing the application dependency](http://www.ibm.com/support/knowledgecenter/SSCRJU_4.2.0/com.ibm.streams.studio.doc/doc/tcreating-spl-toolkit-app-elements-edit-toolkit-information-dependencies.html) in Streams Studio, or by creating/editing the info.xml for the application and adding the dependency directly (you can also just start with the <a target="_blank" href="https://github.com/IBMStreams/streamsx.messaging/tree/master/samples/KafkaSample">KafkaSample</a> to skip this and the following step).
 
     Sample info.xml from the <a target="_blank" href="https://github.com/IBMStreams/streamsx.messaging/tree/master/samples/KafkaSample">KafkaSample</a>:
 
@@ -138,7 +138,7 @@ group.id=mygroup</code></pre>
 Kafka operators support consistent regions, which are sections of your operator graph where tuple processing is guaranteed. The KafkaProducer can participate in a consistent region (it cannot be the start), and can guarantee at-least-once tuple processing. No special configuration is required to use the KafkaProducer in a consistent region, so this section will only focus on the KafkaConsumer.
 
 The KafkaConsumer supports exactly-once tuple processing and starts a consistent region (since it is a source).
-  For general questions on consistent region, read this <a target="_blank" href="https://developer.ibm.com/streamsdev/2015/02/20/processing-tuples-least-infosphere-streams-consistent-regions/">overview</a> and these <a target="_blank" href="https://www-01.ibm.com/support/knowledgecenter/SSCRJU_4.1.0/com.ibm.streams.dev.doc/doc/consistentregions.html">docs</a>.
+  For general questions on consistent region, read this <a target="_blank" href="https://developer.ibm.com/streamsdev/2015/02/20/processing-tuples-least-infosphere-streams-consistent-regions/">overview</a> and these <a target="_blank" href="https://www-01.ibm.com/support/knowledgecenter/SSCRJU_4.2.0/com.ibm.streams.dev.doc/doc/consistentregions.html">docs</a>.
 
 To start a consistent region with a KafkaConsumer, you must:
 
@@ -175,7 +175,7 @@ The easiest way to consume from a single topic in parallel is to:
 
     `partition : getChannel();`
 
-Here is a simple example of using three consumers to read from a 3-partition topic using <a href="https://www-01.ibm.com/support/knowledgecenter/SSCRJU_4.1.1/com.ibm.streams.dev.doc/doc/udpoverview.html" target="_blank">User Defined Parallelism</a> (from the <a target="_blank" href="https://github.com/IBMStreams/streamsx.messaging/blob/master/samples/KafkaParallelConsumers/application/KafkaParallelConsumers.spl">KafkaParallelConsumers sample</a>):
+Here is a simple example of using three consumers to read from a 3-partition topic using <a href="https://www-01.ibm.com/support/knowledgecenter/SSCRJU_4.2.0/com.ibm.streams.dev.doc/doc/udpoverview.html" target="_blank">User Defined Parallelism</a> (from the <a target="_blank" href="https://github.com/IBMStreams/streamsx.messaging/blob/master/samples/KafkaParallelConsumers/application/KafkaParallelConsumers.spl">KafkaParallelConsumers sample</a>):
 
 <pre class="source-code"><code>    <b style="color:blue">@parallel(width = 3)</b>
     stream&lt;rstring message, rstring key&gt; KafkaConsumerOut = KafkaConsumer()
