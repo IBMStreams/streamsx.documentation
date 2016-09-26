@@ -22,13 +22,10 @@ This guide takes you through the process of installing QSE Linux Edition.
 </thead>
 <tbody class="tbody"><tr class="row"><td class="entry" rowspan="2" valign="top">System</td>
 <td class="entry" align="center" valign="top">x86_64 (64-bit) </td>
-<td class="entry" valign="top"><span class="keyword">IBM Streams</span> supports Red Hat Enterprise Linux (RHEL), the Community Enterprise Operating
-System (CentOS), and SUSE Linux Enterprise
-Server (SLES).</td>
+<td class="entry" valign="top"><span class="keyword">IBM Streams</span> supports Red Hat Enterprise Linux (RHEL)</td>
 </tr>
 <tr class="row"><td class="entry" align="center" valign="top">IBM® Power Systems™ (64-bit)</td>
-<td class="entry" valign="top" >On RHEL systems that are running big endian, IBM Streams supports the POWER7® and POWER8® processors.<br><br>
-RHEL systems that are running little endian support the POWER8 processor only.</td>
+<td class="entry" valign="top" >RHEL systems that are running little endian support on POWER8 processor.</td>
 </tr>
 <tr class="row"><td class="entry" valign="top">Display</td>
 <td class="entry" align="center" valign="top" >1280 x 1024</td>
@@ -70,29 +67,10 @@ packages for <span class="keyword">IBM Streams</span></a>.</td>
 </tr>
 <tr class="row"><td class="entry" align="center" valign="top">Version 7.0, or later</td>
 </tr>
-<tr class="row"><td class="entry" rowspan="2" align="center" valign="top">IBM Power
-Systems (64-bit)<p class="p"><span class="keyword">IBM Streams</span> supports the POWER7® and POWER8™ processors (big endian).</p>
-</td>
-<td class="entry" align="center" valign="top">Version 6.3, or later</td>
-</tr>
-<tr class="row"><td class="entry" align="center" valign="top">Version 7.0, or later</td>
-</tr>
-
 <tr class="row"><td class="entry" rowspan="1" align="center" valign="top">IBM Power
 Systems (64-bit)<p class="p"><span class="keyword">IBM Streams</span> supports the POWER8™ processors (little endian).</p>
 </td>
 <td class="entry" align="center" valign="top">Version 7.1, or later</td>
-</tr>
-
-<tr class="row"><td class="entry" rowspan="2" align="center" valign="top">CentOS</td>
-<td class="entry" rowspan="2" align="center" valign="top">x86_64 (64-bit)</td>
-<td class="entry" align="center" valign="top">Version 6.1, or later</td>
-</tr>
-<tr class="row"><td class="entry" align="center" valign="top">Version 7.0, or later</td>
-</tr>
-<tr class="row"><td class="entry" align="center" valign="top">SLES</td>
-<td class="entry" align="center" valign="top">x86_64 (64-bit)</td>
-<td class="entry" align="center" valign="top">Version 11.2, or later</td>
 </tr>
 </tbody>
 </table>
