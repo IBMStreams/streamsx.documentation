@@ -63,7 +63,7 @@ packages for <span class="keyword">IBM Streams</span></a>.</td>
 </thead>
 <tbody class="tbody"><tr class="row"><td class="entry" rowspan="5" align="center" valign="top">RHEL</td>
 <td class="entry" rowspan="2" align="center" valign="top">x86_64 (64-bit)</td>
-<td class="entry" align="center" valign="top">Version 6.1, or later</td>
+<td class="entry" align="center" valign="top">Version 6.6, or later</td>
 </tr>
 <tr class="row"><td class="entry" align="center" valign="top">Version 7.0, or later</td>
 </tr>
