@@ -1,3 +1,11 @@
+---
+layout: docs
+title: Cybersecurity Toolkit Migration Guide (v1.0.0 -> v2.0.0)
+description: Migrating the Cybersecurity Toolkit to v2.0.0
+weight: 10
+published: true
+---
+
 # Cybersecurity Toolkit Migration Guide (v1.0.0 -> v2.0.0)
 
 The Cybersecurity Toolkit provides operators that are capable of analyzing DNS
