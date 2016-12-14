@@ -8,7 +8,7 @@ published: true
 
 Python is a popular language with a large and comprehensive standard library as well as many [third-party libraries](https://pypi.python.org). The IBM Streams Python Application API enables you to create streaming analytics applications in Python.
 
-The API is open source. An alpha release of the API is available for download from the [streamsx.topology](http://ibmstreams.github.io/streamsx.topology/) project on GitHub.
+The API is open source from the [streamsx.topology](http://ibmstreams.github.io/streamsx.topology/) project on GitHub. IBM Streams 4.2 ships with a release of `com.ibm.streamsx.topology` toolkit which contains the Python Application API.
 
 This guide covers the high-level concepts of streaming application development with Python. The guide also walks you through the process of creating a sample application to help you get more familiar with how to create an IBM Streams application with Python.
 
@@ -55,15 +55,15 @@ Before you can use the Python Application API, you must complete the following t
         source /home/streamsadmin/InfoSphere_Streams/4.2.0.0/bin/streamsprofile.sh
 
 
-1. Download the IBM Streams Topology Toolkit, which includes the Python Application API. You can download the most recent version of the toolkit from the IBMStreams organization on GitHub from the streamsx.topology [Releases page](https://github.com/Ibmstreams/streamsx.topology/releases).
+1. Download the IBM Streams Topology toolkit, which includes the Python Application API. You can download the most recent version of the toolkit from the IBMStreams organization on GitHub from the streamsx.topology [Releases page](https://github.com/Ibmstreams/streamsx.topology/releases). *If you are using IBM Streams 4.2 or later then this step is optional as the toolkit is included at* `$STREAMS_INSTALL/toolkits/com.ibm.streamsx.topology`.
 
     After the toolkit downloads, extract it to your file system.
 
 1. Install a supported version of Python:
 
+   * *Recommended* - Anaconda 4.0.0 or later, which includes Python 3.5.0 [https://www.continuum.io/downloads](https://www.continuum.io/downloads).
+   
    * CPython 3.5.0 or later [https://www.python.org](https://www.python.org).
-
-   * Anaconda 4.0.0 or later, which includes Python 3.5.0 [https://www.continuum.io/downloads](https://www.continuum.io/downloads).
 
    The Python Application API has been tested with Python 3.5.1
 
