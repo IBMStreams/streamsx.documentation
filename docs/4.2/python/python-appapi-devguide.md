@@ -15,7 +15,7 @@ This guide covers the high-level concepts of streaming application development w
 When you create an IBM Streams application written in Python, you can run the application in the following modes:
 
 * As a **Streams distributed application** (DISTRIBUTED). When running in this mode, the application produced will be deployed automatically on your IBM Streams instance.
-* As a **Streams Application Bundle file** (BUNDLE). When running in this mode, the application produces a SAB file that you can then deploy on your IBM Streams instance by using the `streamtool submitjob` command or by using the application console
+* As a **Streams Application Bundle file** (BUNDLE). When running in this mode, the application produces a SAB file that you can then deploy on your IBM Streams or Bluemix Streaming Analytics service instance by using the `streamtool submitjob` command or by using the application console
 * As a **stand-alone application** (STANDALONE).  When running in this mode, the application produces a Streams Application Bundle file (SAB file), but rather than submitting the SAB file to an instance, the bundle is executed. The bundle runs within a single process and can be terminated with Ctrl-C interrupts.
 
 
@@ -66,6 +66,10 @@ Before you can use the Python Application API, you must complete the following t
    * CPython 3.5.0 or later [https://www.python.org](https://www.python.org).
 
    The Python Application API has been tested with Python 3.5.1
+   
+   To build IBM Streams application bundles with the Python Application API that can be submitted to your Bluemix Streaming Analytics service you **must**:
+     * use Anaconda 4.1.1 (Python 3.5 version) or later
+     * install Anaconda at `/disk1/opt/Anaconda3` on the machine where you execute the Python code that builds the topology and submits it ti the `BUNDLE` context
 
 1. Include the fully qualified path of the `com.ibm.streamsx.topology/opt/python/packages` directory in the PYTHONPATH environment variable. For example:
 
