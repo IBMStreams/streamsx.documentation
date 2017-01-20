@@ -65,28 +65,6 @@ The Quick Start Edition is only available in English.
 
     After you accept the license agreements, status messages are displayed and the Quick Start Edition VMware image desktop opens.
 
-### Oracle VirtualBox
-
-1. Download the ova-streams-Vxxx-qse-v1.ova file (where Vxxx is the version number of the Quick Start Edition).
-
-1. Open the ova-streams-Vxxx-qse-v1.ova file with VirtualBox Manager.
-
-1. Select **Import** when prompted to on the Import Virtual Appliance dialog.
-
-1. Open the settings for the imported VM. Go to **Network** -> expand **Advanced** -> check **Cable Connected** -> click **OK**.
-
-1. Start the imported VM by double-clicking it.
-
-1.  The first time that you start the image, accept all of the following license agreements:
-
-      * CentOS
-      * VMware tools
-      * IBM® Streams
-
-    To navigate in the license agreement screens, use the **Tab** and **Arrow** keys. Press the **Enter** key to continue.
-
-    After you accept the license agreements, status messages are displayed and the Quick Start Edition VMware image desktop opens.
-
 ## What to do next
 
 Explore the Streams QSE VMWare image following the [Quick Start Edition VM Getting Started Guide](/streamsx.documentation/docs/4.2/qse-getting-started/)
