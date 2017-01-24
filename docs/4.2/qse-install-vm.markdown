@@ -67,7 +67,7 @@ The Quick Start Edition is available only in English.
 
 ## Oracle VirtualBox
 
-1. Download the vmware-streamsVxxx.zip file (where Vxxx is the version number of the Quick Start Edition).
+1. Download and extract the vmware-streamsVxxx.zip file (where Vxxx is the version number of the Quick Start Edition).
 
 1. In Oracle VM VirtualBox Manager, click **New** and follow the instructions in the wizard:
     1. Specify a name of your virtual machine and select the **Linux Red Hat (64 bit)** operating system. 
