@@ -25,13 +25,13 @@ This guide takes you through the process of installing and starting the QSE VM i
 
 Your Streams ID for the Quick Start Edition is **streamsadmin**, and your password is **passw0rd**. The root ID password is also **passw0rd**.
 
-The Quick Start Edition is only available in English.
+The Quick Start Edition is available only in English.
 
 **Performance notes:**
 
-* By default, the Quick Start Edition virtual machine is configured to have two processor cores and 4 GB of memory. Depending on your system resources and the applications that you develop and deploy, you might be able to improve performance by allocating more processor cores and memory to the virtual machine. You can adjust the processor and memory configuration by updating your virtual machine settings. For example, to update these settings for the VMware Player, click *Player > Manage > Virtual Machine Settings*.
+* By default, the Quick Start Edition virtual machine is configured to have two processor cores and 4 GB of memory. Depending on your system resources and the applications that you develop and deploy, you might be able to improve performance by allocating more processor cores and memory to the virtual machine. You can adjust the processor and memory configuration by updating your virtual machine settings. For example, to update these settings for the VMware Player, click **Player > Manage > Virtual Machine Settings**.
 
-* If you import the VMware image into a non-VMware virtualization product and have performance problems with the image, enable any available options that can reduce guest disk input/output latency. For example, in the VirtualBox program from Oracle, select the Use Host I/O Cache option in the Storage Controller settings for the virtual machine.
+* If you import the VMware image into a non-VMware virtualization product and have performance problems with the image, enable any available options that can reduce guest disk input/output latency. For example, in the Oracle VM VirtualBox Manager, select the **Use Host I/O Cache** option in the Storage Controller settings for the virtual machine.
 
 ## Procedure
 
@@ -64,6 +64,24 @@ The Quick Start Edition is only available in English.
     To navigate in the license agreement screens, use the **Tab** and **Arrow** keys. Press the **Enter** key to continue.
 
     After you accept the license agreements, status messages are displayed and the Quick Start Edition VMware image desktop opens.
+
+## Oracle VirtualBox
+
+1. Download the vmware-streamsVxxx.zip file (where Vxxx is the version number of the Quick Start Edition).
+
+1. In Oracle VM VirtualBox Manager, click **New** and follow the instructions in the wizard:
+    1. Specify a name of your virtual machine and select the **Linux Red Hat (64 bit)** operating system. 
+    1. Set the amount of memory to use for your virtual machine. The optimal setting depends on your hardware and usage. The more you allocate, the faster your virtual machine will run. You can adjust the setting later, if necessary. 
+    1. Select to use an existing virtual hard disk file, then browse for the vmware-streamsV#.#-qse-v1.vmdk file that you extracted earlier and click **Open**. 
+    1. Click **Create**. Now your new virtual machine is listed in the Oracle VM VirtualBox Manager. 
+    
+1.  From the list, select your new virtual machine and click **Settings**:
+    1. Select **System > Processor** and specify 2 virtual CPUs.
+    1. Select the **Storage** tab and make sure that the **Use Host I/O Cache** option is selected. 
+    1. Click **OK** to save your settings.
+    
+1. To run your virtual machine, select it and click **Start**.
+
 
 ## What to do next
 
