@@ -46,7 +46,7 @@ Here is a brief explanation of the required methods:
 
 #### Types of Operators
 * **Process Operator** - Data comes in as a tuple on an input data stream. That data is processed and the result is submitted as a tuple to an output stream. Process operators make up most of a typical Streams operator graph.
-* **[Source Operator](/streamsx.documentation/docs/4.w/java/java-op-dev-guide/#creating-a-source-operator)** - Data is read from an external system (or generated) and submitted to an output port as a tuple stream.
+* **[Source Operator](/streamsx.documentation/docs/4.2/java/java-op-dev-guide/#creating-a-source-operator)** - Data is read from an external system (or generated) and submitted to an output port as a tuple stream.
 * **[Sink Operator](/streamsx.documentation/docs/4.2/java/java-op-dev-guide/#creating-a-sink-operator)** - Data comes in as a tuple on an input data stream, and is then written to an external system.
 
 In our first Java primitive operator, we will create an operator that converts incoming strings to upper case.  This example is really simple, but it demonstrates some basic concepts about Java primitive operators. This guide will build on this example to demonstrate the concepts in each section.
