@@ -16,6 +16,7 @@ The goal of the project is to provide easy-to-follow documentation and developme
 
 # SPL Samples For Beginners
 
+* [IBM Streams Samples Catalog](https://ibmstreams.github.io/samples)
 * [Over 100 useful SPL Samples for Beginners](samples/)
 
 # Streams Product Documentation
