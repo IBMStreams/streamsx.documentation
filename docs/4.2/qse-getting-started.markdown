@@ -167,9 +167,9 @@ if __name__ == '__main__':
 
 To get started, follow these development guides:
 
-* [Develop Streams Applications in Java](../java/java-appapi-devguide)
+* [Develop Streams Applications in Java](../../java/java-appapi-devguide)
 * [Develop Streams Applications in Scala](https://github.com/IBMStreams/streamsx.topology/wiki/Scala-Support)
-* [Develop Streams Applications in Python](../python/python-appapi-devguide)
+* [Develop Streams Applications in Python](../../python/python-appapi-devguide)
 
 
 ### Streams Processing Language (SPL)
@@ -197,7 +197,7 @@ Video:  Streams Studio in Action!
 
 If you have existing Java code, you may easily reuse your code by writing a Java operator or native Java functions.
 
-* [Java Operator Development Guide](../java/java-op-dev-guide/)
+* [Java Operator Development Guide](../../java/java-op-dev-guide/)
 
 ### SparkMLLib in Streams
 
