@@ -6,3 +6,7 @@
     font-size: 11px;
     vertical-align: middle;
 }
+ul.simple {
+  list-style: none;
+  margin-left: -20px;
+}
