@@ -239,7 +239,7 @@ Topology
 Stream
 
 * filter
-* transform
+* map
 * parallel
 * union
 * sink
@@ -351,7 +351,7 @@ quell
 
 
 ## 4.3 Transforming data
-You can invoke `transform` or `multi_transform` on a `Stream` when you want to:
+You can invoke `map` or `flat_map` on a `Stream` when you want to:
 
 * Modify the contents of the tuple
 * Change the type of the tuple
@@ -359,15 +359,15 @@ You can invoke `transform` or `multi_transform` on a `Stream` when you want to:
 
 The following sections walk you through an example of each type of transform.
 
-### 4.3.1 Transform: Modifying the contents of a tuple
-The `Stream.transform()` function takes as input a callable object that takes a single tuple as an argument and returns either 0 or 1 tuples.
+### 4.3.1 Map: Modifying the contents of a tuple
+The `Stream.map()` function takes as input a callable object that takes a single tuple as an argument and returns either 0 or 1 tuples.
 
-For example, you have a `source` function that returns a set of four words from the English dictionary. However, you want to create a `Stream` that contains only the first four letters of each word. You need to use a `transform` operation because it enables you to modify the tuple.
+For example, you have a `source` function that returns a set of four words from the English dictionary. However, you want to create a `Stream` that contains only the first four letters of each word. You need to use a `map` operation because it enables you to modify the tuple.
 
 To achieve this:
 
 * Define a `Stream` called `words` that is created by calling a function that generates a list of four words. (For simplicity, specify a `source` function that returns only four words.)
-* Define a `transform` function called `transform_substring_functions.first_four_letters` that transforms the tuples from the `words` `Stream` into tuples that contain the first four letters from the original tuple.
+* Define a `map` function called `transform_substring_functions.first_four_letters` that transforms the tuples from the `words` `Stream` into tuples that contain the first four letters from the original tuple.
 * Define a `sink` function that uses the `print` function to write the tuples to output.
 
 Include the following code in the transform_substring.py file:
@@ -378,9 +378,9 @@ import streamsx.topology.context
 import transform_substring_functions
 
 def main():
-    topo = Topology("transform_substring")
+    topo = Topology("map_substring")
     words = topo.source(transform_substring_functions.words_in_dictionary)
-    first_four_letters = words.transform(transform_substring_functions.first_four_letters)
+    first_four_letters = words.map(transform_substring_functions.first_four_letters)
     first_four_letters.sink(print)
     streamsx.topology.context.submit("STANDALONE", topo.graph)
 
@@ -411,17 +411,17 @@ qual
 quiz
 ~~~~~~
 
-As you can see, the `transform` operation modifies the tuples. In this instance, the operation modifies the tuples so that only the first four letters of each word are returned.
+As you can see, the `map` operation modifies the tuples. In this instance, the operation modifies the tuples so that only the first four letters of each word are returned.
 
 
-### 4.3.2 Transform: Changing the type of a tuple
+### 4.3.2 Map: Changing the type of a tuple
 In this example, you have a `Stream` of strings, and each string corresponds to an integer. You want to create a `Stream` that uses the integers, rather than the strings, so that you can perform mathematical operations on the tuples.
 
 To achieve this:
 
 * Define a `Stream` called `string_tuples` that is created by calling a function named `int_strings` that returns a list of string values that are integer values. (For simplicity, specify a `source` function that returns the following strings: "1", "2", "3", "4'.)
-* Define a `transform` function called `transform_type_functions.string_to_int` that transforms the tuples from the `string_tuples` `Stream` into Python `int` objects.
-* Define a `transform` function called `transform_type_functions.multiply2_add1` that multiples each `int` by 2 and adds one to the result.
+* Define a `map` function called `transform_type_functions.string_to_int` that map the tuples from the `string_tuples` `Stream` into Python `int` objects.
+* Define a `map` function called `transform_type_functions.multiply2_add1` that multiples each `int` by 2 and adds one to the result.
 * Define a `sink` function that uses the `print` function to write the tuples to output.
 
 Include the following code in the transform_type.py file:
@@ -432,10 +432,10 @@ import streamsx.topology.context
 import transform_type_functions
 
 def main():
-    topo = Topology("transform_type")
+    topo = Topology("map_type")
     string_tuples = topo.source(transform_type_functions.int_strings)
-    int_tuples = string_tuples.transform(transform_type_functions.string_to_int)
-    int_tuples.transform(transform_type_functions.multiply2_add1).sink(print)
+    int_tuples = string_tuples.map(transform_type_functions.string_to_int)
+    int_tuples.map(transform_type_functions.multiply2_add1).sink(print)
     streamsx.topology.context.submit("STANDALONE", topo.graph)
 
 if __name__ == '__main__':
@@ -473,13 +473,13 @@ The contents of your output looks like this:
 Additionally, you aren't restricted to using built-in Python classes, such as string, integer, float, and so on. You can define your own classes and pass objects of those classes as tuples on a `Stream`.
 
 
-### 4.3.3 Transform: Breaking one tuple into multiple tuples
-The `multi_transform` operation transforms each tuple from a `Stream` into 0 or more tuples.  The `Stream.multi_transform()` function takes a single tuple as an argument, and returns an iterable of tuples.
+### 4.3.3 Flat_map: Breaking one tuple into multiple tuples
+The `flat_map` operation transforms each tuple from a `Stream` into 0 or more tuples.  The `Stream.flat_map()` function takes a single tuple as an argument, and returns an iterable of tuples.
 
 For example, you have a `Stream` in which each tuple is a line of text. You want to break each tuple down so that each resulting tuple contains only one word. The order of the words from the original tuple is maintained in the resulting `Stream`.  
 
 * Define a `Stream` called `lines` that is created by calling a function that generates lines of text. (For simplicity, specify a `source` function that returns two lines from the nursery rhyme "Mary Had A Little Lamb".)
-* Define a `transform` function called `multi_transform_lines_functions.split_line` that transforms each tuple from the `lines` `Stream` into multiple tuples, each consisting of one word.
+* Define a `flat_map` function called `multi_transform_lines_functions.split_line` that transforms each tuple from the `lines` `Stream` into multiple tuples, each consisting of one word.
 * Define a `sink` function that uses the `print` function to write the tuples to output.
 
 
@@ -494,9 +494,9 @@ import streamsx.topology.context
 import multi_transform_lines_functions
 
 def main():
-    topo = Topology("multi_transform_lines")
+    topo = Topology("flat_map_lines")
     lines = topo.source(multi_transform_lines_functions.lines_of_text)
-    words = lines.multi_transform(multi_transform_lines_functions.split_line)
+    words = lines.flat_map(multi_transform_lines_functions.split_line)
     words.sink(print)
     streamsx.topology.context.submit("STANDALONE", topo.graph)
 
@@ -534,9 +534,9 @@ as
 snow
 ~~~~~~
 
-As you can see, the `multi_transform` operation broke each of the original tuples into the component pieces, in this case, the component words, and maintained the order of the pieces in the resulting tuples.
+As you can see, the `flat_map` operation broke each of the original tuples into the component pieces, in this case, the component words, and maintained the order of the pieces in the resulting tuples.
 
-**Tip:** You can use the `multi_transform` operation with any list of Python objects that is serializable with the pickle module. The members of the list can be different classes, such as strings and integers, user-defined classes, or classes provided by a third-party module.
+**Tip:** You can use the `flat_map` operation with any list of Python objects that is serializable with the pickle module. The members of the list can be different classes, such as strings and integers, user-defined classes, or classes provided by a third-party module.
 
 
 ## 4.4 Keeping track of state across tuples
@@ -562,7 +562,7 @@ import transform_stateful_functions
 def main():
     topo = Topology("transform_stateful")
     floats = topo.source(transform_stateful_functions.readings)
-    avg = floats.transform(transform_stateful_functions.AvgLastN(10))
+    avg = floats.map(transform_stateful_functions.AvgLastN(10))
     avg.sink(print)
     streamsx.topology.context.submit("STANDALONE", topo.graph)
 
@@ -609,7 +609,7 @@ The contents of your output file should look something like this:
 
 In this example, `AvgLastN.n`, which is initialized from the user-defined parameter n, and `AvgLastN.last_n` are examples of data whose state is kept in between tuples.
 
-**Tip:** Any type of of operation (source, filter, transform, and sink) can accept callable objects that maintain stateful data.
+**Tip:** Any type of of operation (source, filter, map, and sink) can accept callable objects that maintain stateful data.
 
 You can also create a user-defined function that refers to global variables. Unlike variables that are defined within a function, global variables persist in the runtime process. However, this approach is **not recommended** because the way in which the processing elements are fused can change how global variables are shared across functions or callable objects.
 
@@ -1099,7 +1099,7 @@ import temperature_sensor_functions
 def main():
     topo = Topology("temperature_sensor")
     source = topo.source(temperature_sensor_functions.readings)
-    kelvin = source.transform(temperature_sensor_functions.convertToKelvin)
+    kelvin = source.map(temperature_sensor_functions.convertToKelvin)
     kelvin.sink(print)
     streamsx.topology.context.submit("STANDALONE", topo.graph)
 
@@ -1134,7 +1134,7 @@ The above example becomes:
 def main():
     topo = Topology("temperature_sensor")
     source = topo.source(temperature_sensor_functions.readings)
-    kelvin = source.parallel(4).transform(temperature_sensor_functions.convertToKelvin)
+    kelvin = source.parallel(4).map(temperature_sensor_functions.convertToKelvin)
     end = kelvin.end_parallel()
     end.sink(print)
           streamsx.topology.context.submit("STANDALONE", topo.graph)
