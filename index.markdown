@@ -9,6 +9,14 @@ The goal of the project is to provide easy-to-follow documentation and developme
 
 ## Contents
 
+### IBM Streams Java support
+
+{% include nav.html context="/docs/java/"%}
+
+### IBM Streams Python support
+
+{% include nav.html context="/docs/python/"%}
+
 ### IBM Streams 4.2
 
 {% include nav.html context="/docs/4.2/"%}
@@ -17,14 +25,6 @@ The goal of the project is to provide easy-to-follow documentation and developme
 
 {: .simple}
 * [Documentation for IBM Streams v4.1](/streamsx.documentation/docs/4.1/)
-
-### IBM Streams Java support
-
-{% include nav.html context="/docs/java/"%}
-
-### IBM Streams Python support
-
-{% include nav.html context="/docs/python/"%}
 
 ### SPL Samples For Beginners
 
