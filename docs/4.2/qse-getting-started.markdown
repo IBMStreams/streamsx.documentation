@@ -174,11 +174,12 @@ To get started, follow these development guides:
 
 ### Streams Processing Language (SPL)
 
-The Streams Processing Language is designed from the ground up for writing streaming application.  To quickly get started:
+The Streams Processing Language is designed from the ground up for writing streaming applications.  To quickly get started:
 
 * [Streams Quick Start Guide](https://developer.ibm.com/streamsdev/?p=5686)
 * [Streams Hands-on Lab](https://developer.ibm.com/streamsdev/docs/streams-lab-introduction/)
-* [SPL Examples for Beginners](https://developer.ibm.com/streamsdev/docs/spl-examples-beginners/)
+* [SPL Examples for Beginners](/streamsx.documentation/samples/)
+* [Search our samples catalog](https://ibmstreams.github.io/samples/)
 
 Streams is shipped with comprehensive development tooling.
 
