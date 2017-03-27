@@ -167,18 +167,19 @@ if __name__ == '__main__':
 
 To get started, follow these development guides:
 
-* [Develop Streams Applications in Java](../java/java-appapi-devguide)
+* [Develop Streams Applications in Java](../../java/java-appapi-devguide)
 * [Develop Streams Applications in Scala](https://github.com/IBMStreams/streamsx.topology/wiki/Scala-Support)
-* [Develop Streams Applications in Python](../python/python-appapi-devguide)
+* [Develop Streams Applications in Python](../../python/python-appapi-devguide)
 
 
 ### Streams Processing Language (SPL)
 
-The Streams Processing Language is designed from the ground up for writing streaming application.  To quickly get started:
+The Streams Processing Language is designed from the ground up for writing streaming applications.  To quickly get started:
 
 * [Streams Quick Start Guide](https://developer.ibm.com/streamsdev/?p=5686)
 * [Streams Hands-on Lab](https://developer.ibm.com/streamsdev/docs/streams-lab-introduction/)
-* [SPL Examples for Beginners](https://developer.ibm.com/streamsdev/docs/spl-examples-beginners/)
+* [SPL Examples for Beginners](/streamsx.documentation/samples/)
+* [Search our samples catalog](https://ibmstreams.github.io/samples/)
 
 Streams is shipped with comprehensive development tooling.
 
@@ -197,7 +198,7 @@ Video:  Streams Studio in Action!
 
 If you have existing Java code, you may easily reuse your code by writing a Java operator or native Java functions.
 
-* [Java Operator Development Guide](../java/java-op-dev-guide/)
+* [Java Operator Development Guide](../../java/java-op-dev-guide/)
 
 ### SparkMLLib in Streams
 
