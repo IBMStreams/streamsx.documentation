@@ -17,7 +17,7 @@ The goal of the project is to provide easy-to-follow documentation and developme
 
 {: .simple}
 * [Developing applications (v1.6)](/streamsx.documentation/docs/python/1.6/python-appapi-devguide/) &nbsp; [(v1.4)](/streamsx.documentation/docs/python/1.4/python-appapi-devguide/)
-* [API reference (v1.5)](http://ibmstreams.github.io/streamsx.topology/ea/1.5/doc/pythondoc/index.html)
+* [API reference (v1.6)](http://ibmstreams.github.io/streamsx.topology/doc/releases/1.6/pythondoc/streamsx.rest.html)
 
 ### IBM Streams 4.2
 
