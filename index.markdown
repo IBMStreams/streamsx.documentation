@@ -15,7 +15,8 @@ The goal of the project is to provide easy-to-follow documentation and developme
 
 ### IBM Streams Python support
 
-{% include nav.html context="/docs/python/"%}
+{: .simple}
+* [Developing IBM Streams Applications with Python (Version 1.4)](/streamsx.documentation/docs/python/1.4/python-appapi-devguide/)
 
 ### IBM Streams 4.2
 
