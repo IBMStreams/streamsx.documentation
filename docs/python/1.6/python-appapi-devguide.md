@@ -38,5 +38,5 @@ If you'd prefer to dig in to the Pydoc yourself, you can find the documentation 
 
 
 **Terminology**
-If you're new to IBM Streams and want to learn more about the terms in this guide, see the [IBM Streams glossary](www.ibm.com/support/knowledgecenter/SSCRJU_4.2.0/com.ibm.streams.glossary.doc/doc/glossary_streams.html) in IBM Knowledge Center.
+If you're new to IBM Streams and want to learn more about the terms in this guide, see the [IBM Streams glossary](http://www.ibm.com/support/knowledgecenter/SSCRJU_4.2.0/com.ibm.streams.glossary.doc/doc/glossary_streams.html) in IBM Knowledge Center.
 

@@ -109,7 +109,7 @@ The following sections show operations that process each tuple that passes throu
 ## 3.2 Filtering data
 You can invoke `filter` on a `Stream` when you want to selectively allow and reject tuples from being passed to another stream. The filtering is done based on a provided callable object. The `Stream.filter()` function takes as input a callable object that takes a single tuple as an argument and returns True or False.
 
-Filtering is an immutable operation. When you filter a stream, the tuples are not altered. (If you want to alter the type or content of a tuple, see the section [Transforming data](#transforming-data).)
+Filtering is an immutable operation. When you filter a stream, the tuples are not altered. (If you want to alter the type or content of a tuple, see the section [Transforming data](#33-transforming-data).)
 
 For example, you have a `source` function that returns a set of four words from the English dictionary. However, you want to create a `Stream` of words that do not contain the letter "a".
 
@@ -650,7 +650,7 @@ The contents of your output file should look something like this:
 ## 3.8 Publishing streams
 You can make an output stream available to applications by using the `publish` operation. The `Stream.publish()` function takes the tuples on a stream, converts the tuples to Python objects, JSON objects, or strings, and then publishes the output to a topic. (A topic is based on the MQTT topic specification. For more information, see the [MQTT protocol specification](http://public.dhe.ibm.com/software/dw/webservices/ws-mqtt/mqtt-v3r1.html))
 
-To receive the tuples, an application must subscribe to the topic that you publish by specifying the same topic and schema. For more information see [Subscribing to streams](#subscribing-to-streams).
+To receive the tuples, an application must subscribe to the topic that you publish by specifying the same topic and schema. For more information see [Subscribing to streams](#39-subscribing-to-streams).
 
 **Restrictions:** The `publish` operation does not work in STANDALONE mode. Additionally, the `publish` operation and the `subscribe` operation must be running in the same instance of IBM Streams.
 
@@ -766,7 +766,7 @@ For more information about topics, see [namespace:com.ibm.streamsx.topology.topi
 ### 3.9.1 Sample code
 The `Topology.subscribe()` function takes as input the name of the topic that you want to subscribe to and the schema to publish. The function returns a `Stream` whose tuples have been published to the topic by an IBM Streams application.
 
-For example, you want to subscribe to the stream that you published in [Publishing streams](#publishing-streams).
+For example, you want to subscribe to the stream that you published in [Publishing streams](#38-publishing-streams).
 
 To achieve this, include the following lines in the subscribe.py file:
 
@@ -806,7 +806,7 @@ If you are running an IBM Streams application on a remote sensor or device, you 
 * To publish a stream to an MQTT broker you must configure a connector to enable IBM Streams to communicate with the broker
 The schema of the tuples must be rstring (`"tuple<rstring message>"`)
 
-* To receive the tuples, an application must subscribe to the topic that you publish by specifying the same topic and server URI. For more information see [Subscribing to streams on an MQTT broker](#subscribing-to-streams-on-an-mqtt-broker).
+* To receive the tuples, an application must subscribe to the topic that you publish by specifying the same topic and server URI. For more information see [Subscribing to streams on an MQTT broker](#311-subscribing-to-streams-on-an-mqtt-broker).
 
 An MQTT connector (`Connector`) points to a specific MQTT broker. You can use the same MqttStreams connector for any number of `publish()` and `subscribe()` connections.
 
@@ -860,7 +860,7 @@ if __name__ == '__main__':
 ## 3.11 Subscribing to a stream on an MQTT broker
 If you are running an IBM Streams application on a remote sensor or device, you can access the tuples from the application if they are published to an MQTT broker. You can retrieve the tuples by using the `subscribe` operation.
 
-* To subscribe to a stream on an MQTT broker you must configure a connector to enable IBM Streams to communicate with the broker. For more information about configuring an MQTT connector, see [Publishing streams to an MQTT broker](#publishing-streams-to-an-MQTT-broker)
+* To subscribe to a stream on an MQTT broker you must configure a connector to enable IBM Streams to communicate with the broker. For more information about configuring an MQTT connector, see [Publishing streams to an MQTT broker](#310-publishing-streams-to-an-mqtt-broker)
 * Your application must be able to ingest rstring tuples.
 
 Additionally, to subscribe to the stream, you must specify the same topic and server URI that is specified by the application that publishes the stream.
@@ -868,7 +868,7 @@ Additionally, to subscribe to the stream, you must specify the same topic and se
 ### 3.11.1 Sample code
 The `Connector.subscribe()` function takes as input the name of the topic that you want to subscribe to. The function returns a `Stream` whose tuples have been published to the topic by an IBM Streams application.
 
-For example, you want to subscribe to the stream that you published in [Publishing streams to an MQTT broker](#publishing-streams-to-an-mqtt-broker).
+For example, you want to subscribe to the stream that you published in [Publishing streams to an MQTT broker](#310-publishing-streams-to-an-mqtt-broker).
 
 To achieve this, include the following lines in the subscribe_mqtt.py file:
 
