@@ -6,3 +6,11 @@
     font-size: 11px;
     vertical-align: middle;
 }
+ul.simple {
+  list-style: none;
+  margin-left: -20px;
+}
+h1, h2, h3, h4 {
+  padding-top: 75px;
+  margin-top: -50px;
+}
