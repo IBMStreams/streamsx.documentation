@@ -29,7 +29,7 @@ Stream
 
 The following sections outline best practices for each type of operation.
 
-You can also find more information about IBM Streams operations in the [Python Application API SPLDOC](http://ibmstreams.github.io/streamsx.topology/experimental/python/doc/spldoc/html/tk$com.ibm.streamsx.topology/ns$com.ibm.streamsx.topology.python$8.html)
+You can also find more information about IBM Streams operations in the [Python Application API SPLDOC](http://ibmstreams.github.io/streamsx.topology/doc/pythondoc/index.html)
 
 
 ## 3.1 Creating data sources
