@@ -1,6 +1,6 @@
-url: http://ibmstreams.github.io/streamsx.documentation/
+url: http://natashadsilva.github.io/streamsx.documentation/
 baseurl: /streamsx.documentation
-github_editme_path: IBMStreams/streamsx.documentation/blob/gh-pages
+github_editme_path: natashadsilva/streamsx.documentation/blob/gh-pages
 
 # Site settings
 title: IBM Streams
