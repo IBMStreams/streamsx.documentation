@@ -63,7 +63,7 @@ Before you can use the Python Application API, you must complete the following t
 
    * *Recommended* - Anaconda 4.0.0 or later, which includes Python 3.5.0 [https://www.continuum.io/downloads](https://www.continuum.io/downloads), **or:**
 
-   * CPython 3.5.0 or later [https://www.python.org](https://www.python.org).  Note: If compiling Python from source, the `--enable-shared` flag should be used when running `./configure`.
+   * CPython 3.5.0 or later [https://www.python.org](https://www.python.org). 
 
    The Python Application API has been tested with Python 3.5.1
 
