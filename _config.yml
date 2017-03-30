@@ -12,7 +12,3 @@ permalink: pretty
 detach:  false
 port:    4000
 host:    127.0.0.1
-
-google_analytics: 
-show_downloads: true
-theme: jekyll-theme-cayman
