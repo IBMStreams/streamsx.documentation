@@ -59,14 +59,14 @@ Before you can use the Python Application API, you must complete the following t
 
     After the toolkit downloads, extract it to your file system.
 
-1. Install a supported version of Python:
+1. Install one of the following supported versions of Python:
 
-   * *Recommended* - Anaconda 4.0.0 or later, which includes Python 3.5.0 [https://www.continuum.io/downloads](https://www.continuum.io/downloads).
-   
-   * CPython 3.5.0 or later [https://www.python.org](https://www.python.org).
+   * *Recommended* - Anaconda 4.0.0 or later, which includes Python 3.5.0 [https://www.continuum.io/downloads](https://www.continuum.io/downloads), **or:**
+
+   * CPython 3.5.0 or later [https://www.python.org](https://www.python.org).  Note: If compiling Python from source, the `--enable-shared` flag should be used when running `./configure`.
 
    The Python Application API has been tested with Python 3.5.1
-   
+
    To build IBM Streams application bundles with the Python Application API that can be submitted to your Bluemix Streaming Analytics service you **must**:
      * use Anaconda 4.1.1 (Python 3.5 version) or later
      * install Anaconda at `/disk1/opt/Anaconda3` on the machine where you execute the Python code that builds the topology and submits it ti the `BUNDLE` context
