@@ -19,19 +19,19 @@ This guide takes you through the process of installing and starting the QSE VM i
 | Operating System  | 64-bit operating system that supports VMware  | VMware is supported on the following operating systems: <br>- Apple Mac OS X <br>- Linux <br>- Microsoft Windows
 | Memory	  |8 GB	                 |The amount of memory that is required by IBM Streams is dependent on the applications that are developed and deployed.  This minimum requirement is based on the memory requirements of the Commodity Purchasing sample application and other samples that are provided with the product.     
 | Disk space  | 20 GB |  |
-| VMware product | VMware product that runs on a 64-bit operating system	| To run the Quick Start Edition VMware image, one of the following VMware products must be installed on your system:<br> - For Apple Mac OS X, VMware Fusion 4, or later<br>- For Microsoft Windows or Linux, one of the following products:  VMware Player 5, or later; VMware Workstation 8, or later; VMware Server
+| Virtualization software | Virtualization product that runs on a 64-bit operating system	| To run the Quick Start Edition VMware image, install one of the following products on your system:<br>- For Apple Mac OS X, VMware Fusion 4, or later<br>- For Microsoft Windows or Linux, one of the following products:  VMware Player 5.0 +; VMware Workstation 8.0 +; VMware Server <br>**Tip:** You can use other virtualization software that supports VMDK formats, such as Oracle VirtualBox.
 
 ## Before you begin
 
 Your Streams ID for the Quick Start Edition is **streamsadmin**, and your password is **passw0rd**. The root ID password is also **passw0rd**.
 
-The Quick Start Edition is only available in English.
+The Quick Start Edition is available only in English.
 
 **Performance notes:**
 
-* By default, the Quick Start Edition virtual machine is configured to have two processor cores and 4 GB of memory. Depending on your system resources and the applications that you develop and deploy, you might be able to improve performance by allocating more processor cores and memory to the virtual machine. You can adjust the processor and memory configuration by updating your virtual machine settings. For example, to update these settings for the VMware Player, click *Player > Manage > Virtual Machine Settings*.
+* By default, the Quick Start Edition virtual machine is configured to have two processor cores and 4 GB of memory. Depending on your system resources and the applications that you develop and deploy, you might be able to improve performance by allocating more processor cores and memory to the virtual machine. You can adjust the processor and memory configuration by updating your virtual machine settings. For example, to update these settings for the VMware Player, click **Player > Manage > Virtual Machine Settings**.
 
-* If you import the VMware image into a non-VMware virtualization product and have performance problems with the image, enable any available options that can reduce guest disk input/output latency. For example, in the VirtualBox program from Oracle, select the Use Host I/O Cache option in the Storage Controller settings for the virtual machine.
+* If you import the VMware image into a non-VMware virtualization product and have performance problems with the image, enable any available options that can reduce guest disk input/output latency. For example, in the Oracle VM VirtualBox Manager, select the **Use Host I/O Cache** option in the Storage Controller settings for the virtual machine.
 
 ## Procedure
 
@@ -65,27 +65,23 @@ The Quick Start Edition is only available in English.
 
     After you accept the license agreements, status messages are displayed and the Quick Start Edition VMware image desktop opens.
 
-### Oracle VirtualBox
+## Oracle VirtualBox
 
-1. Download the ova-streams-Vxxx-qse-v1.ova file (where Vxxx is the version number of the Quick Start Edition).
+1. Download and extract the vmware-streamsVxxx.zip file (where Vxxx is the version number of the Quick Start Edition).
 
-1. Open the ova-streams-Vxxx-qse-v1.ova file with VirtualBox Manager.
+1. In Oracle VM VirtualBox Manager, click **New** and follow the instructions in the wizard:
+    1. Specify a name of your virtual machine and select the **Linux Red Hat (64 bit)** operating system. 
+    1. Set the amount of memory to use for your virtual machine. The optimal setting depends on your hardware and usage. The more you allocate, the faster your virtual machine will run. You can adjust the setting later, if necessary. 
+    1. Select to use an existing virtual hard disk file, then browse for the vmware-streamsV#.#-qse-v1.vmdk file that you extracted earlier and click **Open**. 
+    1. Click **Create**. Now your new virtual machine is listed in the Oracle VM VirtualBox Manager. 
+    
+1.  From the list, select your new virtual machine and click **Settings**:
+    1. Select **System > Processor** and specify 2 virtual CPUs.
+    1. Select the **Storage** tab and make sure that the **Use Host I/O Cache** option is selected. 
+    1. Click **OK** to save your settings.
+    
+1. To run your virtual machine, select it and click **Start**.
 
-1. Select **Import** when prompted to on the Import Virtual Appliance dialog.
-
-1. Open the settings for the imported VM. Go to **Network** -> expand **Advanced** -> check **Cable Connected** -> click **OK**.
-
-1. Start the imported VM by double-clicking it.
-
-1.  The first time that you start the image, accept all of the following license agreements:
-
-      * CentOS
-      * VMware tools
-      * IBM® Streams
-
-    To navigate in the license agreement screens, use the **Tab** and **Arrow** keys. Press the **Enter** key to continue.
-
-    After you accept the license agreements, status messages are displayed and the Quick Start Edition VMware image desktop opens.
 
 ## What to do next
 

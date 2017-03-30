@@ -195,7 +195,7 @@ If you would like to consume in parallel within a consistent region, check out t
 **This section is under construction**
 
 ## Connecting to Message Hub in the Cloud
-You can use the Streams Kafka operators to produce to and consume from the Kafka-based <a target="_blank" href="https://developer.ibm.com/messaging/message-hub/">Message Hub</a> Bluemix service. For a complete guide on how to do this, check out <a target="_blank">this great article</a>.
+You can use the Streams Kafka operators to produce to and consume from the Kafka-based <a target="_blank" href="https://developer.ibm.com/messaging/message-hub/">Message Hub</a> Bluemix service. For a complete guide on how to do this, check out <a href="https://www.ibm.com/blogs/bluemix/2015/10/streaming-analytics-message-hub-2/" target="_blank">this great article</a>.
 
 ## Additional Resources
 * <a target="_blank" href="http://ibmstreams.github.io/streamsx.messaging/com.ibm.streamsx.messaging/doc/spldoc/html/index.html">Streams Messaging Toolkit SPLDoc</a>

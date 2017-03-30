@@ -6,4 +6,4 @@ weight: 45
 published: true
 ---
 
-{% include nav.html context="/docs/4.2/python/"%}
+{% include nav.html context="/docs/python/"%}

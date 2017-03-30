@@ -6,14 +6,18 @@
     <meta name="description" content=" {% if page.description %}{{ page.description }}{% else %}{{ site.description }}{% endif %}">
     <link rel="canonical" href="{{ page.url | replace:'index.html','' | prepend: site.url }}">
     <link rel="fluid-icon" href="https://github.com/fluidicon.png" title="GitHub">
-    
+
     <!-- Custom CSS & Bootstrap Core CSS - Uses Bootswatch Flatly Theme: http://bootswatch.com/flatly/ -->
     <link rel="stylesheet" href="{{ "/doc.css" | prepend: site.baseurl }}">
     <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="{{ "/css/custom.css" | prepend: site.baseurl }}">
-    
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
-    <script src="/streamsx.documentation/javascripts/main.js"></script>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>{%
+    if page.navlevel == 3 %}
+    <script src="/streamsx.documentation/javascripts/main3.js"></script>{%
+    else %}
+    <script src="/streamsx.documentation/javascripts/main.js"></script>{%
+    endif %}
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
