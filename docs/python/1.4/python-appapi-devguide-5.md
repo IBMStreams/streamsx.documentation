@@ -14,7 +14,7 @@ If a particular portion of your graph is causing congestion because the applicat
 
 In the [Developing your first application](../python-appapi-devguide-3/) section, you created a topology and defined a pseudo temperature source. In this example, you want to convert all of the source tuples from Celsius to Kelvin.
 
-To achieve this, add a function called `convertToKelvin()` to the application you created in the [Developing your first application](#developing-your-first-application) section.
+To achieve this, add a function called `convertToKelvin()` to the application you created in the [Developing your first application](../python-appapi-devguide-3/) section.
 
 Your application should look like this:
 
