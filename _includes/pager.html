@@ -1,0 +1,8 @@
+<ul class="pager">
+{% if page.prev.file %}
+  <li class="previous"><a href="../{{ page.prev.file }}/"><i class="fa fa-arrow-left"></i> {{ page.prev.title }}</a></li>
+{% endif %}
+{% if page.next.file %}
+  <li class="next"><a href="../{{ page.next.file }}/">{{ page.next.title }} <i class="fa fa-arrow-right"></i></a></li>
+{% endif %}
+</ul>

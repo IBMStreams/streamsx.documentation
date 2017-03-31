@@ -169,7 +169,7 @@ To get started, follow these development guides:
 
 * [Develop Streams Applications in Java](../../java/java-appapi-devguide)
 * [Develop Streams Applications in Scala](https://github.com/IBMStreams/streamsx.topology/wiki/Scala-Support)
-* [Develop Streams Applications in Python](../../python/python-appapi-devguide)
+* [Develop Streams Applications in Python 1.4](../../python/1.4/python-appapi-devguide)
 
 
 ### Streams Processing Language (SPL)

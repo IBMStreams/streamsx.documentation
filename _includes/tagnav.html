@@ -1,0 +1,14 @@
+{% capture html %}
+<ul class="simple">
+  {% assign pages = site.pages | sort: "weight" %}
+  {% for currentPage in pages %}
+    {% if currentPage.tag == include.tag %}
+    {% capture slug %}{{ currentPage.url | split: "/" | last }}{% endcapture %}
+    {% capture current %}{{ currentPage.url | remove: slug | remove: "//" | append: "/" }}{% endcapture %}
+    {% unless currentPage.url contains 'drafts' %}
+    <li style="padding-bottom:9px;"><a href="{{ site.baseurl }}{{ currentPage.url }}">{{ currentPage.title }}</a></li>
+    {% endunless %}
+    {% endif %}
+  {% endfor %}
+</ul>
+{% endcapture %}{{ html | strip_newlines}}
