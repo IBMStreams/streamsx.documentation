@@ -919,4 +919,3 @@ Garbage text
 For more information on configuration options to connect to or subscribe to an MQTT server, see the following resources:   
 * [http://mqtt.org](http://mqtt.org)
 * [http://ibmstreams.github.io/streamsx.messaging](http://ibmstreams.github.io/streamsx.messaging)
-
