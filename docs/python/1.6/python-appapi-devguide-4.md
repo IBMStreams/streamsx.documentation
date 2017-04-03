@@ -598,10 +598,10 @@ import union_source_functions
 
 def main():
     topo = Topology("union_source")
-   h = topo.source(union_source_functions.hello)
-   b = topo.source(union_source_functions.beautiful)
-   c = topo.source(union_source_functions.crazy)
-   w = topo.source(union_source_functions.world)
+    h = topo.source(union_source_functions.hello)
+    b = topo.source(union_source_functions.beautiful)
+    c = topo.source(union_source_functions.crazy)
+    w = topo.source(union_source_functions.world)
     streamSet = {b, c, w}
     hwu = h.union(streamSet)
     hwu.sink(union_source_functions.print1)
