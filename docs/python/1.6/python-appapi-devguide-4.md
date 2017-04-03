@@ -245,7 +245,7 @@ def first_four_letters(tuple):
 #### 3.3.1.1 Sample output
 Run `python3 transform_substring.py`.
 
-The contents of your output looks like this:
+The contents of your output look like this:
 
 ~~~~~~
 quix
@@ -302,7 +302,7 @@ def multiply2_add1(tuple):
 #### 3.3.2.1 Sample output
 Run `python3 transform_type.py`.
 
-The contents of your output looks like this:
+The contents of your output look like this:
 
 ~~~~~~
 3
@@ -361,7 +361,7 @@ def split_line(tuple):
 #### 3.3.3.2 Sample output
 Run `python3 multi_transform_lines.py`.
 
-The contents of your output looks like this:
+The contents of your output look like this:
 
 ~~~~~~
 mary
@@ -452,7 +452,7 @@ The contents of your output file should look something like this:
 
 In this example, `AvgLastN.n`, which is initialized from the user-defined parameter n, and `AvgLastN.last_n` are examples of data whose state is kept in between tuples.
 
-**Tip:** Any type of of operation (source, filter, map, and sink) can accept callable objects that maintain stateful data.
+**Tip:** Any type of operation (source, filter, map, and sink) can accept callable objects that maintain stateful data.
 
 You can also create a user-defined function that refers to global variables. Unlike variables that are defined within a function, global variables persist in the runtime process. However, this approach is **not recommended** because the way in which the processing elements are fused can change how global variables are shared across functions or callable objects.
 
@@ -556,7 +556,7 @@ Include the following code in the split_source_functions.py file:
 
 ~~~~~~
 def source_tuples():
-    return ["tuple1", "tuple2", "tuple3"]i
+    return ["tuple1", "tuple2", "tuple3"]
 
 def print1(tuple):
     print("print1", tuple)
