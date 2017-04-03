@@ -806,7 +806,7 @@ If you are running an IBM Streams application on a remote sensor or device, you 
 * To publish a stream to an MQTT broker you must configure a connector to enable IBM Streams to communicate with the broker
 The schema of the tuples must be rstring (`"tuple<rstring message>"`)
 
-* To receive the tuples, an application must subscribe to the topic that you publish by specifying the same topic and server URI. For more information see [Subscribing to streams on an MQTT broker](#311-subscribing-to-streams-on-an-mqtt-broker).
+* To receive the tuples, an application must subscribe to the topic that you publish by specifying the same topic and server URI. For more information see [Subscribing to streams on an MQTT broker](#311-subscribing-to-a-stream-on-an-mqtt-broker).
 
 An MQTT connector (`Connector`) points to a specific MQTT broker. You can use the same MqttStreams connector for any number of `publish()` and `subscribe()` connections.
 
@@ -819,7 +819,7 @@ If you need to authenticate to the server, you can specify a user ID (`userID`) 
 
 Additionally, you can specify other configuration parameters, such as a message queue size (`messageQueueSize`) or the fully qualified path of a key store (`keyStore`). For more information about the optional configuration parameters, see [https://github.com/IBMStreams/streamsx.topology/blob/master/com.ibm.streamsx.topology/opt/python/packages/streamsx/topology/mqtt.py](https://github.com/IBMStreams/streamsx.topology/blob/master/com.ibm.streamsx.topology/opt/python/packages/streamsx/topology/mqtt.py)
 
-For more information about the MQTT implementation, see MQTT support at [http://ibmstreams.github.io/streamsx.topology/experimental/python/doc/spldoc/html/tk%24com.ibm.streamsx.topology/ns$com.ibm.streamsx.topology.python$5.html](http://ibmstreams.github.io/streamsx.topology/experimental/python/doc/spldoc/html/tk%24com.ibm.streamsx.topology/ns$com.ibm.streamsx.topology.python$5.html)
+For more information about the MQTT implementation, see MQTT support at [http://ibmstreams.github.io/streamsx.topology/doc/spldoc/html/tk$com.ibm.streamsx.topology/ns$com.ibm.streamsx.topology.python$5.html](http://ibmstreams.github.io/streamsx.topology/doc/spldoc/html/tk$com.ibm.streamsx.topology/ns$com.ibm.streamsx.topology.python$5.html)
 
 ### 3.10.1 Sample code
 The `Connector.publish()` function takes as input the name of the stream to publish and the topic on the MQTT server that you want to publish the tuples to. The function returns `None`.
