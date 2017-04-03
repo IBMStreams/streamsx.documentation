@@ -44,7 +44,7 @@ Before you can use the Python Application API, you must complete the following t
    
    To build IBM Streams application bundles with the Python Application API that can be submitted to your Bluemix Streaming Analytics service you **must**:
      * use Anaconda 4.1.1 (Python 3.5 version) or later
-     * install Anaconda at `/disk1/opt/Anaconda3` on the machine where you execute the Python code that builds the topology and submits it ti the `BUNDLE` context
+     * install Anaconda at `/disk1/opt/Anaconda3` on the machine where you execute the Python code that builds the topology and submits it to the `BUNDLE` context
 
 1. Include the fully qualified path of the `com.ibm.streamsx.topology/opt/python/packages` directory in the PYTHONPATH environment variable. For example:
 
