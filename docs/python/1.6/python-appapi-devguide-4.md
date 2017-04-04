@@ -602,8 +602,7 @@ def main():
     b = topo.source(union_source_functions.beautiful)
     c = topo.source(union_source_functions.crazy)
     w = topo.source(union_source_functions.world)
-    streamSet = {b, c, w}
-    hwu = h.union(streamSet)
+    hwu = h.union({b, c, w})
     hwu.sink(union_source_functions.print1)
     streamsx.topology.context.submit("STANDALONE", topo.graph)
 
