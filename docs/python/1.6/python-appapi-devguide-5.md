@@ -30,7 +30,7 @@ def main():
     source = topo.source(temperature_sensor_functions.readings)
     kelvin = source.map(temperature_sensor_functions.convertToKelvin)
     kelvin.sink(print)
-    streamsx.topology.context.submit("STANDALONE", topo.graph)
+    streamsx.topology.context.submit("STANDALONE", topo)
 
 if __name__ == '__main__':
     main()
@@ -66,7 +66,7 @@ def main():
     kelvin = source.parallel(4).map(temperature_sensor_functions.convertToKelvin)
     end = kelvin.end_parallel()
     end.sink(print)
-    streamsx.topology.context.submit("STANDALONE", topo.graph)
+    streamsx.topology.context.submit("STANDALONE", topo)
 ~~~~~~
 
 Any operations that are performed on the parallelized `Stream` occur in parallel to the degree that is specified in the `.parallel()` function. In the example above, you specified 4, which means that four channels process the data in the parallel region on the graph.

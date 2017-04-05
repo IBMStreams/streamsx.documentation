@@ -95,7 +95,7 @@ After you define the application, you can submit it by using `streamsx.topology.
 Include the following code in the temperature_sensor.py file:
 
 ~~~~~~
-streamsx.topology.context.submit("STANDALONE", topo.graph)
+streamsx.topology.context.submit("STANDALONE", topo)
 ~~~~~~
 
 **Remember:** You can run your application in the following ways:
@@ -119,7 +119,7 @@ def main():
     topo = Topology("temperature_sensor")
     source = topo.source(temperature_sensor_functions.readings)
     source.sink(print)
-    streamsx.topology.context.submit("STANDALONE", topo.graph)
+    streamsx.topology.context.submit("STANDALONE", topo)
 
 if __name__ == '__main__':
     main()

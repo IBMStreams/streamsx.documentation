@@ -165,7 +165,7 @@ def main():
     words = topo.source(filter_words_functions.words_in_dictionary)
     words_without_a = words.filter(filter_words_functions.words_without_a)
     words_without_a.sink(print)
-    streamsx.topology.context.submit("STANDALONE", topo.graph)
+    streamsx.topology.context.submit("STANDALONE", topo)
 
 if __name__ == '__main__':
     main()
@@ -225,7 +225,7 @@ def main():
     words = topo.source(transform_substring_functions.words_in_dictionary)
     first_four_letters = words.map(transform_substring_functions.first_four_letters)
     first_four_letters.sink(print)
-    streamsx.topology.context.submit("STANDALONE", topo.graph)
+    streamsx.topology.context.submit("STANDALONE", topo)
 
 if __name__ == '__main__':
     main()
@@ -279,7 +279,7 @@ def main():
     string_tuples = topo.source(transform_type_functions.int_strings)
     int_tuples = string_tuples.map(transform_type_functions.string_to_int)
     int_tuples.map(transform_type_functions.multiply2_add1).sink(print)
-    streamsx.topology.context.submit("STANDALONE", topo.graph)
+    streamsx.topology.context.submit("STANDALONE", topo)
 
 if __name__ == '__main__':
     main()
@@ -341,7 +341,7 @@ def main():
     lines = topo.source(multi_transform_lines_functions.lines_of_text)
     words = lines.flat_map(multi_transform_lines_functions.split_line)
     words.sink(print)
-    streamsx.topology.context.submit("STANDALONE", topo.graph)
+    streamsx.topology.context.submit("STANDALONE", topo)
 
 if __name__ == '__main__':
     main()
@@ -407,7 +407,7 @@ def main():
     floats = topo.source(transform_stateful_functions.readings)
     avg = floats.map(transform_stateful_functions.AvgLastN(10))
     avg.sink(print)
-    streamsx.topology.context.submit("STANDALONE", topo.graph)
+    streamsx.topology.context.submit("STANDALONE", topo)
 
 if __name__ == '__main__':
     main()
@@ -482,7 +482,7 @@ def main():
     topo = Topology("sink_stderr")
     source = topo.source(sink_stderr_functions.source_tuples)
     source.sink(sink_stderr_functions.print_stderr)
-    streamsx.topology.context.submit("STANDALONE", topo.graph)
+    streamsx.topology.context.submit("STANDALONE", topo)
 
 if __name__ == '__main__':
     main()
@@ -546,7 +546,7 @@ def main():
     source = topo.source(split_source_functions.source_tuples)
     source.sink(split_source_functions.print1)
     source.sink(split_source_functions.print2)
-    streamsx.topology.context.submit("STANDALONE", topo.graph)
+    streamsx.topology.context.submit("STANDALONE", topo)
 
 if __name__ == '__main__':
     main()
@@ -604,7 +604,7 @@ def main():
     w = topo.source(union_source_functions.world)
     hwu = h.union({b, c, w})
     hwu.sink(union_source_functions.print1)
-    streamsx.topology.context.submit("STANDALONE", topo.graph)
+    streamsx.topology.context.submit("STANDALONE", topo)
 
 if __name__ == '__main__':
     main()
@@ -695,7 +695,7 @@ def main():
    ts = ts.filter(pubsub_functions.delay)
    ts.publish('simple', CommonSchema.Json)
    ts.print()
-   streamsx.topology.context.submit('DISTRIBUTED', topo.graph)
+   streamsx.topology.context.submit('DISTRIBUTED', topo)
 
 if __name__ == '__main__':
    main()
@@ -777,7 +777,7 @@ def main():
    topo = Topology("SubscribeSimple")
    ts = topo.subscribe('simple', schema.CommonSchema.Json)
    ts.print()
-   streamsx.topology.context.submit("DISTRIBUTED", topo.graph)
+   streamsx.topology.context.submit("DISTRIBUTED", topo)
 
 if __name__ == '__main__':
    main()
@@ -850,7 +850,7 @@ def main():
    topic = "python.topic1"
    src = topo.source(test_functions.mqtt_publish)
    mqs = mqstream.publish(src, topic)
-   streamsx.topology.context.submit("BUNDLE", topo.graph)
+   streamsx.topology.context.submit("BUNDLE", topo)
 
 if __name__ == '__main__':
    main()
