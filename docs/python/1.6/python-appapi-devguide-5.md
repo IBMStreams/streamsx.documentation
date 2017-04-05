@@ -30,7 +30,7 @@ def main():
     source = topo.source(temperature_sensor_functions.readings)
     kelvin = source.map(temperature_sensor_functions.convertToKelvin)
     kelvin.sink(print)
-    streamsx.topology.context.submit("STANDALONE", topo.graph)
+    streamsx.topology.context.submit("STANDALONE", topo)
 
 if __name__ == '__main__':
     main()
@@ -46,7 +46,7 @@ def readings():
         yield random.gauss(0.0, 1.0)
 
 def convertToKelvin(tuple) :
-        return tuple +  273.15
+    return tuple +  273.15
 ~~~~~~
 
 Converting a temperature reading from Celsius to Kelvin is not a resource-intensive task. However, you can use this example to see how using a parallel region can help distribute processing across resources when an operation is resource-intensive or inefficient and is causing a bottleneck in your application.
@@ -66,7 +66,7 @@ def main():
     kelvin = source.parallel(4).map(temperature_sensor_functions.convertToKelvin)
     end = kelvin.end_parallel()
     end.sink(print)
-          streamsx.topology.context.submit("STANDALONE", topo.graph)
+    streamsx.topology.context.submit("STANDALONE", topo)
 ~~~~~~
 
 Any operations that are performed on the parallelized `Stream` occur in parallel to the degree that is specified in the `.parallel()` function. In the example above, you specified 4, which means that four channels process the data in the parallel region on the graph.
