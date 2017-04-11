@@ -9,15 +9,20 @@ The goal of the project is to provide easy-to-follow documentation and developme
 
 ## Contents
 
-### IBM Streams Java support
+### IBM Streams: Java Support
 
 {% include nav.html context="/docs/java/"%}
 
-### IBM Streams Python support
+### IBM Streams: Python Support
 
 {: .simple}
 * [Developing applications (v1.6)](/streamsx.documentation/docs/python/1.6/python-appapi-devguide/) &nbsp; [(v1.4)](/streamsx.documentation/docs/python/1.4/python-appapi-devguide/)
 * [API reference (v1.6)](http://ibmstreams.github.io/streamsx.topology/doc/releases/1.6/pythondoc/streamsx.rest.html)
+
+### IBM Streams: Scala Support
+
+{: .simple}
+* [Developing applications](https://github.com/IBMStreams/streamsx.topology/wiki/Scala-Support)
 
 ### IBM Streams 4.2
 
