@@ -104,7 +104,7 @@ The streaming app must have access to the service. To set up access to the servi
    hw.print()
    ```
 
-4. Enter the name of your service and define the build configuration used deploy your app to the service:
+4. Enter the name of your service and define the build configuration used to deploy your app to the service:
 
    ```python
    service_name="Your Service Name Here"
