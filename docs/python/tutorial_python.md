@@ -5,14 +5,15 @@ description:  Learn how to deploy a Python app in the Streaming Analytics servic
 weight: 10
 published: true
 ---
+**Attention:** Don't try this just yet. It won't work :-)
 
-You can create an app in your Python environment, and then deploy the app to an instance of the Streaming Analytics service running on IBM Bluemix.
+You can create an application in your Python environment, and then deploy the application to an instance of the IBM Streaming Analytics service on IBM Bluemix.
 
-The Streaming Analytics service is built on IBM Streams technology. You do not need a local version of IBM Streams to build apps for the service.
+The Streaming Analytics service is built on IBM Streams technology. You do not need a local version of IBM Streams to build Python applications for the service.
 
-This tutorial shows how to build a simple app with Python. The app runs as a job in your Streaming Analytics instance.
+This tutorial shows how to build a simple "Hello World!" application with Python. The application runs as a job in your Streaming Analytics instance.
 
-*Note:* Familiarity with Python is recommended. This tutorial requires a Python 3.5 environment.
+Familiarity with Python is recommended. This tutorial requires a Python 3.5 environment.
 
 
 ## Setting up your environment
@@ -32,7 +33,7 @@ The following steps show how to set up your Python environment and your Streamin
    ```
    export PATH="~/anaconda3/bin:$PATH"
    ```
-   In Windows operating systems, you must also set the Scripts directory in the `PATH` environment variable:  
+   In Windows operating systems, you might also have to set the Scripts directory in the `PATH` environment variable:  
 
    ```
    set PATH="%ANACONDA%;%ANACONDA_SCRIPTS%;%PATH%"
@@ -43,7 +44,7 @@ The following steps show how to set up your Python environment and your Streamin
    ```
    conda create –n py35 python=3.5
    ```
-5. Enter *y* to proceed and then activated the 3.5 sub-environment with the following command:
+5. Enter *y* to proceed, and then activate the 3.5 sub-environment with the following command:
 
    ```
    source activate py35
@@ -63,12 +64,12 @@ pip install --user --upgrade streamsx
 Use this package to:
 
   - Create streaming apps that run in the Streaming Analytics service.
-  - Access data streams from views defined in any app that is running in the Streaming Analytics service.
+  - Access data streams from views defined in any application that is running in the Streaming Analytics service.
 
 <a id="step2"></a>
 ### Starting a Streaming Analytics service
 
-If you have a Streaming Analytics service in [IBM Bluemix](https://console.ng.bluemix.net/), make sure that it's up and running. To check the status of your service, go to the **Manage** tab of your service dashboard. The status should read: *The Streaming Analytics service is started*.
+If you have a Streaming Analytics service in [IBM Bluemix](https://console.ng.bluemix.net/), make sure that it's up and running.
 
 To create a new Streaming Analytics service:
 
@@ -79,7 +80,7 @@ To create a new Streaming Analytics service:
 <a id="step3"></a>
 ### Setting up access to the service
 
-The streaming app must have access to the service. To set up access to the service:
+The streaming application must have access to the service. To set up access to the service:
 
 1. Start your Python environment:
 
@@ -87,7 +88,7 @@ The streaming app must have access to the service. To set up access to the servi
    python
    ```
 
-3. Go to your service dashboard, click **Service Credentials**, and then **View Credentials** to copy your service credentials.
+2. Go to your service dashboard, click **Service Credentials**, and then **View Credentials** to copy your service credentials.
 
    Paste your credentials using the following command:
 
@@ -97,18 +98,7 @@ The streaming app must have access to the service. To set up access to the servi
    }
    ```
 
-4. Create a simple Hello World! streaming app. To create a simple streaming application you must first create a Topology object. A topology object represents a declaration of a streaming application that will be executed by a Streams instance as a job:
-
-   ```python
-   from streamsx.topology.topology import Topology
-   from streamsx.topology.context import *
-   from streamsx.topology import context
-   topo = Topology('hello_world')
-   hw = topo.source(['World!', 'Hello'])
-   hw.print()
-   ```
-
-4. Enter the name of your service and define the build configuration used to deploy your app to the service:
+3. Enter the name of your service and define the build configuration used to deploy your application to the service:
 
    ```python
    service_name="Your Service Name Here"
@@ -132,15 +122,28 @@ The streaming app must have access to the service. To set up access to the servi
    streams_conf = build_streams_config(service_name=service_name, credentials=c)
    ```
 
+## Creating a simple Hello World! streaming application 
+
+To create a simple streaming application you must first create a Topology object. A topology object represents a declaration of a streaming application that will be executed by a Streams instance as a job:
+
+      ```python
+      from streamsx.topology.topology import Topology
+      from streamsx.topology.context import *
+      from streamsx.topology import context
+      topo = Topology('hello_world')
+      hw = topo.source(['World!', 'Hello'])
+      hw.print()
+      ```
+
 ## Submitting the job to the Streaming Analytics service
 
-Submit the `topo` object, which represents the app topology, to the `STREAMING_ANALYTICS_SERVICE` context. The config object contains the credentials required to access the service:
+Submit the `topo` object, which represents the application topology, to the `STREAMING_ANALYTICS_SERVICE` context. The config object contains the credentials required to access the service:
 
 ```python
 context.submit('STREAMING_ANALYTICS_SERVICE', topo, config=streams_conf)
 ```
 
-After your application is built by the Streaming Analytics service, you can monitor the app through the Streams Console in your service.
+After your application is running in the Streaming Analytics service, you can monitor the application through the Streams Console in your service.
 
 ## Viewing the streaming data
 

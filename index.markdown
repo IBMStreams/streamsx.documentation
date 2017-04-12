@@ -17,7 +17,7 @@ The goal of the project is to provide easy-to-follow documentation and developme
 
 {: .simple}
 * [Developing applications (v1.6)](/streamsx.documentation/docs/python/1.6/python-appapi-devguide/) &nbsp; [(v1.4)](/streamsx.documentation/docs/python/1.4/python-appapi-devguide/)
-* [API reference (v1.6)](http://ibmstreams.github.io/streamsx.topology/doc/releases/1.6/pythondoc/streamsx.rest.html)
+* [API reference (v1.6)](http://ibmstreams.github.io/streamsx.topology/doc/releases/1.6/pythondoc/index.html)
 * [Tutorial: Creating a streams application](/streamsx.documentation/docs/python/tutorial_python/)
 
 ### IBM Streams: Scala Support
@@ -80,4 +80,3 @@ To request new documentation, please open an issue here:
       <input type="submit" value="New Documentation">
    </form>
 <br>
-
