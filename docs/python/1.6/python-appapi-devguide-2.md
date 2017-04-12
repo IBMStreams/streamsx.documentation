@@ -13,9 +13,9 @@ next:
   title: 2.0 Developing your first application
 ---
 
-Before you can use the Python Application API, you must complete the following tasks:
+Before you can create your first Python application with the Python Application API and a local version of IBM Streams, you must complete the following setup tasks:
 
-1. Install IBM Streams Version 4.0.1 (or later) or IBM Streams Quick Start Edition Version 4.0.1 (or later):
+1. Install version 4.0.1 (or later) of IBM Streams or IBM Streams Quick Start Edition:
 
     * [IBM Streams Version 4.2.0 installation documentation](http://www.ibm.com/support/knowledgecenter/SSCRJU_4.2.0/com.ibm.streams.install.doc/doc/installstreams-container.html)
 
@@ -30,9 +30,9 @@ Before you can use the Python Application API, you must complete the following t
         source /home/streamsadmin/InfoSphere_Streams/4.2.0.0/bin/streamsprofile.sh
 
 
-1. Download the IBM Streams Topology toolkit, which includes the Python Application API. You can download the most recent version of the toolkit from the IBMStreams organization on GitHub from the streamsx.topology [Releases page](https://github.com/Ibmstreams/streamsx.topology/releases). *If you are using IBM Streams 4.2 or later then this step is optional as the toolkit is included at* `$STREAMS_INSTALL/toolkits/com.ibm.streamsx.topology`.
-
-    After the toolkit downloads, extract it to your file system.
+1. If you are using IBM Streams 4.2 or later, you can skip this step because the Python Application API is included  at* `$STREAMS_INSTALL/toolkits/com.ibm.streamsx.topology`. <br><br>If you are using an earlier version of IBM Streams, you must: 
+    1. Download the latest version of the IBM Streams Topology toolkit from the IBMStreams organization on GitHub from the streamsx.topology [Releases page](https://github.com/Ibmstreams/streamsx.topology/releases).
+    1. After the toolkit downloads, extract it to your file system.
 
 1. Install a supported version of Python:
 
@@ -40,14 +40,12 @@ Before you can use the Python Application API, you must complete the following t
    
    * CPython 3.5.0 or later [https://www.python.org](https://www.python.org).
 
-   The Python Application API has been tested with Python 3.5.1
+   The Python Application API was tested with Python 3.5.1.
    
-   To build IBM Streams application bundles with the Python Application API that can be submitted to your Bluemix Streaming Analytics service you **must**:
-     * use Anaconda 4.1.1 (Python 3.5 version) or later
-     * install Anaconda at `/disk1/opt/Anaconda3` on the machine where you execute the Python code that builds the topology and submits it to the `BUNDLE` context
+   **Important:** To build IBM Streams application bundles with the Python Application API that can be submitted to your IBM Streaming Analytics service you **must**:
+     * Use Anaconda 4.1.1 (Python 3.5 version) or later.
+     * Install Anaconda at `/disk1/opt/Anaconda3` on the machine where you execute the Python code that builds the topology and submits it to the `BUNDLE` context.
 
 1. Include the fully qualified path of the `com.ibm.streamsx.topology/opt/python/packages` directory in the PYTHONPATH environment variable. For example:
 
         export PYTHONPATH=/home/myuser/download/com.ibm.streamsx.topology/opt/python/packages:$PYTHONPATH
-
-
