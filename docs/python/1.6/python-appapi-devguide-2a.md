@@ -92,9 +92,7 @@ The streaming application must be able to access the service. To set up access t
    Paste your credentials using the following command:
 
    ```python
-   c={
-     # ... *paste your credentials here*
-   }
+   c = *paste your credentials here*
    ```
 
 3. Enter the name of your service and define the build configuration used to deploy your application to the service:
