@@ -10,7 +10,7 @@ prev:
   title: Developing IBM Streams Applications with Python
 next:
   file: python-appapi-devguide-2a
-  title: 2.0 Developing without IBM Streams on-premises
+  title: 2.0 Developing for the IBM Streaming Analytics service
 ---
 
 The Python language support package is shipped with IBM Streams. You can also download the latest package as part of the com.ibm.streamsx.topology toolkit or as a stand-alone streamsx Python package. You can use either the toolkit or the Python package, the only difference between them is how you download them.
@@ -23,5 +23,5 @@ The Python language support package is shipped with IBM Streams. You can also do
 
   The streamsx Python package is available for download from https://pypi.python.org/pypi/streamsx. You can install it with the **pip** command:
 
-        pip install streamsx
+        !pip install streamsx
         

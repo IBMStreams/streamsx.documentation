@@ -1,6 +1,6 @@
 ---
 layout: docs
-title:  2.0 Developing without IBM Streams on-premises 
+title:  2.0 Developing for the IBM Streaming Analytics service
 description:  Learn how to deploy a Python application in the IBM Streaming Analytics service on IBM Bluemix, without installing IBM Streams.
 weight: 25
 published: true
@@ -10,7 +10,7 @@ prev:
   title: 1.0 Installing Python APIs
 next:
   file: python-appapi-devguide-3
-  title: 3.0 Developing with IBM Streams on-premises
+  title: 3.0 Developing with an IBM Streams install
 ---
 
 Streaming analytics applications are intended to run indefinitely because they meet the need for real-time data processing. (Unlike applications created for the Apache Hadoop framework, which are intended to terminate when a batch of data is successfully processed.) For example, consider a company whose product scans temperature sensors across the world to determine weather patterns and trends. Because there is always a temperature, there is a perpetual need to process data. The application that processes the data must be able to run for an indefinite amount of time.
@@ -31,7 +31,6 @@ The following steps show how you can set up your Python development environment:
 
    ```
    export JAVA_HOME="/usr/lib/jvm/java-1.x.x-openjdk"
-   export PATH=$JAVA_HOME/bin:$PATH
    ```
 2. Ensure that you have Python 3.5 installed. For example, you can get Python 3.5 from [Anaconda](https://www.continuum.io/downloads) and follow these steps to activate your Python 3.5 environment:
 
@@ -59,7 +58,7 @@ The following steps show how you can set up your Python development environment:
 3. Install the latest streamsx package with *pip*, a package manager for Python.
 
    ```
-   pip install --user --upgrade streamsx
+   !pip install --user --upgrade streamsx
    ```
 
 ## 2.2 Starting a Streaming Analytics service
@@ -136,8 +135,6 @@ A streaming analytics application is a directed flow graph that specifies how da
 The `Topology` object also includes functions that enable you to define your data sources. In this application, the data source is the temperature sensor.
 
 In this example, simulate temperature sensor readings by defining a Python generator function that returns an iterator of random numbers.
-
-**Important:** Callable inputs to functions, such as the definition of the `readings()` function, cannot be defined in the `'_main_'` module. The inputs must be defined in a separate module.
 
 
 Create a new file called temperature_sensor_functions.py :

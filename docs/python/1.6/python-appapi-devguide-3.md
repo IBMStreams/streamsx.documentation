@@ -1,13 +1,13 @@
 ---
 layout: docs
-title:  3.0 Developing with IBM Streams on-premises
+title:  3.0 Developing with an IBM Streams install
 description: To get started with the Python Application API, you'll use the example of reading data from a temperature sensor and printing the output to the screen.
 weight:  30
 published: true
 tag: py16
 prev:
   file: python-appapi-devguide-2
-  title: 2.0 Developing without IBM Streams on-premises
+  title: 2.0 Developing with the IBM Streaming Analytics service
 next:
   file: python-appapi-devguide-4
   title: 4.0 Common Streams operations
@@ -40,18 +40,21 @@ Before you can create your first Python application with the Python Application 
 1. If you are using IBM Streams 4.2 or later, you can skip this step because the Python Application API is included at* `$STREAMS_INSTALL/toolkits/com.ibm.streamsx.topology`. <br><br>If you are using an earlier version of IBM Streams, you must:
     1. Download the latest version of the IBM Streams Topology toolkit from the IBMStreams organization on GitHub from the streamsx.topology [Releases page](https://github.com/Ibmstreams/streamsx.topology/releases).
     1. After the toolkit downloads, extract it to your file system.
+    
 
-1. Install a supported version of Python:
+1. Ensure that you have installed a supported version of Python: 
 
-   * *Recommended* - Anaconda with Python 3.5 [https://www.continuum.io/downloads](https://www.continuum.io/downloads).
+   * Python 2.7 and Python 3.5 are supported.
+   
+      **Important:** Python 3.5 is required to build application bundles with the Python Application API that can be submitted to your IBM Streaming Analytics service.
 
-   * CPython 3.5 or later [https://www.python.org](https://www.python.org).
+   You can install a supported version of Python from:
+   * *Recommended* Anaconda [https://www.continuum.io/downloads](https://www.continuum.io/downloads)
 
-   The Python Application API was tested with Python 3.5.1.
+   * CPython [https://www.python.org](https://www.python.org)
 
-   **Important:** To build IBM Streams application bundles with the Python Application API that can be submitted to your IBM Streaming Analytics service:
-     * You must use Python 3.5
-     * Install Anaconda at `/disk1/opt/Anaconda3` on the machine where you execute the Python code that builds the topology and submits it to the `BUNDLE` context.
+
+
 
 1. Include the fully qualified path of the `com.ibm.streamsx.topology/opt/python/packages` directory in the PYTHONPATH environment variable. For example:
 
@@ -134,6 +137,7 @@ streamsx.topology.context.submit("STANDALONE", topo)
 * As a **Streams distributed application** (DISTRIBUTED). When running in this mode, the application produced will be deployed automatically on your IBM Streams instance.
 * As a **Streams Application Bundle file** (BUNDLE). When running in this mode, the application produces a SAB file that you can then deploy on your IBM Streams instance by using the `streamtool submitjob` command or by using the application console.
 * As a **stand-alone application** (STANDALONE).  When running in this mode, the application produces a Streams Application Bundle file (SAB file), but rather than submitting the SAB file to an instance, the bundle is executed. The bundle runs within a single process and can be terminated with Ctrl-C interrupts.
+* As a **Streaming Analytics service running on IBM Bluemix cloud platform** (STREAMING_ANALYTICS_SERVICE). In this mode,  the application will run in the cloud in a Streaming Analytics service.
 
 
 ## 3.7 The complete application
