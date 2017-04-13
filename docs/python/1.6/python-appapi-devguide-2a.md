@@ -1,7 +1,7 @@
 ---
 layout: docs
-title:  2.0 Developing for the Streaming Analytics service
-description:  Learn how to deploy a Python app in the Streaming Analytics service
+title:  2.0 Developing without IBM Streams on-premises
+description:  Learn how to deploy a Python app in the IBM Streaming Analytics service on IBM Bluemix, without installing IBM Streams.
 weight: 25
 published: true
 tag: py16

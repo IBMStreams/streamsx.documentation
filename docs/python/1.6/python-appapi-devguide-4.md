@@ -7,7 +7,7 @@ published: true
 tag: py16
 prev:
   file: python-appapi-devguide-3
-  title: 3.0 Developing for IBM Streams on-premises
+  title: 3.0 Developing with IBM Streams on-premises
 next:
   file: python-appapi-devguide-5
   title: "5.0 API features: User-defined parallelism"

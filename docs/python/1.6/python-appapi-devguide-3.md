@@ -1,13 +1,13 @@
 ---
 layout: docs
-title:  3.0 Developing for IBM Streams on-premises
+title:  3.0 Developing with IBM Streams on-premises
 description: To get started with the Python Application API, you'll use the example of reading data from a temperature sensor and printing the output to the screen.
 weight:  30
 published: true
 tag: py16
 prev:
   file: python-appapi-devguide-2
-  title: 2.0 Developing for the Streaming Analytics service
+  title: 2.0 Developing without IBM Streams on-premises
 next:
   file: python-appapi-devguide-4
   title: 4.0 Common Streams operations
