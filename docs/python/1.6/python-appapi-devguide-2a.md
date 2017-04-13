@@ -182,7 +182,7 @@ After you define the application, you can submit it by using `streamsx.topology.
 
 ``` python
 from streamsx.topology import context
-context.submit('STREAMING_ANALYTICS_SERVICE', topo, config=streams_conf)
+context.submit(context.ContextTypes.STREAMING_ANALYTICS_SERVICE, topo, config=streams_conf)
 ```
 
 After your application is running in the Streaming Analytics service, you can monitor the application through the Streams Console in your service.
@@ -250,7 +250,7 @@ def main():
     topo = Topology("temperature_sensor")
     source = topo.source(readings)
     source.sink(print)
-    context.submit('STREAMING_ANALYTICS_SERVICE', topo, config=streams_conf)
+    context.submit(context.ContextTypes.STREAMING_ANALYTICS_SERVICE, topo, config=streams_conf)
 
 if __name__ == '__main__':
      main()
