@@ -157,7 +157,7 @@ Tuples flow over a `Stream` one at a time and are processed by subsequent data *
 Returning to the application, create a source stream with the following line:
 
 ~~~~~~
-source = topo.source(temperature_sensor_functions.readings)
+source = topo.source(readings)
 ~~~~~~
 
 
