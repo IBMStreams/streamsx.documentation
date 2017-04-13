@@ -20,8 +20,8 @@ When you create an IBM Streams application written in Python, you can run the ap
 
 * As a **Streaming Analytics service running on IBM Bluemix cloud platform** (STREAMING_ANALYTICS_SERVICE). This mode the application will be run in the cloud in a Bluemix Streaming Analytics Service.
 * As a **Streams distributed application** (DISTRIBUTED). When running in this mode, the application produced will be deployed automatically on your IBM Streams instance.
-* As a **stand-alone application** (STANDALONE).  When running in this mode, the application produces a Streams Application Bundle file (SAB file), but rather than submitting the SAB file to an instance, the bundle is executed. The bundle runs within a single process and can be terminated with Ctrl-C interrupts.
 * As a **Streams Application Bundle file** (BUNDLE). When running in this mode, the application produces a Streams Application Bundle (SAB) file that you can then deploy on your IBM Streams or Bluemix Streaming Analytics service instance by using the `streamtool submitjob` command or by using the application console
+* As a **stand-alone application** (STANDALONE).  When running in this mode, the application produces a Streams Application Bundle file (SAB file), but rather than submitting the SAB file to an instance, the bundle is executed. The bundle runs within a single process and can be terminated with Ctrl-C interrupts.
 
 The Python Application API enables you to:
 
