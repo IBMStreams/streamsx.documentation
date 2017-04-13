@@ -95,7 +95,7 @@ The streaming application must be able to access the service. To set up access t
    c = *paste your credentials here*
    ```
 
-3. Enter the name of your service and define the build configuration used to deploy your application to the service:
+3. Enter the name of your service. A valid build configuration object is required to submit your application -- here we can use the `build_streams_config` function to create it given the service name and credentials that were provided:
 
    ```python
    from streamsx.topology import context
