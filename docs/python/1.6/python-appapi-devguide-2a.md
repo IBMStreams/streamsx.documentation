@@ -181,6 +181,7 @@ The `Stream.sink()` operation takes as input a callable object that takes a sing
 After you define the application, you can submit it by using `streamsx.topology.context` module. When you submit the application, use the `submit()` function from the `streamsx.topology.context` module to submit the application.  Use the `STREAMING_ANALYTICS_SERVICE` context to submit your Python application (the `topo` object) to the Streaming Analytics service. The config object contains the credentials required to access the service:
 
 ``` python
+from streamsx.topology import context
 context.submit('STREAMING_ANALYTICS_SERVICE', topo, config=streams_conf)
 ```
 
