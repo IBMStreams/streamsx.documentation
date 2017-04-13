@@ -37,18 +37,18 @@ Before you can create your first Python application with the Python Application 
         source /home/streamsadmin/InfoSphere_Streams/4.2.0.0/bin/streamsprofile.sh
 
 
-1. If you are using IBM Streams 4.2 or later, you can skip this step because the Python Application API is included at* `$STREAMS_INSTALL/toolkits/com.ibm.streamsx.topology`. <br><br>If you are using an earlier version of IBM Streams, you must: 
+1. If you are using IBM Streams 4.2 or later, you can skip this step because the Python Application API is included at* `$STREAMS_INSTALL/toolkits/com.ibm.streamsx.topology`. <br><br>If you are using an earlier version of IBM Streams, you must:
     1. Download the latest version of the IBM Streams Topology toolkit from the IBMStreams organization on GitHub from the streamsx.topology [Releases page](https://github.com/Ibmstreams/streamsx.topology/releases).
     1. After the toolkit downloads, extract it to your file system.
 
 1. Install a supported version of Python:
 
    * *Recommended* - Anaconda with Python 3.5 [https://www.continuum.io/downloads](https://www.continuum.io/downloads).
-   
+
    * CPython 3.5 or later [https://www.python.org](https://www.python.org).
 
    The Python Application API was tested with Python 3.5.1.
-   
+
    **Important:** To build IBM Streams application bundles with the Python Application API that can be submitted to your IBM Streaming Analytics service:
      * You must use Python 3.5
      * Install Anaconda at `/disk1/opt/Anaconda3` on the machine where you execute the Python code that builds the topology and submits it to the `BUNDLE` context.
@@ -77,13 +77,6 @@ The `Topology` object also includes functions that enable you to define your dat
 In this example, simulate temperature sensor readings by defining a Python generator function that returns an iterator of random numbers.
 
 **Important:** Callable inputs to functions, such as the definition of the `readings()` function, cannot be defined in the `'_main_'` module. The inputs must be defined in a separate module.
-
-Include the following code in the temperature_sensor.py file (the main module):
-
-~~~~~~
-import temperature_sensor_functions
-source = topo.source(temperature_sensor_functions.readings)
-~~~~~~
 
 Include the following code in the temperature_sensor_functions.py file:
 
