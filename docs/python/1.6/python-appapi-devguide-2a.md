@@ -150,13 +150,11 @@ In this example, data is obtained by calling the `random.gauss()` function. Howe
 
 
 ## 2.7 Creating a Stream
-The `Topology.source()` function produces a `Stream` object, which is a potentially infinite flow of tuples in an application. Because a streaming analytics application can run indefinitely, there is no upper limit to the number of tuples that can flow over a `Stream`.
+The `Topology.source()` function produces a `Stream` object, which represents a potentially infinite sequence of tuples. Because a streaming analytics application can run indefinitely, there is no upper limit to the number of tuples that can flow over a `Stream`.
 
-Tuples flow over a `Stream` one at a time and are processed by subsequent data **operations**. Operations are discussed in more detail in the [Common Streams operations](../python-appapi-devguide-4/) section of this guide.
+Tuples flow over a `Stream` one at a time and are processed by subsequent data **operations**. Operations are discussed in more detail in the [Common Streams operations](../python-appapi-devguide-4/) section of this guide. A tuple can be any Python object that is serializable by using the pickle module.
 
-A tuple can be any Python object that is serializable by using the pickle module.
-
-Returning to the interpreter, create a source stream with the following line:
+Returning to the application, create a source stream with the following line:
 
 ~~~~~~
 import temperature_sensor_functions
