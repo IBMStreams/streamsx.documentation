@@ -1,16 +1,16 @@
 ---
 layout: docs
-title:  3.0 Common streams operations
+title:  4.0 Common Streams operations
 description:  The primary operations in the Python Application API are listed
 weight:  40
 published: true
 tag: py16
 prev:
   file: python-appapi-devguide-3
-  title: 2.0 Developing your first application
+  title: 3.0 Developing for IBM Streams on-premises
 next:
   file: python-appapi-devguide-5
-  title: "4.0 API features: User-defined parallelism"
+  title: "5.0 API features: User-defined parallelism"
 ---
 
 The primary operations in the Python Application API are listed.  After you create a `Stream` from `Topology.source()`, you can perform operations on the `Stream`.
@@ -32,7 +32,7 @@ The following sections outline best practices for each type of operation.
 You can also find more information about IBM Streams operations in the [Python Application API SPLDOC](http://ibmstreams.github.io/streamsx.topology/doc/pythondoc/index.html)
 
 
-## 3.1 Creating data sources
+## 4.1 Creating data sources
 
 A `source` operation fetches information from an external system and presents that information as a `Stream`.  The function for creating a source stream is `Topology.source()`.  It accepts as input a user-supplied callable object, such as a function or an instance of a callable class, that takes no arguments and returns an iterable. The `source` function returns a `Stream` whose tuples will be the result of iterating against the iterable returned by the provided callable.
 
@@ -60,7 +60,7 @@ source =
     topo.source(temperature_sensor_functions.readings)
 ~~~~~~
 
-### 3.1.1 Simple iterable sources
+### 4.1.1 Simple iterable sources
 
 Examples of iterables include all sequence types (such as [list](https://docs.python.org/3/library/stdtypes.html#list)) so that they
 can be returned directly by the function passed to `source()`.
@@ -71,12 +71,12 @@ def helloWorld():
    return ["hello", "world!"]
 ````
 
-### 3.1.2 Itertools
+### 4.1.2 Itertools
 
 The Python module [itertools](https://docs.python.org/3/library/itertools.html) implements a number of iterator building blocks
 which can therefore be used with `source`.
 
-#### 3.1.2.1 Infinite counting sequence
+#### 4.1.2.1 Infinite counting sequence
 
 The function [count()](https://docs.python.org/3/library/itertools.html#itertools.count) can be used to provide an infinite stream
 that is a numeric sequence, for example this uses the default start of 0 and step of 1 to produce a stream of `1,2,3,4,5,...`.
@@ -87,7 +87,7 @@ def infinite_sequence():
     return itertools.count()
 ````
 
-#### 3.1.2.2 Infinite repeating sequence
+#### 4.1.2.2 Infinite repeating sequence
 
 The function [repeat()](https://docs.python.org/3/library/itertools.html#itertools.repeat) produces an iterator that repeats the same value,
 either for a limited number of times or infiinte.
@@ -99,14 +99,14 @@ def repeat_sequence():
     return itertools.repeat("A")
 ````
 
-### 3.1.3 Yield
+### 4.1.3 Yield
 A blocking source is one where a function is called that blocks until it has a value available to return. In a streaming paradigm
 the method needs to be repeatably called fetching a new value each time.
 
 The following sections show operations that process each tuple that passes through the `Stream`.
 
 
-## 3.2 Filtering data
+## 4.2 Filtering data
 You can invoke `filter` on a `Stream` when you want to selectively allow and reject tuples from being passed to another stream. The filtering is done based on a provided callable object. The `Stream.filter()` function takes as input a callable object that takes a single tuple as an argument and returns True or False.
 
 Filtering is an immutable operation. When you filter a stream, the tuples are not altered. (If you want to alter the type or content of a tuple, see the section [Transforming data](#33-transforming-data).)
@@ -150,7 +150,7 @@ To achieve this:
 The `Stream` that is returned, `words_without_a`, contains only words that do not include a lowercase "a".
 
 
-### 3.2.1 The complete application
+### 4.2.1 The complete application
 Your complete application should look like this:
 
 The following code should be in the filter_words.py file:
@@ -182,7 +182,7 @@ def words_without_a(tuple):
 ~~~~~~
 
 
-### 3.2.2 Sample output
+### 4.2.2 Sample output
 Run `python3 filter_words.py`.
 
 The contents of your output will look like this:
@@ -193,7 +193,7 @@ quell
 ~~~~~~
 
 
-## 3.3 Transforming data
+## 4.3 Transforming data
 You can invoke `map` or `flat_map` on a `Stream` when you want to:
 
 * Modify the contents of the tuple
@@ -202,7 +202,7 @@ You can invoke `map` or `flat_map` on a `Stream` when you want to:
 
 The following sections walk you through an example of each type of transform.
 
-### 3.3.1 Map: Modifying the contents of a tuple
+### 4.3.1 Map: Modifying the contents of a tuple
 The `Stream.map()` function takes as input a callable object that takes a single tuple as an argument and returns either 0 or 1 tuples.
 
 For example, you have a `source` function that returns a set of four words from the English dictionary. However, you want to create a `Stream` that contains only the first four letters of each word. You need to use a `map` operation because it enables you to modify the tuple.
@@ -242,7 +242,7 @@ def first_four_letters(tuple):
 ~~~~~~
 
 
-#### 3.3.1.1 Sample output
+#### 4.3.1.1 Sample output
 Run `python3 transform_substring.py`.
 
 The contents of your output look like this:
@@ -257,7 +257,7 @@ quiz
 As you can see, the `map` operation modifies the tuples. In this instance, the operation modifies the tuples so that only the first four letters of each word are returned.
 
 
-### 3.3.2 Map: Changing the type of a tuple
+### 4.3.2 Map: Changing the type of a tuple
 In this example, you have a `Stream` of strings, and each string corresponds to an integer. You want to create a `Stream` that uses the integers, rather than the strings, so that you can perform mathematical operations on the tuples.
 
 To achieve this:
@@ -299,7 +299,7 @@ def multiply2_add1(tuple):
 ~~~~~~
 
 
-#### 3.3.2.1 Sample output
+#### 4.3.2.1 Sample output
 Run `python3 transform_type.py`.
 
 The contents of your output look like this:
@@ -316,7 +316,7 @@ The contents of your output look like this:
 Additionally, you aren't restricted to using built-in Python classes, such as string, integer, float, and so on. You can define your own classes and pass objects of those classes as tuples on a `Stream`.
 
 
-### 3.3.3 Flat_map: Breaking one tuple into multiple tuples
+### 4.3.3 Flat_map: Breaking one tuple into multiple tuples
 The `flat_map` operation transforms each tuple from a `Stream` into 0 or more tuples.  The `Stream.flat_map()` function takes a single tuple as an argument, and returns an iterable of tuples.
 
 For example, you have a `Stream` in which each tuple is a line of text. You want to break each tuple down so that each resulting tuple contains only one word. The order of the words from the original tuple is maintained in the resulting `Stream`.  
@@ -326,7 +326,7 @@ For example, you have a `Stream` in which each tuple is a line of text. You want
 * Define a `sink` function that uses the `print` function to write the tuples to output.
 
 
-#### 3.3.3.1 Sample application
+#### 4.3.3.1 Sample application
 To achieve this:
 
 Include the following code in the multi_transform_lines.py file:
@@ -358,7 +358,7 @@ def split_line(tuple):
 ~~~~~~   
 
 
-#### 3.3.3.2 Sample output
+#### 4.3.3.2 Sample output
 Run `python3 multi_transform_lines.py`.
 
 The contents of your output look like this:
@@ -382,7 +382,7 @@ As you can see, the `flat_map` operation broke each of the original tuples into 
 **Tip:** You can use the `flat_map` operation with any list of Python objects that is serializable with the pickle module. The members of the list can be different classes, such as strings and integers, user-defined classes, or classes provided by a third-party module.
 
 
-## 3.4 Keeping track of state across tuples
+## 4.4 Keeping track of state across tuples
 In the previous examples, you used **stateless** functions to manipulate the tuples on a `Stream`. A stateless function does not keep track of any information about the tuples that have been processed, such as the number of tuples that have been received or the sum of all integers that have been processed.
 
 Keeping track of state information, such as a count or a running total, enables you to create more useful applications.
@@ -434,7 +434,7 @@ class AvgLastN:
 ~~~~~~
 
 
-### 3.4.1 Sample output
+### 4.4.1 Sample output
 Run `python3 transform_stateful.py`.
 
 The contents of your output file should look something like this:
@@ -460,12 +460,12 @@ For example, in stand-alone mode, there is a single copy of a global variable. T
 
 
 
-## 3.5 Creating data sinks
+## 4.5 Creating data sinks
 If you have the data that you need from a particular `Stream`, you need to preserve the tuples on the `Stream` as output. For example, you can use a Python module to write the tuple to a file, write the tuple to a log, or send the tuple to a TCP connection.
 
 For example, you can create a `sink` function that writes the string representations of a tuple to a standard error message.
 
-### 3.5.1 Sample application
+### 4.5.1 Sample application
 To achieve this:
 
 * Define a `Stream` called `source` that is created by calling a function named `source_tuples` that returns a list of string values. (For simplicity, specify a `source` function that returns "tuple1", "tuple2", "tuple3").
@@ -503,7 +503,7 @@ def print_stderr(tuple):
 
 Tip: If the `sink` function prints to the console, ensure the output to stdout or stderr is flushed by calling `sys.stdout.flush()` or `sys.stderr.flush()`, respectively.
 
-### 3.5.2 Sample output
+### 4.5.2 Sample output
 Run `python3 sink_stderr.py`.
 
 The contents of your stderr console looks like this:
@@ -515,7 +515,7 @@ tuple3
 ~~~~~~
 
 
-## 3.6 Splitting streams
+## 4.6 Splitting streams
 You can split a stream into more than one output stream. Splitting a stream enables you to perform different processing on the data depending on an attribute of a tuple. For example, you might want to perform different processing on log file messages depending on whether the message is a warning or an error.
 
 You can split a stream by using any operator. Each time you call a function, such as `filter`, `transform`, or `sink`, the function produces one output stream. If you call a function on the same `Stream` three times, it creates three output streams.  The tuples from the input stream are distributed to all of the destination streams.
@@ -533,7 +533,7 @@ A visual representation of this code would look something like this:
 
 The following example shows how you can distribute tuples from a `source` function to two `sink` functions.  Each `sink` function receives a copy of the tuples from the `source` `Stream`.
 
-### 3.6.1 Sample application
+### 4.6.1 Sample application
 Include the following code in the split_source.py file:
 
 ~~~~~~
@@ -565,7 +565,7 @@ def print2(tuple):
     print("print2", tuple)
 ~~~~~~
 
-### 3.6.2 Sample output
+### 4.6.2 Sample output
 Run `python3 split_source.py`.
 
 The contents of your output file should look something like this:
@@ -581,12 +581,12 @@ print1 tuple3
 ~~~~~~
 
 
-## 3.7 Joining streams (union)
+## 4.7 Joining streams (union)
 You can combine multiple streams into a single `Stream` by using the `union` operation. The `Stream.union()` function takes a set of streams as an input variable and combines them into a single `Stream`. However, the order of the tuples in the output `Stream` is not necessarily the same as in the input streams.
 
 For example, you want to combine the streams from the `source` functions h, b, c, and w. You can combine the streams by using the `union` function and then use the `sink` function to write the resulting `Stream` to output.
 
-### 3.7.1 Sample application
+### 4.7.1 Sample application
 To achieve this:
 
 Include the following code in the union_source.py file:
@@ -630,7 +630,7 @@ def print1(tuple):
 ~~~~~~
 
 
-### 3.7.2 Sample output
+### 4.7.2 Sample output
 Run `python3 union_source.py`.
 
 The contents of your output file should look something like this:
@@ -646,7 +646,7 @@ The contents of your output file should look something like this:
 **Remember:** The order of the tuples might be different in your output.
 
 
-## 3.8 Publishing streams
+## 4.8 Publishing streams
 You can make an output stream available to applications by using the `publish` operation. The `Stream.publish()` function takes the tuples on a stream, converts the tuples to Python objects, JSON objects, or strings, and then publishes the output to a topic. (A topic is based on the MQTT topic specification. For more information, see the [MQTT protocol specification](http://public.dhe.ibm.com/software/dw/webservices/ws-mqtt/mqtt-v3r1.html))
 
 To receive the tuples, an application must subscribe to the topic that you publish by specifying the same topic and schema. For more information see [Subscribing to streams](#39-subscribing-to-streams).
@@ -674,7 +674,7 @@ The schema that you specify determines the type of objects that are published:
 For more information about topics, see [namespace:com.ibm.streamsx.topology.topic].
 
 
-### 3.8.1 Sample code
+### 4.8.1 Sample code
 The `Stream.publish()` function takes as input the name of the topic that you want to publish the tuples to and the schema to publish. The function returns `None`.
 
 For example, you want to publish a stream of integers as JSON objects with the topic 'simple' so that another application in your instance can use the data.
@@ -718,7 +718,7 @@ def delay(v):
 This example is based on the `pubsub` sample in GitHub. If you want more information about how this application works, see [https://github.com/IBMStreams/streamsx.topology/tree/master/samples/python/topology/pubsub](https://github.com/IBMStreams/streamsx.topology/tree/master/samples/python/topology/pubsub)
 
 
-## 3.9 Subscribing to streams
+## 4.9 Subscribing to streams
 If an application publishes a stream to a topic, you can use the `subscribe` operation to pull that data into your application.
 
 **Remember:** The `publish` operation and the `subscribe` operation must be running in the same instance of IBM Streams.
@@ -762,7 +762,7 @@ Python supports the following SPL attribute types:
 
 For more information about topics, see [namespace:com.ibm.streamsx.topology.topic].
 
-### 3.9.1 Sample code
+### 4.9.1 Sample code
 The `Topology.subscribe()` function takes as input the name of the topic that you want to subscribe to and the schema to publish. The function returns a `Stream` whose tuples have been published to the topic by an IBM Streams application.
 
 For example, you want to subscribe to the stream that you published in [Publishing streams](#38-publishing-streams).
@@ -784,7 +784,7 @@ if __name__ == '__main__':
 ~~~~~
 
 
-### 3.9.2 Sample output
+### 4.9.2 Sample output
 Run `python3 subscribe.py`.
 
 The contents of your output file should look something like this:
@@ -799,7 +799,7 @@ The contents of your output file should look something like this:
 ...
 ~~~~~
 
-## 3.10 Publishing streams to an MQTT broker
+## 4.10 Publishing streams to an MQTT broker
 If you are running an IBM Streams application on a remote sensor or device, you can make an output stream available to applications by using the `publish` operation. Publishing a stream to an MQTT broker is similar to publishing a stream to a topic with the following exceptions:
 
 * To publish a stream to an MQTT broker you must configure a connector to enable IBM Streams to communicate with the broker
@@ -820,7 +820,7 @@ Additionally, you can specify other configuration parameters, such as a message 
 
 For more information about the MQTT implementation, see MQTT support at [http://ibmstreams.github.io/streamsx.topology/doc/spldoc/html/tk$com.ibm.streamsx.topology/ns$com.ibm.streamsx.topology.python$5.html](http://ibmstreams.github.io/streamsx.topology/doc/spldoc/html/tk$com.ibm.streamsx.topology/ns$com.ibm.streamsx.topology.python$5.html)
 
-### 3.10.1 Sample code
+### 4.10.1 Sample code
 The `Connector.publish()` function takes as input the name of the stream to publish and the topic on the MQTT server that you want to publish the tuples to. The function returns `None`.
 
 For example, you want to publish a stream to the topic 'python.topic1' on your MQTT server (`tcp://localhost:1883`) so that your central analytic server can access the data that is generated on the remote device where your application is running.
@@ -856,7 +856,7 @@ if __name__ == '__main__':
    main()
 ~~~~~
 
-## 3.11 Subscribing to a stream on an MQTT broker
+## 4.11 Subscribing to a stream on an MQTT broker
 If you are running an IBM Streams application on a remote sensor or device, you can access the tuples from the application if they are published to an MQTT broker. You can retrieve the tuples by using the `subscribe` operation.
 
 * To subscribe to a stream on an MQTT broker you must configure a connector to enable IBM Streams to communicate with the broker. For more information about configuring an MQTT connector, see [Publishing streams to an MQTT broker](#310-publishing-streams-to-an-mqtt-broker)
@@ -864,7 +864,7 @@ If you are running an IBM Streams application on a remote sensor or device, you 
 
 Additionally, to subscribe to the stream, you must specify the same topic and server URI that is specified by the application that publishes the stream.
 
-### 3.11.1 Sample code
+### 4.11.1 Sample code
 The `Connector.subscribe()` function takes as input the name of the topic that you want to subscribe to. The function returns a `Stream` whose tuples have been published to the topic by an IBM Streams application.
 
 For example, you want to subscribe to the stream that you published in [Publishing streams to an MQTT broker](#310-publishing-streams-to-an-mqtt-broker).
@@ -897,7 +897,7 @@ if __name__ == '__main__':
    main()
 ~~~~~
 
-### 3.11.2 Sample output
+### 4.11.2 Sample output
 Run `python3 subscribe_mqtt.py`.
 
 The specific contents of your output file depend on the publisher that you subscribe to.

@@ -1,6 +1,6 @@
 ---
 layout: docs
-title: 1.0 Installing
+title: 1.0 Installing Python APIs
 description: Prerequisites and installation instructions for the Python Application API
 weight:  20
 published: true
@@ -9,8 +9,8 @@ prev:
   file: python-appapi-devguide
   title: Developing IBM Streams Applications with Python
 next:
-  file: python-appapi-devguide-3
-  title: 2.0 Developing your first application
+  file: python-appapi-devguide-2a
+  title: 2.0 Developing for the Streaming Analytics service
 ---
 
 Before you can create your first Python application with the Python Application API and a local version of IBM Streams, you must complete the following setup tasks:
