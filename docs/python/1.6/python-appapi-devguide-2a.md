@@ -92,7 +92,7 @@ The streaming application must be able to access the service. To set up access t
    Paste your credentials using the following command:
 
    ```python
-   c = *paste your credentials here*
+   creds = *paste your credentials here*
    ```
 
 3. Enter the name of your service. A valid build configuration object is required to submit your application -- here we can use the `build_streams_config` function to create it given the service name and credentials that were provided:
@@ -118,7 +118,7 @@ The streaming application must be able to access the service. To set up access t
        }
        return config
 
-   streams_conf = build_streams_config(service_name=service_name, credentials=c)
+   streams_conf = build_streams_config(service_name, creds)
    ```
 
 ## 2.5 Creating a topology object
