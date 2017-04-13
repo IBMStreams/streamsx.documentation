@@ -129,7 +129,7 @@ from streamsx.topology.topology import Topology
 topo = Topology("temperature_sensor")
 ~~~~~~
 
-A streaming analytics application is a directed flow graph that specifies how data is generated and processed. The `Topology` object contains information about the structure of the directed flow graph.
+A streaming analytics application is a directed graph that specifies how data is generated and processed, also called a "flow graph". The `Topology` object contains information about the structure of the directed flow graph.
 
 
 ## 2.6 Defining a data source
