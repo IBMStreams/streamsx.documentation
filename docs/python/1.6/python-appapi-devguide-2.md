@@ -13,39 +13,17 @@ next:
   title: 2.0 Developing for the Streaming Analytics service
 ---
 
-Before you can create your first Python application with the Python Application API and a local version of IBM Streams, you must complete the following setup tasks:
+The Python language support package is shipped with IBM Streams. You can also download the package as part of the com.ibm.streamsx.topology toolkit or as a stand-alone streamsx Python package.
 
-1. Install version 4.0.1 (or later) of IBM Streams or IBM Streams Quick Start Edition:
+## 1.1 Topology toolkit (com.ibm.streamsx.topology)
 
-    * [IBM Streams Version 4.2.0 installation documentation](http://www.ibm.com/support/knowledgecenter/SSCRJU_4.2.0/com.ibm.streams.install.doc/doc/installstreams-container.html)
+The topology toolkit comes with IBM Streams 4.2 or later. It's located in* `$STREAMS_INSTALL/toolkits/com.ibm.streamsx.topology`.
 
-    * [IBM Streams Quick Start Edition Version 4.2.0 installation documentation](http://www.ibm.com/support/knowledgecenter/SSCRJU_4.2.0/com.ibm.streams.qse.doc/doc/installtrial-container.html)
+You can download the latest version of the toolkit from https://github.com/IBMStreams/streamsx.topology/releases/latest.
 
-1. Ensure that you configure the IBM Streams product environment variable by entering the following command:
+## 1.2 Stand-alone streamsx Python package
 
-        source product-installation-root-directory/4.n.n.n/bin/streamsprofile.sh
+The streamsx Python package is available for download from https://pypi.python.org/pypi/streamsx. You can install it with the **pip** command:
 
-    **Tip:** Add the source command to your `home-directory/.bashrc` shell initialization file. Otherwise, you must enter the command every time you start IBM Streams. For example, if the product is installed in the `/home/streamsadmin/InfoSphere_Streams/4.2.0.0` directory, add the following line to your `.bashrc` file:
-
-        source /home/streamsadmin/InfoSphere_Streams/4.2.0.0/bin/streamsprofile.sh
-
-
-1. If you are using IBM Streams 4.2 or later, you can skip this step because the Python Application API is included  at* `$STREAMS_INSTALL/toolkits/com.ibm.streamsx.topology`. <br><br>If you are using an earlier version of IBM Streams, you must: 
-    1. Download the latest version of the IBM Streams Topology toolkit from the IBMStreams organization on GitHub from the streamsx.topology [Releases page](https://github.com/Ibmstreams/streamsx.topology/releases).
-    1. After the toolkit downloads, extract it to your file system.
-
-1. Install a supported version of Python:
-
-   * *Recommended* - Anaconda 4.0.0 or later, which includes Python 3.5.0 [https://www.continuum.io/downloads](https://www.continuum.io/downloads).
-   
-   * CPython 3.5.0 or later [https://www.python.org](https://www.python.org).
-
-   The Python Application API was tested with Python 3.5.1.
-   
-   **Important:** To build IBM Streams application bundles with the Python Application API that can be submitted to your IBM Streaming Analytics service you **must**:
-     * Use Anaconda 4.1.1 (Python 3.5 version) or later.
-     * Install Anaconda at `/disk1/opt/Anaconda3` on the machine where you execute the Python code that builds the topology and submits it to the `BUNDLE` context.
-
-1. Include the fully qualified path of the `com.ibm.streamsx.topology/opt/python/packages` directory in the PYTHONPATH environment variable. For example:
-
-        export PYTHONPATH=/home/myuser/download/com.ibm.streamsx.topology/opt/python/packages:$PYTHONPATH
+        pip install streamsx
+        
