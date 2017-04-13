@@ -219,7 +219,7 @@ The following code should be in the temperature_sensor.py file, which is your ma
 from streamsx.topology import context
 from streamsx.topology.topology import Topology
 from streamsx.topology.context import *
-import temperature_sensor_functions
+import random
 
 def build_streams_config(service_name, credentials):
      vcap_conf = {
@@ -237,32 +237,22 @@ def build_streams_config(service_name, credentials):
      }
      return config
 
+def readings():
+    while True:
+        yield random.gauss(0.0, 1.0)
+
 def main():
-    c={
-       # ... *paste your credentials here*
-    }
+    creds = *paste your credentials here*
 
     service_name="service_name" #Change this to your service name
-    streams_conf = build_streams_config(service_name=service_name, credentials=c)
+    streams_conf = build_streams_config(service_name, creds)
 
     topo = Topology("temperature_sensor")
-    source = topo.source(temperature_sensor_functions.readings)
+    source = topo.source(readings)
     source.sink(print)
     context.submit('STREAMING_ANALYTICS_SERVICE', topo, config=streams_conf)
 
 if __name__ == '__main__':
      main()
-
-~~~~~~
-
-
-The following code should be in the temperature_sensor_functions.py file:
-
-~~~~~~
-import random
-
-def readings():
-     while True:
-         yield random.gauss(0.0, 1.0)
 
 ~~~~~~
