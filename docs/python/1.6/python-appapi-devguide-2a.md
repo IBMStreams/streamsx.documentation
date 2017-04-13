@@ -133,12 +133,9 @@ A streaming analytics application is a directed graph that specifies how data is
 
 
 ## 2.6 Defining a data source
-The `Topology` object also includes functions that enable you to define your data sources. In this application, the data source is the temperature sensor.
+The `Topology` object also includes functions that enable you to define your data sources. In this application, the data source is a simulated temperature sensor. The readings are obtained by defining a Python generator function that returns an iterator of random numbers.
 
-In this example, simulate temperature sensor readings by defining a Python generator function that returns an iterator of random numbers.
-
-
-Create a new file called temperature_sensor_functions.py :
+Define the following function:
 
 ~~~~~~
 import random
@@ -147,7 +144,7 @@ def readings():
         yield random.gauss(0.0, 1.0)
 ~~~~~~
 
-The `Topology.source()` function takes as input a zero-argument callable object, such as a function or an instance of a callable class, that returns an iterable of tuples. In this example, the input to `source` is the `readings()` function.  The `source` function calls the `readings()` function, which returns a generator object.  The `source` function gets the iterator from the generator object and repeatedly calls the `next()` function on the iterator to get the next tuple, which returns a new random temperature reading each time.
+The `Topology.source()` function takes as input a zero-argument callable object, such as a function or an instance of a callable class, that returns an iterable of tuples. In this example, the input to `source` is the `readings()` function.  The `source` function calls the `readings()` function, which returns a generator object.  The `source` function gets the iterator from the generator object and repeatedly calls the `next()` function on the iterator, which retrieves new random temperature reading on each invocation
 
 In this example, data is obtained by calling the `random.gauss()` function. However, you can use a live data source instead of the `random.gauss()` function.
 
