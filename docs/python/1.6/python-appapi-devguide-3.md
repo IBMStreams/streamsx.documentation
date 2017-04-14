@@ -7,17 +7,19 @@ published: true
 tag: py16
 prev:
   file: python-appapi-devguide-2
-  title: 2.0 Developing with the IBM Streaming Analytics service
+  title: 2.0 Developing for the IBM Streaming Analytics service
 next:
   file: python-appapi-devguide-4
   title: 4.0 Common Streams operations
 ---
 
+Follow the steps in this tutorial to get started with the Python Application API by creating an application that reads data from a temperature sensor and prints the output to the screen. This tutorial requires a local installation of IBM Streams.
+
+## About streaming analytics applications
+
 Streaming analytics applications are intended to run indefinitely because they meet the need for real-time data processing. (Unlike applications created for the Apache Hadoop framework, which are intended to terminate when a batch of data is successfully processed.) For example, consider a company whose product scans temperature sensors across the world to determine weather patterns and trends. Because there is always a temperature, there is a perpetual need to process data. The application that processes the data must be able to run for an indefinite amount of time.
 
-The application must also be scalable. If the number of temperature sensors doubles, the application must double the speed at which it processes data to ensure that analysis is available in a timely manner. With the Python Application API, you can develop a streaming analytics application natively in Python.
-
-To get started with the Python Application API, you'll use the example of reading data from a temperature sensor and printing the output to the screen.
+The application must also be scalable. If the number of temperature sensors doubles, the application must double the speed at which it processes data to ensure that analysis is available in a timely manner. 
 
 ## 3.1 Setting up your environment
 Before you can create your first Python application with the Python Application API and a local version of IBM Streams, you must complete the following setup tasks:
@@ -134,10 +136,10 @@ streamsx.topology.context.submit("STANDALONE", topo)
 
 **Remember:** You can run your application in the following ways:
 
-* As a **Streams distributed application** (DISTRIBUTED). When running in this mode, the application produced will be deployed automatically on your IBM Streams instance.
+* As a **Streams distributed application** (DISTRIBUTED). When running in this mode, the application produced will be deployed automatically on your IBM Streams instance. The Streaming Analytics service is built on IBM Streams technology. You don't need a local version of IBM Streams to build Python applications for the service.
 * As a **Streams Application Bundle file** (BUNDLE). When running in this mode, the application produces a SAB file that you can then deploy on your IBM Streams instance by using the `streamtool submitjob` command or by using the application console.
 * As a **stand-alone application** (STANDALONE).  When running in this mode, the application produces a Streams Application Bundle file (SAB file), but rather than submitting the SAB file to an instance, the bundle is executed. The bundle runs within a single process and can be terminated with Ctrl-C interrupts.
-* As a **Streaming Analytics service running on IBM Bluemix cloud platform** (STREAMING_ANALYTICS_SERVICE). In this mode,  the application will run in the cloud in a Streaming Analytics service.
+* As a **Streaming Analytics service running on IBM Bluemix** (STREAMING_ANALYTICS_SERVICE). In this mode,  the application will run in the cloud in a Streaming Analytics service.
 
 
 ## 3.7 The complete application
