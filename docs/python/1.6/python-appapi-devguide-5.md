@@ -12,9 +12,9 @@ prev:
 
 If a particular portion of your graph is causing congestion because the application needs additional throughput at that point, you can define a **parallel region** in your graph. A parallel region enables the application to use multiple channels to run operations (such as filtering or transforming data) concurrently.
 
-In the [Developing your first application](../python-appapi-devguide-3/) section, you created a topology and defined a pseudo temperature source. In this example, you want to convert all of the source tuples from Celsius to Kelvin.
+In a previous example, you created a topology and defined a pseudo temperature source. In this example, you want to convert all of the source tuples from Celsius to Kelvin.
 
-To achieve this, add a function called `convertToKelvin()` to the application you created in the [Developing your first application](../python-appapi-devguide-3/) section.
+To achieve this, add a function called `convertToKelvin()` to the application you created in an earlier section.
 
 Your application should look like this:
 
