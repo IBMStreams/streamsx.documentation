@@ -32,11 +32,7 @@ To get started with the Python Application API, follow the tutorials in this gui
 * One tutorial creates the application in your local Python environment so that the application runs in the IBM Streaming Analytics service and doesn’t require a local installation of IBM Streams. 
 * The other tutorial shows you how to create the same application that runs in stand-alone mode and requires a local installation of IBM Streams.
 
-If you prefer to dig in to the Pydoc yourself, you can find the documentation in the following installation directories:
-
-* `com.ibm.streamsx.topology/doc/pydoc/streamsx.topology.context.html`
-* `com.ibm.streamsx.topology/doc/pydoc/streamsx.topology.topology.html`
-
+You can find the reference documentation for the Python Application API at: http://ibmstreams.github.io/streamsx.topology/doc/releases/1.6/pythondoc/index.html
 
 **Terminology**
 If you're new to IBM Streams and want to learn more about the terms in this guide, see the [IBM Streams glossary](http://www.ibm.com/support/knowledgecenter/SSCRJU_4.2.0/com.ibm.streams.glossary.doc/doc/glossary_streams.html) in IBM Knowledge Center.
