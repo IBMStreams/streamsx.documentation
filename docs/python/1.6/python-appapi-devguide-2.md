@@ -18,11 +18,11 @@ The Python language support package is shipped with IBM Streams. You can also do
 * Topology toolkit (com.ibm.streamsx.topology)
 
   The topology toolkit comes with IBM Streams 4.2 or later. It's located in: `$STREAMS_INSTALL/toolkits/com.ibm.streamsx.topology`.
-  <br>You can download the latest version of the toolkit from https://github.com/IBMStreams/streamsx.topology/releases/latest.
+  <br>You can download the latest version of the toolkit from (https://github.com/IBMStreams/streamsx.topology/releases/latest).
 
 * Stand-alone streamsx Python package
 
-  The streamsx Python package is available for download from https://pypi.python.org/pypi/streamsx. You can install it with the **pip** command:
+  The streamsx Python package is available for download from (https://pypi.python.org/pypi/streamsx). You can install it with the **pip** command:
 
         !pip install streamsx
         
