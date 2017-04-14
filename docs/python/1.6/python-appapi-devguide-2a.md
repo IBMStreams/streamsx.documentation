@@ -61,7 +61,7 @@ The following steps show how you can set up your Python development environment:
 3. Install the latest streamsx package with *pip*, a package manager for Python.
 
    ```
-   !pip install --user --upgrade streamsx
+   pip install --user --upgrade streamsx
    ```
 
 ## 2.2 Starting a Streaming Analytics service
