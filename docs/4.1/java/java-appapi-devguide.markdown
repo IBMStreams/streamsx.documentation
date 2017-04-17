@@ -391,7 +391,7 @@ Or, more concisely with Java 8 lambda expressions:
 
 ~~~~~~
 TStream<String> strings = ...;
-strings.sing(string -> System.err.println(string));
+strings.sink(string -> System.err.println(string));
 ~~~~~~
 
 # API Features
