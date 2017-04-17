@@ -21,9 +21,13 @@ The Java Application API is fully compatible with IBM Streams version 4.0.0 and 
 
 ## Setting up environment
 
-There are three primary ways to get started with the API. If you are trying the API for the first time, the Streams Quick Start Edition VM is likely the fastest way to start working with the tutorials on this page. Download it at the following link to get started: [Streams Quick Start Edition VM](http://www-01.ibm.com/software/data/infosphere/stream-computing/trials.html)
+There are three primary ways to get started with the API. If you are trying the API for the first time, the Streams Quick Start Edition VM is likely the fastest way to start working with the tutorials on this page.  The Streams Quick Start Edition VM contains a ready-to-go release of IBM  Streams. It includes IBM Streams Studio, which provides an intuitive, visual representation of your streaming application. You can download it using the link below.
 
-The Streams Quick Start Edition VM contains a ready-to-go release of IBM  Streams. Additionally, the Quick Start VM comes bundled with IBM Streams Studio, which provides an intuitive, visual representation of your streaming application. After you've downloaded it, start the VM, open a console and type:
+
+{% include download.html%}
+
+
+After you've downloaded it, start the VM, open a console and type:
 
 ~~~~~~
 streamtool startinstance
