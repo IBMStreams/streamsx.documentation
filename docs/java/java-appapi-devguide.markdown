@@ -400,7 +400,7 @@ strings.sing(string -> System.err.println(string));
 The Java Application API comes with a number of features that are of great use to a streams developer. Chief among these are User-Defined Parallelism (UDP), and windowing. Both features are implementations of standard patterns that are commonly seen in many streaming application frameworks.
 
 ### User-Defined Parallelism:
-If a particular portion of your graph is bottelnecking, and there needs to be additional throughput, making it a parallel region allows multiple threads and processes to handle the various transformations and filterings of the data in parallel. Take the temperature reading example from the intro guide. Let's suppose that temperature reading are being taken so rapidly, that one thread is insufficient to convert it to Celcius to Kelvin quickly enough. In this case, parallel is a great tool:
+If there is a bottleneck in a particular portion of your graph and there needs to be additional throughput, try making it a parallel region.  This allows multiple threads and processes to handle the various transformations and filterings of the data in parallel. Take the temperature reading example from the intro guide. Let's suppose that temperature reading are being taken so rapidly, that one thread is insufficient to convert it to Celcius to Kelvin quickly enough. In this case, parallel is a great tool:
 
 ~~~~~~
     public static void main(String args[]){    
