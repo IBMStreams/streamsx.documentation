@@ -92,12 +92,10 @@ The streaming application must be able to access the service. To set up access t
    Paste your credentials using the following command:
 
    ```python
-   c={
-     # ... *paste your credentials here*
-   }
+   creds = *paste your credentials here*
    ```
 
-3. Enter the name of your service and define the build configuration used to deploy your application to the service:
+3. Enter the name of your service. A valid build configuration object is required to submit your application -- here we can use the `build_streams_config` function to create it given the service name and credentials that were provided:
 
    ```python
    from streamsx.topology import context
@@ -120,7 +118,7 @@ The streaming application must be able to access the service. To set up access t
        }
        return config
 
-   streams_conf = build_streams_config(service_name=service_name, credentials=c)
+   streams_conf = build_streams_config(service_name, creds)
    ```
 
 ## 2.5 Creating a topology object
@@ -131,16 +129,13 @@ from streamsx.topology.topology import Topology
 topo = Topology("temperature_sensor")
 ~~~~~~
 
-A streaming analytics application is a directed flow graph that specifies how data is generated and processed. The `Topology` object contains information about the structure of the directed flow graph.
+A streaming analytics application is a directed graph that specifies how data is generated and processed, also called a "flow graph". The `Topology` object contains information about the structure of the directed flow graph.
 
 
 ## 2.6 Defining a data source
-The `Topology` object also includes functions that enable you to define your data sources. In this application, the data source is the temperature sensor.
+The `Topology` object also includes functions that enable you to define your data sources. In this application, the data source is a simulated temperature sensor. The readings are obtained by defining a Python generator function that returns an iterator of random numbers.
 
-In this example, simulate temperature sensor readings by defining a Python generator function that returns an iterator of random numbers.
-
-
-Create a new file called temperature_sensor_functions.py :
+Define the following function:
 
 ~~~~~~
 import random
@@ -149,23 +144,20 @@ def readings():
         yield random.gauss(0.0, 1.0)
 ~~~~~~
 
-The `Topology.source()` function takes as input a zero-argument callable object, such as a function or an instance of a callable class, that returns an iterable of tuples. In this example, the input to `source` is the `readings()` function.  The `source` function calls the `readings()` function, which returns a generator object.  The `source` function gets the iterator from the generator object and repeatedly calls the `next()` function on the iterator to get the next tuple, which returns a new random temperature reading each time.
+The `Topology.source()` function takes as input a zero-argument callable object, such as a function or an instance of a callable class, that returns an iterable of tuples. In this example, the input to `source` is the `readings()` function.  The `source` function calls the `readings()` function, which returns a generator object.  The `source` function gets the iterator from the generator object and repeatedly calls the `next()` function on the iterator, which retrieves new random temperature reading on each invocation
 
 In this example, data is obtained by calling the `random.gauss()` function. However, you can use a live data source instead of the `random.gauss()` function.
 
 
 ## 2.7 Creating a Stream
-The `Topology.source()` function produces a `Stream` object, which is a potentially infinite flow of tuples in an application. Because a streaming analytics application can run indefinitely, there is no upper limit to the number of tuples that can flow over a `Stream`.
+The `Topology.source()` function produces a `Stream` object, which represents a potentially infinite sequence of tuples. Because a streaming analytics application can run indefinitely, there is no upper limit to the number of tuples that can flow over a `Stream`.
 
-Tuples flow over a `Stream` one at a time and are processed by subsequent data **operations**. Operations are discussed in more detail in the [Common Streams operations](../python-appapi-devguide-4/) section of this guide.
+Tuples flow over a `Stream` one at a time and are processed by subsequent data **operations**. Operations are discussed in more detail in the [Common Streams operations](../python-appapi-devguide-4/) section of this guide. A tuple can be any Python object that is serializable by using the pickle module.
 
-A tuple can be any Python object that is serializable by using the pickle module.
-
-Returning to the interpreter, create a source stream with the following line:
+Returning to the application, create a source stream with the following line:
 
 ~~~~~~
-import temperature_sensor_functions
-source = topo.source(temperature_sensor_functions.readings)
+source = topo.source(readings)
 ~~~~~~
 
 
@@ -189,7 +181,8 @@ The `Stream.sink()` operation takes as input a callable object that takes a sing
 After you define the application, you can submit it by using `streamsx.topology.context` module. When you submit the application, use the `submit()` function from the `streamsx.topology.context` module to submit the application.  Use the `STREAMING_ANALYTICS_SERVICE` context to submit your Python application (the `topo` object) to the Streaming Analytics service. The config object contains the credentials required to access the service:
 
 ``` python
-context.submit('STREAMING_ANALYTICS_SERVICE', topo, config=streams_conf)
+from streamsx.topology import context
+context.submit(context.ContextTypes.STREAMING_ANALYTICS_SERVICE, topo, config=streams_conf)
 ```
 
 After your application is running in the Streaming Analytics service, you can monitor the application through the Streams Console in your service.
@@ -226,7 +219,7 @@ The following code should be in the temperature_sensor.py file, which is your ma
 from streamsx.topology import context
 from streamsx.topology.topology import Topology
 from streamsx.topology.context import *
-import temperature_sensor_functions
+import random
 
 def build_streams_config(service_name, credentials):
      vcap_conf = {
@@ -244,32 +237,22 @@ def build_streams_config(service_name, credentials):
      }
      return config
 
+def readings():
+    while True:
+        yield random.gauss(0.0, 1.0)
+
 def main():
-    c={
-       # ... *paste your credentials here*
-    }
+    creds = *paste your credentials here*
 
     service_name="service_name" #Change this to your service name
-    streams_conf = build_streams_config(service_name=service_name, credentials=c)
+    streams_conf = build_streams_config(service_name, creds)
 
     topo = Topology("temperature_sensor")
-    source = topo.source(temperature_sensor_functions.readings)
+    source = topo.source(readings)
     source.sink(print)
-    context.submit('STREAMING_ANALYTICS_SERVICE', topo, config=streams_conf)
+    context.submit(context.ContextTypes.STREAMING_ANALYTICS_SERVICE, topo, config=streams_conf)
 
 if __name__ == '__main__':
      main()
-
-~~~~~~
-
-
-The following code should be in the temperature_sensor_functions.py file:
-
-~~~~~~
-import random
-
-def readings():
-     while True:
-         yield random.gauss(0.0, 1.0)
 
 ~~~~~~
