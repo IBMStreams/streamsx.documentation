@@ -8,6 +8,9 @@ tag: py16
 prev:
   file: python-appapi-devguide-4
   title: 4.0 Common streams operations
+next:
+  file: python-appapi-devguide-6
+  title: 6.0 The Python REST API
 ---
 
 If a particular portion of your graph is causing congestion because the application needs additional throughput at that point, you can define a **parallel region** in your graph. A parallel region enables the application to use multiple channels to run operations (such as filtering or transforming data) concurrently.
