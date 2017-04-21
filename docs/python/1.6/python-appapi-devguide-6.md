@@ -28,7 +28,7 @@ The primary abstraction in the Python REST API is the `StreamsConnection` class 
 >>> sc = rest.StreamsConnection(username="streamsadmin", password="passw0rd")
 ```
 
-By default, the `StreamsConnection` connects to a local streams install. Users who are connecting to the Streaming Analytics service on Bluemix, should instead instantiate a subclass of `StreamsConnection` called `StreamingAnalyticsConnection`. Instead of a username and password, the constructor arguments should the path to a `vcap` file, and the name of the Streaming Analytics service:
+By default, the `StreamsConnection` connects to a local streams install. Users who are connecting to the Streaming Analytics service on Bluemix, should instead instantiate a subclass of `StreamsConnection` called `StreamingAnalyticsConnection`. Instead of a username and password, the constructor arguments should include the path to a `vcap` file, and the name of the Streaming Analytics service:
 
 ```
 >>> from streamsx import rest
@@ -39,7 +39,7 @@ The `StreamsConnection` retrieves runtime information about your application via
 
 # Retrieving Resources Elements
 
-The `StreamsConnection` object represents the root in a tree of resource elements, where each node in the tree is a resource that can be queried to retrieve its state. If we look at the fields and methods exposed by `StreamsConnection`, we see several methods related to obtaining a resource element:
+The `StreamsConnection` object represents the root in a tree of resource elements, where each node in the tree is a resource that can be queried to retrieve its state. If we look at the methods exposed by `StreamsConnection`, we see several related to obtaining a resource element:
 
 ```
 sc.get_instance()
@@ -106,7 +106,7 @@ The `instance.status` field reflects whether or not the instance is running. An 
 'views': 'https://streams-console-c6d1.ng.bluemix.net/streams/rest/instances/dd5f603a-7fb1-4e9b-861c-e15542e2d423/views'
 ```
 
-A complete reference for the types of resources and their fields can be found in the [IBM Streams Knowledge Center](https://www.ibm.com/support/knowledgecenter/SSCRJU_4.2.0/com.ibm.streams.restapi.doc/doc/restapis.html). As previously mentioned, resource elements are arranged in a hierarchy. The `StreamsConnection` object exposes methods for retrieving its children; similarly, we can understand the child elements of the`instance` resource by inspecting its methods:
+A complete reference for the types of resources and their fields can be found in the [IBM Streams Knowledge Center](https://www.ibm.com/support/knowledgecenter/SSCRJU_4.2.0/com.ibm.streams.restapi.doc/doc/restapis.html). As previously mentioned, resource elements are arranged in a hierarchy. We can understand the child elements of the`instance` resource by inspecting its methods:
 
 ```
 >>> instance.
@@ -122,7 +122,7 @@ inst.get_active_services(       inst.get_pes(
 inst.get_domain(                inst.get_published_topics(  
 ```
 
-Given the presence of the `get_jobs` method, you'll note that the `job` resource is a child of the `instance` resource. Furthermore, the `operator` resource is a child of `job`. To find all operators associated with an instance, one could write the following script:
+The presence of the `get_jobs` method indicates that the `job` resource is a child of the `instance` resource. Furthermore, the `operator` resource is a child of the `job` resource. To find the names of all operators associated with an instance, one could write the following script:
 
 ```
 >>> from streamsx import rest
@@ -132,8 +132,6 @@ Given the presence of the `get_jobs` method, you'll note that the `job` resource
 ...     for operator in instance.get_operators():
 ...         print(operator.name)
 ... 
-
-
 identity
 list_2
 neural_net_model
@@ -141,5 +139,89 @@ Op.PublishTopic.TopicProperties
 periodicSource
 print_flush
 ```
+
+# Cancelling jobs
+
+The Python REST API is not strictly read only, the REST API also has the ability to cancel jobs. This functionality is exposed through the `job.cancel()` method. A user who wants to cancel a job could do so as follows:
+
+```
+>>> from streamsx import rest
+>>> sc = rest.StreamsConnection(username='streamsadmin', password='passw0rd')
+>>> instance = sc.get_instances()[0]
+>>> job = instance.get_jobs()[0]
+>>> if job.cancel():
+...     print("The job was successfully canceled.")
+... else:
+...     print("Error canceling job.")
+...
+The job was successfully canceled.
+```
+
+Cancelling remote jobs has the benefit of freeing up resources; or, if the application is running as part of a test suite, to cancel the completed test.
+
+# Accessing the Tuples of a View
+
+Streaming applications process unbounded amounts of data in real time. Naturally, users might wish to have access to the data stream for purposes of visualization or additional monitoring. To this end, the Python REST API allows developers to retrieve the tuples of any Stream that has been created with a view. In the Python Application API, a view is created on a stream by calling the `view` method:
+
+```
+>>> from streamsx.topology import Topology
+>>> top = Topology("myApplication")
+>>> strm = top.source(["Hello", "world!"])
+>>> strm.view(name="myView")
+```
+
+The last line of code, `strm.view()`, marks the `strm` stream as viewable, meaning we can access its tuples with the Python REST API. When the application is submitted, a `view` resource element is created as a child of `job` and `instance`. To find all views associated with an instance, we can call the `instance.get_views()` method:
+```
+>>> from streamsx import rest
+>>> sc = rest.StreamsConnection(username='streamsadmin', password='passw0rd')
+>>> instance = sc.get_instances()[0]
+>>> views = instance.get_views()
+>>> print(len(views))
+2
+```
+
+Or, if we want to retrieve all views associated with a job, we can call the `jobs.get_views()` method:
+```
+>>> from streamsx import rest
+>>> sc = rest.StreamsConnection(username='streamsadmin', password='passw0rd')
+>>> instance = sc.get_instances()[0]
+>>> job = instance.get_jobs()[0]
+>>> views = job.get_views()
+>>> print(len(views))
+1
+```
+
+Each view can be created with a name. In the former code, we created a view called `myView`. We can locate the `myView` view by iterating through the list of views and checking whether the name matches:
+```
+>>> myView = None
+>>> for view in views:
+...     if view.name == "myView":
+...         myView = view
+...
+>>> if myView:
+...     print("Successfully located myView")
+... else:
+...     print("Could not locate myView")
+Successfully located myView
+```
+
+Once the correct view is located, its data can be obtained by calling the `view.start_data_fetch()` method. `view.start_data_fetch()` returns a queue whose contents is updated to reflect the contents of the remote Stream. The queue is continuously populated by a background thread until `view.stop_data_fetch()` is invoked. The following is an example of how this would work in practice:
+
+```
+>>> queue = view.start_data_fetch()
+>>> try:
+...     for item in iter(queue.get, None):
+...         print(item)
+... except KeyboardInterrupt:
+...     view.stop_data_fetch()
+Hello
+world!
+^C
+>>>
+```
+
+Going line by line, `queue = view.start_data_fetch()` begins fetching stream data from the remote view to populate the created `queue.` Next, `for item in iter(queue.get, None)` creates an iterator using the queue, and iterates over its values and simply printing them to the screen with `print(item)`. For the sake of this example, data is consumed until the user sends an interrupt with Control-C, although the user is free to decide when and how data stops being consumed. Lastly, when the user sends an interrupt, `view.stop_data_fetch()` is invoked which terminates the background thread, and data ceases to be retrieved from the remote view.
+
+The ability to obtain live stream data from a running job has proved valuable for real time data visualization. For example, the stream could be sending temperature readings from an engine to be analyzed by a mechanic. High temperature readings could be a signal the limit the engine's maximum RPMs. Jupyter notebooks provide an ideal platform for performing this kind of visualization.
 
 
