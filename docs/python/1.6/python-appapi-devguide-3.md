@@ -19,7 +19,7 @@ Follow the steps in this tutorial to get started with the Python Application API
 
 Streaming analytics applications are intended to run indefinitely because they meet the need for real-time data processing. (Unlike applications created for the Apache Hadoop framework, which are intended to terminate when a batch of data is successfully processed.) For example, consider a company whose product scans temperature sensors across the world to determine weather patterns and trends. Because there is always a temperature, there is a perpetual need to process data. The application that processes the data must be able to run for an indefinite amount of time.
 
-The application must also be scalable. If the number of temperature sensors doubles, the application must double the speed at which it processes data to ensure that analysis is available in a timely manner. 
+The application must also be scalable. If the number of temperature sensors doubles, the application must double the speed at which it processes data to ensure that analysis is available in a timely manner.
 
 ## 3.1 Setting up your environment
 Before you can create your first Python application with the Python Application API and a local version of IBM Streams, you must complete the following setup tasks:
@@ -39,28 +39,38 @@ Before you can create your first Python application with the Python Application 
         source /home/streamsadmin/InfoSphere_Streams/4.2.0.0/bin/streamsprofile.sh
 
 
-1. If you are using IBM Streams 4.2 or later, you can skip this step because the Python Application API is included at* `$STREAMS_INSTALL/toolkits/com.ibm.streamsx.topology`. <br><br>If you are using an earlier version of IBM Streams, you must:
-    1. Download the latest version of the IBM Streams Topology toolkit from the IBMStreams organization on GitHub from the streamsx.topology [Releases page](https://github.com/Ibmstreams/streamsx.topology/releases).
+1. If you are using IBM Streams 4.2 or later, the Python Application API is included at `$STREAMS_INSTALL/toolkits/com.ibm.streamsx.topology`. <br><br>If you are using an earlier version of IBM Streams, or if you would like to upgrade to the latest version of the IBM Streams Topology toolkit,  you must:
+    1. Download the latest version of the toolkit from the streamsx.topology [Releases page](https://github.com/Ibmstreams/streamsx.topology/releases) on GitHub.
     1. After the toolkit downloads, extract it to your file system.
-    
 
-1. Ensure that you have installed a supported version of Python: 
+
+1. Ensure that you have installed a supported version of Python:
 
    * Python 2.7 and Python 3.5 are supported.
-   
+
       **Important:** Python 3.5 is required to build application bundles with the Python Application API that can be submitted to your IBM Streaming Analytics service.
 
-   You can install a supported version of Python from:
+1. Install a supported version of Python, if needed. You can choose from one of these options:
    * *Recommended* Anaconda [https://www.continuum.io/downloads](https://www.continuum.io/downloads)
 
    * CPython [https://www.python.org](https://www.python.org)
 
-
+     If building Python from source, remember to pass `--enable-shared` as a parameter to  `configure`.  After installation, set `LD_LIBRARY_PATH` to `Python_Install>/lib`.
 
 
 1. Include the fully qualified path of the `com.ibm.streamsx.topology/opt/python/packages` directory in the PYTHONPATH environment variable. For example:
 
         export PYTHONPATH=/home/myuser/download/com.ibm.streamsx.topology/opt/python/packages:$PYTHONPATH
+1. Set the `PYTHONHOME` appplication environment variable on your Streams instance.
+
+        streamtool setproperty -i <INSTANCE_ID> -d <DOMAIN_ID> --application-ev PYTHONHOME=<path_to_python_install>
+
+     For example, if using the Quick Start Edition:
+
+        streamtool setproperty -i StreamsInstance -d StreamsDomain --application-ev PYTHONHOME=/opt/pyenv/versions/3.5.1
+
+     You can also set the environment variable from the Streams Console.
+
 
 
 ## 3.2 Creating a topology object

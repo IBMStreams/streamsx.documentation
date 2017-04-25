@@ -11,5 +11,5 @@ We have over 100 readily usable examples, from very simple to complex.
 
 Download a copy of these examples from the [releases page](https://github.com/IBMStreams/samples/releases) of the samples project.
 
-You may also browse these samples here:
+You can also browse these samples by category in the [samples catalog](https://ibmstreams.github.io/samples):
 {% include sampleIndex.html%}
