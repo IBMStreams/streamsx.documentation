@@ -50,7 +50,7 @@ Before you can create your first Python application with the Python Application 
 
       **Important:** Python 3.5 is required to build application bundles with the Python Application API that can be submitted to your IBM Streaming Analytics service.
 
-1. Install a supported version of Python, if needed. You can choose from one of these options:
+1. If you are using the Streams Quick Start Edition, you can skip this step. Otherwise, install a supported version of Python, if needed. You can choose from one of these options:
    * *Recommended* Anaconda [https://www.continuum.io/downloads](https://www.continuum.io/downloads)
 
    * CPython [https://www.python.org](https://www.python.org)
@@ -64,10 +64,6 @@ Before you can create your first Python application with the Python Application 
 1. Set the `PYTHONHOME` appplication environment variable on your Streams instance.
 
         streamtool setproperty -i <INSTANCE_ID> -d <DOMAIN_ID> --application-ev PYTHONHOME=<path_to_python_install>
-
-     For example, if using the Quick Start Edition:
-
-        streamtool setproperty -i StreamsInstance -d StreamsDomain --application-ev PYTHONHOME=/opt/pyenv/versions/3.5.1
 
      You can also set the environment variable from the Streams Console.
 
