@@ -321,10 +321,8 @@ The `flat_map` operation transforms each tuple from a `Stream` into 0 or more tu
 
 For example, you have a `Stream` in which each tuple is a line of text. You want to break each tuple down so that each resulting tuple contains only one word. The order of the words from the original tuple is maintained in the resulting `Stream`.  
 
-* Define a `Stream` called `lines` that is created by calling a function that generates lines of text. (For simplicity, specify a `source` function that returns two lines from the nursery rhyme "Mary Had A Little Lamb".)
-* Define a `flat_map` function called `multi_transform_lines_functions.split_line` that transforms each tuple from the `lines` `Stream` into multiple tuples, each consisting of one word.
-* Define a `sink` function that uses the `print` function to write the tuples to output.
-
+* Define a `Stream` called `lines` that generates lines of text.
+* Split `lines` into individual words by passing the `split` function into `flat_map`.
 
 #### 4.3.3.1 Sample application
 To achieve this:
@@ -338,25 +336,14 @@ import multi_transform_lines_functions
 
 def main():
     topo = Topology("flat_map_lines")
-    lines = topo.source(multi_transform_lines_functions.lines_of_text)
-    words = lines.flat_map(multi_transform_lines_functions.split_line)
-    words.sink(print)
+    lines = topo.source(["mary had a little lamb", "its fleece was white as snow"])
+    words = lines.flat_map(lambda t : t.split())
+    words.print()
     streamsx.topology.context.submit("STANDALONE", topo)
 
 if __name__ == '__main__':
     main()
 ~~~~~~
-
-Include the following code in the multi_transform_lines_functions.py file:
-
-~~~~~~
-def lines_of_text():
-   return ["mary had a little lamb", "its fleece was white as snow"]
-
-def split_line(tuple):
-   return tuple.split()
-~~~~~~   
-
 
 #### 4.3.3.2 Sample output
 Run `python3 multi_transform_lines.py`.
