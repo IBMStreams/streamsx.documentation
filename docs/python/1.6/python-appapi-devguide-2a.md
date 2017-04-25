@@ -1,6 +1,6 @@
 ---
 layout: docs
-title:  2.0 Developing for the IBM Streaming Analytics service
+title:  2.0 Tutorial: Developing for the IBM Streaming Analytics service
 description:  Learn how to deploy a Python application in the IBM Streaming Analytics service on IBM Bluemix, without installing IBM Streams.
 weight: 25
 published: true
@@ -10,20 +10,20 @@ prev:
   title: 1.0 Installing Python APIs
 next:
   file: python-appapi-devguide-3
-  title: 3.0 Developing with an IBM Streams install
+  title: 3.0 Tutorial: Developing with an IBM Streams installation
 ---
 
-Follow the steps in this tutorial to get started with the Python Application API by creating an application that reads data from a temperature sensor and prints the output to the screen. The application runs as a job in your Streaming Analytics instance.
+Follow the steps in this tutorial to get started with the Python Application API by creating an application that reads data from a temperature sensor and prints the output to the screen. The application runs as a job in your instance of the Streaming Analytics service on IBM Bluemix.
 
-The Streaming Analytics service is built on IBM Streams technology. You don't need a local version of IBM Streams to build Python applications for the service.
+The Streaming Analytics service is built on IBM Streams technology. You don't need to install a local version of IBM Streams to build Python applications for the service.
 
 This tutorial requires a Python 3.5 environment. Familiarity with Python is recommended.
 
-## About streaming analytics applications 
+## About streaming analytics applications
 
-Streaming analytics applications are intended to run indefinitely because they meet the need for real-time data processing. (Unlike applications created for the Apache Hadoop framework, which are intended to terminate when a batch of data is successfully processed.) For example, consider a company whose product scans temperature sensors across the world to determine weather patterns and trends. Because there is always a temperature, there is a perpetual need to process data. The application that processes the data must be able to run for an indefinite amount of time.
+Streaming analytics applications are intended to run indefinitely because they meet the need for real-time data processing. (This is in contrast to applications created for the Apache Hadoop framework, which are intended to terminate when a batch of data is successfully processed.) For example, consider a company whose product scans temperature sensors across the world to determine weather patterns and trends. Because there is always a temperature, there is a perpetual need to process data. The application that processes the data must be able to run for an indefinite amount of time.
 
-The application must also be scalable. If the number of temperature sensors doubles, the application must double the speed at which it processes data to ensure that analysis is available in a timely manner. 
+The application must also be scalable. If the number of temperature sensors doubles, the application must double the speed at which it processes data to ensure that analysis is available in a timely manner.
 
 
 ## 2.1 Setting up your Python environment
