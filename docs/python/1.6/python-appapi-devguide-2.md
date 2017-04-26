@@ -25,4 +25,3 @@ The Python language support package is shipped with IBM Streams. You can also do
   The streamsx Python package is available for download from <https://pypi.python.org/pypi/streamsx>. You can install it with the **pip** command:
 
         pip install streamsx
-        
