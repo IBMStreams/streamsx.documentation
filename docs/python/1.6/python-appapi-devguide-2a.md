@@ -1,6 +1,6 @@
 ---
 layout: docs
-title:  2.0 Tutorial: Developing for the IBM Streaming Analytics service
+title:  2.0 Developing for the IBM Streaming Analytics service
 description:  Learn how to deploy a Python application in the IBM Streaming Analytics service on IBM Bluemix, without installing IBM Streams.
 weight: 25
 published: true
@@ -10,7 +10,7 @@ prev:
   title: 1.0 Installing Python APIs
 next:
   file: python-appapi-devguide-3
-  title: 3.0 Tutorial: Developing with an IBM Streams installation
+  title: 3.0 Developing with an IBM Streams installation
 ---
 
 Follow the steps in this tutorial to get started with the Python Application API by creating an application that reads data from a temperature sensor and prints the output to the screen. The application runs as a job in your instance of the Streaming Analytics service on IBM Bluemix.
