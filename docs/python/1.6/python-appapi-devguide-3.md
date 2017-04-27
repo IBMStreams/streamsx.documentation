@@ -1,6 +1,6 @@
 ---
 layout: docs
-title:  3.0 Developing with an IBM Streams install
+title:  3.0 Developing with an IBM Streams installation
 description: To get started with the Python Application API, you'll use the example of reading data from a temperature sensor and printing the output to the screen.
 weight:  30
 published: true
@@ -19,7 +19,7 @@ Follow the steps in this tutorial to get started with the Python Application API
 
 Streaming analytics applications are intended to run indefinitely because they meet the need for real-time data processing. (Unlike applications created for the Apache Hadoop framework, which are intended to terminate when a batch of data is successfully processed.) For example, consider a company whose product scans temperature sensors across the world to determine weather patterns and trends. Because there is always a temperature, there is a perpetual need to process data. The application that processes the data must be able to run for an indefinite amount of time.
 
-The application must also be scalable. If the number of temperature sensors doubles, the application must double the speed at which it processes data to ensure that analysis is available in a timely manner. 
+The application must also be scalable. If the number of temperature sensors doubles, the application must double the speed at which it processes data to ensure that analysis is available in a timely manner.
 
 ## 3.1 Setting up your environment
 Before you can create your first Python application with the Python Application API and a local version of IBM Streams, you must complete the following setup tasks:
@@ -42,12 +42,12 @@ Before you can create your first Python application with the Python Application 
 1. If you are using IBM Streams 4.2 or later, you can skip this step because the Python Application API is included at* `$STREAMS_INSTALL/toolkits/com.ibm.streamsx.topology`. <br><br>If you are using an earlier version of IBM Streams, you must:
     1. Download the latest version of the IBM Streams Topology toolkit from the IBMStreams organization on GitHub from the streamsx.topology [Releases page](https://github.com/Ibmstreams/streamsx.topology/releases).
     1. After the toolkit downloads, extract it to your file system.
-    
 
-1. Ensure that you have installed a supported version of Python: 
+
+1. Ensure that you have installed a supported version of Python:
 
    * Python 2.7 and Python 3.5 are supported.
-   
+
       **Important:** Python 3.5 is required to build application bundles with the Python Application API that can be submitted to your IBM Streaming Analytics service.
 
    You can install a supported version of Python from:
