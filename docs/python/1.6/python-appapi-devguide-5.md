@@ -16,9 +16,9 @@ In a previous example, you created a topology and defined a pseudo temperature s
 
 To achieve this, add a function called `convertToKelvin()` to the application you created in an earlier section.
 
-Your application should look like this:
+Your application is contained in two files.
 
-The following code should be in the temperature_sensor.py file:
+The following code is in the 'temperature_sensor.py' file:
 
 ~~~~~~
 from streamsx.topology.topology import Topology
@@ -36,7 +36,7 @@ if __name__ == '__main__':
     main()
 ~~~~~~
 
-The following code should be in the temperature_sensor_functions.py file:
+The following code is in the 'temperature_sensor_functions.py' file:
 
 ~~~~~~
 import random
@@ -51,13 +51,13 @@ def convertToKelvin(tuple) :
 
 Converting a temperature reading from Celsius to Kelvin is not a resource-intensive task. However, you can use this example to see how using a parallel region can help distribute processing across resources when an operation is resource-intensive or inefficient and is causing a bottleneck in your application.
 
-To parallelize an operation, invoke `.parallel()` on a `Stream` where you want to process data in parallel.
+To parallelize an operation, invoke `.parallel()` on a `Stream` object where you want to process data in parallel.
 
-**Restriction:** Nested parallelism is not supported. You cannot invoke `parallel()` on a `Stream` that is already parallelized. If you do, your application will throw an exception.
+**Restriction:** You can't nest parallelism. If you invoke `parallel()` on a `Stream` object that is already parallelized, your application will throw an exception.
 
-To end parallel processing, invoke `.end_parallel()` on the parallelized `Stream`. When you invoke `end_parallel()` subsequent operations on the `Stream` that is returned by `end_parallel()` are not processed in parallel. For example, call `.end_parallel()` on the `kelvin` `Stream` before you call `sink(print)`.
+To end parallel processing, invoke `.end_parallel()` on the parallelized `Stream` object. When you invoke `end_parallel()`, subsequent operations on the `Stream` object that is returned by `end_parallel()` are not processed in parallel. For example, if you call `.end_parallel()` on the `kelvin` `Stream` object before you call `sink(print)`, the `sink(print)` function is not processed in parallel.
 
-The above example becomes:
+The previous example is replaced with the following code:
 
 ~~~~~~
 def main():
@@ -69,4 +69,4 @@ def main():
     streamsx.topology.context.submit("STANDALONE", topo)
 ~~~~~~
 
-Any operations that are performed on the parallelized `Stream` occur in parallel to the degree that is specified in the `.parallel()` function. In the example above, you specified 4, which means that four channels process the data in the parallel region on the graph.
+Any operations that are performed on the parallelized `Stream` object occur in parallel to the degree that is specified in the `.parallel()` function. In this example, you specified 4, which means that four channels process the data in the parallel region on the graph.
