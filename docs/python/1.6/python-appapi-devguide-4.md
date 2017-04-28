@@ -52,7 +52,7 @@ in streaming applications, streams are infinite so that the iterator never ends.
 Having only a single source method might seem limiting as there are other types of sources, such as event-based or polling, that don't seem to
 fit the `iterable` model. However, the power of Python comes to the rescue.
 
-From the temperature sensor example (`temperature_sensor.py`) in the previous sections, the input to the `source` function is the user-supplied function `temperature_sensor_functions.readings`.  The `readings` function produces data for the stream.
+From the temperature sensor example discussed earlier (temperator_sensor.py), the input to the `source` function is the user-supplied function `temperature_sensor_functions.readings`.  The `readings` function produces data for the stream.
 
 ~~~~~~
 topo = Topology("temperature_sensor")
