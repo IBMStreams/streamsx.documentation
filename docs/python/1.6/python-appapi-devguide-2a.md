@@ -165,7 +165,7 @@ source = topo.source(readings)
 
 
 ## 2.8 Printing to output
-After you obtain the data, you print it to the standard output by using the `sink` operation, which terminates the stream.
+After you obtain the data, you print it to standard output by using the `sink` operation, which terminates the stream.
 
 Print to output by entering the following code at the Python prompt:
 
