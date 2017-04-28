@@ -1,6 +1,6 @@
 ---
 layout: docs
-title:  3.0 Developing with an IBM Streams install
+title:  3.0 Developing with an IBM Streams installation
 description: To get started with the Python Application API, you'll use the example of reading data from a temperature sensor and printing the output to the screen.
 weight:  30
 published: true
