@@ -1,7 +1,7 @@
 ---
 layout: docs
 title:  3.0 Developing with an IBM Streams installation
-description: To get started with the Python Application API, you'll use the example of reading data from a temperature sensor and printing the output to the screen.
+description: To get started with the Python Application API, use the example of reading data from a temperature sensor and printing the output to the screen.
 weight:  30
 published: true
 tag: py16
@@ -13,24 +13,26 @@ next:
   title: 4.0 Common Streams operations
 ---
 
-Follow the steps in this tutorial to get started with the Python Application API by creating an application that reads data from a temperature sensor and prints the output to the screen. This tutorial requires a local installation of IBM Streams.
+Follow the steps in this tutorial to get started with the Python Application API by creating an application that reads data from a temperature sensor and prints the output to the screen.
+
+This tutorial requires a local installation of IBM Streams. Familiarity with Python is recommended.
 
 ## About streaming analytics applications
 
-Streaming analytics applications are intended to run indefinitely because they meet the need for real-time data processing. (Unlike applications created for the Apache Hadoop framework, which are intended to terminate when a batch of data is successfully processed.) For example, consider a company whose product scans temperature sensors across the world to determine weather patterns and trends. Because there is always a temperature, there is a perpetual need to process data. The application that processes the data must be able to run for an indefinite amount of time.
+Streaming analytics applications are intended to run indefinitely because they meet the need for real-time data processing. (This is in contrast to applications created for the Apache Hadoop framework, which are intended to terminate when a batch of data is successfully processed.) For example, consider a company whose product scans temperature sensors across the world to determine weather patterns and trends. Because there is always a temperature, there is a perpetual need to process data. The application that processes the data must be able to run for an indefinite amount of time.
 
 The application must also be scalable. If the number of temperature sensors doubles, the application must double the speed at which it processes data to ensure that analysis is available in a timely manner.
 
 ## 3.1 Setting up your environment
-Before you can create your first Python application with the Python Application API and a local version of IBM Streams, you must complete the following setup tasks:
+Before you can create your first Python application with the Python Application API and a local version of IBM Streams, you must complete the following setup tasks. These steps assume that you are installing Python 3.5 from Anaconda on a Linux workstation.
 
-1. Install version 4.0.1 (or later) of IBM Streams or IBM Streams Quick Start Edition:
+1. Install version 4.0.1 or later of IBM Streams or IBM Streams Quick Start Edition:
 
     * [IBM Streams Version 4.2.0 installation documentation](http://www.ibm.com/support/knowledgecenter/SSCRJU_4.2.0/com.ibm.streams.install.doc/doc/installstreams-container.html)
 
     * [IBM Streams Quick Start Edition Version 4.2.0 installation documentation](http://www.ibm.com/support/knowledgecenter/SSCRJU_4.2.0/com.ibm.streams.qse.doc/doc/installtrial-container.html)
 
-1. Ensure that you configure the IBM Streams product environment variable by entering the following command:
+1. Ensure that you configure the IBM Streams product environment variable by entering the following command on the command line:
 
         source product-installation-root-directory/4.n.n.n/bin/streamsprofile.sh
 
@@ -38,43 +40,39 @@ Before you can create your first Python application with the Python Application 
 
         source /home/streamsadmin/InfoSphere_Streams/4.2.0.0/bin/streamsprofile.sh
 
+1. If necessary, install the Python Application API.
+    * IBM Streams 4.2 or later: The Python Application API is included at `$STREAMS_INSTALL/toolkits/com.ibm.streamsx.topology`, so no installation is necessary.
+    * IBM Streams 4.1.1 or earlier, or to upgrade to the latest version of the IBM Streams Topology toolkit:
+        1. Download the latest version of the toolkit from the streamsx.topology [Releases page](https://github.com/Ibmstreams/streamsx.topology/releases) on GitHub.
+        1. After the toolkit is downloaded, extract it to your file system.
+ <br><br>
 
-1. If you are using IBM Streams 4.2 or later, the Python Application API is included at `$STREAMS_INSTALL/toolkits/com.ibm.streamsx.topology`. <br><br>If you are using an earlier version of IBM Streams, or if you would like to upgrade to the latest version of the IBM Streams Topology toolkit,  you must:
-    1. Download the latest version of the toolkit from the streamsx.topology [Releases page](https://github.com/Ibmstreams/streamsx.topology/releases) on GitHub.
-    1. After the toolkit downloads, extract it to your file system.
+1. (IBM Streams only, doesn't apply to the Quick Start Edition) If necessary, install a supported version of Python. Python 2.7 and Python 3.5 are supported. **Important:** Python 3.5 is required to build application bundles with the Python Application API that can be submitted to your IBM Streaming Analytics service.
 
+    You can choose from one of these options:
+   * *(Recommended)* Anaconda: [https://www.continuum.io/downloads](https://www.continuum.io/downloads)
 
-1. Ensure that you have installed a supported version of Python:
+   * CPython: [https://www.python.org](https://www.python.org)
 
-   * Python 2.7 and Python 3.5 are supported.
+     If you build Python from source, remember to pass `--enable-shared` as a parameter to  `configure`.  After installation, set the `LD_LIBRARY_PATH` environment variable to `Python_Install>/lib`.
 
-      **Important:** Python 3.5 is required to build application bundles with the Python Application API that can be submitted to your IBM Streaming Analytics service.
-
-1. If you are using the Streams Quick Start Edition, you can skip this step. Otherwise, install a supported version of Python, if needed. You can choose from one of these options:
-   * *Recommended* Anaconda [https://www.continuum.io/downloads](https://www.continuum.io/downloads)
-
-   * CPython [https://www.python.org](https://www.python.org)
-
-     If building Python from source, remember to pass `--enable-shared` as a parameter to  `configure`.  After installation, set `LD_LIBRARY_PATH` to `Python_Install>/lib`.
-
-
-1. Include the fully qualified path of the `com.ibm.streamsx.topology/opt/python/packages` directory in the PYTHONPATH environment variable. For example:
+1. Include the fully qualified path of the `com.ibm.streamsx.topology/opt/python/packages` directory in the `PYTHONPATH` environment variable. For example, enter the following command on the command line:
 
         export PYTHONPATH=/home/myuser/download/com.ibm.streamsx.topology/opt/python/packages:$PYTHONPATH
-1. Set the `PYTHONHOME` appplication environment variable on your Streams instance.
+1. Set the `PYTHONHOME` application environment variable on your Streams instance by entering the following `streamtool` command on the command line:
 
         streamtool setproperty -i <INSTANCE_ID> -d <DOMAIN_ID> --application-ev PYTHONHOME=<path_to_python_install>
 
-     You can also set the environment variable from the Streams Console.
+     You can also set the environment variable from the Streams Console in your service.
 
 
 
 ## 3.2 Creating a topology object
 The first component of your application is a `Topology` object.
 
-Include the following code in the temperature_sensor.py file (the main module):
+Include the following code in a file called `temperature_sensor.py` file (the main module):
 
-~~~~~~
+~~~~~~ python
 from streamsx.topology.topology import Topology
 topo = Topology("temperature_sensor")
 ~~~~~~
@@ -83,77 +81,62 @@ A streaming analytics application is a directed flow graph that specifies how da
 
 
 ## 3.3 Defining a data source
-The `Topology` object also includes functions that enable you to define your data sources. In this application, the data source is the temperature sensor.
-
-In this example, simulate temperature sensor readings by defining a Python generator function that returns an iterator of random numbers.
+The `Topology` object also includes functions to define your data sources. In this application, the data source is a simulated temperature sensor. The readings are obtained by defining a Python generator function (`random.gauss()`) that returns an iterator of random numbers. However, you can use a live data source instead.
 
 **Important:** Callable inputs to functions, such as the definition of the `readings()` function, cannot be defined in the `'_main_'` module. The inputs must be defined in a separate module.
 
-Include the following code in the temperature_sensor_functions.py file:
+Include the following code in a file called `temperature_sensor_functions.py`:
 
-~~~~~~
+~~~~~~ python
 import random
 def readings():
     while True:
         yield random.gauss(0.0, 1.0)
 ~~~~~~
 
-The `Topology.source()` function takes as input a zero-argument callable object, such as a function or an instance of a callable class, that returns an iterable of tuples. In this example, the input to `source` is the `readings()` function.  The `source` function calls the `readings()` function, which returns a generator object.  The `source` function gets the iterator from the generator object and repeatedly calls the `next()` function on the iterator to get the next tuple, which returns a new random temperature reading each time.
+The `Topology.source()` function takes as input a zero-argument callable object, such as a function or an instance of a callable class, that returns an iterable of tuples. In this example, the input to `source` is the `readings()` function.  The `source` function calls the `readings()` function, which returns a generator object.  The `source` function gets the iterator from the generator object and repeatedly calls the `next()` function on the iterator to get the next tuple, which returns new random temperature readings each time.
 
-In this example, data is obtained by calling the `random.gauss()` function. However, you can use a live data source instead of the `random.gauss()` function.
+## 3.4 Creating a `Stream` object
+The `Topology.source()` function produces a `Stream` object, which is a potentially infinite flow of tuples in an application. Because a streaming analytics application can run indefinitely, there is no upper limit to the number of tuples that can flow over a `Stream` object.  
 
+**Tip:** Tuples flow over a `Stream` object one at a time and are processed by subsequent data operations. Operations are discussed in more detail in the [Common Streams operations](../python-appapi-devguide-4/) section of this guide. A tuple can be any Python object that is serializable by using the pickle module.
 
-## 3.4 Creating a Stream
-The `Topology.source()` function produces a `Stream` object, which is a potentially infinite flow of tuples in an application. Because a streaming analytics application can run indefinitely, there is no upper limit to the number of tuples that can flow over a `Stream`.  
+Include the following code in the `temperature_sensor.py` file:
 
-Tuples flow over a `Stream` one at a time and are processed by subsequent data **operations**. Operations are discussed in more detail in the [Common Streams operations](../python-appapi-devguide-4/) section of this guide.
-
-A tuple can be any Python object that is serializable by using the pickle module.
-
-Include the following code in the temperature_sensor.py file:
-
-~~~~~~
+~~~~~~ python
 source = topo.source(temperature_sensor_functions.readings)
 ~~~~~~
 
 
 ## 3.5 Printing to output
-After obtaining the data, you print it to standard output using the `sink` operation, which terminates the stream.
+After you obtain the data, print it to standard output by using the `sink` operation, which terminates the stream.
 
-Include the following code in the temperature_sensor.py file:
+Include the following code in the `temperature_sensor.py` file:
 
-~~~~~~
+~~~~~~ python
 source.sink(print)
 ~~~~~~
 
 The `Stream.sink()` operation takes as input a callable object that takes a single tuple as an argument and returns no value. The callable object is invoked with each tuple. In this example, the `sink` operation calls the built-in `print()` function with the tuple as its argument.  
 
-**Tip:** The `print()` function is useful, but if your application needs to output to a file, you need to implement a custom sink operator.
+**Tip:** The `print()` function is useful, but if your application needs to output to a file, you must implement a custom sink operator.
 
 
 ## 3.6 Submitting the application
-After you define the application, you can submit it by using `streamsx.topology.context` module. When you submit the application, use the `submit()` function from the `streamsx.topology.context` module and pass the context type and the topology graph object as parameters to the function.
+After you define the application, you can submit it by using the `streamsx.topology.context` module. When you submit the application, use the `submit()` function from the `streamsx.topology.context` module and pass the context type and the topology graph object as parameters to the function.
 
-Include the following code in the temperature_sensor.py file:
+Include the following code in the `temperature_sensor.py` file:
 
-~~~~~~
+~~~~~~ python
 streamsx.topology.context.submit("STANDALONE", topo)
 ~~~~~~
 
-**Remember:** You can run your application in the following ways:
-
-* As a **Streams distributed application** (DISTRIBUTED). When running in this mode, the application produced will be deployed automatically on your IBM Streams instance. The Streaming Analytics service is built on IBM Streams technology. You don't need a local version of IBM Streams to build Python applications for the service.
-* As a **Streams Application Bundle file** (BUNDLE). When running in this mode, the application produces a SAB file that you can then deploy on your IBM Streams instance by using the `streamtool submitjob` command or by using the application console.
-* As a **stand-alone application** (STANDALONE).  When running in this mode, the application produces a Streams Application Bundle file (SAB file), but rather than submitting the SAB file to an instance, the bundle is executed. The bundle runs within a single process and can be terminated with Ctrl-C interrupts.
-* As a **Streaming Analytics service running on IBM Bluemix** (STREAMING_ANALYTICS_SERVICE). In this mode,  the application will run in the cloud in a Streaming Analytics service.
-
-
 ## 3.7 The complete application
-Your complete application should look like this:
+Your complete application is contained in two files.
 
-The following code should be in the temperature_sensor.py file:
+The following code is in the `temperature_sensor.py` file:
 
-~~~~~~
+~~~~~~ python
 from streamsx.topology.topology import Topology
 import streamsx.topology.context
 import temperature_sensor_functions
@@ -169,9 +152,9 @@ if __name__ == '__main__':
 ~~~~~~
 
 
-The following code should be in the temperature_sensor_functions.py file:
+The following code is in the `temperature_sensor_functions.py` file:
 
-~~~~~~
+~~~~~~ python
 import random
 
 def readings():
@@ -181,16 +164,16 @@ def readings():
 ~~~~~~
 
 ## 3.8 Running the application
-To run the sample application, enter the following command:
+To run the sample application, enter the following command on the command line:
 
-~~~~~~
+~~~~~~ python
 python3 temperature_sensor.py
 ~~~~~~
 
 Enter `Ctrl-C` to stop the application.
 
 ## 3.9 Sample output
-The contents of your output should look something like this:
+The contents of your output will look something like this:
 
 ~~~~~~
 ...
