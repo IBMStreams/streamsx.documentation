@@ -746,7 +746,7 @@ Python supports the following SPL attribute types:
 
 
 For more information about topics, see [namespace:com.ibm.streamsx.topology.topic].
-<--- pl TBD? --->
+<!--- pl TBD? --->
 
 ### 4.9.1 Sample code
 The `Topology.subscribe()` function takes as input the name of the topic that you want to subscribe to and the schema to publish. The function returns a `Stream` object whose tuples have been published to the topic by an IBM Streams application.
