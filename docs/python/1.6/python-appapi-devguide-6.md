@@ -159,8 +159,7 @@ The Python REST API is not strictly read-only; you can also use the REST API to 
 The job was successfully canceled.
 ```
 
-Canceling remote jobs has the benefit of freeing up resources; or, if the application is running as part of a test suite, to cancel the completed test.
-<!--- pl Two parts of this sentence don't quite make sense. --->
+Canceling remote jobs has the benefit of freeing up resources.
 
 # Accessing the tuples of a view
 
