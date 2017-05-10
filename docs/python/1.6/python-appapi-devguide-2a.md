@@ -38,7 +38,6 @@ your Java version:
 2. Ensure that you have Python 3.5 installed. For example, you can get Python 3.5 from [the Anaconda archive page](https://repo.continuum.io/archive/index.html). An Anaconda version that contains Python 3.5 is Anaconda3-4.2.x.
 
 3. Follow these steps to activate your Anaconda Python 3.5 environment:
-<!--- pl Are these steps specific to Anaconda? If they get Python from somewhere else, are there equivalent steps? --->
 
    1. Ensure that the bin directory is added to the `PATH` environment variable. If necessary, add the bin directory by entering the following command on the command line:
 
@@ -65,14 +64,11 @@ your Java version:
 
 ## 2.2 Starting a Streaming Analytics service
 
-If you have a Streaming Analytics service in [IBM Bluemix](https://console.ng.bluemix.net/), make sure that it's up and running.
-<!--- pl This link doesn't work for me. After I sign in, I get an "oops" error message. Turns out it's a certificate/permissions problem, at least on Firefox. --->
-
-To create a new Streaming Analytics service:
-
-  1. Go to the [Bluemix web portal](https://www.ibm.com/cloud-computing/bluemix/) and log in (or sign up for a free Bluemix account).
+Make sure that your Streaming Analytics service is running.
+* If you have a Streaming Analytics service in [IBM Bluemix](https://console.ng.bluemix.net/), make sure that it is started and running.
+* To create a new Streaming Analytics service:
+  1. Go to the [Bluemix web portal](https://www.ibm.com/cloud-computing/bluemix/) and sign in (or sign up for a free Bluemix account).
   2. Click **Catalog**, browse for the Streaming Analytics service, and then click it.
-  <!--- pl From the link on step 1, I don't have a catalog link. Need to verify how to get here for the ordinary user. --->
   3. Enter the service name and then click **Create** to set up your service. The service dashboard opens and your service starts automatically. The service name appears as the title of the service dashboard.
 
 ## 2.3 Creating your application
@@ -165,7 +161,7 @@ source = topo.source(readings)
 
 
 ## 2.8 Printing to output
-After you obtain the data, you print it to the standard output by using the `sink` operation, which terminates the stream.
+After you obtain the data, you print it to standard output by using the `sink` operation, which terminates the stream.
 
 Print to output by entering the following code at the Python prompt:
 
