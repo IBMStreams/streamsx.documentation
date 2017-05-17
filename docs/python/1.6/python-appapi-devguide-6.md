@@ -79,7 +79,7 @@ The `instance.status` field reflects whether the instance is running. An instanc
 									'Server release 6.6 '
 									'(Santiago)',
 				'productName': 'IBM Streams',
-				'productVersion': '4.2.0.0'},
+				'productVersion': '4.2.1.0'},
 'activeViews': 'https://streams-console-c6d1.ng.bluemix.net/streams/rest/instances/dd5f603a-7fb1-4e9b-861c-e15542e2d423/activeviews',
 'configuredViews': 'https://streams-console-c6d1.ng.bluemix.net/streams/rest/instances/dd5f603a-7fb1-4e9b-861c-e15542e2d423/configuredviews',
 'creationTime': 1485540669058,
