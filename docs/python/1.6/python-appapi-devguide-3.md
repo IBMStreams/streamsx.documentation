@@ -28,17 +28,17 @@ Before you can create your first Python application with the Python Application 
 
 1. Install version 4.0.1 or later of IBM Streams or IBM Streams Quick Start Edition:
 
-    * [IBM Streams Version 4.2.0 installation documentation](http://www.ibm.com/support/knowledgecenter/SSCRJU_4.2.0/com.ibm.streams.install.doc/doc/installstreams-container.html)
+    * [IBM Streams Version 4.2.1 installation documentation](http://www.ibm.com/support/knowledgecenter/SSCRJU_4.2.1/com.ibm.streams.install.doc/doc/installstreams-container.html)
 
-    * [IBM Streams Quick Start Edition Version 4.2.0 installation documentation](http://www.ibm.com/support/knowledgecenter/SSCRJU_4.2.0/com.ibm.streams.qse.doc/doc/installtrial-container.html)
+    * [IBM Streams Quick Start Edition Version 4.2.1 installation documentation](http://www.ibm.com/support/knowledgecenter/SSCRJU_4.2.1/com.ibm.streams.qse.doc/doc/installtrial-container.html)
 
 1. Ensure that you configure the IBM Streams product environment variable by entering the following command on the command line:
 
         source product-installation-root-directory/4.n.n.n/bin/streamsprofile.sh
 
-    **Tip:** Add the source command to your `home-directory/.bashrc` shell initialization file. Otherwise, you must enter the command every time you start IBM Streams. For example, if the product is installed in the `/home/streamsadmin/InfoSphere_Streams/4.2.0.0` directory, add the following line to your `.bashrc` file:
+    **Tip:** Add the source command to your `home-directory/.bashrc` shell initialization file. Otherwise, you must enter the command every time you start IBM Streams. For example, if the product is installed in the `/home/streamsadmin/InfoSphere_Streams/4.2.1.0` directory, add the following line to your `.bashrc` file:
 
-        source /home/streamsadmin/InfoSphere_Streams/4.2.0.0/bin/streamsprofile.sh
+        source /home/streamsadmin/InfoSphere_Streams/4.2.1.0/bin/streamsprofile.sh
 
 1. If necessary, install the Python Application API.
     * IBM Streams 4.2 or later: The Python Application API is included at `$STREAMS_INSTALL/toolkits/com.ibm.streamsx.topology`, so no installation is necessary.

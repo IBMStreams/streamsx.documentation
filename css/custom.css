@@ -14,3 +14,10 @@ h1, h2, h3, h4 {
   padding-top: 75px;
   margin-top: -50px;
 }
+ol ol {
+   list-style-type: lower-alpha;
+   }
+   
+ol ol ol {
+   list-style-type: lower-roman;
+   }
