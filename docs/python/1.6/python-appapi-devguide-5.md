@@ -27,6 +27,14 @@ The following code is in the 'temperature_sensor.py' file:
 from streamsx.topology.topology import Topology
 import streamsx.topology.context
 import temperature_sensor_functions
+import random
+
+def readings():
+    while True:
+        yield random.gauss(0.0, 1.0)
+
+def convertToKelvin(tuple) :
+    return tuple +  273.15
 
 def main():
     topo = Topology("temperature_sensor")
@@ -39,18 +47,6 @@ if __name__ == '__main__':
     main()
 ~~~~~~
 
-The following code is in the 'temperature_sensor_functions.py' file:
-
-~~~~~~
-import random
-
-def readings():
-    while True:
-        yield random.gauss(0.0, 1.0)
-
-def convertToKelvin(tuple) :
-    return tuple +  273.15
-~~~~~~
 
 Converting a temperature reading from Celsius to Kelvin is not a resource-intensive task. However, you can use this example to see how using a parallel region can help distribute processing across resources when an operation is resource-intensive or inefficient and is causing a bottleneck in your application.
 
