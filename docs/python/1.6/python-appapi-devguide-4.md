@@ -824,15 +824,15 @@ from streamsx.topology.mqtt import *
 def main():
    topo = Topology("An MQTT application")
 
-   // create the connector's configuration property map
+   # create the connector's configuration property map
    config['serverURI'] = "tcp://localhost:1883"
    config['userID'] = "user1id"
    config[' password'] = "user1passwrd"
 
-   // create the connector
+   # create the connector
    mqstream = MqttStreams(topo,config)
 
-   // publish a python source stream to the topic "python.topic1"
+   # publish a python source stream to the topic "python.topic1"
    topic = "python.topic1"
    src = topo.source(test_functions.mqtt_publish)
    mqs = mqstream.publish(src, topic)
@@ -866,15 +866,15 @@ from streamsx.topology.mqtt import *
 def main():
    topo = Topology("An MQTT application")
 
-   // create the connector's configuration property map
+   # create the connector's configuration property map
    config['serverURI'] = "tcp://localhost:1883"
    config['userID'] = "user1id"
    config[' password'] = "user1passwrd"
 
-   // create the connector
+   #create the connector
    mqstream = MqttStreams(topo,config)
 
-   // subscribe to the topic "python.topic1"
+   # subscribe to the topic "python.topic1"
    topic = ["python.topic1", ]
    mqs = mqstream.subscribe(topic)
    mqs.print()
