@@ -114,70 +114,58 @@ To achieve this:
 
 1. Define a `Stream` object called `words` that is created by calling a function that generates a list of four words. (For simplicity, specify a `source` function that returns only four words.)
 
-    Include the following code in the `filter_words.py` file:
-
-
-        words = topo.source(filter_words_functions.words_in_dictionary)
-
-
-
-    Include the following code in the `filter_words_functions.py` file:
+    Define the following functions in the `filter_words.py` file:
 
 
         def words_in_dictionary():
            return {"qualify", "quell", "quixotic", "quizzically"}
 
+        def does_not_contain_a(tuple):
+           return "a" not in tuple
 
-1. Define a `Stream` object called `words_without_a` by calling a function that returns True if the tuple does not contain the letter "a" or False if it does. Then, invoke the `filter()` function on the `Stream` called `words`.
+
+1. Next, define a topology and a stream of Python strings in `filter_words.py`:
+
+        topo = Topology("filter_words")
+        words = topo.source(filter_words_functions.words_in_dictionary)
+
+
+1. Define a `Stream` object called `words_without_a` by passing the `does_not_contain_a` function to the `filter` method on the `words` Stream. This function is True if the tuple does not contain the letter "a" or False if it does.
 
     Include the following code in the `filter_words.py` file:
 
 
-        words = topo.source(filter_words_functions.words_in_dictionary)
-        words_without_a = words.filter(filter_words_functions.words_without_a)
-
-
-    Include the following code in the `filter_words_functions.py` file:
-
-
-        def words_without_a(tuple):
-           return "a" not in tuple
+        words = topo.source(words_in_dictionary)
+        words_without_a = words.filter(does_not_contain_a)
 
 
 The `Stream` object that is returned, `words_without_a`, contains only words that do not include a lowercase "a".
 
 
 ### 4.2.1 The complete application
-Your complete application is contained in two files.
-
-The following code is in the `filter_words.py` file:
+Your complete application is contained in a single file, 'filter_words.py`.
 
 ~~~~~~
 from streamsx.topology.topology import Topology
 import streamsx.topology.context
 import filter_words_functions
 
+def words_in_dictionary():
+   return {"qualify", "quell", "quixotic", "quizzically"}
+
+def does_not_contain_a(tuple):
+   return "a" not in tuple
+
 def main():
     topo = Topology("filter_words")
-    words = topo.source(filter_words_functions.words_in_dictionary)
-    words_without_a = words.filter(filter_words_functions.words_without_a)
+    words = topo.source(words_in_dictionary)
+    words_without_a = words.filter(does_not_contain_a)
     words_without_a.sink(print)
     streamsx.topology.context.submit("STANDALONE", topo)
 
 if __name__ == '__main__':
     main()
 ~~~~~~
-
-The following code is in the `filter_words_functions.py` file:
-
-~~~~~~
-def words_in_dictionary():
-   return {"qualify", "quell", "quixotic", "quizzically"}
-
-def words_without_a(tuple):
-   return "a" not in tuple
-~~~~~~
-
 
 ### 4.2.2 Sample output
 Run the `python3 filter_words.py` script.
@@ -191,7 +179,7 @@ quell
 
 
 ## 4.3 Transforming data
-You can invoke `map` or `flat_map` on a `Stream` object when you want to:
+OBYou can invoke `map` or `flat_map` on a `Stream` object when you want to:
 
 * Modify the contents of the tuple.
 * Change the type of the tuple.
@@ -217,27 +205,22 @@ from streamsx.topology.topology import Topology
 import streamsx.topology.context
 import transform_substring_functions
 
+def words_in_dictionary():
+   return {"qualify", "quell", "quixotic", "quizzically"}
+
+def first_four_letters(tuple):
+   return tuple[:4]
+
 def main():
     topo = Topology("map_substring")
-    words = topo.source(transform_substring_functions.words_in_dictionary)
-    first_four_letters = words.map(transform_substring_functions.first_four_letters)
+    words = topo.source(words_in_dictionary)
+    first_four_letters = words.map(first_four_letters)
     first_four_letters.sink(print)
     streamsx.topology.context.submit("STANDALONE", topo)
 
 if __name__ == '__main__':
     main()
 ~~~~~~
-
-Include the following code in the `transform_substring_functions.py` file:
-
-~~~~~~
-def words_in_dictionary():
-   return {"qualify", "quell", "quixotic", "quizzically"}
-
-def first_four_letters(tuple):
-   return tuple[:4]
-~~~~~~
-
 
 #### 4.3.1.1 Sample output
 Run the `python3 transform_substring.py` script.
@@ -271,20 +254,6 @@ from streamsx.topology.topology import Topology
 import streamsx.topology.context
 import transform_type_functions
 
-def main():
-    topo = Topology("map_type")
-    string_tuples = topo.source(transform_type_functions.int_strings)
-    int_tuples = string_tuples.map(transform_type_functions.string_to_int)
-    int_tuples.map(transform_type_functions.multiply2_add1).sink(print)
-    streamsx.topology.context.submit("STANDALONE", topo)
-
-if __name__ == '__main__':
-    main()
-~~~~~~
-
-Include the following code in the `transform_type_functions.py` file:
-
-~~~~~~
 def int_strings():
    return ["1", "2", "3", "4"]
 
@@ -293,8 +262,17 @@ def string_to_int(tuple):
 
 def multiply2_add1(tuple):
    return (tuple * 2) + 1
-~~~~~~
 
+def main():
+    topo = Topology("map_type")
+    string_tuples = topo.source(int_strings)
+    int_tuples = string_tuples.map(string_to_int)
+    int_tuples.map(multiply2_add1).sink(print)
+    streamsx.topology.context.submit("STANDALONE", topo)
+
+if __name__ == '__main__':
+    main()
+~~~~~~
 
 #### 4.3.2.1 Sample output
 Run the `python3 transform_type.py` script.
@@ -385,21 +363,6 @@ Add the following code in the `transform_stateful.py` file:
 from streamsx.topology.topology import Topology
 import streamsx.topology.context
 import transform_stateful_functions
-
-def main():
-    topo = Topology("transform_stateful")
-    floats = topo.source(transform_stateful_functions.readings)
-    avg = floats.map(transform_stateful_functions.AvgLastN(10))
-    avg.sink(print)
-    streamsx.topology.context.submit("STANDALONE", topo)
-
-if __name__ == '__main__':
-    main()
-~~~~~~
-
-Add the following code in the `transform_stateful_functions.py` file:
-
-~~~~~~
 import random
 
 def readings():
@@ -415,8 +378,17 @@ class AvgLastN:
       if (len(self.last_n) > self.n):
           self.last_n.pop(0)
       return sum(self.last_n) / len(self.last_n)
-~~~~~~
 
+def main():
+    topo = Topology("transform_stateful")
+    floats = topo.source(readings)
+    avg = floats.map(AvgLastN(10))
+    avg.sink(print)
+    streamsx.topology.context.submit("STANDALONE", topo)
+
+if __name__ == '__main__':
+    main()
+~~~~~~
 
 ### 4.4.1 Sample output
 Run the `python3 transform_stateful.py` script.
@@ -461,20 +433,6 @@ Include the following code in the `sink_stderr.py` file:
 from streamsx.topology.topology import Topology
 import streamsx.topology.context
 import sink_stderr_functions
-
-def main():
-    topo = Topology("sink_stderr")
-    source = topo.source(sink_stderr_functions.source_tuples)
-    source.sink(sink_stderr_functions.print_stderr)
-    streamsx.topology.context.submit("STANDALONE", topo)
-
-if __name__ == '__main__':
-    main()
-~~~~~~
-
-Include the following code in the `sink_stderr_functions.py` file:
-
-~~~~~~
 import sys
 
 def source_tuples():
@@ -483,6 +441,15 @@ def source_tuples():
 def print_stderr(tuple):
     print(tuple, file=sys.stderr)
     sys.stderr.flush()
+
+def main():
+    topo = Topology("sink_stderr")
+    source = topo.source(source_tuples)
+    source.sink(print_stderr)
+    streamsx.topology.context.submit("STANDALONE", topo)
+
+if __name__ == '__main__':
+    main()
 ~~~~~~
 
 Tip: If the `sink` function prints to the console, ensure the output to stdout or stderr is flushed afterward by calling `sys.stdout.flush()` or `sys.stderr.flush()`.
@@ -525,20 +492,6 @@ from streamsx.topology.topology import Topology
 import streamsx.topology.context
 import split_source_functions
 
-def main():
-    topo = Topology("split_source")
-    source = topo.source(split_source_functions.source_tuples)
-    source.sink(split_source_functions.print1)
-    source.sink(split_source_functions.print2)
-    streamsx.topology.context.submit("STANDALONE", topo)
-
-if __name__ == '__main__':
-    main()
-~~~~~~
-
-Include the following code in the `split_source_functions.py` file:  
-
-~~~~~~
 def source_tuples():
     return ["tuple1", "tuple2", "tuple3"]
 
@@ -547,7 +500,18 @@ def print1(tuple):
 
 def print2(tuple):
     print("print2", tuple)
+
+def main():
+    topo = Topology("split_source")
+    source = topo.source(source_tuples)
+    source.sink(print1)
+    source.sink(print2)
+    streamsx.topology.context.submit("STANDALONE", topo)
+
+if __name__ == '__main__':
+    main()
 ~~~~~~
+
 
 ### 4.6.2 Sample output
 Run the `python3 split_source.py` script.
@@ -580,23 +544,6 @@ from streamsx.topology.topology import Topology
 import streamsx.topology.context
 import union_source_functions
 
-def main():
-    topo = Topology("union_source")
-    h = topo.source(union_source_functions.hello)
-    b = topo.source(union_source_functions.beautiful)
-    c = topo.source(union_source_functions.crazy)
-    w = topo.source(union_source_functions.world)
-    hwu = h.union({b, c, w})
-    hwu.sink(union_source_functions.print1)
-    streamsx.topology.context.submit("STANDALONE", topo)
-
-if __name__ == '__main__':
-    main()
-~~~~~~
-
-Include the following code in the `union_source_functions.py` file:
-
-~~~~~~
 def hello() :
     return ["Hello",]
 
@@ -611,8 +558,20 @@ def world() :
 
 def print1(tuple):
     print(" - ", tuple)
-~~~~~~
 
+def main():
+    topo = Topology("union_source")
+    h = topo.source(hello)
+    b = topo.source(beautiful)
+    c = topo.source(crazy)
+    w = topo.source(world)
+    hwu = h.union({b, c, w})
+    hwu.sink(print1)
+    streamsx.topology.context.submit("STANDALONE", topo)
+
+if __name__ == '__main__':
+    main()
+~~~~~~
 
 ### 4.7.2 Sample output
 Run the `python3 union_source.py` script.
@@ -673,22 +632,6 @@ from streamsx.topology.topology import *
 from streamsx.topology.schema import *
 import streamsx.topology.context
 import pubsub_functions;
-
-def main():
-   topo = Topology("PublishSimple")
-   ts = topo.source(pubsub_functions.sequence)
-   ts = ts.filter(pubsub_functions.delay)
-   ts.publish('simple', CommonSchema.Json)
-   ts.print()
-   streamsx.topology.context.submit('DISTRIBUTED', topo)
-
-if __name__ == '__main__':
-   main()
-~~~~~
-
-Include the following lines in the `pubsub_functions.py` file:
-
-~~~~~
 import itertools
 import time
 
@@ -698,7 +641,19 @@ def sequence():
 def delay(v):
    time.sleep(0.1)
    return True
+
+def main():
+   topo = Topology("PublishSimple")
+   ts = topo.source(sequence)
+   ts = ts.filter(delay)
+   ts.publish('simple', CommonSchema.Json)
+   ts.print()
+   streamsx.topology.context.submit('DISTRIBUTED', topo)
+
+if __name__ == '__main__':
+   main()
 ~~~~~
+
 
 This example is based on the `pubsub` sample in GitHub. For more information about how this application works, see [https://github.com/IBMStreams/streamsx.topology/tree/master/samples/python/topology/pubsub](https://github.com/IBMStreams/streamsx.topology/tree/master/samples/python/topology/pubsub)
 

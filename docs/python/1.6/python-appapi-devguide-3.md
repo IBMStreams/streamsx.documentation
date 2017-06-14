@@ -83,9 +83,7 @@ A streaming analytics application is a directed flow graph that specifies how da
 ## 3.3 Defining a data source
 The `Topology` object also includes functions to define your data sources. In this application, the data source is a simulated temperature sensor. The readings are obtained by defining a Python generator function (`random.gauss()`) that returns an iterator of random numbers. However, you can use a live data source instead.
 
-**Important:** Callable inputs to functions, such as the definition of the `readings()` function, cannot be defined in the `'_main_'` module. The inputs must be defined in a separate module.
-
-Include the following code in a file called `temperature_sensor_functions.py`:
+Include the following code in a file called `temperature_sensor.py`:
 
 ~~~~~~ python
 import random
@@ -101,7 +99,7 @@ The `Topology.source()` function produces a `Stream` object, which is a potentia
 
 **Tip:** Tuples flow over a `Stream` object one at a time and are processed by subsequent data operations. Operations are discussed in more detail in the [Common Streams operations](../python-appapi-devguide-4/) section of this guide. A tuple can be any Python object that is serializable by using the pickle module.
 
-Include the following code in the `temperature_sensor.py` file:
+Also include the following code in the `temperature_sensor.py` file:
 
 ~~~~~~ python
 source = topo.source(temperature_sensor_functions.readings)
@@ -132,7 +130,6 @@ streamsx.topology.context.submit("STANDALONE", topo)
 ~~~~~~
 
 ## 3.7 The complete application
-Your complete application is contained in two files.
 
 The following code is in the `temperature_sensor.py` file:
 
@@ -140,6 +137,11 @@ The following code is in the `temperature_sensor.py` file:
 from streamsx.topology.topology import Topology
 import streamsx.topology.context
 import temperature_sensor_functions
+import random
+
+def readings():
+    while True:
+        yield random.gauss(0.0, 1.0)
 
 def main():
     topo = Topology("temperature_sensor")
@@ -149,18 +151,6 @@ def main():
 
 if __name__ == '__main__':
     main()
-~~~~~~
-
-
-The following code is in the `temperature_sensor_functions.py` file:
-
-~~~~~~ python
-import random
-
-def readings():
-    while True:
-        yield random.gauss(0.0, 1.0)
-
 ~~~~~~
 
 ## 3.8 Running the application
