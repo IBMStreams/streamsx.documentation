@@ -56,8 +56,7 @@ From the temperature sensor example discussed earlier (temperator_sensor.py), th
 
 ~~~~~~
 topo = Topology("temperature_sensor")
-source =
-    topo.source(readings)
+source = topo.source(readings)
 ~~~~~~
 
 ### 4.1.1 Simple iterable sources
