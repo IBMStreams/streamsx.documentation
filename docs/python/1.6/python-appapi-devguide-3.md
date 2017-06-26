@@ -136,7 +136,6 @@ The following code is in the `temperature_sensor.py` file:
 ~~~~~~ python
 from streamsx.topology.topology import Topology
 import streamsx.topology.context
-import temperature_sensor_functions
 import random
 
 def readings():
@@ -145,7 +144,7 @@ def readings():
 
 def main():
     topo = Topology("temperature_sensor")
-    source = topo.source(temperature_sensor_functions.readings)
+    source = topo.source(readings)
     source.sink(print)
     streamsx.topology.context.submit("STANDALONE", topo)
 
