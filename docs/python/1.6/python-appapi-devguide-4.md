@@ -52,12 +52,12 @@ in streaming applications, streams are infinite so that the iterator never ends.
 Having only a single source method might seem limiting as there are other types of sources, such as event-based or polling, that don't seem to
 fit the `iterable` model. However, the power of Python comes to the rescue.
 
-From the temperature sensor example discussed earlier (temperator_sensor.py), the input to the `source` function is the user-supplied function `temperature_sensor_functions.readings`.  The `readings` function produces data for the stream.
+From the temperature sensor example discussed earlier (temperator_sensor.py), the input to the `source` function is the user-supplied `readings` function.  The `readings` function produces data for the stream.
 
 ~~~~~~
 topo = Topology("temperature_sensor")
 source =
-    topo.source(temperature_sensor_functions.readings)
+    topo.source(readings)
 ~~~~~~
 
 ### 4.1.1 Simple iterable sources
@@ -127,7 +127,7 @@ To achieve this:
 1. Next, define a topology and a stream of Python strings in `filter_words.py`:
 
         topo = Topology("filter_words")
-        words = topo.source(filter_words_functions.words_in_dictionary)
+        words = topo.source(words_in_dictionary)
 
 
 1. Define a `Stream` object called `words_without_a` by passing the `does_not_contain_a` function to the `filter` method on the `words` Stream. This function is True if the tuple does not contain the letter "a" or False if it does.
@@ -148,7 +148,6 @@ Your complete application is contained in a single file, 'filter_words.py`.
 ~~~~~~
 from streamsx.topology.topology import Topology
 import streamsx.topology.context
-import filter_words_functions
 
 def words_in_dictionary():
    return {"qualify", "quell", "quixotic", "quizzically"}
@@ -203,7 +202,6 @@ Include the following code in the `transform_substring.py` file:
 ~~~~~~
 from streamsx.topology.topology import Topology
 import streamsx.topology.context
-import transform_substring_functions
 
 def words_in_dictionary():
    return {"qualify", "quell", "quixotic", "quizzically"}
@@ -243,8 +241,8 @@ In this example, you have a `Stream` object of strings, and each string correspo
 To achieve this:
 
 * Define a `Stream` object called `string_tuples` that is created by calling a function called `int_strings`. The `int_strings` function returns a list of string values that are integer values. (For simplicity, specify a `source` function that returns the following strings: "1", "2", "3", "4'.)
-* Define a `map` function called `transform_type_functions.string_to_int` that map the tuples from the `string_tuples` `Stream` object into Python `int` objects.
-* Define a `map` function called `transform_type_functions.multiply2_add1` that multiples each `int` object by 2 and adds one to the result.
+* Define a `map` function called `string_to_int` that map the tuples from the `string_tuples` `Stream` object into Python `int` objects.
+* Define a `map` function called `multiply2_add1` that multiples each `int` object by 2 and adds one to the result.
 * Define a `sink` function that uses the `print` function to write the tuples to output.
 
 Include the following code in the `transform_type.py` file:
@@ -252,7 +250,6 @@ Include the following code in the `transform_type.py` file:
 ~~~~~~
 from streamsx.topology.topology import Topology
 import streamsx.topology.context
-import transform_type_functions
 
 def int_strings():
    return ["1", "2", "3", "4"]
@@ -307,7 +304,6 @@ Include the following code in the `multi_transform_lines.py` file:
 ~~~~~~
 from streamsx.topology.topology import Topology
 import streamsx.topology.context
-import multi_transform_lines_functions
 
 def main():
     topo = Topology("flat_map_lines")
@@ -362,7 +358,6 @@ Add the following code in the `transform_stateful.py` file:
 ~~~~~~
 from streamsx.topology.topology import Topology
 import streamsx.topology.context
-import transform_stateful_functions
 import random
 
 def readings():
@@ -432,7 +427,6 @@ Include the following code in the `sink_stderr.py` file:
 ~~~~~~
 from streamsx.topology.topology import Topology
 import streamsx.topology.context
-import sink_stderr_functions
 import sys
 
 def source_tuples():
@@ -490,7 +484,6 @@ Include the following code in the `split_source.py` file:
 ~~~~~~
 from streamsx.topology.topology import Topology
 import streamsx.topology.context
-import split_source_functions
 
 def source_tuples():
     return ["tuple1", "tuple2", "tuple3"]
@@ -542,7 +535,6 @@ Include the following code in the `union_source.py` file:
 ~~~~~~
 from streamsx.topology.topology import Topology
 import streamsx.topology.context
-import union_source_functions
 
 def hello() :
     return ["Hello",]
@@ -631,7 +623,6 @@ Include the following lines in the `publish.py` file:
 from streamsx.topology.topology import *
 from streamsx.topology.schema import *
 import streamsx.topology.context
-import pubsub_functions;
 import itertools
 import time
 
@@ -776,6 +767,9 @@ from streamsx.topology import schema
 import streamsx.topology.context
 from streamsx.topology.mqtt import *
 
+def my_mqtt_publish():
+  return [123, 2.344, "4.0", "Garbage text", 1.234e+15,]
+  
 def main():
    topo = Topology("An MQTT application")
 
@@ -789,7 +783,7 @@ def main():
 
    # publish a python source stream to the topic "python.topic1"
    topic = "python.topic1"
-   src = topo.source(test_functions.mqtt_publish)
+   src = topo.source(my_mqtt_publish)
    mqs = mqstream.publish(src, topic)
    streamsx.topology.context.submit("BUNDLE", topo)
 
@@ -844,7 +838,10 @@ Run the `python3 subscribe_mqtt.py` script.
 The specific contents of your output file depend on the publisher that you subscribe to.
 
 For example, if your publish operator looked like this:
-`def mqtt_publish() : return [123, 2.344, "4.0", "Garbage text", 1.234e+15,]`
+```
+def mqtt_publish():
+   return [123, 2.344, "4.0", "Garbage text", 1.234e+15,]
+```
 
 Your output would look like:
 ~~~~~
