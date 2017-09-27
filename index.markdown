@@ -13,6 +13,10 @@ The goal of the project is to provide easy-to-follow documentation and developme
 
 {% include nav.html context="/docs/java/"%}
 
+### IBM Streams: Streams Runner for Apache Beam
+
+{% include nav.html context="/docs/beamrunner/"%}
+
 ### IBM Streams: Python Support
 
 {: .simple}

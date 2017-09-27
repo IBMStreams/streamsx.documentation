@@ -14,10 +14,10 @@
 
         {% if current == include.context %}
           {% unless currentPage.url contains 'drafts'%}
-            <li>
-                <a href="{{ site.baseurl }}{{ currentPage.url }}">{{ currentPage.title }}</a>
-                {% include nav.html context=currentPage.url %}
-            </li>
+			<li>
+				<a href="{{ site.baseurl }}{{ currentPage.url }}">{{ currentPage.title }}</a>
+				{% include nav.html context=currentPage.url %}
+			</li>
           {% endunless %}
         {% endif %}
 
