@@ -1,8 +1,8 @@
 ---
 layout: docs
 title:  IBM Streams documentation
-description:  IBM Streams community-based documentation project. 
-navlevel: 3 
+description:  IBM Streams community-based documentation project.
+navlevel: 3
 ---
 The streamsx.documentation is a community-based documentation project for IBM Streams.
 The goal of the project is to provide easy-to-follow documentation and development guides to help users get started with Streams.
@@ -13,7 +13,7 @@ The goal of the project is to provide easy-to-follow documentation and developme
 
 {% include nav.html context="/docs/java/"%}
 
-### IBM Streams: Streams Runner for Apache Beam
+### IBM Streams: Streams Runner for Apache Beam (supports Apache Beam 2.0)
 
 {% include nav.html context="/docs/beamrunner/"%}
 

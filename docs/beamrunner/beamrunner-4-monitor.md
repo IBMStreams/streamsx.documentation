@@ -88,4 +88,4 @@ Beam counters in namespace _NS_ and with name _NAME_ are shown as Streams metric
 
 Beam distributions in namespace _NS_ and with name _DIST_ are associated with four separate Streams metrics. These metrics are grouped under **NS::DIST** and include `count`, `sum`, `min`, and `max`. For example **TemperatureSample::good.device\_1** shows the four metrics and their corresponding values. From these values, the mean can be derived (that is, the sum divided by the count).
 
-These names are an implementation detail of Streams Runner and might change. If programmatic access to Beam metrics is required, the BEAM query API must be used.
+These names are an implementation detail of Streams Runner and might change. If programmatic access to Beam metrics is required, the Beam [queryMetrics](https://beam.apache.org/documentation/sdks/javadoc/2.0.0/org/apache/beam/sdk/metrics/MetricResults.html#queryMetrics-org.apache.beam.sdk.metrics.MetricsFilter-) API must be used.

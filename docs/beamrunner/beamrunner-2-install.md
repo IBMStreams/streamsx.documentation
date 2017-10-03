@@ -48,14 +48,46 @@ For more information about the Streaming Analytics service, see [Introduction to
 tar -zxvf com.ibm.streams.beam-1.0.0.tar.gz
 ```
 1. (Optional) Configure the environment variables. Although the variables are not required, the documentation refers to them for convenience. If you do not set the environment variables, you must use the full paths when you run the sample applications.
-
-| Name | Description | Notes |
-  | --- | --- | --- |
-  | STREAMS\_INSTALL | The path to the IBM Streams installation | Set by sourcing the `bin/streamsprofile.sh` file.<br><br>This variable is already set in the Quick Start Edition.  johnmac-ibm 3 days ago • edited I think we should mention here that if you intend to build on Bluemix you must unset this variable. pamlane Need more info. Also, should this even talk about the QSE??? |
-  | STREAMS\_RUNNER\_HOME | The path to the extraction location of the `com.ibm.streams.beam-1.0.0.tar.gz` file | Set by using one of the following methods: <ul><li>Source the `$STREAMS_RUNNER_HOME samples/bin/streams-runner-env.sh` file.</li><li>Use the  `export` command.</li></ul> |
-  | STREAMS\_BEAM\_TOOLKIT | The path to the Streams Runner toolkit (`$STREAMS_RUNNER_HOME/com.ibm.streams.beam`) | Set by using one of the following methods: <ul><li>Source the `$STREAMS_RUNNER_HOME samples/bin/streams-runner-env.sh` file.</li><li>Use the  `export` command.</li></ul> |
-  | VCAP\_SERVICES | The path to the Bluemix credentials file. If this environment variable is set, the ``--vcapServices` parameter does not need to be specified on the command line.<br><br>For more information about the credentials file, see [Creating a credentials file for your Streaming Analytics service](#creating-a-credentials-file-for-your-streaming-analytics-service). | Set by using the `export` command. |
-  | STREAMING\_ANALYTICS\_SERVICE\_NAME | The name of the Streaming Analytics service in the Bluemix credentials file to use. If this environment variable is set, the ``--serviceName` parameter does not need to be specified on the command line. | Set by using the `export` command. |
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+        <th>Notes</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>STREAMS_INSTALL</td>
+        <td>The path to the IBM Streams installation</td>
+        <td>Set by sourcing the <code class="highlighter-rouge">bin/streamsprofile.sh</code> file.</td>
+      </tr>
+      <tr>
+        <td>STREAMS_RUNNER_HOME</td>
+        <td>The absolute path to the extraction location of the <code class="highlighter-rouge">com.ibm.streams.beam-1.0.0</code> directory</td>
+        <td>Set by using one of the following methods:
+        <ul><li>Source the <code class="highlighter-rouge">$STREAMS_RUNNER_HOME/samples/bin/streams-runner-env.sh</code> file.</li>
+        <li>Use the  <code class="highlighter-rouge">export</code> command.</li></ul></td>
+      </tr>
+      <tr>
+        <td>STREAMS_BEAM_TOOLKIT</td>
+        <td>The path to the Streams Runner toolkit (<code class="highlighter-rouge">$STREAMS_RUNNER_HOME/com.ibm.streams.beam</code>)</td>
+        <td>Set by using one of the following methods:
+        <ul><li>Source the <code class="highlighter-rouge">$STREAMS_RUNNER_HOME samples/bin/streams-runner-env.sh</code> file.</li>
+        <li>Use the  <code class="highlighter-rouge">export</code> command.</li></ul></td>
+      </tr>
+      <tr>
+        <td>VCAP_SERVICES</td>
+        <td>The path to the Bluemix credentials file. If this environment variable is set, the <code class="highlighter-rouge">--vcapServices</code> parameter does not need to be specified on the command line.<br /><br />For more information about the credentials file, see <a href="#creating-a-credentials-file-for-your-streaming-analytics-service">Creating a credentials file for your Streaming Analytics service</a>.</td>
+        <td>Set by using the <code class="highlighter-rouge">export</code> command.</td>
+      </tr>
+      <tr>
+        <td>STREAMING_ANALYTICS_SERVICE_NAME</td>
+        <td>The name of the Streaming Analytics service in the Bluemix credentials file to use. If this environment variable is set, the <code class="highlighter-rouge">--serviceName</code> parameter does not need to be specified on the command line.</td>
+        <td>Set by using the <code class="highlighter-rouge">export</code> command.</td>
+      </tr>
+    </tbody>
+  </table>
 
 ## Validating the Streams Runner installation
 
@@ -65,8 +97,6 @@ The Streams Runner heavily relies on the `com.ibm.streams.beam` directory struct
 ```
 > com.ibm.streams.beam.sdk.jar  com.ibm.streams.beam.translation.jar
 ```
-
-If the JAR files are not present, set `STREAMS_BEAM_TOOLKIT` to `<streams-runner-extraction-location>/com.ibm.streams.beam-1.0.0/com.ibm.streams.beam`
 
 The Streams Runner directory tree structure:
 ```

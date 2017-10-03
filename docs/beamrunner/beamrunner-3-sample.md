@@ -93,7 +93,7 @@ The structure of the application becomes clear after it is displayed in the Stre
 ## Running the `TemperatureSample` application
 
 1. Make sure that your Streaming Analytics service on Bluemix is running.
-2. Navigate to the `$STREAMS_RUNNER_HOME/samples` directory. The Streams Runner toolkit provides all necessary files. Assuming that all environment variables are set as described in [Downloading and configuring Streams Runner](../beamrunner-2-install/#downloading-and-configuring-streams-runner) and that the `$VCAP\_SERVICES` Bluemix credentials file has credentials in it named `beam-service`, you can launch the `TemperatureSample` application with the following command:
+2. Navigate to the `$STREAMS_RUNNER_HOME/samples` directory. The Streams Runner toolkit provides all necessary files. Assuming that all environment variables are set as described in [Downloading and configuring Streams Runner](../beamrunner-2-install/#downloading-and-configuring-streams-runner) and that the `$VCAP_SERVICES` Bluemix credentials file has credentials in it named `beam-service`, you can launch the `TemperatureSample` application with the following command:
 
    ```
    java -cp \
