@@ -14,25 +14,25 @@ next:
   title: Monitoring
 ---
 
-The `TemperatureSample` application takes temperature readings from multiple devices. The application splits the readings into "good" (valid) and "bad" (invalid) readings based on a specific threshold. It counts the bad readings and generates some basic statistics for the good readings, and finally logs the results. The full source is available in the `$STREAMS\_RUNNER\_HOME/samples/src/com/ibm/streams/beam/sample/temperature` directory, but excerpts are included here to describe the structure of the pipeline.
+The `TemperatureSample` application takes temperature readings from multiple devices. The application splits the readings into "good" (valid) and "bad" (invalid) readings based on a specific threshold. It counts the bad readings and generates some basic statistics for the good readings, and finally logs the results. The full source is available in the `$STREAMS_RUNNER_HOME/samples/src/com/ibm/streams/beam/sample/temperature` directory, but excerpts are included here to describe the structure of the pipeline.
 
-The devices are artificial; they use the Beam CountingInput transforms named Counter\_*n* to drive another transform named Device\_*n* to generate random readings:
+The devices are artificial; they use the Beam `CountingInput` transforms named Counter\_*n* to drive another transform named Device\_*n* to generate random readings:
 
-```
+```java
 PCollectionList<KV<String,Double>> deviceReadings = PCollectionList.empty(pipeline);
 
 for (int deviceId = 1; deviceId <= options.getNumDevices(); ++deviceId) {
     PCollection<KV<String,Double>> readings = pipeline
-            .apply("Counter\_" + deviceId, CountingInput.unbounded()
+            .apply("Counter_" + deviceId, CountingInput.unbounded()
                     .withRate(options.getRate(), Duration.standardSeconds(1)))
-            .apply("Device\_" + deviceId, MapElements.via(new GenReadingFn(deviceId, maxTemp)));
+            .apply("Device_" + deviceId, MapElements.via(new GenReadingFn(deviceId, maxTemp)));
     deviceReadings = deviceReadings.and(readings);
 }
 ```
 
-These readings act as inputs to a MergeReadings transform. The transform merges readings from the different devices into a single stream of data that consists of pairs of _{deviceName,temperatureReading}_, which are then assigned to windows of fixed time duration:
+These readings act as inputs to a `MergeReadings` transform. The transform merges readings from the different devices into a single stream of data that consists of pairs of _{deviceName,temperatureReading}_, which are then assigned to windows of fixed time duration:
 
-```
+```java
 PCollection<KV<String,Double>> mergedReadings = deviceReadings
         .apply("MergeReadings", Flatten.<KV<String,Double>>pCollections())
         .apply("WindowReadings",
@@ -40,9 +40,9 @@ PCollection<KV<String,Double>> mergedReadings = deviceReadings
                         FixedWindows.of(Duration.standardSeconds(options.getWindowSize()))));
 ```
 
-The windowed data is validated with a ValidateReadings transform that produces two output streams, one of good readings and one of bad readings:
+The windowed data is validated with a `ValidateReadings` transform that produces two output streams, one of good readings and one of bad readings:
 
-```
+```java
 final TupleTag<KV<String,Double>> goodTag = new TupleTag<KV<String,Double>>(){ ... }
 final TupleTag<KV<String,Double>> badTag = new TupleTag<KV<String,Double>>(){ ... }
 final double badTempThreshold = options.getBadTempThreshold();
@@ -70,18 +70,18 @@ PCollectionTuple validatedReadings = mergedReadings.apply("ValidateReadings",
 
 ```
 
-On the good readings, statistics are calculated in a GoodStats transform and then logged by a GoodLog transform:
+On the good readings, statistics are calculated in a `GoodStats` transform and then logged by a `GoodLog` transform:
 
-```
+```java
 validatedReadings
         .get(goodTag)
         .apply("GoodStats", Combine.<String, Double, Stats>perKey(new DeviceStatsFn()))
         .apply("GoodLog", ParDo.of(new LogWindowFn<Stats>("Temperature device statistics")));
 ```
 
-The bad readings are counted by a BadCount transform and logged by the BadLog transform:
+The bad readings are counted by a `BadCount` transform and logged by the `BadLog` transform:
 
-```
+```java
 validatedReadings
         .get(badTag)
         .apply("BadCount", Count.<String,Double>perKey())
@@ -93,7 +93,7 @@ The structure of the application becomes clear after it is displayed in the Stre
 ## Running the `TemperatureSample` application
 
 1. Make sure that your Streaming Analytics service on Bluemix is running.
-2. Navigate to the `$STREAMS\_RUNNER\_HOME/samples` directory. The Streams Runner toolkit provides all necessary files. Assuming that all environment variables are set as described in Installing the toolkit and that $VCAP\_SERVICES has credentials in it named beam-service, you can launch the `TemperatureSample` application with the following command:
+2. Navigate to the `$STREAMS_RUNNER_HOME/samples` directory. The Streams Runner toolkit provides all necessary files. Assuming that all environment variables are set as described in [Downloading and configuring Streams Runner](../beamrunner-2-install/#downloading-and-configuring-streams-runner) and that the `$VCAP\_SERVICES` Bluemix credentials file has credentials in it named `beam-service`, you can launch the `TemperatureSample` application with the following command:
 
    ```
    java -cp \
@@ -102,7 +102,8 @@ The structure of the application becomes clear after it is displayed in the Stre
    com.ibm.streams.beam.sample.temperature.TemperatureSample \
    --runner=StreamsRunner \
    --contextType=STREAMING_ANALYTICS_SERVICE \
-   --jarsToStage=$STREAMS_RUNNER_HOME/samples/lib/com.ibm.streams.beam.samples.jar```
+   --jarsToStage=$STREAMS_RUNNER_HOME/samples/lib/com.ibm.streams.beam.samples.jar
+   ```
 
    Note: If the environment variables are not set, you must use full paths, and use the `--vcapServices` parameter to provide the path to the Bluemix credentials file.
 
@@ -120,12 +121,13 @@ The structure of the application becomes clear after it is displayed in the Stre
         tracingLevel=null
         jobName=temperaturesample-johnmac-0927183419-7a8ccbfa
    StreamsRunner: Sending application to be built remotely, then submitting to Streaming Analytics Service...
-   StreamsRunner: Application successfully submitted to Streaming Analytic service with Job ID: 1```
+   StreamsRunner: Application successfully submitted to Streaming Analytic service with Job ID: 1
+   ```
 
    If you see an exception or error report, it indicates the reason for the failure. The following issues are common:
 
    - A typo in the java command or one of the variables it uses.
-   - A problem with the `$VCAP\_SERVICES` file or the wrong service name. Check that the `"credentials"` for `"streaming-analytics"` in the `$VCAP\_SERVICES`file match those for your Streaming Analytics service, and that the `"name"` matches the name that you used for the `--serviceName` option to the java command.
+   - A problem with the `$VCAP_SERVICES` file or the wrong service name. Check that the `"credentials"` for `"streaming-analytics"` in the `$VCAP_SERVICES`file match those for your Streaming Analytics service, and that the `"name"` matches the name that you used for the `--serviceName` option to the java command.
 
 ## Monitoring the application
 
@@ -134,12 +136,12 @@ After the job is submitted successfully, the application's output is displayed i
 ```
 ----- Temperature Metrics --------------------------------------------------
 good.summary: DistributionResult{sum=272674, count=5434, min=0, max=100}
-good.device\_1: DistributionResult{sum=88417, count=1792, min=0, max=100}
-good.device\_3: DistributionResult{sum=90876, count=1806, min=0, max=100}
-good.device\_2: DistributionResult{sum=93381, count=1836, min=0, max=100}
-bad.device\_1: 365
-bad.device\_2: 329
-bad.device\_3: 373
+good.device_1: DistributionResult{sum=88417, count=1792, min=0, max=100}
+good.device_3: DistributionResult{sum=90876, count=1806, min=0, max=100}
+good.device_2: DistributionResult{sum=93381, count=1836, min=0, max=100}
+bad.device_1: 365
+bad.device_2: 329
+bad.device_3: 373
 bad.total: 1067
 ----- System Metrics for step MergeReadings --------------------------------
 MetricName{namespace=com.ibm.streams, name=nTuplesProcessed}: 12585
@@ -153,14 +155,13 @@ Of particular interest for this application is the Streams Graph. The graph show
 
 <img src="/streamsx.documentation/images/beamrunner/appgraph.jpg" alt="The application graph maximized" width="650" />
 
-The graph shows the Streaming Analytics service operators that are executing the application. It matches the application's Beam pipeline structure as described in the overview, and the names that are used are similar to those used in the application, although not identical. In all cases shown here, the start of the name is what the application named the Beam transforms. For some cases, the Streams operator name contains extra information that comes from the names of the Beam Java SDK classes that were used to implement the transforms.
+By default, the graph shows the Beam transforms of the application and matches the pipeline structure that is described in the overview. The names that are used in the graph are the same as those used in the application unless there are transform names that are not unique.
 
-The names can also be slightly different for other reasons:
+Although this simplified view matches Beam, it omits details about how  Streams is executing the application. To see those details, click  **Configure** (the wrench button), select **Show raw graph**, and click **Apply**.
 
-- IBM Streams does not allow all the same characters in operator names that Beam allows in transform names, so some characters might be removed or replaced with valid ones.
-- Operator names must be unique, which is not required for Beam transform names, so names might be modified slightly to make them unique.
+Now the application is shown with the Streams operators instead of the Beam transforms. It is still similar in structure, and the names are similar to the Beam names but not always identical. In some cases, the Streams operator name contains extra information that comes from the names of the Beam Java SDK classes that implement the transforms. Also, Streams does not allow all the same characters in operator names that Beam allows in transform names, so characters might be removed or replaced with valid Streams characters.
 
-You can use the Beam [metrics API](https://beam.apache.org/documentation/sdks/javadoc/2.0.0/org/apache/beam/sdk/metrics/package-summary.html) to insert information to monitor your application. For more information, see Using Beam metrics to monitor your Beam application.
+You can use the Beam [metrics API](https://beam.apache.org/documentation/sdks/javadoc/2.0.0/org/apache/beam/sdk/metrics/package-summary.html) to insert information to monitor your application. For more information, see [Monitoring IBM® Streams Runner for Apache Beam](../beamrunner-4-monitor/).
 
 ## Stopping the application
 

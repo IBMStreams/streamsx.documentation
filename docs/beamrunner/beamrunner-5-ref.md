@@ -20,11 +20,9 @@ Learn about the package contents and pipeline options for IBM Streams Runner for
 
 The Streams Runner package contains the following folders:
 
-- `com.ibm.streams.beam`: The IBM Streams Runner for Apache Beam toolkit, which you can use to submit Beam applications to the IBM Streams runtime environment.
+- `com.ibm.streams.beam`: The IBM Streams Runner for Apache Beam toolkit, which you can use to submit Apache Beam  2.0 applications to the IBM Streams runtime environment.
 
 - `samples`: Toolkit sample applications. For information about the samples, see the README file in the samples folder.
-
-## Pipeline options for Streams Runner
 
 ### General pipeline options
 
@@ -39,18 +37,19 @@ The Streams Runner package contains the following folders:
 
 | Parameter | Description | Default value |
 | --- | --- | --- |
-| `contextType` | The mode to run the application in:<ul><li>STREAMING\_ANALYTICS\_SERVICE: Compile a Streams application bundle (SAB) file remotely and submit the translated pipeline to a Streaming Analytics service on IBM Bluemix. </li><li>DISTRIBUTED: Submit the pipeline to a Streams instance. The domain and instance are configured by the STREAMS\_DOMAIN\_ID and STREAMS\_INSTANCE\_ID environment variables.</li><li>BUNDLE: Create a Streams application bundle (SAB) file for submission at a later time.</li></ul> | `STREAMING\_ANALYTICS\_SERVICE` |
-| `jarsToStage` | A list of JAR files (separated by colons) that are required to run the Apache Beam application. Include the JAR files that contain your program and any dependencies. (You don't need to include Beam Google IO SDK or core Beam JAR files.) The listed JAR files are added to the SAB file.<br /><br />Note: The use of fat or uber JAR files increases the size of the SAB file and can negatively impact submission times to IBM Bluemix.  | [null] |
-| `filesToStage` | The JSON files with local file paths as keys and destination paths as values. For example, <br /> ``--filesToStage="{\"/path/to/local/file\": \"input/file1.in\", \"path/to/another/local/file\": \"env.conf\"}"``<br /><br />  In this example, the two local files are added into the bundle at the specified destination paths, which can then be accessed by using ``"streams://input/file1.in"`` and ``"streams://env.conf"`` paths. | [null] |
+| `contextType` | The mode to run the application in:<ul><li>STREAMING\_ANALYTICS\_SERVICE: Compile a Streams application bundle (SAB) file remotely and submit the translated pipeline to a Streaming Analytics service on IBM Bluemix. </li><li>DISTRIBUTED: Submit the pipeline to a Streams instance. The domain and instance are configured by the STREAMS\_DOMAIN\_ID and STREAMS\_INSTANCE\_ID environment variables.</li><li>BUNDLE: Create a Streams application bundle (SAB) file for submission at a later time.</li></ul> | `STREAMING_ANALYTICS_SERVICE` |
+| `jarsToStage` | A list of JAR files (separated by colons) that are required to run the Apache Beam application. Include the JAR files that contain your program and any dependencies. (You don't need to include Beam Google IO SDK or core Beam JAR files.) The listed JAR files are added to the SAB file.<br><br>Note: The use of fat or uber JAR files increases the size of the SAB file and can negatively impact submission times to IBM Bluemix.  | [null] |
+| `filesToStage` | A JSON string that maps local file paths as keys to destination paths as values. The local files are included in the SAB and can be accessible to the application through the destination path. For example, <br> ``--filesToStage="{\"/path/to/local/file\": \"input/file1.in\", \"path/to/another/local/file\": \"env.conf\"}"``<br /><br />  In this example, the two local files are added into the bundle at the specified destination paths, which can then be accessed by using ``"streams://input/file1.in"`` and ``"streams://env.conf"`` paths. | [null] |
 | `beamToolkitDir` | The location of the Streams Runner toolkit. Use this option to explicitly specify the Streams Runner toolkit location. | Defaults to the path of the `com.ibm.streams.beam.translation.jar` file in the Java `classpath`. |
-| `tracingLevel` | Set the tracing and logging level of StreamsRunner translation and runtime. Levels: ERROR, WARN, INFO, DEBUG, TRACE  | Defaults to the path of the `com.ibm.streams.beam.translation.jar` file in the Java `classpath`. |
-| `textIOBundleSize` | The user password for basic authentication for REST API when you use the `DISTRIBUTED` context type. | `WARN` |
+| `tracingLevel` | Set the tracing and logging level of StreamsRunner translation and runtime. Levels: ERROR, WARN, INFO, DEBUG, TRACE  | `WARN` |
+| `textIOBundleSize` | The batch size for `TextIO.Write` transforms that create an output file per batch and per shard. Increase the batch size to decrease the number of output files that are created. | `50000` |
 
 ### STREAMING\_ANALYTICS\_SERVICE context-specific pipeline options
+
 | Parameter | Description | Default value |
 | --- | --- | --- |
-| `vcapServices` | The location of the Streaming Analytics VCAP file. This parameter is required when you use the `STREAMING\_ANALYTICS\_SERVICE` context type.This parameter can be omitted if the `$VCAP\_SERVICES` environment variable is set to the path of the file. | [null] |
-| `serviceName` | The name of the Streaming Analytics service on Bluemix. This parameter is required when you use the STREAMING\_ANALYTICS\_SERVICE context type. | [null] |
+| `vcapServices` | The location of the Streaming Analytics VCAP file. This parameter is required when you use the `STREAMING_ANALYTICS_SERVICE` context type.This parameter can be omitted if the `$VCAP_SERVICES` environment variable is set to the path of the file. | [null] |
+| `serviceName` | The name of the Streaming Analytics service on Bluemix. This parameter is required when you use the   STREAMING_ANALYTICS_SERVICE  context type. | [null] |
 
 ### DISTRIBUTED context-specific pipeline options
 
@@ -60,4 +59,5 @@ The Streams Runner package contains the following folders:
 | `userName` | The user name for basic authentication with REST API when you use the `DISTRIBUTED` context type. | [null] |
 | `userPassword` | The user password for basic authentication for REST API when you use the `DISTRIBUTED` context type. | [null] |
 
+<br>
 For the full list of pipeline options, enter  `--help=StreamsPipelineOptions` on the Beam application command line.
