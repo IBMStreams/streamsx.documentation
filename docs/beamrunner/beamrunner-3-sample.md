@@ -7,7 +7,7 @@ weight:  10
 published: true
 tag: beam
 prev:
-  file: beamrunner-2a-wordcount
+  file: beamrunner-2b-wordcount
   title: WordCount sample app
 next:
   file: beamrunner-4-monitor

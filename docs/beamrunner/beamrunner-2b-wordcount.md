@@ -7,8 +7,8 @@ weight:  10
 published: true
 tag: beam
 prev:
-  file: beamrunner-2-install
-  title: Installing
+  file: beamrunner-2a-using
+  title: Using the runner
 next:
   file: beamrunner-3-sample
   title: TemperatureSample sample app

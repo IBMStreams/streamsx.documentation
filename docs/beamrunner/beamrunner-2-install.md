@@ -10,15 +10,11 @@ prev:
   file: beamrunner-1-intro
   title: Introduction
 next:
-  file: beamrunner-2a-wordcount
-  title: Wordcount sample app
+  file: beamrunner-2a-using
+  title: Using the runner
 ---
 
 Installing IBM® Streams Runner for Apache Beam involves downloading and extracting the Streams Runner toolkit, configuring environment variables, and creating a credentials file for your Streaming Analytics service.
-
-## Prerequisites
-
-A Red Hat Enterprise Linux 6 or 7 environment is required for compiling Apache Beam 2.0 applications that are submitted to the Streaming Analytics service in Bluemix.
 
 ## Creating a Streaming Analytics service on Bluemix
 

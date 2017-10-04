@@ -7,7 +7,7 @@ weight:  10
 published: true
 tag: beam
 next:
-  file: beamrunner-2-install
+  file: beamrunner-2a-using
   title: Installing
 ---
 
