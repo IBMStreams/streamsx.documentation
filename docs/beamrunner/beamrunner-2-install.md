@@ -1,6 +1,6 @@
 ---
 layout: docs
-title:  Installing IBM® Streams Runner for Apache Beam
+title:  Installing IBM Streams Runner for Apache Beam
 navtitle: Installing
 description:  description
 weight:  10
@@ -10,11 +10,11 @@ prev:
   file: beamrunner-1-intro
   title: Introduction
 next:
-  file: beamrunner-3-sample
-  title: Sample app
+  file: beamrunner-2a-wordcount
+  title: Wordcount sample app
 ---
 
-Installing IBM Streams Runner for Apache Beam involves downloading and extracting the Streams Runner toolkit, configuring environment variables, and creating a credentials file for your Streaming Analytics service.
+Installing IBM® Streams Runner for Apache Beam involves downloading and extracting the Streams Runner toolkit, configuring environment variables, and creating a credentials file for your Streaming Analytics service.
 
 ## Prerequisites
 

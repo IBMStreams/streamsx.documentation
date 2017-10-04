@@ -1,6 +1,6 @@
 ---
 layout: docs
-title:  Reference information for IBM® Streams Runner for Apache Beam
+title:  Reference information for IBM Streams Runner for Apache Beam
 navtitle: Reference
 description:  description
 weight:  10
@@ -10,11 +10,11 @@ prev:
   file: beamrunner-4-monitor
   title: Monitoring
 next:
-  file: beamrunner-6-issues
-  title: Limitations and known issues
+  file: beamrunner-5a-objstor
+  title: Object Storage
 ---
 
-Learn about the package contents and pipeline options for IBM Streams Runner for Apache Beam.
+Learn about the package contents and pipeline options for IBM® Streams Runner for Apache Beam.
 
 ## Package contents for Streams Runner
 

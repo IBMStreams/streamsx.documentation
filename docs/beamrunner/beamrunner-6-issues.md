@@ -1,6 +1,6 @@
 ---
 layout: docs
-title:  Limitations and known issues for IBM® Streams Runner
+title:  Limitations and known issues for IBM Streams Runner
 navtitle: Limitations and known issues
 description:  description
 weight:  10
@@ -11,7 +11,7 @@ prev:
   title: Reference
 ---
 
-Learn about limitations and known issues for IBM Streams Runner for Apache Beam.
+Learn about limitations and known issues for IBM® Streams Runner for Apache Beam.
 
 ## Limitations
 

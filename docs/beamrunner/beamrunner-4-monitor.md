@@ -1,6 +1,6 @@
 ---
 layout: docs
-title:  Monitoring IBM® Streams Runner for Apache Beam
+title:  Monitoring IBM Streams Runner for Apache Beam
 navtitle: Monitoring
 description:  description
 weight:  10
@@ -8,13 +8,13 @@ published: true
 tag: beam
 prev:
   file: beamrunner-3-sample
-  title: Sample app
+  title: TemperatureSample sample app
 next:
   file: beamrunner-5-ref
   title: Reference
 ---
 
-You can use the Apache Beam  2.0 [metrics API](https://beam.apache.org/documentation/sdks/javadoc/2.0.0/org/apache/beam/sdk/metrics/package-summary.html) to insert information to monitor your IBM Streams Runner for Apache Beam application. This document uses the `TemperatureSample` application that is included in IBM Streams Runner for Apache Beam to show how Streams Runner makes metrics available for monitoring, both to the application itself and other monitoring tools.
+You can use the Apache Beam  2.0 [metrics API](https://beam.apache.org/documentation/sdks/javadoc/2.0.0/org/apache/beam/sdk/metrics/package-summary.html) to insert information to monitor your IBM® Streams Runner for Apache Beam application. This section uses the `TemperatureSample` application that is included in IBM Streams Runner for Apache Beam to show how Streams Runner makes metrics available for monitoring, both to the application itself and other monitoring tools.
 
 ## Adding metrics to your application
 

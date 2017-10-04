@@ -1,18 +1,20 @@
 ---
 layout: docs
-title:  Sample application for IBM® Streams Runner for Apache Beam
-navtitle: Sample application
+title: TemperatureSample sample application for IBM Streams Runner for Apache Beam
+navtitle: TemperatureSample sample app
 description:  description
 weight:  10
 published: true
 tag: beam
 prev:
-  file: beamrunner-2-install
-  title: Installing
+  file: beamrunner-2a-wordcount
+  title: WordCount sample app
 next:
   file: beamrunner-4-monitor
   title: Monitoring
 ---
+
+You can use a simple application called `TemperatureSample` to learn how to submit and monitor an Apache Beam 2.0 application in the Streaming Analytics service on Bluemix.  The sample application is included with Streams Runner. Some familiarity with Beam programming is helpful, though not required; the [Apache Beam website](https://beam.apache.org/) has a useful [Apache Beam Java SDK Quickstart](https://beam.apache.org/get-started/quickstart-java/) page and other documentation.
 
 The `TemperatureSample` application takes temperature readings from multiple devices. The application splits the readings into "good" (valid) and "bad" (invalid) readings based on a specific threshold. It counts the bad readings and generates some basic statistics for the good readings, and finally logs the results. The full source is available in the `$STREAMS_RUNNER_HOME/samples/src/com/ibm/streams/beam/sample/temperature` directory, but excerpts are included here to describe the structure of the pipeline.
 
