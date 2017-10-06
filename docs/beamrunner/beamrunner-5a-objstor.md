@@ -2,12 +2,12 @@
 layout: docs
 title:  Using Bluemix Object Storage Swift with IBM Streams Runner for Apache Beam
 navtitle: Object Storage
-description:  description
+description:  
 weight:  10
 published: true
 tag: beam
 prev:
-  file: beamrunner-5ref
+  file: beamrunner-5-ref
   title: Reference
 next:
   file: beamrunner-6-issues

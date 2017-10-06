@@ -2,7 +2,7 @@
 layout: docs
 title:  Installing IBM Streams Runner for Apache Beam
 navtitle: Installing
-description:  description
+description:  
 weight:  10
 published: true
 tag: beam
@@ -11,14 +11,19 @@ prev:
   title: Introduction
 next:
   file: beamrunner-2a-using
-  title: Using the runner
+  title: Using
 ---
 
 Installing IBM® Streams Runner for Apache Beam involves downloading and extracting the Streams Runner toolkit, configuring environment variables, and creating a credentials file for your Streaming Analytics service.
 
+## Before you start
+
+A Red Hat Enterprise Linux 6 or 7 environment is recommended for compiling Apache Beam 2.0  applications that are submitted to the Streaming Analytics service in Bluemix.
+
 ## Creating a Streaming Analytics service on Bluemix
 
 Before you can download Streams Runner, you must have a Streaming Analytics service so that you can open the Streams Console. For a video demonstration of creating the service, see [Creating a Streaming Analytics service on IBM Bluemix](https://ibm.box.com/s/fz0mq6plxuiqx8dfjtwenldyr6vopolz).
+`Need updated link???`
 
 To create a Streaming Analytics service:
 
@@ -33,8 +38,8 @@ For more information about the Streaming Analytics service, see [Introduction to
 
 ## Downloading and configuring Streams Runner
 
-1. Launch the Streams Console:
-    1. Navigate to the **Manage** tab of your Streaming Analytics Service.
+1. Open the Streams Console:
+    1. Click the **Manage** tab of your Streaming Analytics Service.
     1. Click **Launch**.
 1. Download Streams Runner:
     1. In the Streams Console, click **Help > Download > Download Streams Runner for Apache Beam**.
@@ -54,11 +59,6 @@ tar -zxvf com.ibm.streams.beam-1.0.0.tar.gz
     </thead>
     <tbody>
       <tr>
-        <td>STREAMS_INSTALL</td>
-        <td>The path to the IBM Streams installation</td>
-        <td>Set by sourcing the <code class="highlighter-rouge">bin/streamsprofile.sh</code> file.</td>
-      </tr>
-      <tr>
         <td>STREAMS_RUNNER_HOME</td>
         <td>The absolute path to the extraction location of the <code class="highlighter-rouge">com.ibm.streams.beam-1.0.0</code> directory</td>
         <td>Set by using one of the following methods:
@@ -69,7 +69,7 @@ tar -zxvf com.ibm.streams.beam-1.0.0.tar.gz
         <td>STREAMS_BEAM_TOOLKIT</td>
         <td>The path to the Streams Runner toolkit (<code class="highlighter-rouge">$STREAMS_RUNNER_HOME/com.ibm.streams.beam</code>)</td>
         <td>Set by using one of the following methods:
-        <ul><li>Source the <code class="highlighter-rouge">$STREAMS_RUNNER_HOME samples/bin/streams-runner-env.sh</code> file.</li>
+        <ul><li>Source the <code class="highlighter-rouge">$STREAMS_RUNNER_HOME/samples/bin/streams-runner-env.sh</code> file.</li>
         <li>Use the  <code class="highlighter-rouge">export</code> command.</li></ul></td>
       </tr>
       <tr>
@@ -82,12 +82,17 @@ tar -zxvf com.ibm.streams.beam-1.0.0.tar.gz
         <td>The name of the Streaming Analytics service in the Bluemix credentials file to use. If this environment variable is set, the <code class="highlighter-rouge">--serviceName</code> parameter does not need to be specified on the command line.</td>
         <td>Set by using the <code class="highlighter-rouge">export</code> command.</td>
       </tr>
+      <tr>
+        <td>STREAMS_INSTALL</td>
+        <td>The path to the IBM Streams installation if Streams is installed </td>
+        <td>Important: If this variable exists, you must use the `unset` command to unset it before you submit an application to the Streaming Analytics service. </td>
+      </tr>
     </tbody>
   </table>
 
 ## Validating the Streams Runner installation
 
-The Streams Runner heavily relies on the `com.ibm.streams.beam` directory structure being preserved. To verify an installation, ensure that the translation and sdk JAR files appear as follows when you enter the following command:
+The Streams Runner relies on preserving the `com.ibm.streams.beam` directory structure. To verify an installation, ensure that the translation and sdk JAR files appear as follows when you enter the following command:
 `ls $STREAMS_BEAM_TOOLKIT/lib`
 
 ```
@@ -125,6 +130,7 @@ com.ibm.streams.beam-1.0.0/
 ## Creating a credentials file for your Streaming Analytics service
 
 To submit a Beam application to your Streaming Analytics service on Bluemix, you must create a JSON-formatted VCAP file that holds credentials and other information for the service. For a video demonstration of creating the credentials file, see [Creating a credentials file for the Streaming Analytics service on IBM Bluemix](https://ibm.box.com/s/qasw203e6gtdjpwu5ybmygcvstkr0xx8).
+`need updated link???`
 
 To create a VCAP file for an existing Streaming Analytics service:
 
@@ -135,20 +141,3 @@ To create a VCAP file for an existing Streaming Analytics service:
   3. Click **View credentials** for the credential that you want to use in your VCAP file. Click **Copy** to copy the credentials.
 3. Paste the copied credentials into the VCAP file that you created, replacing the following line:  
     `<REMOVE THIS LINE AND INSERT CREDENTIALS HERE>`
-
-   Tip: You can have multiple credentials in the same file, as shown in the following example. When you run Beam applications, you must identify which credentials are used by placing the name value into the `--serviceName` parameter. For example, `--serviceName="alternate-service"` uses the second set of credentials shown in the example.
-
-   ```
-    {
-      "streaming-analytics" : [
-        { "name" : "beam-service",
-          "credentials" :
-          <REMOVE THIS LINE AND INSERT CREDENTIALS HERE>
-        },
-        { "name" : "alternate-service",
-          "credentials" :
-          <REMOVE THIS LINE AND INSERT CREDENTIALS HERE>
-        }
-      ]
-    }
-  ```
