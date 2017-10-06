@@ -71,7 +71,7 @@ java -cp $STREAMS_BEAM_TOOLKIT/lib/com.ibm.streams.beam.translation.jar:/path/to
 
 #### Limitations
 1. You can't retrieve output files that are written to a local file system in a Streaming Analytics service. For information about retrieving files from a Bluemix Object Storage service, see [Object Storage](../beamrunner-5a-objstor/).
-2. You can't download Stream application bundle (SAB) files of your Beam applications that are built remotely.
+2. You can't download Streams application bundle (SAB) files of your Beam applications that are built remotely.
 
 ### The `DISTRIBUTED` context
 Use this context to build an application locally and submit it to a local Streams instance.
