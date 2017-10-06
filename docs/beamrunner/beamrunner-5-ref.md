@@ -47,7 +47,7 @@ The Streams Runner package contains the following folders:
     <tr>
       <td><code class="highlighter-rouge">contextType</code></td>
       <td>The mode to run the application in:
-      <ul><li>STREAMING_ANALYTICS_SERVICE: Compile a Streams application bundle (SAB) file remotely and submit the translated pipeline to a Streaming Analytics service on IBM Bluemix.</li><li>DISTRIBUTED: Submit the pipeline to a Streams instance. The domain and instance are configured by the STREAMS_DOMAIN_ID and STREAMS_INSTANCE_ID environment variables.</li><li>BUNDLE: Create a Streams application bundle (SAB) file for submission at a later time.</li></ul></td>
+      <ul><li>STREAMING_ANALYTICS_SERVICE: Compile an application remotely and submit the translated application to a Streaming Analytics service on IBM Bluemix.</li><li>DISTRIBUTED: Submit the application to a Streams instance. The domain and instance are configured by the STREAMS_DOMAIN_ID and STREAMS_INSTANCE_ID environment variables.</li><li>BUNDLE: Create a Streams application bundle (SAB) file for submission at a later time.</li></ul></td>
       <td><code class="highlighter-rouge">STREAMING_ANALYTICS_SERVICE</code></td>
     </tr>
     <tr>

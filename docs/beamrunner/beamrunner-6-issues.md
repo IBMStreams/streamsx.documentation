@@ -2,13 +2,13 @@
 layout: docs
 title:  Limitations and known issues for IBM Streams Runner
 navtitle: Limitations and known issues
-description:  description
+description:  
 weight:  10
 published: true
 tag: beam
 prev:
-  file: beamrunner-5-ref
-  title: Reference
+  file: beamrunner-5a-objstor
+  title: Object Storage
 ---
 
 Learn about limitations and known issues for IBM® Streams Runner for Apache Beam.
