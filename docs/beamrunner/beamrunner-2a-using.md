@@ -14,10 +14,10 @@ next:
   title: Wordcount sample app
 ---
 
-To use IBM® Streams Runner for Apache Beam,  you must enable Streams Runner to make it accessible to the Beam application when it is executed. Additionally, you must select a context that tells the runner how to build and submit the Beam application. Lastly, as with any Beam pipeline, you must specify any custom or additional runner parameters.
+To use IBM® Streams Runner for Apache Beam,  you must enable Streams Runner to make it accessible to the Beam application when it is executed. Additionally, you must select a context that tells the runner how to build and submit the Beam application. Lastly, as with any Beam pipeline, you must specify any custom application or additional runner parameters.
 
 ## Enabling Streams Runner
-To allow Apache Beam 2.0 applications to use Streams Runner, you must use the following parameters when you submit the application:
+To allow Apache Beam 2.0 applications to use Streams Runner, you must do the following items when you submit the application:
 1. Include the `com.ibm.streams.beam.translation.jar` file that is located at `$STREAMS_BEAM_TOOLKIT/lib` in your Java class path.
 2. Specify the Beam pipeline parameter `--runner=StreamsRunner`.
 
@@ -28,7 +28,7 @@ After Streams Runner is accessible to your application, you must decide in which
 ### The `STREAMING_ANALYTICS_SERVICE` context
 Use this context to build and submit an application to a Streaming Analytics service on IBM Bluemix. `STREAMING_ANALYTICS_SERVICE` is the default context type.
 
-Tip: This context is the simplest to use because it doesn't require you to install and configure Streams software; you can use the Streaming Analytics service, which includes the latest features and patches, that you created before you downloaded the Streams Runner toolkit.
+**Tip:** This context is the simplest to use because it doesn't require you to install and configure Streams software; you can use the Streaming Analytics service, which includes the latest features and patches, that you created before you downloaded the Streams Runner toolkit.
 
 #### Prerequisites
 - A running Streaming Analytics service.
@@ -46,7 +46,7 @@ Use the `--serviceName` parameter or `STREAMING_ANALYTICS_SERVICE_NAME` environm
 
 Because the application is launched on a remote system, the Streams job must be
 aware of your Beam application. To include your application and any dependencies,
-use the `--jarsToStage` option. For more information about this option, see [Streams Runner pipeline options](../beamrunner-6-ref/#streams-runner-pipeline-options).
+use the `--jarsToStage` option. For more information about this option, see [Streams Runner pipeline options](../beamrunner-5-ref/#streams-runner-pipeline-options).
 
 Note: Fat or uber JAR files can reduce the number of JAR files to stage. However, using them increases the size of the archive and affects upload and build times.
 
@@ -58,16 +58,14 @@ Note: This example uses the `--vcapServices` and `--serviceName` parameters, but
 Additionally, the `--contextType` parameter can be omitted because `STREAMING_ANALYTICS_SERVICE` is the default.
 
 ```
-java -cp $STREAMS_BEAM_TOOLKIT/lib/com.ibm.streams.beam.translation.jar:/path/to/myapp.jar \
+java -cp $STREAMS_BEAM_TOOLKIT/lib/com.ibm.streams.beam.translation.jar:/home/beamuser/beamapp/lib/myapp.jar \
     namespace.MyBeamApplication \
     --runner=StreamsRunner \
     --contextType=STREAMING_ANALYTICS_SERVICE \
-    --vcapServices=/path/to/credentials/file \
+    --vcapServices=/home/beamuser/streaming-analytics.vcap \
     --serviceName=my-service-name \
-    --jarsToStage=/path/to/myapp.jar
+    --jarsToStage=/home/beamuser/beamapp/lib/myapp.jar
 ```
-
-`These examples use a non-standard way of specifying a path variable. Since this is an example, it should use an actual sample path, rather than a variable.???`
 
 #### Limitations
 1. You can't retrieve output files that are written to a local file system in a Streaming Analytics service. For information about retrieving files from a Bluemix Object Storage service, see [Object Storage](../beamrunner-5a-objstor/).
@@ -82,14 +80,14 @@ Use this context to build an application locally and submit it to a local Stream
 * A local Streams installation (IBM Streams 4.2 or higher).
 * A running Streams domain and instance. For more information, see [Creating an IBM Streams basic domain and instance](https://www.ibm.com/support/knowledgecenter/en/SSCRJU_4.2.1/com.ibm.streams.cfg.doc/doc/creating-basic-domain-and-instance.html).
 
-Tip: You can obtain a local Streams installation by installing the [IBM Streams Quick Start Edition](../../4.2/qse-intro/), which is a Red Hat Enterprise Linux virtual machine image that is preconfigured to create and start a Streams runtime environment.
+**Tip:** You can obtain a local Streams installation by installing the [IBM Streams Quick Start Edition](../../4.2/qse-intro/), which is a Red Hat Enterprise Linux virtual machine image that is preconfigured to create and start a Streams runtime environment.
 
 #### Overview
 To launch a Beam application to a local, distributed Streams environment, set `DISTRIBUTED` as the
 context type. Additionally, because the Beam application is being built locally, you must include the `com.ibm.streams.operator.samples.jar` located at `$STREAMS_INSTALL/lib` in the Java class path.
 
 When the application is launched in a distributed environment, the Streams job must be
-aware of your Beam application. To include your application and any dependencies, use the `--jarsToStage` option. For more information about this option, see [Streams Runner pipeline options](../beamrunner-6-ref/#streams-runner-pipeline-options).
+aware of your Beam application. To include your application and any dependencies, use the `--jarsToStage` option. For more information about this option, see [Streams Runner pipeline options](../beamrunner-5-ref/#streams-runner-pipeline-options).
 
 For a Beam application that interacts with the job after it is launched, the application must authenticate with the Streams domain to use the Streams REST API. The domain can be authenticated by using the `--restUrl`, `--userName`, and `--userPassword` parameters.
 
@@ -105,13 +103,13 @@ the `STREAMS_DOMAIN_ID` and `STREAMS_INSTANCE_ID` environment variables. If the 
 This example builds and submits `MyBeamApplication` locally.
 
 ```
-java -cp $STREAMS_BEAM_TOOLKIT/lib/com.ibm.streams.beam.translation.jar:$STREAMS_INSTALL/lib/com.ibm.streams.operator.samples.jar:/path/to/myapp.jar \
+java -cp $STREAMS_BEAM_TOOLKIT/lib/com.ibm.streams.beam.translation.jar:$STREAMS_INSTALL/lib/com.ibm.streams.operator.samples.jar:/home/beamuser/beamapp/lib/myapp.jar \
     namespace.MyBeamApplication \
     --runner=StreamsRunner \
     --contextType=DISTRIBUTED \
-    --jarsToStage=/path/to/myapp.jar \
-    --restUrl=https://myStreamshost:8443/streams/rest \
-    --userName=streamsuser \
+    --jarsToStage=/home/beamuser/beamapp/lib/myapp.jar \
+    --restUrl=https://myStreamsHost:8443/streams/rest \
+    --userName=beamuser \
     --userPassword=streams1
 ```
 
@@ -121,7 +119,7 @@ Use this context to locally build an application that can be submitted to a Stre
 #### Prerequisites
 * A local Streams installation (IBM Streams 4.2 or higher).
 
-**Remember:** Applications that will be submitted to a Streaming Analytics service must be built in a Red Hat Enterprise Linux 6 or 7 environment.
+**Remember:** Applications that will be submitted to a Streaming Analytics service must be built in a Red Hat Enterprise Linux 6 environment.
 
 #### Overview
 Set the context type to `BUNDLE` to create an application bundle file and a Streams job configuration overlay file (_namespace.application_\_JobConfig.json) for your Beam application. Because the Beam application is packaged locally, you must include the `com.ibm.streams.operator.samples.jar` located at `$STREAMS_INSTALL/lib` in the Java class path.
@@ -133,21 +131,21 @@ use the `--jarsToStage` option.
 If your Beam application uses the Beam [ValueProvider](https://beam.apache.org/documentation/sdks/javadoc/2.0.0/org/apache/beam/sdk/options/ValueProvider.html) types for custom pipeline options **and no default value is provided**,
 Streams submission-time parameters are created for the application.
 
-After the application bundle file is created, it can be submitted along with any submission-time parameters to a Streaming Analytics service or local Streams environment through the Streams Console, Streams REST API, or `streamtool` command. For more information about bundle submission, see the `$STREAMS_RUNNER_HOME/samples/README` file.
+After the application bundle file is created, it can be submitted along with any submission-time parameters to a Streaming Analytics service or local Streams environment through the Streams Console, Streaming Analytics REST API, or `streamtool` command. For more information about bundle submission, see the `$STREAMS_RUNNER_HOME/samples/README` file.
 
 #### Example
 
 This example builds `MyBeamApplication` locally and creates an application bundle file for later submission to a local Streams instance.
 
 ```
-java -cp $STREAMS_BEAM_TOOLKIT/lib/com.ibm.streams.beam.translation.jar:$STREAMS_INSTALL/lib/com.ibm.streams.operator.samples.jar:/path/to/myapp.jar \
+java -cp $STREAMS_BEAM_TOOLKIT/lib/com.ibm.streams.beam.translation.jar:$STREAMS_INSTALL/lib/com.ibm.streams.operator.samples.jar:/home/beamuser/beamapp/lib/myapp.jar \
     namespace.MyBeamApplication \
     --runner=StreamsRunner \
     --contextType=BUNDLE \
-    --jarsToStage=/path/to/myapp.jar
+    --jarsToStage=/home/beamuser/beamapp/lib/myapp.jar
 ```
 
 ## Specify additional parameters
 After you select your context, perform any necessary setup, and specify required parameters, you can add your application or additional Streams Runner parameters as needed. For example, if your Beam application reads input from a file, you can include the file in the application bundle to be available in the Streaming Analytics service or Streams instance environment by using the `--filesToStage` parameter.
 
-For the full list of Streams Runner options, see [General pipeline options](../beamrunner-6-ref/#general-pipeline-options).
+For the full list of Streams Runner options, see [General pipeline options](../beamrunner-5-ref/#general-pipeline-options).

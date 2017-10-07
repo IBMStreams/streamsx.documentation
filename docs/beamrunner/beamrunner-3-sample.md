@@ -35,7 +35,7 @@ For more information about this sample application, see [The TemperatureSample a
 
    Note: If the environment variables are not set, you must use full paths, and use the `--vcapServices` parameter to provide the path to the Bluemix credentials file.
 
-   For more information about the parameters available to you, see [Pipeline options for Streams Runner](../beamrunner-5-ref/#pipeline-options-for-streams-runner).
+   For more information about the parameters available to you, see [Pipeline options for Streams Runner](../beamrunner-5-ref/#streams-runner-pipeline-options).
 
 3. Verify that the application started successfully.
 
