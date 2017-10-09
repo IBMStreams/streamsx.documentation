@@ -20,7 +20,7 @@ You can use IBM® Streams Runner for Apache Beam to run the Apache Beam 2.0 Java
 
 Before you run the WordCount sample application, you must configure and run the following services on IBM Bluemix®:
 
-- Streaming Analytics. For more information, see [Creating a Streaming Analytics service on Bluemix](http://127.0.0.1:4000/streamsx.documentation/docs/beamrunner/beamrunner-2-install/#creating-a-streaming-analytics-service-on-bluemix).
+- Streaming Analytics. For more information, see [Creating a Streaming Analytics service on Bluemix](../beamrunner/beamrunner-2-install/#creating-a-streaming-analytics-service-on-bluemix).
 - IBM® Object Storage for Bluemix®. Make sure the environment variables are configured. For more information about the environment variables, see _Setting up the client_ in [Configuring the CLI to use Swift and Cloud Foundry commands](https://console.stage1.bluemix.net/docs/services/ObjectStorage/os_configuring.html).
 
 In addtion, you must set up your development JDK and Maven environment. For more information, see [Set up your Development Environment](https://beam.apache.org/get-started/quickstart-java/#set-up-your-development-environment).
@@ -30,7 +30,7 @@ Important: If you want to compile on Bluemix, you must unset the `STREAMS_INSTAL
 ## Running the WordCount sample
 
 1. Get and compile the WordCount sample application for Apache Beam 2.0.  
-    Important: The `-DarchetypeVersion` variable must be set to 2.0.0, as shown in the following command.
+    **Important:** The `-DarchetypeVersion` variable must be set to 2.0.0, as shown in the following command.
 
    ```
   $ mvn archetype:generate \

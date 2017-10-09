@@ -18,7 +18,7 @@ Installing IBM® Streams Runner for Apache Beam involves downloading and extract
 
 ## Before you start
 
-A Red Hat Enterprise Linux 6 or 7 environment is recommended for compiling Apache Beam 2.0  applications that are submitted to the Streaming Analytics service in Bluemix.
+A Red Hat Enterprise Linux 6 or 7 environment is recommended for submitting Apache Beam 2.0 applications to the Streaming Analytics service in Bluemix.
 
 ## Creating a Streaming Analytics service on Bluemix
 
