@@ -85,7 +85,7 @@ tar -zxvf com.ibm.streams.beam-1.0.0.tar.gz
       <tr>
         <td>STREAMS_INSTALL</td>
         <td>The path to the IBM Streams installation if Streams is installed </td>
-        <td>Important: If this variable exists, you must use the `unset` command to unset it before you submit an application to the Streaming Analytics service. </td>
+        <td><strong>Important</strong>: If this variable exists, you must use the `unset` command to unset it before you submit an application to the Streaming Analytics service. </td>
       </tr>
     </tbody>
   </table>

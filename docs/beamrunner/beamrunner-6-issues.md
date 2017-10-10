@@ -8,7 +8,7 @@ published: true
 tag: beam
 prev:
   file: beamrunner-5a-objstor
-  title: Object Storage
+  title: I/O options
 ---
 
 Learn about limitations and known issues for IBM® Streams Runner for Apache Beam.

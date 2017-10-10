@@ -12,3 +12,5 @@ next:
 ---
 
 You can use IBM® Streams Runner for Apache Beam to execute Apache Beam 2.0 pipelines in an IBM Streams environment. A Beam application that is launched with Streams Runner is translated into a Streams Application Bundle (SAB) file. It is then optionally submitted to an IBM Streaming Analytics service in IBM Bluemix or to an existing IBM Streams domain and instance.
+
+For more information about Apache Beam, see the [Apache Beam documentation](https://beam.apache.org/documentation/).

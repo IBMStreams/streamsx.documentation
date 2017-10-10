@@ -14,12 +14,12 @@ next:
   title: Wordcount sample app
 ---
 
-To use IBM® Streams Runner for Apache Beam,  you must enable Streams Runner to make it accessible to the Beam application when it is executed. Additionally, you must select a context that tells the runner how to build and submit the Beam application. Lastly, as with any Beam pipeline, you must specify any custom application or additional runner parameters.
+To use IBM® Streams Runner for Apache Beam, its libraries must be available to the Beam application when the application is executed. Additionally, you must select a context that tells the runner how to build and submit the Beam application. Lastly, as with any Beam pipeline, you must specify any custom application parameters or additional runner parameters.
 
 ## Enabling Streams Runner
-To allow Apache Beam 2.0 applications to use Streams Runner, you must do the following items when you submit the application:
-1. Include the `com.ibm.streams.beam.translation.jar` file that is located at `$STREAMS_BEAM_TOOLKIT/lib` in your Java class path.
-2. Specify the Beam pipeline parameter `--runner=StreamsRunner`.
+To make the Streams Runner libraries available to the Beam application, you must do the following items when you submit the application:
+- Include the `com.ibm.streams.beam.translation.jar` file that is located at `$STREAMS_BEAM_TOOLKIT/lib` in your Java™ class path.
+- Specify the Beam pipeline parameter `--runner=StreamsRunner`.
 
 ## Selecting the Streams context
 
@@ -48,13 +48,13 @@ Because the application is launched on a remote system, the Streams job must be
 aware of your Beam application. To include your application and any dependencies,
 use the `--jarsToStage` option. For more information about this option, see [Streams Runner pipeline options](../beamrunner-5-ref/#streams-runner-pipeline-options).
 
-Note: Fat or uber JAR files can reduce the number of JAR files to stage. However, using them increases the size of the archive and affects upload and build times.
+**Note**: Fat or uber JAR files can reduce the number of JAR files to stage. However, using them increases the size of the archive and affects upload and build times.
 
 #### Example
 
 This example submits `MyBeamApplication` to the `my-service-name` Streaming Analytics service on Bluemix.
 
-Note: This example uses the `--vcapServices` and `--serviceName` parameters, but these parameters aren't necessary if their respective environment variables are set.
+**Note**: This example uses the `--vcapServices` and `--serviceName` parameters, but these parameters aren't necessary if their respective environment variables are set.
 Additionally, the `--contextType` parameter can be omitted because `STREAMING_ANALYTICS_SERVICE` is the default.
 
 ```

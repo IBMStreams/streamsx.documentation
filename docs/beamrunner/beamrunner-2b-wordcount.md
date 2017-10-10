@@ -14,18 +14,18 @@ next:
   title: TemperatureSample sample app
 ---
 
-You can use IBM® Streams Runner for Apache Beam to run the Apache Beam 2.0 Java SDK Quickstart WordCount sample application.
+You can use IBM® Streams Runner for Apache Beam to run the Apache Beam 2.0 Java™ SDK Quickstart WordCount sample application.
 
 ## Before you start
 
 Before you run the WordCount sample application, you must configure and run the following services on IBM Bluemix®:
 
 - Streaming Analytics. For more information, see [Creating a Streaming Analytics service on Bluemix](../beamrunner/beamrunner-2-install/#creating-a-streaming-analytics-service-on-bluemix).
-- IBM® Object Storage for Bluemix®. Make sure the environment variables are configured. For more information about the environment variables, see _Setting up the client_ in [Configuring the CLI to use Swift and Cloud Foundry commands](https://console.stage1.bluemix.net/docs/services/ObjectStorage/os_configuring.html).
+- IBM Object Storage for Bluemix. Make sure that the environment variables are configured. For more information about the environment variables, see _Setting up the client_ in [Configuring the CLI to use Swift and Cloud Foundry commands](https://console.stage1.bluemix.net/docs/services/ObjectStorage/os_configuring.html).
 
-In addtion, you must set up your development JDK and Maven environment. For more information, see [Set up your Development Environment](https://beam.apache.org/get-started/quickstart-java/#set-up-your-development-environment).
+In addition, you must set up your Java Development Kit (JDK) and Maven environment. For more information, see [Set up your Development Environment](https://beam.apache.org/get-started/quickstart-java/#set-up-your-development-environment).
 
-Important: If you want to compile on Bluemix, you must unset the `STREAMS_INSTALL` variable before you submit the application.
+**Important**: If you want to compile on Bluemix, you must unset the `STREAMS_INSTALL` variable before you submit the application.
 
 ## Running the WordCount sample
 
@@ -63,7 +63,7 @@ Important: If you want to compile on Bluemix, you must unset the `STREAMS_INSTAL
           --serviceName=yourSasName
       ```
 
-    - The following command uses Object storage to host both input and output files. Make sure that the `pom.xml` input file has been uploaded to `beam-container` before you submit the application.
+    - The following command uses Object Storage to host both input and output files. Make sure that the `pom.xml` input file is uploaded to `beam-container` before you submit the application.
 
       ```
       $ java -cp $STREAMS_BEAM_TOOLKIT/lib/com.ibm.streams.beam.translation.jar:target/word-count-beam-0.1.jar \
@@ -91,7 +91,7 @@ Streams Runner offers two options to provide the input file, `streams://` and `s
 
 ### Using the `streams://` file system scheme:
 
-An application can include a local file into the bundle by using the `--filesToStage` option. This option take a JSON string where keys are paths of local files to include and values are destination paths in the bundle. For example, with the option `--filesToStage={\"/local/file.txt\":\"data/input\"}`, the runner copies the `/local/file.txt` file into the bundle under relative path `data/input`. Later, the pipeline can access the file using path `streams://data/input`.
+An application can include a local file into the bundle by using the `--filesToStage` option. This option takes a JSON string where keys are paths of local files to include and values are destination paths in the bundle. For example, with the option `--filesToStage={\"/local/file.txt\":\"data/input\"}`, the runner copies the `/local/file.txt` file into the bundle under relative path `data/input`. Later, the pipeline can access the file by using path `streams://data/input`.
 
 ### Using the `swift://` Object Storage file system scheme
 

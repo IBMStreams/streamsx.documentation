@@ -14,7 +14,7 @@ next:
   title: Reference
 ---
 
-You can use the Apache Beam  2.0 [metrics API](https://beam.apache.org/documentation/sdks/javadoc/2.0.0/org/apache/beam/sdk/metrics/package-summary.html) to insert information to monitor your IBM® Streams Runner for Apache Beam application. This section uses the `TemperatureSample` application that is included in IBM Streams Runner for Apache Beam to show how Streams Runner makes metrics available for monitoring, both to the application itself and other monitoring tools.
+You can use the Apache Beam  2.0 [metrics API](https://beam.apache.org/documentation/sdks/javadoc/2.0.0/org/apache/beam/sdk/metrics/package-summary.html) to insert information to monitor your IBM® Streams Runner for Apache Beam application. You can the `TemperatureSample` application that is included in IBM Streams Runner for Apache Beam to learn how Streams Runner makes metrics available for monitoring, both to the application itself and other monitoring tools.
 
 ## Adding metrics to your application
 
@@ -22,7 +22,7 @@ Beam supports three basic types of metrics:
 
 - A [Counter](https://beam.apache.org/documentation/sdks/javadoc/2.0.0/org/apache/beam/sdk/metrics/Counter.html) metric reports a single long value and can be incremented or decremented.
 - A [Distribution](https://beam.apache.org/documentation/sdks/javadoc/2.0.0/org/apache/beam/sdk/metrics/Distribution.html) metric holds information about the distribution of reported long values.
-- A [Gauge](https://beam.apache.org/documentation/sdks/javadoc/2.0.0/org/apache/beam/sdk/metrics/Gauge.html) metric holds a long value that can be set and a timestamp of the last change.
+- A [Gauge](https://beam.apache.org/documentation/sdks/javadoc/2.0.0/org/apache/beam/sdk/metrics/Gauge.html) metric holds a long value that can be set and a time stamp of the last change.
 
 Steps in the Beam application's processing pipeline can create and update metrics that are associated with that step. To do so, during processing the application calls [Metrics.counter()](https://beam.apache.org/documentation/sdks/javadoc/2.0.0/org/apache/beam/sdk/metrics/Metrics.html#counter-java.lang.String-java.lang.String-),
 [Metrics.distribution()](https://beam.apache.org/documentation/sdks/javadoc/2.0.0/org/apache/beam/sdk/metrics/Metrics.html#distribution-java.lang.String-java.lang.String-), or [Metrics.gauge()](https://beam.apache.org/documentation/sdks/javadoc/2.0.0/org/apache/beam/sdk/metrics/Metrics.html#gauge-java.lang.String-java.lang.String-) to get a named metric and then update it.
@@ -46,7 +46,7 @@ if (temp < badTempThreshold) {
 }
 ```
 
-Metrics that are created this way have names that have two parts: a _namespace_, and a _name_. In the example, the namespace is always the string `COLLECTED_METRIC_NAMESPACE ("TemperatureSample")`, but a Java class can also be used as a namespace.
+Metrics that are created this way have names that have two parts: a _namespace_, and a _name_. In the example, the namespace is always the string `COLLECTED_METRIC_NAMESPACE ("TemperatureSample")`, but a Java™ class can also be used as a namespace.
 
 The values of the metrics are update-only in the Beam `PTransform` classes. The current value of a metric can be retrieved only by querying the `PipelineResult` after you submit the pipeline.
 
@@ -87,6 +87,6 @@ This view shows both Beam metrics and Streams metrics. Beam metrics are named di
 
 Beam counters in namespace _NS_ and with name _NAME_ are shown as Streams metrics with the name **NS::NAME**, for example, **TemperatureSample::bad.total**.
 
-Beam distributions in namespace _NS_ and with name _DIST_ are associated with four separate Streams metrics. These metrics are grouped under **NS::DIST** and include `count`, `sum`, `min`, and `max`. For example **TemperatureSample::good.device\_1** shows the four metrics and their corresponding values. From these values, the mean can be derived (that is, the sum divided by the count).
+Beam distributions in namespace _NS_ and with name _DIST_ are associated with four separate Streams metrics. These metrics are grouped under **NS::DIST** and include `count`, `sum`, `min`, and `max`. For example, **TemperatureSample::good.device\_1** shows the four metrics and their corresponding values. From these values, the mean can be derived (that is, the sum divided by the count).
 
 These names are an implementation detail of Streams Runner and might change. If programmatic access to Beam metrics is required, the Beam [queryMetrics](https://beam.apache.org/documentation/sdks/javadoc/2.0.0/org/apache/beam/sdk/metrics/MetricResults.html#queryMetrics-org.apache.beam.sdk.metrics.MetricsFilter-) API must be used.

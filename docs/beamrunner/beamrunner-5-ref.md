@@ -11,7 +11,7 @@ prev:
   title: Monitoring
 next:
   file: beamrunner-5a-objstor
-  title: Object Storage
+  title: I/O options
 ---
 
 Learn about the package contents and pipeline options for IBM® Streams Runner for Apache Beam.
@@ -22,14 +22,14 @@ The Streams Runner package contains the following folders:
 
 - `com.ibm.streams.beam`: The IBM Streams Runner for Apache Beam toolkit, which you can use to submit Apache Beam  2.0 applications to the IBM Streams runtime environment.
 
-- `samples`: Toolkit sample applications. For information about the samples, see the README file in the samples folder.
+- `samples`: Toolkit sample applications. For information about the samples, see the readme file in the samples folder.
 
 ### General pipeline options
 
 | Parameter | Description | Default value |
 | --- | --- | --- |
 | `runner` | The pipeline runner to use. Use this option to determine the pipeline runner at run time. | Set this option to `StreamsRunner` to run with IBM Streams. |
-| `streaming` | A flag to indicate whether streaming mode is enabled (`true`). <br /><br />Note: IBM Streams is a pure streaming engine and does not have a discrete batch-processing mode. For this reason, this parameter is ignored and is automatically set to `true`.  | `true`  |
+| `streaming` | A flag to indicate whether streaming mode is enabled (`true`). <br /><br /><strong>Note</strong>: IBM Streams is a pure streaming engine and does not have a discrete batch-processing mode. For this reason, this parameter is ignored and is automatically set to `true`.  | `true`  |
 | `jobName` | The name of the job. | Defaults to a Beam-generated string. |
 | `appName` | The name of the app for display purposes. | Defaults to the class name of the PipelineOptions creator. |
 
@@ -52,7 +52,7 @@ The Streams Runner package contains the following folders:
     </tr>
     <tr>
       <td><code class="highlighter-rouge">jarsToStage</code></td>
-      <td>A list of JAR files (separated by colons) that are required to run the Apache Beam application. Include the JAR files that contain your program and any dependencies. (You don’t need to include Beam Google IO SDK or core Beam JAR files.) The listed JAR files are added to the SAB file.<br /><br />Note: The use of fat or uber JAR files increases the size of the SAB file and can negatively impact submission times to IBM Bluemix.</td>
+      <td>A list of JAR files (separated by colons) that are required to run the Apache Beam application. Include the JAR files that contain your program and any dependencies. (You don’t need to include Beam Google IO SDK or core Beam JAR files.) The listed JAR files are added to the SAB file.<br /><br /><strong>Note</strong>: The use of fat or uber JAR files increases the size of the SAB file and can negatively impact submission times to IBM Bluemix.</td>
       <td>[null]</td>
     </tr>
     <tr>
@@ -63,7 +63,7 @@ The Streams Runner package contains the following folders:
     <tr>
       <td><code class="highlighter-rouge">beamToolkitDir</code></td>
       <td>The location of the Streams Runner toolkit. Use this option to explicitly specify the Streams Runner toolkit location.</td>
-      <td>Defaults to the path of the <code class="highlighter-rouge">com.ibm.streams.beam.translation.jar</code> file in the Java <code class="highlighter-rouge">classpath</code>.</td>
+      <td>Defaults to the path of the <code class="highlighter-rouge">com.ibm.streams.beam.translation.jar</code> file in the Java™ class path.</td>
     </tr>
     <tr>
       <td><code class="highlighter-rouge">tracingLevel</code></td>
@@ -82,7 +82,7 @@ The Streams Runner package contains the following folders:
 
 | Parameter | Description | Default value |
 | --- | --- | --- |
-| `vcapServices` | The location of the Streaming Analytics VCAP file. This parameter is required when you use the `STREAMING_ANALYTICS_SERVICE` context type.This parameter can be omitted if the `$VCAP_SERVICES` environment variable is set to the path of the file. | [null] |
+| `vcapServices` | The location of the Streaming Analytics VCAP file. This parameter is required when you use the `STREAMING_ANALYTICS_SERVICE` context type. This parameter can be omitted if the `$VCAP_SERVICES` environment variable is set to the path of the file. | [null] |
 | `serviceName` | The name of the Streaming Analytics service on Bluemix. This parameter is required when you use the   STREAMING_ANALYTICS_SERVICE  context type. | [null] |
 
 ### DISTRIBUTED context-specific pipeline options
