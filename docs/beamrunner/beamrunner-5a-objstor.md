@@ -44,10 +44,10 @@ If you have not already done so, you must create the Object Storage OpenStack Sw
 
 ## Setting up credentials for the service
 
-To use the storage from Beam applications, service credential information is required.
+To use the storage from Beam applications, you must specify the service credentials.
 
-1. After the service is provisioned, select the service from the dashboard to open the **Manage** page for the service. From here, you can manage the files that you create. Streams Runner creates containers and files as required.
-2. On the Object Storage OpenStack Swift for Bluemix service page, click **Service credentials**.
+1. After the service is provisioned, select the Object Storage Demo service from the dashboard to open the **Manage** page for the service. From here, you can manage the files that you create. Streams Runner creates containers and files as required.
+2. On the Object Storage Demo service page, click **Service credentials**.
 3. If necessary, create a credential by clicking **New credential**. Use the default information and click **Add**.
 4. Click **View credentials**.
 5. On the computer where Streams Runner is installed, create the following environment variables from the fields that are shown in the credentials:

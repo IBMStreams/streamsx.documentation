@@ -11,7 +11,7 @@ prev:
   title: Installing
 next:
   file: beamrunner-2b-wordcount
-  title: Wordcount sample app
+  title: WordCount sample app
 ---
 
 To use IBM® Streams Runner for Apache Beam, its libraries must be available to the Beam application when the application is executed. Additionally, you must select a context that tells the runner how to build and submit the Beam application. Lastly, as with any Beam pipeline, you must specify any custom application parameters or additional runner parameters.
