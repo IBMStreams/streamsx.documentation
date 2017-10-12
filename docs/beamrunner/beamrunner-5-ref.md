@@ -10,7 +10,7 @@ prev:
   file: beamrunner-4-monitor
   title: Monitoring
 next:
-  file: beamrunner-5a-objstor
+  file: beamrunner-5a-io
   title: I/O options
 ---
 
@@ -24,7 +24,7 @@ The Streams Runner package contains the following folders:
 
 - `samples`: Toolkit sample applications. For information about the samples, see the readme file in the samples folder.
 
-### General pipeline options
+## General pipeline options
 
 | Parameter | Description | Default value |
 | --- | --- | --- |
@@ -33,7 +33,7 @@ The Streams Runner package contains the following folders:
 | `jobName` | The name of the job. | Defaults to a Beam-generated string. |
 | `appName` | The name of the app for display purposes. | Defaults to the class name of the PipelineOptions creator. |
 
-### Streams Runner pipeline options
+## Streams Runner pipeline options
 
 <table>
   <thead>
@@ -78,14 +78,14 @@ The Streams Runner package contains the following folders:
   </tbody>
 </table>
 
-### STREAMING\_ANALYTICS\_SERVICE context-specific pipeline options
+## STREAMING\_ANALYTICS\_SERVICE context-specific pipeline options
 
 | Parameter | Description | Default value |
 | --- | --- | --- |
 | `vcapServices` | The location of the Streaming Analytics VCAP file. This parameter is required when you use the `STREAMING_ANALYTICS_SERVICE` context type. This parameter can be omitted if the `$VCAP_SERVICES` environment variable is set to the path of the file. | [null] |
 | `serviceName` | The name of the Streaming Analytics service on Bluemix. This parameter is required when you use the   STREAMING_ANALYTICS_SERVICE  context type. | [null] |
 
-### DISTRIBUTED context-specific pipeline options
+## DISTRIBUTED context-specific pipeline options
 
 | Parameter | Description | Default value |
 | --- | --- | --- |

@@ -18,9 +18,16 @@ You can use a simple application called `TemperatureSample` to learn how to subm
 
 For more information about this sample application, see [The TemperatureSample application](#the-temperaturesample-application).
 
+## Before you start
+
+Before you run the `TemperatureSample` sample application, you must configure and run the following service on IBM Bluemix®:
+
+- Streaming Analytics. For more information, see [Creating a Streaming Analytics service on Bluemix](../beamrunner-2-install/#creating-a-streaming-analytics-service-on-bluemix).
+
+**Important**: If you want to compile your application on Bluemix, you must unset the `STREAMS_INSTALL` variable before you submit the application to the Streaming Analytics service.
+
 ## Running the `TemperatureSample` application
 
-1. Make sure that your Streaming Analytics service on Bluemix is running.
 2. Navigate to the `$STREAMS_RUNNER_HOME/samples` directory. The Streams Runner toolkit provides all necessary files. Assuming that all environment variables are set as described in [Downloading and configuring Streams Runner](../beamrunner-2-install/#downloading-and-configuring-streams-runner) and that the `$VCAP_SERVICES` Bluemix credentials file has credentials in it named `beam-service`, you can launch the `TemperatureSample` application with the following command:
 
    ```

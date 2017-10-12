@@ -18,14 +18,16 @@ You can use IBM® Streams Runner for Apache Beam to run the Apache Beam 2.0 Java
 
 ## Before you start
 
-Before you run the WordCount sample application, you must configure and run the following services on IBM Bluemix®:
+Before you run the `WordCount` sample application, you must configure and run the following services on IBM Bluemix®:
 
 - Streaming Analytics. For more information, see [Creating a Streaming Analytics service on Bluemix](../beamrunner-2-install/#creating-a-streaming-analytics-service-on-bluemix).
 - IBM Object Storage for Bluemix. Make sure that the environment variables are configured. For more information about the environment variables, see _Setting up the client_ in [Configuring the CLI to use Swift and Cloud Foundry commands](https://console.stage1.bluemix.net/docs/services/ObjectStorage/os_configuring.html).
 
+`Can this reference the same links as this section on the FileStreamSample topic???`
+
 In addition, you must set up your Java Development Kit (JDK) and Maven environment. For more information, see [Set up your Development Environment](https://beam.apache.org/get-started/quickstart-java/#set-up-your-development-environment).
 
-**Important**: If you want to compile on Bluemix, you must unset the `STREAMS_INSTALL` variable before you submit the application.
+**Important**: If you want to compile your application on Bluemix, you must unset the `STREAMS_INSTALL` variable before you submit the application to the Streaming Analytics service.
 
 ## Running the WordCount sample
 
@@ -46,7 +48,7 @@ In addition, you must set up your Java Development Kit (JDK) and Maven environme
   $ mvn package
   ```
 
-1. Choose one of the following options to run the WordCount sample application. For more information about the `streams://` and `swift://` storage options, see [I/O options](#io-options).
+1. Choose one of the following options to run the WordCount sample application. For more information about the `streams://` and `swift://` storage options, see [Input/output options for IBM Streams Runner for Apache Beam](../beamrunner-5a-io/).
 
     - The following command uses `streams://` to provide the input, and writes the output to Object Storage.
 
@@ -84,15 +86,3 @@ In addition, you must set up your Java Development Kit (JDK) and Maven environme
     $ swift download beam-container -p quickstart.out -D swift-output
     $ cat swift-output/*
     ```
-
-## I/O options
-
-Streams Runner offers two options to provide the input file, `streams://` and `swift://`. Applications can also use other Beam IO options to link the input.
-
-### Using the `streams://` file system scheme:
-
-An application can include a local file into the bundle by using the `--filesToStage` option. This option takes a JSON string where keys are paths of local files to include and values are destination paths in the bundle. For example, with the option `--filesToStage={\"/local/file.txt\":\"data/input\"}`, the runner copies the `/local/file.txt` file into the bundle under relative path `data/input`. Later, the pipeline can access the file by using path `streams://data/input`.
-
-### Using the `swift://` Object Storage file system scheme
-
-The application can upload the input file to Object Storage, and use the path `swift://<container>/<object>` to access the file.

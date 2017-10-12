@@ -7,8 +7,8 @@ weight:  10
 published: true
 tag: beam
 prev:
-  file: beamrunner-5a-objstor
-  title: I/O options
+  file: beamrunner-5b-objstor
+  title: Using Bluemix Object Storage
 ---
 
 Learn about limitations and known issues for IBM® Streams Runner for Apache Beam.
