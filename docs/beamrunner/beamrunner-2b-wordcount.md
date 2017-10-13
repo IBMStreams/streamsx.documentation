@@ -21,9 +21,10 @@ You can use IBM® Streams Runner for Apache Beam to run the Apache Beam 2.0 Java
 Before you run the `WordCount` sample application, you must configure and run the following services on IBM Bluemix®:
 
 - Streaming Analytics. For more information, see [Creating a Streaming Analytics service on Bluemix](../beamrunner-2-install/#creating-a-streaming-analytics-service-on-bluemix).
-- IBM Object Storage for Bluemix. Make sure that the environment variables are configured. For more information about the environment variables, see _Setting up the client_ in [Configuring the CLI to use Swift and Cloud Foundry commands](https://console.stage1.bluemix.net/docs/services/ObjectStorage/os_configuring.html).
-
-`Can this reference the same links as this section on the FileStreamSample topic???`
+- Object Storage OpenStack Swift for Bluemix.
+   - Create the service if you don't already have one. For more information, see [Creating the Object Storage OpenStack Swift for Bluemix service](../beamrunner-5a-io/#creating-the-object-storage-openstack-swift-for-bluemix-service).
+   - Set up credentials for the service. **Remember**: Make sure the environment variables are configured. For more information, see [Set up credentials for the service](../beamrunner-5a-io/#setting-up-credentials-for-the-service).
+   - (Optional) Install the Swift CLI client. For more information, see [Configuring the CLI to use Swift and Cloud Foundry commands](https://console.stage1.bluemix.net/docs/services/ObjectStorage/os_configuring.html).
 
 In addition, you must set up your Java Development Kit (JDK) and Maven environment. For more information, see [Set up your Development Environment](https://beam.apache.org/get-started/quickstart-java/#set-up-your-development-environment).
 
@@ -65,7 +66,7 @@ In addition, you must set up your Java Development Kit (JDK) and Maven environme
           --serviceName=yourSasName
       ```
 
-    - The following command uses Object Storage to host both input and output files. Make sure that the `pom.xml` input file is uploaded to `beam-container` before you submit the application.
+    - The following command uses Object Storage to host both input and output files. Make sure that the `pom.xml` input file is uploaded to `beam-container` before you submit the application. For more information about adding a file to the container, see [Getting started with Object Storage](https://console.stage1.bluemix.net/docs/services/ObjectStorage/index.html).
 
       ```
       $ java -cp $STREAMS_BEAM_TOOLKIT/lib/com.ibm.streams.beam.translation.jar:target/word-count-beam-0.1.jar \
@@ -80,7 +81,7 @@ In addition, you must set up your Java Development Kit (JDK) and Maven environme
       ```
 
 1. Inspect the results.  
-    After the pipeline completes, you can download the output by using the Swift API. Each output file contains up to 50,000 lines. If the output goes beyond that limit, multiple output files are created.
+    After the pipeline completes, you can download the output through the Object Storage OpenStack Swift for Bluemix web management page or by using the Swift CLI client. Each output file contains up to 50,000 lines. If the output goes beyond that limit, multiple output files are created.  you can download the output through the Object Storage OpenStack Swift for Bluemix web management page or by using the Swift CLI client
 
     ```
     $ swift download beam-container -p quickstart.out -D swift-output

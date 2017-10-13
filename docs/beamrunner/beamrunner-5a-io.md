@@ -52,7 +52,7 @@ If you have not already done so, you must create the Object Storage OpenStack Sw
 
 1. On the Bluemix [dashboard](https://console.bluemix.net/dashboard) main menu, click **Storage**.
 2. Click **Create Storage service**.
-3. Click **Cloud Object Storage**.
+3. Click **Object Storage**.
 4. Select **Object Storage OpenStack Swift for Bluemix**.   
   **Important**: Bluemix provides multiple object storage services, but only Object Storage OpenStack Swift for Bluemix is supported by IBM Streams Runner for Apache Beam.
 5. Click **Create**.

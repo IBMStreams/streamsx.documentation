@@ -92,7 +92,7 @@ tar -zxvf com.ibm.streams.beam-1.0.0.tar.gz
 
 ## Validating the Streams Runner installation
 
-The Streams Runner relies on preserving the `com.ibm.streams.beam` directory structure. To verify an installation, ensure that the translation and sdk JAR files appear as follows when you enter the following command:
+The Streams Runner relies on preserving the `com.ibm.streams.beam` directory structure. To verify an installation, ensure that the `translation` and `sdk` JAR files appear as follows when you enter the following command:
 `ls $STREAMS_BEAM_TOOLKIT/lib`
 
 ```
