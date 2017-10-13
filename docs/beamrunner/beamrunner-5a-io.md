@@ -34,7 +34,7 @@ For example, `--filesToStage='{"/local/file.txt":"data/input"}'` copies the file
 
 For more information about the `--filesToStage` option, see [Streams Runner pipeline options](../beamrunner-5-ref/#streams-runner-pipeline-options).
 
-## Object storage on Bluemix (`swift://`)
+## Object storage input/output on Bluemix (`swift://`)
 
 The Beam application can use storage on Bluemix itself for both input and output by using the `swift://` scheme and the Object Storage OpenStack Swift for Bluemix service. Objects in the service can be manipulated through the web interface in Bluemix, a command-line tool, or from the pipeline in the Beam application. This service is useful when you run Apache Beam 2.0 applications on the Streaming Analytics service on IBM Bluemix, where direct access to output files from Beam applications is difficult.
 

@@ -81,9 +81,11 @@ In addition, you must set up your Java Development Kit (JDK) and Maven environme
       ```
 
 1. Inspect the results.  
-    After the pipeline completes, you can download the output through the Object Storage OpenStack Swift for Bluemix web management page or by using the Swift CLI client. Each output file contains up to 50,000 lines. If the output goes beyond that limit, multiple output files are created.  you can download the output through the Object Storage OpenStack Swift for Bluemix web management page or by using the Swift CLI client
+    After the pipeline completes, you can download the output through the Object Storage OpenStack Swift for Bluemix web management page or by using the Swift CLI client. Each output file contains up to 50,000 lines. If the output goes beyond that limit, multiple output files are created.
 
     ```
-    $ swift download beam-container -p quickstart.out -D swift-output
-    $ cat swift-output/*
+    swift download beam-container -p quickstart.out -D swift-output
+    cat swift-output/*
     ```
+
+ **Remember**: The job continues to run on the Streaming Analytics service to allow for inspection by the Streams Console. When you are done with the tutorial, make sure to use the Streams Console to cancel any jobs you started.
