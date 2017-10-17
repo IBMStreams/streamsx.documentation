@@ -2,7 +2,7 @@
 layout: docs
 title:  Input/output options for IBM Streams Runner for Apache Beam
 navtitle: I/O options
-description:  
+description:  Apache Beam 2.0 applications that use IBM® Streams Runner for Apache Beam on a Streaming Analytics service on Bluemix have options for input/output: standard output and errors, local file input, and object storage on Bluemix.
 weight:  10
 published: true
 tag: beam
@@ -40,9 +40,9 @@ The Beam application can use storage on Bluemix itself for both input and output
 
 The Object Storage OpenStack Swift for Bluemix service stores objects in containers. For more information, see [Getting started with Object Storage](https://console.stage1.bluemix.net/docs/services/ObjectStorage/index.html). Beam I/O uses URIs to name files, and Streams Runner interprets the URI in the format <code>swift://_container_/_object_</code> to read and write to these objects.
 
-The Object Storage system doesn't allow the forward slash (/) character in the container name, but does allow it in the object name. Although the forward slash is not special to Object Storage, Streams Runner treats it as a directory separator in a logical path.
+The object storage system doesn't allow the forward slash (/) character in the container name, but does allow it in the object name. Although the forward slash is not special to object storage, Streams Runner treats it as a directory separator in a logical path.
 
-For example, if a container named `MyContainer` contains objects named `top.txt` and `dir/nested.txt`, the Object Storage system shows these objects together in the list of objects in `MyContainer`. In Beam, the URIs `swift://MyContainer/foo.txt` and `swift://MyContainer/dir/nested.txt` refer to these two objects, but Beam also considers `swift://MyContainer/dir/` to be a logical directory that contains a resource named `nested.txt`. You can't use "Glob" patterns for resources (for example, `swift://MyContainer/dir/\*`).
+For example, if a container named `MyContainer` contains objects named `top.txt` and `dir/nested.txt`, the object storage system shows these objects together in the list of objects in `MyContainer`. In Beam, the URIs `swift://MyContainer/foo.txt` and `swift://MyContainer/dir/nested.txt` refer to these two objects, but Beam also considers `swift://MyContainer/dir/` to be a logical directory that contains a resource named `nested.txt`. You can't use "Glob" patterns for resources (for example, `swift://MyContainer/dir/\*`).
 
 For more information about managing file systems and resources with Beam, see the [Beam I/O documentation](https://beam.apache.org/documentation/sdks/javadoc/2.0.0/org/apache/beam/sdk/io/package-summary.html).
 
@@ -72,19 +72,19 @@ To use the storage from Beam applications, you must specify the Bluemix service 
 
 | Environment variable | Command-line option           | Credentials field | Environment variable example                                                 |
 |----------------------|------------------|-------------------|---------------------------------------------------------|
-| OS_USER_ID           | --swiftUserId    | userId            | `export OS_USER_ID=”2b670d77432e4cf2bd128ef9ff61fa56”`    |
-| OS_PASSWORD          | --swiftPassword  | password          | `export OS_PASSWORD=” f1H/~BIO.=s0wuT9”`                  |
-| OS_PROJECT_ID        | --swiftProjectId | projectId         | `export OS_PROJECT_ID=”80301e24254f4ffb81d53f0cddccad78”` |
-| OS_REGION_NAME       | --swiftRegion    | region            | `export OS_REGION=”dallas”`                               |
+| `OS_USER_ID`           | `--swiftUserId`    | `userId`            | `export OS_USER_ID='2b670d77432e4cf2bd128ef9ff61fa56'`    |
+| `OS_PASSWORD`          | `--swiftPassword`  | `password`          | `export OS_PASSWORD=' f1H/~BIO.=s0wuT9'`                  |
+| `OS_PROJECT_ID`        | `--swiftProjectId` | `projectId`         | `export OS_PROJECT_ID='80301e24254f4ffb81d53f0cddccad78'` |
+| `OS_REGION_NAME`       | `--swiftRegion`    | `region`            | `export OS_REGION='dallas'`                               |
 
 **Tip**: For MacOS, the Swift command of OpenStack might collide with the existing Xcode Swift command. To avoid the conflicts, create a Python virtual environment, and install the Swift client in the virtual environment.
 
 ```
-$ virtualenv my_project
-$ cd my_project
-$ source bin/activate
-$ pip install python-swiftclient
-$ pip install python-keystoneclient
+virtualenv my_project
+cd my_project
+source bin/activate
+pip install python-swiftclient
+pip install python-keystoneclient
 ```
 
 For more information about object storage in Bluemix, see [Getting started with Object Storage](https://console.stage1.bluemix.net/docs/services/ObjectStorage/index.html). For more information about the command-line Swift client, see [Configuring the CLI to use Swift and Cloud Foundry commands](https://console.stage1.bluemix.net/docs/services/ObjectStorage/os_configuring.html).

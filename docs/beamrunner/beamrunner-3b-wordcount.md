@@ -2,16 +2,16 @@
 layout: docs
 title:  WordCount sample application for IBM Streams Runner for Apache Beam
 navtitle: WordCount sample app
-description:  
+description:  You can use IBM® Streams Runner for Apache Beam to run the Apache Beam 2.0 Java™ SDK Quickstart WordCount sample application.
 weight:  10
 published: true
 tag: beam
 prev:
-  file: beamrunner-2a-using
-  title: Using
-next:
   file: beamrunner-3-sample
-  title: TemperatureSample sample app
+  title: TemperatureSample app
+next:
+  file: beamrunner-4-monitor
+  title: Monitoring
 ---
 
 You can use IBM® Streams Runner for Apache Beam to run the Apache Beam 2.0 Java™ SDK Quickstart WordCount sample application.
@@ -36,7 +36,7 @@ In addition, you must set up your Java Development Kit (JDK) and Maven environme
     **Important:** The `-DarchetypeVersion` variable must be set to 2.0.0, as shown in the following command.
 
    ```
-  $ mvn archetype:generate \
+  mvn archetype:generate \
             -DarchetypeGroupId=org.apache.beam \
             -DarchetypeArtifactId=beam-sdks-java-maven-archetypes-examples \
             -DarchetypeVersion=2.0.0 \
@@ -45,17 +45,17 @@ In addition, you must set up your Java Development Kit (JDK) and Maven environme
             -Dversion="0.1" \
             -Dpackage=org.apache.beam.examples \
             -DinteractiveMode=false
-  $ cd word-count-beam
-  $ mvn package
+  cd word-count-beam
+  mvn package
   ```
 
 1. Choose one of the following options to run the WordCount sample application. For more information about the `streams://` and `swift://` storage options, see [Input/output options for IBM Streams Runner for Apache Beam](../beamrunner-5a-io/).
 
-    - The following command uses `streams://` to provide the input, and writes the output to Object Storage.
+    - The following command uses `streams://` to provide the input, and writes the output to object storage. Make sure that the `beam-container` container exists in your object storage service before you submit the application. For more information about adding a container, see [Adding a Container to a Cluster](https://console.stage1.bluemix.net/docs//infrastructure/objectstorage-swift/add-container-cluster.html#add-a-container).
 
       ```
-      $ java -cp $STREAMS_BEAM_TOOLKIT/lib/com.ibm.streams.beam.translation.jar:target/word-count-beam-0.1.jar \
-          org.apache.beam.examples.WordCount \
+      java -cp $STREAMS_BEAM_TOOLKIT/lib/com.ibm.streams.beam.translation.jar:target/word-count-beam-0.1.jar \
+      org.apache.beam.examples.WordCount \
           --filesToStage="{\"./pom.xml\":\"pom.xml\"}" \
           --inputFile=streams://pom.xml \
           --output=swift://beam-container/quickstart.out- \
@@ -66,11 +66,11 @@ In addition, you must set up your Java Development Kit (JDK) and Maven environme
           --serviceName=yourSasName
       ```
 
-    - The following command uses Object Storage to host both input and output files. Make sure that the `pom.xml` input file is uploaded to `beam-container` before you submit the application. For more information about adding a file to the container, see [Getting started with Object Storage](https://console.stage1.bluemix.net/docs/services/ObjectStorage/index.html).
+    - The following command uses object storage to host both input and output files. Make sure that the `pom.xml` input file is uploaded to the `beam-container` container before you submit the application. For more information about adding a file to the container, see [Getting started with Object Storage](https://console.stage1.bluemix.net/docs/services/ObjectStorage/index.html).
 
       ```
-      $ java -cp $STREAMS_BEAM_TOOLKIT/lib/com.ibm.streams.beam.translation.jar:target/word-count-beam-0.1.jar \
-          org.apache.beam.examples.WordCount \
+      java -cp $STREAMS_BEAM_TOOLKIT/lib/com.ibm.streams.beam.translation.jar:target/word-count-beam-0.1.jar \
+      org.apache.beam.examples.WordCount \
           --inputFile=swift://beam-container/pom.xml \
           --output=swift://beam-container/quickstart.out- \
           --runner=StreamsRunner \

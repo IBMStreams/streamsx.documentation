@@ -2,7 +2,7 @@
 layout: docs
 title:  Using IBM Streams Runner for Apache Beam
 navtitle: Using the runner
-description:  
+description:  To use IBM® Streams Runner for Apache Beam, its libraries must be available to the Beam application  when the application is executed. Additionally, you must select a context that tells the runner how to build and submit the Beam application. Lastly, as with any Beam pipeline, you must specify any custom application parameters or additional runner parameters.
 weight:  10
 published: true
 tag: beam
@@ -10,8 +10,8 @@ prev:
   file: beamrunner-2-install
   title: Installing
 next:
-  file: beamrunner-2b-wordcount
-  title: WordCount sample app
+  file: beamrunner-3-sample
+  title: TemperatureSample app
 ---
 
 To use IBM® Streams Runner for Apache Beam, its libraries must be available to the Beam application  when the application is executed. Additionally, you must select a context that tells the runner how to build and submit the Beam application. Lastly, as with any Beam pipeline, you must specify any custom application parameters or additional runner parameters.
@@ -21,7 +21,7 @@ To use IBM® Streams Runner for Apache Beam, its libraries must be available to 
 After you develop your Apache Beam 2.0 application, you must package your app as a JAR file to use it with Streams Runner. For example, if you use the `jar` command, enter the following command:
 
 ```
-jar cf target jar -C <path to class files>
+jar cf target.jar -C <path to class files>
 ```
 
 ## Enabling Streams Runner

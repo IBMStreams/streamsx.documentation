@@ -2,7 +2,7 @@
 layout: docs
 title:  Using the IBM Object Storage OpenStack Swift for Bluemix service with IBM Streams Runner for Apache Beam
 navtitle: Using Bluemix Object Storage
-description:  
+description:  You can use the IBM® Streams Runner for Apache Beam `FileStreamSample` sample application to learn how to use Bluemix object storage for file input and output.
 weight:  10
 published: true
 tag: beam
@@ -14,7 +14,7 @@ next:
   title: Limitations and known issues
 ---
 
-You can use the IBM® Streams Runner for Apache Beam `FileStreamSample` sample application to learn how to use Bluemix object storage for input and output.
+You can use the IBM® Streams Runner for Apache Beam `FileStreamSample` sample application to learn how to use Bluemix object storage for file input and output.
 
 ## Before you start
 
@@ -35,18 +35,18 @@ These instructions assume that you have already set up and run other samples on 
 1. Navigate to the `samples` directory in Streams Runner, and set up environment variables for the runner:
 
     ```
-    $ cd <installdir>/samples
-    $ . bin/streams-runner-env.sh
+    cd <installdir>/samples
+    . bin/streams-runner-env.sh
     ```
 
 2. Set the environment variables `VCAP_SERVICES` to point to the VCAP file that contains your Streaming Analytics service credentials and `STREAMING_ANALYTICS_SERVICE_NAME` to the service name within that file, for example:
 
     ```
-    $ export VCAP_SERVICES=$HOME/sample.vcap
-    $ export STREAMING_ANALYTICS_SERVICE_NAME="sample-service"
+    export VCAP_SERVICES=$HOME/sample.vcap
+    export STREAMING_ANALYTICS_SERVICE_NAME="sample-service"
     ```
 
-3. Run the `FileStreamSample` Beam application by entering the following command:
+3. Run the `FileStreamSample` Beam application by entering the following command. Make sure that the `out` container exists in your object storage service before you submit the application. For more information about adding a container, see [Adding a Container to a Cluster](https://console.stage1.bluemix.net/docs//infrastructure/objectstorage-swift/add-container-cluster.html#add-a-container).
 
     ```
 java -cp \
@@ -61,7 +61,7 @@ lib/com.ibm.streams.beam.samples.jar \
     --output=swift://out/README.md
 ```
 
-   The command submits the application to the Streaming Analytics Service, copies the file to Object Storage, and then exits. If it does not submit the application successfully, check your `VCAP_SERVICES` and `STREAMING_ANALYTICS_SERVICE_NAME` variables. If the application submits but does not complete, download and inspect the job logs from the Streams Console on Bluemix.
+   The command submits the application to the Streaming Analytics Service, copies the file to object storage, and then exits. If it does not submit the application successfully, check your `VCAP_SERVICES` and `STREAMING_ANALYTICS_SERVICE_NAME` variables. If the application submits but does not complete, download and inspect the job logs from the Streams Console on Bluemix.
 
    The command is similar to the one that is used in the README.md for this sample application, but there are a few important differences:
 
@@ -72,6 +72,6 @@ lib/com.ibm.streams.beam.samples.jar \
 
      When the job completes successfully, the Streams Console shows the job as healthy (green) and the copied file is available in the Object Storage OpenStack Swift for Bluemix web management page.
 
-     <img src="/streamsx.documentation/images/beamrunner/objectstorageresult.jpg" alt="Result file shown in Object Storage container" width="700" />
+     <img src="/streamsx.documentation/images/beamrunner/objectstorageresult.jpg" alt="Result file shown in the object storage container" width="700" />
 
      **Remember**: Whether the job is successful or not, it continues to run on the Streaming Analytics service to allow for inspection by the Streams Console. When you are done with the tutorial, make sure to use the Streams Console to cancel any jobs you started.

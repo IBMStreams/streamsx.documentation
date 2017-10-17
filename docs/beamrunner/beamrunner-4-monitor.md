@@ -2,13 +2,13 @@
 layout: docs
 title:  Monitoring IBM Streams Runner for Apache Beam
 navtitle: Monitoring
-description:  description
+description:  You can use the Apache Beam  2.0 metrics to insert information to monitor your IBM® Streams Runner for Apache Beam application. 
 weight:  10
 published: true
 tag: beam
 prev:
-  file: beamrunner-3-sample
-  title: TemperatureSample sample app
+  file: beamrunner-3b-wordcount
+  title: WordCount sample app
 next:
   file: beamrunner-5-ref
   title: Reference

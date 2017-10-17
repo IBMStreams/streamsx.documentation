@@ -2,7 +2,7 @@
 layout: docs
 title:  Reference information for IBM Streams Runner for Apache Beam
 navtitle: Reference
-description:  description
+description:  Learn about the package contents and pipeline options for IBM® Streams Runner for Apache Beam.
 weight:  10
 published: true
 tag: beam
@@ -22,7 +22,7 @@ The Streams Runner package contains the following folders:
 
 - `com.ibm.streams.beam`: The IBM Streams Runner for Apache Beam toolkit, which you can use to submit Apache Beam  2.0 applications to the IBM Streams runtime environment.
 
-- `samples`: Toolkit sample applications. For information about the samples, see the readme file in the samples folder.
+- `samples`: Toolkit sample applications. For information about the samples, see the README file in the samples folder.
 
 ## General pipeline options
 
@@ -31,7 +31,7 @@ The Streams Runner package contains the following folders:
 | `runner` | The pipeline runner to use. Use this option to determine the pipeline runner at run time. | Set this option to `StreamsRunner` to run with IBM Streams. |
 | `streaming` | A flag to indicate whether streaming mode is enabled (`true`). <br /><br /><strong>Note</strong>: IBM Streams is a pure streaming engine and does not have a discrete batch-processing mode. For this reason, this parameter is ignored and is automatically set to `true`.  | `true`  |
 | `jobName` | The name of the job. | Defaults to a Beam-generated string. |
-| `appName` | The name of the app for display purposes. | Defaults to the class name of the PipelineOptions creator. |
+| `appName` | The name of the app for display purposes. | Defaults to the class name of the `PipelineOptions` creator. |
 
 ## Streams Runner pipeline options
 
@@ -47,7 +47,10 @@ The Streams Runner package contains the following folders:
     <tr>
       <td><code class="highlighter-rouge">contextType</code></td>
       <td>The mode to run the application in:
-      <ul><li>STREAMING_ANALYTICS_SERVICE: Compile an application remotely and submit the translated application to a Streaming Analytics service on IBM Bluemix.</li><li>DISTRIBUTED: Submit the application to a Streams instance. The domain and instance are configured by the STREAMS_DOMAIN_ID and STREAMS_INSTANCE_ID environment variables.</li><li>BUNDLE: Create a Streams application bundle (SAB) file for submission at a later time.</li></ul></td>
+      <ul><li><code class="highlighter-rouge">STREAMING_ANALYTICS_SERVICE</code>: Compile an application remotely and submit the translated application to a Streaming Analytics service on IBM Bluemix.</li>
+      <li><code class="highlighter-rouge">DISTRIBUTED</code>: Submit the application to a Streams instance. The domain and instance are configured by the <code class="highlighter-rouge">STREAMS_DOMAIN_ID</code> and <code class="highlighter-rouge">STREAMS_INSTANCE_ID</code> environment variables.</li>
+      <li><code class="highlighter-rouge">DISTRIBUTED</code>: Submit the application to a Streams instance. The domain and instance are configured by the <code class="highlighter-rouge">STREAMS_DOMAIN_ID</code> and <code class="highlighter-rouge">STREAMS_INSTANCE_ID</code> environment variables.</li>
+      <li><code class="highlighter-rouge">BUNDLE</code>: Create a Streams application bundle (SAB) file for submission at a later time.</li></ul></td>
       <td><code class="highlighter-rouge">STREAMING_ANALYTICS_SERVICE</code></td>
     </tr>
     <tr>
@@ -67,7 +70,7 @@ The Streams Runner package contains the following folders:
     </tr>
     <tr>
       <td><code class="highlighter-rouge">tracingLevel</code></td>
-      <td>Set the tracing and logging level of StreamsRunner translation and runtime. Levels: ERROR, WARN, INFO, DEBUG, TRACE</td>
+      <td>Set the tracing and logging level of StreamsRunner translation and runtime. Levels: <code class="highlighter-rouge">ERROR</code>, <code class="highlighter-rouge">WARN</code>, <code class="highlighter-rouge">INFO</code>, <code class="highlighter-rouge">DEBUG</code>, <code class="highlighter-rouge">TRACE</code></td>
       <td><code class="highlighter-rouge">WARN</code></td>
     </tr>
     <tr>
@@ -78,14 +81,14 @@ The Streams Runner package contains the following folders:
   </tbody>
 </table>
 
-## STREAMING\_ANALYTICS\_SERVICE context-specific pipeline options
+## `STREAMING_ANALYTICS_SERVICE` context-specific pipeline options
 
 | Parameter | Description | Default value |
 | --- | --- | --- |
 | `vcapServices` | The location of the Streaming Analytics VCAP file. This parameter is required when you use the `STREAMING_ANALYTICS_SERVICE` context type. This parameter can be omitted if the `$VCAP_SERVICES` environment variable is set to the path of the file. | [null] |
-| `serviceName` | The name of the Streaming Analytics service on Bluemix. This parameter is required when you use the   STREAMING_ANALYTICS_SERVICE  context type. | [null] |
+| `serviceName` | The name of the Streaming Analytics service on Bluemix. This parameter is required when you use the   `STREAMING_ANALYTICS_SERVICE`  context type. | [null] |
 
-## DISTRIBUTED context-specific pipeline options
+## `DISTRIBUTED` context-specific pipeline options
 
 | Parameter | Description | Default value |
 | --- | --- | --- |

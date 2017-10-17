@@ -2,7 +2,7 @@
 layout: docs
 title:  Limitations and known issues for IBM Streams Runner
 navtitle: Limitations and known issues
-description:  
+description:  Learn about limitations and known issues for IBM® Streams Runner for Apache Beam.
 weight:  10
 published: true
 tag: beam
@@ -24,7 +24,7 @@ Learn about limitations and known issues for IBM® Streams Runner for Apache Bea
 
 The local Java™ installation is the outdated Java 8.0u31 (a release from 2015) and the Streams JRE version is 8.0u93 (from 2016).
 
-This difference in versions causes the following error to be displayed when you run a Streams job in DISTRIBUTED mode:
+This difference in versions causes the following error to be displayed when you run a Streams job in `DISTRIBUTED` mode:
 
 ```
 java.io.InvalidClassException: org.apache.beam.runners.core.SystemReduceFn$1;

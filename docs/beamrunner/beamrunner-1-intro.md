@@ -2,7 +2,7 @@
 layout: docs
 title:  Introduction to IBM Streams Runner for Apache Beam
 navtitle: Introduction
-description:  Introduction to IBM® Streams Runner for Apache Beam
+description:  You can use IBM® Streams Runner for Apache Beam to execute Apache Beam 2.0 pipelines in an IBM Streams environment.
 weight:  10
 published: true
 tag: beam
