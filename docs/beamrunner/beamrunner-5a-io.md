@@ -38,7 +38,7 @@ For more information about the `--filesToStage` option, see [Streams Runner pipe
 
 The Beam application can use storage on Bluemix itself for both input and output by using the `swift://` scheme and the Object Storage OpenStack Swift for Bluemix service. Objects in the service can be manipulated through the web interface in Bluemix, a command-line tool, or from the pipeline in the Beam application. This service is useful when you run Apache Beam 2.0 applications on the Streaming Analytics service on IBM Bluemix, where direct access to output files from Beam applications is difficult.
 
-The Object Storage OpenStack Swift for Bluemix service stores objects in containers. For more information, see [Getting started with Object Storage](https://console.stage1.bluemix.net/docs/services/ObjectStorage/index.html). Beam I/O uses URIs to name files, and Streams Runner interprets the URI in the format <code>swift://_container_/_object_</code> to read and write to these objects.
+The Object Storage OpenStack Swift for Bluemix service stores objects in containers. For more information, see [Getting started with Object Storage](https://console.bluemix.net/docs/services/ObjectStorage/index.html). Beam I/O uses URIs to name files, and Streams Runner interprets the URI in the format <code>swift://_container_/_object_</code> to read and write to these objects.
 
 The object storage system doesn't allow the forward slash (/) character in the container name, but does allow it in the object name. Although the forward slash is not special to object storage, Streams Runner treats it as a directory separator in a logical path.
 
@@ -62,7 +62,7 @@ If you have not already done so, you must create the Object Storage OpenStack Sw
 
 ### Setting up credentials for the service
 
-To use the storage from Beam applications, you must specify the Bluemix service credentials. You can specify the credentials by setting environment variables or by using Swift command-line options. For more information about the Swift command-line options, see [Configuring the CLI to use Swift and Cloud Foundry commands](https://console.stage1.bluemix.net/docs/services/ObjectStorage/os_configuring.html).
+To use the storage from Beam applications, you must specify the Bluemix service credentials. You can specify the credentials by setting environment variables or by using Swift command-line options. For more information about the Swift command-line options, see [Configuring the CLI to use Swift and Cloud Foundry commands](https://console.bluemix.net/docs/services/ObjectStorage/os_configuring.html).
 
 1. After the service is provisioned, select the object storage service that you created from the dashboard to open the **Manage** page for the service.
 2. On the service page, click **Service credentials**.
@@ -73,7 +73,7 @@ To use the storage from Beam applications, you must specify the Bluemix service 
 | Environment variable | Command-line option           | Credentials field | Environment variable example                                                 |
 |----------------------|------------------|-------------------|---------------------------------------------------------|
 | `OS_USER_ID`           | `--swiftUserId`    | `userId`            | `export OS_USER_ID='2b670d77432e4cf2bd128ef9ff61fa56'`    |
-| `OS_PASSWORD`          | `--swiftPassword`  | `password`          | `export OS_PASSWORD=' f1H/~BIO.=s0wuT9'`                  |
+| `OS_PASSWORD`          | `--swiftPassword`  | `password`          | `export OS_PASSWORD='f1H/~BIO.=s0wuT9'`                  |
 | `OS_PROJECT_ID`        | `--swiftProjectId` | `projectId`         | `export OS_PROJECT_ID='80301e24254f4ffb81d53f0cddccad78'` |
 | `OS_REGION_NAME`       | `--swiftRegion`    | `region`            | `export OS_REGION='dallas'`                               |
 
@@ -87,4 +87,4 @@ pip install python-swiftclient
 pip install python-keystoneclient
 ```
 
-For more information about object storage in Bluemix, see [Getting started with Object Storage](https://console.stage1.bluemix.net/docs/services/ObjectStorage/index.html). For more information about the command-line Swift client, see [Configuring the CLI to use Swift and Cloud Foundry commands](https://console.stage1.bluemix.net/docs/services/ObjectStorage/os_configuring.html).
+For more information about object storage in Bluemix, see [Getting started with Object Storage](https://console.bluemix.net/docs/services/ObjectStorage/index.html). For more information about the command-line Swift client, see [Configuring the CLI to use Swift and Cloud Foundry commands](https://console.bluemix.net/docs/services/ObjectStorage/os_configuring.html).

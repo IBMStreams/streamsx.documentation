@@ -24,7 +24,7 @@ Before you run the Apache Beam 2.0 `FileStreamSample` sample application, you mu
 - Object Storage OpenStack Swift for Bluemix.
    - Create the service if you don't already have one. For more information, see [Creating the Object Storage OpenStack Swift for Bluemix service](../beamrunner-5a-io/#creating-the-object-storage-openstack-swift-for-bluemix-service).
    - Set up credentials for the service. **Remember**: Make sure the environment variables are configured. For more information, see [Set up credentials for the service](../beamrunner-5a-io/#setting-up-credentials-for-the-service).
-   - (Optional) Install the Swift CLI client. For more information, see [Configuring the CLI to use Swift and Cloud Foundry commands](https://console.stage1.bluemix.net/docs/services/ObjectStorage/os_configuring.html).
+   - (Optional) Install the Swift CLI client. For more information, see [Configuring the CLI to use Swift and Cloud Foundry commands](https://console.bluemix.net/docs/services/ObjectStorage/os_configuring.html).
 
 **Important**: If you want to compile your application on Bluemix, you must unset the `STREAMS_INSTALL` variable before you submit the application to the Streaming Analytics service.
 
@@ -46,7 +46,7 @@ These instructions assume that you have already set up and run other samples on 
     export STREAMING_ANALYTICS_SERVICE_NAME="sample-service"
     ```
 
-3. Run the `FileStreamSample` Beam application by entering the following command. Make sure that the `out` container exists in your object storage service before you submit the application. For more information about adding a container, see [Adding a Container to a Cluster](https://console.stage1.bluemix.net/docs//infrastructure/objectstorage-swift/add-container-cluster.html#add-a-container).
+3. Run the `FileStreamSample` Beam application by entering the following command.
 
     ```
 java -cp \

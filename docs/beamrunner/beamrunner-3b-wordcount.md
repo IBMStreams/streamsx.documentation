@@ -24,7 +24,7 @@ Before you run the `WordCount` sample application, you must configure and run th
 - Object Storage OpenStack Swift for Bluemix.
    - Create the service if you don't already have one. For more information, see [Creating the Object Storage OpenStack Swift for Bluemix service](../beamrunner-5a-io/#creating-the-object-storage-openstack-swift-for-bluemix-service).
    - Set up credentials for the service. **Remember**: Make sure the environment variables are configured. For more information, see [Set up credentials for the service](../beamrunner-5a-io/#setting-up-credentials-for-the-service).
-   - (Optional) Install the Swift CLI client. For more information, see [Configuring the CLI to use Swift and Cloud Foundry commands](https://console.stage1.bluemix.net/docs/services/ObjectStorage/os_configuring.html).
+   - (Optional) Install the Swift CLI client. For more information, see [Configuring the CLI to use Swift and Cloud Foundry commands](https://console.bluemix.net/docs/services/ObjectStorage/os_configuring.html).
 
 In addition, you must set up your Java Development Kit (JDK) and Maven environment. For more information, see [Set up your Development Environment](https://beam.apache.org/get-started/quickstart-java/#set-up-your-development-environment).
 
@@ -51,7 +51,7 @@ In addition, you must set up your Java Development Kit (JDK) and Maven environme
 
 1. Choose one of the following options to run the WordCount sample application. For more information about the `streams://` and `swift://` storage options, see [Input/output options for IBM Streams Runner for Apache Beam](../beamrunner-5a-io/).
 
-    - The following command uses `streams://` to provide the input, and writes the output to object storage. Make sure that the `beam-container` container exists in your object storage service before you submit the application. For more information about adding a container, see [Adding a Container to a Cluster](https://console.stage1.bluemix.net/docs//infrastructure/objectstorage-swift/add-container-cluster.html#add-a-container).
+    - The following command uses `streams://` to provide the input, and writes the output to object storage.
 
       ```
       java -cp $STREAMS_BEAM_TOOLKIT/lib/com.ibm.streams.beam.translation.jar:target/word-count-beam-0.1.jar \
@@ -66,7 +66,7 @@ In addition, you must set up your Java Development Kit (JDK) and Maven environme
           --serviceName=yourSasName
       ```
 
-    - The following command uses object storage to host both input and output files. Make sure that the `pom.xml` input file is uploaded to the `beam-container` container before you submit the application. For more information about adding a file to the container, see [Getting started with Object Storage](https://console.stage1.bluemix.net/docs/services/ObjectStorage/index.html).
+    - The following command uses object storage to host both input and output files. Make sure that the `pom.xml` input file is uploaded to the `beam-container` container before you submit the application. For more information about adding a file to the container, see [Getting started with Object Storage](https://console.bluemix.net/docs/services/ObjectStorage/index.html).
 
       ```
       java -cp $STREAMS_BEAM_TOOLKIT/lib/com.ibm.streams.beam.translation.jar:target/word-count-beam-0.1.jar \
