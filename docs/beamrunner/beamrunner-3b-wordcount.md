@@ -54,7 +54,7 @@ In addition, you must set up your Java Development Kit (JDK) and Maven environme
     - The following command uses `streams://` to provide the input, and writes the output to object storage.
 
       ```
-      java -cp $STREAMS_BEAM_TOOLKIT/lib/com.ibm.streams.beam.translation.jar:target/word-count-beam-0.1.jar \
+      java -cp $STREAMS_BEAM_TOOLKIT/lib/com.ibm.streams.beam.translation.jar:target/original-word-count-beam-0.1.jar \
       org.apache.beam.examples.WordCount \
           --filesToStage="{\"./pom.xml\":\"pom.xml\"}" \
           --inputFile=streams://pom.xml \
@@ -69,7 +69,7 @@ In addition, you must set up your Java Development Kit (JDK) and Maven environme
     - The following command uses object storage to host both input and output files. Make sure that the `pom.xml` input file is uploaded to the `beam-container` container before you submit the application. For more information about adding a file to the container, see [Getting started with Object Storage](https://console.bluemix.net/docs/services/ObjectStorage/index.html).
 
       ```
-      java -cp $STREAMS_BEAM_TOOLKIT/lib/com.ibm.streams.beam.translation.jar:target/word-count-beam-0.1.jar \
+      java -cp $STREAMS_BEAM_TOOLKIT/lib/com.ibm.streams.beam.translation.jar:target/original-word-count-beam-0.1.jar \
       org.apache.beam.examples.WordCount \
           --inputFile=swift://beam-container/pom.xml \
           --output=swift://beam-container/quickstart.out- \
