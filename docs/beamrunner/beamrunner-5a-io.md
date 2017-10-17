@@ -2,7 +2,7 @@
 layout: docs
 title:  Input/output options for IBM Streams Runner for Apache Beam
 navtitle: I/O options
-description:  Apache Beam 2.0 applications that use IBM® Streams Runner for Apache Beam on a Streaming Analytics service on Bluemix have options for input/output: standard output and errors, local file input, and object storage on Bluemix.
+description:  Apache Beam 2.0 applications that use IBM® Streams Runner for Apache Beam on a Streaming Analytics service on Bluemix have input/output options of standard output and errors, local file input, and object storage on Bluemix.
 weight:  10
 published: true
 tag: beam
