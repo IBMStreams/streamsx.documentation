@@ -2,7 +2,7 @@
 layout: docs
 title:  Installing IBM Streams Runner for Apache Beam
 navtitle: Installing
-description:  Installing IBM® Streams Runner for Apache Beam involves downloading and extracting the Streams Runner toolkit, configuring environment variables, and creating a credentials file for your Streaming Analytics service. 
+description:  Installing IBM® Streams Runner for Apache Beam involves downloading and extracting the Streams Runner toolkit, configuring environment variables, and creating a credentials file for your Streaming Analytics service.
 weight:  10
 published: true
 tag: beam
@@ -22,10 +22,11 @@ A Red Hat Enterprise Linux 6 or 7 environment is recommended for submitting Apac
 
 ## Creating a Streaming Analytics service on Bluemix
 
-Before you can download Streams Runner, you must have a Streaming Analytics service so that you can open the Streams Console. For a video demonstration of creating the service, see [Creating a Streaming Analytics service on IBM Bluemix](https://ibm.box.com/s/fz0mq6plxuiqx8dfjtwenldyr6vopolz).
-`Need updated link???`
+Before you can download Streams Runner, you must have a Streaming Analytics service so that you can open the Streams Console. The following video demonstrates how to create the service.
 
-To create a Streaming Analytics service:
+<iframe width="560" height="315" src="https://www.youtube.com/embed/zz0jqt61Xkg" frameborder="0" allowfullscreen></iframe>
+
+<br>To create a Streaming Analytics service:
 
 1. On the [Bluemix catalog](https://console.ng.bluemix.net/catalog/services/streaming-analytics/?cm_mc_uid=05407033353914938482142&amp;cm_mc_sid_50200000=) page, log in. If you don't yet have a Bluemix account, you can create one.
 2. On the Bluemix dashboard page, click **Catalog**.
@@ -129,10 +130,11 @@ com.ibm.streams.beam-1.0.0/
 
 ## Creating a credentials file for your Streaming Analytics service
 
-To submit a Beam application to your Streaming Analytics service on Bluemix, you must create a JSON-formatted VCAP file that holds credentials and other information for the service. For a video demonstration of creating the credentials file, see [Creating a credentials file for the Streaming Analytics service on IBM Bluemix](https://ibm.box.com/s/qasw203e6gtdjpwu5ybmygcvstkr0xx8).
-`need updated link???`
+To submit a Beam application to your Streaming Analytics service on Bluemix, you must create a JSON-formatted VCAP file that holds credentials and other information for the service. The following video demonstrates how to create the credentials file.
 
-To create a VCAP file for an existing Streaming Analytics service:
+<iframe width="560" height="315" src="https://www.youtube.com/embed/YqtuWkxkaXU" frameborder="0" allowfullscreen></iframe>
+
+<br>To create a VCAP file for an existing Streaming Analytics service:
 
 1. Navigate to the folder where you installed the toolkit (`$STREAMS_RUNNER_HOME`) and copy the `template.vcap` file to a new file. Give the file a meaningful name and a file extension of `.vcap`.
 2. Copy the credentials of your Streaming Analytics service:
