@@ -6,7 +6,11 @@
     {% capture slug %}{{ currentPage.url | split: "/" | last }}{% endcapture %}
     {% capture current %}{{ currentPage.url | remove: slug | remove: "//" | append: "/" }}{% endcapture %}
     {% unless currentPage.url contains 'drafts' %}
-    <li style="padding-bottom:9px;"><a href="{{ site.baseurl }}{{ currentPage.url }}">{{ currentPage.title }}</a></li>
+		{% if currentPage.navtitle %}
+			<li style="padding-bottom:9px;"><a href="{{ site.baseurl }}{{ currentPage.url }}">{{ currentPage.navtitle }}</a></li>
+		{% else %}
+			<li style="padding-bottom:9px;"><a href="{{ site.baseurl }}{{ currentPage.url }}">{{ currentPage.title }}</a></li>
+		{% endif %}
     {% endunless %}
     {% endif %}
   {% endfor %}
