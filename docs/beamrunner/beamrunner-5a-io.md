@@ -91,7 +91,7 @@ For more information about object storage in Bluemix, see [Getting started with 
 
 ## Publish and Subscribe Transforms
 
-IBM Streams applications written in Java, Python, SPL, and with the Beam API have the ability to publish tuple streams to and subscribe from others. IBM Streams runner offers the same ability by providing the Publish/Subscribe API. It allows Beam applications to publish to or subscribe from other Beam/SPL applications.
+IBM Streams applications written in Java, Python, SPL, and with the Beam API have the ability to publish tuple streams to and subscribe from others. IBM Streams runner offers the same ability by providing the Publish/Subscribe API. It allows Beam applications to publish to or subscribe from other Beam/Streams applications.
 
 To use Publish and Subscribe transforms in your Beam application, ensure to include the Streams Runner SDK jar (`com.ibm.streams.beam.sdk.jar`) inside `$STREAMS_BEAM_TOOLKIT/lib`. The `StreamsPubSubSample` in `$STREAMS_RUNNER_HOME/samples` folder demonstrates basic Publish-Subscribe usage.
 
