@@ -19,6 +19,7 @@ Apache Beam 2.0 applications that use IBM® Streams Runner for Apache Beam on a 
 - Standard output and errors
 - Local file input
 - Object storage on Bluemix
+- `Publish` and `Subscribe` transforms
 
 ## Standard output and errors
 
@@ -89,27 +90,27 @@ pip install python-keystoneclient
 
 For more information about object storage in Bluemix, see [Getting started with Object Storage](https://console.bluemix.net/docs/services/ObjectStorage/index.html). For more information about the command-line Swift client, see [Configuring the CLI to use Swift and Cloud Foundry commands](https://console.bluemix.net/docs/services/ObjectStorage/os_configuring.html).
 
-## Publish and Subscribe Transforms
+## `Publish` and `Subscribe` transforms
 
-IBM Streams applications written in Java, Python, SPL, and with the Beam API have the ability to publish tuple streams to and subscribe from others. IBM Streams runner offers the same ability by providing the Publish/Subscribe API. It allows Beam applications to publish to or subscribe from other Beam/Streams applications.
+IBM Streams applications that are written in Java™, Python, SPL, and with the Beam API can publish and subscribe to tuple streams in other Streams applications. You can do the same in your Beam applications by using the Streams Runner `Publish` and `Subscribe` APIs to publish or subscribe to tuple streams in other Beam or Streams applications.
 
-To use Publish and Subscribe transforms in your Beam application, ensure to include the Streams Runner SDK jar (`com.ibm.streams.beam.sdk.jar`) inside `$STREAMS_BEAM_TOOLKIT/lib`. The `StreamsPubSubSample` in `$STREAMS_RUNNER_HOME/samples` folder demonstrates basic Publish-Subscribe usage.
+To use the `Publish` and `Subscribe` transforms in your Beam application, you must include the Streams Runner SDK JAR file (`com.ibm.streams.beam.sdk.jar`) inside `$STREAMS_BEAM_TOOLKIT/lib`. The `StreamsPubSubSample` in the `$STREAMS_RUNNER_HOME/samples` folder demonstrates basic `Publish` and `Subscribe` usage.
 
-### Publish Reference
-
-| Method | Description |
-|:------ |:----------- |
-| `ofType(class<T> clazz)` <br> `ofType(TypeDescriptor<T> type)` | **Required**. Specifies the published data type. The published data class must be serializable. To be compatible with other non-Beam subscribers, the application cannot use a Beam Coder to perform serialization. Instead, published tuples must be `Serializable`. `TypeDescriptor<T>` is more flexible than `Class<T>`, as it allows applications to specific nested generic types (e.g., `TypeDescriptor<KV<Long, String>>`). |
-| `to(String topic)` | **Required**. Use this method to provide the topic to publish to. <br><br> A topic name: <br> must not be zero length <br> must not contain the null character () <br> must not contain wild card characters number sign (‘#’) or the plus sign (‘+’) <br><br> The forward slash (‘/’) is used to separate each level within a topic tree and provide a hierarchical structure to the topic names. Topic level separators can appear anywhere in a topic name. Adjacent topic level separators indicate a zero length topic level. |
-
-### Subscribe Reference
+### `Publish` API reference
 
 | Method | Description |
 |:------ |:----------- |
-| `ofType(class<T> clazz)` <br> `ofType(TypeDescriptor<T> type)` | **Required**. Specifies the data type to be subscribed. The subscribed data class must be serializable. To be compatible with other non-Beam publishers, the application cannot use a Beam Coder to perform deserialization. Instead, subscribed tuples must be `Serializable`. `TypeDescriptor<T>` is more flexible than `Class<T>`, as it allows applications to specific nested generic types (e.g., `TypeDescriptor<KV<Long, String>>)`. |
-| `from(String topic)` | **Required**. Use this method to provide the topic to subscribe from. Subscribers are matched to published streams when: <br><br> (1) the topic is a match (wildcard matching is supported), and <br> (2) the type of the stream `T` is an exact match. <br><br> Publish-subscribe is a many-to-many relationship, multiple streams from multiple applications may be published on the same topic and type. Multiple subscribers may subscribe to a topic and type. A subscription will match all publishers using the same topic and tuple type. Tuples on the published streams will appear on the returned stream, as a single stream. <br><br> The subscription is dynamic. The returned stream will subscribe to a matching stream published by a newly submitted application (a job), and stops a subscription when a running job is cancelled. <br><br> Publish-subscribe only works when the pipeline is submitted to a distributed context (`DISTRIBUTED` and `STREAMING_ANALYTICS_SERVICE`). This allows different applications (or even within the same application) to communicate using published streams. |
-| `setCoder(Coder<T> coder)` | *Optional*. Use this method to provide the output coder. If absent, the `Subscribe` transform will try to infer the coder through Beam's coder registry. |
-| `withTimestampFn(SerializedFunction<T, Instant> fn)` | *Optional*.  Uses this method to provide a SerializedFunction that extracts timestamp from user type T. If absent, BoundedWindow.TIMESTAMP_MIN_VALUE will be attached to all tuples as the timestamp. |
-| `withWatermarkFn(SerializedFunction<T, Instant> fn)` | *Optional*. Uses this method provide a SerializedFunction that creates watermarks from user type T. If absent, the transform uses the timestampFn to create watermarks. |
+| `ofType(class<T> clazz)` <br> `ofType(TypeDescriptor<T> type)` | **Required**. Specifies the published data type. To be compatible with other non-Beam subscribers, the application cannot use a Beam Coder to perform serialization. Instead, published tuples must be `Serializable`. `TypeDescriptor<T>` is more flexible than `Class<T>`, because it allows applications to specify nested generic types (for example, `TypeDescriptor<KV<Long, String>>`). |
+| `to(String topic)` | **Required**. Use this method to specify the topic to publish to. <br><br> The topic name has the following requirements: <br> - Must not be zero length <br> - Must not contain the null character () <br> - Must not contain the number sign (‘#’) or the plus sign (‘+’) <br><br> The forward slash (‘/’) is used to separate each level within a topic tree and provide a hierarchical structure to the topic names. Topic-level separators can appear anywhere in a topic name. Adjacent topic-level separators indicate a zero length topic level. |
 
-**Tips:** A `JSONArray` (`com.ibm.json.java.JSONArray`) of `Integer` objects will be converted into a `JSONArray` of `Long` objects after using `JSONArray#serialize()` and `JSONArray#parse()`. Hence, if an application uses these two methods to implement the Beam coder, it might see subscribed tuples fail to match published tuples, though their numerical values are the same.
+### `Subscribe` API reference
+
+| Method | Description |
+|:------ |:----------- |
+| `ofType(class<T> clazz)` <br> `ofType(TypeDescriptor<T> type)` | **Required**. Specifies the data type to be subscribed. To be compatible with other non-Beam publishers, the application cannot use a Beam Coder to perform deserialization. Instead, subscribed tuples must be `Serializable`. `TypeDescriptor<T>` is more flexible than `Class<T>`, because it allows applications to specify nested generic types (for example, `TypeDescriptor<KV<Long, String>>)`. |
+| `from(String topic)` | **Required**. Use this method to specify the topic to subscribe from. Subscribers are matched to published streams when the following requirements are met: <br><br> - The topic is a match (you can use wildcards to match). <br> - The type of the stream `T` is an exact match. <br><br> Publish/subscribe is a many-to-many relationship; multiple streams from multiple applications can be published on the same topic and type. Multiple subscribers can subscribe to a topic and type. A subscription matches all publishers that use the same topic and tuple type. Tuples on the published streams appear on the returned stream as a single stream. <br><br> The subscription is dynamic. The returned stream subscribes to a matching stream that is published by a newly submitted application (a job), and stops a subscription when a running job is canceled. <br><br> Publish/subscribe works only when the pipeline is submitted to a distributed context (`DISTRIBUTED` and `STREAMING_ANALYTICS_SERVICE`). The context allows different applications (or even different parts of the same application) to communicate by using published streams. |
+| `setCoder(Coder<T> coder)` | *Optional*. Use this method to provide the output coder. If absent, the `Subscribe` transform tries to infer the coder through the Beam coder registry. |
+| `withTimestampFn(SerializedFunction<T, Instant> fn)` | *Optional*.  Use this method to provide a `SerializedFunction` that extracts a timestamp from user type T. If `SerializedFunction`is not specified, the value of `BoundedWindow.TIMESTAMP_MIN_VALUE` is attached to all tuples as the timestamp. |
+| `withWatermarkFn(SerializedFunction<T, Instant> fn)` | *Optional*. Use this method to specify a `SerializedFunction` that creates watermarks from user type T. If `SerializedFunction`is not specified, the transform uses `timestampFn` to create watermarks. |
+
+**Note:** A `JSONArray` (`com.ibm.json.java.JSONArray`) of `Integer` objects is converted into a `JSONArray` of `Long` objects after the `JSONArray#serialize()` and `JSONArray#parse()` methods are used. Therefore, if an application uses these two methods to implement the Beam coder, subscribed tuples might fail to match published tuples, although their numerical values are the same.
