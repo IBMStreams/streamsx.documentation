@@ -2,7 +2,7 @@
 layout: docs
 title: TemperatureSample sample application for IBM Streams Runner for Apache Beam
 navtitle: TemperatureSample sample app
-description:  You can use a simple application called `TemperatureSample` to learn how to submit and monitor an Apache Beam 2.0 application in the Streaming Analytics service on Bluemix. 
+description:  You can use a simple application called `TemperatureSample` to learn how to submit and monitor an Apache Beam 2.0 application in the Streaming Analytics service on IBM Cloud.
 weight:  10
 published: true
 tag: beam
@@ -14,21 +14,21 @@ next:
   title: WordCount sample app
 ---
 
-You can use a simple application called `TemperatureSample` to learn how to submit and monitor an Apache Beam 2.0 application in the Streaming Analytics service on Bluemix.  The sample application is included with IBM® Streams Runner for Apache Beam. Some familiarity with Beam programming is helpful, though not required; the [Apache Beam website](https://beam.apache.org/) has a useful [Apache Beam Java SDK Quickstart](https://beam.apache.org/get-started/quickstart-java/) page and other documentation.
+You can use a simple application called `TemperatureSample` to learn how to submit and monitor an Apache Beam 2.0 application in the Streaming Analytics service on IBM Cloud (formerly IBM Bluemix).  The sample application is included with IBM® Streams Runner for Apache Beam. Some familiarity with Beam programming is helpful, though not required; the [Apache Beam website](https://beam.apache.org/) has a useful [Apache Beam Java SDK Quickstart](https://beam.apache.org/get-started/quickstart-java/) page and other documentation.
 
 For more information about this sample application, see [The TemperatureSample application](#the-temperaturesample-application).
 
 ## Before you start
 
-Before you run the `TemperatureSample` sample application, you must configure and run the following service on IBM Bluemix®:
+Before you run the `TemperatureSample` sample application, you must configure and run the following service on IBM IBM Cloud®:
 
-- Streaming Analytics. For more information, see [Creating a Streaming Analytics service on Bluemix](../beamrunner-2-install/#creating-a-streaming-analytics-service-on-bluemix).
+- Streaming Analytics. For more information, see [Creating a Streaming Analytics service on IBM Cloud](../beamrunner-2-install/#creating-a-streaming-analytics-service-on-bluemix).
 
-**Important**: If you want to compile your application on Bluemix, you must unset the `STREAMS_INSTALL` variable before you submit the application to the Streaming Analytics service.
+**Important**: If you want to compile your application on IBM Cloud, you must unset the `STREAMS_INSTALL` variable before you submit the application to the Streaming Analytics service.
 
 ## Running the `TemperatureSample` application
 
-2. Navigate to the `$STREAMS_RUNNER_HOME/samples` directory. The Streams Runner toolkit provides all necessary files. Assuming that all environment variables are set as described in [Downloading and configuring Streams Runner](../beamrunner-2-install/#downloading-and-configuring-streams-runner) and that the `$VCAP_SERVICES` Bluemix credentials file has credentials in it named `beam-service`, you can launch the `TemperatureSample` application with the following command:
+2. Navigate to the `$STREAMS_RUNNER_HOME/samples` directory. The Streams Runner toolkit provides all necessary files. Assuming that all environment variables are set as described in [Downloading and configuring Streams Runner](../beamrunner-2-install/#downloading-and-configuring-streams-runner) and that the `$VCAP_SERVICES` IBM Cloud credentials file has credentials in it named `beam-service`, you can launch the `TemperatureSample` application with the following command:
 
    ```
    java -cp \
@@ -40,13 +40,13 @@ Before you run the `TemperatureSample` sample application, you must configure an
    --jarsToStage=$STREAMS_RUNNER_HOME/samples/lib/com.ibm.streams.beam.samples.jar
    ```
 
-   **Note**: If the environment variables are not set, you must use full paths, and use the `--vcapServices` parameter to provide the path to the Bluemix credentials file.
+   **Note**: If the environment variables are not set, you must use full paths, and use the `--vcapServices` parameter to provide the path to the IBM Cloud credentials file.
 
    For more information about the parameters available to you, see [Pipeline options for Streams Runner](../beamrunner-5-ref/#streams-runner-pipeline-options).
 
 3. Verify that the application started successfully.
 
-   Streams Runner displays information (INFO) messages as it processes the Beam pipeline for your application, turning it into an IBM Streams application bundle (.sab) file, and eventually submitting the .sab file to IBM Bluemix:
+   Streams Runner displays information (INFO) messages as it processes the Beam pipeline for your application, turning it into an IBM Streams application bundle (.sab) file, and eventually submitting the .sab file to IBM Cloud:
 
    ```
    Sep 27, 2017 2:34:19 PM com.ibm.streams.beam.translation.StreamsRunner run
@@ -82,10 +82,10 @@ bad.total: 1067
 MetricName{namespace=com.ibm.streams, name=nTuplesProcessed}: 12585
 MetricName{namespace=com.ibm.streams, name=nTuplesSubmitted}: 12581
 ```
-At this point, the application is also visible in the Streams console in IBM Bluemix.
+At this point, the application is also visible in the Streams console in IBM Cloud.
 To launch the Streams Console, navigate to the **Manage** tab of your Streaming Analytics Service and click **Launch**.
 
-<img src="/streamsx.documentation/images/beamrunner/appinconsole.jpg" alt="The application running in Streams Console in IBM Bluemix" width="650" />
+<img src="/streamsx.documentation/images/beamrunner/appinconsole.jpg" alt="The application running in Streams Console in IBM Cloud" width="650" />
 
 Of particular interest for this application is the Streams Graph. The graph shows how the Streaming Analytics service organizes and executes the code in the sample application. When you maximize the graph, you can see the graph of the whole application:
 

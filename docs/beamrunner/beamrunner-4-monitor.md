@@ -2,7 +2,7 @@
 layout: docs
 title:  Monitoring IBM Streams Runner for Apache Beam
 navtitle: Monitoring
-description:  You can use the Apache Beam  2.0 metrics to insert information to monitor your IBM® Streams Runner for Apache Beam application. 
+description:  You can use the Apache Beam  2.0 metrics to insert information to monitor your IBM® Streams Runner for Apache Beam application.
 weight:  10
 published: true
 tag: beam
@@ -29,7 +29,7 @@ Steps in the Beam application's processing pipeline can create and update metric
 
 For example, in the `TemperatureSample.main()` method, in the processing for the `ValidateReadings` operation, the code updates two distribution metrics when a value is valid or two counters when a value is not valid:
 
-```
+```java
 if (temp < badTempThreshold) {
     // Good reading, output and update distribution metrics
     c.output(c.element());
@@ -56,7 +56,7 @@ In a Beam application, the [`Pipeline.run()`](https://beam.apache.org/documentat
 
 The `TemperatureSample` application periodically queries and prints metrics that the application created and updated:
 
-```
+```java
 PipelineResult result = pipeline.run();
 ...
     MetricResults metrics = result.metrics();

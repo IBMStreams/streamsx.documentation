@@ -1,8 +1,8 @@
 ---
 layout: docs
 title:  Using the IBM Object Storage OpenStack Swift for Bluemix service with IBM Streams Runner for Apache Beam
-navtitle: Using Bluemix Object Storage
-description:  You can use the IBM® Streams Runner for Apache Beam `FileStreamSample` sample application to learn how to use Bluemix object storage for file input and output.
+navtitle: Using IBM Cloud Object Storage
+description:  You can use the IBM® Streams Runner for Apache Beam `FileStreamSample` sample application to learn how to use IBM Cloud object storage for file input and output.
 weight:  10
 published: true
 tag: beam
@@ -14,23 +14,23 @@ next:
   title: Limitations and known issues
 ---
 
-You can use the IBM® Streams Runner for Apache Beam `FileStreamSample` sample application to learn how to use Bluemix object storage for file input and output.
+You can use the IBM® Streams Runner for Apache Beam `FileStreamSample` sample application to learn how to use IBM Cloud (formerly IBM Bluemix) object storage for file input and output.
 
 ## Before you start
 
-Before you run the Apache Beam 2.0 `FileStreamSample` sample application, you must configure and run the following services on IBM Bluemix®:
+Before you run the Apache Beam 2.0 `FileStreamSample` sample application, you must configure and run the following services on IBM Cloud®:
 
-- Streaming Analytics. For more information, see [Creating a Streaming Analytics service on Bluemix](../beamrunner-2-install/#creating-a-streaming-analytics-service-on-bluemix).
+- Streaming Analytics. For more information, see [Creating a Streaming Analytics service on IBM Cloud](../beamrunner-2-install/#creating-a-streaming-analytics-service-on-bluemix).
 - Object Storage OpenStack Swift for Bluemix.
    - Create the service if you don't already have one. For more information, see [Creating the Object Storage OpenStack Swift for Bluemix service](../beamrunner-5a-io/#creating-the-object-storage-openstack-swift-for-bluemix-service).
    - Set up credentials for the service. **Remember**: Make sure the environment variables are configured. For more information, see [Set up credentials for the service](../beamrunner-5a-io/#setting-up-credentials-for-the-service).
    - (Optional) Install the Swift CLI client. For more information, see [Configuring the CLI to use Swift and Cloud Foundry commands](https://console.bluemix.net/docs/services/ObjectStorage/os_configuring.html).
 
-**Important**: If you want to compile your application on Bluemix, you must unset the `STREAMS_INSTALL` variable before you submit the application to the Streaming Analytics service.
+**Important**: If you want to compile your application on IBM Cloud, you must unset the `STREAMS_INSTALL` variable before you submit the application to the Streaming Analytics service.
 
 ## Running the sample application
 
-These instructions assume that you have already set up and run other samples on the Streaming Analytics service on Bluemix.
+These instructions assume that you have already set up and run other samples on the Streaming Analytics service on IBM Cloud.
 
 1. Navigate to the `samples` directory in Streams Runner, and set up environment variables for the runner:
 
@@ -61,12 +61,12 @@ lib/com.ibm.streams.beam.samples.jar \
     --output=swift://out/README.md
 ```
 
-   The command submits the application to the Streaming Analytics Service, copies the file to object storage, and then exits. If it does not submit the application successfully, check your `VCAP_SERVICES` and `STREAMING_ANALYTICS_SERVICE_NAME` variables. If the application submits but does not complete, download and inspect the job logs from the Streams Console on Bluemix.
+   The command submits the application to the Streaming Analytics Service, copies the file to object storage, and then exits. If it does not submit the application successfully, check your `VCAP_SERVICES` and `STREAMING_ANALYTICS_SERVICE_NAME` variables. If the application submits but does not complete, download and inspect the job logs from the Streams Console on IBM Cloud.
 
    The command is similar to the one that is used in the README.md for this sample application, but there are a few important differences:
 
     - The `--jarsToStage` option includes more JAR files. The `swift://` scheme support is in the `$STREAMS_BEAM_TOOLKIT/lib/com.ibm.streams.beam.sdk.jar`, which is not staged by default and so must be included here.
-    - The `--filesToStage` option is used to move the local `README.md` file to the runtime environment on Bluemix to be used as input for the sample. Alternatively, this file can be uploaded to Object Storage OpenStack Swift for Bluemix by using the web UI or command-line Swift client and referenced with the `swift://` scheme, but staging it this way allows you to use it without that extra step.
+    - The `--filesToStage` option is used to move the local `README.md` file to the runtime environment on IBM Cloud to be used as input for the sample. Alternatively, this file can be uploaded to Object Storage OpenStack Swift for Bluemix by using the web UI or command-line Swift client and referenced with the `swift://` scheme, but staging it this way allows you to use it without that extra step.
     - The `--input` option uses the `streams://` scheme to refer to the `README.md` file.
     - The `--output` option uses the `swift://` scheme to direct the application to write the output file into an object named `README.md` in a container named `out`.
 
