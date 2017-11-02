@@ -8,7 +8,7 @@ published: true
 tag: beam
 prev:
   file: beamrunner-5b-objstor
-  title: Using Bluemix Object Storage
+  title: Using IBM Cloud Object Storage
 ---
 
 Learn about limitations and known issues for IBM® Streams Runner for Apache Beam.

@@ -18,9 +18,9 @@ Installing IBM® Streams Runner for Apache Beam involves downloading and extract
 
 ## Before you start
 
-A Red Hat Enterprise Linux 6 or 7 environment is recommended for submitting Apache Beam 2.0 applications to the Streaming Analytics service in Bluemix.
+A Red Hat Enterprise Linux 6 or 7 environment is recommended for submitting Apache Beam 2.0 applications to the Streaming Analytics service in IBM Cloud (formerly IBM Bluemix).
 
-## Creating a Streaming Analytics service on Bluemix
+## Creating a Streaming Analytics service on IBM Cloud
 
 Before you can download Streams Runner, you must have a Streaming Analytics service so that you can open the Streams Console. The following video demonstrates how to create the service.
 
@@ -28,8 +28,8 @@ Before you can download Streams Runner, you must have a Streaming Analytics serv
 
 <br>To create a Streaming Analytics service:
 
-1. On the [Bluemix catalog](https://console.ng.bluemix.net/catalog/services/streaming-analytics/?cm_mc_uid=05407033353914938482142&amp;cm_mc_sid_50200000=) page, log in. If you don't yet have a Bluemix account, you can create one.
-2. On the Bluemix dashboard page, click **Catalog**.
+1. On the [IBM Cloud catalog](https://console.bluemix.net/catalog/) page, log in. If you don't yet have an IBM Cloud account, you can create one.
+2. On the IBM Cloud dashboard page, click **Catalog**.
 3. Use the **Filter** option to search for Streaming Analytics.
 4. Click the **Streaming Analytics** service to configure an instance.
 5. On the catalog page for the Streaming Analytics service, change **Service name** to something meaningful to you, for example, `Streaming Analytics-beam`.
@@ -75,12 +75,12 @@ tar -zxvf com.ibm.streams.beam-1.0.0.tar.gz
       </tr>
       <tr>
         <td>VCAP_SERVICES</td>
-        <td>The path to the Bluemix credentials file. If this environment variable is set, the <code class="highlighter-rouge">--vcapServices</code> parameter does not need to be specified on the command line.<br /><br />For more information about the credentials file, see <a href="#creating-a-credentials-file-for-your-streaming-analytics-service">Creating a credentials file for your Streaming Analytics service</a>.</td>
+        <td>The path to the IBM Cloud credentials file. If this environment variable is set, the <code class="highlighter-rouge">--vcapServices</code> parameter does not need to be specified on the command line.<br /><br />For more information about the credentials file, see <a href="#creating-a-credentials-file-for-your-streaming-analytics-service">Creating a credentials file for your Streaming Analytics service</a>.</td>
         <td>Set by using the <code class="highlighter-rouge">export</code> command.</td>
       </tr>
       <tr>
         <td>STREAMING_ANALYTICS_SERVICE_NAME</td>
-        <td>The name of the Streaming Analytics service in the Bluemix credentials file to use. If this environment variable is set, the <code class="highlighter-rouge">--serviceName</code> parameter does not need to be specified on the command line.</td>
+        <td>The name of the Streaming Analytics service in the IBM Cloud credentials file to use. If this environment variable is set, the <code class="highlighter-rouge">--serviceName</code> parameter does not need to be specified on the command line.</td>
         <td>Set by using the <code class="highlighter-rouge">export</code> command.</td>
       </tr>
       <tr>
@@ -130,7 +130,7 @@ com.ibm.streams.beam-1.0.0/
 
 ## Creating a credentials file for your Streaming Analytics service
 
-To submit a Beam application to your Streaming Analytics service on Bluemix, you must create a JSON-formatted VCAP file that holds credentials and other information for the service. The following video demonstrates how to create the credentials file.
+To submit a Beam application to your Streaming Analytics service on IBM Cloud, you must create a JSON-formatted VCAP file that holds credentials and other information for the service. The following video demonstrates how to create the credentials file.
 
 <iframe width="560" height="315" src="https://www.youtube.com/embed/YqtuWkxkaXU" frameborder="0" allowfullscreen></iframe>
 
