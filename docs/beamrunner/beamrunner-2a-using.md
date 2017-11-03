@@ -35,7 +35,7 @@ To make the Streams Runner libraries available to the Beam application, you must
 After Streams Runner is accessible to your application, you must decide in which context you want to build and submit your application. Streams Runner has three contexts, and each has its own set of prerequisites and setup requirements. The three contexts are `STREAMING_ANALYTICS_SERVICE`, `DISTRIBUTED`, and `BUNDLE` and are  specified by using the `--contextType` parameter.
 
 ### The `STREAMING_ANALYTICS_SERVICE` context
-Use this context to build and submit an application to a Streaming Analytics service on IBM Bluemix. `STREAMING_ANALYTICS_SERVICE` is the default context type.
+Use this context to build and submit an application to a Streaming Analytics service on IBM Cloud (formerly IBM Bluemix). `STREAMING_ANALYTICS_SERVICE` is the default context type.
 
 **Tip:** This context is the simplest to use because it doesn't require you to install and configure Streams software; you can use the Streaming Analytics service, which includes the latest features and patches, that you created before you downloaded the Streams Runner toolkit.
 
@@ -48,7 +48,7 @@ Use this context to build and submit an application to a Streaming Analytics ser
 
 To authenticate and select the Streaming Analytics service to submit to, you must specify the following information:
 
-- The location of the [Bluemix credentials file](../beamrunner-2-install/#creating-a-credentials-file-for-your-streaming-analytics-service).  
+- The location of the [IBM Cloud credentials file](../beamrunner-2-install/#creating-a-credentials-file-for-your-streaming-analytics-service).  
 Use the `--vcapServices` parameter or `VCAP_SERVICES` environment variable.
 - The specific service name.  
 Use the `--serviceName` parameter or `STREAMING_ANALYTICS_SERVICE_NAME` environment variable.
@@ -61,7 +61,7 @@ use the `--jarsToStage` option. For more information about this option, see [Str
 
 #### Example
 
-This example submits `MyBeamApplication` to the `my-service-name` Streaming Analytics service on Bluemix.
+This example submits `MyBeamApplication` to the `my-service-name` Streaming Analytics service on IBM Cloud.
 
 **Note**: This example uses the `--vcapServices` and `--serviceName` parameters, but these parameters aren't necessary if their respective environment variables are set.
 Additionally, the `--contextType` parameter can be omitted because `STREAMING_ANALYTICS_SERVICE` is the default.
@@ -79,7 +79,7 @@ java -cp $STREAMS_BEAM_TOOLKIT/lib/com.ibm.streams.beam.translation.jar:/home/be
 #### Limitations
 - If your Beam application writes output to a file, you can’t retrieve output files that are written to a local file system in a Streaming Analytics service. You must configure the application to write output files to object storage instead.
 
-   For information about retrieving files from a Bluemix Object Storage service, see [Object storage on Bluemix](../beamrunner-5a-io/#object-storage-on-bluemix-swift).
+   For information about retrieving files from an IBM Cloud Object Storage service, see [Object storage on IBM Cloud](../beamrunner-5a-io/#object-storage-on-bluemix-swift).
 - You can't download Streams application bundle (SAB) files of your Beam applications that are built remotely.
 
 ### The `DISTRIBUTED` context

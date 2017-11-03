@@ -47,7 +47,7 @@ The Streams Runner package contains the following folders:
     <tr>
       <td><code class="highlighter-rouge">contextType</code></td>
       <td>The mode to run the application in:
-      <ul><li><code class="highlighter-rouge">STREAMING_ANALYTICS_SERVICE</code>: Compile an application remotely and submit the translated application to a Streaming Analytics service on IBM Bluemix.</li>
+      <ul><li><code class="highlighter-rouge">STREAMING_ANALYTICS_SERVICE</code>: Compile an application remotely and submit the translated application to a Streaming Analytics service on IBM Cloud (formerly IBM Bluemix).</li>
       <li><code class="highlighter-rouge">DISTRIBUTED</code>: Submit the application to a Streams instance. The domain and instance are configured by the <code class="highlighter-rouge">STREAMS_DOMAIN_ID</code> and <code class="highlighter-rouge">STREAMS_INSTANCE_ID</code> environment variables.</li>
       <li><code class="highlighter-rouge">DISTRIBUTED</code>: Submit the application to a Streams instance. The domain and instance are configured by the <code class="highlighter-rouge">STREAMS_DOMAIN_ID</code> and <code class="highlighter-rouge">STREAMS_INSTANCE_ID</code> environment variables.</li>
       <li><code class="highlighter-rouge">BUNDLE</code>: Create a Streams application bundle (SAB) file for submission at a later time.</li></ul></td>
@@ -55,7 +55,7 @@ The Streams Runner package contains the following folders:
     </tr>
     <tr>
       <td><code class="highlighter-rouge">jarsToStage</code></td>
-      <td>A list of JAR files (separated by colons) that are required to run the Apache Beam application. Include the JAR files that contain your program and any dependencies. (You don’t need to include Beam Google IO SDK or core Beam JAR files.) The listed JAR files are added to the SAB file.<br /><br /><strong>Note</strong>: The use of fat or uber JAR files increases the size of the SAB file and can negatively impact submission times to IBM Bluemix.</td>
+      <td>A list of JAR files (separated by colons) that are required to run the Apache Beam application. Include the JAR files that contain your program and any dependencies. (You don’t need to include Beam Google IO SDK or core Beam JAR files.) The listed JAR files are added to the SAB file.<br /><br /><strong>Note</strong>: The use of fat or uber JAR files increases the size of the SAB file and can negatively impact submission times to IBM Cloud.</td>
       <td>[null]</td>
     </tr>
     <tr>
@@ -86,7 +86,7 @@ The Streams Runner package contains the following folders:
 | Parameter | Description | Default value |
 | --- | --- | --- |
 | `vcapServices` | The location of the Streaming Analytics VCAP file. This parameter is required when you use the `STREAMING_ANALYTICS_SERVICE` context type. This parameter can be omitted if the `$VCAP_SERVICES` environment variable is set to the path of the file. | [null] |
-| `serviceName` | The name of the Streaming Analytics service on Bluemix. This parameter is required when you use the   `STREAMING_ANALYTICS_SERVICE`  context type. | [null] |
+| `serviceName` | The name of the Streaming Analytics service on IBM Cloud. This parameter is required when you use the   `STREAMING_ANALYTICS_SERVICE`  context type. | [null] |
 
 ## `DISTRIBUTED` context-specific pipeline options
 
