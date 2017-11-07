@@ -20,8 +20,9 @@ The goal of the project is to provide easy-to-follow documentation and developme
 ### IBM Streams: Python Support
 
 {: .simple}
-* [Developing applications (v1.6)](/streamsx.documentation/docs/python/1.6/python-appapi-devguide/) &nbsp; [(v1.4)](/streamsx.documentation/docs/python/1.4/python-appapi-devguide/)
-* [API reference (v1.6)](http://ibmstreams.github.io/streamsx.topology/doc/releases/1.6/pythondoc/index.html)
+* [Developing applications (v1.6+)](/streamsx.documentation/docs/python/1.6/python-appapi-devguide/) &nbsp; [(v1.4)](/streamsx.documentation/docs/python/1.4/python-appapi-devguide/)
+* [API reference (latest)](http://ibmstreams.github.io/streamsx.topology/doc/pythondoc/index.html)
+* [Older releases](https://github.com/IBMStreams/streamsx.topology/releases)
 
 ### IBM Streams: Scala Support
 
