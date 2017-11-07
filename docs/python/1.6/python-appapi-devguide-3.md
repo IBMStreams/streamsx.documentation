@@ -102,7 +102,7 @@ The `Topology.source()` function produces a `Stream` object, which is a potentia
 Also include the following code in the `temperature_sensor.py` file:
 
 ~~~~~~ python
-source = topo.source(temperature_sensor_functions.readings)
+source = topo.source(readings)
 ~~~~~~
 
 
