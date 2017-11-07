@@ -96,7 +96,7 @@ For more information about object storage in IBM Cloud, see [Getting started wit
 
 IBM Streams applications that are written in Java™, Python, SPL, and with the Beam API can publish and subscribe to tuple streams in other Streams applications. You can do the same in your Beam applications by using the Streams Runner `Publish` and `Subscribe` APIs to publish or subscribe to tuple streams in other Beam or Streams applications.
 
-To use the `Publish` and `Subscribe` transforms in your Beam application, you must include the Streams Runner SDK JAR file (`com.ibm.streams.beam.sdk.jar`) inside `$STREAMS_BEAM_TOOLKIT/lib`. The `StreamsPubSubSample` in the `$STREAMS_RUNNER_HOME/samples` folder demonstrates basic `Publish` and `Subscribe` usage.
+To use the `Publish` and `Subscribe` transforms in your Beam application, you must include the Streams Runner SDK JAR file (`$STREAMS_BEAM_TOOLKIT/lib/com.ibm.streams.beam.sdk.jar`) in `--jarsToStage`. The `StreamsPubSubSample` in the `$STREAMS_RUNNER_HOME/samples` folder demonstrates basic `Publish` and `Subscribe` usage.
 
 ### `Publish` API reference
 
