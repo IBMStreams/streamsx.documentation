@@ -30,7 +30,7 @@ Before you run the `TemperatureSample` sample application, you must configure an
 
 2. Navigate to the `$STREAMS_RUNNER_HOME/samples` directory. The Streams Runner toolkit provides all necessary files. Assuming that all environment variables are set as described in [Downloading and configuring Streams Runner](../beamrunner-2-install/#downloading-and-configuring-streams-runner) and that the `$VCAP_SERVICES` IBM Cloud credentials file has credentials in it named `beam-service`, you can launch the `TemperatureSample` application with the following command:
 
-   ```
+   ```bash
    java -cp \
    $STREAMS_BEAM_TOOLKIT/lib/com.ibm.streams.beam.translation.jar:\
    $STREAMS_RUNNER_HOME/samples/lib/com.ibm.streams.beam.samples.jar \
@@ -162,8 +162,6 @@ PCollectionTuple validatedReadings = mergedReadings.apply("ValidateReadings",
                 }
             }
         }).withOutputTags(goodTag, TupleTagList.of(badTag)));
-
-
 ```
 
 On the good readings, statistics are calculated in a `GoodStats` transform and then logged by a `GoodLog` transform:
