@@ -4,11 +4,19 @@ title:  Installing Streams Quick Start Edition Docker
 description:  Installation Guide for IBM Streams Quick Start Edition Docker
 weight: 30
 published: false
+tag: 42qse
+prev:
+  file: qse-intro
+  title:  Download the Quick Start Edition (QSE)
+next:
+  file: qse-getting-started
+  title: Getting Started with IBM Streams v4.2 Quick Start Edition
+
 ---
 
 **(Coming Soon...)**
 
-The Streams Quick Start Editor can help you get started with Streams quickly, without having to install a Streams cluster environment.
+The Streams Quick Start Edition can help you get started with Streams quickly, without having to install a Streams cluster environment.
 
 {% include download.html%}
 

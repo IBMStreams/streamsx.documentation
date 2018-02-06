@@ -4,6 +4,13 @@ title:  Installing Streams Quick Start Edition VM Image
 description:  Installation Guide for IBM Streams Quick Start Edition VM
 weight:  20
 published: true
+tag: 42qse
+prev:
+  file: qse-intro
+  title:  Download the Quick Start Edition (QSE)
+next:
+  file: qse-getting-started
+  title: Getting Started with IBM Streams v4.2 Quick Start Edition
 ---
 
 The Streams Quick Start Editor can help you get started with Streams quickly, without having to install a Streams cluster environment.
@@ -70,16 +77,16 @@ The Quick Start Edition is available only in English.
 1. Download and extract the vmware-streamsVxxx.zip file (where Vxxx is the version number of the Quick Start Edition).
 
 1. In Oracle VM VirtualBox Manager, click **New** and follow the instructions in the wizard:
-    1. Specify a name of your virtual machine and select the **Linux Red Hat (64 bit)** operating system. 
-    1. Set the amount of memory to use for your virtual machine. The optimal setting depends on your hardware and usage. The more you allocate, the faster your virtual machine will run. You can adjust the setting later, if necessary. 
-    1. Select to use an existing virtual hard disk file, then browse for the vmware-streamsV#.#-qse-v1.vmdk file that you extracted earlier and click **Open**. 
-    1. Click **Create**. Now your new virtual machine is listed in the Oracle VM VirtualBox Manager. 
-    
+    1. Specify a name of your virtual machine and select the **Linux Red Hat (64 bit)** operating system.
+    1. Set the amount of memory to use for your virtual machine. The optimal setting depends on your hardware and usage. The more you allocate, the faster your virtual machine will run. You can adjust the setting later, if necessary.
+    1. Select to use an existing virtual hard disk file, then browse for the vmware-streamsV#.#-qse-v1.vmdk file that you extracted earlier and click **Open**.
+    1. Click **Create**. Now your new virtual machine is listed in the Oracle VM VirtualBox Manager.
+
 1.  From the list, select your new virtual machine and click **Settings**:
     1. Select **System > Processor** and specify 2 virtual CPUs.
-    1. Select the **Storage** tab and make sure that the **Use Host I/O Cache** option is selected. 
+    1. Select the **Storage** tab and make sure that the **Use Host I/O Cache** option is selected.
     1. Click **OK** to save your settings.
-    
+
 1. To run your virtual machine, select it and click **Start**.
 
 

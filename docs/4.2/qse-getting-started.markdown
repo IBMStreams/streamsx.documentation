@@ -2,13 +2,17 @@
 layout: docs
 title:  Getting Started with IBM Streams v4.2 Quick Start Edition
 description:  Learn how to get started witH IBM Streams Quick Start Edition
-weight:  10
+weight:  50
 published: true
+
+tag: 42qse
+prev:
+  file: qse-intro
+  title:  Download the Quick Start Edition (QSE)
+
 ---
-
-If you haven't downloaded the Streams QSE, you may download it here:
-
-{% include download.html%}
+## Download and Install
+If you haven't downloaded and installed the Streams QSE, the [preceding section](../qse-intro) has instructions.
 
 ## Streams Overview
 
@@ -28,89 +32,92 @@ As a developer, you want to:
 
 Below are some resources to get you up and running!
 
-### Java, Scala and Python
-
-<div class="alert alert-success" role="alert"><b>New in Streams 4.2!</b>  You can now write your Streams application in Python.</div>
+### Developing applications in Java, Scala or Python
+In addition to Streams Processing Language (SPL, discussed below), Streams applications can be created in Java, Scala, and Python.
 
 Example Streams Application:
 
 <ul class="nav nav-tabs">
-  <li class="active"><a data-toggle="tab" href="#java-0">Java</a></li>
-  <li><a data-toggle="tab" href="#scala-0">Scala</a></li>
+
+
+  <li class="active" ><a data-toggle="tab" href="#java-0">Java</a></li>  
+  <li ><a data-toggle="tab" href="#scala-0">Scala</a></li>
   <li><a data-toggle="tab" href="#python-0">Python</a></li>
 </ul>
 
 <div class="tab-content">
-  <div id="java-0" class="tab-pane fade in active">
-<pre><code>package simple;
 
-import com.ibm.streamsx.topology.TStream;
-import com.ibm.streamsx.topology.Topology;
-import com.ibm.streamsx.topology.context.StreamsContextFactory;
+    <div id="java-0" class="tab-pane fade in active">
+  <pre><code>package simple;
 
-public static void main(String[] args) throws Exception {
+  import com.ibm.streamsx.topology.TStream;
+  import com.ibm.streamsx.topology.Topology;
+  import com.ibm.streamsx.topology.context.StreamsContextFactory;
 
-        /*
-         * Create the container for the topology that will
-         * hold the streams of tuples.
-         */
-        Topology topology = new Topology(&quot;HelloWorld&quot;);
+  public static void main(String[] args) throws Exception {
 
-        /*
-         * Declare a source stream (hw) with String tuples containing two tuples,
-         * &quot;Hello&quot; and &quot;World!&quot;.
-         */
-        TStream&lt;String&gt; hw = topology.strings(&quot;Hello&quot;, &quot;World!&quot;);
+          /*
+           * Create the container for the topology that will
+           * hold the streams of tuples.
+           */
+          Topology topology = new Topology(&quot;HelloWorld&quot;);
 
-        /*
-         * Sink hw by printing each of its tuples to System.out.
-         */
-        hw.print();
+          /*
+           * Declare a source stream (hw) with String tuples containing two tuples,
+           * &quot;Hello&quot; and &quot;World!&quot;.
+           */
+          TStream&lt;String&gt; hw = topology.strings(&quot;Hello&quot;, &quot;World!&quot;);
 
-        /*
-         * At this point the topology is declared with a single
-         * stream that is printed to System.out.
-         */
+          /*
+           * Sink hw by printing each of its tuples to System.out.
+           */
+          hw.print();
 
-        /*
-         * Now execute the topology by submitting to a StreamsContext.
-         * If no argument is provided then the topology is executed
-         * within this JVM (StreamsContext.Type.EMBEDDED).
-         * Otherwise the first and only argument is taken as the
-         * String representation of the
-         */
-        if (args.length == 0)
-            StreamsContextFactory.getEmbedded().submit(topology).get();
-        else
-            StreamsContextFactory.getStreamsContext(args[0]).submit(topology)
-                    .get();
+          /*
+           * At this point the topology is declared with a single
+           * stream that is printed to System.out.
+           */
+
+          /*
+           * Now execute the topology by submitting to a StreamsContext.
+           * If no argument is provided then the topology is executed
+           * within this JVM (StreamsContext.Type.EMBEDDED).
+           * Otherwise the first and only argument is taken as the
+           * String representation of the desired context
+           */
+          if (args.length == 0)
+              StreamsContextFactory.getEmbedded().submit(topology).get();
+          else
+              StreamsContextFactory.getStreamsContext(args[0]).submit(topology)
+                  .get();
+      }
+  </code></pre>   
+    </div>
+
+
+    <div id="scala-0" class="tab-pane fade">
+    <pre><code>package simple
+
+    import com.ibm.streamsx.topology.Topology
+    import com.ibm.streamsx.topology.streams.BeaconStreams
+    import com.ibm.streamsx.topology.context.StreamsContextFactory
+
+    import java.util.concurrent.TimeUnit
+
+    import com.ibm.streamsx.topology.functions.FunctionConversions._
+
+    object HelloWorldScala {
+      def main(args: Array[String]) {
+        val topology = new Topology(&quot;HelloWorldScala&quot;)
+
+        var hw = topology.strings(&quot;Hello&quot;, &quot;World!&quot;)    
+        hw.print()
+
+       StreamsContextFactory.getStreamsContext(&quot;EMBEDDED&quot;).submit(topology).get()
+      }
     }
-</code></pre>   
-  </div>
-<div id="scala-0" class="tab-pane fade">
-<pre><code>package simple
-
-import com.ibm.streamsx.topology.Topology
-import com.ibm.streamsx.topology.streams.BeaconStreams
-import com.ibm.streamsx.topology.context.StreamsContextFactory
-
-import java.util.concurrent.TimeUnit
-
-import com.ibm.streamsx.topology.functions.FunctionConversions._
-
-object HelloWorldScala {
-  def main(args: Array[String]) {
-    val topology = new Topology(&quot;HelloWorldScala&quot;)
-
-    var hw = topology.strings(&quot;Hello&quot;, &quot;World!&quot;)    
-    hw.print()
-
-   StreamsContextFactory.getStreamsContext(&quot;EMBEDDED&quot;).submit(topology).get()
-  }
-}
-</code></pre>
-  </div>
-
+    </code></pre>
+      </div>
   <div id="python-0" class="tab-pane fade">
   <pre><code>import sys
 from streamsx.topology.topology import Topology
@@ -172,11 +179,11 @@ To get started, follow these development guides:
 * Develop Streams Applications in Python [v1.6](http://ibmstreams.github.io/streamsx.documentation/docs/python/1.6/python-appapi-devguide/) , [v1.4](http://ibmstreams.github.io/streamsx.documentation/docs/python/1.4/python-appapi-devguide/)
 
 
-### Streams Processing Language (SPL)
+### Developing applications using Streams Processing Language (SPL)
 
 The Streams Processing Language is designed from the ground up for writing streaming applications.  To quickly get started:
 
-* [Streams Quick Start Guide](https://developer.ibm.com/streamsdev/?p=5686)
+* Start with the [Streams Quick Start Guide](https://developer.ibm.com/streamsdev/?p=5686)
 * [Streams Hands-on Lab](https://developer.ibm.com/streamsdev/docs/streams-lab-introduction/)
 * [SPL Examples for Beginners](/streamsx.documentation/samples/)
 * [Search our samples catalog](https://ibmstreams.github.io/samples/)
@@ -292,7 +299,8 @@ IBM Streams integrates with ODM rules, allowing you to create business rules, co
 ## Streams Community
 The following Streams resources can help you connect with the Streams community and get support when you need it:
 
-* **[StreamsDev](https://developer.ibm.com/streamsdev/)** - This resource is a developer-to-developer website maintained by the Streams Development Team.  It contains many useful articles and getting started material.  Check back often for new articles, tips and best practises to this website.
+* **[Streamsdev](https://developer.ibm.com/streamsdev/)** - This resource is a developer-to-developer website maintained by the Streams Development Team.  It contains many useful articles and getting started material.  Check back often for new articles, tips and best practises to this website.
+* **[Streams Tutorials Hub](http://ibmstreams.github.io/tutorials/)** A collection of available tutorials, labs and courses.
 * **[Streams Forum](https://www.ibmdw.net/answers/questions/?community=streamsdev&sort=newest&refine=none)** - This forum enables you to ask, and get answers to your questions, related to IBM Streams. If you have questions, start here.
 * **[IBMStreams on Github](http://ibmstreams.github.io)** - Streams is shipped with many useful toolkits out of the box.  IBMStreams on Github  contains many open-source toolkits.  For a list of available toolkits available on Github, see this web page:  [IBMStreams Github Toolkits](https://developer.ibm.com/streamsdev/docs/github-projects-overview/).
 * **[IBM Streams Support](http://www.ibm.com/support/entry/portal/Overview/Software/Information_Management/InfoSphere_Streams)** - This website provides information about IBM Streams downloads, technical support tools, documentation, and other resources.

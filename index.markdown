@@ -9,13 +9,15 @@ The goal of the project is to provide easy-to-follow documentation and developme
 
 ## Contents
 
+### Get Started with IBM Streams 4.2
+
+{% include nav.html context="/docs/4.2/"%}
+
+
 ### IBM Streams: Java Support
 
 {% include nav.html context="/docs/java/"%}
 
-### IBM Streams: Streams Runner for Apache Beam (supports Apache Beam 2.0)
-
-{% include nav.html context="/docs/beamrunner/"%}
 
 ### IBM Streams: Python Support
 
@@ -24,14 +26,17 @@ The goal of the project is to provide easy-to-follow documentation and developme
 * [API reference (latest)](http://ibmstreams.github.io/streamsx.topology/doc/pythondoc/index.html)
 * [Older releases](https://github.com/IBMStreams/streamsx.topology/releases)
 
+
+
+### IBM Streams: Streams Runner for Apache Beam (supports Apache Beam 2.0)
+
+{% include nav.html context="/docs/beamrunner/"%}
+
 ### IBM Streams: Scala Support
 
 {: .simple}
 * [Developing applications](https://github.com/IBMStreams/streamsx.topology/wiki/Scala-Support)
 
-### IBM Streams 4.2
-
-{% include nav.html context="/docs/4.2/"%}
 
 ### IBM Streams 4.1
 

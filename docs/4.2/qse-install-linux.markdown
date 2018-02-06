@@ -4,6 +4,14 @@ title:  Installing the Streams Quick Start Edition for Linux
 description:  Installation Guide for IBM Streams Quick Start Edition for Linux
 weight:  40
 published: true
+tag: 42qse
+prev:
+  file: qse-intro
+  title:  Download the Quick Start Edition (QSE)
+next:
+  file: qse-getting-started
+  title: Getting Started with IBM Streams v4.2 Quick Start Edition
+
 ---
 
 The Streams Quick Start Edition (QSE) can help you get started with Streams quickly, without having to install a Streams cluster environment.
