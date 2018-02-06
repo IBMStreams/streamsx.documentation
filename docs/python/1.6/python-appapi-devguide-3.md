@@ -63,6 +63,10 @@ Before you can create your first Python application with the Python Application 
 
         streamtool setproperty -i <INSTANCE_ID> -d <DOMAIN_ID> --application-ev PYTHONHOME=<path_to_python_install>
 
+     For example, if using the Quick Start Edition:
+
+       streamtool setproperty -i StreamsInstance -d StreamsDomain --application-ev PYTHONHOME=/opt/pyenv/versions/3.5.1 --embeddedzk
+
      You can also set the environment variable from the Streams Console in your service.
 
 
