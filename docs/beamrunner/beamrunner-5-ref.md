@@ -24,7 +24,8 @@ The Streams Runner package contains the following folders:
 
 - `samples`: Toolkit sample applications. For information about the samples, see the README file in the samples folder.
 
-## General pipeline options
+## Pipeline Options
+### General pipeline options
 
 | Parameter | Description | Default value |
 | --- | --- | --- |
@@ -33,7 +34,7 @@ The Streams Runner package contains the following folders:
 | `jobName` | The name of the job. | Defaults to a Beam-generated string. |
 | `appName` | The name of the app for display purposes. | Defaults to the class name of the `PipelineOptions` creator. |
 
-## Streams Runner pipeline options
+### Streams Runner pipeline options
 
 <table>
   <thead>
@@ -81,14 +82,16 @@ The Streams Runner package contains the following folders:
   </tbody>
 </table>
 
-## `STREAMING_ANALYTICS_SERVICE` context-specific pipeline options
+For the full list of pipeline options, enter  `--help=StreamsPipelineOptions` on the Beam application command line.
+
+#### `STREAMING_ANALYTICS_SERVICE` context-specific pipeline options
 
 | Parameter | Description | Default value |
 | --- | --- | --- |
 | `vcapServices` | The location of the Streaming Analytics VCAP file. This parameter is required when you use the `STREAMING_ANALYTICS_SERVICE` context type. This parameter can be omitted if the `$VCAP_SERVICES` environment variable is set to the path of the file. | [null] |
 | `serviceName` | The name of the Streaming Analytics service on IBM Cloud. This parameter is required when you use the   `STREAMING_ANALYTICS_SERVICE`  context type. | [null] |
 
-## `DISTRIBUTED` context-specific pipeline options
+#### `DISTRIBUTED` context-specific pipeline options
 
 | Parameter | Description | Default value |
 | --- | --- | --- |
@@ -96,8 +99,51 @@ The Streams Runner package contains the following folders:
 | `userName` | The user name for basic authentication with REST API when you use the `DISTRIBUTED` context type. | [null] |
 | `userPassword` | The user password for basic authentication for REST API when you use the `DISTRIBUTED` context type. | [null] |
 
-<br>
-For the full list of pipeline options, enter  `--help=StreamsPipelineOptions` on the Beam application command line.
+## Environment Variables
+These environment variables are not required for the Streams Runner to work; however, they can be used for convenience when launching your Beam application.
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+        <th>Notes</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>STREAMS_RUNNER_HOME</td>
+        <td>The absolute path to the extraction location of the <code class="highlighter-rouge">com.ibm.streams.beam-1.1.0</code> directory</td>
+        <td>Set by using one of the following methods:
+        <ul><li>Source the <code class="highlighter-rouge">$STREAMS_RUNNER_HOME/samples/bin/streams-runner-env.sh</code> file.</li>
+        <li>Use the  <code class="highlighter-rouge">export</code> command.</li></ul></td>
+      </tr>
+      <tr>
+        <td>STREAMS_BEAM_TOOLKIT</td>
+        <td>The path to the Streams Runner toolkit (<code class="highlighter-rouge">$STREAMS_RUNNER_HOME/com.ibm.streams.beam</code>)</td>
+        <td>Set by using one of the following methods:
+        <ul><li>Source the <code class="highlighter-rouge">$STREAMS_RUNNER_HOME/samples/bin/streams-runner-env.sh</code> file.</li>
+        <li>Use the  <code class="highlighter-rouge">export</code> command.</li></ul></td>
+      </tr>
+      <tr>
+        <td>VCAP_SERVICES</td>
+        <td>The path to the IBM Cloud credentials file. If this environment variable is set, the <code class="highlighter-rouge">--vcapServices</code> parameter does not need to be specified on the command line.<br /><br />For more information about the credentials file, see <a href="#creating-a-credentials-file-for-your-streaming-analytics-service">Creating a credentials file for your Streaming Analytics service</a>.</td>
+        <td>Set by using the <code class="highlighter-rouge">export</code> command.</td>
+      </tr>
+      <tr>
+        <td>STREAMING_ANALYTICS_SERVICE_NAME</td>
+        <td>The name of the Streaming Analytics service in the IBM Cloud credentials file to use. If this environment variable is set, the <code class="highlighter-rouge">--serviceName</code> parameter does not need to be specified on the command line.</td>
+        <td>Set by using the <code class="highlighter-rouge">export</code> command.</td>
+      </tr>
+      <tr>
+        <td>STREAMS_INSTALL</td>
+        <td>The path to the local IBM Streams installation on your system. Only set if submitting an application to a local Streams environment.</td>
+        <td><strong>Important</strong>: If this variable exists, you must use the <code class="highlighter-rouge">unset</code> command to unset it before you can submit an application to the Streaming Analytics service. </td>
+      </tr>
+    </tbody>
+  </table>
 
-## SDK API Reference
+## Apache Beam SDK for Java
+See Beam's [Java API Reference](https://beam.apache.org/documentation/sdks/javadoc/2.1.0/) for information on application APIs.
+
+## Streams Runner SDK API Reference
 See the [javadoc](../beamrunner/release/1.1.0/javadoc/index.html) for more information.
