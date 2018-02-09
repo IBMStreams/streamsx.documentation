@@ -28,7 +28,7 @@ The goal of the project is to provide easy-to-follow documentation and developme
 
 
 
-### IBM Streams: Streams Runner for Apache Beam (supports Apache Beam 2.0)
+### IBM Streams: Streams Runner for Apache Beam (supports Apache Beam 2.1)
 
 {% include nav.html context="/docs/beamrunner/"%}
 

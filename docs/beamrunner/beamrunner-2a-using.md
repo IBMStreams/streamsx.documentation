@@ -18,7 +18,7 @@ To use IBM® Streams Runner for Apache Beam, its libraries must be available to 
 
 ## Before you start
 
-After you develop your Apache Beam 2.0 application, you must package your app as a JAR file to use it with Streams Runner. For example, if you use the `jar` command, enter the following command:
+After you develop your Apache Beam 2.1 application, you must package your app as a JAR file to use it with Streams Runner. For example, if you use the `jar` command, enter the following command:
 
 ```
 jar cf target.jar -C <path to class files>
@@ -139,7 +139,7 @@ Because the application is eventually launched in a distributed environment, the
 aware of your Beam application. To include your application and any dependencies,
 use the `--jarsToStage` option.
 
-If your Beam application uses the Beam [ValueProvider](https://beam.apache.org/documentation/sdks/javadoc/2.0.0/org/apache/beam/sdk/options/ValueProvider.html) types for custom pipeline options,
+If your Beam application uses the Beam [ValueProvider](https://beam.apache.org/documentation/sdks/javadoc/2.1.0/org/apache/beam/sdk/options/ValueProvider.html) types for custom pipeline options,
 Streams submission-time parameters are created for the application.
 
 After the application bundle file is created, it can be submitted along with any submission-time parameters to a Streaming Analytics service or local Streams environment through the Streams Console, Streaming Analytics REST API, or `streamtool` command. For more information about bundle submission, see the `$STREAMS_RUNNER_HOME/samples/README` file.

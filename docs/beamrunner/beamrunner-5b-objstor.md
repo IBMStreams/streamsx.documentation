@@ -18,7 +18,7 @@ You can use the IBM® Streams Runner for Apache Beam `FileStreamSample` sample a
 
 ## Before you start
 
-Before you run the Apache Beam 2.0 `FileStreamSample` sample application, you must configure and run the following services on IBM Cloud®:
+Before you run the Apache Beam 2.1 `FileStreamSample` sample application, you must configure and run the following services on IBM Cloud®:
 
 - Streaming Analytics. For more information, see [Creating a Streaming Analytics service on IBM Cloud](../beamrunner-2-install/#creating-a-streaming-analytics-service-on-bluemix).
 - Object Storage OpenStack Swift for Bluemix.

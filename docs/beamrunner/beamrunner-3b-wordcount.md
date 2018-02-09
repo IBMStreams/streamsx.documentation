@@ -2,7 +2,7 @@
 layout: docs
 title:  WordCount sample application for IBM Streams Runner for Apache Beam
 navtitle: WordCount sample app
-description:  You can use IBM® Streams Runner for Apache Beam to run the Apache Beam 2.0 Java™ SDK Quickstart WordCount sample application.
+description:  You can use IBM® Streams Runner for Apache Beam to run the Apache Beam 2.1 Java™ SDK Quickstart WordCount sample application.
 weight:  10
 published: true
 tag: beam
@@ -14,7 +14,7 @@ next:
   title: Monitoring
 ---
 
-You can use IBM® Streams Runner for Apache Beam to run the Apache Beam 2.0 Java™ SDK Quickstart WordCount sample application.
+You can use IBM® Streams Runner for Apache Beam to run the Apache Beam 2.1 Java™ SDK Quickstart WordCount sample application.
 
 ## Before you start
 
@@ -32,14 +32,14 @@ In addition, you must set up your Java Development Kit (JDK) and Maven environme
 
 ## Running the WordCount sample
 
-1. Get and compile the WordCount sample application for Apache Beam 2.0.  
-    **Important:** The `-DarchetypeVersion` variable must be set to 2.0.0, as shown in the following command.
+1. Get and compile the WordCount sample application for Apache Beam 2.1.  
+    **Important:** The `-DarchetypeVersion` variable must be set to 2.1.0, as shown in the following command.
 
    ```
   mvn archetype:generate \
             -DarchetypeGroupId=org.apache.beam \
             -DarchetypeArtifactId=beam-sdks-java-maven-archetypes-examples \
-            -DarchetypeVersion=2.0.0 \
+            -DarchetypeVersion=2.1.0 \
             -DgroupId=org.example \
             -DartifactId=word-count-beam \
             -Dversion="0.1" \
