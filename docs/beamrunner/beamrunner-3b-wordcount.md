@@ -35,7 +35,7 @@ In addition, you must set up your Java Development Kit (JDK) and Maven environme
 1. Get and compile the WordCount sample application for Apache Beam 2.1.  
     **Important:** The `-DarchetypeVersion` variable must be set to 2.1.0, as shown in the following command.
 
-   ```
+  ```bash
   mvn archetype:generate \
             -DarchetypeGroupId=org.apache.beam \
             -DarchetypeArtifactId=beam-sdks-java-maven-archetypes-examples \
@@ -53,7 +53,7 @@ In addition, you must set up your Java Development Kit (JDK) and Maven environme
 
     - The following command uses `streams://` to provide the input, and writes the output to object storage.
 
-      ```
+      ```bash
       java -cp $STREAMS_BEAM_TOOLKIT/lib/com.ibm.streams.beam.translation.jar:target/original-word-count-beam-0.1.jar \
       org.apache.beam.examples.WordCount \
           --filesToStage="{\"./pom.xml\":\"pom.xml\"}" \
@@ -68,7 +68,7 @@ In addition, you must set up your Java Development Kit (JDK) and Maven environme
 
     - The following command uses object storage to host both input and output files. Make sure that the `pom.xml` input file is uploaded to the `beam-container` container before you submit the application. For more information about adding a file to the container, see [Getting started with Object Storage](https://console.bluemix.net/docs/services/ObjectStorage/index.html).
 
-      ```
+      ```bash
       java -cp $STREAMS_BEAM_TOOLKIT/lib/com.ibm.streams.beam.translation.jar:target/original-word-count-beam-0.1.jar \
       org.apache.beam.examples.WordCount \
           --inputFile=swift://beam-container/pom.xml \
@@ -83,7 +83,7 @@ In addition, you must set up your Java Development Kit (JDK) and Maven environme
 1. Inspect the results.  
     After the pipeline completes, you can download the output through the Object Storage OpenStack Swift for Bluemix web management page or by using the Swift CLI client. Each output file contains up to 50,000 lines. If the output goes beyond that limit, multiple output files are created.
 
-    ```
+    ```bash
     swift download beam-container -p quickstart.out -D swift-output
     cat swift-output/*
     ```

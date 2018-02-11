@@ -82,7 +82,7 @@ To use the storage from Beam applications, you must specify the IBM Cloud servic
 
 **Tip**: For MacOS, the Swift command of OpenStack might collide with the existing Xcode Swift command. To avoid the conflicts, create a Python virtual environment, and install the Swift client in the virtual environment.
 
-```
+```bash
 virtualenv my_project
 cd my_project
 source bin/activate

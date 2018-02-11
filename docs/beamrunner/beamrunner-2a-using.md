@@ -20,7 +20,7 @@ To use IBM® Streams Runner for Apache Beam, its libraries must be available to 
 
 After you develop your Apache Beam 2.1 application, you must package your app as a JAR file to use it with Streams Runner. For example, if you use the `jar` command, enter the following command:
 
-```
+```bash
 jar cf target.jar -C <path to class files>
 ```
 
@@ -66,7 +66,7 @@ This example submits `MyBeamApplication` to the `my-service-name` Streaming Anal
 **Note**: This example uses the `--vcapServices` and `--serviceName` parameters, but these parameters aren't necessary if their respective environment variables are set.
 Additionally, the `--contextType` parameter can be omitted because `STREAMING_ANALYTICS_SERVICE` is the default.
 
-```
+```bash
 java -cp $STREAMS_BEAM_TOOLKIT/lib/com.ibm.streams.beam.translation.jar:/home/beamuser/beamapp/lib/myapp.jar \
     namespace.MyBeamApplication \
     --runner=StreamsRunner \
@@ -113,7 +113,7 @@ the `STREAMS_DOMAIN_ID` and `STREAMS_INSTANCE_ID` environment variables. If the 
 
 This example builds and submits `MyBeamApplication` locally.
 
-```
+```bash
 java -cp $STREAMS_BEAM_TOOLKIT/lib/com.ibm.streams.beam.translation.jar:$STREAMS_INSTALL/lib/com.ibm.streams.operator.samples.jar:/home/beamuser/beamapp/lib/myapp.jar \
     namespace.MyBeamApplication \
     --runner=StreamsRunner \
@@ -148,7 +148,7 @@ After the application bundle file is created, it can be submitted along with any
 
 This example builds `MyBeamApplication` locally and creates an application bundle file for later submission to a Streaming Analytics service or a local Streams instance.
 
-```
+```bash
 java -cp $STREAMS_BEAM_TOOLKIT/lib/com.ibm.streams.beam.translation.jar:$STREAMS_INSTALL/lib/com.ibm.streams.operator.samples.jar:/home/beamuser/beamapp/lib/myapp.jar \
     namespace.MyBeamApplication \
     --runner=StreamsRunner \

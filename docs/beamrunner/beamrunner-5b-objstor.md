@@ -34,21 +34,21 @@ These instructions assume that you have already set up and run other samples on 
 
 1. Navigate to the `samples` directory in Streams Runner, and set up environment variables for the runner:
 
-    ```
+    ```bash
     cd <installdir>/samples
     . bin/streams-runner-env.sh
     ```
 
 2. Set the environment variables `VCAP_SERVICES` to point to the VCAP file that contains your Streaming Analytics service credentials and `STREAMING_ANALYTICS_SERVICE_NAME` to the service name within that file, for example:
 
-    ```
+    ```bash
     export VCAP_SERVICES=$HOME/sample.vcap
     export STREAMING_ANALYTICS_SERVICE_NAME="sample-service"
     ```
 
 3. Run the `FileStreamSample` Beam application by entering the following command.
 
-    ```
+    ```bash
 java -cp \
   $STREAMS_BEAM_TOOLKIT/lib/com.ibm.streams.beam.translation.jar:\
 lib/com.ibm.streams.beam.samples.jar \

@@ -46,17 +46,17 @@ For more information about the Streaming Analytics service, see [Introduction to
     1. In the Streams Console, click **Help > Download > Download Streams Runner for Apache Beam**.
     1. Select **Save File**, specify a location if necessary, and click **OK**.
 1. Extract the toolkit by entering the following command where you downloaded the file:
-```
+```bash
 tar -zxvf com.ibm.streams.beam-1.1.0.tar.gz
 ```
 1. (Optional) Configure the environment variables. Although the variables are not required, the documentation refers to them for convenience. If you do not set the environment variables, you must use the full paths when you run the sample applications.
     1. Navigate to the `samples` directory in the expanded toolkit, and set up environment variables for the runner:
-    ```
+    ```bash
     cd com.ibm.streams.beam-1.1.0/samples
     . bin/streams-runner-env.sh
     ```
     1. Set the environment variables `VCAP_SERVICES` to point to the VCAP file that contains your Streaming Analytics service credentials and `STREAMING_ANALYTICS_SERVICE_NAME` to the service name within that file. For example: 
-    ```
+    ```bash
     export VCAP_SERVICES=$HOME/sample.vcap
     export STREAMING_ANALYTICS_SERVICE_NAME="sample-service"
     ```
@@ -65,7 +65,7 @@ tar -zxvf com.ibm.streams.beam-1.1.0.tar.gz
 ## Validating the Streams Runner installation
 
 The Streams Runner relies on preserving the `com.ibm.streams.beam` directory structure. To verify an installation, ensure that the `translation` and `sdk` JAR files appear as follows when you enter the following command:
-```
+```bash
 ls $STREAMS_BEAM_TOOLKIT/lib
 ```
 ```
