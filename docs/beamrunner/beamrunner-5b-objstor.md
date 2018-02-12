@@ -16,6 +16,9 @@ next:
 
 You can use the IBM® Streams Runner for Apache Beam `FileStreamSample` sample application to learn how to use IBM Cloud (formerly IBM Bluemix) object storage for file input and output.
 
+## **Deprecation**
+IBM Cloud will no longer offer the Object Storage OpenStack Swift service as of March 31, 2018.
+
 ## Before you start
 
 Before you run the Apache Beam 2.1 `FileStreamSample` sample application, you must configure and run the following services on IBM Cloud®:
