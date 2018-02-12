@@ -130,7 +130,7 @@ Use this context to locally build an application that can be submitted to a Stre
 #### Prerequisites
 * A local Streams installation (IBM Streams 4.2 or higher).
 
-**Remember:** Applications that will be submitted to a Streaming Analytics service must be built in a Red Hat Enterprise Linux 6 environment.
+**Remember:** Applications that will be submitted to a Streaming Analytics service must be built using the correct Red Hat Enterprise Linux environment. To check the correct operating system version, see the **Plan** tab on your Streaming Analytics service dashboard and the features of your selected plan.
 
 #### Overview
 Set the context type to `BUNDLE` to create an application bundle file and a Streams job configuration overlay file (_namespace.application_\_JobConfig.json) for your Beam application. Because the Beam application is packaged locally, you must include the `com.ibm.streams.operator.samples.jar` located at `$STREAMS_INSTALL/lib` in the Java class path.
