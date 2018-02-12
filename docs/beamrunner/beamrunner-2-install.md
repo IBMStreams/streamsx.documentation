@@ -41,7 +41,10 @@ Before you can download Streams Runner, you must have a Streaming Analytics serv
 For more information about the Streaming Analytics service, see [Introduction to the Bluemix Streaming Analytics Service](https://developer.ibm.com/streamsdev/docs/streaming-analytics-now-available-bluemix-2/).
 
 ## Downloading and configuring Streams Runner
+The following video demonstrates how to download and install the Streams Runner package.
 
+<iframe width="560" height="315" src="https://www.youtube.com/embed/tG1uixwvnwg" frameborder="0" allowfullscreen></iframe>
+<br>
 1. Open the Streams Console:
     1. Click the **Manage** tab of your Streaming Analytics Service.
     1. Click **Launch**.
