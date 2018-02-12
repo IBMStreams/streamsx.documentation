@@ -16,7 +16,10 @@ next:
 
 Installing IBM® Streams Runner for Apache Beam involves downloading and extracting the Streams Runner toolkit, configuring environment variables, and creating a credentials file for your Streaming Analytics service. You don't need to install IBM Streams to use Streams Runner.
 
-## Before you start
+## Before you start: develop your application
+Apache Beam applications can be developed without the Streams Runner being installed. For information about developing your Beam application, see the [Beam SDK for Java](https://beam.apache.org/documentation/sdks/java/).
+
+## Before you execute
 
 A Red Hat Enterprise Linux 6 or 7 environment is recommended for submitting Apache Beam 2.1 applications to the Streaming Analytics service in IBM Cloud (formerly IBM Bluemix).
 
