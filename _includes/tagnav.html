@@ -1,18 +1,39 @@
 {% capture html %}
 <ul class="simple">
-  {% assign pages = site.pages | sort: "weight" %}
-  {% for currentPage in pages %}
-    {% if currentPage.tag == include.tag %}
-    {% capture slug %}{{ currentPage.url | split: "/" | last }}{% endcapture %}
-    {% capture current %}{{ currentPage.url | remove: slug | remove: "//" | append: "/" }}{% endcapture %}
-    {% unless currentPage.url contains 'drafts' %}
-		{% if currentPage.navtitle %}
-			<li style="padding-bottom:9px;"><a href="{{ site.baseurl }}{{ currentPage.url }}">{{ currentPage.navtitle }}</a></li>
-		{% else %}
-			<li style="padding-bottom:9px;"><a href="{{ site.baseurl }}{{ currentPage.url }}">{{ currentPage.title }}</a></li>
-		{% endif %}
-    {% endunless %}
-    {% endif %}
-  {% endfor %}
+  {% if site.data.custom-sidenavs.tags[include.tag] %}
+    {% for item in site.data.custom-sidenavs.tags[include.tag] %}
+      <li style="padding-bottom:9px;">
+      {% if item.url %}
+        <a href="{{ site.baseurl }}{{ item.url }}">{{ item.page }}</a>
+      {% else %}
+       {{ item.page }}
+      {% endif %}
+      {% if item.subpages %}
+        <ul class="simple">
+        {% for subpage in item.subpages %}
+          <li style="padding-bottom:9px;">
+          <a href="{{ site.baseurl }}{{ subpage.url }}">{{ subpage.page }}</a>
+          </li>
+        {% endfor %}
+        </ul>
+      {% endif %}
+      </li>
+    {% endfor %}
+  {% else %}
+    {% assign pages = site.pages | sort: "weight" %}
+    {% for currentPage in pages %}
+      {% if currentPage.tag == include.tag %}
+        {% capture slug %}{{ currentPage.url | split: "/" | last }}{% endcapture %}
+        {% capture current %}{{ currentPage.url | remove: slug | remove: "//" | append: "/" }}{% endcapture %}
+        {% unless currentPage.url contains 'drafts' %}
+          {% if currentPage.navtitle %}
+            <li style="padding-bottom:9px;"><a href="{{ site.baseurl }}{{ currentPage.url }}">{{ currentPage.navtitle }}</a></li>
+          {% else %}
+            <li style="padding-bottom:9px;"><a href="{{ site.baseurl }}{{ currentPage.url }}">{{ currentPage.title }}</a></li>
+          {% endif %}
+        {% endunless %}
+      {% endif %}
+    {% endfor %}
+  {% endif %}
 </ul>
 {% endcapture %}{{ html | strip_newlines}}

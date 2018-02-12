@@ -30,7 +30,24 @@ The goal of the project is to provide easy-to-follow documentation and developme
 
 ### IBM Streams: Streams Runner for Apache Beam (supports Apache Beam 2.1)
 
-{% include nav.html context="/docs/beamrunner/"%}
+{: .simple}
+* [Introduction to IBM Streams Runner for Apache Beam](docs/beamrunner/beamrunner-1-intro)
+* [Installing IBM Streams Runner](docs/beamrunner/beamrunner-2-install)
+* [Using IBM Streams Runner](docs/beamrunner/beamrunner-2a-using)
+  * [Monitoring applications](docs/beamrunner/beamrunner-4-monitor)
+
+* Samples
+  * [TemperatureSample sample application](docs/beamrunner/beamrunner-3-sample)
+  * [WordCount sample application](docs/beamrunner/beamrunner-3b-wordcount)
+
+* [Input/output options](docs/beamrunner/beamrunner-5a-io)
+  * [Using the IBM Object Stroage OpenStack Swift for Bluemix service](docs/beamrunner/beamrunner-5b-objstor)
+
+* Reference
+  * [Package and runner options](docs/beamrunner/beamrunner-5-ref)
+  * [Runner-specific SDK API](docs/beamrunner/release/1.1.0/javadoc/)
+
+* [Limitations and known issues](docs/beamrunner/beamrunner-6-issues)
 
 ### IBM Streams: Scala Support
 
