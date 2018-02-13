@@ -57,7 +57,7 @@ Because the application is launched on a remote system, the Streams job must be
 aware of your Beam application. To include your application and any dependencies,
 use the `--jarsToStage` option. For more information about this option, see [Streams Runner pipeline options](../beamrunner-5-ref/#streams-runner-pipeline-options).
 
-**Note**: Fat or uber JAR files can reduce the number of JAR files to stage. Be mindful to not include dependencies already provided by the Streams Runner runner. Including redundant dependencies can increase the application archive size affecting upload and build times.
+**Note**: Fat or uber JAR files can reduce the number of JAR files to stage. Be mindful to not include dependencies that are already provided by the Streams Runner. Including redundant dependencies can increase the application archive size and affect upload and build times.
 
 #### Example
 

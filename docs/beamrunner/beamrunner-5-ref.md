@@ -56,8 +56,7 @@ The Streams Runner package contains the following folders:
     </tr>
     <tr>
       <td><code class="highlighter-rouge">jarsToStage</code></td>
-      <td>A list of JAR files (separated by colons) that are required to run the Apache Beam application. Include the JAR files that contain your program and any dependencies. (You don’t need to include Beam Google IO SDK or core Beam JAR files.) The listed JAR files are added to the SAB file.<br /><br /><strong>Note</strong>: The use of fat or uber JAR files can reduce the number of JARs needed to be specified, but care should be taken not to include redundant JARs provided by the Streams
-      Runner. Including redundant dependencies can increase the application archive and can negatively impact submission times to IBM Cloud.</td>
+      <td>A list of JAR files (separated by colons) that are required to run the Apache Beam application. Include the JAR files that contain your program and any dependencies. (You don’t need to include Beam Google IO SDK or core Beam JAR files.) The listed JAR files are added to the SAB file.<br /><br /><strong>Note</strong>: The use of fat or uber JAR files can reduce the number of JAR files that must be specified, but take care not to include JAR files that are provided by the Streams Runner. Including redundant dependencies can increase the application archive and can negatively impact submission times to IBM Cloud.</td>
       <td>[null]</td>
     </tr>
     <tr>
@@ -101,7 +100,7 @@ For the full list of pipeline options, enter  `--help=StreamsPipelineOptions` on
 | `userPassword` | The user password for basic authentication for REST API when you use the `DISTRIBUTED` context type. | [null] |
 
 ## Environment Variables
-These environment variables are not required for the Streams Runner to work; however, they can be used for convenience when launching your Beam application.
+These environment variables are not required for the Streams Runner to work; however, they can be used for convenience when you launch your Beam application.
   <table>
     <thead>
       <tr>

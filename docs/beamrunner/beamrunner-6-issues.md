@@ -20,7 +20,7 @@ Learn about limitations and known issues for IBM® Streams Runner for Apache Bea
 
 ## Known issues
 ### Issue
-Submission-time parameters specified while manually submitting SAB file (created via `BUNDLE` context) are not used during application runtime. 
+Submission-time parameters that are specified when you manually submit a SAB file (created by using the `BUNDLE` context) are not used during application runtime.
 
 #### Workaround
 Use the `STREAMING_ANALYTICS_SERVICE` or `DISTRIBUTED` contexts to launch the application with the application options set.
