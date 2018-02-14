@@ -1,9 +1,9 @@
 ---
 layout: docs
-title:  Installing Streams Quick Start Edition Docker
+title:  Installing Streams Quick Start Edition with Docker
 description:  Installation Guide for IBM Streams Quick Start Edition Docker
 weight: 30
-published: false
+published: true
 tag: 42qse
 prev:
   file: qse-intro
@@ -14,191 +14,466 @@ next:
 
 ---
 
-**(Coming Soon...)**
 
 The Streams Quick Start Edition can help you get started with Streams quickly, without having to install a Streams cluster environment.
 
 {% include download.html%}
 
-## System Requirements
+## Introduction
 
-| Components  | Minimum Requirements | Comments |
-| ----------- | -------------------- | -------------|
-| Operating System  | 64-bit operating system that supports Docker  | Streams Quick Start Docker image is supported on the following operating systems: <br>- Apple Mac OS X<br>- Microsoft Windows
-| Memory	  |8 GB	                 |The amount of memory that is required by IBM Streams is dependent on the applications that are developed and deployed.  This minimum requirement is based on the memory requirements of the Commodity Purchasing sample application and other samples that are provided with the product.     
-| Disk space  | 50 GB |  |
-| Docker product | Docker Toolbox 1.9.0b or newer	| |
+This document describes the installation, configuration, first steps,
+and common Docker management scenarios for IBM® Streams Quick Start
+Edition (QSE) running in a Docker environment.
 
-<p>
-<div class="alert alert-danger" role="alert"><b>IMPORTANT:</b> If you already have boot2docker installed, remove all components (docker, Git, and Oracle VirtualBox) before installing 'Docker Toolbox'</div>
+You begin by downloading and installing Docker. An optional, but
+recommended step is to set up a mapped directory on your local host file
+system for the Docker container. Next, you install Streams Quick Start
+Edition and configure your **hosts** file. Then you can access Streams
+Quick Start Edition with a VNC client or with Secure Shell (SSH).
 
-<div class="alert alert-danger" role="alert"><b>IMPORTANT:</b> If you have 'Docker Toolbox' already installed remove older version of Streams4Docker images and containers, and if there already exists a VirtualBox VM names 'streams4100', delete that as well. </div>
-</p>
+## Supported environments
 
-## Windows
+Windows 10, running Docker Community Edition 17.03.1-ce or later.
 
-1.  Install Dockertoolbox
-    * See Docker Toolbox page for instructions:  https://www.docker.com/toolbox
-1.  Install using all defaults for a 'Full Installation'
-1.  Download the Streams4Docker.zip archive
-1.  Extract the Streams4Docker.zip archive to preferred location
-1.  Open Windows PowerShell
-    * Application Menu-> All Programs -> Accessories -> Windows Powershell -> Windows PowerShell
-    * `cd <Directory where Streams4Docker downloaded>/Docker`
-    * `powershell -ExecutionPolicy ByPass -File Streams-windows-build.ps1`
+MacOS El Capitan 10.11 or later, running Docker Community Edition
+17.03.1-ce or later.
 
-Note: default build is 4096 MB Memory; 4 CPUs; 50000 Bytes disk.
+Linux: It is recommended to use a systemd-based distribution with Docker
+Community Edition 17.03.1-ce or later. If you use the Standard Docker
+(Red Hat), you will need to adjust the Docker environment manually for
+50 GB of Docker storage.
 
-To change defaults, for example to 8192 MB Memory; 2 CPUs; 60000 Bytes of disk run
+## Docker configuration requirements
 
-~~~~~~
-powershell -ExecutionPolicy ByPass -File Streams-windows-build.ps1 8192 2 60000
-~~~~~~
-
-<div class="alert alert-warning" role="alert">
-Building and running of the Docker container will take about 20 minutes.
-You may be prompted for Administration Authentication several times.
-When completed the Powershell terminal will be sitting at the root prompt inside the Docker container.
-It is recommended that you leave the terminal open.
-</div>
-
-## Mac OSx
-
-1.  Install Dockertoolbox
-    * See Docker Toolbox page for instructions:  https://www.docker.com/toolbox
-1.  Install using all defaults for a 'Full Installation'
-1.  Download the Streams4Docker.zip.  
-1.  Copy the zip file to your home directory or any directory under your home directory:  `cp Streams4Docker.zip /Users/<userid>`
-1.  Extract the zip file:  `unzip Streams4Docker.zip`
-1.  Open a terminal and change to the Docker directory:  `cd Docker`
-1.  Run the script to build the docker image:  `./Streams-OSX-build.sh`
+Configure your Docker environment as follows.
 
 
-Note: default build is 4096 MB Memory; 4 CPUs; 50000 Bytes disk.
+|                      | Minimum        | Recommended |
+| -------------------- | -------------------- | ----------------|
+| CPUs | 2 | 4 |
+| Memory | 4 GB  | 8 GB |
+|Disk space | 20 GB   | 50 GB or greater depending upon number and size of projects. |
 
-To change defaults, for example to 8192 MB Memory; 2 CPUs; 60000 Bytes of disk run
 
-~~~~~~
-./Streams-OSX-build.sh 8192 2 60000
-~~~~~~
+## Installing and configuring Docker on Windows
 
-<div class="alert alert-warning" role="alert">
-Build and Run of Docker Container will take about 20 minutes. When completed the terminal will be sitting at the root prompt inside the Docker container.  It is recommended that you leave the terminal open.
-</div>
+1.  Download and install Docker-CE 17.03.1 or later from:  
 
-## Accessing the IBM Streams Docker container
+    [https://www.docker.com/community-edition](https://www.docker.com/community-edition)
 
-The Streams Docker container is set up with the following user id and password:
+    Note: Installing Docker may conflict with settings required for other
+ VM technologies such as Oracle VM VirtualBox. The installation may
+ also require that you set your VM technology settings in your BIOS
+ settings. If this is necessary, Docker will warn you when you try to
+ start it and tell you which settings to change.
 
-* User ID:  streamsadmin
-* Password:  passw0rd
-* Root:  passw0rd
+2.  After you install Docker, configure it as follows:
 
-After the containers finish the startup process, you should be able to access the container via:
+    a.  Right-click the Docker icon in the system tray, and then select    **Settings**.
 
-* Remote Desktop Support from OSx:
-    1. Open Finder Window
-    1. Select Go -> Connect to Server...
-    1. In the Server Address field, enter:  **vnc://127.0.0.1:5901**
-    1. Click "+"
-    1. Click "Connect"
-* VNC Client:
-    1. If not already installed, installed a VNC client.
-    1. Start the VNC client
-    1. Connect to **127.0.0.1:5901**
+    b.  Under **Settings**, select **Shared Drives,** and then share       your hard disk drive (usually your C: drive).
 
-## Streams Console
+    c.  Under **Settings**, select **Advanced**, and then configure the    CPUs (minimum 2, recommended 4) and Memory (minimum 4 GB,   recommended 8 GB).
 
-You may use the Streams Console outside of the docker container.  To open Streams Console:
+3.  Open a PowerShell session from the Windows menu and test that Docker is set up correctly by running this command:
 
-1.  Open a browser on your machine (Firefox or Chrome)
-1.  Open this URL:  https://127.0.0.1:8443/streams/domain/console
+    **docker run hello-world**
 
-## Streams Studio
+    You should receive a response that includes this text:
+  <pre>
+   Hello from Docker!
+   This message shows that your installation appears to be working
+   correctly.
+    </pre>
 
-Streams Studio may be accessed via a VNC session.  To use Streams Studio:
+## Installing and configuring Docker on MacOS
 
-1.  Connect to the Streams Docker desktop using Remote Desktop or VNC.
-1.  On the desktop, double click on the Streams Studio icon.
+1.  Download and install Docker Community Edition for Mac from:
 
-## Remote Streams Studio
+    [https://store.docker.com/editions/community/docker-ce-desktop-mac](https://store.docker.com/editions/community/docker-ce-desktop-mac)
 
-Remote Streams Studio, connecting to docker is supported on Windows.  It is not supported on OSx.
+2.  After you install Docker, configure it as follows:
 
-When connecting Streams Studio to the docker container:
+    a.  From the Docker icon in the menu, click **Preferences >         Advanced**.
 
-* Connect to localhost or 127.0.0.1
-* Make sure you use 4022 as the SSH port
-* When making a connection, check the "Establish SSH Tunnel' check box
-* Keep everything else as defaults.
+    b.  Configure the CPUs (minimum 2, recommended 4) and Memory         (minimum 4 GB, recommended 8 GB).
 
-## Attaching to a Running Docker Container
+3.  Open a Terminal session and test that Docker is set up correctly by
+    running this command:
 
-In case you have closed the powershell, you may need to attach to the running docker container again.  Please note that attaching to the container will cause the domain and instances to be restarted.
+    **docker run hello-world**
 
-Follow these commands to attach to a container:
+    You should receive a response that includes this text:
+  <pre>
+   Hello from Docker!
+   This message shows that your installation appears to be working
+   correctly.
+    </pre>
 
-For Windows:
+## Installing and configuring Docker on Linux
 
-1.  `docker-machine env streams4100 --shell powershell |Invoke-Expression`
-2.  `docker attach streams4100`
+1.  Use the OS package manager to install Docker-ce (or for Red Hat,
+    install the standard Docker).
 
-For Mac OSx:
+2.  Confirm that the Docker installation has enough storage space for
+    the Streams Quick Start Edition image.
 
-1.  `eval "$(/usr/local/bin/docker-machine env streams4100)"`
-2.  `docker attach streams4100`
+    Red Hat's Standard Docker storage space is set to 10 GB. You will
+ need to increase the storage space.
 
-## Restarting Docker Image
+    Docker-ce is usually set to 20 GB. Depending on whether you will map
+ directories to the local file system and the amount and the size of
+your applications and data, you might need to increase that limit
+before you install the Streams Quick Start Edition image.
 
-To restart the docker image, follow these commands:
+    During the Streams Quick Start Edition installation, you will be
+ prompted if you want to map two Docker directories, **/home/streamsadmin/workspace** and **/home/streamsadmin/hostdir**, to local host directories.
 
-For Windows:
+    -   If you will be leaving the **/home/streamsadmin/workspace**
+    directory in the Docker image, then set the storage space to at
+    least 50 GB.
 
-1.  `docker-machine stop streams4100`
-1.  `docker-machine start streams4100`
-1.  `docker-machine env streams4100 --shell powershell |Invoke-Expression`
-1.  `docker restart streams4100`
+    -   If you will be mapping the **/home/streamsadmin/workspace** to a
+    local host directory, then you can set the Docker storage to 20 GB
+    because projects and data can be stored on your local drive instead
+    of inside the Docker container.
 
-For Mac OSx:
+    To set the Docker default image size, continue with the following steps:
 
-1.  `docker-machine stop streams4100`
-1.  `docker-machine start streams4100`
-1.  `eval "$(/usr/local/bin/docker-machine env streams4100)"`
-1.  `docker restart streams4100`
+3.  Log in as **root** or use **sudo** to create or edit the
+    **/etc/docker/daemon.json** file. The file should contain the
+    following code where *XX* represents the default image size in GB:
 
-Note:  After the restart, you may need to wait for about 30 seconds before attempting to VNC into the docker image.  You may also need to manually force the Streams domain and instances to be restarted to assure all services come up properly.
+     <pre>       {
+           "storage-opts": ["dm.basesize=XXG"]
+           }
+     </pre>
 
-To restart the domain:
+4.  Verify the setting by restarting the docker service and confirming
+    the Base Device Size by running these commands:
 
-1.  open the streamsadmin terminal
-1.  `streamstool stopdomain -d streamsdomain --force`
-1.  `streamstool startdomain -d streamsdomain`
+      **sudo systemctl restart docker**  
+      **docker info \|grep "Base Device Size:"**
 
-# Useful Docker Commands
-~~~~~~
-  docker images    (list local images)
-  docker ps        (list running containers)
-  docker ps -a     (list all containers)
-  docker rm <container name/ID>  (delete a container)
-  docker rmi <image name/ID>     (delete an image)
-  docker restart <container name/ID>  (restart an existing stopped container - same ports and volumes will be used as when the container was created.)
-  docker attach <container name/ID> (attach to a running container)
-~~~~~~
+## Mapping Docker container directories to the local host file system
 
-# Useful Docker Machine Commands
+During the Streams Quick Start Edition installation, you will be
+prompted if you want to map two Docker directories,
+**/home/streamsadmin/workspace** and **/home/streamsadmin/hostdir**, to
+local host directories.
 
-~~~~~~
-  docker-machine ls    (list machines and state)
-  docker-machine start <VM>  (start a VM)
-  docker-machine stop <VM>   (stop VM)
-  docker-machine rm <VM>     (delete the VM, use '--force' at end of command to force delete)
+Because the container has limited space, in most cases the best option
+is to map to external directories. Doing so will help prevent the
+container from exceeding its internal disk limits and make it easier for
+you to back up your project data and upgrade your Streams Docker
+container in the future.
 
-  To set environment variables for docker to access for VM 'streams4100':
-  On Window:  docker-machine env streams4100 --shell powershell |Invoke-Expression
-  On Mac OSx: eval "$(/usr/local/bin/docker-machine env streams4100)"
+1.  Create a new directory on your host machine where you can keep both
+    mapped directories isolated from other host machine files. For
+    example:  
 
-~~~~~~
+    **&lt;HOME DIRECTORY\>/mappedDockerFiles**
 
-## What to do next
+    Important: Do not map the Docker files to the top-level user home
+    directory.
 
-Explore the Streams QSE VMWare image following the [Quick Start Edition VM Getting Started Guide](/streamsx.documentation/docs/4.2/qse-getting-started/)
+2.  Make note of the directory. You will need to provide it during
+    installation.
+
+The installation will create the mapped directories in your local host
+file system under **&lt;HOME DIRECTORY>/mappedDockerFiles** for the
+internal **workspace** and **hostdir** subdirectories. During
+installation, you will be prompted for the names that you want to use
+under **&lt;HOME DIRECTORY\>/mappedDockerFiles**.
+
+The **workspace** directory is the default Streams Studio project
+directory. When you create Streams projects, the data files will be
+located here. If this directory is mapped to the local host file system,
+the files and directories will be stored there instead in the internal
+Docker container. If later you upgrade your Streams4Docker installation,
+you can reuse this directory for easy recovery of your projects. For
+example, if you use the Import function of Streams Studio and point to
+the **workspace** directory, the program will recognize all your project
+data. You can import all your projects using **overwrite** option.
+
+The **hostdir** directory begins as an empty directory where you can add
+files that you want to share between your Docker container and your
+local host. Keep any large files used in your Streams4Docker container
+in this directory when possible because files in this directory do not
+use up space inside the Docker container.
+
+## Installing Streams Quick Start Edition on Windows
+
+   Prerequisite: Make sure you are connected to the Internet.
+
+1.  Unzip the **Docker&lt;version\>.zip** file into a preferred directory.
+
+2.  Open PowerShell, and change to the **streams4docker&lt;version\>**
+    directory.
+
+3.  Confirm you have permissions to run a PowerShell script:
+
+    a.  In the PowerShell window, determine your PowerShell execution policy:
+
+      **get-executionpolicy**
+
+    b.  If your permissions are restricted, change them to unrestricted:
+
+      **set-executionpolicy unrestricted**
+
+    c.  Optional: Reset your execution policy back to restricted:
+
+      **set-executionpolicy restricted**
+
+4.  Run the install script:
+
+    **./streamsdockerInstall.ps1**
+
+5.  Read and accept the license agreement page, and then the Notices
+    page.
+
+6.  Choose whether to map host local directories into Docker container.
+    See [**Mapping Docker container directories** **to the local host
+    file
+    system**](#mapping-docker-container-directories-to-the-local-host-file-system)
+    information above.
+
+7.  Confirm the directories and install.
+
+ The installation will continue automatically and take from 25 minutes
+ to an hour or more depending on your host system configuration. When
+ the installation completes, you are returned to a `Streams4Docker`
+ command prompt.
+
+## Installing Streams Quick Start Edition on MacOS or Linux
+
+Prerequisite: Make sure you are connected to the Internet.
+
+1.  Unzip the **Docker&lt;version\>.zip** file into your preferred
+    directory.
+
+2.  From your Terminal session, change to the
+    **streams4docker&lt;version>** directory.
+
+3.  Run the install script:
+
+    **./streamsdockerInstall.sh**
+
+4.  Read and accept the license agreement page, and then the Notices
+    page.
+
+5.  Choose whether to map host local directories into Docker container.
+    See [**Mapping Docker container directories to the local host file
+    system**](#mapping-docker-container-directories-to-the-local-host-file-system)
+    information above.
+
+6.  Confirm the directories and install.
+
+ The installation will continue automatically and take from 25 minutes
+ to an hour or more depending on your host system configuration. When
+ the installation completes, you are returned to a `Streams4Docker`
+ command prompt.
+
+## Configuring the hosts file
+
+Before accessing Streams Quick Start Edition, you need to set the
+**hosts** file to point the hostname **streamsqse.localdomain** to the
+127.0.0.1 loopback address. Streams operates using a hostname and
+usually expects DNS to provide the conversion from hostname to IP
+address. Because Streams Quick Start Edition does not have a DNS server,
+we will simulate one using the **hosts** file.
+
+1.  Open your text editor:
+
+    -   Windows: Find Notepad in your Windows menu, right-click it and
+    select **Run as Administrator**.
+
+    -   MacOS or Linux: Open a text editor with **root** authority.
+
+2.  Locate and open the **hosts** file:
+
+    -   Windows: In Notepad open:
+    **C:\\Windows\\System32\\drivers\\etc\\hosts**
+    (Set Notepad filename filter to "All Files" to see the **hosts**
+    file.)
+
+    -   MacOS or Linux: Open the **/etc/hosts** file.
+
+3.  Append `streamsqse streamsqse.localdomain` to the line that has the
+    loopback address. For example:
+
+    <pre>
+    127.0.0.1 localhost streamsqse streamsqse.localdomain
+    </pre>
+
+4.  Save and close the file.
+
+## Accessing Streams Quick Start Edition with a VNC client
+
+Use port **5905** to access Streams Quick Start Edition in the Docker
+container with a VNC client.
+
+1.  Open your preferred VNC Client and connect to:
+
+    **streamsqse.localdomain:5905**
+
+2.  When prompted for a password use:
+
+    **passw0rd**
+
+ The default user name for the Console is **streamsadmin**.
+
+ On the Streams desktop, you access the Streams applications from the
+ **Applications** menu.
+
+## Accessing Streams Quick Start Edition with Secure Shell (SSH)
+
+You can use **ssh** to access the container by specifying **streamsqse.localdomain** and using port **4022**. For example:
+
+ **ssh -p 4022 streamsadmin@streamsqse.localdomain**
+
+By default, all passwords are **passw0rd** within an ssh session. If you
+are using the user name **streamsadmin** and you want to run a command
+as **root**, you can use one of two methods:
+
+-   **sudo \[command\]** Provide your **streamsadmin** password when
+    prompted. You run commands using sudo and return to streamsadmin ID
+    after the command is completed.
+
+-   **sudo su -** Provide your **streamsadmin** password when prompted.
+    You will be logged in as **root**. To return to the **streamsadmin**
+    user ID, type: **exit**.
+
+## Managing the Docker container
+
+Following are some useful commands for managing your Docker container
+with Streams Quick Start Edition.
+
+### Opening a session on Docker
+
+
+You can use the **attach** command or the **exec** command to open a
+session on Docker.
+
+The difference between the **attach** and **exec** commands is that the
+**attach** command takes you into the main root session, which may be
+busy doing other functions (for example, it might be in the process of
+starting streams), which will prevent you from doing useful work, but
+will allow for better troubleshooting in case of a problem; whereas the
+**exec** command opens a new separate root session.
+
+#### Attaching to a running Docker container
+
+1.  Open a PowerShell (Windows) or Terminal (MacOS or Linux).
+
+2.  Determine the name of the session by typing **docker ps**. You
+    should see the container **streamsdocker4240** as `running`.
+
+3.  Attach by running this command:
+
+    **docker attach streamsdocker4240**
+
+This will take you to the Docker container Linux promote.
+
+#### Running a command in a running container with the exec command
+
+Docker **exec** command:
+
+  **docker exec -ti streamsdocker4240 /bin/bash**
+
+### Detaching from the container
+
+
+From within your attached Docker session, you can detach from the
+session gracefully, while leaving the session active by using the key
+combination **Ctrl-q-p**. (Windows and Linux) or **command-q-p**.
+(MacOS).
+
+Note: If you are attached and type **exit**, it might cause the
+container to stop.
+
+You can now close the PowerShell or Terminal session.
+
+### Pausing and unpausing the container
+
+Often you might want to pause a container when it is not in use. Then
+you can unpause the container when you need it.
+
+1.  Open a PowerShell (Windows) or Terminal (MacOS or Linux).
+
+2.  If you are running external programs that are connected to the
+    container, close them.
+
+3.  To pause the container, type **docker pause streamsdocker4240**. The
+    container will go to sleep. All activity inside the container stops.
+
+4.  When you are ready to return to using the container, open PowerShell
+    (Windows) or Terminal (MacOS or Linux) and type **docker unpause
+    streamsdocker4240**.
+
+### Stopping and restarting the container
+
+Ordinarily, stopping and restarting the container is not a recommended
+way to manage the container. But sometimes you might need to do it. For
+example, for a reboot.
+
+To stop a container, open PowerShell (Windows) or Terminal (MacOS or
+Linux), and type:
+
+   **docker stop streamsdocker4240**
+
+To start a container, open PowerShell (Windows) or Terminal (MacOS or
+Linux), and type:
+
+   **docker restart streamsdocker4240**
+
+When restarting a container, it takes a few minutes for the system to
+come back up and start the domains. The recommended practice is to use
+VNC to access the desktop where you can see the yellow desktop icon
+(Streams Domain Starting) while the domain is being started. The icon
+turns green (Streams Domain Started) when the domain is ready, and then
+eventually disappears.
+
+## Adjusting the desktop screen size for VNC
+
+When you first access Streams Quick Start Edition with VNC you will see
+the Streams desktop.
+
+If you are accustomed to earlier versions of Streams Quick Start
+Edition, you will notice that there are no longer any desktop Icons. All
+Streams Quick Start Edition resources have been moved to the
+**Applications \> Favorites** menu, which you can access from the top
+left of the screen. There you will find the Streams applications and
+links to resource web pages.
+
+To adjust the display size to closer match your physical display, follow
+these steps:
+
+1.  Go to **Applications \> System Tools \> Settings**.
+
+2.  Click the **Displays** icon.
+
+3.  In the **Displays** app, click **Unknown Display**.
+
+4.  Click **Resolution** and select the resolution that best matches
+    your physical display, and then click **Apply**.
+
+5.  Click **Keep Changes.**
+
+## Known issues
+
+**Description**: Streams Studio Project Explorer: Right-clicking a file
+or folder, and then selecting **Show in \> System Explorer** throws a
+dbus error.
+
+**Cause**: CentOS 6 Nautilus is not compatible with dbus API.
+
+**Workaround**:
+
+1.  Open Streams Studio.
+
+2.  Go to **Window \> Preferences \> General \> Workspace**.
+
+3.  Set **Command for launching system explorer** to:  
+
+    <pre>nautilus "${selected_resource_parent_loc}"</pre>
