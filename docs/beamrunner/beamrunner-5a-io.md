@@ -2,7 +2,7 @@
 layout: docs
 title:  Input/output options for IBM Streams Runner for Apache Beam
 navtitle: I/O options
-description:  Apache Beam 2.0 applications that use IBM® Streams Runner for Apache Beam on a Streaming Analytics service on IBM Cloud have input/output options of standard output and errors, local file input, object storage on IBM Cloud, and Publish and Subscribe transforms.
+description:  Apache Beam 2.1 applications that use IBM® Streams Runner for Apache Beam on a Streaming Analytics service on IBM Cloud have input/output options of standard output and errors, local file input, object storage on IBM Cloud, and Publish and Subscribe transforms.
 weight:  10
 published: true
 tag: beam
@@ -14,7 +14,7 @@ next:
   title: Using IBM Cloud Object Storage
 ---
 
-Apache Beam 2.0 applications that use IBM® Streams Runner for Apache Beam on a Streaming Analytics service on IBM Cloud (formerly IBM Bluemix) have several options for input/output:
+Apache Beam 2.1 applications that use IBM® Streams Runner for Apache Beam on a Streaming Analytics service on IBM Cloud (formerly IBM Bluemix) have several options for input/output:
 
 - Standard output and errors
 - Local file input
@@ -37,7 +37,7 @@ For more information about the `--filesToStage` option, see [Streams Runner pipe
 
 ## Object storage input/output on IBM Cloud (`swift://`)
 
-The Beam application can use storage on IBM Cloud itself for both input and output by using the `swift://` scheme and the Object Storage OpenStack Swift for Bluemix service. Objects in the service can be manipulated through the web interface in IBM Cloud, a command-line tool, or from the pipeline in the Beam application. This service is useful when you run Apache Beam 2.0 applications on the Streaming Analytics service on IBM Cloud, where direct access to output files from Beam applications is difficult.
+The Beam application can use storage on IBM Cloud itself for both input and output by using the `swift://` scheme and the Object Storage OpenStack Swift for Bluemix service. Objects in the service can be manipulated through the web interface in IBM Cloud, a command-line tool, or from the pipeline in the Beam application. This service is useful when you run Apache Beam 2.1 applications on the Streaming Analytics service on IBM Cloud, where direct access to output files from Beam applications is difficult.
 
 The Object Storage OpenStack Swift for Bluemix service stores objects in containers. For more information, see [Getting started with Object Storage](https://console.bluemix.net/docs/services/ObjectStorage/index.html). Beam I/O uses URIs to name files, and Streams Runner interprets the URI in the format <code>swift://_container_/_object_</code> to read and write to these objects.
 
@@ -45,7 +45,7 @@ The object storage system doesn't allow the forward slash (/) character in the c
 
 For example, if a container named `MyContainer` contains objects named `top.txt` and `dir/nested.txt`, the object storage system shows these objects together in the list of objects in `MyContainer`. In Beam, the URIs `swift://MyContainer/foo.txt` and `swift://MyContainer/dir/nested.txt` refer to these two objects, but Beam also considers `swift://MyContainer/dir/` to be a logical directory that contains a resource named `nested.txt`. You can't use "Glob" patterns for resources (for example, `swift://MyContainer/dir/\*`).
 
-For more information about managing file systems and resources with Beam, see the [Beam I/O documentation](https://beam.apache.org/documentation/sdks/javadoc/2.0.0/org/apache/beam/sdk/io/package-summary.html).
+For more information about managing file systems and resources with Beam, see the [Beam I/O documentation](https://beam.apache.org/documentation/sdks/javadoc/2.1.0/org/apache/beam/sdk/io/package-summary.html).
 
 ### Creating the Object Storage OpenStack Swift for Bluemix service
 
@@ -82,7 +82,7 @@ To use the storage from Beam applications, you must specify the IBM Cloud servic
 
 **Tip**: For MacOS, the Swift command of OpenStack might collide with the existing Xcode Swift command. To avoid the conflicts, create a Python virtual environment, and install the Swift client in the virtual environment.
 
-```
+```bash
 virtualenv my_project
 cd my_project
 source bin/activate

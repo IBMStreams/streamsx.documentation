@@ -19,6 +19,11 @@ Learn about limitations and known issues for IBM® Streams Runner for Apache Bea
 - Experimental Splittable ParDos are not supported.
 
 ## Known issues
+### Issue
+Submission-time parameters that are specified when you manually submit a SAB file (created by using the `BUNDLE` context) are not used during application runtime.
+
+#### Workaround
+Use the `STREAMING_ANALYTICS_SERVICE` or `DISTRIBUTED` contexts to launch the application with the application options set.
 
 ### Issue
 

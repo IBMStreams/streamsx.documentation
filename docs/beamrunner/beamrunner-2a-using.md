@@ -18,9 +18,9 @@ To use IBM® Streams Runner for Apache Beam, its libraries must be available to 
 
 ## Before you start
 
-After you develop your Apache Beam 2.0 application, you must package your app as a JAR file to use it with Streams Runner. For example, if you use the `jar` command, enter the following command:
+After you develop your Apache Beam 2.1 application, you must package your app as a JAR file to use it with Streams Runner. For example, if you use the `jar` command, enter the following command:
 
-```
+```bash
 jar cf target.jar -C <path to class files>
 ```
 
@@ -57,7 +57,7 @@ Because the application is launched on a remote system, the Streams job must be
 aware of your Beam application. To include your application and any dependencies,
 use the `--jarsToStage` option. For more information about this option, see [Streams Runner pipeline options](../beamrunner-5-ref/#streams-runner-pipeline-options).
 
-**Note**: Fat or uber JAR files can reduce the number of JAR files to stage. However, using them increases the size of the archive and affects upload and build times.
+**Note**: Fat or uber JAR files can reduce the number of JAR files to stage. Be mindful to not include dependencies that are already provided by the Streams Runner. Including redundant dependencies can increase the application archive size and affect upload and build times.
 
 #### Example
 
@@ -66,7 +66,7 @@ This example submits `MyBeamApplication` to the `my-service-name` Streaming Anal
 **Note**: This example uses the `--vcapServices` and `--serviceName` parameters, but these parameters aren't necessary if their respective environment variables are set.
 Additionally, the `--contextType` parameter can be omitted because `STREAMING_ANALYTICS_SERVICE` is the default.
 
-```
+```bash
 java -cp $STREAMS_BEAM_TOOLKIT/lib/com.ibm.streams.beam.translation.jar:/home/beamuser/beamapp/lib/myapp.jar \
     namespace.MyBeamApplication \
     --runner=StreamsRunner \
@@ -113,7 +113,7 @@ the `STREAMS_DOMAIN_ID` and `STREAMS_INSTANCE_ID` environment variables. If the 
 
 This example builds and submits `MyBeamApplication` locally.
 
-```
+```bash
 java -cp $STREAMS_BEAM_TOOLKIT/lib/com.ibm.streams.beam.translation.jar:$STREAMS_INSTALL/lib/com.ibm.streams.operator.samples.jar:/home/beamuser/beamapp/lib/myapp.jar \
     namespace.MyBeamApplication \
     --runner=StreamsRunner \
@@ -130,7 +130,7 @@ Use this context to locally build an application that can be submitted to a Stre
 #### Prerequisites
 * A local Streams installation (IBM Streams 4.2 or higher).
 
-**Remember:** Applications that will be submitted to a Streaming Analytics service must be built in a Red Hat Enterprise Linux 6 environment.
+**Remember:** Applications that will be submitted to a Streaming Analytics service must be built using the correct Red Hat Enterprise Linux environment. To check the correct operating system version, see the **Plan** tab on your Streaming Analytics service dashboard and the features of your selected plan.
 
 #### Overview
 Set the context type to `BUNDLE` to create an application bundle file and a Streams job configuration overlay file (_namespace.application_\_JobConfig.json) for your Beam application. Because the Beam application is packaged locally, you must include the `com.ibm.streams.operator.samples.jar` located at `$STREAMS_INSTALL/lib` in the Java class path.
@@ -139,7 +139,7 @@ Because the application is eventually launched in a distributed environment, the
 aware of your Beam application. To include your application and any dependencies,
 use the `--jarsToStage` option.
 
-If your Beam application uses the Beam [ValueProvider](https://beam.apache.org/documentation/sdks/javadoc/2.0.0/org/apache/beam/sdk/options/ValueProvider.html) types for custom pipeline options,
+If your Beam application uses the Beam [ValueProvider](https://beam.apache.org/documentation/sdks/javadoc/2.1.0/org/apache/beam/sdk/options/ValueProvider.html) types for custom pipeline options,
 Streams submission-time parameters are created for the application.
 
 After the application bundle file is created, it can be submitted along with any submission-time parameters to a Streaming Analytics service or local Streams environment through the Streams Console, Streaming Analytics REST API, or `streamtool` command. For more information about bundle submission, see the `$STREAMS_RUNNER_HOME/samples/README` file.
@@ -148,7 +148,7 @@ After the application bundle file is created, it can be submitted along with any
 
 This example builds `MyBeamApplication` locally and creates an application bundle file for later submission to a Streaming Analytics service or a local Streams instance.
 
-```
+```bash
 java -cp $STREAMS_BEAM_TOOLKIT/lib/com.ibm.streams.beam.translation.jar:$STREAMS_INSTALL/lib/com.ibm.streams.operator.samples.jar:/home/beamuser/beamapp/lib/myapp.jar \
     namespace.MyBeamApplication \
     --runner=StreamsRunner \

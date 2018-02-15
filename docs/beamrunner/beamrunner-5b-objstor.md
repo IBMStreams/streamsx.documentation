@@ -16,9 +16,12 @@ next:
 
 You can use the IBM® Streams Runner for Apache Beam `FileStreamSample` sample application to learn how to use IBM Cloud (formerly IBM Bluemix) object storage for file input and output.
 
+## **Deprecation**
+IBM Cloud will no longer offer the Object Storage OpenStack Swift service as of March 31, 2018.
+
 ## Before you start
 
-Before you run the Apache Beam 2.0 `FileStreamSample` sample application, you must configure and run the following services on IBM Cloud®:
+Before you run the Apache Beam 2.1 `FileStreamSample` sample application, you must configure and run the following services on IBM Cloud®:
 
 - Streaming Analytics. For more information, see [Creating a Streaming Analytics service on IBM Cloud](../beamrunner-2-install/#creating-a-streaming-analytics-service-on-bluemix).
 - Object Storage OpenStack Swift for Bluemix.
@@ -34,21 +37,21 @@ These instructions assume that you have already set up and run other samples on 
 
 1. Navigate to the `samples` directory in Streams Runner, and set up environment variables for the runner:
 
-    ```
+    ```bash
     cd <installdir>/samples
     . bin/streams-runner-env.sh
     ```
 
 2. Set the environment variables `VCAP_SERVICES` to point to the VCAP file that contains your Streaming Analytics service credentials and `STREAMING_ANALYTICS_SERVICE_NAME` to the service name within that file, for example:
 
-    ```
+    ```bash
     export VCAP_SERVICES=$HOME/sample.vcap
     export STREAMING_ANALYTICS_SERVICE_NAME="sample-service"
     ```
 
 3. Run the `FileStreamSample` Beam application by entering the following command.
 
-    ```
+    ```bash
 java -cp \
   $STREAMS_BEAM_TOOLKIT/lib/com.ibm.streams.beam.translation.jar:\
 lib/com.ibm.streams.beam.samples.jar \
