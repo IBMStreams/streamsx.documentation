@@ -452,18 +452,18 @@ TStream<Double> parallelReadings = readings.parallel(5);
 
 then any operations performed on the returned TStream will occur in parallel to the degree specified (in this case '5', meaning five thread or processes will be used to execute the parallel portion of the graph).
 
-To end parallel processing, invoke `endParallel()` on one of the returned TStreams. This will ensure that subsequent operations on the TStream returned by `unparallel()` will **not** be in parallel. In the above code, we call unparallel on the returned `kelvin` stream before calling print:
+To end parallel processing, invoke `endParallel()` on one of the returned TStreams. This will ensure that subsequent operations on the TStream returned by `endParallel()` will **not** be in parallel. In the above code, we call endParallel on the returned `kelvin` stream before calling print:
 
 ~~~~~~
 kelvin.endParallel().print();
 ~~~~~~
 
-Had we not called unparallel at all, the `print()` statement would have also been performed in parallel.
+Had we not called endParallel at all, the `print()` statement would have also been performed in parallel.
 
 The general workflow for parallelizing portions of you graph should look like:
 
 ~~~~~~
-stream_of_data -> invoke parallel -> perform a number of parallel operations -> unparallel -> perform non-parallel operations
+stream_of_data -> invoke parallel -> perform a number of parallel operations -> endParallel -> perform non-parallel operations
 ~~~~~~
 
 When submitting the application, parallelized TStreams will run in **n** separate threads, if running in a STANDALONE context, or in **n** separate processes if running distributed. Unfortunately, running parallel() in EMBEDDED mode is not fully supported, and currently will simply run everything serially with a single thread.
