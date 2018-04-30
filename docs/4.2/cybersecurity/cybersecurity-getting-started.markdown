@@ -133,11 +133,13 @@ The following steps can be taken to download, compile and run the cybersecurity 
 
  1. From the command-line, clone the samples github repository and navigate to the 'cybersecurity' directory. Here you will find directories containing the sample applications:
 
-	<pre class="terminal">
-	<span class="command">git clone https://github.com/IBMStreams/samples.git</span>
-	<span class="command">cd samples/cybersecurity</span>
-	<span class="command">ls -l</span>
-	<span class="output">DomainProfilingSamples  HostProfilingSamples  PredictiveBlacklistingSamples</span></pre>
+	<div class="terminal"><pre class="terminal" style="border:none;" >
+	<span class="command" >git clone https://github.com/IBMStreams/streamsx.cybersecurity.starterApps.git</span>
+	<span class="command">cd streamsx.cybersecurity.starterApps</span>
+	<span class="command">ls</span>
+	<span class="output">BWListTaggerSamples DNSTunnelingSamples</span>
+	<span class="output">DomainProfilingSamples HostProfilingSamples</span>
+  <span class="output">PredictiveBlacklistingSamples</span></pre></div>
 
  2. Navigate to the DomainProfilingSamples directory. The directory contains a build.xml file that will download any necessary dependencies (including the networking toolkit) and compile one of the applications. Run the `ant` command to kick off the build.
 
