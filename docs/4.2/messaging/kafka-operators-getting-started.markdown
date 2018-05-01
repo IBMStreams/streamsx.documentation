@@ -1,10 +1,17 @@
 ---
 layout: docs
-title: Getting Started with Kafka Operators
+title: Getting Started with Kafka Operators (Deprecated) 
 description:  Getting Started Guide for IBM Streams Messaging Toolkit - Kafka operators
 weight: 10
 published: true
 ---
+
+
+<div class="alert alert-danger" role="alert">
+ <b>Update:</b> The new <a href="https://github.com/IBMStreams/streamsx.kafka">streamsx.kafka</a> toolkit is the recommended way to connect to Kafka from IBM Streams. As of version 5.3.2 of the messaging toolkit, the Kafka support has been deprecated. Read the <a href="https://developer.ibm.com/streamsdev/docs/introducing-kafka-toolkit/">announcement on Streamsdev</a> to learn more about the Kafka toolkit.
+</div>
+
+
 
 ## Introduction
 The IBM Streams Messaging Toolkit is designed to get you connected to your messaging servers as quickly as possible. Kafka is an ideal messaging server for stream computing. This guide will get you sending and receiving messages in no time, and will highlight some of the best practices. We will also cover how to get the Kafka operators running in a consistent region.
@@ -197,7 +204,11 @@ If you would like to consume in parallel within a consistent region, check out t
 ## Connecting to Message Hub in the Cloud
 You can use the Streams Kafka operators to produce to and consume from the Kafka-based <a target="_blank" href="https://developer.ibm.com/messaging/message-hub/">Message Hub</a> Bluemix service. 
 
-**Update:** The simplest way to connect to Message Hub in the cloud is by using the streamsx.messagehub toolkit. For a complete guide on how to do this, check out <a href="https://www.ibm.com/blogs/bluemix/2018/04/get-started-streaming-analytics-message-hub/" target="_blank">this great article</a>.
+
+<div class="alert alert-success" role="alert">
+<b>Update:</b> The simplest way to connect to Message Hub in the cloud is by using the streamsx.messagehub toolkit. For a complete guide on how to do this, check out <a href="https://www.ibm.com/blogs/bluemix/2018/04/get-started-streaming-analytics-message-hub/" target="_blank">this great article</a>.
+</div>
+
 
 ## Additional Resources
 * <a target="_blank" href="http://ibmstreams.github.io/streamsx.messaging/com.ibm.streamsx.messaging/doc/spldoc/html/index.html">Streams Messaging Toolkit SPLDoc</a>
