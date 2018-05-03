@@ -31,6 +31,8 @@ system for the Docker container. Next, you install Streams Quick Start
 Edition and configure your **hosts** file. Then you can access Streams
 Quick Start Edition with a VNC client or with Secure Shell (SSH).
 
+<p>If you have a problem during installation, please check the <a href="#known-issues">known issues section</a> for a possible solution.
+ </p>
 ## Supported environments
 
 Windows 10, running Docker Community Edition 17.03.1-ce or later.
@@ -274,6 +276,10 @@ Prerequisite: Make sure you are connected to the Internet.
  the installation completes, you are returned to a `Streams4Docker`
  command prompt.
 
+<div class="alert alert-info" role="alert">
+ Note: If the `streamsdockerInstall.sh` script fails, please check the <a href="#known-issues">known issues section</a> for a possible solution.
+ </div>
+
 ## Configuring the hosts file
 
 Before accessing Streams Quick Start Edition, you need to set the
@@ -462,18 +468,67 @@ these steps:
 
 ## Known issues
 
-**Description**: Streams Studio Project Explorer: Right-clicking a file
+1. **Description**: Running `streamsdockerInstall.sh` on a Mac fails with the following message:
+
+    ```
+    TASK [install Streams prereq packages with yum] ********************************
+    changed: [streamsqse.localdomain] => (item=readline)
+    failed: [streamsqse.localdomain] (item=requests) => {“changed”: false, “cmd”: “/usr/bin/pip2 install -U requests”, “item”: “requests”, “msg”: “stdout: Collecting requests\n
+    ...<snip>...
+    Installing collected packages: certifi, chardet, idna, urllib3, requests\n  Found existing installation: chardet 2.2.1\n    Uninstalling chardet-2.2.1:\n      Successfully uninstalled chardet-2.2.1\n  Found existing installation: idna 2.4\n    Uninstalling idna-2.4:\n      Successfully uninstalled idna-2.4\n  Found existing installation: urllib3 1.10.2\n    Uninstalling urllib3-1.10.2:\n      Successfully uninstalled urllib3-1.10.2\n
+
+    Found existing installation: requests 2.6.0\n\n:stderr: ipapython 4.5.0 requires pyldap>=2.4.15, which is not installed.\nrtslib-fb 2.1.63 has requirement pyudev>=0.16.1, but you’ll have pyudev 0.15 which is incompatible.\nipapython 4.5.0 has requirement dnspython>=1.15, but you’ll have dnspython 1.12.0 which is incompatible.\nCannot uninstall ‘requests’. It is a distutils installed project and thus we cannot accurately determine which files belong to it which would lead to only a partial uninstall.\n”}
+
+    changed: [streamsqse.localdomain] => (item=future)
+    changed: [streamsqse.localdomain] => (item=dill)
+        to retry, use: --limit @/root/ansible/streamsdockerCentos7.retry
+
+    PLAY RECAP *********************************************************************
+    streamsqse.localdomain     : ok=41   changed=32   unreachable=0    failed=1  
+    ```
+
+    **Cause**: This seems to be caused by a change in the Python repositories.
+
+    **Workaround:**
+    1. Go to the QSE install directory and locate the `Ansible/streamsdockerCentos7.yaml` file.
+    2. Open the `streamsdockerCentos7.yaml` file in your favorite editor.
+    3. Locate the following section:
+        ```
+        ######### Python Module installation ####################################
+
+        name: install Streams prereq packages with yum
+        pip: name={{item}} state=latest
+        with_items:
+
+        readline
+        requests
+        future
+        dill
+        ```
+    4. Change `requests` to `request`.
+    5. Save the file.
+    6. Remove the old container:
+        ```
+        docker stop streamsdocker4240
+        docker rm streamsdocker4240
+        ```
+    7. Re-run the installation.
+
+2. **Description**: Streams Studio Project Explorer: Right-clicking a file
 or folder, and then selecting **Show in \> System Explorer** throws a
 dbus error.
 
-**Cause**: CentOS 6 Nautilus is not compatible with dbus API.
+    **Cause**: CentOS 6 Nautilus is not compatible with dbus API.
 
-**Workaround**:
+    **Workaround**:
 
-1.  Open Streams Studio.
+    1.  Open Streams Studio.
 
-2.  Go to **Window \> Preferences \> General \> Workspace**.
+    2.  Go to **Window \> Preferences \> General \> Workspace**.
 
-3.  Set **Command for launching system explorer** to:  
+    3.  Set **Command for launching system explorer** to:  
 
-    <pre>nautilus "${selected_resource_parent_loc}"</pre>
+        <pre>nautilus "${selected_resource_parent_loc}"</pre>
+
+## Getting Help
+If your problem is not discussed in the known issues section above, <a href="https://developer.ibm.com/answers/smart-spaces/22/streamsdev.html">please ask a question on the forums</a>.
