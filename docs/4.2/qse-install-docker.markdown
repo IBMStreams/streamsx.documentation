@@ -276,9 +276,7 @@ Prerequisite: Make sure you are connected to the Internet.
  the installation completes, you are returned to a `Streams4Docker`
  command prompt.
 
-<div class="alert alert-info" role="alert">
- Note: If the `streamsdockerInstall.sh` script fails, please check the <a href="#known-issues">known issues section</a> for a possible solution.
- </div>
+
 
 ## Configuring the hosts file
 
@@ -468,7 +466,7 @@ these steps:
 
 ## Known issues
 
-1. **Description**: Running `streamsdockerInstall.sh` on a Mac fails with the following message:
+1. **Description**: Running `streamsdockerInstall.sh` fails with the following message:
 
     ```
     TASK [install Streams prereq packages with yum] ********************************
