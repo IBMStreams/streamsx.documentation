@@ -15,24 +15,29 @@ next:
 ---
 
 
-The Streams Quick Start Edition can help you get started with Streams quickly, without having to install a Streams cluster environment.
-
-{% include download.html%}
+The Streams Quick Start Edition (QSE) can help you get started with Streams quickly, without having to install a Streams cluster environment.
 
 ## Introduction
 
 This document describes the installation, configuration, first steps,
 and common Docker management scenarios for IBM® Streams Quick Start
-Edition (QSE) running in a Docker environment.
+Edition running in a Docker environment.
 
-You begin by downloading and installing Docker. An optional, but
-recommended step is to set up a mapped directory on your local host file
-system for the Docker container. Next, you install Streams Quick Start
-Edition and configure your **hosts** file. Then you can access Streams
-Quick Start Edition with a VNC client or with Secure Shell (SSH).
+### Overview
+Here's an overview of the steps to get up and running:
+ * [Download and install Docker](https://www.docker.com/community-edition)
+ * Configure Docker's storage requirements:
+    * Instructions for  <a href="#winconf">Windows</a>, <a href="#macconf">MacOS</a>, and <a href="#linuxconf">Linux</a>.  
+ * (Optional, but recommended):  <a href="#map">Set up a mapped directory </a>on your local host filesystem for the Docker container.
+ * <a href="#getqse">Download and install the Streams Quick Start Edition</a>
+ * <a href="#conf">Configure your *hosts* file.</a>
+ *  Access the Streams Quick Start Edition:
+    * Use a <a href="#vnc"> VNC client</a>
+    * Via <a href="#ssh">Secure Shell (SSH)</a>.
+ * <a href="#manage">Managing the Docker container</a>
+ * <a href="#known-issues">Known issues</a>
+ * <a href="#getting-help">Getting help</a>
 
-<p>If you have a problem during installation, please check the <a href="#known-issues">known issues section</a> for a possible solution.
- </p>
 ## Supported environments
 
 Windows 10, running Docker Community Edition 17.03.1-ce or later.
@@ -56,6 +61,7 @@ Configure your Docker environment as follows.
 | Memory | 4 GB  | 8 GB |
 |Disk space | 20 GB   | 50 GB or greater depending upon number and size of projects. |
 
+<a id="winconf"></a>
 
 ## Installing and configuring Docker on Windows
 
@@ -88,6 +94,7 @@ Configure your Docker environment as follows.
    correctly.
     </pre>
 
+<a  id="macconf"></a>
 ## Installing and configuring Docker on MacOS
 
 1.  Download and install Docker Community Edition for Mac from:
@@ -112,6 +119,7 @@ Configure your Docker environment as follows.
    correctly.
     </pre>
 
+<a id="linuxconf"></a>
 ## Installing and configuring Docker on Linux
 
 1.  Use the OS package manager to install Docker-ce (or for Red Hat,
@@ -157,6 +165,8 @@ before you install the Streams Quick Start Edition image.
       **sudo systemctl restart docker**  
       **docker info \|grep "Base Device Size:"**
 
+<a id="map"></a>
+
 ## Mapping Docker container directories to the local host file system
 
 During the Streams Quick Start Edition installation, you will be
@@ -188,9 +198,8 @@ internal **workspace** and **hostdir** subdirectories. During
 installation, you will be prompted for the names that you want to use
 under **&lt;HOME DIRECTORY\>/mappedDockerFiles**.
 
-The **workspace** directory is the default Streams Studio project
-directory. When you create Streams projects, the data files will be
-located here. If this directory is mapped to the local host file system,
+When you create Streams projects, the data files will be
+located in the **workspace** directory. If this directory is mapped to the local host file system,
 the files and directories will be stored there instead in the internal
 Docker container. If later you upgrade your Streams4Docker installation,
 you can reuse this directory for easy recovery of your projects. For
@@ -204,7 +213,63 @@ local host. Keep any large files used in your Streams4Docker container
 in this directory when possible because files in this directory do not
 use up space inside the Docker container.
 
-## Installing Streams Quick Start Edition on Windows
+
+<a id="getqse"></a>
+
+## Download and install the Streams Quick Start Edition
+After configuring Docker and mapping your directories, you are now ready to download and install the Quick Start Edition.
+
+You have 2 options:
+ * [Download and install from Docker Hub](#hubinstall)
+ * [Download the container manually](#manual)
+
+## Download and install from Docker Hub
+Below are sample commands for each major operating system.
+
+### Downloading and starting the container on Mac or Linux
+
+
+**Container with mapped directories:**
+
+The command is based on setting the `MAPPED_WORKSPACE` and `MAPPED_HOSTDIR` variables to the mapped directories you created, e.g.
+```
+export MAPPED_WORKSPACE=/home/<user>/Documents/DockerMapped/workspace
+export MAPPED_HOSTDIR=/home/<user>/Documents/DockerMapped/hostdir
+```
+Then run
+```
+docker run --privileged -d -v /sys/fs/cgroup:/sys/fs/cgroup:ro -v $MAPPED_WORKSPACE:/home/streamsadmin/workspace -v $MAPPED_HOSTDIR:/home/streamsadmin/hostdir -p 8443:8443 -p 9975:9975 -p 8006-8016:8006-8016 -p 8444:8444 -p 8080:80 -p 5905:5901 -p 4022:22 --name streamsdocker4240 -h 'streamsqse.localdomain' ibmcom/streams-qse:4.2.4.0 INSTALL
+```
+
+**Container without mapped directories:**
+```
+docker run --privileged -d -v /sys/fs/cgroup:/sys/fs/cgroup:ro -p 8443:8443 -p 9975:9975 -p 8006-8016:8006-8016 -p 8444:8444 -p 8080:80 -p 5905:5901 -p 4022:22 --name streamsdocker4240 -h 'streamsqse.localdomain' ibmcom/streams-qse:4.2.4.0 INSTALL
+```
+
+#### Downloading and starting the container on Windows
+
+Container with mapped directories:
+
+The command is based on using the following mapped directories:
+
+**C:\<user>\Documents\DockerMapped\workspace**
+**C:\<user>\Documents\DockerMapped\hostdir**
+```
+docker run --privileged -d -v /sys/fs/cgroup:/sys/fs/cgroup:ro -v //c/<user>/Documents/DockerMapped/workspace:/home/streamsadmin/workspace -v //c/<user>/Documents/DockerMapped/hostdir:/home/streamsadmin/hostdir -p 8443:8443 -p 9975:9975 -p 8006-8016:8006-8016 -p 8444:8444 -p 8080:80 -p 5905:5901 -p 4022:22 --name streamsdocker4240 -h 'streamsqse.localdomain' ibmcom/streams-qse:4.2.4.0 INSTALL
+```
+
+**Container without mapped directories**
+```
+docker run --privileged -d -v /sys/fs/cgroup:/sys/fs/cgroup:ro -p 8443:8443 -p 9975:9975 -p 8006-8016:8006-8016 -p 8444:8444 -p 8080:80 -p 5905:5901 -p 4022:22 --name streamsdocker4240 -h 'streamsqse.localdomain' ibmcom/streams-qse:4.2.4.0 INSTALL
+```
+
+
+## Manual download and installation
+{% include download.html%}
+Download the QSE using the link above, and then follow the instructions below for Windows, and <a href="#macinstall">Mac/Linux</a>
+
+
+## Installing Streams Quick Start Edition manually on Windows
 
    Prerequisite: Make sure you are connected to the Internet.
 
@@ -247,6 +312,7 @@ use up space inside the Docker container.
  the installation completes, you are returned to a `Streams4Docker`
  command prompt.
 
+<a id="macinstall"></a>
 ## Installing Streams Quick Start Edition on MacOS or Linux
 
 Prerequisite: Make sure you are connected to the Internet.
@@ -277,7 +343,7 @@ Prerequisite: Make sure you are connected to the Internet.
  command prompt.
 
 
-
+<a id="conf"></a>
 ## Configuring the hosts file
 
 Before accessing Streams Quick Start Edition, you need to set the
@@ -312,6 +378,8 @@ we will simulate one using the **hosts** file.
 
 4.  Save and close the file.
 
+
+<a id="vnc"></a>
 ## Accessing Streams Quick Start Edition with a VNC client
 
 Use port **5905** to access Streams Quick Start Edition in the Docker
@@ -330,6 +398,8 @@ container with a VNC client.
  On the Streams desktop, you access the Streams applications from the
  **Applications** menu.
 
+
+ <a id="ssh"></a>
 ## Accessing Streams Quick Start Edition with Secure Shell (SSH)
 
 You can use **ssh** to access the container by specifying **streamsqse.localdomain** and using port **4022**. For example:
@@ -348,6 +418,7 @@ as **root**, you can use one of two methods:
     You will be logged in as **root**. To return to the **streamsadmin**
     user ID, type: **exit**.
 
+<a id="manage"></a>
 ## Managing the Docker container
 
 Following are some useful commands for managing your Docker container
