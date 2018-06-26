@@ -6,4 +6,4 @@ weight: 50
 published: true
 ---
 
-{% include nav.html context="/docs/4.2/java/"%}
+{% include nav.html context="/docs/java/"%}

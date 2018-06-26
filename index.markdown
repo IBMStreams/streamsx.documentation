@@ -9,69 +9,83 @@ The goal of the project is to provide easy-to-follow documentation and developme
 
 ## Contents
 
-### Get Started with IBM Streams 4.2
+## Get Started with IBM Streams
 
-{% include nav.html context="/docs/4.2/"%}
+{: .simple}
+* [Try Streams v4.3](/streamsx.documentation/docs/4.3/qse-intro)
+  * [Installing Streams Quick Start Edition with Docker](/streamsx.documentation/docs/4.3/qse-install-docker)
+  * [Installing the Streams Quick Start Edition for Linux](/streamsx.documentation/docs/4.3/qse-install-linux)
+* [Getting Started with IBM Streams v4.3](/streamsx.documentation/docs/4.3/qse-getting-started)
 
 
-### IBM Streams: Java Support
+## Developing Streams applications
+
+Streams applications can be developed in Python, Java, Scala, and the Streams Processing Language (SPL). In addition, you can create applications using the Apache Beam programming model and deploy them on the Streams runtime.
+
+The following are resources to help you get started developing applications using your language and model of choice.
+
+### Develop Streams applications with Java
 
 {% include nav.html context="/docs/java/"%}
 
-
-### IBM Streams: Python Support
+### Develop Streams applications with Python
 
 {: .simple}
 * [Developing applications (v1.6+)](/streamsx.documentation/docs/python/1.6/python-appapi-devguide/) &nbsp; [(v1.4)](/streamsx.documentation/docs/python/1.4/python-appapi-devguide/)
 * [API reference (latest)](http://ibmstreams.github.io/streamsx.topology/doc/pythondoc/index.html)
 * [Older releases](https://github.com/IBMStreams/streamsx.topology/releases)
 
-
-
-### IBM Streams: Streams Runner for Apache Beam (supports Apache Beam 2.1)
+### Develop Streams applications with SPL
 
 {: .simple}
-* [Introduction to IBM Streams Runner for Apache Beam](docs/beamrunner/beamrunner-1-intro)
-* [Installing IBM Streams Runner](docs/beamrunner/beamrunner-2-install)
-* [Using IBM Streams Runner](docs/beamrunner/beamrunner-2a-using)
-  * [Monitoring applications](docs/beamrunner/beamrunner-4-monitor)
+* Start with the [Streams Quick Start Guide](https://developer.ibm.com/streamsdev/?p=5686)
+* [Streams Hands-on Lab](https://developer.ibm.com/streamsdev/docs/streams-lab-introduction/)
+* [SPL Examples for Beginners](/streamsx.documentation/samples/)
+* [Search our samples catalog](https://ibmstreams.github.io/samples/)
 
-* Samples
-  * [TemperatureSample sample application](docs/beamrunner/beamrunner-3-sample)
-  * [WordCount sample application](docs/beamrunner/beamrunner-3b-wordcount)
-
-* [Input/output options](docs/beamrunner/beamrunner-5a-io)
-  * [Using the IBM Object Stroage OpenStack Swift for Bluemix service](docs/beamrunner/beamrunner-5b-objstor)
-
-* Reference
-  * [Package and runner options](docs/beamrunner/beamrunner-5-ref)
-  * [Runner-specific SDK API](docs/beamrunner/release/1.1.0/javadoc/)
-
-* [Limitations and known issues](docs/beamrunner/beamrunner-6-issues)
-
-### IBM Streams: Scala Support
+### Develop applications with Apache Beam
 
 {: .simple}
-* [Developing applications](https://github.com/IBMStreams/streamsx.topology/wiki/Scala-Support)
 
+* [Create applications using the Streams runner for Apache Beam](/streamsx.documentation/docs/beamrunner/)
 
-### IBM Streams 4.1
-
-{: .simple}
-* [Documentation for IBM Streams v4.1](/streamsx.documentation/docs/4.1/)
-
-### SPL Samples For Beginners
+### Develop Streams applications with Scala
 
 {: .simple}
-* [IBM Streams Samples Catalog](https://ibmstreams.github.io/samples)
-* [Over 100 useful SPL Samples for Beginners](samples/)
+* [Developing applications with Scala](https://github.com/IBMStreams/streamsx.topology/wiki/Scala-Support)
+
+
+## Integrating with Streams
+There are dozens of toolkits available to help you integrate Streams with popular systems like [HDFS](https://github.com/IBMStreams/streamsx.hdfs) [HBase](https://github.com/IBMStreams/streamsx.hbase), [Kafka](https://github.com/IBMStreams/streamsx.kafka), and more.
+Some toolkits are included with Streams, while others are [available on Github](https://github.com/ibmstreams).
+
+{: .simple}
+
+* [Product toolkits overview](https://developer.ibm.com/streamsdev/docs/product-toolkits-overview/)
+* [Github toolkits overview](https://developer.ibm.com/streamsdev/docs/github-projects-overview/)
+
+#### Selected toolkit documentation
+Links to the documentation for more common toolkits
+
+{: .simple}
+
+* [Get started with the Messaging toolkit](/streamsx.documentation/docs/4.2/messaging/)
+* [Cybersecurity toolkit documentation](/streamsx.documentation/docs/4.2/cybersecurity)
+* [Monitor access to your data with IBM Information Governance catalog](/streamsx.documentation/docs/4.2/governance/)
+
+## Additional resources
+
+### Streams 4.2 and 4.1
+
+[Find older documentation here](/streamsx.documentation/docs/previous/)
 
 ### Streams Product Documentation
 
 {: .simple}
+
 * [Streams Product Documentation (versions 1.2.1 - current)](http://www.ibm.com/support/knowledgecenter/SSCRJU/SSCRJU_welcome.html)
 
-## Need Help with IBM Streams?
+## Need Help?
 
 1.  Ask your questions on [Streams Forum](https://developer.ibm.com/answers/smart-spaces/22/streamsdev.html)
 2.  If project is on IBM Streams Github, open an issue to the related project.
