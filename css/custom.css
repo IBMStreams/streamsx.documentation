@@ -10,6 +10,9 @@ ul.simple {
   list-style: none;
   margin-left: -20px;
 }
+ul li {
+  list-style: none;
+}
 h1, h2, h3, h4 {
   padding-top: 75px;
   margin-top: -50px;
@@ -17,7 +20,7 @@ h1, h2, h3, h4 {
 ol ol {
    list-style-type: lower-alpha;
    }
-   
+
 ol ol ol {
    list-style-type: lower-roman;
    }
