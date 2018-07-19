@@ -1,18 +1,18 @@
 ---
 layout: docs
-title:  Getting started with IBM Streams v4.3
-description:  Learn how to get started with IBM Streams
+title:  Getting started with IBM Streams v4.3 with Quick Start Edition
+description:  Learn how to get started with IBM Streams Quick Start Edition
 weight:  50
 published: true
 
 tag: 43qse
 prev:
   file: qse-intro
-  title:  Download the Quick Start Edition (QSE)
+  title:  Download Quick Start Edition
 
 ---
 ## Download and install
-If you haven't already done so, download and install Streams Quick Start Edition (QSE). For instructions, see [Try Streams v4.3 - Download the Quick Start Edition (QSE)](../qse-intro).
+If you haven't already done so, download and install Streams Quick Start Edition. For instructions, see [Try IBM Streams v4.3 with Quick Start Edition](../qse-intro).
 
 ## Streams overview
 
@@ -219,9 +219,9 @@ Gather local, real-time analytics from equipment, vehicles, systems, appliances,
 
 * [Apache Edgent Official Website](https://edgent.incubator.apache.org/)
 
-## Getting Started for the Data Engineer
+## Getting started for the data engineer
 
-As a Data Engineer, you are responsible for:
+As a data engineer, you are responsible for:
 
 * Designing, building, and managing data and analytic systems to ensure they are secure, reliable, and scalable
 * Making all data, including data in motion, available for analysis by other team members such as data scientists and developers
@@ -264,7 +264,7 @@ To familiarize yourself with Streams Console, see this video:
 Video:  Streams Console
 </button>
 
-## Getting Started for the business user
+## Getting started for the business user
 
 As a business user, you need to:
 

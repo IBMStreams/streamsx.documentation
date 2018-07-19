@@ -7,15 +7,15 @@ published: true
 tag: 43qse
 prev:
   file: qse-intro
-  title:  Download the Quick Start Edition (QSE)
+  title:  Try Quick Start Edition
 next:
   file: qse-getting-started
-  title: Getting Started with IBM Streams v4.3 Quick Start Edition
+  title: Getting started
 
 ---
 
 
-IBM® Streams Quick Start Edition (QSE) can help you get started with Streams quickly, without having to install a Streams cluster environment.
+IBM® Streams Quick Start Edition can help you get started with Streams quickly, without having to install a Streams cluster environment.
 
 ## Introduction
 
@@ -37,7 +37,7 @@ Here's an overview of the steps to get up and running:
 
 ## Supported environments
 
-The following operating system and Docker environments are supported for Streams QSE 4.3.
+The following operating system and Docker environments are supported for Streams Quick Start Edition 4.3.
 
 |   Operating system      | Docker        |
 | -------------------- | -------------------- |
@@ -87,7 +87,7 @@ Configure your Docker environment as follows.
 <pre>
     docker run hello-world
 </pre>
-<p>You should receive a response that includes the following text:
+<p>If Docker is set up correctly, you will receive a response that includes the following text:
 <pre>
 Hello from Docker!
 This message shows that your installation appears to be working correctly.
@@ -114,7 +114,7 @@ Open a Terminal session and test that Docker is set up correctly by
 <pre>
     docker run hello-world
 </pre>
-    You should receive a response that includes this text:
+    If Docker is set up correctly, you will receive a response that includes this text:
   <pre>
    Hello from Docker!
    This message shows that your installation appears to be working
@@ -124,18 +124,20 @@ Open a Terminal session and test that Docker is set up correctly by
 </div>  
 	<div id="docker-linux-0" class="tab-pane fade">
 <ol>
-	<li>Use the OS package manager to install Docker-ce. (For Red Hat,     install Standard Docker).
+	<li>Use the OS package manager to install Docker Community Edition. (For Red Hat, install Standard Docker).
 	</li>
 	<li>If necessary, increase the Docker installation storage space for
-    the Streams Quick Start Edition image. The amount of storage space that is needed depends on whether you map
+    the Streams Quick Start Edition image.
+    <div style="border:1px solid black;padding:2em;">
+    <p>Tip: The amount of storage space that is needed depends on whether you map
     directories to the local file system and the amount and the size of
     your applications and data.
 		<ul>
 			<li>The Red Hat Standard Docker storage space is set to 10 GB. In this case, you must increase the storage space.</li>
 			<li>Storage space for Docker-ce is usually set to 20 GB. In this case, you might need to increase the storage space.</li>
-		</ul>
+		</ul></p></div>
 		<ol>
-			<li>To set the Docker default image size (Base Device Size), log in as <b>root</b> or use <code>sudo</code> to create or edit the <code>/etc/docker/daemon.json</code> file.
+			<li>To set the Docker default image size (<b>Base Device Size</b>), log in as <b>root</b> or use <code>sudo</code> to create or edit the <code>/etc/docker/daemon.json</code> file.
 			</li>
 			<li>Add or modify the following code, where <code>XX</code> represents the default image size in GB.
 				<ul>
@@ -156,7 +158,7 @@ Open a Terminal session and test that Docker is set up correctly by
 <pre>
 sudo systemctl restart docker</pre>
 	</li>
-	<li>Verify the default image size with the following command:
+	<li>Verify the default image size by entering the following command:
 <pre>docker info \|grep "Base Device Size:"</pre>
 	</li>
 </ol>
@@ -180,15 +182,14 @@ container in the future.
 
 1.  Create a directory on your host machine where you can keep both
     mapped directories isolated from other host machine files. For
-    example:  
+    example, you might create a directory called `mappedDockerFiles` under your home directory:  
 
     `~/mappedDockerFiles`
 
-    Important: Do not map the Docker files to the top-level user home
+    Important: Do not map the Docker files directly to the top-level user home
     directory.
 
-2.  Make note of the directory. You will provide it during the QSE
-    installation.
+2.  Make note of the directory. You will provide it during the Quick Start Edition installation.
 
 The installation creates the mapped directories in your local host
 file system under `~/mappedDockerFiles` for the
@@ -220,6 +221,8 @@ You have two options:
  * [Download and install from Docker Hub](#hubinstall)
  * [Download the container manually](#manual)
 
+<a id="hubinstall"></a>
+
 ### Download and install from Docker Hub
 The following sections contain sample commands for downloading and installing Quick Start Edition from Docker Hub.
 
@@ -233,14 +236,14 @@ The following sections contain sample commands for downloading and installing Qu
 <p>The commands that you use to download and install the container on Windows depend on whether you choose to map the container directories.</p>
 
 <p><b>Container with mapped directories</b></p>
-<p>The command is based on using the following mapped directories:
+<p>This command is based on using the following mapped directories, replacing <i>user</i> with your user name:
 <pre>
-C:\&#60;user&#62;\Documents\DockerMapped\workspace
-C:\&#60;user&#62;\Documents\DockerMapped\hostdir</pre>
+C:\<i>user</i>\Documents\DockerMapped\workspace
+C:\<i>user</i>\Documents\DockerMapped\hostdir</pre>
 </p>
-<p>Enter the following command:
+<p>Enter the following command, replacing <i>user</i> with your user name:
 <pre>
-docker run --privileged -d -v /sys/fs/cgroup:/sys/fs/cgroup:ro -v //c/&#60;user&#62;/Documents/DockerMapped/workspace:/home/streamsadmin/workspace -v //c/&#60;user&#62;/Documents/DockerMapped/hostdir:/home/streamsadmin/hostdir -p 8443:8443 -p 9975:9975 -p 8006-8016:8006-8016 -p 8444:8444 -p 8080:80 -p 5905:5901 -p 4022:22 --name streamsdocker4240 -h 'streamsqse.localdomain' ibmcom/streams-qse:4.3.0.0 INSTALL
+docker run --privileged -d -v /sys/fs/cgroup:/sys/fs/cgroup:ro -v //c/<i>user</i>/Documents/DockerMapped/workspace:/home/streamsadmin/workspace -v //c/<i>user</i>/Documents/DockerMapped/hostdir:/home/streamsadmin/hostdir -p 8443:8443 -p 9975:9975 -p 8006-8016:8006-8016 -p 8444:8444 -p 8080:80 -p 5905:5901 -p 4022:22 --name streamsdocker4240 -h 'streamsqse.localdomain' ibmcom/streams-qse:4.3.0.0 INSTALL
 </pre></p>
 
 <p><b>Container without mapped directories</b></p>
@@ -255,7 +258,7 @@ docker run --privileged -d -v /sys/fs/cgroup:/sys/fs/cgroup:ro -p 8443:8443 -p 9
 
 <p><b>Container with mapped directories</b></p>
 
-<p>The command is based on setting the <code>MAPPED_WORKSPACE</code> and <code>MAPPED_HOSTDIR</code> variables to the mapped directories you created, for example:
+<p>This command is based on setting the <code>MAPPED_WORKSPACE</code> and <code>MAPPED_HOSTDIR</code> variables to the mapped directories you created, for example:
 <pre>
 export MAPPED_WORKSPACE=$HOME/Documents/DockerMapped/workspace
 export MAPPED_HOSTDIR=$HOME/Documents/DockerMapped/hostdir
@@ -274,6 +277,7 @@ docker run --privileged -d -v /sys/fs/cgroup:/sys/fs/cgroup:ro -p 8443:8443 -p 9
 
 </div>
 
+<a id="manual"></a>
 
 ## Manual download and installation
 Prerequisite: Make sure you are connected to the Internet.
@@ -288,13 +292,13 @@ Prerequisite: Make sure you are connected to the Internet.
 
 <div id="qse-windows-0" class="tab-pane fade in active">
 <ol><li>
-Click <b>Download Streams QSE</b> to go to the IBM Streams Quick Start Edition page and use the following instructions for your operating system.
+Click <b>Download Streams Quick Start Edition</b> to go to the IBM Streams Quick Start Edition page. Download IBM Streams Quick Start Edition V4.3.0 for Docker on Windows 10.
 </li>
 <li>
 Extract the <code>Streams4WindowsDocker4330EL7.zip</code> file into a directory.
 </li>
 <li>
-Open PowerShell and change to the <code>Streams4WindowsDocker4300EL7.zip</code> directory.
+Open PowerShell and go to the <code>Streams4WindowsDocker4300EL7</code> directory.
 </li>
 <li>
 Ensure that you have permissions to run a PowerShell script:
@@ -319,7 +323,7 @@ Follow the installation instructions.
     </li>
     <li>
     Choose whether to map host local directories into the Docker container.
- If you have not created local directories, see <a href="#mapping-docker-container-directories-to-the-local-host-file-system">Mapping Docker container directories to the local host
+ If you have not created a local directory for this purpose, see <a href="#mapping-docker-container-directories-to-the-local-host-file-system">Mapping Docker container directories to the local host
  file  system</a>.
     </li>
     <li>
@@ -333,7 +337,7 @@ Follow the installation instructions.
 
 <div id="qse-macos-linux-0" class="tab-pane fade">
 <ol><li>
-Click <b>Download Streams QSE</b> to go to the IBM Streams Quick Start Edition page and use the following instructions for your operating system.
+Click <b>Download Streams Quick Start Edition</b> to go to the IBM Streams Quick Start Edition page and use the following instructions for your operating system.
 </li>
 <li>
 Extract the <code>Streams4Docker4300EL7</code> file into a directory.
@@ -352,7 +356,7 @@ Follow the installation instructions.
     </li>
     <li>
     Choose whether to map host local directories into the Docker container.
- If you have not created local directories, see <a href="#mapping-docker-container-directories-to-the-local-host-file-system">Mapping Docker container directories to the local host
+ If you have not created a local directory for this purpose, see <a href="#mapping-docker-container-directories-to-the-local-host-file-system">Mapping Docker container directories to the local host
  file  system</a>.
     </li>
     <li>
@@ -379,7 +383,7 @@ address. Because Streams Quick Start Edition does not have a DNS server,
 you can simulate one by using the `hosts` file.
 Before you can access Streams Quick Start Edition, you must set the
 `hosts` file to point the host name **streamsqse.localdomain** to the
-`127.0.0.1` loopback address.
+127.0.0.1 loopback address.
 
 <ul class="nav nav-tabs">
   <li class="active" ><a data-toggle="tab" href="#hosts-windows-0"> Windows</a></li>  
@@ -397,6 +401,15 @@ Open a text editor as an administrator. For example, for Notepad, find Notepad i
 <p>Tip: Set the Notepad filename filter to "All Files" to see the `hosts`
 file.</p>
 </li>
+<li>Append <code>streamsqse streamsqse.localdomain</code> to the line that has the
+    loopback address. For example:
+    <pre>
+    127.0.0.1 localhost streamsqse streamsqse.localdomain
+    </pre>
+</li>
+<li>
+Save and close the file.
+</li>
 </ol>
 </div>
 
@@ -407,20 +420,19 @@ Open a text editor with <b>root</b> authority.
 </li>
 <li>Open <code>/etc/hosts</code>.
 </li>
+<li>Append <code>streamsqse streamsqse.localdomain</code> to the line that has the
+    loopback address. For example:
+    <pre>
+    127.0.0.1 localhost streamsqse streamsqse.localdomain
+    </pre>
+</li>
+<li>
+Save and close the file.
+</li>
 </ol>
 </div>  
 
 </div>
-{:start="3"}
-3.  Append `streamsqse streamsqse.localdomain` to the line that has the
-    loopback address. For example:
-
-    <pre>
-    127.0.0.1 localhost streamsqse streamsqse.localdomain
-    </pre>
-
-4.  Save and close the file.
-
 
 <a id="vnc"></a>
 ## Accessing Streams Quick Start Edition with a VNC client
@@ -454,7 +466,7 @@ use the user name **streamsadmin** and you want to run a command
 as **root**, you can use one of two methods:
 
 -   **sudo \[command\]** Provide your **streamsadmin** password when you are
-    prompted. You run commands using **sudo** and return to streamsadmin ID
+    prompted. You run commands by using **sudo** and return to streamsadmin ID
     after the command is completed.
 
 -   **sudo su -** Provide your **streamsadmin** password when you are prompted.
@@ -481,16 +493,15 @@ will allow for better troubleshooting in case of a problem. The
 
 **Attaching to a running Docker container**
 
-1.  Open a PowerShell (Windows) or Terminal (MacOS or Linux).
+1.  Open PowerShell (Windows) or Terminal (MacOS or Linux).
 
-2.  Determine the name of the session by typing **docker ps**. You
-    should see the container **streamsdocker4300** as `running`.
+2.  Determine the name of the session by entering **docker ps**. The container **streamsdocker4300** is displayed with a status of `running`.
 
-3.  Attach by running this command:
+3.  Attach to the container by entering this command:
 
     `docker attach streamsdocker4300`
 
-This command takes you to the Docker container Linux promote.
+    This command takes you to the Docker container Linux prompt.
 
 **Running a command in a running container with the exec command**
 
@@ -514,52 +525,46 @@ container to stop.
 
 ### Pausing and restarting the container
 
-Often you might want to pause a container when it is not in use. Then
-you can unpause the container to use it again.
+You can pause a container when it is not in use. The container pauses and all activity inside the container stops. You can unpause the container to use it again.
 
-1.  Open a PowerShell (Windows) or Terminal (MacOS or Linux).
-
-2.  If you are running external programs that are connected to the
+1.  If you are running external programs that are connected to the
     container, close them.
 
-3.  To pause the container, enter the following command:
-    ```
-    docker pause streamsdocker4300
-    ```
+1.  From a PowerShell (Windows) or Terminal (MacOS or Linux) session, enter the appropriate command:
+    -   To pause the container:
+        ```
+        docker pause streamsdocker4300
+        ```
 
-    The     container pauses and all activity inside the container stops.
-
-4.  To unpause the container, open PowerShell
-    (Windows) or Terminal (MacOS or Linux) and enter the following command:
-    ```
-    docker unpause streamsdocker4300
-    ```
+    -   To unpause the container:
+        ```
+        docker unpause streamsdocker4300
+        ```
 
 ### Stopping and restarting the container
 
-Ordinarily, stopping and restarting the container is not a recommended
-way to manage the container.pam - what is the recommended way, then??? But sometimes you might need to do it, for
+Typically, you manage a container by pausing and unpausing it. But sometimes you might need to stop and restart the container, for
 example, for a reboot.
 
-1.  Open a PowerShell (Windows) or Terminal (MacOS or Linux).
+From a PowerShell (Windows) or Terminal (MacOS or Linux) session, enter the appropriate command:
 
-2.  To stop a container, enter the following command:
+-   To stop a container:
 
     ```
     docker stop streamsdocker4300
     ```
 
-3.  To start a container, enter the following command:
+-   To restart a container:
 
     ```
     docker restart streamsdocker4300
     ```
 
-    When a container is restarted, it takes a few minutes for the system to come back up and start the domains. To see the status, you can use
-VNC to access the desktop, where you can see the yellow desktop icon
-(Streams Domain Starting) while the domain is starting. The icon
-turns green (Streams Domain Started) when the domain is ready. The icon
-eventually disappears.
+    Tip: When a container is restarted, it takes a few minutes for the system to come back up and start the domains. To see the status, you can use
+    VNC to access the desktop, where you can see the yellow desktop icon
+    (Streams Domain Starting) while the domain is starting. The icon
+    turns green (Streams Domain Started) when the domain is ready. The icon
+    eventually disappears.
 
 ## Adjusting the desktop screen size for VNC
 
@@ -611,9 +616,8 @@ these steps:
 **Cause**: This might to be caused by a change in the Python repositories.
 
 **Workaround:**
-1. Go to the Quick Start Edition installation directory and locate the `Ansible/streamsdockerCentos7.yaml` file.
-2. Open the `streamsdockerCentos7.yaml` file in a text editor.
-3. Locate the following section:
+1. In the Quick Start Edition installation directory, locate the `Ansible/streamsdockerCentos7.yaml` file and open it in a text editor.
+1. Locate the following section:
     ```
     ######### Python Module installation ####################################
 
@@ -626,9 +630,9 @@ these steps:
     future
     dill
     ```
-4. Change `requests` to `request`.
-5. Save the file.
-6. Remove the old container:
+1. Change `requests` to `request`.
+1. Save the file.
+1. Remove the old container:
     ```
     docker stop streamsdocker4300
     docker rm streamsdocker4300
@@ -645,10 +649,10 @@ these steps:
 
 2.  Go to **Window \> Preferences \> General \> Workspace**.
 
-3.  Set **Command for launching system explorer** to:  
+3.  Set **Command for launching system explorer** as follows:  
     ```
     nautilus "${selected_resource_parent_loc}"
     ```
 
 ## Getting help
-If your problem is not discussed in the preceding known issues section, you can ask a question on the [Streamsdev forum](https://developer.ibm.com/answers/smart-spaces/22/streamsdev.html).
+If your problem is not discussed in the known issues section, you can ask a question on the [Streamsdev forum](https://developer.ibm.com/answers/smart-spaces/22/streamsdev.html).
