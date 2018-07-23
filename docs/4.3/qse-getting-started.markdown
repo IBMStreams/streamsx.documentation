@@ -1,18 +1,18 @@
 ---
 layout: docs
-title:  Getting Started with IBM Streams v4.3
-description:  Learn how to get started with IBM Streams
+title:  Getting started with IBM Streams v4.3 with Quick Start Edition
+description:  Learn how to get started with IBM Streams Quick Start Edition
 weight:  50
 published: true
 
 tag: 43qse
 prev:
   file: qse-intro
-  title:  Download the Quick Start Edition (QSE)
+  title:  Download Quick Start Edition
 
 ---
 ## Download and install
-If you haven't downloaded and installed the Streams QSE, the [preceding section](../qse-intro) has instructions.
+If you haven't already done so, download and install Streams Quick Start Edition. For instructions, see [Try IBM Streams v4.3 with Quick Start Edition](../qse-intro).
 
 ## Streams overview
 
@@ -30,12 +30,12 @@ As a developer, you want to:
 * Write your first Streams application
 * Work with the development tooling in Streams
 
-Below are some resources to get you up and running.
+The following sections provide some resources to get you up and running.
 
 ### Developing applications in Java, Scala, or Python
-In addition to Streams Processing Language (SPL) discussed below, Streams applications can be created in Java, Scala, and Python.
+In addition to Streams Processing Language (SPL) discussed in the following section, Streams applications can be created in Java, Scala, and Python.
 
-Example Streams Application:
+Sample Streams application in Java, Scala, and Python:
 
 <ul class="nav nav-tabs">
 
@@ -172,7 +172,7 @@ if __name__ == '__main__':
   </div>
 </div>
 
-To get started, follow these development guides:
+To get started, see these development guides:
 
 * [Develop Streams Applications in Java](http://ibmstreams.github.io/streamsx.documentation/docs/java/java-appapi-devguide/)
 * [Develop Streams Applications in Scala](https://github.com/IBMStreams/streamsx.topology/wiki/Scala-Support)
@@ -181,7 +181,7 @@ To get started, follow these development guides:
 
 ### Developing applications by using Streams Processing Language (SPL)
 
-Streams Processing Language is designed from the ground up for writing streaming applications.  To quickly get started:
+Streams Processing Language is designed from the ground up for writing streaming applications.  To quickly get started, see the following resources:
 
 * Start with the [Streams Quick Start Guide](https://developer.ibm.com/streamsdev/?p=5686)
 * [Streams Hands-on Lab](https://developer.ibm.com/streamsdev/docs/streams-lab-introduction/)
@@ -219,9 +219,9 @@ Gather local, real-time analytics from equipment, vehicles, systems, appliances,
 
 * [Apache Edgent Official Website](https://edgent.incubator.apache.org/)
 
-## Getting Started for the Data Engineer
+## Getting started for the data engineer
 
-As a Data Engineer, you are responsible for:
+As a data engineer, you are responsible for:
 
 * Designing, building, and managing data and analytic systems to ensure they are secure, reliable, and scalable
 * Making all data, including data in motion, available for analysis by other team members such as data scientists and developers
@@ -264,7 +264,7 @@ To familiarize yourself with Streams Console, see this video:
 Video:  Streams Console
 </button>
 
-## Getting Started for the business user
+## Getting started for the business user
 
 As a business user, you need to:
 

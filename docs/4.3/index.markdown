@@ -1,17 +1,17 @@
 ---
 layout: docs
-title: Get started with IBM Streams 4.3
+title: IBM Streams Quick Start Edition v4.3
 description:  Latest Documentation
 weight: 0
 tag: 43qse
 next:
   file: qse-intro
-  title: Try the IBM Streams v4.3 Quick Start Edition
+  title: Try Quick Start Edition
 
 ---
 
 {: .simple}
-* [Try Streams v4.3](qse-intro)
+* [Try IBM Streams v4.3 with Quick Start Edition](qse-intro)
   * [Installing Streams Quick Start Edition with Docker](qse-install-docker)
-  * [Installing the Streams Quick Start Edition for Linux](qse-install-linux)
-* [Getting Started with IBM Streams v4.3](qse-getting-started)
+  * [Installing Streams Quick Start Edition for Linux](qse-install-linux)
+* [Getting started with IBM Streams v4.3 with Quick Start Edition](qse-getting-started)

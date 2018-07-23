@@ -9,13 +9,13 @@ The goal of the project is to provide easy-to-follow documentation and developme
 
 ## Contents
 
-## Get Started with IBM Streams
+## Getting started with IBM Streams
 
 {: .simple}
-* [Try Streams v4.3](/streamsx.documentation/docs/4.3/qse-intro)
+* [Try IBM Streams v4.30 with Quick Start Edition](/streamsx.documentation/docs/4.3/qse-intro)
   * [Installing Streams Quick Start Edition with Docker](/streamsx.documentation/docs/4.3/qse-install-docker)
-  * [Installing the Streams Quick Start Edition for Linux](/streamsx.documentation/docs/4.3/qse-install-linux)
-* [Getting Started with IBM Streams v4.3](/streamsx.documentation/docs/4.3/qse-getting-started)
+  * [Installing Streams Quick Start Edition for Linux](/streamsx.documentation/docs/4.3/qse-install-linux)
+* [Getting started with IBM Streams v4.3 with Quick Start Edition](/streamsx.documentation/docs/4.3/qse-getting-started)
 
 
 ## Developing Streams applications
@@ -24,18 +24,18 @@ Streams applications can be developed in Python, Java, Scala, and the Streams Pr
 
 The following are resources to help you get started developing applications using your language and model of choice.
 
-### Develop Streams applications with Java
+### Developing Streams applications with Java
 
 {% include nav.html context="/docs/java/"%}
 
-### Develop Streams applications with Python
+### Developing Streams applications with Python
 
 {: .simple}
 * [Developing applications (v1.6+)](/streamsx.documentation/docs/python/1.6/python-appapi-devguide/) &nbsp; [(v1.4)](/streamsx.documentation/docs/python/1.4/python-appapi-devguide/)
 * [API reference (latest)](http://ibmstreams.github.io/streamsx.topology/doc/pythondoc/index.html)
 * [Older releases](https://github.com/IBMStreams/streamsx.topology/releases)
 
-### Develop Streams applications with SPL
+### Developing Streams applications with SPL
 
 {: .simple}
 * Start with the [Streams Quick Start Guide](https://developer.ibm.com/streamsdev/?p=5686)
@@ -43,13 +43,13 @@ The following are resources to help you get started developing applications usin
 * [SPL Examples for Beginners](/streamsx.documentation/samples/)
 * [Search our samples catalog](https://ibmstreams.github.io/samples/)
 
-### Develop applications with Apache Beam
+### Developing applications with Apache Beam
 
 {: .simple}
 
 * [Create applications using the Streams runner for Apache Beam](/streamsx.documentation/docs/beamrunner/)
 
-### Develop Streams applications with Scala
+### Developing Streams applications with Scala
 
 {: .simple}
 * [Developing applications with Scala](https://github.com/IBMStreams/streamsx.topology/wiki/Scala-Support)
@@ -57,12 +57,12 @@ The following are resources to help you get started developing applications usin
 
 ## Integrating with Streams
 There are dozens of toolkits available to help you integrate Streams with popular systems like [HDFS](https://github.com/IBMStreams/streamsx.hdfs) [HBase](https://github.com/IBMStreams/streamsx.hbase), [Kafka](https://github.com/IBMStreams/streamsx.kafka), and more.
-Some toolkits are included with Streams, while others are [available on Github](https://github.com/ibmstreams).
+Some toolkits are included with Streams, and others are [available on Github](https://github.com/ibmstreams).
 
 {: .simple}
 
 * [Product toolkits overview](https://developer.ibm.com/streamsdev/docs/product-toolkits-overview/)
-* [Github toolkits overview](https://developer.ibm.com/streamsdev/docs/github-projects-overview/)
+* [Github projects overview](https://developer.ibm.com/streamsdev/docs/github-projects-overview/)
 
 #### Selected toolkit documentation
 Links to the documentation for more common toolkits
@@ -77,46 +77,52 @@ Links to the documentation for more common toolkits
 
 ### Streams 4.2 and 4.1
 
-[Find older documentation here](/streamsx.documentation/docs/previous/)
-
-### Streams Product Documentation
+View tutorials and guides for older versions of IBM Streams.
 
 {: .simple}
 
-* [Streams Product Documentation (versions 1.2.1 - current)](http://www.ibm.com/support/knowledgecenter/SSCRJU/SSCRJU_welcome.html)
+* [Tutorials and guides for older versions of IBM Streams](/streamsx.documentation/docs/previous/).
 
-## Need Help?
+### Streams product documentation
 
-1.  Ask your questions on [Streams Forum](https://developer.ibm.com/answers/smart-spaces/22/streamsdev.html)
-2.  If project is on IBM Streams Github, open an issue to the related project.
-3.  Ask your questions on [StackOverflow](http://stackoverflow.com/questions/tagged/infosphere-spl)
+View the IBM Streams product documentation on IBM Knowledge Center. 
+
+{: .simple}
+
+* [IBM Knowledge Center > IBM Streams (versions 1.2.1 - current)](http://www.ibm.com/support/knowledgecenter/SSCRJU/SSCRJU_welcome.html)
+
+## Need help?
+
+1.  Ask your questions on the [Streams Forum](https://developer.ibm.com/answers/smart-spaces/22/streamsdev.html).
+2.  If your project is on IBM Streams Github, open an issue to the related project.
+3.  Ask your questions on [StackOverflow](http://stackoverflow.com/questions/tagged/infosphere-spl).
 
 ## Contributing
 
-If you have ideas on how we can better document or explain some of the concepts, we would love to have your contribution!  The streamsx.documentation site uses Github Pages and Jekyll markdown for our documentation.
+If you have ideas on how we can better document or explain some of the concepts, we would love to have your contribution.  The streamsx.documentation site uses Github Pages and Jekyll markdown.
 
-Refer to this documentation on Github Markdown:  [Writing on Github](https://help.github.com/categories/writing-on-github)
+To contribute, you have two options:
+-   Clone this project locally, make your changes, and create a pull request. 
+-   Click **Edit Me** and then click **Edit this file** to make changes directly in your browser.
 
-Refer to this documentation to get started:  [Using Jekyll with Pages](https://help.github.com/articles/using-jekyll-with-pages/)  
+For more information about contributing to this project, see [Contribute to an IBM Streams Github project](https://developer.ibm.com/streamsdev/docs/contribute-github-project/).
 
-To contribute, clone this project locally, make your changes, and create a pull request. You can also click on the "Edit Me" button, then click on "Edit this file" to make changes right in your browser.
+For more information about Github Markdown, see [Writing on Github](https://help.github.com/categories/writing-on-github).
 
-To learn more on how to do this, refer to this documentation:  [Contribute to IBM Streams Github Project](https://developer.ibm.com/streamsdev/docs/contribute-github-project/)
+For more information about using Jekyll with Github Pages, see [Using Jekyll as a static site generator with GitHub Pages](https://help.github.com/articles/using-jekyll-with-pages/).
 
-### Providing Feedback
+### Providing feedback
 
-To provide feedback on our documentation:
+To provide feedback on the documentation:
 
-1.  Navigate to the documentation page that you would like to provide feedback for.
-1.  Click on the **Feedback** button in the top right corner.
+1.  Go to the documentation page that you want to provide feedback for.
+1.  Click **Feedback** to open an issue for the page that you are currently viewing.  
 
-This will open an issue for the page that you are currently visiting.  
+### New documentation
 
-### New Documentation
-
-To request new documentation, please open an issue here:
+To request new documentation, open an issue by clicking **New documentation**:
 
    <form action="https://github.com/IBMStreams/streamsx.documentation/issues/new" target="_blank">
-      <input type="submit" value="New Documentation">
+      <input type="submit" value="New documentation">
    </form>
 <br>
