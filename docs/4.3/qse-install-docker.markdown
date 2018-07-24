@@ -159,7 +159,7 @@ Open a Terminal session and test that Docker is set up correctly by
 sudo systemctl restart docker</pre>
 	</li>
 	<li>Verify the default image size by entering the following command:
-<pre>docker info \|grep "Base Device Size:"</pre>
+<pre>docker info |grep "Base Device Size:"</pre>
 	</li>
 </ol>
 </div>
@@ -295,7 +295,7 @@ Prerequisite: Make sure you are connected to the Internet.
 Click <b>Download Streams Quick Start Edition</b> to go to the IBM Streams Quick Start Edition page. Download IBM Streams Quick Start Edition V4.3.0 for Docker on Windows 10.
 </li>
 <li>
-Extract the <code>Streams4WindowsDocker4330EL7.zip</code> file into a directory.
+Extract the <code>Streams4WindowsDocker4300EL7.zip</code> file into a directory.
 </li>
 <li>
 Open PowerShell and go to the <code>Streams4WindowsDocker4300EL7</code> directory.
@@ -578,17 +578,17 @@ Streams Quick Start Edition resources have been moved to the
 left of the screen. There you will find the Streams applications and
 links to resource web pages.
 
-To adjust the display size to closer match your physical display, follow
-these steps:
+To adjust the display size to more closely match your physical display, follow these steps:
 
 1.  Go to **Applications \> System Tools \> Settings**.
 
-2.  Click the **Displays** icon.
+2.  Click **Devices > Displays**.
 
-3.  In the **Displays** app, click **Unknown Display**.
+3.  In the **Displays** app, click **Resolution**.
 
-4.  Click **Resolution** and select the resolution that best matches
-    your physical display. Click **Apply**.
+4.  Select the resolution that best matches your physical display. Close the **Resolution** list by clicking 'x' in the corner.    
+
+4.  Click **Apply**.
 
 5.  Click **Keep Changes.**
 
