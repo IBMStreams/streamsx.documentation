@@ -7,8 +7,11 @@ weight:  10
 published: true
 tag: beam
 prev:
-  file: beamrunner-5b-objstor
-  title: Using IBM Cloud Object Storage
+  file: troubleshoot
+  title: Troubleshooting
+next:
+  file: release-notes
+  title: Release notes
 ---
 
 Learn about limitations and known issues for IBM® Streams Runner for Apache Beam.
@@ -20,10 +23,12 @@ Learn about limitations and known issues for IBM® Streams Runner for Apache Bea
 
 ## Known issues
 ### Issue
-Submission-time parameters that are specified when you manually submit a SAB file (created by using the `BUNDLE` context) are not used during application runtime.
+The Streams job for a submitted Beam application does not show the Pipeline layout in the Streams Graph in the IBM Streams Console.
 
 #### Workaround
-Use the `STREAMING_ANALYTICS_SERVICE` or `DISTRIBUTED` contexts to launch the application with the application options set.
+Click on the 'Configure' icon (the wrench) in the Streams Graph for your application, check the 'Show raw graph' option, and click 'Apply' to see the Pipeline using all primitive transforms.
+
+Additionally, use the latest version of IBM Streams (which contains the latest Streams Console) to run your Beam application. The latest version can be obtained in the [Quick Start Edition]().
 
 ### Issue
 

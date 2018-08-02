@@ -2,19 +2,19 @@
 layout: docs
 title: TemperatureSample sample application for IBM Streams Runner for Apache Beam
 navtitle: TemperatureSample sample app
-description:  You can use a simple application called `TemperatureSample` to learn how to submit and monitor an Apache Beam 2.1 application in the Streaming Analytics service on IBM Cloud.
+description:  You can use a simple application called `TemperatureSample` to learn how to submit and monitor an Apache Beam 2.4 application in the Streaming Analytics service on IBM Cloud.
 weight:  10
 published: true
 tag: beam
 prev:
-  file: beamrunner-2a-using
-  title: Using
+  file: io
+  title: I/O options
 next:
-  file: beamrunner-3b-wordcount
+  file: wordcount
   title: WordCount sample app
 ---
 
-You can use a simple application called `TemperatureSample` to learn how to submit and monitor an Apache Beam 2.1 application in the Streaming Analytics service on IBM Cloud (formerly IBM Bluemix).  The sample application is included with IBM® Streams Runner for Apache Beam. Some familiarity with Beam programming is helpful, though not required; the [Apache Beam website](https://beam.apache.org/) has a useful [Apache Beam Java SDK Quickstart](https://beam.apache.org/get-started/quickstart-java/) page and other documentation.
+You can use a simple application called `TemperatureSample` to learn how to submit and monitor an Apache Beam 2.4 application in the Streaming Analytics service on IBM Cloud (formerly IBM Bluemix).  The sample application is included with IBM® Streams Runner for Apache Beam. Some familiarity with Beam programming is helpful, though not required; the [Apache Beam website](https://beam.apache.org/) has a useful [Apache Beam Java SDK Quickstart](https://beam.apache.org/get-started/quickstart-java/) page and other documentation.
 
 For more information about this sample application, see [The TemperatureSample application](#the-temperaturesample-application).
 
@@ -22,7 +22,7 @@ For more information about this sample application, see [The TemperatureSample a
 
 Before you run the `TemperatureSample` sample application, you must configure and run the following service on IBM IBM Cloud®:
 
-- Streaming Analytics. For more information, see [Creating a Streaming Analytics service on IBM Cloud](../beamrunner-2-install/#creating-a-streaming-analytics-service-on-bluemix).
+- Streaming Analytics. For more information, see [Creating a Streaming Analytics service on IBM Cloud](../../../beamrunner-2b-sas/#creating-a-streaming-analytics-service-on-bluemix).
 
 **Important**: If you want to compile your application on IBM Cloud, you must unset the `STREAMS_INSTALL` variable before you submit the application to the Streaming Analytics service.
 
@@ -32,21 +32,21 @@ The following video demonstrates how to launch the `TemperatureSample`.
 <iframe width="560" height="315" src="https://www.youtube.com/embed/i-inPl4Yf58" frameborder="0" allowfullscreen></iframe>
 <br>
 
-2. Navigate to the `$STREAMS_RUNNER_HOME/samples` directory. The Streams Runner toolkit provides all necessary files. Assuming that all environment variables are set as described in [Downloading and configuring Streams Runner](../beamrunner-2-install/#downloading-and-configuring-streams-runner) and that the `$VCAP_SERVICES` IBM Cloud credentials file has credentials in it named `beam-service`, you can launch the `TemperatureSample` application with the following command:
+2. Navigate to the `$STREAMS_RUNNER_HOME/examples` directory. The Streams Runner toolkit provides all necessary files. Assuming that all environment variables are set as described in [Downloading and configuring Streams Runner](../../../beamrunner-2a-onprem/#downloading-and-configuring-streams-runner) and that the `$VCAP_SERVICES` IBM Cloud credentials file has credentials in it named `beam-service`, you can launch the `TemperatureSample` application with the following command:
 
    ```bash
    java -cp \
    $STREAMS_BEAM_TOOLKIT/lib/com.ibm.streams.beam.translation.jar:\
-   $STREAMS_RUNNER_HOME/samples/lib/com.ibm.streams.beam.samples.jar \
-   com.ibm.streams.beam.sample.temperature.TemperatureSample \
+   $STREAMS_RUNNER_HOME/examples/transform/target/beam-examples-transform-<runner-version>.jar \
+   com.ibm.streams.beam.examples.transform.temperature.TemperatureSample \
    --runner=StreamsRunner \
    --contextType=STREAMING_ANALYTICS_SERVICE \
-   --jarsToStage=$STREAMS_RUNNER_HOME/samples/lib/com.ibm.streams.beam.samples.jar
+   --jarsToStage=$STREAMS_RUNNER_HOME/examples/transform/target/beam-examples-transform-x.y.x.jar
    ```
 
    **Note**: If the environment variables are not set, you must use full paths, and use the `--vcapServices` parameter to provide the path to the IBM Cloud credentials file.
 
-   For more information about the parameters available to you, see [Pipeline options for Streams Runner](../beamrunner-5-ref/#streams-runner-pipeline-options).
+   For more information about the parameters available to you, see [Pipeline options for Streams Runner](../reference/#streams-runner-pipeline-options).
 
 3. Verify that the application started successfully.
 
@@ -101,7 +101,7 @@ Although this simplified view matches Beam, it omits details about how  Streams 
 
 Now the application is shown with the Streams operators instead of the Beam transforms. It is still similar in structure, and the names are similar to the Beam names but not always identical. In some cases, the Streams operator name contains extra information that comes from the names of the Beam Java™ SDK classes that implement the transforms. Also, Streams does not allow all the same characters in operator names that Beam allows in transform names, so characters might be removed or replaced with valid Streams characters.
 
-You can use the Beam [metrics API](https://beam.apache.org/documentation/sdks/javadoc/2.1.0/org/apache/beam/sdk/metrics/package-summary.html) to insert information to monitor your application. For more information, see [Monitoring IBM Streams Runner for Apache Beam](../beamrunner-4-monitor/).
+You can use the Beam [metrics API](https://beam.apache.org/documentation/sdks/javadoc/2.4.0/org/apache/beam/sdk/metrics/package-summary.html) to insert information to monitor your application. For more information, see [Monitoring IBM Streams Runner for Apache Beam](../monitor/).
 
 ## Stopping the application
 
@@ -114,7 +114,7 @@ After you explore the Streams console, stop the application by canceling the job
 
 ## The `TemperatureSample` application
 
-The `TemperatureSample` application takes temperature readings from multiple devices. The application splits the readings into "good" (valid) and "bad" (invalid) readings based on a specific threshold. It counts the bad readings and generates some basic statistics for the good readings, and finally logs the results. The full source is available in the `$STREAMS_RUNNER_HOME/samples/src/com/ibm/streams/beam/sample/temperature` directory, but excerpts are included here to describe the structure of the pipeline.
+The `TemperatureSample` application takes temperature readings from multiple devices. The application splits the readings into "good" (valid) and "bad" (invalid) readings based on a specific threshold. It counts the bad readings and generates some basic statistics for the good readings, and finally logs the results. The full source is available in the `$STREAMS_RUNNER_HOME/examples/transform/src/com/ibm/streams/beam/examples/transform/temperature` directory, but excerpts are included here to describe the structure of the pipeline.
 
 The devices are artificial; they use the Beam `CountingInput` transforms named Counter\_*n* to drive another transform named Device\_*n* to generate random readings:
 

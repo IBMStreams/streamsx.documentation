@@ -54,7 +54,6 @@ The following are resources to help you get started developing applications usin
 {: .simple}
 * [Developing applications with Scala](https://github.com/IBMStreams/streamsx.topology/wiki/Scala-Support)
 
-
 ## Integrating with Streams
 There are dozens of toolkits available to help you integrate Streams with popular systems like [HDFS](https://github.com/IBMStreams/streamsx.hdfs) [HBase](https://github.com/IBMStreams/streamsx.hbase), [Kafka](https://github.com/IBMStreams/streamsx.kafka), and more.
 Some toolkits are included with Streams, and others are [available on Github](https://github.com/ibmstreams).
