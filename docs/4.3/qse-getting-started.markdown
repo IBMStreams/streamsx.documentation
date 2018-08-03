@@ -24,13 +24,28 @@ Video:  Learn Streams in 5 min!
 
 ## Getting started for the developer
 
-As a developer, you want to:
 
-* Learn about Streams
-* Write your first Streams application
-* Work with the development tooling in Streams
+## Run your first Streams application
+Run your first Streams application, "Hello, World!" using Streams Studio.
 
-The following sections provide some resources to get you up and running.
+### Launch Streams Studio
+**If you are using the Docker QSE**:
+  * [Start a VNC session](http://localhost:4000/streamsx.documentation/docs/4.3/qse-install-docker/#vnc).
+  * If you are using the Native Streams installation:**
+    * [Install Streams Studio](https://www.ibm.com/support/knowledgecenter/SSCRJU_4.3.0/com.ibm.streams.install.doc/doc/tinstall-studio-linux.html)
+    * [Install and launch Streams Studio](https://www.ibm.com/support/knowledgecenter/SSCRJU_4.3.0/com.ibm.streams.install.doc/doc/tinstall-studio-linux.html)
+  * Download the sample**
+  * [Download the application project](https://streams-github-samples.mybluemix.net/?get=Examples-for-beginners%2F001_hello_world_in_spl)
+
+#### Import and run the applications
+Watch this 2-minute walkthrough on importing and running your first Streams application.
+
+*Note: this video does not have narration.*
+<div class="modal-body"><iframe width="560" height="315" src="https://www.youtube.com/embed/EZm1yUpm-4M" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+</div>
+
+
+Now that you have got Streams Studio up and running, the following sections provide some resources to help you create your own applications in the language of your choice.
 
 ### Developing applications in Java, Scala, or Python
 In addition to Streams Processing Language (SPL) discussed in the following section, Streams applications can be created in Java, Scala, and Python.

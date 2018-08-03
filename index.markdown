@@ -15,7 +15,7 @@ The goal of the project is to provide easy-to-follow documentation and developme
 * [Try IBM Streams v4.30 with Quick Start Edition](/streamsx.documentation/docs/4.3/qse-intro)
   * [Installing Streams Quick Start Edition with Docker](/streamsx.documentation/docs/4.3/qse-install-docker)
   * [Installing Streams Quick Start Edition for Linux](/streamsx.documentation/docs/4.3/qse-install-linux)
-* [Getting started with IBM Streams v4.3 with Quick Start Edition](/streamsx.documentation/docs/4.3/qse-getting-started)
+* [Getting started with Streams using the Quick Start Edition](/streamsx.documentation/docs/4.3/qse-getting-started)
 
 
 ## Developing Streams applications
@@ -23,6 +23,14 @@ The goal of the project is to provide easy-to-follow documentation and developme
 Streams applications can be developed in Python, Java, Scala, and the Streams Processing Language (SPL). In addition, you can create applications using the Apache Beam programming model and deploy them on the Streams runtime.
 
 The following are resources to help you get started developing applications using your language and model of choice.
+
+### Developing Streams applications with SPL
+
+{: .simple}
+* Start with the [Streams Quick Start Guide](https://developer.ibm.com/streamsdev/?p=5686)
+* [Streams Hands-on Lab](https://developer.ibm.com/streamsdev/docs/streams-lab-introduction/)
+* [SPL Examples for Beginners](/streamsx.documentation/samples/)
+* [Search our samples catalog](https://ibmstreams.github.io/samples/)
 
 ### Developing Streams applications with Java
 
@@ -35,13 +43,6 @@ The following are resources to help you get started developing applications usin
 * [API reference (latest)](http://ibmstreams.github.io/streamsx.topology/doc/pythondoc/index.html)
 * [Older releases](https://github.com/IBMStreams/streamsx.topology/releases)
 
-### Developing Streams applications with SPL
-
-{: .simple}
-* Start with the [Streams Quick Start Guide](https://developer.ibm.com/streamsdev/?p=5686)
-* [Streams Hands-on Lab](https://developer.ibm.com/streamsdev/docs/streams-lab-introduction/)
-* [SPL Examples for Beginners](/streamsx.documentation/samples/)
-* [Search our samples catalog](https://ibmstreams.github.io/samples/)
 
 ### Developing applications with Apache Beam
 
@@ -84,7 +85,7 @@ View tutorials and guides for older versions of IBM Streams.
 
 ### Streams product documentation
 
-View the IBM Streams product documentation on IBM Knowledge Center. 
+View the IBM Streams product documentation on IBM Knowledge Center.
 
 {: .simple}
 
@@ -101,7 +102,7 @@ View the IBM Streams product documentation on IBM Knowledge Center.
 If you have ideas on how we can better document or explain some of the concepts, we would love to have your contribution.  The streamsx.documentation site uses Github Pages and Jekyll markdown.
 
 To contribute, you have two options:
--   Clone this project locally, make your changes, and create a pull request. 
+-   Clone this project locally, make your changes, and create a pull request.
 -   Click **Edit Me** and then click **Edit this file** to make changes directly in your browser.
 
 For more information about contributing to this project, see [Contribute to an IBM Streams Github project](https://developer.ibm.com/streamsdev/docs/contribute-github-project/).

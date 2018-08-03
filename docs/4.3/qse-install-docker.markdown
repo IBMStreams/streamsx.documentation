@@ -168,6 +168,7 @@ sudo systemctl restart docker</pre>
 <a id="map"></a>
 
 ## Mapping Docker container directories to the local host file system
+*(Optional, but recommended)*
 
 During the Streams Quick Start Edition installation, you are
 prompted to map two Docker directories,
@@ -182,9 +183,9 @@ container in the future.
 
 1.  Create a directory on your host machine where you can keep both
     mapped directories isolated from other host machine files. For
-    example, you might create a directory called `mappedDockerFiles` under your home directory:  
+    example, you might create a directory called `mappedDockerFiles` in the home directory of your host machine:  
 
-    `~/mappedDockerFiles`
+    `mkdir <HOME DIRECTORY>/mappedDockerFiles`
 
     Important: Do not map the Docker files directly to the top-level user home
     directory.
@@ -192,22 +193,15 @@ container in the future.
 2.  Make note of the directory. You will provide it during the Quick Start Edition installation.
 
 The installation creates the mapped directories in your local host
-file system under `~/mappedDockerFiles` for the
-internal `workspace` and `hostdir` subdirectories. During
+file system within  `mappedDockerFiles` for two directories, the
+internal *workspace* and *hostdir* subdirectories. During
 installation, you are prompted for the names that you want to use
 under `~/mappedDockerFiles`.
 
-When you create Streams projects, the data files are
-located in the `workspace` directory. If this directory is mapped to the local host file system,
-the files and directories are stored there instead in the internal
-Docker container. If you later upgrade your Streams4Docker installation,
-you can reuse this directory for easy recovery of your projects. For
-example, if you use the Import function of Streams Studio and point to
-the `workspace` directory, the program recognizes all your project
-data. You can import all your projects using the `overwrite` option.
+The following explains the use of the two directories.
+* The *workspace* directory:  Streams projects created using Streams Studio would be stored in  `/home/streamsadmin/workspace` on the Docker container. By mapping the *workspace* directory to a folder on your local host, the projects stored in `/home/streamsadmin/workspace` will be stored on the mapped workspace directory on your local host machine. Storing them here  instead of in the internal Docker container means that you can reuse this directory for easy recovery of your projects.  For example, if you later upgrade your Streams4Docker installation, you use the Import function of Streams Studio to import the projects from a previous Streams4Docker installation.   
 
-The `hostdir` directory begins as an empty directory where you can add
-files that you want to share between your Docker container and your
+* The *hostdir* directory: If this directory is mapped to the local host file system, it corresponds to `/home/streamsadmin/hostdir` in the Docker container. Use it to store files  that you want to share between your Docker container and your
 local host. Keep any large files that are used in your Streams4Docker container
 in this directory when possible, because files in this directory do not
 use up space inside the Docker container.
@@ -578,7 +572,8 @@ Streams Quick Start Edition resources have been moved to the
 left of the screen. There you will find the Streams applications and
 links to resource web pages.
 
-To adjust the display size to more closely match your physical display, follow these steps:
+To adjust the display size to closer match your physical display, follow
+these steps:
 
 1.  Go to **Applications \> System Tools \> Settings**.
 
@@ -586,9 +581,7 @@ To adjust the display size to more closely match your physical display, follow t
 
 3.  In the **Displays** app, click **Resolution**.
 
-4.  Select the resolution that best matches your physical display. Close the **Resolution** list by clicking 'x' in the corner.    
-
-4.  Click **Apply**.
+4.   Select the resolution that best matches your physical display. Close the **Resolution** list by clicking 'x' in the corner.  Click **Apply**.
 
 5.  Click **Keep Changes.**
 
@@ -596,24 +589,24 @@ To adjust the display size to more closely match your physical display, follow t
 
 #### **Description**: Running `streamsdockerInstall.sh` fails with the following message:
 
-    ```
-    TASK [install Streams prereq packages with yum] ********************************
-    changed: [streamsqse.localdomain] => (item=readline)
-    failed: [streamsqse.localdomain] (item=requests) => {“changed”: false, “cmd”: “/usr/bin/pip2 install -U requests”, “item”: “requests”, “msg”: “stdout: Collecting requests\n
-    ...<snip>...
-    Installing collected packages: certifi, chardet, idna, urllib3, requests\n  Found existing installation: chardet 2.2.1\n    Uninstalling chardet-2.2.1:\n      Successfully uninstalled chardet-2.2.1\n  Found existing installation: idna 2.4\n    Uninstalling idna-2.4:\n      Successfully uninstalled idna-2.4\n  Found existing installation: urllib3 1.10.2\n    Uninstalling urllib3-1.10.2:\n      Successfully uninstalled urllib3-1.10.2\n
+  ```
+  TASK [install Streams prereq packages with yum] ********************************
+  changed: [streamsqse.localdomain] => (item=readline)
+  failed: [streamsqse.localdomain] (item=requests) => {“changed”: false, “cmd”: “/usr/bin/pip2 install -U requests”, “item”: “requests”, “msg”: “stdout: Collecting requests\n
+  ...<snip>...
+  Installing collected packages: certifi, chardet, idna, urllib3, requests\n  Found existing installation: chardet 2.2.1\n    Uninstalling chardet-2.2.1:\n      Successfully uninstalled chardet-2.2.1\n  Found existing installation: idna 2.4\n    Uninstalling idna-2.4:\n      Successfully uninstalled idna-2.4\n  Found existing installation: urllib3 1.10.2\n    Uninstalling urllib3-1.10.2:\n      Successfully uninstalled urllib3-1.10.2\n
 
-    Found existing installation: requests 2.6.0\n\n:stderr: ipapython 4.5.0 requires pyldap>=2.4.15, which is not installed.\nrtslib-fb 2.1.63 has requirement pyudev>=0.16.1, but you’ll have pyudev 0.15 which is incompatible.\nipapython 4.5.0 has requirement dnspython>=1.15, but you’ll have dnspython 1.12.0 which is incompatible.\nCannot uninstall ‘requests’. It is a distutils installed project and thus we cannot accurately determine which files belong to it which would lead to only a partial uninstall.\n”}
+  Found existing installation: requests 2.6.0\n\n:stderr: ipapython 4.5.0 requires pyldap>=2.4.15, which is not installed.\nrtslib-fb 2.1.63 has requirement pyudev>=0.16.1, but you’ll have pyudev 0.15 which is incompatible.\nipapython 4.5.0 has requirement dnspython>=1.15, but you’ll have dnspython 1.12.0 which is incompatible.\nCannot uninstall ‘requests’. It is a distutils installed project and thus we cannot accurately determine which files belong to it which would lead to only a partial uninstall.\n”}
 
-    changed: [streamsqse.localdomain] => (item=future)
-    changed: [streamsqse.localdomain] => (item=dill)
-        to retry, use: --limit @/root/ansible/streamsdockerCentos7.retry
+  changed: [streamsqse.localdomain] => (item=future)
+  changed: [streamsqse.localdomain] => (item=dill)
+      to retry, use: --limit @/root/ansible/streamsdockerCentos7.retry
 
-    PLAY RECAP *********************************************************************
-    streamsqse.localdomain     : ok=41   changed=32   unreachable=0    failed=1  
-    ```
+  PLAY RECAP *********************************************************************
+  streamsqse.localdomain     : ok=41   changed=32   unreachable=0    failed=1  
+  ```
 
-**Cause**: This might to be caused by a change in the Python repositories.
+**Cause**: This might be caused by a change in the Python repositories.
 
 **Workaround:**
 1. In the Quick Start Edition installation directory, locate the `Ansible/streamsdockerCentos7.yaml` file and open it in a text editor.
