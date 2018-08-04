@@ -12,7 +12,7 @@ The goal of the project is to provide easy-to-follow documentation and developme
 ## Getting started with IBM Streams
 
 {: .simple}
-* [Try IBM Streams v4.30 with Quick Start Edition](/streamsx.documentation/docs/4.3/qse-intro)
+* [Try IBM Streams v4.3 with Quick Start Edition](/streamsx.documentation/docs/4.3/qse-intro)
   * [Installing Streams Quick Start Edition with Docker](/streamsx.documentation/docs/4.3/qse-install-docker)
   * [Installing Streams Quick Start Edition for Linux](/streamsx.documentation/docs/4.3/qse-install-linux)
 * [Getting started with Streams using the Quick Start Edition](/streamsx.documentation/docs/4.3/qse-getting-started)
