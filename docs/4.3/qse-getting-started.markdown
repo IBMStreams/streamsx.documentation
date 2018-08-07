@@ -22,20 +22,17 @@ For a quick overview about Streams and developing in Streams, see the following 
 Video:  Learn Streams in 5 min!
 </button>
 
-## Getting started for the developer
-
-
-## Run your first Streams application
+## Getting started - run your first Streams application
 Run your first Streams application, "Hello, World!" using Streams Studio.
 
 ### Launch Streams Studio
-**If you are using the Docker QSE**:
+**If you are using the Docker QSE:**
   * [Start a VNC session](http://localhost:4000/streamsx.documentation/docs/4.3/qse-install-docker/#vnc).
-  * If you are using the Native Streams installation:**
-    * [Install Streams Studio](https://www.ibm.com/support/knowledgecenter/SSCRJU_4.3.0/com.ibm.streams.install.doc/doc/tinstall-studio-linux.html)
-    * [Install and launch Streams Studio](https://www.ibm.com/support/knowledgecenter/SSCRJU_4.3.0/com.ibm.streams.install.doc/doc/tinstall-studio-linux.html)
-  * Download the sample**
-  * [Download the application project](https://streams-github-samples.mybluemix.net/?get=Examples-for-beginners%2F001_hello_world_in_spl)
+
+**If you are using the Native Streams installation:**
+  * [Install Streams Studio](https://www.ibm.com/support/knowledgecenter/SSCRJU_4.3.0/com.ibm.streams.install.doc/doc/tinstall-studio-linux.html)
+  * [Install and launch Streams Studio](https://www.ibm.com/support/knowledgecenter/SSCRJU_4.3.0/com.ibm.streams.install.doc/doc/tinstall-studio-linux.html)
+  * [Download the sample application project](https://streams-github-samples.mybluemix.net/?get=Examples-for-beginners%2F001_hello_world_in_spl)
 
 #### Import and run the applications
 Watch this 2-minute walkthrough on importing and running your first Streams application.
