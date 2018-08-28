@@ -21,24 +21,34 @@ This information is exposed through the Python REST API in the `streamsx.rest` m
 
 # Connecting with the `StreamsConnection` class
 
-The primary abstraction in the Python REST API is the `StreamsConnection` class. Every application that seeks to use the REST API must first create an instance of this class. To create a `StreamsConnection` instance, pass a valid Streams user name and password to the constructor:
+The primary abstraction in the Python REST API is the `StreamsConnection` class. Every application that seeks to use the REST API must first create an instance of this class. 
+
+The `StreamsConnection` instance retrieves runtime information about your application via HTTP, so to connect to a Streams installation, you need to provide the REST API URL. You can get the URL from your Streams installation by running
+`streamtool geturl --api`
+
+Which will print out a url: `https://10.51.4.141:8443/streams/rest/resources`
+Use that url and a valid Streams user name and password to create an instance of the `StreamsConnection` class.
 
 ```
->>> from streamsx import rest
->>> sc = rest.StreamsConnection(username="streamsadmin", password="passw0rd")
+from streamsx import rest
+
+sc = rest.StreamsConnection(username="streamsadmin", password="passw0rd", resource_url=url)
+sc.session.verify = False
 ```
 
-By default, the `StreamsConnection` instance connects to a local installation of IBM Streams. 
+If the URL is omitted, the `StreamsConnection` instance connects to a locaL Streams installation. 
+By default, SSL authentication is enabled. To disable it, enter `sc.session.verify = False` immediately after you create your `StreamsConnection` instance.
 
 ## Connecting to the IBM Streaming Analytics service on IBM Cloud
 In this case, the first step is to instantiate a subclass of `StreamsConnection` called `StreamingAnalyticsConnection`. Instead of a user name and password, the constructor arguments include the path to a `vcap` file and the name of the Streaming Analytics service:
 
 ```
->>> from streamsx import rest
->>> sc = rest.StreamingAnalyticsConnection("/home/streamsadmin/vcap.json", "Streaming Analytics-be")
+from streamsx import rest
+sc = rest.StreamingAnalyticsConnection("/home/streamsadmin/vcap.json", "Streaming Analytics-be")
+sc.session.verify = False
+
 ```
 
-The `StreamsConnection` instance retrieves runtime information about your application via HTTP. By default, SSL authentication is enabled. To disable it, enter `sc.session.verify = False` immediately after you create your `StreamsConnection` instance.
 
 # Retrieving resources elements
 
