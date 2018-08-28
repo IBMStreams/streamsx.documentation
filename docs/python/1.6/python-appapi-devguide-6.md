@@ -19,7 +19,7 @@ Depending on the problem at hand, a developer might choose to create an IBM Stre
 
 This information is exposed through the Python REST API in the `streamsx.rest` module. Furthermore, the REST API is not strictly read-only, as you can also use it to cancel remote jobs. This guide walks through some of the most common use cases for the API, and also aims to give users a more general understanding for types of applications that can be written.
 
-# Creating a 'StreamsConnection' instance
+# Connecting with the 'StreamsConnection' class
 
 The primary abstraction in the Python REST API is the `StreamsConnection` class. Every application that seeks to use the REST API must first create an instance of this class. To create a `StreamsConnection` instance, pass a valid Streams user name and password to the constructor:
 
@@ -28,7 +28,10 @@ The primary abstraction in the Python REST API is the `StreamsConnection` class.
 >>> sc = rest.StreamsConnection(username="streamsadmin", password="passw0rd")
 ```
 
-By default, the `StreamsConnection` instance connects to a local installation of IBM Streams. Users who are connecting to the IBM Streaming Analytics service on IBM Bluemix must instantiate a subclass of `StreamsConnection` called `StreamingAnalyticsConnection`. Instead of a user name and password, the constructor arguments include the path to a `vcap` file and the name of the Streaming Analytics service:
+By default, the `StreamsConnection` instance connects to a local installation of IBM Streams. 
+
+## Connecting to the IBM Streaming Analytics service on IBM Cloud
+In this case, the first step is to instantiate a subclass of `StreamsConnection` called `StreamingAnalyticsConnection`. Instead of a user name and password, the constructor arguments include the path to a `vcap` file and the name of the Streaming Analytics service:
 
 ```
 >>> from streamsx import rest
