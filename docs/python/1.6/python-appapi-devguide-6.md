@@ -19,7 +19,7 @@ Depending on the problem at hand, a developer might choose to create an IBM Stre
 
 This information is exposed through the Python REST API in the `streamsx.rest` module. Furthermore, the REST API is not strictly read-only, as you can also use it to cancel remote jobs. This guide walks through some of the most common use cases for the API, and also aims to give users a more general understanding for types of applications that can be written.
 
-# Connecting with the 'StreamsConnection' class
+# Connecting with the `StreamsConnection` class
 
 The primary abstraction in the Python REST API is the `StreamsConnection` class. Every application that seeks to use the REST API must first create an instance of this class. To create a `StreamsConnection` instance, pass a valid Streams user name and password to the constructor:
 
