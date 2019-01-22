@@ -48,7 +48,7 @@ Table of Contents
 
 -   Get your code into Atom
 
--   Get Familiar With the Editor
+-   Reviewing code
 
 -   Creating a Streams application from scratch
 

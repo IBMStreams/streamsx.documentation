@@ -9,7 +9,7 @@ prev:
   title: Configure Atom
 next:
   file: atom-guide-3-editor
-  title: Useful Editor features
+  title: Reviewing SPL code in Atom
 ---
 
 After configuring Atom, you can start working with some code.

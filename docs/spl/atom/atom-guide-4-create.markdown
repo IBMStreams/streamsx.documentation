@@ -6,7 +6,7 @@ navlevel: 2
 tag: atom
 prev:
   file: atom-guide-3-editor
-  title: Importing your code into Atom  
+  title: Reviewing SPL code in Atom
 next:
   file: atom-guide-5-build
   title: Build an run an application in Atom
@@ -15,7 +15,12 @@ next:
 The general steps to create a new project are:
 - Create an empty folder on your filesystem and import it into Atom
 - Create a toolkit information file
-- Create one or more namespaces to organize your code (optional, but recommended)
+
+Once you create your project, you can start creating applications. The main entry point of any SPL application is called a _Main Composite_. So after creating your project, you can create your first Main composite by:
+
+- Defining a namespace to organize your code (optional, but recommended)
+- Create a Main composite within a SPL file
+
 
 Create the project folder
 ---------------------------
@@ -85,10 +90,12 @@ Create a folder within your project with the target namespace:
 Now that your namespace is created, you can create your first SPL source
 file.
 
-Create a SPL source file
+Create a Main composite
 --------------------------
 
-The SPL source file is where you define the application you are creating. It is good practice to organize your source files within namespaces.
+Main composites are defined in SPL source files. These files have a `.spl` extension.
+
+**Create a source file within a namespace**:
 
 -   Select the `my.name.space` folder, right-click and choose **New File**.
 
@@ -115,5 +122,52 @@ The final code should appear like this:
 
 Develop a simple application
 ---------------------------
+Now that you have created a project, let us walk through the creation of the BusAlerts application.
 
-[TBD]
+
+What will the application do?
+=============================
+Recall that this application will display alerts and advertisements within the city's public transit vehicles as they move around the city. The buses periodically report their location. When a bus is near an area with an alert, the application will detect this and send the alert.
+
+We're going to develop the application in 3 steps:
+![application phases](/streamsx.documentation/images/atom/jpg/phases2.jpg)
+
+When developing Streams applications, it is helpful to **break down the application into individual tasks, and then find one or more operators to perform each task.**
+
+
+Use operators to process data in steps
+--------------------------------------
+
+Remember that an **operator** is building block of a Streams application. It performs a specific task with an **input stream** of data and then produces an **output stream** which is the result of the processing. So our  application will  be made up of different operators that perform each of the above 3 tasks.
+
+
+**Create the Main Composite**
+
+If you haven't already, create a new main composite for your application. See above for instructions.
+
+Step 1: Ingest data
+====================
+
+All Streams applications start with ingesting the data that will be analyzed.
+
+In our case, the data we are processing is the location of each bus as it is reported. Each record is a XML string that describes the bus and
+it's latitude, longitude, current speed, end so on:
+```
+<vehicle id="5764" routeTag="24" dirTag="24\_\_\_I\_F00"
+ lat="37.734356" lon="-122.390739" secsSinceReport="9"
+ predictable="true" heading="218" speedKmHr="0"\>
+
+```
+We’ll use a `FileSource` operator to read the data from the file :
+
+
+
+```
+	stream<xml locationXMLDoc> NextBusData_FromFile = FileSource()
+	{
+		param
+			file : getApplicationDir() + "/data/saved_BusLocations.txt" ;
+			initDelay : 30.0 ;
+	}
+
+```

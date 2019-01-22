@@ -1,6 +1,6 @@
 ---
 layout: docs
-title:  Useful Editor Features
+title:  Reviewing SPL code in Atom
 description:  Features in  Atom to make SPL development easier.
 navlevel: 2
 tag: atom

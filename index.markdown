@@ -29,7 +29,7 @@ The following are resources to help you get started developing applications usin
 
 {: .simple}
 * Start with the [Streams Quick Start Guide](https://developer.ibm.com/streamsdev/?p=5686)
-* [SPL Development Guide](/streamsx.documentation/docs/spl/atomguide)
+* [SPL Development Guide](/streamsx.documentation/docs/spl/atom)
 * [Streams Hands-on Lab](https://developer.ibm.com/streamsdev/docs/streams-lab-introduction/)
 * [SPL Examples for Beginners](/streamsx.documentation/samples/)
 * [Search our samples catalog](https://ibmstreams.github.io/samples/)
