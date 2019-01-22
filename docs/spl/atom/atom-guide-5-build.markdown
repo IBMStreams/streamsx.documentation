@@ -1,15 +1,15 @@
 ---
 layout: docs
-title:  Build and run an application
+title:  Build and run an application from Atom
 description:  Steps to build an applicaiton
 navlevel: 2
 tag: atom
 prev:
-  file: atom-guide-3-editor
-  title: Importing your code into Atom
+  file: atom-guide-4-create
+  title: Create a new SPL project in Atom
 next:
-  file: atom-guide-5-toolkits
-  title: Adding toolkits to your application
+    file: atom-guide-6-toolkits
+    title: Add a toolkit to your application  
 ---
 
 With the cloud based development using Atom, compilation and execution

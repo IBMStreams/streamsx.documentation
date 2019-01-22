@@ -7,15 +7,15 @@ weight: 45
 published: true
 next:
   file: atom/atom-guide-1-configure
-  title: Importing your code into Atom
+  title: Configure Atom
 ---
 
 
 This development guide will cover using the [Atom editor](https://atom.io) to create and
 develop applications written in Streams Processing Language (SPL).
 
-If you want to learn about Streams and SPL without downloading and
-install the Streams runtime, this guide is for you.
+Follow this guide if you want to learn about Streams and SPL without downloading and
+installing the Streams runtime.
 
 To get started with Streams using a local installation, see the [Getting
 Started with the Streams Quick Start Edition](/streamsx.documentation/docs/latest/qse-intro) page.
@@ -61,7 +61,7 @@ Table of Contents
 -   Appendix/Troubleshooting
 
 Create an instance of the Streaming Analytics service
-========
+---------------------
 
 Instead of downloading the Streams compiler and runtime to create your
 applications, you will use the Streaming Analytics service, a cloud
