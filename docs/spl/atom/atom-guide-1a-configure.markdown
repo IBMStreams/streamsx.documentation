@@ -5,7 +5,7 @@ description:  Steps to configure Atom for SPL development
 navlevel: 2
 tag: atom
 prev:
-  file: /
+  file: atom-guide-1-intro
   title: Introduction
 next:
   file: atom-guide-2-import-code

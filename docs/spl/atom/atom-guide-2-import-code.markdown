@@ -5,7 +5,7 @@ description:  Steps to configure Atom for SPL development
 navlevel: 2
 tag: atom
 prev:
-  file: atom-guide-1-configure
+  file: atom-guide-1a-configure
   title: Configure Atom
 next:
   file: atom-guide-3-editor
