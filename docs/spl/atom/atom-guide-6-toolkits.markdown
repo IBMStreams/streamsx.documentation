@@ -24,10 +24,10 @@ This section will show you where to get them and how to add one to your applicat
 Find a toolkit
 ---------------------------------------------
 
-If you are looking for a toolkit for a specific purpose, you can
+If you are looking for a toolkit for a specific purpose:
 -  Check the list of [toolkits available on the Streaming Analytics service](https://cloud.ibm.com/docs/services/StreamingAnalytics/compatible_toolkits.html#compatible_toolkits)
 
-- [The Streams GitHub project](https://github.com/IBMStreams) has other toolkits that are not included in the Streams platform but that can still be used in your applications. From the project page, you can search for a toolkit by keyword.
+- Search [the Streams GitHub project](https://github.com/IBMStreams) for other toolkits that are not included in the Streams platform. From the project page, you can search for a toolkit by keyword.
 
 3 steps to add a toolkit
 ----------
@@ -160,24 +160,26 @@ We're going to replace the  `NextBusData_FromFile` stream  with a `HTTPGetXMLCon
 4.  Change the `BusLocationStream` operator to use the `RawData_Live`
     stream instead of the `NextBusData_FromFile` stream:
 
-Change the line:
+    Change the line:
 
-```
-stream <rstring id, float64 latitude, float64 longitude>
- ParsedDataStream = ParseNextBusData (NextBusData_FromFile )
+      ```
+      stream <rstring id, float64 latitude, float64 longitude>
+       ParsedDataStream = ParseNextBusData (NextBusData_FromFile )
 
-```  
-to:
+      ```  
+    to:
 
-```
-stream
-<rstring id, float64 latitude, float64 longitude>
-ParsedDataStream  = ParseNextBusData(RawData_Live)
+    ```
+    stream
+    <rstring id, float64 latitude, float64 longitude>
+    ParsedDataStream  = ParseNextBusData(RawData_Live)
 
-```
-We've now replaced the operator that was reading from a file with one that will connect directly to NextBus. Try it out by building and launching the application. You'll see that the messages and points of interest are different.
+    ```
 
-Since the data is live, you can see output you might need to wait a minute or 2 for the application to connect to NextBus before checking the Log Viewer.
+We've now replaced the operator that was reading from a file with one that will connect directly to NextBus. Try it out by building and launching the application.
+
+
+Since the data is live, before you can see output you might need to wait a minute or 2 for the application to connect to NextBus before checking the Log Viewer.
 
 Adding a toolkit: summary
 -------------------------
