@@ -165,7 +165,9 @@ Step 1: Ingest data
 
 All Streams applications start with ingesting the data that will be analyzed.
 
-In our case, the data we are processing is the location of each bus as it is reported. Our first task is to convert the data in the file to a stream that can be consumed by our data processing operators.
+In our case, the data we are processing is the location of each bus as it is reported.
+
+Our first task is to convert the data in the file to a stream that can be consumed by our data processing operators.
 
 
 We’ll use a `FileSource` operator to create a stream that contains the data from the file:
@@ -186,13 +188,13 @@ Streams applications are directed graphs of connected operators, so the first li
 
 
 Next we have the operator invocation, with the following properties:
-- **Operator kind**: is a `FileSource` that reads data from a file
+- **Operator kind**:  `FileSource` that reads data from a file
 - **Input Stream**: there is no input stream since it is the _start_ of our Streams application.
 - **Output Stream**: the output schema is `NextBusData_FromFile`, which is a stream of the lines in the input file.
   - **Output Stream Schema** - each tuple is XML string from the file, with the following format:
 
 ```
-<vehicle id="5764" routeTag="24" dirTag="24\_\_\_I\_F00"
+<vehicle id="5764" routeTag="24" dirTag="24___I_F00"
  lat="37.734356" lon="-122.390739" secsSinceReport="9"
  predictable="true" heading="218" speedKmHr="0"\>
 
@@ -285,19 +287,28 @@ stream<rstring id, rstring poi, rstring message, float64 distance> BusesToAlert 
 Notice that the **input stream**  will be both the parsed stream of bus locations, `ParsedDataStream`, and the stream of POIs, `POI_FromFile`.
 When it detects that a bus is near the POI, it will submit a tuple of type `Alert` to the **output stream**, `BusesToAlert`.
 
-The `Alert` type has the following definition
-`type Alert = rstring id, rstring poi, rstring message, float64 distance;`
 
-Paste the above line at the top of the file, right before the line `composite BusAlerts`.
 The `Alert` type contains:
   - `id` of the bus
   - name of the `poi`
   - `message` to send to the bus
   - current computed `distance` from the POI.
 
-Next is a `logic` clause.  On each tuple received by the operator, the `logic` clause is executed.
+
+The `Alert` type has the following definition:
+
+`type Alert = rstring id, rstring poi, rstring message, float64 distance;`
+
+Paste the above line at the top of the file, right before the line `composite BusAlerts`.
+
+Next is a `logic` clause.  
+
+On each tuple received by the operator, the `logic` clause is executed.
 Since we have 2 input streams, we have two `onTuple` clauses.
+
+
 If the tuple is from the `POI_FromFile` stream, the code within the `onTuple POI_FromFile` clause is executed, otherwise the code within the `onTuple ParsedDataStream` clause is executed.  
+
 
 ```
 stream<Alert> BusesToAlert  = Custom(ParsedDataStream; POI_FromFile)

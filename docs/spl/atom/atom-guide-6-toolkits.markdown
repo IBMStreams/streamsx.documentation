@@ -13,205 +13,212 @@ next:
 ---
 
 All SPL projects, including the ones you create, are called toolkits.
-Streams includes many toolkits contain useful operators and functions.
+The Streams platform includes many toolkits, each with useful operators and functions.
 For example, the operators used to connect to Kafka are all in the Kafka
 toolkit.
 
-Almost all Streams applications you create will take advantage of some
-of the toolkits included in the Streams runtime. To use these toolkits
-you must add them to your application by
+Almost all Streams applications you create will use one or more external toolkits.
 
-1.  Downloading the toolkit and placing it in your toolkit directory, if
-    necessary
+This section will show you where to get them and how to add one to your application.
 
-2.  Adding an entry for that toolkit to your project's info.xml file
+Find a toolkit
+---------------------------------------------
 
-3.  Importing the toolkit with a use directive in your SPL source.
+If you are looking for a toolkit for a specific purpose, you can
+-  Check the list of [toolkits available on the Streaming Analytics service](https://cloud.ibm.com/docs/services/StreamingAnalytics/compatible_toolkits.html#compatible_toolkits)
 
-If you did not download the toolkit, you can skip step 1.
+- [The Streams GitHub project](https://github.com/IBMStreams) has other toolkits that are not included in the Streams platform but that can still be used in your applications. From the project page, you can search for a toolkit by keyword.
+
+3 steps to add a toolkit
+----------
+
+To use a toolkit you add it to your application by:
+
+1.  Downloading the toolkit and placing it in your toolkit directory, (optional)
+
+2.  Adding an entry for that toolkit to your project's `info.xml` file
+
+3.  Importing the toolkit with a `use` directive in your SPL source code.
+
 
 You will need to complete step 1 if:
 
-\- you are using an updated version of one of the supported toolkits
-\[LINK\] or
+- You want to use an updated version of one of the [supported toolkits](https://cloud.ibm.com/docs/services/StreamingAnalytics/compatible_toolkits.html#compatible_toolkits\), or
 
-\- the toolkit in question was downloaded from GitHub or a 3^rd^ party
-toolkit.
+- The toolkit in question was downloaded from GitHub or is a 3rd party toolkit.
 
-\[https://cloud.ibm.com/docs/services/StreamingAnalytics/compatible\_toolkits.html\#compatible\_toolkits\]
 
-Adding a toolkit example
+
+Adding a toolkit: example
 ------------------------
 
-Our sample application has been using data that was saved in a file. We
-want to change it to retrieve live bus locations from the NextBus
-service.
+Our sample application uses input XML data that was saved in a file. We want to change it to use live data. It will retrieve bus locations from the [NextBus service](https://nextbus.com)
 
-Instead of a FileSource operator, we need to use the HTTPGetXMLContent
-operator from the inet toolkit.
+Instead of reading from a file using a `FileSource` operator, we now need to use the `HTTPGetXMLContent` operator from the [streamsx.inet toolkit](https://github.com/IBMStreams/streamsx.inet) to connect to NextBus.
 
-The inet toolkit is included in Streams but we want to use the latest
-version from Github, so our first taski
+The toolkit is included in Streams but developed in the open on GitHub.  So we can download the latest version from Github.
 
-### Step 1: Download and unpack the toolkit
 
-a.  Go to <https://github.com/IBMStreams/streamsx.inet/releases>
+Step 1: Download and unpack the toolkit
+------
+
+a.  Go to the [streamsx.inet toolkit page](https://github.com/IBMStreams/streamsx.inet/releases)
 
 b.  Download version 3.0 or greater:
     streamsx.inet.toolkit-3.0.0-**el7-amd64**
 
-> ![](media/image59.png){width="4.175573053368329in"
-> height="1.5689621609798776in"}
->
-> **Note**: Some toolkits have platform dependent features, and so there
-> will be that multiple platform dependent releases. If the toolkit you
-> wish to use has multiple releases for different platforms, make sure
-> to choose the **el7-amd64** release. This is the release that is
-> compatible with the Streaming Analytics service.
+![Download page](/streamsx.documentation/images/atom/jpg/downloadtoolkit.jpeg)
 
-c.  Place the toolkit in the toolkits directory:
+**Note**: If the toolkit you wish to use has multiple releases for different platforms, choose the **el7-amd64** release. This is the release that is compatible with the Streaming Analytics service.
 
-    ![](media/image60.png){width="2.338888888888889in"
-    height="2.1662193788276465in"}
+c.  Place the toolkit in the toolkits directory you specified when you configured Atom.
+    Recall that you specified this path in **ide-ibmstreams** package settings.
 
-    When you copy a toolkit to the toolkit directory, make sure that
-    there is a toolkit.xml file is present at the top level of the
-    folder, as shown above. I have two toolkits, com.ibm.streamsx.inet
-    and com.ibm.streamsx.nlp, and both have a toolkit.xml file.
+ ![toolkit directory](/streamsx.documentation/images/atom/jpg/toolkit-dir.jpg)
 
-### Step 2 Add a dependency to the toolkit to your project:
+  When you copy a toolkit to the toolkit directory, make sure that there is a `toolkit.xml` file  present at the top level of the folder.
 
-d.  Open the info.xml file of your project, in this case
-    BusAlerts/info.xml. If your project does not have an info.xml file,
-    create one using the sample \[HERE\]
+  As shown below, there are 2 toolkits, `com.ibm.streamsx.inet` and `com.ibm.streamsx.nlp`, and both have a `toolkit.xml` file.
 
-e.  Add a dependency to the toolkit:
+  ![toolkit directory](/streamsx.documentation/images/atom/jpg/toolkits.jpeg)
 
-    com.ibm.streamsx.inet toolkit by editing the dependencies node:
+Step 2: Add a dependency to the toolkit to your project:
+----
 
-    ![](media/image61.png){width="2.9773228346456695in"
-    height="2.610255905511811in"}
+d.  Open the `info.xml` of your project:
 
-    Here is a snippet for you to paste:
+  If your project does not have an `info.xml` file, create one using the sample \[HERE\]
 
-    \<info:toolkit\>
+e.  Within the XML, add a dependency to the new toolkit under the `dependencies` node:
 
-    \<common:name\>com.ibm.streamsx.inet\</common:name\>
+![new toolkit dependency](/streamsx.documentation/images/atom/jpg/infoxml.jpeg)
 
-    \<common:version\>\[min\_ver,max\_ver)\</common:version\>
+Here is a snippet for you to paste:
 
-    \</info:toolkit\>
+```
 
-After saving the info.xml file, the com.ibm.streamsx.inet toolkit is
-ready for use in our application.
+<info:toolkit>
 
-### Step 3: Import the toolkit in your SPL source
+  <common:name>com.ibm.streams.sometoolkit</common:name>
 
-Go back to Main.spl.
+  <common:version>[min_ver,max_ver)</common:version>
 
-We're going to replace the BusDataFromFile operator which is a
-FileSource, with a HTTPGetXMLContext operator from the inet toolkit.
+</info:toolkit>
+```
 
-1.  Import the operator with a **use** directive:
 
-    At the top of Main.spl, type:
+After saving the `info.xml` file, the `streamsx.inet` toolkit is ready for use in our application.
 
-    use com.ibm.streamsx.inet.http::HTTPGetXMLContent;
+Step 3: Use the toolkit's operators in your SPL source
+----------------
 
-2.  Highlight the operator's definition and then click Edit \> Toggle
-    Comment:\
-    ![](media/image62.png){width="4.37081583552056in"
-    height="1.8001596675415572in"}
+In your SPL source, import an operator or function from the toolkit you just added  with a `use` directive at the top of the file, right after the `namespace` declaration:
+
+- Adding `use com.ibm.streamsx.sometoolkit.namespace::SomeOperator;` will import  `SomeOperator` from the toolkit,
+Then you can invoke the operator:
+
+  ```
+    stream<int32 myint> Result = SomeOperator(){
+
+    }
+  ```
+
+E.g. to use the `HTTPGetXMLContent` operator, add the line
+
+`use com.ibm.streamsx.inet.http::HTTPGetXMLContent;`
+
+to the top of `BusAlerts_Main.spl`.
+
+
+Now we can use the operator in our code.
+We're going to replace the  `NextBusData_FromFile` stream  with a `HTTPGetXMLContext` operator:
+
+
+1.  Highlight the operator's definition and then click **Edit > Toggle Comment:**
+    ![toggle comment](/streamsx.documentation/images/atom/jpg/comment.jpeg)
 
 3.  Paste the following snippet in the editor:
 
-    stream\<xml locationXMLDoc\> RawData\_Live = HTTPGetXMLContent()
+      ```
+      stream<xml locationXMLDoc> RawData_Live = HTTPGetXMLContent()
 
-    {
+        {
 
-    param
+        param
 
-    url : getUrl(\"vehicleLocations\", \$agency);
+        url : getUrl("vehicleLocations", $agency);
 
-    period : 30.0; //poll every 30 seconds
+        period : 30.0; //poll every 30 seconds
 
-    updateParameter: \"t\";
+        updateParameter: "t";
 
-    updateParameterFromContent: \"/body/lastTime/\@time\";
+        updateParameterFromContent: "/body/lastTime/@time";
 
-    }
+        }
 
-4.  Change the BusLocationStream operator to use the RawData\_Live
-    stream instead of the RawData stream:
+    ```
+4.  Change the `BusLocationStream` operator to use the `RawData_Live`
+    stream instead of the `NextBusData_FromFile` stream:
 
-    Change the line:
+Change the line:
 
-    stream\<NextBusLocation\> BusLocationStream =
-    ParseNextBusData(RawData)
+```
+stream <rstring id, float64 latitude, float64 longitude>
+ ParsedDataStream = ParseNextBusData (NextBusData_FromFile )
 
-    to:
+```  
+to:
 
-> stream\<NextBusLocation\> BusLocationStream =
-> ParseNextBusData(RawData\_Live)
+```
+stream
+<rstring id, float64 latitude, float64 longitude>
+ParsedDataStream  = ParseNextBusData(RawData_Live)
 
-5.  Save the application.
+```
+We've now replaced the operator that was reading from a file with one that will connect directly to NextBus. Try it out by building and launching the application. You'll see that the messages and points of interest are different.
 
-> We've now replaced the operator that was reading from a file with one
-> that will connect directly to NextBus. Try it out by selecting
-> Main.spl \> **Build and submit job**.
->
-> After the build succeeds, verify it is working by opening the
-> Streaming Analytics console, wait a minute or 2 for the application to
-> connect, and then checking the Log Viewer again.
+Since the data is live, you can see output you might need to wait a minute or 2 for the application to connect to NextBus before checking the Log Viewer.
 
 Adding a toolkit: summary
 -------------------------
 
-1.  Toolkits must be built, meaning that the top level of the toolkit
-    must have a toolkit.xml file.
+1.  Toolkits must be built, meaning that the top level of the toolkit must have a `toolkit.xml` file.
 
-    a.  If you are downloading a toolkit from GitHub, a built version of
-        the toolkit is available from the releases page of the GitHub
-        project. If there are releases for different operating systems,
-        choose the EL7-AMD64 build.
+      a. If you are downloading a toolkit from GitHub, a built version of the toolkit is available from the releases page of the GitHub project. If there are releases for different operating systems, choose the EL7-AMD64 release.
 
-    b.  If no release exists, or if the downloaded release does not
-        include a toolkit.xml file, see the toolkit's page for
-        instructions on building it.
+      b. If no release exists, or if the downloaded release does not include a `toolkit.xml` file, see the toolkit's page for instructions on building it.
 
-2.  Put the toolkit folder into the toolkit directory you created during
-    the initial setup\[LINK\]. Recall that you specified this path in
-    **the ide-ibmstreams** package settings.
+2.  Put the toolkit folder into the toolkit directory you created during the initial setup.
+    Recall that you specified this path in  **the ide-ibmstreams** package settings.
 
-3.  Create a toolkit information file, called info.xml for your project,
-    if it does not already have one. This file describes your project
-    and its dependencies. Download a sample here: \[LINK\]
+3.  If it does not already have one, create a toolkit information file, called `info.xml`  for your project. Download a sample here: \[LINK\].
 
-    Learn more about the information file here:
-    <https://www.ibm.com/support/knowledgecenter/SSCRJU_4.3.0/com.ibm.streams.dev.doc/doc/toolkitinformationmodelfile.html>
+4.  Edit the `info.xml` file to add a dependency to the toolkit you need:
 
-4.  Edit the info.xml file to add a dependency to the toolkit you need
+    The following is an example of a project with 2 dependencies:  `com.ibm.streamsx.sometoolkit` and `com.ibm.streams.geospatial`:
 
-    The following is an example of adding com.ibm.streamsx.sometoolkit
-    to the project's dependencies:
+    ```
+    <info:dependencies>
+        <info:toolkit>
+          <common:name>com.ibm.streamsx.sometoolkit</common:name>
+          <common:version>[1.0.0,3.0.0)</common:version>
+        </info:toolkit>
+        <info:toolkit>
+          <common:name>com.ibm.streams.geospatial</common:name>
+          <common:version>[1.0.0,3.0.0)</common:version>
+        </info:toolkit>
+      </info:dependencies>
+      ```
 
-5.  From your SPL code, import the toolkit with a *use* directive:
+5.  Add a *use* directive in your SPL code to import operators from the toolkit:
 
-    use com.ibm.streamsx.social::\*;
+    - Adding `use com.ibm.streamsx.sometoolkit.namespace::SomeOperator;` will import  `SomeOperator` from the toolkit,
+    Then you can invoke the operator:
 
-Find out which toolkits are already installed
----------------------------------------------
+      ```
+        stream<int32 myint> Result = SomeOperator(){
 
-If you want to use a toolkit and are not sure if it is included in
-Streams, the list of Streams toolkits that are supported on the
-Streaming Analytics service is here:
+        }
+      ```
 
-https://cloud.ibm.com/docs/services/StreamingAnalytics/compatible\_toolkits.html\#compatible\_toolkits
-
-**Download updated versions of Streams toolkits**
-
-Periodical updates to the toolkits included in Streams are available
-from Fix Central
-
-Changing and recompiling a toolkit
-----------------------------------
+    - Adding `use com.ibm.streamsx.sometoolkit.namespace::*;` will import all operators and functions in that namespace.
