@@ -5,7 +5,7 @@ description:
 weight: 45
 published: true
 next:
-  file: atom/atom-guide-1-intro
+  file: atom/atom-apps
   title: Introduction
 ---
 

@@ -5,7 +5,7 @@ description:  Steps to configure Atom for SPL development
 navlevel: 2
 tag: atom
 prev:
-  file: atom-guide-1-intro
+  file: atom-apps
   title: Introduction
 next:
   file: atom-guide-2-import-code
@@ -38,27 +38,38 @@ build-ibmstreams*:
     -   Search for and install either of *streams-dark-syntax* or
         *streams-light-syntax*.
 
+Create an instance of the Streaming Analytics service
+---------------------
+
+Instead of downloading the Streams compiler and runtime to create your applications, you will use the Streaming Analytics service, a cloud based version of Streams. Applications created in Atom are sent to the Streaming Analytics to be compiled and executed.
+
+
+* If you have a Streaming Analytics service in [IBM Cloud](https://console.ng.bluemix.net/), make sure that it is started and running.
+
+* To create a new Streaming Analytics service:
+  1. Visit to the [IBM Cloud web portal](https://www.ibm.com/cloud-computing/bluemix/) and sign in (or sign up for a free account).
+
+  2. Go to the [Streaming Analytics service](https://console.bluemix.net/catalog/services/streaming-analytics) page within the Catalog.
+
+  3. Enter the service name and then click **Create** to set up your service. The service dashboard opens and your service starts automatically. The service name appears as the title of the service dashboard.
+
+
 Add the credentials for your Streaming Analytics service
 --------------------------
 
--   From the IBM Cloud dashboard, click the
-    instance of the Streaming Analytics service you created earlier to go to the service's main page.
+1. From the IBM Cloud dashboard, click the instance of the Streaming Analytics service you created earlier to go to the service's main page.
+   ![service main page](/streamsx.documentation/images/atom/jpg/sa-manage-page.jpg)
 
-    ![service main page](/streamsx.documentation/images/atom/jpg/sa-manage-page.jpg)
+6. Make sure the service is started, if not, click **Start**.
 
--   Make sure the service is started, if not, click **Start**.
+8. Click **Service Credentials** to get the credentials for the service.  If there are no credentials listed, click **New Credentials** to create one, accepting the defaults.
 
--   Click **Service Credentials** to get the credentials for the
-    service.  If there are no credentials listed, click **New Credentials** to create one, accepting the defaults.
-
--   Copy the credentials:
-
+11. Copy the credentials:
    ![Screenshot of credentials page](/streamsx.documentation/images/atom/jpg/creds.jpg)
 
--   In Atom, go to **Preferences \> Packages. Find the
-    build-ibmstreams** package and click **Settings**.
+15. In Atom, go to **Preferences > Packages**. Find the **build-ibmstreams** package and click **Settings**.
 
--   Paste the credentials you copied in to the **Settings** text box.
+18. Paste the credentials you copied in to the **Settings** text box.
 
 
 
@@ -66,8 +77,7 @@ Add a toolkits folder
 ---------------------------
 -  Designate an empty folder on your local filesystem as your toolkits directory. This folder will contain any additional toolkits that you want to use in your application. See the section on [extending your application with toolkits](/streamsx.documentation/docs/spl/atom/atom-guide-6-toolkits) to learn more.
 
--  In Atom, go to Preferences \> Packages**. Find the **ide-ibmstreams** package and click **Settings.** Paste the path
-to the toolkit directory you just created in the **Toolkits Path** box.
+-  In Atom, go to Preferences \> Packages**. Find the **ide-ibmstreams** package and click **Settings.** Paste the path to the toolkit directory you just created in the **Toolkits Path** box.
     ![Toolkit dir setting](/streamsx.documentation/images/atom/jpg/toolkit-dir.jpg)
 
 Migrating from Streams Studio
