@@ -30,15 +30,6 @@ If you are looking for a toolkit for a specific purpose:
 - Search [the Streams GitHub project](https://github.com/IBMStreams) for other toolkits that are not included in the Streams platform. From the project page, you can search for a toolkit by keyword.
 
 
-#### Where to find examples
-Once you have found an operator or toolkit you want to use, where can you find sample code?
-
--   Most toolkits on GitHub will have a `samples` folder included in the release.  Download the toolkit release and import one or more of the samples into Atom.
-
--   The [Streams samples catalog](https://ibmstreams.github.io/samples/) is a searchable database of over 150 examples. Click the sample to learn more about it, and click **download zip** to download the sample that you can import into Atom or VSCode:
-  ![catalog](/streamsx.documentation/images/atom/jpg/catalog.jpg)
-
--   [Streamsdev](https://developer.ibm.com/streamsdev) has articles and tutorials which often include samples.
 
 3 steps to add a toolkit
 ----------
