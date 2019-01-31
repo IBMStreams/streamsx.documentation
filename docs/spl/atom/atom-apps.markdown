@@ -25,17 +25,16 @@ Prerequisites
 
 If you are completely new to Streams, read the [Basic Building Blocks](https://developer.ibm.com/streamsdev/docs/streams-quick-start-guide/#basic_building_blocks) on Streamsdev for a basic introduction. Then you can return to this guide to:
 
--   Configure Atom/VSCode for development
+-   Configure Atom for development
 
 -   Run a sample application to see Streams in action
 
 -   Create your own applications from scratch
 
 **Note**: This guide will only cover creating Streams applications using
-SPL. To learn about development in Python or Java, see the [Python development guide](/streamsx.documentation/docs/python/python-appapi-devguide/) or the [Java development guide]((/streamsx.documentation/docs/java/java-appapi-devguide/).
+SPL. To learn about development in Python or Java, see the [Python development guide](/streamsx.documentation/docs/python/python-appapi-devguide/) or the [Java development guide](/streamsx.documentation/docs/java/java-appapi-devguide/).
 
 
-If VSCode is your preferred Editor, the development guide for that editor is coming soon.
 
 What's covered in this guide
 -----------------
