@@ -12,11 +12,10 @@ The goal of the project is to provide easy-to-follow documentation and developme
 ## Getting started with IBM Streams
 
 {: .simple}
-* **Option 1:** (No Download Required) [Try IBM Streams v4.3 with Atom or VSCode](/streamsx.documentation/docs/spl/atom)
-* **Option 2:** [Try IBM Streams v4.3 with Quick Start Edition](/streamsx.documentation/docs/4.3/qse-intro)
-    * [Installing Streams Quick Start Edition with Docker](/streamsx.documentation/docs/4.3/qse-install-docker)
-    * [Installing Streams Quick Start Edition for Linux](/streamsx.documentation/docs/4.3/qse-install-linux)
-    * [Getting started with Streams using the Quick Start Edition](/streamsx.documentation/docs/4.3/qse-getting-started)
+* [Try IBM Streams v4.3 with Quick Start Edition](/streamsx.documentation/docs/4.3/qse-intro)
+  * [Installing Streams Quick Start Edition with Docker](/streamsx.documentation/docs/4.3/qse-install-docker)
+  * [Installing Streams Quick Start Edition for Linux](/streamsx.documentation/docs/4.3/qse-install-linux)
+* [Getting started with Streams using the Quick Start Edition](/streamsx.documentation/docs/4.3/qse-getting-started)
 
 
 ## Developing Streams applications
@@ -29,7 +28,6 @@ The following are resources to help you get started developing applications usin
 
 {: .simple}
 * Start with the [Streams Quick Start Guide](https://developer.ibm.com/streamsdev/?p=5686)
-* [SPL Development Guide](/streamsx.documentation/docs/spl/atomguide)
 * [Streams Hands-on Lab](https://developer.ibm.com/streamsdev/docs/streams-lab-introduction/)
 * [SPL Examples for Beginners](/streamsx.documentation/samples/)
 * [Search our samples catalog](https://ibmstreams.github.io/samples/)
