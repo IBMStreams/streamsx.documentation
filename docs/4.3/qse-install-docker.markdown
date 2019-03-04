@@ -237,13 +237,13 @@ C:\<i>user</i>\Documents\DockerMapped\hostdir</pre>
 </p>
 <p>Enter the following command, replacing <i>user</i> with your user name:
 <pre>
-docker run --privileged -d -v /sys/fs/cgroup:/sys/fs/cgroup:ro -v //c/<i>user</i>/Documents/DockerMapped/workspace:/home/streamsadmin/workspace -v //c/<i>user</i>/Documents/DockerMapped/hostdir:/home/streamsadmin/hostdir -p 8443:8443 -p 9975:9975 -p 8006-8016:8006-8016 -p 8444:8444 -p 8080:80 -p 5905:5901 -p 4022:22 --name streamsdocker4240 -h 'streamsqse.localdomain' ibmcom/streams-qse:4.3.0.0 INSTALL
+docker run --privileged -d -v /sys/fs/cgroup:/sys/fs/cgroup:ro -v //c/<i>user</i>/Documents/DockerMapped/workspace:/home/streamsadmin/workspace -v //c/<i>user</i>/Documents/DockerMapped/hostdir:/home/streamsadmin/hostdir -p 8443:8443 -p 9975:9975 -p 8006-8016:8006-8016 -p 8444:8444 -p 8080:80 -p 5905:5901 -p 4022:22 --name streamsdocker4300 -h 'streamsqse.localdomain' ibmcom/streams-qse:4.3.0.0 INSTALL
 </pre></p>
 
 <p><b>Container without mapped directories</b></p>
 <p>Enter the following command:
 <pre>
-docker run --privileged -d -v /sys/fs/cgroup:/sys/fs/cgroup:ro -p 8443:8443 -p 9975:9975 -p 8006-8016:8006-8016 -p 8444:8444 -p 8080:80 -p 5905:5901 -p 4022:22 --name streamsdocker4240 -h 'streamsqse.localdomain' ibmcom/streams-qse:4.3.0.0 INSTALL
+docker run --privileged -d -v /sys/fs/cgroup:/sys/fs/cgroup:ro -p 8443:8443 -p 9975:9975 -p 8006-8016:8006-8016 -p 8444:8444 -p 8080:80 -p 5905:5901 -p 4022:22 --name streamsdocker4300 -h 'streamsqse.localdomain' ibmcom/streams-qse:4.3.0.0 INSTALL
 </pre></p>
 </div>
 
@@ -259,13 +259,13 @@ export MAPPED_HOSTDIR=$HOME/Documents/DockerMapped/hostdir
 </pre></p>
 <p>After you export the mapped drives, enter the following command:
 <pre>
-docker run --privileged -d -v /sys/fs/cgroup:/sys/fs/cgroup:ro -v $MAPPED_WORKSPACE:/home/streamsadmin/workspace -v $MAPPED_HOSTDIR:/home/streamsadmin/hostdir -p 8443:8443 -p 9975:9975 -p 8006-8016:8006-8016 -p 8444:8444 -p 8080:80 -p 5905:5901 -p 4022:22 --name streamsdocker4240 -h 'streamsqse.localdomain' ibmcom/streams-qse:4.3.0.0 INSTALL
+docker run --privileged -d -v /sys/fs/cgroup:/sys/fs/cgroup:ro -v $MAPPED_WORKSPACE:/home/streamsadmin/workspace -v $MAPPED_HOSTDIR:/home/streamsadmin/hostdir -p 8443:8443 -p 9975:9975 -p 8006-8016:8006-8016 -p 8444:8444 -p 8080:80 -p 5905:5901 -p 4022:22 --name streamsdocker4300 -h 'streamsqse.localdomain' ibmcom/streams-qse:4.3.0.0 INSTALL
 </pre></p>
 
 <p><b>Container without mapped directories</b></p>
 <p>Enter the following command:
 <pre>
-docker run --privileged -d -v /sys/fs/cgroup:/sys/fs/cgroup:ro -p 8443:8443 -p 9975:9975 -p 8006-8016:8006-8016 -p 8444:8444 -p 8080:80 -p 5905:5901 -p 4022:22 --name streamsdocker4240 -h 'streamsqse.localdomain' ibmcom/streams-qse:4.3.0.0 INSTALL
+docker run --privileged -d -v /sys/fs/cgroup:/sys/fs/cgroup:ro -p 8443:8443 -p 9975:9975 -p 8006-8016:8006-8016 -p 8444:8444 -p 8080:80 -p 5905:5901 -p 4022:22 --name streamsdocker4300 -h 'streamsqse.localdomain' ibmcom/streams-qse:4.3.0.0 INSTALL
 </pre></p>
 </div>  
 
