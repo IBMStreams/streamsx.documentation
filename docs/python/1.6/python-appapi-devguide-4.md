@@ -13,66 +13,130 @@ next:
   title: "5.0 API features: User-defined parallelism"
 ---
 
-The primary operations in the Python Application API are listed.  After you create a `Stream` from `Topology.source()`, you can perform operations on the `Stream`.
+This section will discuss common tasks when creating a streaming application using the Python Application API. After you create a [Stream](https://streamsxtopology.readthedocs.io/en/stable/streamsx.topology.topology.html#stream) from [Topology.source()](https://streamsxtopology.readthedocs.io/en/stable/streamsx.topology.topology.html#streamsx.topology.topology.Topology.source), you can perform operations on the Stream.
 
-Topology
+This section will cover:
 
-* source
+* [Creating a data source](#source)
+  - [Ingesting data from popular systems](#adapters)
+* [Viewing the content of any stream](#views)
+* [Creating data sinks](#sink)
+* [Filtering data from the stream](#filter)
+* [Transforming data with custom logic](#map)
+* [Keeping state information](#state)
+* [Splitting streams](#split)
+* [Joining streams](#union)
+* [Sharing data between Streams applications](#publish)
+  - [Publishing streams to an MQTT broker](#mqtt)
 
-Stream
-
-* filter
-* map
-* parallel
-* union
-* sink
 
 The following sections outline best practices for each type of operation.
 
-You can also find more information about IBM Streams operations in [IBM Streams Python Support](http://ibmstreams.github.io/streamsx.topology/doc/pythondoc/index.html).
-
-
+You can also find more information about IBM Streams operations in [IBM Streams Python Support](https://streamsxtopology.readthedocs.io/en/stable/index.html).
+<a id="source"></a>
+<br/>
 ## 4.1 Creating data sources
 
-A `source` operation fetches information from an external system and presents that information as a `Stream` object.  The function for creating a source stream is `Topology.source()`.  It accepts as input a user-supplied callable object, such as a function or an instance of a callable class, that takes no arguments and returns an iterable. The `source` function returns a `Stream` object whose tuples are the result of iterating against the iterable returned by the provided callable.
+As mentioned, applications always begin by creating a `Stream` that contains the data you want to process. This data typically comes from an external system such as a database, messaging system, etc.  This `Stream` object is called a source `Stream`.
 
-Specifically, the function `Topology.source` declares a source stream, one that brings external data into your Streams application.
-A source stream is the start of a streaming graph.
+This section will review how this is done, covering:
+ - Creating a source `Stream` using `Topology.source()`
+ - Ingesting data from popular systems
+ - Creating your own source function/callable
 
-The `source` function is passed an application function that returns an [iterable](https://docs.python.org/3/glossary.html#term-iterable).
-The function is called when the application is submitted and an [iterator](https://docs.python.org/3/glossary.html#term-iterator)
-is obtained from the returned iterable.
 
-The runtime then iterates through the available data by repeatedly calling [__next__](https://docs.python.org/3/library/stdtypes.html#iterator.__next__),
-and each returned item that is not `None` is submitted as a tuple for downstream processing.
+### Creating a source `Stream` using `Topology.source()`
 
-When or if the iterator throws a `StopException`, no more tuples appear on the source stream. Typically
-in streaming applications, streams are infinite so that the iterator never ends.
+To create the source `Stream`:
+- Write a callable, such as a function or a class, that will connect to the external system and return an [iterable](https://docs.python.org/3/glossary.html#term-iterable).
+- Create your source `Stream` by passing the callable to `Topology.source()`
 
-Having only a single source method might seem limiting as there are other types of sources, such as event-based or polling, that don't seem to
-fit the `iterable` model. However, the power of Python comes to the rescue.
+Example of the basic pattern:
+~~~~~~ python
+class DbAdapter
+  def __call__(self):
+    #connect to db/site/e.t.c
+    # return data
 
-From the temperature sensor example discussed earlier (temperator_sensor.py), the input to the `source` function is the user-supplied `readings` function.  The `readings` function produces data for the stream.
-
+topo = Topology()
+incoming_data = topo.source(DbAdapter())
 ~~~~~~
-topo = Topology("temperature_sensor")
-source = topo.source(readings)
+
+The `incoming_data` `Stream` is created by passing the `DbAdapter()` object to `Topology.source()`.
+
+Before we discuss source functions further, note that adapters exist for common systems, which you can use instead of writing your own function.
+
+<a id="adapters"></a>
+### Ingesting data from popular systems
+If you want to process data from one of the following systems, you can use the corresponding Streams Python package instead of writing your own function.
+
+| Application/System        | Package          |
+| ------------- | ------------- |
+| CSV File on local file system      | [streamsx.standard](https://streamsxstandard.readthedocs.io/en/latest/) (see streamsx.standard.files) |
+| Hadoop File System (HDFS)    | [streamsx.hdfs](https://streamsxhdfs.readthedocs.io/en/latest/)      |
+| Kafka | [streamsx.kafka](https://streamsxkafka.readthedocs.io/en/latest/)      |
+| IBM Event Streams | [streamsx.eventstreams](https://streamsxeventstreams.readthedocs.io/en/1.0.0/)      |
+| IBM Cloud Object Storage | [streamsx.objectstorage](https://streamsxobjectstorage.readthedocs.io/en/latest)      |
+| HTTP servers | [streamsx.inet](https://streamsxinet.readthedocs.io/en/latest/)      |
+| JDBC  Database  | [streamsx.database](https://streamsxdatabase.readthedocs.io/en/latest/)      |
+
+**Note:**
+- These packages are not part of the streamsx package and must be installed using `pip`.
+- This list does not include adapters that only support writing *to* the external system or other general utilities. See [the IBM Streams page on PyPi](https://pypi.org/user/ibmstreams/) for the most up to date list of available packages.
+
+## Creating your own source function/callable
+
+As was mentioned before, the source `Stream` of your application is obtained by passing a callable to `Topology.source()`.  The callable must:
+- take no arguments, and
+- return an [iterable](https://docs.python.org/3/glossary.html#term-iterable).
+Examples of iterables include all sequence types (such as [list](https://docs.python.org/3/library/stdtypes.html#list)).
+
+### How it works
+
+* When the application starts running, the runtime invokes the callable and iterates through the available data by repeatedly calling [__next__](https://docs.python.org/3/library/stdtypes.html#iterator.__next__). Each returned item that is not `None` is submitted as a tuple for downstream processing.
+* When or if the iterator throws a `StopException`, no more tuples appear on the source stream.
+
+
+## Examples of sources
+Here are some common scenarios.
+
+### Fetch data repeatedly using a blocking source
+If you have to poll an external system, your source must block, i.e. wait until it has a value available to return. This can be accomplished using `yield`:.
+
+~~~~~~ python
+import random
+from streamsx.topology.topology import Topology
+
+def readings():
+    while True:
+        next_tuple = poll_for_data()
+        yield next_tuple
+
+topo = Topology("readings")
+
+incoming_data = topo.source(readings)
 ~~~~~~
 
-### 4.1.1 Simple iterable sources
+In this case, instead of returning an iterable, the `readings` function is repeatedly called, fetching a new value each time.
 
-Examples of iterables include all sequence types (such as [list](https://docs.python.org/3/library/stdtypes.html#list)). The iterable is returned directly by the function passed to source().
 
-````
-# Returns a finite iterable resulting in a stream that contains only two tuples.
-def helloWorld():
-   return ["hello", "world!"]
-````
+### 4.1.1 Simple Iterable sources: Files, Lists
+
+Used when you have a finite set of data to analyze, e.g. a list or a set of files. The iterable is returned directly by the function passed to source().
+
+~~~~ python
+# Open a tar file and return list of file names
+def get_log_files():
+    file_names = []
+    with tarfile.open('/path/to/logs.tar.gz') as tar_file:
+        tar_file.extractall()
+        file_names =  tar_file.getnames()
+    return file_names
+~~~~
 
 ### 4.1.2 Itertools
 
-The Python module [itertools](https://docs.python.org/3/library/itertools.html) implements a number of iterator building blocks
-that can therefore be used with the `source` operation.
+The Python module [itertools](https://docs.python.org/3/library/itertools.html) implements a number of iterator building blocks that can therefore be used with the `source` operation.  
 
 #### 4.1.2.1 Infinite counting sequence
 
@@ -97,11 +161,8 @@ def repeat_sequence():
     return itertools.repeat("A")
 ````
 
-### 4.1.3 Yield
-A blocking source is one where a function is called that blocks until it has a value available to return. In a streaming paradigm,
-the method must be repeatedly called, fetching a new value each time.
 
-
+<a id="filter"></a>
 ## 4.2 Filtering data
 You can invoke the `filter` operation on a `Stream` object when you want to selectively allow tuples to be passed and reject tuples from being passed to another stream. The filtering is done based on a provided callable object. The `Stream.filter()` function takes as input a callable object that takes a single tuple as an argument and returns True or False.
 
@@ -175,9 +236,64 @@ quixotic
 quell
 ~~~~~~
 
+<a id="views"></a>
+## 4.3 Viewing the contents of a stream
+TBD
 
-## 4.3 Transforming data
-OBYou can invoke `map` or `flat_map` on a `Stream` object when you want to:
+
+<a id="sinks"></a>
+## 4.4 Creating data sinks
+If you have the data that you need from a particular `Stream` object, you must preserve the tuples on the `Stream` object as output. For example, you can use a Python module to write the tuple to a file, write the tuple to a log, or send the tuple to a TCP connection.
+
+For example, you can create a `sink` function that writes the string representations of a tuple to a standard error message.
+
+### 4.5.1 Sample application
+To achieve this:
+
+* Define a `Stream` object called `source` that is created by calling a function called `source_tuples` that returns a list of string values. (For simplicity, specify a `source` function that returns "tuple1", "tuple2", "tuple3").
+* Define a `sink` function that uses the `print_stderr` function to write the tuples to stderr.
+
+Include the following code in the `sink_stderr.py` file:
+
+~~~~~~
+from streamsx.topology.topology import Topology
+import streamsx.topology.context
+import sys
+
+def source_tuples():
+    return ["tuple1", "tuple2", "tuple3"]
+
+def print_stderr(tuple):
+    print(tuple, file=sys.stderr)
+    sys.stderr.flush()
+
+def main():
+    topo = Topology("sink_stderr")
+    source = topo.source(source_tuples)
+    source.sink(print_stderr)
+    streamsx.topology.context.submit("STANDALONE", topo)
+
+if __name__ == '__main__':
+    main()
+~~~~~~
+
+Tip: If the `sink` function prints to the console, ensure the output to stdout or stderr is flushed afterward by calling `sys.stdout.flush()` or `sys.stderr.flush()`.
+
+### 4.4.2 Sample output
+Run the `python3 sink_stderr.py` script.
+
+The contents of your stderr console look like this:
+
+~~~~~~
+tuple1
+tuple2
+tuple3
+~~~~~~
+
+
+<a id="map"></a>
+## 4.5 Transforming data
+You can invoke `map` or `flat_map` on a `Stream` object when you want to:
 
 * Modify the contents of the tuple.
 * Change the type of the tuple.
@@ -219,7 +335,7 @@ if __name__ == '__main__':
     main()
 ~~~~~~
 
-#### 4.3.1.1 Sample output
+#### 4.5.1.1 Sample output
 Run the `python3 transform_substring.py` script.
 
 The contents of your output look like this:
@@ -234,7 +350,7 @@ quiz
 As you can see, the `map` operation modifies the tuples. In this instance, the operation modifies the tuples so that only the first four letters of each word are returned.
 
 
-### 4.3.2 Map: Changing the type of a tuple
+### 4.5.2 Map: Changing the type of a tuple
 In this example, you have a `Stream` object of strings, and each string corresponds to an integer. You want to create a `Stream` object that uses the integers, rather than the strings, so that you can perform mathematical operations on the tuples.
 
 To achieve this:
@@ -270,7 +386,7 @@ if __name__ == '__main__':
     main()
 ~~~~~~
 
-#### 4.3.2.1 Sample output
+#### 4.5.2.1 Sample output
 Run the `python3 transform_type.py` script.
 
 The contents of your output look like this:
@@ -287,7 +403,7 @@ The contents of your output look like this:
 Additionally, you aren't restricted to using built-in Python classes, such as string, integer, and float. You can define your own classes and pass objects of those classes as tuples on a `Stream` object.
 
 
-### 4.3.3 Flat_map: Breaking one tuple into multiple tuples
+### 4.5.3 Flat_map: Breaking one tuple into multiple tuples
 The `flat_map` operation transforms each tuple from a `Stream` object into 0 or more tuples.  The `Stream.flat_map()` function takes a single tuple as an argument, and returns an iterable of tuples.
 
 For example, you have a `Stream` object in which each tuple is a line of text. You want to break down each tuple so that each resulting tuple contains only one word. The order of the words from the original tuple is maintained in the resulting `Stream` object.  
@@ -295,7 +411,7 @@ For example, you have a `Stream` object in which each tuple is a line of text. Y
 * Define a `Stream` object called `lines` that generates lines of text.
 * Split the `lines` `Stream` object into individual words by passing the `split` function into the `flat_map` operation.
 
-#### 4.3.3.1 Sample application
+#### 4.5.3.1 Sample application
 To achieve this:
 
 Include the following code in the `multi_transform_lines.py` file:
@@ -315,7 +431,7 @@ if __name__ == '__main__':
     main()
 ~~~~~~
 
-#### 4.3.3.2 Sample output
+#### 4.5.3.2 Sample output
 Run the `python3 multi_transform_lines.py` script.
 
 The contents of your output look like this:
@@ -338,8 +454,8 @@ As you can see, the `flat_map` operation broke each of the original tuples into 
 
 **Tip:** You can use the `flat_map` operation with any list of Python objects that is serializable with the pickle module. The members of the list can be different classes, such as strings and integers, user-defined classes, or classes provided by a third-party module.
 
-
-## 4.4 Keeping track of state information across tuples
+<a id="state"></a>
+## 4.6 Keeping track of state information across tuples
 In the previous examples, you used **stateless** functions to manipulate the tuples on a `Stream` object. A stateless function does not keep track of any information about the tuples that have been processed, such as the number of tuples that have been received or the sum of all integers that have been processed.
 
 By keeping track of state information, such as a count or a running total, you can create more useful applications.
@@ -384,7 +500,7 @@ if __name__ == '__main__':
     main()
 ~~~~~~
 
-### 4.4.1 Sample output
+### 4.6.1 Sample output
 Run the `python3 transform_stateful.py` script.
 
 The contents of your output file looks something like this:
@@ -410,56 +526,9 @@ For example, in stand-alone mode, there is a single copy of a global variable. T
 
 
 
-## 4.5 Creating data sinks
-If you have the data that you need from a particular `Stream` object, you must preserve the tuples on the `Stream` object as output. For example, you can use a Python module to write the tuple to a file, write the tuple to a log, or send the tuple to a TCP connection.
-
-For example, you can create a `sink` function that writes the string representations of a tuple to a standard error message.
-
-### 4.5.1 Sample application
-To achieve this:
-
-* Define a `Stream` object called `source` that is created by calling a function called `source_tuples` that returns a list of string values. (For simplicity, specify a `source` function that returns "tuple1", "tuple2", "tuple3").
-* Define a `sink` function that uses the `print_stderr` function to write the tuples to stderr.
-
-Include the following code in the `sink_stderr.py` file:
-
-~~~~~~
-from streamsx.topology.topology import Topology
-import streamsx.topology.context
-import sys
-
-def source_tuples():
-    return ["tuple1", "tuple2", "tuple3"]
-
-def print_stderr(tuple):
-    print(tuple, file=sys.stderr)
-    sys.stderr.flush()
-
-def main():
-    topo = Topology("sink_stderr")
-    source = topo.source(source_tuples)
-    source.sink(print_stderr)
-    streamsx.topology.context.submit("STANDALONE", topo)
-
-if __name__ == '__main__':
-    main()
-~~~~~~
-
-Tip: If the `sink` function prints to the console, ensure the output to stdout or stderr is flushed afterward by calling `sys.stdout.flush()` or `sys.stderr.flush()`.
-
-### 4.5.2 Sample output
-Run the `python3 sink_stderr.py` script.
-
-The contents of your stderr console look like this:
-
-~~~~~~
-tuple1
-tuple2
-tuple3
-~~~~~~
-
-
-## 4.6 Splitting streams
+<a id="split"></a>
+<br/>
+## 4.7 Splitting streams
 You can split a stream into more than one output stream. By splitting a stream, you can perform different processing on the data depending on an attribute of a tuple. For example, you might want to perform different processing on log file messages depending on whether the message is a warning or an error.
 
 You can split a stream by using any operator. Each time you call a function, such as `filter`, `transform`, or `sink`, the function produces one output stream. If you call a function on the same `Stream` object three times, it creates three output streams.  The tuples from the input stream are distributed to all of the destination streams.
@@ -477,7 +546,7 @@ A visual representation of this code would look something like this:
 
 The following example shows how you can distribute tuples from a `source` function to two `sink` functions.  Each `sink` function receives a copy of the tuples from the `source` `Stream` object.
 
-### 4.6.1 Sample application
+### 4.7.1 Sample application
 Include the following code in the `split_source.py` file:
 
 ~~~~~~
@@ -505,7 +574,7 @@ if __name__ == '__main__':
 ~~~~~~
 
 
-### 4.6.2 Sample output
+### 4.7.2 Sample output
 Run the `python3 split_source.py` script.
 
 The contents of your output file looks something like this:
@@ -520,7 +589,7 @@ print2 tuple3
 print1 tuple3
 ~~~~~~
 
-
+<a id="union"></a>
 ## 4.7 Joining streams (union)
 You can combine multiple streams into a single `Stream` object by using the `union` operation. The `Stream.union()` function takes a set of streams as an input variable and combines them into a single `Stream` object. However, the order of the tuples in the output `Stream` object is not necessarily the same as in the input streams.
 
@@ -579,7 +648,7 @@ The contents of your output file looks something like this:
 
 **Remember:** The order of the tuples might be different in your output.
 
-
+<a id="publish"></a>
 ## 4.8 Publishing streams
 You can make an output stream available to applications by using the `publish` operation. The `Stream.publish()` function takes the tuples on a stream, converts the tuples to Python objects, JSON objects, or strings, and then publishes the output to a topic. (A topic is based on the MQTT topic specification. For more information, see the [MQTT protocol specification](http://public.dhe.ibm.com/software/dw/webservices/ws-mqtt/mqtt-v3r1.html))
 
@@ -729,7 +798,7 @@ The contents of your output file look something like this:
 12395
 ...
 ~~~~~
-
+<a id="mqtt"></a>
 ## 4.10 Publishing streams to an MQTT broker
 If you run an IBM Streams application on a remote sensor or device, you can make an output stream available to applications by using the `publish` operation. Publishing a stream to an MQTT broker is similar to publishing a stream to a topic with the following exceptions:
 
@@ -768,7 +837,7 @@ from streamsx.topology.mqtt import *
 
 def my_mqtt_publish():
   return [123, 2.344, "4.0", "Garbage text", 1.234e+15,]
-  
+
 def main():
    topo = Topology("An MQTT application")
 
