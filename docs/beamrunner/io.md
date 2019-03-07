@@ -128,11 +128,11 @@ If you have not already done so, you must create a Message Hub service on IBM Cl
 
 To communicate with Message Hub from Beam applications, you must create a JSON-formatted file that holds credentials and other information for the Message Hub service.
 
-2. Copy the credentials of your Message Hub service:
+1. Copy the credentials of your Message Hub service:
   1. On the Message Hub service page, click **Service credentials**.
-  2. If necessary, create a credential by clicking **New credential**. Use the default information and click **Add**.
-  3. Click **View credentials** for the credential that you want to use in your VCAP file. Click **Copy** to copy the credentials.
-3. Paste the copied credentials into a file. Give the file a meaningful name and extension, such as `mh.cred`.
+       - If no credentials are listed, create a credential by clicking **New credential**. Use the default information and click **Add**.
+  1. Click **View credentials** for the credentials that you want to use. Click **Copy** to copy the credentials.
+1. Paste the copied credentials into a file. Give the file a meaningful name and extension, such as `mh.cred`.
 
 ## `Publish` and `Subscribe` transforms
 
