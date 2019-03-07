@@ -9,19 +9,27 @@ published: true
 
 {: .simple}
 * [Introduction to IBM Streams Runner for Apache Beam](beamrunner-1-intro)
+
 * [Installing IBM Streams Runner](beamrunner-2-install)
-* [Using IBM Streams Runner](beamrunner-2a-using)
-  * [Monitoring applications](beamrunner-4-monitor)
+  * [From on-premise IBM Streams](beamrunner-2a-onprem)
+  * [From IBM Streaming Analytics service](beamrunner-2b-sas)
+
+* [Using the runner](using)
+
+* [Input/output options](io)
 
 * Samples
-  * [TemperatureSample sample application](beamrunner-3-sample)
-  * [WordCount sample application](beamrunner-3b-wordcount)
-
-* [Input/output options](beamrunner-5a-io)
-  * [Using the IBM Object Stroage OpenStack Swift for Bluemix service](beamrunner-5b-objstor)
+  * [TemperatureSample](sample)
+  * [WordCount](wordcount)
+  * [FileStreamSample ](objstor)
+  * [I/O samples](messagehub)
 
 * Reference
-  * [Package and runner options](beamrunner-5-ref)
-  * [Runner-specific SDK API](release/1.1.0/javadoc/)
+  * [Monitoring applications](monitor)
+  * [Runner reference](reference)
+  * [Performance considerations](performance)
+  * [Troubleshooting](troubleshoot)
 
-* [Limitations and known issues](beamrunner-6-issues)
+* [Limitations and known issues](issues)
+
+* [Release notes](release-notes)
