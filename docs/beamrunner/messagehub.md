@@ -34,7 +34,7 @@ Before you run the Apache Beam 2.4 I/O sample applications, you must configure a
     The `beam-examples-io-<runner-version>.jar` uber JAR file is generated in the `$STREAMS_RUNNER_HOME/examples/io/target` directory.
 3. Start the producer by running the following command:
    ```
-   java -cp $STREAMS_BEAM_TOOLKIT/lib/com.ibm.streams.beam.translation.jar:$STREAMS_INSTALL/lib/com.ibm.streams.operator.samples.jar:target/beam-examples-io-<runner-version>.jar \
+   java -cp $STREAMS_BEAM_TOOLKIT/lib/com.ibm.streams.beam.translation.jar:target/beam-examples-io-<runner-version>.jar \
         com.ibm.streams.beam.examples.io.mh.Producer\
         --runner=StreamsRunner \
         --contextType=DISTRIBUTED \
@@ -44,7 +44,7 @@ Before you run the Apache Beam 2.4 I/O sample applications, you must configure a
   ```
 4. Start the consumer by running the following command:
   ```
-  java -cp $STREAMS_BEAM_TOOLKIT/lib/com.ibm.streams.beam.translation.jar:$STREAMS_INSTALL/lib/com.ibm.streams.operator.samples.jar:target/beam-examples-io-<runner-version>.jar \
+  java -cp $STREAMS_BEAM_TOOLKIT/lib/com.ibm.streams.beam.translation.jar:target/beam-examples-io-<runner-version>.jar \
         com.ibm.streams.beam.examples.io.mh.Consumer\
         --runner=StreamsRunner \
         --contextType=DISTRIBUTED \
