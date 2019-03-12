@@ -369,7 +369,7 @@ If you have the data that you need from a particular `Stream` object, you must p
 
 For example, you can create a `sink` function that writes the string representations of a tuple to a standard error message.
 
-### 4.5.1 Sample application
+### 4.4.1 Sample application
 To achieve this:
 
 * Define a `Stream` object called `source` that is created by calling a function called `source_tuples` that returns a list of string values. (For simplicity, specify a `source` function that returns "tuple1", "tuple2", "tuple3").
@@ -423,7 +423,7 @@ tuple3
 
 The following sections walk you through an example of each type of transform.
 
-### 4.3.1 Map: Modifying the contents of a tuple
+### 4.5.1 Map: Modifying the contents of a tuple
 The `Stream.map()` function takes as input a callable object that takes a single tuple as an argument and returns either 0 or 1 tuple.
 
 For example, you have a `source` function that returns a set of four words from the English dictionary. However, you want to create a `Stream` object that contains only the first four letters of each word. You need to use a `map` operation because it can modify the tuple.
@@ -980,69 +980,3 @@ def main():
 if __name__ == '__main__':
    main()
 ~~~~~
-
-## 4.11 Subscribing to a stream on an MQTT broker
-If you are running an IBM Streams application on a remote sensor or device, you can access the tuples from the application if they are published to an MQTT broker. You can retrieve the tuples by using the `subscribe` operation.
-
-* To subscribe to a stream on an MQTT broker, you must configure a connector to enable IBM Streams to communicate with the broker. For more information about configuring an MQTT connector, see [Publishing streams to an MQTT broker](#310-publishing-streams-to-an-mqtt-broker).
-* Your application must be able to ingest rstring tuples.
-
-Additionally, to subscribe to the stream, you must specify the same topic and server URI that is specified by the application that publishes the stream.
-
-### 4.11.1 Sample code
-The `Connector.subscribe()` function takes as input the name of the topic that you want to subscribe to. The function returns a `Stream` object whose tuples have been published to the topic by an IBM Streams application.
-
-For example, you want to subscribe to the stream that you published in [Publishing streams to an MQTT broker](#310-publishing-streams-to-an-mqtt-broker).
-
-To achieve this, include the following lines in the `subscribe_mqtt.py` file:
-
-~~~~~
-from streamsx.topology.topology import *
-from streamsx.topology import schema
-import streamsx.topology.context
-from streamsx.topology.mqtt import *
-
-def main():
-   topo = Topology("An MQTT application")
-
-   # create the connector's configuration property map
-   config['serverURI'] = "tcp://localhost:1883"
-   config['userID'] = "user1id"
-   config[' password'] = "user1passwrd"
-
-   #create the connector
-   mqstream = MqttStreams(topo,config)
-
-   # subscribe to the topic "python.topic1"
-   topic = ["python.topic1", ]
-   mqs = mqstream.subscribe(topic)
-   mqs.print()
-
-if __name__ == '__main__':
-   main()
-~~~~~
-
-### 4.11.2 Sample output
-Run the `python3 subscribe_mqtt.py` script.
-
-The specific contents of your output file depend on the publisher that you subscribe to.
-
-For example, if your publish operator looked like this:
-```
-def mqtt_publish():
-   return [123, 2.344, "4.0", "Garbage text", 1.234e+15,]
-```
-
-Your output would look like:
-~~~~~
-123
-2.344
-4.0
-Garbage text
-1234000000000000
-~~~~~~
-
-
-For more information about configuration options to connect to or subscribe to an MQTT server, see the following resources:   
-* [http://mqtt.org](http://mqtt.org)
-* [http://ibmstreams.github.io/streamsx.messaging](http://ibmstreams.github.io/streamsx.messaging)
