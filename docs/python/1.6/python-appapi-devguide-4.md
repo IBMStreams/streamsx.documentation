@@ -1,7 +1,7 @@
 ---
 layout: docs
-title:  4.0 Common Streams operations
-description:  The primary operations in the Python Application API are listed
+title:  4.0 Common Streams Transforms
+description:  The primary transforms in the Python Application API are listed
 weight:  40
 <!-- published: true -->
 tag: py16
@@ -13,13 +13,14 @@ next:
   title: "5.0 API features: User-defined parallelism"
 ---
 
-This section will discuss common tasks when creating a streaming application using the Python Application API. After you create a [Stream](https://streamsxtopology.readthedocs.io/en/stable/streamsx.topology.topology.html#stream) from [Topology.source()](https://streamsxtopology.readthedocs.io/en/stable/streamsx.topology.topology.html#streamsx.topology.topology.Topology.source), you can perform operations on the Stream.
+This section will discuss how to use the most common functions and transforms in the Streams Python API to analyze your data.
 
-This section will cover:
-
+* [Introduction](#intro)
 * [Creating a data source](#source)
   - [Ingesting data from popular systems](#adapters)
-* [Viewing the content of any stream](#views)
+  - [Examples](#examples)
+* [Viewing the contents of a `Stream`](#views)
+* [Using data from a file](#file)
 * [Creating data sinks](#sink)
 * [Filtering data from the stream](#filter)
 * [Transforming data with custom logic](#map)
@@ -27,29 +28,60 @@ This section will cover:
 * [Splitting streams](#split)
 * [Joining streams](#union)
 * [Sharing data between Streams applications](#publish)
-  - [Publishing streams to an MQTT broker](#mqtt)
+
+Find detailed information about IBM Streams transforms in the documentation for the [Stream class](https://streamsxtopology.readthedocs.io/en/stable/streamsx.topology.topology.html#streamsx.topology.topology.Stream).
+
+<a id="intro"></a>
+
+# Introduction
+
+Streams applications are directed graphs of data. The start of the graph is a data source that produces a source `Stream`, which is processed and analyzed using various transforms, ultimately getting sent to a data sink such as a database or file.
+
+![streams graph animation](/streamsx.documentation/images/python/streams-graph.gif)
+
+As shown above,
+- The data source produces a source `Stream`. In the Python API this `Stream` is always created by calling `Topology.source()` or `Topology.subscribe()`.
+- The source `Stream` of data is processed by one or more transforms. A transform could be computing the average of the data on a Stream, or filtering out bad data, and so on.
+- Each transform produces another `Stream` as output, which is then forwarded to the next transform.  
+- Finally, the result is sent to a data sink to be saved in an external system.
+
+In the previous section, you created a very simple application that created a `Stream` of random numbers and printed the streaming data:
+
+~~~~ python
+def readings():
+    while True:
+        yield {"id": "sensor_1", "value": random.gauss(0.0, 1.0)}
+
+topo = Topology("temperature_sensor")
+source = topo.source(readings, name="Readings")
+source.for_each(print, name="Printer")
+streamsx.topology.context.submit("DISTRIBUTED", topo)
+~~~~    
+
+Sample output:
+~~~~    
+{"id": "sensor_1", "value":-0.11907886745291935}
+{"id": "sensor_1", "value":-0.24096558784475972}
+...
+~~~~~~
+
+The application above would have the following graph:
+
+![sample app](/streamsx.documentation/images/python/basic.jpg)
 
 
-The following sections outline best practices for each type of operation.
+You might notice that there are no transforms in this sample. This section will cover common scenarios and best practices.
 
-You can also find more information about IBM Streams operations in [IBM Streams Python Support](https://streamsxtopology.readthedocs.io/en/stable/index.html).
+
 <a id="source"></a>
 <br/>
 ## 4.1 Creating data sources
 
-As mentioned, applications always begin by creating a `Stream` that contains the data you want to process. This data typically comes from an external system such as a database, messaging system, etc.  This `Stream` object is called a source `Stream`.
-
-This section will review how this is done, covering:
- - Creating a source `Stream` using `Topology.source()`
- - Ingesting data from popular systems
- - Creating your own source function/callable
-
-
-### Creating a source `Stream` using `Topology.source()`
-
+As mentioned, applications always begin by creating a source `Stream` that contains the data you want to process.
 To create the source `Stream`:
-- Write a callable, such as a function or a class, that will connect to the external system and return an [iterable](https://docs.python.org/3/glossary.html#term-iterable).
-- Create your source `Stream` by passing the callable to `Topology.source()`
+
+1. Write a callable, such as a function or a class, that will connect to the external system and return an [iterable](https://docs.python.org/3/glossary.html#term-iterable).
+2. Create your source `Stream` by passing the callable to `Topology.source()`
 
 Example of the basic pattern:
 ~~~~~~ python
@@ -61,8 +93,6 @@ class DbAdapter
 topo = Topology()
 incoming_data = topo.source(DbAdapter())
 ~~~~~~
-
-The `incoming_data` `Stream` is created by passing the `DbAdapter()` object to `Topology.source()`.
 
 Before we discuss source functions further, note that adapters exist for common systems, which you can use instead of writing your own function.
 
@@ -80,44 +110,136 @@ If you want to process data from one of the following systems, you can use the c
 | HTTP servers | [streamsx.inet](https://streamsxinet.readthedocs.io/en/latest/)      |
 | JDBC  Database  | [streamsx.database](https://streamsxdatabase.readthedocs.io/en/latest/)      |
 
+
 **Note:**
-- These packages are not part of the streamsx package and must be installed using `pip`.
-- This list does not include adapters that only support writing *to* the external system or other general utilities. See [the IBM Streams page on PyPi](https://pypi.org/user/ibmstreams/) for the most up to date list of available packages.
+
+These packages are not part of the streamsx package and must be installed using `pip`.
+Also, the list above does not include adapters that only support writing *to* the external system or other general utilities. See [the IBM Streams page on PyPi](https://pypi.org/user/ibmstreams/) for the most up to date list of available packages.
 
 ## Creating your own source function/callable
 
-As was mentioned before, the source `Stream` of your application is obtained by passing a callable to `Topology.source()`.  The callable must:
-- take no arguments, and
-- return an [iterable](https://docs.python.org/3/glossary.html#term-iterable).
-Examples of iterables include all sequence types (such as [list](https://docs.python.org/3/library/stdtypes.html#list)).
+The callable passed to `Topology.source()` must:
+- Take no arguments, and,
+- Return an [iterable](https://docs.python.org/3/glossary.html#term-iterable), such as a list.
 
 ### How it works
 
-* When the application starts running, the runtime invokes the callable and iterates through the available data by repeatedly calling [__next__](https://docs.python.org/3/library/stdtypes.html#iterator.__next__). Each returned item that is not `None` is submitted as a tuple for downstream processing.
+* When the application starts running, the callable is invoked and it returns an iterable.  The runtime then iterates through the available data by repeatedly calling [__next__](https://docs.python.org/3/library/stdtypes.html#iterator.__next__) on the iterable. Each returned item that is not `None` is submitted as a tuple for downstream processing.
 * When or if the iterator throws a `StopException`, no more tuples appear on the source stream.
 
-
-## Examples of sources
-Here are some common scenarios.
-
-### Fetch data repeatedly using a blocking source
-If you have to poll an external system, your source must block, i.e. wait until it has a value available to return. This can be accomplished using `yield`:.
+<a id="examples"></a>
+#### Example: Fetch data repeatedly using a blocking source
+If you have to repeatedly connect to an external system for data, use `yield` within a loop to repeatedly fetch and return data:
 
 ~~~~~~ python
-import random
-from streamsx.topology.topology import Topology
-
-def readings():
+class Readings(object):
+  def __call__(self):
     while True:
-        next_tuple = poll_for_data()
-        yield next_tuple
+      next_tuple = poll_for_data()
+      yield next_tuple
 
 topo = Topology("readings")
-
-incoming_data = topo.source(readings)
+incoming_data = topo.source(Readings())
 ~~~~~~
 
-In this case, instead of returning an iterable, the `readings` function is repeatedly called, fetching a new value each time.
+### Functions vs. callable classes
+
+You can implement your source callable as a function or a callable class.  Using a callable class is the recommended option because it allows you to keep state and also restore state in the event of an outage.
+Let's see an example of the difference.
+
+Our use case is tracking recent changes to Wikipedia. The data source, [Wikipedia event streams](https://stream.wikimedia.org/?doc#!/Streams), is a live stream of recent updates and changes. We will use the [Python Server Side Event (SSE) client](https://github.com/btubbs/sseclient) to retrieve the Wikipedia data.
+
+We could use a simple function:
+
+<a id="full-fn"></a>
+~~~~ python
+from sseclient import SSEClient
+import logging
+import json
+import streamsx.ec
+from streamsx.topology.topology import Topology
+import streamsx.topology.context
+
+def wikipedia_stream():
+    eventSource = SSEClient("https://stream.wikimedia.org/v2/stream/recentchange", last_id='')
+    while True:
+        raw_event= next(eventSource)
+        if raw_event.id == None: continue
+        try:
+            parsed_json = json.loads(raw_event.data)
+            event = {"ts": parsed_json["timestamp"],
+                     "user": parsed_json["user"], "type"
+                     "page": parsed_json["meta"]["uri"],
+                     "title": parsed_json["title"]}
+                yield event
+            # Check if the application has shut down between emitted events
+            if streamsx.ec.shutdown().wait(0.05): break
+        except ValueError: continue
+
+
+topo = Topology(name="TrackWikipediaEdits")
+source = topo.source(wikipedia_stream, name="WikipediaDataSource")
+source.print()
+~~~~
+
+Or, a callable class:
+
+<a id="full-class"></a>
+
+~~~~~ python
+from sseclient import SSEClient
+import logging
+import json
+import streamsx.ec
+
+class WikipediaReader(object):
+    def __init__(self, url='https://stream.wikimedia.org/v2/stream/recentchange', filterWiki=None):
+        # called when the topology is declared
+        self.sseURL = url
+        self.counter = 0
+        self.filterWikis = filterWiki
+
+    def __enter__(self):
+        # Application is starting on the Streams runtime,
+        self.eventSource = SSEClient(self.sseURL, last_id='')
+        logging.getLogger("WikipediaSource").info("INFO: Wikipedia Source starting up")
+
+    def __exit__(self, exc_type, exc_value, traceback):
+        # called to handle an exception or shutdown
+        if exc_type or exc_value or traceback:
+            #decide if the exception can be ignored
+            #return True to suppress and False otherwise
+            logging.getLogger("WikipediaSource").warning("WARN: Some exception")
+        else:
+            #Process is shutting down
+            return False
+    def __call__(self):
+        self.eventSource = SSEClient(self.sseURL, last_id='')
+        while True:
+            # Submit a tuple in each iteration:
+            event = next(self.eventSource)
+            if event.id == None: continue
+            try:
+                data = json.loads(event.data)
+                event = {"ts": parsed_json["timestamp"],
+                         "user": parsed_json["user"], "type"
+                         "page": parsed_json["meta"]["uri"],
+                         "title": parsed_json["title"]}
+                yield event   
+                # Check if the application has shut down between emitted events
+                if streamsx.ec.shutdown().wait(0.05): break
+            except ValueError: continue
+~~~~~
+
+### Advantages of using a callable class
+When you compare the two examples above, you'll notice that the `__call__` function is very similar to the `wikipedia_edit` function, yet the `WikipediaReader` class also has `__enter__` and `__exit__` functions.
+
+- The `__enter__` function is called by the Streams runtime whenever the process executing your application is started or restarted.  This allows you to perform any necessary initialization, such as creating a connection to a database. In our example we initialized the `SSEClient` object. You could also define metrics, or, in the case of a restart due to system outage, restore any previously saved state.
+
+- Similarly, the `__exit__` function allows you to handle exceptions and also perform any cleanup when the process is shutting down.
+
+Note that  `__enter__`  is invoked at a different time from the constructor, `__init__`.  The class constructor is called when the `Topology` is declared. This is when the Streams application is being created and _before_ it is compiled.  The  `__enter__` function is called after the application has been successfully compiled and is being executed within the Streams runtime.
+
 
 
 ### 4.1.1 Simple Iterable sources: Files, Lists
@@ -136,7 +258,7 @@ def get_log_files():
 
 ### 4.1.2 Itertools
 
-The Python module [itertools](https://docs.python.org/3/library/itertools.html) implements a number of iterator building blocks that can therefore be used with the `source` operation.  
+The Python module [itertools](https://docs.python.org/3/library/itertools.html) implements a number of iterator building blocks that can therefore be used with the `source` transform.  
 
 #### 4.1.2.1 Infinite counting sequence
 
@@ -164,9 +286,9 @@ def repeat_sequence():
 
 <a id="filter"></a>
 ## 4.2 Filtering data
-You can invoke the `filter` operation on a `Stream` object when you want to selectively allow tuples to be passed and reject tuples from being passed to another stream. The filtering is done based on a provided callable object. The `Stream.filter()` function takes as input a callable object that takes a single tuple as an argument and returns True or False.
+You can invoke the `filter` transform on a `Stream` object when you want to selectively allow tuples to be passed and reject tuples from being passed to another stream. The filtering is done based on a provided callable object. The `Stream.filter()` function takes as input a callable object that takes a single tuple as an argument and returns True or False.
 
-Filtering is an immutable operation. When you filter a stream, the tuples are not altered. (If you want to alter the type or content of a tuple, see [Transforming data](#33-transforming-data).)
+Filtering is an immutable operation. When you filter a stream, the tuples are not altered. (If you want to alter the type or content of a tuple, see [Transforming data](#map).)
 
 For example, you have a `source` function that returns a set of four words from the English dictionary. However, you want to create a `Stream` object of words that do not contain the letter "a".
 

@@ -39,8 +39,8 @@ The following are resources to help you get started developing applications usin
 ### Developing Streams applications with Python
 
 {: .simple}
-* [Developing applications (v1.6+)](/streamsx.documentation/docs/python/1.6/python-appapi-devguide/) &nbsp; [(v1.4)](/streamsx.documentation/docs/python/1.4/python-appapi-devguide/)
-* [API reference (latest)](http://ibmstreams.github.io/streamsx.topology/doc/pythondoc/index.html)
+* [Developing applications (v1.12)](/streamsx.documentation/docs/python/1.6/python-appapi-devguide/)
+* [API reference](http://ibmstreams.github.io/streamsx.topology/doc/pythondoc/index.html)
 * [Older releases](https://github.com/IBMStreams/streamsx.topology/releases)
 
 
