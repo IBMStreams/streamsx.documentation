@@ -142,8 +142,8 @@ Define the following function:
 ~~~~~~ python
 import random
 def readings():
-    while True:
-        yield random.gauss(0.0, 1.0)
+  while True:
+    yield {"id": "sensor_1", "value": random.gauss(0.0, 1.0)}
 ~~~~~~
 
 The `Topology.source()` function takes as input a zero-argument callable object, such as a function or an instance of a callable class, that returns an iterable of tuples. In this example, the input to `source` is the `readings()` function.  The `source` function calls the `readings()` function, which returns a generator object.  The `source` function gets the iterator from the generator object and repeatedly calls the `next()` function on the iterator, which retrieves new random temperature readings on each invocation.
@@ -160,19 +160,17 @@ source = topo.source(readings)
 ~~~~~~
 
 
-## 2.8 Printing to output
-After you obtain the data, you print it to standard output by using the `sink` operation, which terminates the stream.
+## 2.8 Generating output
+After you obtain the data, you are ready to produce output. In our case, we will just print the source `Stream` it to standard output by using the `for_each` operation, which terminates the stream.
 
 Print to output by entering the following code at the Python prompt:
 
 ~~~~~~ python
-source.sink(print)
+source.for_each(print)
 ~~~~~~
 
-The `Stream.sink()` operation takes as input a callable object that takes a single tuple as an argument and returns no value. The callable object is invoked with each tuple. In this example, the `sink` operation calls the built-in `print()` function with the tuple as its argument.
-
-**Tip:** The `print()` function is useful, but if your application needs to output to a file, you must implement a custom sink operator.
-
+The `Stream.for_each()` operation takes as input a callable object that takes a single tuple as an argument and returns no value. The callable object is invoked with each tuple. In this example, the `for_each` operation calls the built-in `print()` function with the tuple as its argument.  
+To send a `Stream` to an external system such as a file or database, implement a callable and pass the callable to `for_each`.
 
 
 ## 2.9 Submitting the job to the Streaming Analytics service
@@ -196,14 +194,10 @@ After your application is running in the Streaming Analytics service, you can mo
  The contents of your output will look something like this:
      ```
      ...
-     1.6191338426594375
-     -0.3088492294198733
-     0.43973191574979087
-     -1.0249371132740133
-     -0.3151212021333815
-     -0.6787283449628287
-     -0.11907886745291935
-     -0.24096558784475972
+     {"id": "sensor_1", "value":1.6191338426594375}
+     {"id": "sensor_1", "value":-0.3088492294198733}
+     {"id": "sensor_1", "value":0.43973191574979087}
+     {"id": "sensor_1", "value":-1.0249371132740133}
      ...
      ```
 
@@ -237,7 +231,7 @@ def build_streams_config(service_name, credentials):
 
 def readings():
     while True:
-        yield random.gauss(0.0, 1.0)
+      yield {"id": "sensor_1", "value": random.gauss(0.0, 1.0)}
 
 def main():
     creds = *paste your credentials here*
@@ -247,10 +241,16 @@ def main():
 
     topo = Topology("temperature_sensor")
     source = topo.source(readings)
-    source.sink(print)
+    source.for_each(print)
     context.submit(context.ContextTypes.STREAMING_ANALYTICS_SERVICE, topo, config=streams_conf)
 
 if __name__ == '__main__':
      main()
 
 ~~~~~~
+
+
+
+## Conclusion
+
+You created a very simple Streams Python application that creates a source `Stream` of data using `Topology.source()` and prints that `Stream`.  Typically, you would not just print the source `Stream`, but would process the data on the `Stream` using the various transformations. These are discussed in section 4, [Common Streams Transformations](/streamsx.documentation/docs/python/1.6/python-appapi-devguide-4).

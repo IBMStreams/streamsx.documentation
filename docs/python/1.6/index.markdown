@@ -1,7 +1,7 @@
 ---
 layout: docs
 title: IBM Streams Python Support
-description: Documentation for IBM Streams Python Support (V1.6)
+description: Documentation for IBM Streams Python Support (v1.6+)
 weight: 45
 published: true
 ---
