@@ -19,8 +19,8 @@ This section will discuss how to use the most common functions and transforms in
 * [Creating a data source](#source)
   - [Ingesting data from popular systems](#adapters)
   - [Examples](#examples)
+  - [Working with files](#files)
 * [Viewing the contents of a `Stream`](#views)
-* [Using data from a file](#file)
 * [Creating data sinks](#sink)
 * [Filtering data from the stream](#filter)
 * [Transforming data with custom logic](#map)
@@ -29,32 +29,32 @@ This section will discuss how to use the most common functions and transforms in
 * [Joining streams](#union)
 * [Sharing data between Streams applications](#publish)
 
-Find detailed information about IBM Streams transforms in the documentation for the [Stream class](https://streamsxtopology.readthedocs.io/en/stable/streamsx.topology.topology.html#streamsx.topology.topology.Stream).
+Find detailed information about all available transforms in the documentation for the [Stream class](https://streamsxtopology.readthedocs.io/en/stable/streamsx.topology.topology.html#streamsx.topology.topology.Stream).
 
 <a id="intro"></a>
 
 # Introduction
 
-Streams applications are directed graphs of data. The start of the graph is a data source that produces a source `Stream`, which is processed and analyzed using various transforms, ultimately getting sent to a data sink such as a database or file.
+Streams applications are directed graphs of data. The start of the graph is a data source that produces a source [`Stream`](https://streamsxtopology.readthedocs.io/en/stable/streamsx.topology.topology.html#streamsx.topology.topology.Stream), which is processed and analyzed using various transforms, ultimately getting sent to a data sink such as a database or file.
 
 ![streams graph animation](/streamsx.documentation/images/python/streams-graph.gif)
 
 As shown above,
-- The data source produces a source `Stream`. In the Python API this `Stream` is always created by calling `Topology.source()` or `Topology.subscribe()`.
-- The source `Stream` of data is processed by one or more transforms. A transform could be computing the average of the data on a Stream, or filtering out bad data, and so on.
-- Each transform produces another `Stream` as output, which is then forwarded to the next transform.  
-- Finally, the result is sent to a data sink to be saved in an external system.
+1. The data source is a Python class or function that will produce the data to be analyzed. It could be data from Kafka, a file, database, etc.  That data is converted to a `Stream` object called the source `Stream`.
+2. The source `Stream` is processed by one or more transforms. A transform could be computing the average of the data on a `Stream`, or filtering out bad data, and so on.
+3. Each transform produces another `Stream` as output, which is then forwarded to the next transform.  
+4. The last `Stream`, containing the results, is sent to a data sink, another function that will save the data to an external system.
 
-In the previous section, you created a very simple application that created a `Stream` of random numbers and printed the streaming data:
+In the previous section, you created a very simple application that created a `Stream` of random numbers and printed it:
 
 ~~~~ python
-def readings():
+def get_readings():
     while True:
         yield {"id": "sensor_1", "value": random.gauss(0.0, 1.0)}
 
 topo = Topology("temperature_sensor")
-source = topo.source(readings, name="Readings")
-source.for_each(print, name="Printer")
+src = topo.source(get_readings) # create a source Stream
+src.for_each(print) # print the data on the stream
 streamsx.topology.context.submit("DISTRIBUTED", topo)
 ~~~~    
 
@@ -65,15 +65,26 @@ Sample output:
 ...
 ~~~~~~
 
-The application above would have the following graph:
+The code above defines a `Topology`, or application with the following graph:
 
 ![sample app](/streamsx.documentation/images/python/basic.jpg)
 
+Here, the `get_readings` function produces the data that will be analyzed. The `src` `Stream` contains the data produced by `get_readings`.
 
-You might notice that there are no transforms in this sample. This section will cover common scenarios and best practices.
+The source `Stream` is created by calling `Topology.source()` .
+
+In this example, there are no real transforms on the `src` `Stream`. The rest of this section will cover common transforms and best practices.
+
+### A note about execution
+The Python API is used to _create_ an application that can be executed on the Streams runtime.  The last line, which calls `submit`, is what triggers the compilation and execution of the application.
+
+This means that callables such as the `get_readings` function are not invoked when the code above is run, but rather, when the created application is executed on the Streams runtime.
+
+This is important to remember because the host where the application is created is often not the same host where it will be executed, i.e. where Streams is installed. For example, if the `get_readings` function opens a file, that file must actually exist on the host where Streams is running. See [working with files](#files) for an example.
 
 
 <a id="source"></a>
+
 <br/>
 ## 4.1 Creating data sources
 
@@ -102,7 +113,7 @@ If you want to process data from one of the following systems, you can use the c
 
 | Application/System        | Package          |
 | ------------- | ------------- |
-| CSV File on local file system      | [streamsx.standard](https://streamsxstandard.readthedocs.io/en/latest/) (see streamsx.standard.files) |
+| CSV File on local file system      | Python standard libraries, see the [working with files section below](#files) |
 | Hadoop File System (HDFS)    | [streamsx.hdfs](https://streamsxhdfs.readthedocs.io/en/latest/)      |
 | Kafka | [streamsx.kafka](https://streamsxkafka.readthedocs.io/en/latest/)      |
 | IBM Event Streams | [streamsx.eventstreams](https://streamsxeventstreams.readthedocs.io/en/1.0.0/)      |
@@ -124,7 +135,7 @@ The callable passed to `Topology.source()` must:
 
 ### How it works
 
-* When the application starts running, the callable is invoked and it returns an iterable.  The runtime then iterates through the available data by repeatedly calling [__next__](https://docs.python.org/3/library/stdtypes.html#iterator.__next__) on the iterable. Each returned item that is not `None` is submitted as a tuple for downstream processing.
+* When the Streams runtime begins running your application, the callable, (e.g. the `get_readings` function) is invoked and it returns an iterable. The runtime then iterates through the available data by repeatedly calling [__next__](https://docs.python.org/3/library/stdtypes.html#iterator.__next__) on the iterable. Each returned item that is not `None` is submitted as a tuple for downstream processing.
 * When or if the iterator throws a `StopException`, no more tuples appear on the source stream.
 
 <a id="examples"></a>
@@ -232,19 +243,18 @@ class WikipediaReader(object):
 ~~~~~
 
 ### Advantages of using a callable class
-When you compare the two examples above, you'll notice that the `__call__` function is very similar to the `wikipedia_edit` function, yet the `WikipediaReader` class also has `__enter__` and `__exit__` functions.
+When you compare the two examples above, you'll notice that although `WikipediaReader.__call__` is similar to the `wikipedia_stream` function, the `WikipediaReader` class also has `__enter__` and `__exit__` functions.
 
 - The `__enter__` function is called by the Streams runtime whenever the process executing your application is started or restarted.  This allows you to perform any necessary initialization, such as creating a connection to a database. In our example we initialized the `SSEClient` object. You could also define metrics, or, in the case of a restart due to system outage, restore any previously saved state.
 
-- Similarly, the `__exit__` function allows you to handle exceptions and also perform any cleanup when the process is shutting down.
+- Similarly, the `__exit__` function allows you to handle exceptions that occurred in the `__call__` function, and also perform any cleanup when the process is shutting down.
 
 Note that  `__enter__`  is invoked at a different time from the constructor, `__init__`.  The class constructor is called when the `Topology` is declared. This is when the Streams application is being created and _before_ it is compiled.  The  `__enter__` function is called after the application has been successfully compiled and is being executed within the Streams runtime.
 
 
+### 4.1.1 Simple Iterable sources: Lists
 
-### 4.1.1 Simple Iterable sources: Files, Lists
-
-Used when you have a finite set of data to analyze, e.g. a list or a set of files. The iterable is returned directly by the function passed to source().
+Used when you have a finite set of data to analyze, e.g. a list. The iterable is returned directly by the function passed to `Topology.source()`.
 
 ~~~~ python
 # Open a tar file and return list of file names
@@ -255,6 +265,101 @@ def get_log_files():
         file_names =  tar_file.getnames()
     return file_names
 ~~~~
+
+**Note**: In the above example, the `logs.tar.gz` file must be present on the host where Streams is installed. See below for instructions on how to use local files in your Streams application.
+
+<a id="files"></a>
+## Working with files
+
+Reading from a file or using a file within your Streams application can be done using any of the built-in file handling functions in Python.
+
+However, you must use `Topology.add_file_dependency` to ensure that the file or its containing directory will be available at runtime.
+
+~~~ python
+topo = Topology("ReadFromFile")
+topo.add_file_dependency("/home/streamsadmin/hostdir/mydata.txt" , "etc")
+~~~
+
+This will place the file within the `etc` folder of the application bundle.
+
+At runtime, the full path to `mydata.txt` will be:
+
+~~~ python
+streamsx.ec.get_application_directory() + "/etc/mydata.txt`
+~~~
+
+Below are some complete examples.
+
+
+### Using data from a file as your data source
+
+This is a basic example of reading a file line by line:
+~~~ python
+import streamsx.ec
+
+class FileReader:
+    def __init__(self, file_name):
+        self.file_name = file_name            
+    def __call__(self):
+        # iterate over file contents
+        with open(streamsx.ec.get_application_directory()
+                       + "/etc/" +  self.file_name) as handle:
+            for line in handle:
+                yield line.strip()
+
+
+file_name = "mydata.txt"
+topo = Topology("ReadFromFile")
+topo.add_file_dependency("/home/streamsadmin/hostdir/" + file_name , "etc")
+lines_from_file = topo.source(FileReader(file_name))
+lines_from_file.print()
+
+~~~
+
+The `FileReader` class uses `streamsx.ec.get_application_directory() ` to retrieve the path to the file on the Streams host, and then returns the file's contents one line at a time.
+
+**CSV Files**
+
+The `FileReader` class can easily be extended to read CSV data.  For example, if your CSV file had the following format:
+```
+timestamp,max,id,min
+1551729580087,18,"8756",8
+1551729396809,0,"6729",0
+1551729422809,25,"6508",5
+```
+
+You could define a new class to read each line into a `Stream` of `dicts` as follows:
+~~~ python
+
+class CSVFileReader:
+    def __init__(self, file_name):
+        self.file_name = file_name
+    def __call__(self):
+        # Convert each row in the file to a dict
+        header = ["timestamp","max", "id", "min"]
+        with open(streamsx.ec.get_application_directory()
+               + "/etc/" +  self.file_name) as handle:
+            reader = csv.DictReader(handle, delimiter=',',
+                                    fieldnames=header)
+            #Use this to skip the header line if your file has one
+            next(reader)
+            for row in reader:
+                yield row
+
+topo = Topology(name="CSVFileReader")
+topo.add_file_dependency("path/on/local/fs/mydata.txt" , "etc")
+lines = topo.source(CSVFileReader("mydata.txt"))
+lines.filter(lambda tpl: int(tpl["min"]) >= 5).print()  
+
+~~~~
+
+Sample output:
+
+~~~~ python
+{'min': '18', 'id': '8756', 'max': '26', 'timestamp': '1551729580087'}
+{'min': '5', 'id': '6508', 'max': '25', 'timestamp': '1551729422809'}
+~~~~
+
 
 ### 4.1.2 Itertools
 
@@ -282,6 +387,10 @@ import itertools
 def repeat_sequence():
     return itertools.repeat("A")
 ````
+
+### Reference
+* [Topology.source](https://streamsxtopology.readthedocs.io/en/stable/streamsx.topology.topology.html#streamsx.topology.topology.Topology.source)
+* [Topology.add_file_dependency](https://streamsxtopology.readthedocs.io/en/stable/streamsx.topology.topology.html#streamsx.topology.topology.Topology.add_file_dependency)
 
 
 <a id="filter"></a>
