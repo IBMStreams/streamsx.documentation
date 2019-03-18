@@ -397,7 +397,7 @@ def repeat_sequence():
 ## 4.2 Filtering data
 You can invoke the `filter` transform on a `Stream` object when you want to selectively allow tuples to be passed and reject tuples from being passed to another stream. The filtering is done based on a provided callable object. The `Stream.filter()` function takes as input a callable object that takes a single tuple as an argument and returns True or False.
 
-Filtering is an immutable operation. When you filter a stream, the tuples are not altered. (If you want to alter the type or content of a tuple, see [Transforming data](#map).)
+Filtering is an immutable transform. When you filter a stream, the tuples are not altered. (If you want to alter the type or content of a tuple, see [Transforming data](#map).)
 
 For example, you have a `source` function that returns a set of four words from the English dictionary. However, you want to create a `Stream` object of words that do not contain the letter "a".
 
@@ -450,7 +450,7 @@ def main():
     topo = Topology("filter_words")
     words = topo.source(words_in_dictionary)
     words_without_a = words.filter(does_not_contain_a)
-    words_without_a.sink(print)
+    words_without_a.for_each(print)
     streamsx.topology.context.submit("STANDALONE", topo)
 
 if __name__ == '__main__':
@@ -501,14 +501,14 @@ def print_stderr(tuple):
 def main():
     topo = Topology("sink_stderr")
     source = topo.source(source_tuples)
-    source.sink(print_stderr)
+    source.for_each(print_stderr)
     streamsx.topology.context.submit("STANDALONE", topo)
 
 if __name__ == '__main__':
     main()
 ~~~~~~
 
-Tip: If the `sink` function prints to the console, ensure the output to stdout or stderr is flushed afterward by calling `sys.stdout.flush()` or `sys.stderr.flush()`.
+Tip: If the `for_each` transform prints to the console, ensure the output to stdout or stderr is flushed afterward by calling `sys.stdout.flush()` or `sys.stderr.flush()`.
 
 ### 4.4.2 Sample output
 Run the `python3 sink_stderr.py` script.
@@ -523,7 +523,7 @@ tuple3
 
 
 <a id="map"></a>
-## 4.5 Transforming data
+## 4.5 Modifying data
 You can invoke `map` or `flat_map` on a `Stream` object when you want to:
 
 * Modify the contents of the tuple.
@@ -535,7 +535,7 @@ The following sections walk you through an example of each type of transform.
 ### 4.5.1 Map: Modifying the contents of a tuple
 The `Stream.map()` function takes as input a callable object that takes a single tuple as an argument and returns either 0 or 1 tuple.
 
-For example, you have a `source` function that returns a set of four words from the English dictionary. However, you want to create a `Stream` object that contains only the first four letters of each word. You need to use a `map` operation because it can modify the tuple.
+For example, you have a `source` function that returns a set of four words from the English dictionary. However, you want to create a `Stream` object that contains only the first four letters of each word. You need to use a `map` transform because it can modify the tuple.
 
 To achieve this:
 
@@ -559,7 +559,7 @@ def main():
     topo = Topology("map_substring")
     words = topo.source(words_in_dictionary)
     first_four_letters = words.map(first_four_letters)
-    first_four_letters.sink(print)
+    first_four_letters.for_each(print)
     streamsx.topology.context.submit("STANDALONE", topo)
 
 if __name__ == '__main__':
@@ -578,7 +578,7 @@ qual
 quiz
 ~~~~~~
 
-As you can see, the `map` operation modifies the tuples. In this instance, the operation modifies the tuples so that only the first four letters of each word are returned.
+As you can see, the `map` transform modifies the tuples. In this instance, the tuples are modified so that each tuple now only includes the first four letters of each word.
 
 
 ### 4.5.2 Map: Changing the type of a tuple
@@ -610,7 +610,7 @@ def main():
     topo = Topology("map_type")
     string_tuples = topo.source(int_strings)
     int_tuples = string_tuples.map(string_to_int)
-    int_tuples.map(multiply2_add1).sink(print)
+    int_tuples.map(multiply2_add1).for_each(print)
     streamsx.topology.context.submit("STANDALONE", topo)
 
 if __name__ == '__main__':
@@ -635,12 +635,12 @@ Additionally, you aren't restricted to using built-in Python classes, such as st
 
 
 ### 4.5.3 Flat_map: Breaking one tuple into multiple tuples
-The `flat_map` operation transforms each tuple from a `Stream` object into 0 or more tuples.  The `Stream.flat_map()` function takes a single tuple as an argument, and returns an iterable of tuples.
+The `flat_map` transform converts each incoming tuple from a `Stream` object into 0 or more tuples.  The `Stream.flat_map()` function takes a single tuple as an argument, and returns an iterable of tuples.
 
 For example, you have a `Stream` object in which each tuple is a line of text. You want to break down each tuple so that each resulting tuple contains only one word. The order of the words from the original tuple is maintained in the resulting `Stream` object.  
 
 * Define a `Stream` object called `lines` that generates lines of text.
-* Split the `lines` `Stream` object into individual words by passing the `split` function into the `flat_map` operation.
+* Split the `lines` `Stream` object into individual words by passing the `split` function into the `flat_map` transform.
 
 #### 4.5.3.1 Sample application
 To achieve this:
@@ -681,9 +681,9 @@ as
 snow
 ~~~~~~
 
-As you can see, the `flat_map` operation broke each of the original tuples into the component pieces, in this case, the component words, and maintained the order of the pieces in the resulting tuples.
+As you can see, the `flat_map` transform broke each of the original tuples into the component pieces, in this case, the component words, and maintained the order of the pieces in the resulting tuples.
 
-**Tip:** You can use the `flat_map` operation with any list of Python objects that is serializable with the pickle module. The members of the list can be different classes, such as strings and integers, user-defined classes, or classes provided by a third-party module.
+**Tip:** You can use the `flat_map` transform with any list of Python objects that is serializable with the pickle module. The members of the list can be different classes, such as strings and integers, user-defined classes, or classes provided by a third-party module.
 
 <a id="state"></a>
 ## 4.6 Keeping track of state information across tuples
@@ -724,7 +724,7 @@ def main():
     topo = Topology("transform_stateful")
     floats = topo.source(readings)
     avg = floats.map(AvgLastN(10))
-    avg.sink(print)
+    avg.for_each(print)
     streamsx.topology.context.submit("STANDALONE", topo)
 
 if __name__ == '__main__':
@@ -749,7 +749,7 @@ The contents of your output file looks something like this:
 
 In this example, `AvgLastN.n`, which is initialized from the user-defined parameter n, and `AvgLastN.last_n` are examples of data whose state is kept in between tuples.
 
-**Tip:** Any type of operation (source, filter, map, and sink) can accept callable objects that maintain stateful data.
+**Tip:** Any type of transform (source, filter, map, and sink) can accept callable objects that maintain stateful data.
 
 You can also create a user-defined function that refers to global variables. Unlike variables that are defined within a function, global variables persist in the runtime process. However, this approach is **not recommended** because the way in which the processing elements are fused can change how global variables are shared across functions or callable objects.
 
@@ -796,8 +796,8 @@ def print2(tuple):
 def main():
     topo = Topology("split_source")
     source = topo.source(source_tuples)
-    source.sink(print1)
-    source.sink(print2)
+    source.for_each(print1)
+    source.for_each(print2)
     streamsx.topology.context.submit("STANDALONE", topo)
 
 if __name__ == '__main__':
@@ -822,7 +822,7 @@ print1 tuple3
 
 <a id="union"></a>
 ## 4.7 Joining streams (union)
-You can combine multiple streams into a single `Stream` object by using the `union` operation. The `Stream.union()` function takes a set of streams as an input variable and combines them into a single `Stream` object. However, the order of the tuples in the output `Stream` object is not necessarily the same as in the input streams.
+You can combine multiple streams into a single `Stream` object by using the `union` transform. The `Stream.union()` function takes a set of streams as an input variable and combines them into a single `Stream` object. However, the order of the tuples in the output `Stream` object is not necessarily the same as in the input streams.
 
 For example, you want to combine the streams from the `source` functions h, b, c, and w. You can combine the streams by using the `union` function and then use the `sink` function to write the resulting `Stream` object to output.
 
@@ -857,7 +857,7 @@ def main():
     c = topo.source(crazy)
     w = topo.source(world)
     hwu = h.union({b, c, w})
-    hwu.sink(print1)
+    hwu.for_each(print1)
     streamsx.topology.context.submit("STANDALONE", topo)
 
 if __name__ == '__main__':
@@ -881,13 +881,13 @@ The contents of your output file looks something like this:
 
 <a id="publish"></a>
 ## 4.8 Publishing streams
-You can make an output stream available to applications by using the `publish` operation. The `Stream.publish()` function takes the tuples on a stream, converts the tuples to Python objects, JSON objects, or strings, and then publishes the output to a topic. (A topic is based on the MQTT topic specification. For more information, see the [MQTT protocol specification](http://public.dhe.ibm.com/software/dw/webservices/ws-mqtt/mqtt-v3r1.html))
+You can make an output stream available to applications by using the `publish` transform. The `Stream.publish()` function takes the tuples on a stream, converts the tuples to Python objects, JSON objects, or strings, and then publishes the output to a topic. (A topic is based on the MQTT topic specification. For more information, see the [MQTT protocol specification](http://public.dhe.ibm.com/software/dw/webservices/ws-mqtt/mqtt-v3r1.html))
 
 To receive the tuples, an application must subscribe to the topic that you publish by specifying the same topic and schema. For more information, see [Subscribing to streams](#39-subscribing-to-streams).
 
-**Restrictions:** The `publish` operation does not work in STANDALONE mode. Additionally, the `publish` operation and the `subscribe` operation must be running in the same instance of IBM Streams.
+**Restrictions:** The `publish` transform does not work in STANDALONE mode. Additionally, the application that publishes and the one that subscribes must be running in the same instance of IBM Streams.
 
-For example, you can use the `publish` operation to make tuples from a Python streams-processing application available to an IBM Streams Processing Language (SPL) streams-processing application.
+For example, you can use the `publish` transform to make tuples from a Python streams-processing application available to an IBM Streams Processing Language (SPL) streams-processing application.
 
 The schema that you specify determines the type of objects that are published:
 
@@ -949,11 +949,11 @@ This example is based on the `pubsub` sample in GitHub. For more information abo
 
 
 ## 4.9 Subscribing to streams
-If an application publishes a stream to a topic, you can use the `subscribe` operation to pull that data into your application.
+If an application publishes a stream to a topic, you can use the `subscribe` transform to pull that data into your application.
 
-**Remember:** The `publish` operation and the `subscribe` operation must be running in the same instance of IBM Streams.
+**Remember:** The `subscribe` transform must be running in the same instance of IBM Streams as the application that is publishing data.
 
-To subscribe to a topic, the `subscribe` operation must specify the same topic and schema as the corresponding `publish` operation. The application that published the topic can be written in any language that IBM Streams supports.
+To subscribe to a topic, use the `Topology.subscribe` function, specifying the same topic and schema as the corresponding `Topology.publish` function. The application that published the topic can be written in any language that IBM Streams supports.
 
 The schema determines the type of objects that the application receives:
 
@@ -969,7 +969,7 @@ You can also subscribe to topics that use an SPL schema. (Most applications that
 
 When you use the `Topology.subscribe()` function for a topic with an SPL schema in a Python application, the tuple attributes from the topic are converted to the appropriate Python type and added to a Python dictionary object. (The name of the attribute is used as the dictionary key value.)
 
-The syntax that you use to subscribe to an SPL schema is `schema.StreamSchema(“tuple<attribute_type attribute_name, ...>”)`. The schema must exactly match the schema that is specified by the corresponding `publish` operation. For example:
+The syntax that you use to subscribe to an SPL schema is `schema.StreamSchema(“tuple<attribute_type attribute_name, ...>”)`. The schema must exactly match the schema that is specified by the corresponding `publish` transform. For example:
 
 * A simple schema might be `schema.StreamSchema(“tuple<ustring ustr1>”)`
 * A more complex schema might be `schema.StreamSchema(tuple“<rstring rs1, uint32 u321, list<uint32> liu321, set<uint32> setu321>")`
@@ -994,7 +994,7 @@ For more information about topics, see [namespace:com.ibm.streamsx.topology.topi
 <!--- pl TBD? --->
 
 ### 4.9.1 Sample code
-The `Topology.subscribe()` function takes as input the name of the topic that you want to subscribe to and the schema to publish. The function returns a `Stream` object whose tuples have been published to the topic by an IBM Streams application.
+The `Topology.subscribe()` function takes as input the name of the topic that you want to subscribe to and the schema describing the stream. The function returns a `Stream` object whose tuples have been published to the topic by an IBM Streams application.
 
 For example, you want to subscribe to the stream that you published in [Publishing streams](#38-publishing-streams).
 
@@ -1028,64 +1028,4 @@ The contents of your output file look something like this:
 12394
 12395
 ...
-~~~~~
-<a id="mqtt"></a>
-## 4.10 Publishing streams to an MQTT broker
-If you run an IBM Streams application on a remote sensor or device, you can make an output stream available to applications by using the `publish` operation. Publishing a stream to an MQTT broker is similar to publishing a stream to a topic with the following exceptions:
-
-* To publish a stream to an MQTT broker, you must configure a connector to enable IBM Streams to communicate with the broker.
-The schema of the tuples must be rstring (`"tuple<rstring message>"`).
-
-* To receive the tuples, an application must subscribe to the topic that you publish by specifying the same topic and server URI. For more information, see [Subscribing to streams on an MQTT broker](#311-subscribing-to-a-stream-on-an-mqtt-broker).
-
-An MQTT connector (`Connector`) points to a specific MQTT broker. You can use the same MqttStreams connector for any number of `publish()` and `subscribe()` connections.
-
-To create a connector, you must specify the URI of the MQTT server (`serverURI`). Valid formats are:
-
-* `tcp://host_name:port_number` - The port defaults to 1883.
-* `ssl://host_name:port_number` - The port defaults to 8883.
-
-If you need to authenticate to the server, you can specify a user ID (`userID`) and password (`password`).
-
-Additionally, you can specify other configuration parameters, such as a message queue size (`messageQueueSize`) or the fully qualified path of a keystore (`keyStore`). For more information about the optional configuration parameters, see [https://github.com/IBMStreams/streamsx.topology/blob/master/com.ibm.streamsx.topology/opt/python/packages/streamsx/topology/mqtt.py](https://github.com/IBMStreams/streamsx.topology/blob/master/com.ibm.streamsx.topology/opt/python/packages/streamsx/topology/mqtt.py)
-
-For more information about the MQTT implementation, see MQTT support at [http://ibmstreams.github.io/streamsx.topology/doc/spldoc/html/tk$com.ibm.streamsx.topology/ns$com.ibm.streamsx.topology.python$5.html](http://ibmstreams.github.io/streamsx.topology/doc/spldoc/html/tk$com.ibm.streamsx.topology/ns$com.ibm.streamsx.topology.python$5.html).
-
-### 4.10.1 Sample code
-The `Connector.publish()` function takes as input the name of the stream to publish and the topic on the MQTT server that you want to publish the tuples to. The function returns `None`.
-
-For example, you want to publish a stream to the topic called `python.topic1` on your MQTT server (`tcp://localhost:1883`) so that your central analytic server can access the data that is generated on the remote device where your application is running.
-
-To achieve this:
-
-Include the following lines in the `publish_mqtt.py` file:
-
-~~~~~
-from streamsx.topology.topology import *
-from streamsx.topology import schema
-import streamsx.topology.context
-from streamsx.topology.mqtt import *
-
-def my_mqtt_publish():
-  return [123, 2.344, "4.0", "Garbage text", 1.234e+15,]
-
-def main():
-   topo = Topology("An MQTT application")
-
-   # create the connector's configuration property map
-   config['serverURI'] = "tcp://localhost:1883"
-   config['userID'] = "user1id"
-   config[' password'] = "user1passwrd"
-
-   # create the connector
-   mqstream = MqttStreams(topo,config)
-
-   # publish a python source stream to the topic "python.topic1"
-   topic = "python.topic1"
-   src = topo.source(my_mqtt_publish)
-   mqs = mqstream.publish(src, topic)
-   streamsx.topology.context.submit("BUNDLE", topo)
-
-if __name__ == '__main__':
-   main()
 ~~~~~

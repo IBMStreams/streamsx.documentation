@@ -10,7 +10,7 @@ prev:
   title: 2.0 Developing for the IBM Streaming Analytics service
 next:
   file: python-appapi-devguide-4
-  title: 4.0 Common Streams operations
+  title: 4.0 Common Streams transforms
 ---
 
 Follow the steps in this tutorial to get started with the Python Application API by creating an application that reads data from a temperature sensor and prints the output to the screen.
@@ -102,7 +102,7 @@ The `Topology.source()` function takes as input a zero-argument callable object,
 ## 3.4 Creating a `Stream` object
 The `Topology.source()` function produces a `Stream` object, which is a potentially infinite flow of tuples in an application. Because a streaming analytics application can run indefinitely, there is no upper limit to the number of tuples that can flow over a `Stream` object.  
 
-**Tip:** Tuples flow over a `Stream` object one at a time and are processed by subsequent data operations. Operations are discussed in more detail in the [Common Streams operations](../python-appapi-devguide-4/) section of this guide. A tuple can be any Python object that is serializable by using the pickle module.
+**Tip:** Tuples flow over a `Stream` object one at a time and are processed by subsequent data transforms. Transforms are discussed in more detail in the [Common Streams transforms](../python-appapi-devguide-4/) section of this guide. A tuple can be any Python object that is serializable by using the pickle module.
 
 Also include the following code in the `temperature_sensor.py` file:
 
@@ -112,7 +112,7 @@ source = topo.source(readings)
 
 
 ## 3.5 Generating output
-After you obtain the data, you are ready to produce output. In our case, we will just print the source `Stream` it to standard output by using the `for_each` operation, which terminates the stream.
+After you obtain the data, you are ready to produce output. In our case we will just print the data to standard output using the `for_each` transform.
 
 Include the following code in the `temperature_sensor.py` file:
 
@@ -120,8 +120,10 @@ Include the following code in the `temperature_sensor.py` file:
 source.for_each(print)
 ~~~~~~
 
-The `Stream.for_each()` operation takes as input a callable object that takes a single tuple as an argument and returns no value. The callable object is invoked with each tuple. In this example, the `for_each` operation calls the built-in `print()` function with the tuple as its argument.  
-To send a `Stream` to an external system such as a file or database, implement a callable and pass the callable to `for_each`.
+In this example, the `for_each` function calls the built-in `print()` function for each tuple it receives.
+
+To send a Stream to an external system such as a file or database, implement a callable that takes a tuple as an argument, and pass the callable to `for_each`.
+
 
 
 ## 3.6 Submitting the application
@@ -179,4 +181,4 @@ The contents of your output will look something like this:
 
 ## Conclusion
 
-You've created a very simple Streams Python application that creates a source `Stream` of data using `Topology.source()` and prints that `Stream`.  Typically, you would not just print the source `Stream`, but would process the data on the `Stream` using the various transformations. These are discussed in section 4, [Common Streams Transformations](/streamsx.documentation/docs/python/1.6/python-appapi-devguide-4).
+You've created a very simple Streams Python application that creates a source `Stream` of data using `Topology.source()` and prints that `Stream`.  Typically, you would not just print the source `Stream`, but would process the data on the `Stream` using the various transformations. These are discussed in section 4, [Common Streams transforms](/streamsx.documentation/docs/python/1.6/python-appapi-devguide-4).
