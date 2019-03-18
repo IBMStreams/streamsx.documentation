@@ -10,7 +10,7 @@ ul.simple {
   list-style: none;
   margin-left: -20px;
 }
-ul li {
+ul.simple ul{
   list-style: none;
 }
 h1, h2, h3, h4 {

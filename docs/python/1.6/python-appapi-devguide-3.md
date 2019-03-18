@@ -10,7 +10,7 @@ prev:
   title: 2.0 Developing for the IBM Streaming Analytics service
 next:
   file: python-appapi-devguide-4
-  title: 4.0 Common Streams operations
+  title: 4.0 Common Streams transforms
 ---
 
 Follow the steps in this tutorial to get started with the Python Application API by creating an application that reads data from a temperature sensor and prints the output to the screen.
@@ -24,28 +24,17 @@ Streaming analytics applications are intended to run indefinitely because they m
 The application must also be scalable. If the number of temperature sensors doubles, the application must double the speed at which it processes data to ensure that analysis is available in a timely manner.
 
 ## 3.1 Setting up your environment
-Before you can create your first Python application with the Python Application API and a local version of IBM Streams, you must complete the following setup tasks. These steps assume that you are installing Python 3.5 from Anaconda on a Linux workstation.
+Before you can create your first Python application with a local version of IBM Streams, you must complete the following setup tasks. These steps assume that you are installing Python 3.5 from Anaconda on a Linux workstation.
 
-1. Install version 4.0.1 or later of IBM Streams or IBM Streams Quick Start Edition:
+1. Install the Streams Python package, `streamsx`,  from PyPi:
 
-    * [IBM Streams Version 4.2.1 installation documentation](http://www.ibm.com/support/knowledgecenter/SSCRJU_4.2.1/com.ibm.streams.install.doc/doc/installstreams-container.html)
+    `pip install streamsx`
 
-    * [IBM Streams Quick Start Edition Version 4.2.1 installation documentation](http://www.ibm.com/support/knowledgecenter/SSCRJU_4.2.1/com.ibm.streams.qse.doc/doc/installtrial-container.html)
+1. Install version 4.2 or later of IBM Streams or the IBM Streams Quick Start Edition:
 
-1. Ensure that you configure the IBM Streams product environment variable by entering the following command on the command line:
+    * [IBM Streams Version 4.3.0 installation documentation](https://www.ibm.com/support/knowledgecenter/SSCRJU_4.3.0/com.ibm.streams.install.doc/doc/installstreams-container.html)
 
-        source product-installation-root-directory/4.n.n.n/bin/streamsprofile.sh
-
-    **Tip:** Add the source command to your `home-directory/.bashrc` shell initialization file. Otherwise, you must enter the command every time you start IBM Streams. For example, if the product is installed in the `/home/streamsadmin/InfoSphere_Streams/4.2.1.0` directory, add the following line to your `.bashrc` file:
-
-        source /home/streamsadmin/InfoSphere_Streams/4.2.1.0/bin/streamsprofile.sh
-
-1. If necessary, install the Python Application API.
-    * IBM Streams 4.2 or later: The Python Application API is included at `$STREAMS_INSTALL/toolkits/com.ibm.streamsx.topology`, so no installation is necessary.
-    * IBM Streams 4.1.1 or earlier, or to upgrade to the latest version of the IBM Streams Topology toolkit:
-        1. Download the latest version of the toolkit from the streamsx.topology [Releases page](https://github.com/Ibmstreams/streamsx.topology/releases) on GitHub.
-        1. After the toolkit is downloaded, extract it to your file system.
- <br><br>
+    * [IBM Streams Quick Start Edition Version 4.3.0 installation documentation](https://www.ibm.com/support/knowledgecenter/SSCRJU_4.3.0/com.ibm.streams.qse.doc/doc/installtrial-container.html)
 
 1. (IBM Streams only, doesn't apply to the Quick Start Edition) If necessary, install a supported version of Python. Python 2.7 and Python 3.5 are supported. **Important:** Python 3.5 is required to build application bundles with the Python Application API that can be submitted to your IBM Streaming Analytics service.
 
@@ -56,9 +45,13 @@ Before you can create your first Python application with the Python Application 
 
      If you build Python from source, remember to pass `--enable-shared` as a parameter to  `configure`.  After installation, set the `LD_LIBRARY_PATH` environment variable to `Python_Install>/lib`.
 
-1. Include the fully qualified path of the `com.ibm.streamsx.topology/opt/python/packages` directory in the `PYTHONPATH` environment variable. For example, enter the following command on the command line:
+1. Streams also includes a version of the `streamsx` package, so to make sure you are using the latest version of streamsx and not the one bundled with Streams, you should either:
 
-        export PYTHONPATH=/home/myuser/download/com.ibm.streamsx.topology/opt/python/packages:$PYTHONPATH
+   - Remove the `PYTHONPATH` environment variable, e.g `unset PYTHONPATH`
+   - Or, make sure that `PYTHONPATH` does not include a path ending with `com.ibm.streamsx.topology/opt/python/package`.  
+
+   **Tip**: Add the `unset PYTHONPATH` line to your `home-directory/.bashrc` shell initialization file. Otherwise, you'll have to enter the command every time you start IBM Streams.
+
 1. Set the `PYTHONHOME` application environment variable on your Streams instance by entering the following `streamtool` command on the command line:
 
         streamtool setproperty -i <INSTANCE_ID> -d <DOMAIN_ID> --application-ev PYTHONHOME=<path_to_python_install>
@@ -102,7 +95,7 @@ The `Topology.source()` function takes as input a zero-argument callable object,
 ## 3.4 Creating a `Stream` object
 The `Topology.source()` function produces a `Stream` object, which is a potentially infinite flow of tuples in an application. Because a streaming analytics application can run indefinitely, there is no upper limit to the number of tuples that can flow over a `Stream` object.  
 
-**Tip:** Tuples flow over a `Stream` object one at a time and are processed by subsequent data operations. Operations are discussed in more detail in the [Common Streams operations](../python-appapi-devguide-4/) section of this guide. A tuple can be any Python object that is serializable by using the pickle module.
+**Tip:** Tuples flow over a `Stream` object one at a time and are processed by subsequent data transforms. Transforms are discussed in more detail in the [Common Streams transforms](../python-appapi-devguide-4/) section of this guide. A tuple can be any Python object that is serializable by using the pickle module.
 
 Also include the following code in the `temperature_sensor.py` file:
 
@@ -112,7 +105,7 @@ source = topo.source(readings)
 
 
 ## 3.5 Generating output
-After you obtain the data, you are ready to produce output. In our case, we will just print the source `Stream` it to standard output by using the `for_each` operation, which terminates the stream.
+After you obtain the data, you are ready to produce output. In our case we will just print the data to standard output using the `for_each` transform.
 
 Include the following code in the `temperature_sensor.py` file:
 
@@ -120,8 +113,10 @@ Include the following code in the `temperature_sensor.py` file:
 source.for_each(print)
 ~~~~~~
 
-The `Stream.for_each()` operation takes as input a callable object that takes a single tuple as an argument and returns no value. The callable object is invoked with each tuple. In this example, the `for_each` operation calls the built-in `print()` function with the tuple as its argument.  
-To send a `Stream` to an external system such as a file or database, implement a callable and pass the callable to `for_each`.
+In this example, the `for_each` function calls the built-in `print()` function for each tuple it receives.
+
+To send a Stream to an external system such as a file or database, implement a callable that takes a tuple as an argument, and pass the callable to `for_each`.
+
 
 
 ## 3.6 Submitting the application
@@ -179,4 +174,4 @@ The contents of your output will look something like this:
 
 ## Conclusion
 
-You've created a very simple Streams Python application that creates a source `Stream` of data using `Topology.source()` and prints that `Stream`.  Typically, you would not just print the source `Stream`, but would process the data on the `Stream` using the various transformations. These are discussed in section 4, [Common Streams Transformations](/streamsx.documentation/docs/python/1.6/python-appapi-devguide-4).
+You've created a very simple Streams Python application that creates a source `Stream` of data using `Topology.source()` and prints that `Stream`.  Typically, you would not just print the source `Stream`, but would process the data on the `Stream` using the various transformations. These are discussed in section 4, [Common Streams transforms](/streamsx.documentation/docs/python/1.6/python-appapi-devguide-4).

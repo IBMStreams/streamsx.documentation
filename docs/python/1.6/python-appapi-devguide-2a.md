@@ -151,7 +151,7 @@ The `Topology.source()` function takes as input a zero-argument callable object,
 ## 2.7 Creating a `Stream` object
 The `Topology.source()` function produces a `Stream` object, which represents a potentially infinite sequence of tuples. Because a streaming analytics application can run indefinitely, there is no upper limit to the number of tuples that can flow over a `Stream` object.
 
-**Tip:** Tuples flow over a `Stream` object one at a time and are processed by subsequent data operations. Operations are discussed in more detail in the [Common Streams operations](../python-appapi-devguide-4/) section of this guide. A tuple can be any Python object that is serializable by using the pickle module.
+**Tip:** Tuples flow over a `Stream` object one at a time and are processed by subsequent data transforms. Transforms are discussed in more detail in the [Common Streams transforms](../python-appapi-devguide-4/) section of this guide. A tuple can be any Python object that is serializable by using the pickle module.
 
 Create a source stream by entering the following code at the Python prompt:
 
@@ -161,7 +161,7 @@ source = topo.source(readings)
 
 
 ## 2.8 Generating output
-After you obtain the data, you are ready to produce output. In our case, we will just print the source `Stream` it to standard output by using the `for_each` operation, which terminates the stream.
+After you obtain the data, you are ready to produce output.  In our case, we will just print the data to standard output using the `for_each` transform.
 
 Print to output by entering the following code at the Python prompt:
 
@@ -169,8 +169,10 @@ Print to output by entering the following code at the Python prompt:
 source.for_each(print)
 ~~~~~~
 
-The `Stream.for_each()` operation takes as input a callable object that takes a single tuple as an argument and returns no value. The callable object is invoked with each tuple. In this example, the `for_each` operation calls the built-in `print()` function with the tuple as its argument.  
-To send a `Stream` to an external system such as a file or database, implement a callable and pass the callable to `for_each`.
+In this example, the `for_each` function calls the built-in `print()` function for each tuple it receives.
+
+To send a Stream to an external system such as a file or database, implement a callable that takes a tuple as an argument, and pass the callable to `for_each`.
+
 
 
 ## 2.9 Submitting the job to the Streaming Analytics service
