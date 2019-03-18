@@ -161,7 +161,7 @@ source = topo.source(readings)
 
 
 ## 2.8 Generating output
-After you obtain the data, you are ready to produce output.  In our case we will just print the data to standard output using the `for_each` transform.
+After you obtain the data, you are ready to produce output.  In our case, we will just print the data to standard output using the `for_each` transform.
 
 Print to output by entering the following code at the Python prompt:
 
