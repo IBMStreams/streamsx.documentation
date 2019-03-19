@@ -232,10 +232,10 @@ class WikipediaReader(object):
             if event.id == None: continue
             try:
                 data = json.loads(event.data)
-                event = {"ts": parsed_json["timestamp"],
-                         "user": parsed_json["user"], "type"
-                         "page": parsed_json["meta"]["uri"],
-                         "title": parsed_json["title"]}
+                event = {"ts": data["timestamp"],
+                         "user": data["user"], "type"
+                         "page": data["meta"]["uri"],
+                         "title": data["title"]}
                 yield event   
                 # Check if the application has shut down between emitted events
                 if streamsx.ec.shutdown().wait(0.05): break
