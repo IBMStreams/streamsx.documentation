@@ -1,27 +1,42 @@
 ---
 layout: docs
-title: 1.0 Installing Python APIs
+title: Installing Python APIs
 description: Prerequisites and installation instructions for the Python Application API
 weight:  20
 published: true
 tag: py16
 prev:
   file: python-appapi-devguide
-  title: Developing IBM Streams Applications with Python
+  title: Introduction
 next:
   file: python-appapi-devguide-2a
-  title: 2.0 Developing for the IBM Streaming Analytics service
+  title: Create an application for the Streaming Analytics service
 ---
 
-The Python language support package is shipped with IBM Streams. You can also download the latest package as part of the com.ibm.streamsx.topology toolkit or as a stand-alone streamsx Python package. You can use either the toolkit or the Python package, the only difference between them is how you download them.
 
-* Topology toolkit (com.ibm.streamsx.topology)
+If you are developing applications that will run within **IBM Cloud Private for Data**, the Streams Python API is already installed.
 
-  The topology toolkit comes with IBM Streams 4.2 or later. It's located in: `$STREAMS_INSTALL/toolkits/com.ibm.streamsx.topology`.
-  <br>You can download the latest version of the toolkit from <https://github.com/IBMStreams/streamsx.topology/releases/latest>.
-
-* Stand-alone streamsx Python package
-
-  The streamsx Python package is available for download from <https://pypi.python.org/pypi/streamsx>. You can install it with the **pip** command:
+For all other scenarios, the [streamsx package](https://pypi.python.org/pypi/streamsx) from PyPi contains the Python language support. Install `streamsx` using **pip**:
 
         pip install streamsx
+
+If it is already installed, upgrading to the latest version is recommended:
+
+        pip install --upgrade streamsx
+
+
+**Note:** The Streaming Analytics service only supports Python 3.5.
+
+
+## Create your first application
+
+To get started with the Python Application API, you'll create an application that reads data from a temperature sensor and prints the output.
+
+Choose a tutorial to create your first application on:
+
+* The [**IBM Streaming Analytics service**](/streamsx.documentation/docs/python/1.6/python-appapi-devguide-2a/) (Python 3.5 only).
+* [**A local installation of IBM Streams**](/streamsx.documentation/docs/python/1.6/python-appapi-devguide-3/)
+* [**IBM Cloud Private for Data**](/streamsx.documentation/docs/python/1.6/python-appapi-devguide-2b/)
+
+## Learn more about the API
+After creating your first application, visit the [common Streams transforms](/streamsx.documentation/docs/python/1.6/python-appapi-devguide-4/) section to learn more about the API.

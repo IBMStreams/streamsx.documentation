@@ -1,30 +1,23 @@
 ---
 layout: docs
-title:  2.0 Developing for the IBM Streaming Analytics service
-description:  Learn how to deploy a Python application in the IBM Streaming Analytics service on IBM Bluemix, without installing IBM Streams.
+title:  Create your first application in the Streaming Analytics service
+description:  Learn how to deploy a Python application in the IBM Streaming Analytics service on IBM Cloud, without installing IBM Streams.
 weight: 25
 published: true
 tag: py16
 prev:
   file: python-appapi-devguide-2
-  title: 1.0 Installing Python APIs
+  title: Installing Python APIs
 next:
-  file: python-appapi-devguide-3
-  title: 3.0 Developing with an IBM Streams installation
+  file: python-appapi-devguide-2b
+  title: Create an application for IBM Cloud Private for data
 ---
 
-Follow the steps in this tutorial to get started with the Python Application API by creating an application that reads data from a temperature sensor and prints the output to the screen. The application runs as a job in your instance of the Streaming Analytics service on IBM Bluemix.
+Get started with the Python Application API by creating an application that reads data from a temperature sensor and prints the output. The application runs as a job in your instance of the Streaming Analytics service on the IBM Cloud.
 
 The Streaming Analytics service is built on IBM Streams technology. You don't need to install a local version of IBM Streams to build Python applications for the service.
 
 This tutorial requires a Python 3.5 environment. Familiarity with Python is recommended.
-
-## About streaming analytics applications
-
-Streaming analytics applications are intended to run indefinitely because they meet the need for real-time data processing. (This is in contrast to applications created for the Apache Hadoop framework, which are intended to terminate when a batch of data is successfully processed.) For example, consider a company whose product scans temperature sensors across the world to determine weather patterns and trends. Because there is always a temperature, there is a perpetual need to process data. The application that processes the data must be able to run for an indefinite amount of time.
-
-The application must also be scalable. If the number of temperature sensors doubles, the application must double the speed at which it processes data to ensure that analysis is available in a timely manner.
-
 
 ## 2.1 Setting up your Python environment
 
@@ -65,9 +58,9 @@ your Java version:
 ## 2.2 Starting a Streaming Analytics service
 
 Make sure that your Streaming Analytics service is running.
-* If you have a Streaming Analytics service in [IBM Bluemix](https://console.ng.bluemix.net/), make sure that it is started and running.
+* If you have a Streaming Analytics service in [IBM Cloud](https://console.ng.bluemix.net/), make sure that it is started and running.
 * To create a new Streaming Analytics service:
-  1. Go to the [Bluemix web portal](https://www.ibm.com/cloud-computing/bluemix/) and sign in (or sign up for a free Bluemix account).
+  1. Go to the [IBM Cloud web portal](https://www.ibm.com/cloud-computing/bluemix/) and sign in (or sign up for a free IBM Cloud account).
   2. Click **Catalog**, browse for the Streaming Analytics service, and then click it.
   3. Enter the service name and then click **Create** to set up your service. The service dashboard opens and your service starts automatically. The service name appears as the title of the service dashboard.
 

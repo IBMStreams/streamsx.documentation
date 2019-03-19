@@ -1,13 +1,13 @@
 ---
 layout: docs
-title:  6.0 The Python REST API
-description:  Learn how to use the Python REST API to monitor and interact with IBM Streams resources.
+title:  The Python REST API
+description:  "Learn how to use the Python REST API to monitor and interact with IBM Streams resources."
 weight: 60
 published: true
 tag: py16
 prev:
   file: python-appapi-devguide-5
-  title: "5.0 API features: User-defined parallelism"
+  title: "API features: User-defined parallelism"
 ---
 
 Depending on the problem at hand, a developer might choose to create an IBM Streams application in a particular programming language. To this end, the 'streamsx.topology' project supports APIs in Java, Scala, Python, and IBM Streams Processing Language (SPL). Regardless of the language used to develop and submit the application, however, it becomes necessary to monitor the application while it is running. By monitoring the application, you can observe runtime information regarding the application or its environment, for example:
@@ -36,7 +36,7 @@ sc = rest.StreamsConnection(username="streamsadmin", password="passw0rd", resour
 sc.session.verify = False
 ```
 
-If the URL is omitted, the `StreamsConnection` instance connects to a locaL Streams installation. 
+If the URL is omitted, the `StreamsConnection` instance connects to a locaL Streams installation.
 By default, SSL authentication is enabled. To disable it, enter `sc.session.verify = False` immediately after you create your `StreamsConnection` instance.
 
 ## Connecting to the IBM Streaming Analytics service on IBM Cloud

@@ -1,27 +1,22 @@
 ---
 layout: docs
-title:  3.0 Developing with an IBM Streams installation
+title:  Create your first application with an IBM Streams installation
 description: To get started with the Python Application API, use the example of reading data from a temperature sensor and printing the output to the screen.
 weight:  30
 published: true
 tag: py16
 prev:
-  file: python-appapi-devguide-2
-  title: 2.0 Developing for the IBM Streaming Analytics service
+  file: python-appapi-devguide-2b
+  title: Create an application for IBM Cloud Private for Data
 next:
   file: python-appapi-devguide-4
-  title: 4.0 Common Streams transforms
+  title: Common Streams transforms
 ---
 
-Follow the steps in this tutorial to get started with the Python Application API by creating an application that reads data from a temperature sensor and prints the output to the screen.
+Follow the steps in this tutorial to get started with the Python Application API by creating an application that reads data from a temperature sensor and prints the output.
 
 This tutorial requires a local installation of IBM Streams. Familiarity with Python is recommended.
 
-## About streaming analytics applications
-
-Streaming analytics applications are intended to run indefinitely because they meet the need for real-time data processing. (This is in contrast to applications created for the Apache Hadoop framework, which are intended to terminate when a batch of data is successfully processed.) For example, consider a company whose product scans temperature sensors across the world to determine weather patterns and trends. Because there is always a temperature, there is a perpetual need to process data. The application that processes the data must be able to run for an indefinite amount of time.
-
-The application must also be scalable. If the number of temperature sensors doubles, the application must double the speed at which it processes data to ensure that analysis is available in a timely manner.
 
 ## 3.1 Setting up your environment
 Before you can create your first Python application with a local version of IBM Streams, you must complete the following setup tasks. These steps assume that you are installing Python 3.5 from Anaconda on a Linux workstation.

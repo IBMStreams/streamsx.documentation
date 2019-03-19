@@ -1,16 +1,16 @@
 ---
 layout: docs
-title:  4.0 Common Streams Transforms
+title:  Common Streams transforms
 description:  The primary transforms in the Python Application API are listed
 weight:  40
-<!-- published: true -->
+published: true
 tag: py16
 prev:
   file: python-appapi-devguide-3
-  title: 3.0 Developing with an IBM Streams installation
+  title: "Create an application with an IBM Streams installation"
 next:
   file: python-appapi-devguide-5
-  title: "5.0 API features: User-defined parallelism"
+  title: "API features: User-defined parallelism"
 ---
 
 This section will discuss how to use the most common functions and transforms in the Streams Python API to analyze your data.
