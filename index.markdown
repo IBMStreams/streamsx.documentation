@@ -7,8 +7,6 @@ navlevel: 3
 The streamsx.documentation is a community-based documentation project for IBM Streams.
 The goal of the project is to provide easy-to-follow documentation and development guides to help users get started with Streams.
 
-## Contents
-
 ## Getting started with IBM Streams
 
 {: .simple}

@@ -36,7 +36,7 @@ Before you can create your first Python application with a local version of IBM 
 
     * [IBM Streams Quick Start Edition Version 4.3.0 installation documentation](https://www.ibm.com/support/knowledgecenter/SSCRJU_4.3.0/com.ibm.streams.qse.doc/doc/installtrial-container.html)
 
-1. (IBM Streams only, doesn't apply to the Quick Start Edition) If necessary, install a supported version of Python. Python 2.7 and Python 3.5 are supported. **Important:** Python 3.5 is required to build application bundles with the Python Application API that can be submitted to your IBM Streaming Analytics service.
+1. (IBM Streams only, doesn't apply to the Quick Start Edition) If necessary, install a supported version of Python.  Python 2.7, 3.5. and 3.6 are supported. **Important:** Python 3.5 is required to build application bundles with the Python Application API that can be submitted to your IBM Streaming Analytics service.
 
     You can choose from one of these options:
    * *(Recommended)* Anaconda: [https://www.continuum.io/downloads](https://www.continuum.io/downloads)
