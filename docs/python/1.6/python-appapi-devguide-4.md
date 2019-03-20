@@ -233,15 +233,15 @@ class WikipediaReader(object):
             try:
                 data = json.loads(event.data)
                 event = {"ts": data["timestamp"],
-                         "user": data["user"], "type"
+                         "user": data["user"],
+                         "type": data["type"],
                          "page": data["meta"]["uri"],
                          "title": data["title"]}
                 yield event   
                 # Check if the application has shut down between emitted events
-                if streamsx.ec.shutdown().wait(0.05): break
+                if streamsx.ec.shutdown().wait(0.005): break
             except ValueError: continue
-~~~~~
-
+~~~~
 ### Advantages of using a callable class
 When you compare the two examples above, you'll notice that although `WikipediaReader.__call__` is similar to the `wikipedia_stream` function, the `WikipediaReader` class also has `__enter__` and `__exit__` functions.
 
