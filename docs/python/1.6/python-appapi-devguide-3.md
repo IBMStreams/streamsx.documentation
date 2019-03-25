@@ -1,29 +1,24 @@
 ---
 layout: docs
-title:  3.0 Developing with an IBM Streams installation
+title:  Create your first application with an IBM Streams installation
 description: To get started with the Python Application API, use the example of reading data from a temperature sensor and printing the output to the screen.
 weight:  30
 published: true
 tag: py16
 prev:
-  file: python-appapi-devguide-2
-  title: 2.0 Developing for the IBM Streaming Analytics service
+  file: python-appapi-devguide-2b
+  title: Create an application for IBM Cloud Private for Data
 next:
   file: python-appapi-devguide-4
-  title: 4.0 Common Streams transforms
+  title: Common Streams transforms
 ---
 
-Follow the steps in this tutorial to get started with the Python Application API by creating an application that reads data from a temperature sensor and prints the output to the screen.
+Follow the steps in this tutorial to get started with the Python Application API by creating an application that reads data from a temperature sensor and prints the output.
 
 This tutorial requires a local installation of IBM Streams. Familiarity with Python is recommended.
 
-## About streaming analytics applications
 
-Streaming analytics applications are intended to run indefinitely because they meet the need for real-time data processing. (This is in contrast to applications created for the Apache Hadoop framework, which are intended to terminate when a batch of data is successfully processed.) For example, consider a company whose product scans temperature sensors across the world to determine weather patterns and trends. Because there is always a temperature, there is a perpetual need to process data. The application that processes the data must be able to run for an indefinite amount of time.
-
-The application must also be scalable. If the number of temperature sensors doubles, the application must double the speed at which it processes data to ensure that analysis is available in a timely manner.
-
-## 3.1 Setting up your environment
+## Setting up your environment
 Before you can create your first Python application with a local version of IBM Streams, you must complete the following setup tasks. These steps assume that you are installing Python 3.5 from Anaconda on a Linux workstation.
 
 1. Install the Streams Python package, `streamsx`,  from PyPi:
@@ -64,7 +59,7 @@ Before you can create your first Python application with a local version of IBM 
 
 
 
-## 3.2 Creating a topology object
+## Creating a topology object
 The first component of your application is a `Topology` object.
 
 Include the following code in a file called `temperature_sensor.py` file (the main module):
@@ -77,7 +72,7 @@ topo = Topology("temperature_sensor")
 A streaming analytics application is a directed flow graph that specifies how data is generated and processed. The `Topology` object contains information about the structure of the directed flow graph.
 
 
-## 3.3 Defining a data source
+## Defining a data source
 The `Topology` object also includes functions to define your data sources. In this application, the data source is a simulated temperature sensor. The readings are obtained by defining a Python generator function (`random.gauss()`) that returns an iterator of random numbers. However, you can use a live data source instead.
 
 Include the following code in a file called `temperature_sensor.py`:
@@ -92,7 +87,7 @@ def readings():
 
 The `Topology.source()` function takes as input a zero-argument callable object, such as a function or an instance of a callable class, that returns an iterable of tuples. In this example, the input to `source` is the `readings()` function.  The `source` function calls the `readings()` function, which returns a generator object.  The `source` function gets the iterator from the generator object and repeatedly calls the `next()` function on the iterator to get the next tuple, which returns new random temperature readings each time.
 
-## 3.4 Creating a `Stream` object
+## Creating a `Stream` object
 The `Topology.source()` function produces a `Stream` object, which is a potentially infinite flow of tuples in an application. Because a streaming analytics application can run indefinitely, there is no upper limit to the number of tuples that can flow over a `Stream` object.  
 
 **Tip:** Tuples flow over a `Stream` object one at a time and are processed by subsequent data transforms. Transforms are discussed in more detail in the [Common Streams transforms](../python-appapi-devguide-4/) section of this guide. A tuple can be any Python object that is serializable by using the pickle module.
@@ -104,7 +99,7 @@ source = topo.source(readings)
 ~~~~~~
 
 
-## 3.5 Generating output
+## Generating output
 After you obtain the data, you are ready to produce output. In our case we will just print the data to standard output using the `for_each` transform.
 
 Include the following code in the `temperature_sensor.py` file:
@@ -119,7 +114,7 @@ To send a Stream to an external system such as a file or database, implement a c
 
 
 
-## 3.6 Submitting the application
+## Submitting the application
 After you define the application, you can submit it by using the `streamsx.topology.context` module. When you submit the application, use the `submit()` function from the `streamsx.topology.context` module and pass the context type and the topology graph object as parameters to the function.
 
 Include the following code in the `temperature_sensor.py` file:
@@ -128,7 +123,7 @@ Include the following code in the `temperature_sensor.py` file:
 streamsx.topology.context.submit("STANDALONE", topo)
 ~~~~~~
 
-## 3.7 The complete application
+## The complete application
 
 The following code is in the `temperature_sensor.py` file:
 
@@ -151,7 +146,7 @@ if __name__ == '__main__':
     main()
 ~~~~~~
 
-## 3.8 Running the application
+## Running the application
 To run the sample application, enter the following command on the command line:
 
 ~~~~~~ python
@@ -160,7 +155,7 @@ python3 temperature_sensor.py
 
 Enter `Ctrl-C` to stop the application.
 
-## 3.9 Sample output
+## Sample output
 The contents of your output will look something like this:
 
 ~~~~~~

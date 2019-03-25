@@ -1,16 +1,16 @@
 ---
 layout: docs
-title: "5.0 API features: User-defined parallelism"
+title: "API features: User-defined parallelism"
 description: "A parallel region enables the application to use multiple channels to run transforms (such as filtering or modifying data) concurrently."
 weight:  50
 published: true
 tag: py16
 prev:
   file: python-appapi-devguide-4
-  title: 4.0 Common streams transforms
+  title: Common streams transforms
 next:
   file: python-appapi-devguide-6
-  title: 6.0 The Python REST API
+  title: The Python REST API
 ---
 
 If a particular portion of your graph is causing congestion because the application needs additional throughput at that point, you can define a **parallel region** in your graph. A parallel region enables the application to use multiple channels to run transforms (such as filtering or modifying data) concurrently.
