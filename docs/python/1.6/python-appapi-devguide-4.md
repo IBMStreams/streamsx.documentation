@@ -65,7 +65,7 @@ Sample output:
 ...
 ~~~~~~
 
-The code above defines a `Topology`, or application with the following graph:
+The preceding code defines a `Topology`, or application with the following graph:
 
 ![sample app](/streamsx.documentation/images/python/basic.jpg)
 
@@ -76,11 +76,9 @@ The source `Stream` is created by calling `Topology.source()` .
 In this example, there are no real transforms on the `src` `Stream`. The rest of this section will cover common transforms and best practices.
 
 ### A note about execution
-The Python API is used to _create_ an application that can be executed on the Streams runtime.  The last line, which calls `submit`, is what triggers the compilation and execution of the application.
+The Python API is used to _create_ an application that can be executed on the Streams runtime.  Thus, callables such as the `get_readings` function are not invoked until the created application is executed on the Streams runtime.
 
-This means that callables such as the `get_readings` function are not invoked when the code above is run, but rather, when the created application is executed on the Streams runtime.
-
-This is important to remember because the host where the application is created is often not the same host where it will be executed, i.e. where Streams is installed. For example, if the `get_readings` function opens a file, that file must actually exist on the host where Streams is running. See [working with files](#files) for an example.
+It is especially important to remember this if the Python sapplication is created on a different host than the host where it will be executed, that is, where Streams is installed. For example, if the `get_readings` function opens a file, that file must actually exist on the host where Streams is running. See [Working with files](#files) for an example of using local files.
 
 
 <a id="source"></a>
@@ -113,7 +111,7 @@ If you want to process data from one of the following systems, you can use the c
 
 | Application/System        | Package          |
 | ------------- | ------------- |
-| CSV File on local file system      | Python standard libraries, see the [working with files section below](#files) |
+| CSV File on local file system      | Python standard libraries, see the [Working with files section](#files) |
 | Hadoop File System (HDFS)    | [streamsx.hdfs](https://streamsxhdfs.readthedocs.io/en/latest/)      |
 | Kafka | [streamsx.kafka](https://streamsxkafka.readthedocs.io/en/latest/)      |
 | IBM Event Streams | [streamsx.eventstreams](https://streamsxeventstreams.readthedocs.io/en/1.0.0/)      |
@@ -241,9 +239,10 @@ class WikipediaReader(object):
                 # Check if the application has shut down between emitted events
                 if streamsx.ec.shutdown().wait(0.005): break
             except ValueError: continue
-~~~~
+~~~~~
+
 ### Advantages of using a callable class
-When you compare the two examples above, you'll notice that although `WikipediaReader.__call__` is similar to the `wikipedia_stream` function, the `WikipediaReader` class also has `__enter__` and `__exit__` functions.
+When you compare the two examples above shows that although  `WikipediaReader.__call__` is similar to the `wikipedia_stream` function, the `WikipediaReader` class also has `__enter__` and `__exit__` functions.
 
 - The `__enter__` function is called by the Streams runtime whenever the process executing your application is started or restarted.  This allows you to perform any necessary initialization, such as creating a connection to a database. In our example we initialized the `SSEClient` object. You could also define metrics, or, in the case of a restart due to system outage, restore any previously saved state.
 
@@ -266,7 +265,7 @@ def get_log_files():
     return file_names
 ~~~~
 
-**Note**: In the above example, the `logs.tar.gz` file must be present on the host where Streams is installed. See below for instructions on how to use local files in your Streams application.
+**Note**: In the above example, the `logs.tar.gz` file must be present on the host where Streams is installed. The following section presents an example of using local files in your Streams application.
 
 <a id="files"></a>
 ## Working with files
@@ -288,7 +287,7 @@ At runtime, the full path to `mydata.txt` will be:
 streamsx.ec.get_application_directory() + "/etc/mydata.txt`
 ~~~
 
-Below are some complete examples.
+The following are some complete examples.
 
 
 ### Using data from a file as your data source

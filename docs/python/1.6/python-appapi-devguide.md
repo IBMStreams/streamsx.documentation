@@ -42,7 +42,7 @@ For example, consider a company whose product scans temperature sensors across t
 
 The application must also be scalable. If the number of temperature sensors doubles, the application must double the speed at which it processes data to ensure that analysis is available in a timely manner.
 
-# Getting Started
+# Get started
 
 To get started with the Python Application API, follow the steps in the next section [to install the API and create your first application](/streamsx.documentation/docs/python/1.6/python-appapi-devguide-2/).
 
