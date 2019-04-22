@@ -170,7 +170,7 @@ from streamsx.topology.topology import Topology
 import streamsx.topology.context
 
 def wikipedia_stream():
-    eventSource = SSEClient("https://stream.wikimedia.org/v2/stream/recentchange", last_id='')
+    eventSource = SSEClient("https://stream.wikimedia.org/v2/stream/recentchange")
     while True:
         raw_event= next(eventSource)
         if raw_event.id == None: continue
@@ -210,7 +210,7 @@ class WikipediaReader(object):
 
     def __enter__(self):
         # Application is starting on the Streams runtime,
-        self.eventSource = SSEClient(self.sseURL, last_id='')
+        self.eventSource = SSEClient(self.sseURL)
         logging.getLogger("WikipediaSource").info("INFO: Wikipedia Source starting up")
 
     def __exit__(self, exc_type, exc_value, traceback):
@@ -223,7 +223,6 @@ class WikipediaReader(object):
             #Process is shutting down
             return False
     def __call__(self):
-        self.eventSource = SSEClient(self.sseURL, last_id='')
         while True:
             # Submit a tuple in each iteration:
             event = next(self.eventSource)
