@@ -542,7 +542,7 @@ Tuples are collected into the window based on the defined size of the window. Th
 - Number of tuples collected, e.g. collect 100 tuples regardless of how often the data arrives.
 
 
-### Transforming data in a Window
+### Transforming data in a window: overview
 
 Aggregating the tuples in a window and get a new stream of results involves 3 steps:
 
@@ -617,7 +617,7 @@ window = src.last(size=10)
 ~~~~
 
 
-### Step 3: Compute the result using `Window.aggregate`
+### Step 3: Compute the result using `Window.aggregate()`
 
 Pass the `get_stats` function to the new windoW, and print the results
 
