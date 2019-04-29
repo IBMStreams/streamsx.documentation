@@ -23,7 +23,13 @@ This section will discuss how to use the most common functions and transforms in
 * [Viewing the contents of a `Stream`](#views)
 * [Creating data sinks](#sink)
 * [Filtering data from the stream](#filter)
-* [Transforming subsets of data with windows](#windows)
+* [Windows: transforming subsets of data ](#windows)
+  - [Window size and duration](#wsize)
+    - [Example 1: Simple rolling average](#we1)
+  - [Trigger policy](#wtrigger)
+    - [Example 2: Rolling average updated periodically](#we2)
+  - [Sliding vs tumbling windows](#wsliding)
+    - [Example 3: Batch or tumbling windows](#we3)
 * [Transforming data with custom logic](#map)
 * [Keeping state information](#state)
 * [Splitting streams](#split)
@@ -251,7 +257,7 @@ When you compare the two examples above shows that although  `WikipediaReader.__
 Note that  `__enter__`  is invoked at a different time from the constructor, `__init__`.  The class constructor is called when the `Topology` is declared. This is when the Streams application is being created and _before_ it is compiled.  The  `__enter__` function is called after the application has been successfully compiled and is being executed within the Streams runtime.
 
 
-### Simple Iterable sources: Lists
+### Simple iterable sources: Lists
 
 Used when you have a finite set of data to analyze, e.g. a list. The iterable is returned directly by the function passed to `Topology.source()`.
 
@@ -274,7 +280,7 @@ Reading from a file or using a file within your Streams application can be done 
 
 However, you must use `Topology.add_file_dependency` to ensure that the file or its containing directory will be available at runtime.
 
-_Note: If you are using **IBM Cloud Private for Data**, this [post discusses how to use a data set in your Streams topology](https://developer.ibm.com/streamsdev/2019/04/23/tip-for-ibm-cloud-private-for-data-how-to-use-local-data-sets-in-your-streams-python-notebook/)._
+Note: If you are using **IBM Cloud Private for Data**, this [post discusses how to use a data set in your Streams Topology](https://developer.ibm.com/streamsdev/2019/04/23/tip-for-ibm-cloud-private-for-data-how-to-use-local-data-sets-in-your-streams-python-notebook/).
 
 ~~~ python
 topo = Topology("ReadFromFile")
@@ -533,20 +539,24 @@ These subsets of the tuples in the stream of data (last 100 readings, one hour's
 
 ![Window diagram](/streamsx.documentation/images/python/window.jpg)
 
-As shown above, windows are made up of a finite number of tuples. They are represented by the `Window` class in this API. You create a new `Window` by calling `Stream.last()` or `Stream.batch`, specifying the window size as a parameter.
+As shown above, windows are made up of a finite number of tuples. They are represented by the `Window` class in this API. You create a new `Window` by calling `Stream.last()` or `Stream.batch`, specifying the window size or duration as a parameter.
+<a id="wsize"></a>
 
-### Window size
+### Window size and duration
 
 Tuples are collected into the window based on the defined size of the window. The size of the window can be based on
-- Elapsed time, e.g. collect all the tuples in a 5 minute interval, **or**
+- Elapsed time, e.g. collect all the tuples in a 5 minute interval. Time elapsed is computed using system time.
 - Number of tuples collected, e.g. collect 100 tuples regardless of how often the data arrives.
 
 
-### Transforming data in a Window
+### How to do it
 
 Aggregating the tuples in a window and get a new stream of results involves 3 steps:
 
-1. Write a callable to process the tuples in a window and return one or more tuples containing the results.  For example, if you want to compute the average of the tuples in a window, you would write a callable that takes as a parameter a list of tuples and returns a value representing the computed average.  When the window's size requirement is met, the tuples in the window will be passed to this callable.
+1. Write a callable to process the tuples in a window and return one or more tuples containing the results.  For example, if you want to compute the average of the tuples in a window, you would write a callable that takes as a parameter a list of tuples and returns a value representing the computed average.  This function is called either when
+  - The window is full, that is, when its size or time requirement is met,
+  - Or when its trigger policy is met. We will discuss the trigger policy shortly.
+The tuples in the window will be passed to this callable when it is invoked.
 2. Define a `Window` based on the incoming `Stream` using `Stream.last()` or `Stream.batch()`.  `Stream.last()` creates a sliding window, and `Stream.batch()` creates a sliding window. More on the difference below. [TODO]
 
 3. Call `Window.aggregate()`, passing the function from step 1. This will generate a new `Stream` containing the result tuples.
@@ -565,11 +575,11 @@ rolling_average.print()
 ~~~~
 
 Let's look at a detailed example.
+<a id="we1"></a>
 
-### Simple example
-An instructive example involves taking a stream of integers and computing the average, maximum and minimum of the last 10 numbers.
-Here is our data source:
-
+### Simple example: Compute a rolling average
+This example involves taking a stream of consecutive integers and computing the average, maximum and minimum of the last 10 numbers.
+Here is the data source:
 
 ~~~~ python
 from streamsx.topology.topology import Topology
@@ -582,99 +592,140 @@ class Numbers(object):
     def __call__(self):
         for num in itertools.count(1):
             yield {"value": num, "id": "id_" + str(random.randint(0,10))}
-
-
 ~~~~
 
-The `Numbers` produces a stream of consecutive integers.
-#### Step 1: Define the processing function
+The `Numbers` class produces a stream of consecutively increasing integers.
+#### Step 1: Define the processing callable
 
-Every time a window's size requirement is met, a list of the tuples in the window are passed to this function.  The function  `get_stats` takes a list of tuples in the window and return a new tuple that describes the max, min, and average of the tuples in that window:
+When it is time to process the tuples in a window, a list of the tuples in the window are passed to this function. The   `Average` class takes a list of tuples in the window and return a new tuple that describes the max, min, and average of the tuples in that window:
 
 
 ~~~~ python
-def get_stats(tuples_in_window):
-    values = [tpl["value"] for tpl in tuples_in_window]
-    mn =  min(values)
-    mx = max(values)
-    num_of_tuples = len(tuples_in_window)
-    average = sum(values)/len(tuples_in_window)                     
-    return {"count": num_of_tuples,
-            "avg": average,
-            "min": mn,
-            "max": mx}
-
+class Average:
+    def __call__(self, tuples_in_window):
+      values = [tpl["value"] for tpl in tuples_in_window]
+      mn =  min(values)
+      mx = max(values)
+      num_of_tuples = len(tuples_in_window)
+      average = sum(values)/len(tuples_in_window)                     
+      return {"count": num_of_tuples,
+              "avg": average,
+              "min": mn,
+              "max": mx}
 
 ~~~~
 
 #### Step 2: Define the Window using `Stream.last()`
 
-Here is our topology that uses the `Numbers` class as a data source:
+This topology uses the `Numbers` class as a data source and defines a window of the last 10 tuples:
 ~~~~ python
 topo = Topology("Rolling Average")
-src = topo.source(Ints())
+src = topo.source(Numbers())
 window = src.last(size=10)
 ~~~~
 
 
-### Step 3: Compute the result using `Window.aggregate`
+#### Step 3: Compute the result using `Window.aggregate()`
 
-Pass the `get_stats` function to the new windoW, and print the results
+Pass an instance of the `Average` class  to the new windoW, and print the results
 
 ~~~ python
-rolling_average = window.aggregate(get_stats)
+rolling_average = window.aggregate(Average())
 rolling_average.print()
 results_view = rolling_average.view()
 
 #submit the application
 streamsx.topology.context.submit("DISTRIBUTED", topo)
 
+
 ~~~
 
-After submitting this application, we'll see the following output (Tip: Use `results_view.display()` if you are running in a notebook):
+After submitting this application, use this code to connect to it and display the contents:
+~~~ python
 
-| count  | max | min | average |
+import pandas as pd
+
+queue = results_view.start_data_fetch()
+results = []
+# get a few result tuples
+for i in range(15):
+    results.append(queue.get())
+results_view.stop_data_fetch()
+
+#display as Pandas data frame
+df = pd.DataFrame(results)
+print(df)
+
+~~~~
+
+This produces the following output.
+Each row represents the results of one invocation of the `Average`  callable with the contents of a window.
+
+| count  | min | max | average |
 | ------- | ------- | ------| -----|
 | 1|  1|  1|  1.0|
-| 2|  2|  1|  1.5|
-| 3|  3|  1|  2.0|
-| 4|  4|  1|  2.5|
-| 5|  5|  1|  3.0|
-| 6|  6|  1|  3.5|
-| 7|  7|  1|  4.0|
-| 8|  8|  1|  4.5|
-| 9|  9|  1|  5.0|
-| 10|  10|  1|  5.5|
-| 10|  11|  2|  6.5|
-| 10|  12|  3|  7.5|
-| 10|  13|  4|  8.5|
+| 2|  1|  2|  1.5|
+| 3|  1|  3|  2.0|
+| 4|  1|  4|  2.5|
+| 5|  1|  5|  3.0|
+| 6|  1|  6|  3.5|
+| 7|  1|  7|  4.0|
+| 8|  1|  8|  4.5|
+| 9|  1|  9|  5.0|
+| 10|  1|  10|  5.5|
+| 10|  2|  11|  6.5|
+| 10|  3|  12|  7.5|
+| 10|  4|  13|  8.5|
 
 
-Looking closely at the first few result tuples, the number of tuples in the window is initially less than 10. This might seem strange at first,  since we specified the window size was 10, so we would expect that the `get_stats` function is only called when there are 10 tuples in the window.
+Looking closely at the first few result tuples, the number of tuples in the window (the `count` column) starts at 1 and increases by 1 until it reaches and stays at 10. This might seem strange at first,  since we specified the window size was 10, so we would expect that the `Average` callable is only called when there are 10 tuples in the window.
 
-This is actually expected behavior. Why? Because we specified the _size_ of the window but not its _trigger policy_.
+This is actually expected behavior. Why? Because we indicated the _size_ of the window, but not how often we wanted the average to be computed, so the average is computed for every tuple.
+<a id="wtrigger"></a>
 
-### Example 2: setting a trigger policy
+### Trigger policy: when to update the rolling average
+The previous example computed the rolling average for the last 10 tuples, but as shown above, there are initially less than 10 tuples in the window.  This is because the average is being calculated  whenever a new tuple arrives, even when there are less than 10 tuples in the window.
+We can adjust this by setting the trigger policy. The trigger policy controls how often the processing function is called, i.e. when a new calculation is triggered. This is set using `Window.trigger()`:
 
-Each window defined using `Stream.last()` has a trigger policy. This trigger policy determines when the processing function is called. Example use cases include:
-- Calculate the rolling average of values from the last hour, but only calculate it every 5 minutes. You would use a window size of 1 hour but a trigger policy of 5 minutes.
-- Compute the maximum reported reading of the last 200 tuples but trigger every 10 tuples.
+~~~
+window  = src.last().trigger().
+~~~~
 
-In our example, since we did not specify a trigger policy, a default value of `1` is used, meaning that the processing function is called for every tuple that arrives. Looking again at the output, we can see that the `max` value always increases by 1, since the value is computed for every tuple:
+If the trigger policy is not specified, a window defined using `Stream.last()` has a default trigger of 1.
+So in our example, this code:
+~~~
+window = src.last(size=10)
+~~~
+is equivalent to
+~~~
+window = src.last(size=10).trigger(1)
+~~~
 
-| count  | max | min | average |
+which says _create a window of the last 10 tuples, calling the processing function for every new tuple._
+Looking again at the output, this explains why the number of tuples in the window starts at 1 and progressively increases by 1.
+
+| count  | min | max | average |
 | ------- | ------- | ------| -----|
-| 1|  **1**|  1|  1.0|
-| 2|  **2**|  1|  1.5|
-| 3|  **3**|  1|  2.0|
-| 4|  **4**|  1|  2.5|
-| 5|  **5**|  1|  3.0|
+| **1**| 1 | 1|  1.0|
+| **2**|  1 |2|  1|  1.5|
+|**3**|  1 |2|  2.0|
+| **4**| 1 |4|  2.5|
+| **5**| 1 | 5|  3.0|
 
+
+Using a trigger policy is common especially if the processing function is resource intensive, or if we have a lot of noise in the data.
+Other example use cases include:
+- Calculate the rolling average of values from the last hour, but only calculate it every 5 minutes. You would use a window size of 1 hour but a trigger policy of 5 minutes.
+- Compute the maximum reported reading of the last 200 tuples but with a trigger policy of every 30 seconds.
+<a id="we2"></a>
+
+### Example 2: rolling average, computed periodically
+We still want to compute the rolling average of the last 10 tuples, but this time we want to update this value every 5 tuples.
 Let's change our window definition to set a trigger policy of `5` using [Window.trigger](https://streamsxtopology.readthedocs.io/en/stable/streamsx.topology.topology.html?highlight=window#streamsx.topology.topology.Window.trigger):
 
 ~~~~ python
 ...
-src = topo.source(Ints())
+src = topo.source(Numbers())
 window = src.last(size=10).trigger(5)
 ...
 ~~~~
@@ -689,21 +740,21 @@ import time
 import random
 
 import itertools
-requests.packages.urllib3.disable_warnings(InsecureRequestWarning)
 
-def get_stats(tuples_in_window):
-    values = [tpl["value"] for tpl in tuples_in_window]
-    mn =  min(values)
-    mx = max(values)
-    num_of_tuples = len(tuples_in_window)
-    average = sum(values)/len(tuples_in_window)                     
-    return {"count": num_of_tuples,
-            "avg": average,
-            "min": mn,
-            "max": mx}
+class Average:
+    def __call__(self, tuples_in_window):
+      values = [tpl["value"] for tpl in tuples_in_window]
+      mn =  min(values)
+      mx = max(values)
+      num_of_tuples = len(tuples_in_window)
+      average = sum(values)/len(tuples_in_window)                     
+      return {"count": num_of_tuples,
+              "avg": average,
+              "min": mn,
+              "max": mx}
 
 
-class Ints(object):
+class Numbers(object):
     def __call__(self):
             for num in itertools.count(1):
                 #time.sleep(1.0)
@@ -715,29 +766,60 @@ class Ints(object):
 topo = Topology("Rolling Average")
 src = topo.source(Ints())
 # src.last() creates a window with the last 10 tuples
-rolling_average = src.last(size=10).trigger(5).aggregate(get_stats)
+rolling_average = src.last(size=10).trigger(5).aggregate(Average())
 rolling_average.print()
 results_view = rolling_average.view()
 
 submission_result = streamsx.topology.context.submit("DISTRIBUTED",
                                                           topo)
 ~~~
-Re-running this application we get this output:
+Re-running this application we get this output, with one row for each invocation of `Average` class:
 
-| count  | max | min | average |
+| count  | min | max | average |
 | ------- | ------- | ------| -----|
-| 5|  5|  1|  3.0|
-| 10|  10|  1|  5.5|
-| 10|  15  6|  10.5|
-| 10|  20|  11|  15.5|
+| 5|  1| 5|  3.0|
+| 10|  1| 10|  5.5|
+| 10|  6 | 15|  10.5|
+| 10|  11|  20|  15.5|
 
 
-Since the values in the window are consecutive integers, it is easy to determine which tuples were in each window. For example, the first window has a min of 1, a max of 5 and a count of 5, so it is obvious it contains the integers from 1 to 5. The next window has the 10 numbers from 1 to 10.
+Since the values in the window are consecutive integers, it is easy to determine which tuples were in each window. For example, the first window has a min of 1, a max of 5 and a count of 5, so it is obvious it contains the integers from 1 to 5. The next window has the 10 numbers from 1 to 10, and the
 This lead to another observation, that the values in each window are not unique.
 
 This is because the window we created is a _sliding window_. `Stream.last()` always creates a sliding window. The other kind of window is a tumbling window, which is created using `Stream.batch()`. What is the difference?
+<a id="wsliding"></a>
 
-### Sliding vs Tumbling Windows, or `Stream.batch` vs. `Stream.last()`
+### Unique vs. overlapping windows
+If you create a window using `Stream.last()`, this window is a sliding window. Tuples in sliding windows can appear in more than one window. This is useful in our example above where we wish to create a average the last 10 tuples that is updated every 5 tuples.
+
+If, instead, you wish to perform the aggregation once for every 10 tuples or once per hour, then you would use a tumbling window. Tumbling windows are created using `Stream.batch()`  and do not have a trigger policy.
+
+Sliding windows are called such because the contents of the window progressively change. With tumbling windows, the contents of the window are predefined and unique between windows. When the size requirement is reached, the tuples in a tumbling window are discarded and are said to _tumble out_.
+<a id="we3"></a>
+
+### Batch processing using tumbling windows: Example
+
+Let's change our previous example to use a tumbling window by using `Stream.batch()` instead of `Stream.last()`.
+We do not have to change the callable function or the source function, but just the window declaration.
+We now have this code:
+
+~~~python
+topo = Topology("Batch Average")
+src = topo.source(Ints())
+
+batch_average = src.batch(size=10).aggregate(Average())
+batch_average.print()
+results_view = batch_average.view()
+~~~~
+
+
+| min |	max	| avg	| count |
+| --- | ---- | ---- | ---- |
+| 1 |	10 | 	5.5	| 10 |
+| 11 |	20 |	15.5 | 	10 |
+| 21 |	30 |	25.5 |	10 |
+| 31 |	40 |	35.5 |	10 |
+
 
 <a id="map"></a>
 ## Modifying data
@@ -762,7 +844,7 @@ To achieve this:
 
 Include the following code in the `transform_substring.py` file:
 
-~~~~~~
+~~~~~~ python
 from streamsx.topology.topology import Topology
 import streamsx.topology.context
 
