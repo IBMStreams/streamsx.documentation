@@ -38,6 +38,7 @@ This section will discuss how to use the most common functions and transforms in
 
 Find detailed information about all available transforms in the documentation for the [Stream class](https://streamsxtopology.readthedocs.io/en/stable/streamsx.topology.topology.html#streamsx.topology.topology.Stream).
 
+
 <a id="intro"></a>
 
 # Introduction
