@@ -760,8 +760,6 @@ class Numbers(object):
             for num in itertools.count(1):
                 #time.sleep(1.0)
                 yield {"value": num, "id": "id_" + str(random.randint(0,10))}
-                if num == 21:
-                    break
 
 
 topo = Topology("Rolling Average")
