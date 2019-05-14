@@ -32,7 +32,7 @@ Create the Main Composite
 
 Create a new Main
 
-Step 1: Ingest data 
+Step 1: Ingest data
 ====================
 
 Whenever creating a Streams application, you must first have a data to
@@ -46,7 +46,7 @@ it's latitude, longitude, current speed, end so on:
 > lat=\"37.734356\" lon=\"-122.390739\" secsSinceReport=\"9\"
 > predictable=\"true\" heading=\"218\" speedKmHr=\"0\"/\>
 
-We have a sample of this data saved in a file naLater, we will extend
+We have a sample of this data saved in a file. Later, we will extend
 this application to ingest live data from the NextBus service.
 
 stream\<xml locationXMLDoc\> NextBusData\_FromFile = FileSource()
@@ -376,14 +376,3 @@ Generating data
 
     Helper functions defined here:
     https://github.com/IBMStreams/samples/blob/master/Geospatial/MapViewerSample/com.ibm.streamsx.mapviewer.gen/GeospatialGen.spl
-
-**Where to find examples**
-
--   Samples for most toolkits are included in the toolkit repository in
-    the samples folder.
-
--   You can also search the Streams Samples catalog for examples. Click
-    download zip to download the sample that you can import into Streams
-    Studio, Atom or VSCode.
-
--   Streamsdev also has articles and tutorials, search there.
