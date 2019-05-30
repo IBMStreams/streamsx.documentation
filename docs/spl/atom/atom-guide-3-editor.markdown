@@ -168,6 +168,13 @@ Summary
 * `CTRL + SPACE` shows code completion suggestions at any time.
 * `ESC` dismisses the suggestions that appear.
 
+
+Next Steps
+----------------------
+
+Now that you have covered the Atom editor basics, you can run the [sample BusAlerts application](/streamsx.documentation/docs/spl/atom/atom-guide-5-build) or continue to the next section to [create your own application](/streamsx.documentation/docs/spl/atom/atom-guide-4-create).
+
+
 Atom Documentation
 ----------------------
 
