@@ -42,6 +42,8 @@ For example, consider a company whose product scans temperature sensors across t
 
 The application must also be scalable. If the number of temperature sensors doubles, the application must double the speed at which it processes data to ensure that analysis is available in a timely manner.
 
+Applications created with the Python API can process data indefinitely, and can be configured to run in parallel.  They can also be configured to support data recovery in event of system failure.
+
 # Get started
 
 To get started with the Python Application API, follow the steps in the next section [to install the API and create your first application](/streamsx.documentation/docs/python/1.6/python-appapi-devguide-2/).
