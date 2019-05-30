@@ -1,6 +1,6 @@
 ---
 layout: docs
-title:  Tips on creating Streams applications
+title:  Tips for creating Streams applications
 description:  
 navlevel: 2
 ---
@@ -53,44 +53,39 @@ Since all Streams applications start with a data ingestion step, this is the fir
 
 If you do not yet have data to ingest, you can skip to the "generating sample data" section for a few tips on generating data for your application.
 
-Pick a source operator
-______
+### Pick a source operator
 
 You can ingest data from Kafka, RabbitMQ, files, Hadoop File System (HDFS), HBase, IoT devices, and more.  You will need to find the right source operator for your data.
 
 The table below lists common data sources and the corresponding Streams operators.
 
-+-----------------------+-----------------------+-----------------------+
-| Data source           | Operator              | Toolkit               |
-+=======================+=======================+=======================+
-| Event Streams         | MessageHubConsumer    | streamsx.messagehub   |
+|** Data source      **     | **Operator**              | **Toolkit**               |
+|---------------------|---------------------|--------------------------------------------|
+| Event Streams         | MessageHubConsumer    | [streamsx.messagehub](https://github.com/IBMStreams/streamsx.messagehub)  |
 | (formerly Message     |                       |                       |
 | Hub)                  |                       |                       |
-+-----------------------+-----------------------+-----------------------+
-| MQTT                  | MQTTSource            | streamsx.mqtt         |
-+-----------------------+-----------------------+-----------------------+
-| Kafka                 | KafkaConsumer         | streamsx.kafka        |
-+-----------------------+-----------------------+-----------------------+
-| HDFS                  | HDFS2FileSource       | streamsx.hdfs         |
+|-----------------------|-----------------------|---------------------------------------------|
+| MQTT                  | MQTTSource            | [streamsx.mqtt](https://github.com/IBMStreams/streamsx.mqtt)         |
+|-----------------------|-----------------------|----------------------------------------------|
+| Kafka                 | KafkaConsumer         | [streamsx.kafka](https://github.com/IBMStreams/streamsx.kafka)        |
+|-----------------------|-----------------------|----------------------------------------------|
+| HDFS                  | HDFS2FileSource       | [streamsx.hdfs](https://github.com/IBMStreams/streamsx.hdfs)         |
 |                       |                       |                       |
 |                       | HDFS2DirectoryScan    |                       |
-+-----------------------+-----------------------+-----------------------+
-| HBase                 | HBaseScan/HBaseGet    | streamsx.hbase        |
-+-----------------------+-----------------------+-----------------------+
-| Any JDBC compliant    | JDBCRun               | streamsx.jdbc         |
-| RDBMS                 |                       |                       |
-+-----------------------+-----------------------+-----------------------+
-| JMS/XMS/              | JMSSource             |                       |
-|                       |                       |                       |
-|                       | XMSSource             |                       |
-+-----------------------+-----------------------+-----------------------+
-
+|-----------------------|-----------------------|----------------------------------------------|
+| HBase                 | HBaseScan/HBaseGet    | [streamsx.hbase](https://github.com/IBMStreams/streamsx.hbase)       |
+|-----------------------|-----------------------|--------------------------------------------|
+| Any JDBC compliant RDBMS   | JDBCRun               | [streamsx.jdbc](https://github.com/IBMStreams/streamsx.jdbc)         |
+|-----------------------|-----------------------|------------------------------------|
+| JMS              | JMSSource             | [streamsx.jms](https://github.com/IBMStreams/streamsx.jms)  |                     
+|  XMS                     | XMSSource        | [streamsx.messaging](https://github.com/IBMStreams/streamsx.messaging)                            
+|-----------------------|-----------------------|-----------------------|
+|------------------------| --------------------| ---------------------- |
 
 View the full list of [supported toolkits in the Streaming Analytics service](https://cloud.ibm.com/docs/services/StreamingAnalytics/compatible_toolkits.html#compatible_toolkits) and in a [local install](https://www.ibm.com/support/knowledgecenter/SSCRJU_4.3.0/com.ibm.streams.toolkits.doc/spldoc/dita/toolkits/toolkits.html).
 
 
-Define the incoming schema and use it with the source operator
------
+### Define the incoming schema and use it with the source operator
 
 Define the output schema that describes each incoming tuple:
 
@@ -98,7 +93,7 @@ For example:
 
 * SQL Database row: `type Bus = rstring id, rstring name, int32 id, timestamp last_seen;`
 
-1c) If your data is in a different format, such as JSON or XML string,or a binary blob, it will need to be converted to Streams tuples.
+1c) If your data is in a different format, such as JSON or XML string, or a binary blob, it will need to be converted to Streams tuples.
 
 For example, if you have JSON data, use the `JSONToTuple` operator to convert the JSON string to SPL tuples. The `XMLParse` operator is used to convert XML text to tuples.
 
@@ -110,7 +105,6 @@ Example 1: no parsing needed
 
 type RawDataType = int32 id, rstring name, rstring timestamp;
 
-    ```
     composite MyApp {
 
     graph
@@ -125,11 +119,10 @@ type RawDataType = int32 id, rstring name, rstring timestamp;
 
         onTuple port0: {
 
-            printStringLn("New Tuple : + (rstring)port0.id + port0.name");
+            printStringLn("New Tuple : " + (rstring)port0.id + " " + port0.name);
 
           }
         }
-    ```
 
 The `DataPrinter` operator will almost always be more or less the same as shown above.
 
@@ -139,25 +132,24 @@ Example 2
 
 Adding a parsing step and using a FileSink
 
-Generating data
+### Generating data
 
--   Use a Beacon to generate data:
-    <https://github.com/IBMStreams/samples/blob/master/Examples-for-beginners/003_sink_at_work/sample/sink_at_work.spl#L16>
+-   Use a Beacon to generate data](https://github.com/IBMStreams/samples/blob/master/Examples-for-beginners/003_sink_at_work/sample/sink_at_work.spl#L16)
 
--   More complex samples can be generated using a Custom operator:
+-   More complex samples can be generated using a `Custom` operator:
 
-    <https://github.com/IBMStreams/samples/blob/master/Geospatial/MapViewerSample/com.ibm.streamsx.mapviewer/Main.spl#L27>
+    https://github.com/IBMStreams/samples/blob/master/Geospatial/MapViewerSample/com.ibm.streamsx.mapviewer/Main.spl#L27>
 
     Helper functions defined here:
     https://github.com/IBMStreams/samples/blob/master/Geospatial/MapViewerSample/com.ibm.streamsx.mapviewer.gen/GeospatialGen.spl
 
-**Where to find examples**
+## Where to find examples**
 
 -   Samples for most toolkits are included in the toolkit repository in
     the samples folder.
 
--   You can also search the Streams Samples catalog for examples. Click
+-   You can also search the [Streams Samples catalog](https://ibmstreams.github.io/samples) for examples. Click
     download zip to download the sample that you can import into Streams
     Studio, Atom or VSCode.
 
--   Streamsdev also has articles and tutorials, search there.
+-   [Streamsdev](https://developer.ibm.com/streamsdev) also has articles and tutorials, search there.
