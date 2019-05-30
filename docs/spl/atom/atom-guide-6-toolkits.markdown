@@ -69,7 +69,7 @@ a.  Go to the [streamsx.inet toolkit page](https://github.com/IBMStreams/streams
 b.  Download version 3.0 or greater:
     streamsx.inet.toolkit-3.0.0-**el7-amd64**
 
-![Download page](/streamsx.documentation/images/atom/jpg/downloadtoolkit.jpeg)
+![Download page](/streamsx.documentation/images/atom/jpg/downloadtoolkit.jpg)
 
 **Note**: If the toolkit you wish to use has multiple releases for different platforms, choose the **el7-amd64** release. This is the release that is compatible with the Streaming Analytics service.
 
@@ -82,7 +82,7 @@ c.  Place the toolkit in the toolkits directory you specified when you configure
 
   As shown below, there are 2 toolkits, `com.ibm.streamsx.inet` and `com.ibm.streamsx.nlp`, and both have a `toolkit.xml` file.
 
-  ![toolkit directory](/streamsx.documentation/images/atom/jpg/toolkits.jpeg)
+  ![toolkit directory](/streamsx.documentation/images/atom/jpg/toolkits.jpg)
 
 Step 2: Add a dependency to the toolkit to your project:
 ----
@@ -93,7 +93,7 @@ d.  Open the `info.xml` of your project:
 
 e.  Within the XML, add a dependency to the new toolkit under the `dependencies` node:
 
-![new toolkit dependency](/streamsx.documentation/images/atom/jpg/infoxml.jpeg)
+![new toolkit dependency](/streamsx.documentation/images/atom/jpg/infoxml.jpg)
 
 Here is a snippet for you to paste:
 
@@ -137,7 +137,7 @@ We're going to replace the  `NextBusData_FromFile` stream  with a `HTTPGetXMLCon
 
 
 1.  Highlight the operator's definition and then click **Edit > Toggle Comment:**
-    ![toggle comment](/streamsx.documentation/images/atom/jpg/comment.jpeg)
+    ![toggle comment](/streamsx.documentation/images/atom/jpg/comment.jpg)
 
 3.  Paste the following snippet in the editor:
 

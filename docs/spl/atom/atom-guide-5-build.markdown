@@ -39,7 +39,7 @@ In the **Project** pane, select the SPL file containing the composite you want t
 
 Various alerts describing the progress of compilation will pop up:
 
-  ![build-submit action](/streamsx.documentation/images/atom/jpg/build-progress.jpg)
+  ![build-progress action](/streamsx.documentation/images/atom/jpg/build-progress.jpg)
 
 View compile messages and errors
 ----------------------------------------------------
@@ -84,7 +84,7 @@ You can manage and observe your running applications from the Streams Console. Y
 
 Let's start by looking at the output of the application. The application is simple; whenever it detects that a bus should receive an alert, it just prints the alerts.  We can take a look at the output by going to the **Log Viewer**, which is opened from the far left:
 
-  ![open log viewer](/streamsx.documentation/images/atom/jpg/log-viewer.jpeg)
+  ![open log viewer](/streamsx.documentation/images/atom/jpg/log-viewer.jpg)
 
 
 Then, expand the application, select the `AlertPrinter` operator, and click **Console Log**. Click **Reload** if no data appears.
@@ -104,7 +104,7 @@ Submitting such an application from Atom would result in this message:
   ```
 Or this prompt:
 
-  ![param missing prompt](/streamsx.documentation/images/atom/jpg/param-missing.jpeg)
+  ![param missing prompt](/streamsx.documentation/images/atom/jpg/param-missing.jpg)
 
 It means the application requires you to specify a value for a parameter.
 To specify application parameters, submit the application via the Streams Console.
@@ -138,11 +138,11 @@ If the build is successful, you will see a new folder within the project contain
   ![downloaded sab location](/streamsx.documentation/images/atom/jpg/sab-downloaded.jpg)
 
 To launch the application, you can select the `.sab` file from the output folder and click **Submit job**.
-    ![submit dialog atom](/streamsx.documentation/images/atom/jpg/sab-submit.jpeg)
+    ![submit dialog atom](/streamsx.documentation/images/atom/jpg/sab-submit.jpg)
 
 You will again be prompted to submit the application, but this time, choose **Submit via Console**.
 
-  ![Streams console main](/streamsx.documentation/images/atom/jpg/sab-submit-dark.jpeg)
+  ![Streams console main](/streamsx.documentation/images/atom/jpg/sab-submit-dark.jpg)
 
 
 This will open the Streams Console in your browser.
@@ -152,19 +152,19 @@ Submit a job from Streams console
 -------
 From the Console, click the **Submit job** button to submit a job.
 
-  ![submit new job](/streamsx.documentation/images/atom/jpg/submit-play.jpeg)
+  ![submit new job](/streamsx.documentation/images/atom/jpg/submit-play.jpg)
 
 Click **Browse** in the dialog that pops up.  Select the `.sab` file from the output folder of your project.
 
-  ![Browse to sab](/streamsx.documentation/images/atom/jpg/submit-console.jpeg)
+  ![Browse to sab](/streamsx.documentation/images/atom/jpg/submit-console.jpg)
 
 **Tip**: The path to the file is printed in the Atom Console, so you can copy and paste it. Use `CMD+SHIFT+G` on a Mac.
 
-  ![Console URL](/streamsx.documentation/images/atom/jpg/console-url.jpeg)
+  ![Console URL](/streamsx.documentation/images/atom/jpg/console-url.jpg)
 
 Click **Submit**. You will be prompted with a list of all the application's parameters.
 
-  ![Parameter prompt](/streamsx.documentation/images/atom/jpg/params-in-console.jpeg)
+  ![Parameter prompt](/streamsx.documentation/images/atom/jpg/params-in-console.jpg)
 
 Change the values as you would like. For example, changing the `bus-agency` to _ttc_ (Toronto Transit Commission) will cause this application to monitor buses in Toronto.
 
@@ -182,11 +182,11 @@ Stop a running application
 Once you are finished with an application, stop it by clicking the
 **Cancel** button from anywhere in the Streams console:
 
-  ![Streams console main](/streamsx.documentation/images/atom/jpg/cancel.jpeg)
+  ![Streams console main](/streamsx.documentation/images/atom/jpg/cancel.jpg)
 
 Select the jobs to be cancelled and click Cancel Jobs:
 
-  ![Streams console main](/streamsx.documentation/images/atom/jpg/cancel-dialog.jpeg)
+  ![Streams console main](/streamsx.documentation/images/atom/jpg/cancel-dialog.jpg)
 
 
 # Next steps

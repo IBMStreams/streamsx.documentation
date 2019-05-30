@@ -57,11 +57,11 @@ If you have existing SPL code on Github**,** you can clone the
 repository from within Atom:
 From the Command Palette (_CMD + Shift + P_ on Mac), type **Github Clone**:
 
- ![git clone](/streamsx.documentation/images/atom/jpg/githubclone.jpeg)
+ ![git clone](/streamsx.documentation/images/atom/jpg/githubclone.jpg)
 
 Then paste the repository URL and click **Clone**.
 
- ![git clone uri](/streamsx.documentation/images/atom/jpg/github-clone-uri.jpeg)
+ ![git clone uri](/streamsx.documentation/images/atom/jpg/github-clone-uri.jpg)
 
 The project should be added to the project pane.
 

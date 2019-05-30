@@ -38,12 +38,12 @@ SPL projects are also called toolkits. Each toolkit folder must include a file c
 Create a file within the folder called `info.xml`.
     - Right-click the `MyStreamsProject` folder, select **New File**, and enter `info.xml` as the file name:
 
-![new tk info file](/streamsx.documentation/images/atom/jpg/info1.jpeg)
+![new tk info file](/streamsx.documentation/images/atom/jpg/info1.jpg)
 
 You can copy the contents of sampleinfo.xml \[LINK\] to get you started.
 
 For your reference, below is an overview of the contents of what needs to be present in the file.
-    ![sample info]((/streamsx.documentation/images/atom/jpg/sample-info.jpeg)
+    ![sample info]((/streamsx.documentation/images/atom/jpg/sample-info.jpg)
 ```
 <toolkitInfoModel
           xmlns="http://www.ibm.com/xmlns/prod/streams/spl/toolkitInfo"
@@ -76,16 +76,16 @@ Create a folder within your project with the target namespace:
 -   Select the project, right click, and click **New Folder**.
 
 -   Enter a name for the namespace, e.g. `my.name.space`:
-    ![sample info](/streamsx.documentation/images/atom/jpg/namespace1.jpeg)
+    ![sample info](/streamsx.documentation/images/atom/jpg/namespace1.jpg)
 
 -   Create a new file within the my.name.space folder, call it
     `.namespace`
 
-    ![new namespace](/streamsx.documentation/images/atom/jpg/namespace2.jpeg)
+    ![new namespace](/streamsx.documentation/images/atom/jpg/namespace2.jpg)
 
 -   The final folder structure should look like this:
 
-    ![folder structure](/streamsx.documentation/images/atom/jpg/namespace3.jpeg)
+    ![folder structure](/streamsx.documentation/images/atom/jpg/namespace3.jpg)
 
 Now that your namespace is created, you can create your first SPL source
 file.
@@ -117,7 +117,7 @@ composite BusAlerts {
 
 The final code should appear like this:
 
-![stub app](/streamsx.documentation/images/atom/jpg/blank-app.jpeg)
+![stub app](/streamsx.documentation/images/atom/jpg/blank-app.jpg)
 
 Develop a simple application
 ---------------------------

@@ -79,7 +79,7 @@ If the closing bracket isn't easily visible, collapse portions of code, as shown
   </figcaption>
 </figure>
 
-Anywhere a downwards caret ![caret](/streamsx.documentation/images/atom/jpg/caret.jpeg) occurs, use it to collapse the code to make it easier to read.
+Anywhere a downwards caret ![caret](/streamsx.documentation/images/atom/jpg/caret.jpg) occurs, use it to collapse the code to make it easier to read.
 
 View an operator's documentation
 --------------------------------
@@ -102,7 +102,7 @@ To find out where a stream or operator is used within a file, you can click on i
 For example, a stream called `BusDataFromFile` is the output of the `FileSource` above.
 Click on the `BusDataFromFile` stream to highlight occurrences:
 
-![found occurences](/streamsx.documentation/images/atom/jpg/ocurrences.jpeg)
+![found occurences](/streamsx.documentation/images/atom/jpg/ocurrences.jpg)
 
 Find All References Within a Project
 ------------------------------------
@@ -154,11 +154,11 @@ The bottom left corner of the editor will show any compilation or syntax errors 
 
 Click the error icon to open the **Diagnostics** pane to help you find and fix the errors.
 
-![errors pane](/streamsx.documentation/images/atom/jpg/errors.jpeg)
+![errors pane](/streamsx.documentation/images/atom/jpg/errors.jpg)
 
 You can also open all files with errors at once by typing "diagnostics errors" from the Command Palette:
 
-![Open all errors](/streamsx.documentation/images/atom/jpg/open-all-errors.jpeg)
+![Open all errors](/streamsx.documentation/images/atom/jpg/open-all-errors.jpg)
 
 
 Summary
