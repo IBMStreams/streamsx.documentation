@@ -143,7 +143,7 @@ Adding a parsing step and using a FileSink
     Helper functions defined here:
     https://github.com/IBMStreams/samples/blob/master/Geospatial/MapViewerSample/com.ibm.streamsx.mapviewer.gen/GeospatialGen.spl
 
-## Where to find examples**
+## Where to find examples
 
 -   Samples for most toolkits are included in the toolkit repository in
     the samples folder.
