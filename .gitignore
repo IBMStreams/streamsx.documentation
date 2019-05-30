@@ -5,3 +5,8 @@ _site/**
 *.iml
 *.ipr
 *.iws
+docs/spl/atom/atomguide-2.docx
+images/atom/new/*
+images/atom/png/*
+docs/spl/atom/~$omguide-2.docx
+docs/spl/atom/design.docx
