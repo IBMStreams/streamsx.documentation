@@ -28,7 +28,7 @@ The `BusAlerts` application displays alerts and advertisements within the city's
 
 For example, if there is a security incident along a route, an alert is displayed inside the bus as the bus approaches the region. Also, advertisements for local businesses along a bus' route will be displayed as the bus approaches the business.
 
-To follow along you can download the application if you haven't already [LINK]
+To follow along you can download the application if you haven't already [LINK TBD]
 
 Build the application
 ---------------------
