@@ -36,32 +36,40 @@ SPL projects are also called toolkits. Each toolkit folder must include a file c
 **This file must be in the top level of the project.**
 
 Create a file within the folder called `info.xml`.
-    - Right-click the `MyStreamsProject` folder, select **New File**, and enter `info.xml` as the file name:
+    - Right-click the `MyStreamsProject` folder, select **New File**, and enter `info.xml` as the file name.
 
-![new tk info file](/streamsx.documentation/images/atom/jpg/info1.jpg)
 
-You can copy the contents of sampleinfo.xml \[LINK\] to get you started.
+
+You can copy the contents of the following sample `info.xml` file to get you started.
 
 For your reference, below is an overview of the contents of what needs to be present in the file.
-    ![sample info]((/streamsx.documentation/images/atom/jpg/sample-info.jpg)
+
+  - `identity` tag contains general details about the project, name, version and required Streams version.
+  - `dependencies` tag lists any toolkits you require.
+  - `sabFiles` tag indicates which folders within the project contain files that your application will access at runtime.
+
 ```
-<toolkitInfoModel
-          xmlns="http://www.ibm.com/xmlns/prod/streams/spl/toolkitInfo"
-          xmlns:xsi="http://www.w3.org/2001/XMLSchema−instance"
-          xmlns:cmn="http://www.ibm.com/xmlns/prod/streams/spl/common"
-          xsi:schemaLocation="http://www.ibm.com/xmlns/prod/streams/spl/toolkitInfo toolkitInfoModel.xsd">
-         <identity>
-           <name>MyStreamsProject</name>
-           <description>My first toolkit</description>
-           <version>1.0.0</version>
-           <requiredProductVersion>4.0.0</requiredProductVersion>
-         </identity>
-         <dependencies/>
-           <sabFiles>
-             <include path="data/**"/>
-              <include path="etc/**"/>
-           </sabFiles>
-    </toolkitInfoModel>
+<info:toolkitInfoModel
+  xmlns:common="http://www.ibm.com/xmlns/prod/streams/spl/common"
+   xmlns:info="http://www.ibm.com/xmlns/prod/streams/spl/toolkitInfo">
+  <info:identity>
+    <info:name>MyStreamsToolkit</info:name>
+    <info:description>My first toolkit</info:description>
+    <info:version>1.0.0</info:version>
+    <info:requiredProductVersion>4.0.0</info:requiredProductVersion>
+  </info:identity>
+  <info:dependencies>
+    <info:toolkit>
+      <common:name>com.ibm.streams.cep</common:name>
+      <common:version>[2.1.1,3.0.0)</common:version>
+    </info:toolkit>
+  </info:dependencies>
+  <info:sabFiles>
+    <info:include path="data/**"/>
+    <info:include path="etc/**"/>
+
+  </info:sabFiles>
+</info:toolkitInfoModel>
 
 ```
 Learn more about the [toolkit information file in the Knowledge Center](https://www.ibm.com/support/knowledgecenter/SSCRJU_4.3.0/com.ibm.streams.dev.doc/doc/toolkitinformationmodelfile.html).
@@ -76,16 +84,16 @@ Create a folder within your project with the target namespace:
 -   Select the project, right click, and click **New Folder**.
 
 -   Enter a name for the namespace, e.g. `my.name.space`:
-    ![sample info](/streamsx.documentation/images/atom/jpg/namespace1.jpg)
-
--   Create a new file within the my.name.space folder, call it
-    `.namespace`
-
-    ![new namespace](/streamsx.documentation/images/atom/jpg/namespace2.jpg)
+-   Create a new empty file within the `my.name.space` folder, call it
+    `.namespace`.
 
 -   The final folder structure should look like this:
 
-    ![folder structure](/streamsx.documentation/images/atom/jpg/namespace3.jpg)
+    - MyStreams project
+      - `my.name.space`
+        - `.namespace`
+      - `info.xml`
+
 
 Now that your namespace is created, you can create your first SPL source
 file.
