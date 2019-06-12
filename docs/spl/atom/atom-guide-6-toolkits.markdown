@@ -165,15 +165,14 @@ We're going to replace the  `NextBusData_FromFile` stream  with a `HTTPGetXMLCon
     Change the line:
 
       ```
-      stream <rstring id, float64 latitude, float64 longitude>
+  		stream<rstring id,TimeMillis reportTime, float64 latitude, float64 longitude>
        ParsedDataStream = ParseNextBusData (NextBusData_FromFile )
 
       ```  
     to:
 
     ```
-    stream
-    <rstring id, float64 latitude, float64 longitude>
+  		stream<rstring id,TimeMillis reportTime, float64 latitude, float64 longitude>
     ParsedDataStream  = ParseNextBusData(RawData_Live)
 
     ```

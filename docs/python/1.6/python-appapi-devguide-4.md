@@ -900,6 +900,9 @@ And this output:
 | 21 |	30 |	25.5 |	10 |
 | 31 |	40 |	35.5 |	10 |
 
+## Grouping with Windows
+So far we have discussed simple aggregation. You might want to aggregate results based on a group, e.g. you might want to get the maximum temperature reported for each sensor. You can do this kind of aggregation within your processing callable using any Python library, e.g. using Pandas.
+
 
 ### Using windows: review
 
