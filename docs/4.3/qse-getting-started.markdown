@@ -22,12 +22,10 @@ For a quick overview about Streams and developing in Streams, see the following 
 Video:  Learn Streams in 5 min!
 </button>
 
-## Getting started
-
-### Run your first Streams application
+## Getting started - run your first Streams application
 Run your first Streams application, "Hello, World!" using Streams Studio.
 
-#### Launch Streams Studio
+### Launch Streams Studio
 **If you are using the Docker QSE:**
   * [Start a VNC session](http://localhost:4000/streamsx.documentation/docs/4.3/qse-install-docker/#vnc).
 

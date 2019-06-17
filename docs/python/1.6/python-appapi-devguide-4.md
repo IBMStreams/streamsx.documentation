@@ -745,7 +745,7 @@ Each row represents the results of one invocation of the `Average` class with th
 | 10|  4|  13|  8.5|
 
 
-The window size was set to 10, so we would expect that the `Average` callable is only called when there are 10 tuples in the window. However, looking closely at the first few result tuples, the number of tuples in the window (the `count` column) starts at 1 and increases by 1 until it reaches and stays at 10. This might seem strange at first, but it is actually expected behavior. Why? Because we indicated the _size_ of the window, but not _when_ we wanted the average to be computed, so the average is computed for every new tuple.
+The window size was set to `10`, so we would expect that the `Average` callable is only called when there are 10 tuples in the window. However, looking closely at the first few result tuples, the number of tuples in the window (the `count` column) starts at 1 and increases by 1 until it reaches and stays at 10. This might seem strange at first, but it is actually expected behavior. Why? Because we indicated the _size_ of the window, but not _when_ we wanted the average to be computed, so the average is computed for every new tuple.
 
 <a id="wtrigger"></a>
 
@@ -767,8 +767,8 @@ is equivalent to
 window = src.last(size=10).trigger(1)
 ~~~
 
-which says _create a window of the last 10 tuples, calling the processing function for every new tuple._
-Looking again at the output, this explains why the number of tuples in the window starts at 1 and progressively increases by 1.
+which _creates a window of the last 10 tuples, calling the processing function for every new tuple._
+This explains why the number of tuples in the window starts at 1 and progressively increases by 1:
 
 | count  | min | max | average |
 | ------- | ------- | ------| -----|
@@ -860,11 +860,20 @@ This is because the window we created is a _sliding window_. `Stream.last()` alw
 <a id="wsliding"></a>
 
 ### Unique vs. overlapping windows
-If you create a window using `Stream.last()`, this window is a sliding window. Tuples in sliding windows can appear in more than one window. This is useful in our example above where we wish to create a average the last 10 tuples that is updated every 5 tuples.
+If you create a window using `Stream.last()`, this window is a **sliding window**. Tuples in sliding windows can appear in more than one window. This is useful in our example above where we wish to create a average the last 10 tuples that is updated every 5 tuples.
 
-If, instead, you wish to perform the aggregation once for every 10 tuples or once per hour, then you would use a tumbling window. Tumbling windows are created using `Stream.batch()`  and do not have a trigger policy.
+If, instead, you wish to perform the aggregation in batches, e.g. in groups of 10 tuples or once per hour, then you would use a **tumbling window**. Tumbling windows are created using `Stream.batch()` and do not have a trigger policy.
 
-Sliding windows are called such because the contents of the window progressively change. With tumbling windows, the contents of the window are predefined and unique between windows. When the size requirement is reached, the tuples in a tumbling window are discarded and are said to _tumble out_.
+With tumbling windows, the contents of the window are unique between windows. When the size requirement is reached, all the tuples in a tumbling window are processed and removed from the window. By comparison, tuples in a sliding window are processed when the trigger policy is met.
+
+The following graphics illustrate the difference between sliding and tumbling windows using the same set of tuples.
+##### Sliding/Overlapping windows
+Use a sliding window when you want to have the aggregation re-use tuples.
+![sliding window](/streamsx.documentation/images/python/sliding.jpg)
+##### Tumbling/unique  windows
+Use a tumbling window to process tuples in batches. Each tuple can only be used once in an aggregation.
+![tumbling window](/streamsx.documentation/images/python/tumbling.jpg)
+
 <a id="we3"></a>
 
 ### Batch processing using tumbling windows: Example
@@ -882,6 +891,7 @@ batch_average.print()
 results_view = batch_average.view()
 ~~~~
 
+And this output:
 
 | min |	max	| avg	| count |
 | --- | ---- | ---- | ---- |
@@ -890,27 +900,18 @@ results_view = batch_average.view()
 | 21 |	30 |	25.5 |	10 |
 | 31 |	40 |	35.5 |	10 |
 
-#### Summary
-The following graphics illustrate the difference between sliding and tumbling windows using the same set of tuples.
-##### Sliding/Overlapping windows
-Use a sliding window when you want to have the aggregation re-use tuples.
-![sliding window](/streamsx.documentation/images/python/sliding.jpg)
-##### Tumbling/unique  windows
-Use a tumbling window when each tuple can only be used once in an aggregation.
-![tumbling window](/streamsx.documentation/images/python/tumbling.jpg)
-
-<a id="wgroup"></a>
-
-### Using windows: summary
+## Grouping with Windows
+So far we have discussed simple aggregation. You might want to aggregate results based on a group, e.g. you might want to get the maximum temperature reported for each sensor. You can do this kind of aggregation within your processing callable using any Python library, e.g. using Pandas.
 
 
-This section has covered using Windows to transform streaming data.
-We covered:
-- Using `Stream.batch` and `Stream.last` to create tumbling or sliding `Window`s.
-- Define a class or function that will perform your aggregation
-- Pass `Window.aggregate()` to call your processing function with the window's contents
-- Set the trigger policy with `Window.trigger` to control when the processing function is called for sliding windows.
+### Using windows: review
 
+
+This section has covered the steps to use a window to transform streaming data:
+- Define the window using `Stream.batch` and `Stream.last`.
+- Defining a class or function that will perform your aggregation
+- Use `Window.aggregate()` to call your processing function with the window's contents
+- For sliding windows, set the trigger policy with `Window.trigger` to control when the processing function is called.
 
 
 
