@@ -63,35 +63,33 @@ In order for Atom to connect to your Streaming Analytics instance, your build-ib
 4. Copy the credentials:
   ![Screenshot of credentials page](/streamsx.documentation/images/atom/jpg/creds.jpg)
 
-5. If you are using a Mac, go to **Atom > Preferences > Packages**. If you are using Windows&reg; Find the **build-ibmstreams** package and click **Settings**.
+5. If you are using a Mac, go to **Atom > Preferences > Packages**. If you are using Windows&reg; go to **File > Settings > Packages**. Find the **build-ibmstreams** package and click **Settings**.
 
 6. Paste the credentials you copied in to the **Settings** text box.
 
-
-
 Add a toolkits folder
 ---------------------------
--  Designate an empty folder on your local filesystem as your toolkits directory. This folder will contain any additional toolkits that you want to use in your application. See the section on [extending your application with toolkits](/streamsx.documentation/docs/spl/atom/atom-guide-6-toolkits) to learn more.
 
--  In Atom, go to Preferences \> Packages**. Find the **ide-ibmstreams** package and click **Settings.** Paste the path to the toolkit directory you just created in the **Toolkits Path** box.
+Toolkits can be added to your project for extra functionality, see the section on [extending your application with toolkits](/streamsx.documentation/docs/spl/atom/atom-guide-6-toolkits) to learn more. Before you can add toolkits into your applications developed with Atom, you need to complete the following:
+
+1. Designate an empty folder on your local filesystem as your toolkits directory. This folder will contain any additional toolkits that you want to use in your application.
+
+2. If you are using a Mac, go to **Atom >  Preferences > Packages**. If you are using Windows&reg;, go to **File > Settings > Packages**. Find the **ide-ibmstreams** package and click **Settings**. Enter the path to the toolkit directory you just created in the **Toolkits Path**.
     ![Toolkit dir setting](/streamsx.documentation/images/atom/jpg/toolkit-dir.jpg)
 
-Migrating from Streams Studio
+Switching from Streams Studio Development
 ------------------------------
-If you have been using Streams Studio, below you can find a summary of major differences between Streams Studio and Atom.
+If you have used Streams Studio, the following list summarizes some important things to look out for.
 
--   **SPL Projects from Streams Studio** can be used in Atom without having to make any changes. See the [importing your code section](/streamsx.documentation/docs/spl/atom/atom-guide-2-import-code/) for instructions.
+- **SPL Projects from Streams Studio** can be used in Atom without having to make any changes. See the [importing your code section](/streamsx.documentation/docs/spl/atom/atom-guide-2-import-code/) for instructions.
 
--   **Adding a Streams Toolkit to your workspace** is discussed in the [toolkits section](/streamsx.documentation/docs/spl/atom/atom-guide-6-toolkits/).
+- **Adding a Streams Toolkit to your workspace** is discussed in the [toolkits section](/streamsx.documentation/docs/spl/atom/atom-guide-6-toolkits/).
 
-- Although the **SPL Graphical Editor** is not available, you can view an application's graph in the Streams Console.
+- Although the **SPL graphicaleditor** is not available, you can view an application graph in the Streams Console.
 
-- **Build Configurations** are not used to compile or launch
-applications from Atom. To compile an SPL composite, you select the SPL file containing the composite, right click, and choose **Build** or **Build and submit job**.
-
+- **Build Configurations** are not used to compile or run applications from Atom. To compile an SPL composite, you select the SPL file containing the composite, right click, and choose **Build** or **Build and submit job**.
     ![build action](/streamsx.documentation/images/atom/jpg/build-submit.jpg)
 
--   **Streams Installation, Instance and Domain Management:** SPL
-Plugins for Atom do not include any Domain or Instance management features because your Streams instance is created and managed in the IBM Cloud. You can configure your Streams instance from the  Streaming Analytics Console.
+- **Streams Installation, Instance and Domain Management:** SPL Plugins for Atom do not include any domain or instance management features because your Streams instance is created and managed in the IBM Cloud. You can configure your Streams instance from the Streaming Analytics Console.
 
--   **Application Monitoring:** Applications launched from Atom are executed on the Streaming Analytics service. Thus, you need to use Streams Console to view metrics, errors, and the Streams graph.
+- **Application Monitoring:** Applications that are started from Atom are executed on the Streaming Analytics service. Thus, you must use Streams Console to view metrics, errors, and the Streams graph.
