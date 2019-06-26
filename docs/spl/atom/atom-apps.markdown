@@ -8,37 +8,26 @@ next:
   file: atom-guide-1a-configure
   title: Configure Atom
 ---
+This development guide covers using the Atom editor to create and develop applications that are written in Streams Processing Language (SPL). You can download the [Atom editor](https://atom.io) from the atom.io website.
 
-
-
-This development guide will cover using the [Atom editor](https://atom.io) to create and
-develop applications written in Streams Processing Language (SPL).
-
-Follow this guide if you want to learn about Streams and SPL without downloading and
-installing the Streams platform.
-
-To get started with Streams using a local installation, see the [Getting
-Started with the Streams Quick Start Edition](/streamsx.documentation/docs/latest/qse-intro) page.
+If you want to learn about Streams and SPL without setting up you own Streams environment, follow this guide. However, if you want to get started with Streams by using a local installation instead, see the [Getting Started with the Streams Quick Start Edition](/streamsx.documentation/docs/latest/qse-intro) page.
 
 Prerequisites
 -------------
 
-If you are completely new to Streams, read the [Basic Building Blocks](https://developer.ibm.com/streamsdev/docs/streams-quick-start-guide/#basic_building_blocks) on Streamsdev for a basic introduction. Then you can return to this guide to:
+If you are completely new to Streams, read the [Basic Building Blocks](https://developer.ibm.com/streamsdev/docs/streams-quick-start-guide/#basic_building_blocks) on Streamsdev for a basic introduction. Then you can return to this guide to complete the following tasks:
 
--   Configure Atom for development
+- Configure Atom for development.
 
--   Run a sample application to see Streams in action
+- Run a sample application to see Streams in action.
 
--   Create your own applications from scratch
+- Create your own applications from scratch.
 
-**Note**: This guide will only cover creating Streams applications using
-SPL. To learn about development in Python or Java, see the [Python development guide](/streamsx.documentation/docs/python/python-appapi-devguide/) or the [Java development guide](/streamsx.documentation/docs/java/java-appapi-devguide/).
-
-
+**Note**: This guide covers creating Streams applications by using
+SPL. To learn about development in Python or Java&reg;, see the [Python development guide](/streamsx.documentation/docs/python/python-appapi-devguide/) or the [Java&reg; development guide](/streamsx.documentation/docs/java/java-appapi-devguide/).
 
 What's covered in this guide
 -----------------
-
 
 -   [Configure Atom](/streamsx.documentation/docs/spl/atom/atom-guide-1a-configure)
 
