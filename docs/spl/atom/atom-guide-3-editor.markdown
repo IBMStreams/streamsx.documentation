@@ -12,66 +12,52 @@ next:
   title: Creating a new SPL project
 ---
 
-This section covers some of the SPL features in Atom.
+This section covers some of the features in Atom that can be used when editing SPL code.
 
 Atom overview
 -----------------------------------------
 
-Here is an look of the Atom editor showing some important features:
+This image of the Atom editor shows some useful features:
 
 ![editor overview](/streamsx.documentation/images/atom/jpg/atom-1.jpg)
 
-* The **Project** pane shows the projects you are currently working on. Use **File \> Add Project Folder** to import a project.
+* The **Project** pane on the left shows the projects that you are currently working on. Use **File \> Add Project Folder** to import a project.
 
 
 
 The Command Palette
 --------------------
 
-Open the command palette (`CMD + SHIFT + P` on a Mac) to see all the
-available commands.
+Open the command palette (`CMD + SHIFT + P` on a Mac, `CTRL + SHIFT + P` on Windows&reg;) to see all the available commands.
 
 ![cmd palette](/streamsx.documentation/images/atom/jpg/cmd-palette.jpg)
 
-If you looking for a pane or view or an action, search the command palette to find it.
-
-For example, you can open the Github tabs from the command palette. Search for *Git or Github tab*.
+If you looking for a pane or view or an action, search the command palette to find it. For example, if you want to open the GitHub tab from the command palette, you just need to search for *GitHub tab* and press the Enter key.
 
 Version control with Git
 -------------------------
 
-The **Git** tab manages changes in your local repository and the **GitHub** tab helps you with projects hosted on GitHub. Open/close these tabs from the bottom right of the editor or the command palette.
+The **Git** tab manages changes in your local repository and the **GitHub** tab helps you with projects hosted on GitHub. These tabs can be opened from the command palette.
 
 ![open git tab](/streamsx.documentation/images/atom/jpg/github-open.jpg)
 
-Folders and files that have been changed are also highlighted in the
-**Project** pane. For example, in the screenshot above, the `SensorMonitor.spl` file has been changed (yellow) and the `output` folder has been added (green).
+Folders and files that are changed are also highlighted in the **Project** pane. For example, in the screenshot above, the `SensorMonitor.spl` file has been changed (yellow) and the `output` folder has been added (green).
 
-See the [Atom Flight Manual section on Git](https://flight-manual.atom.io/using-atom/sections/github-package/) to learn more about the Git support in Atom.
-
+To learn more about Git support in Atom, see [Atom Flight Manual section on Git](https://flight-manual.atom.io/using-atom/sections/github-package/).
 
 SPL Editing Features
 --------------------
 
-The editor has rich code completion and content assist features.
-
-For example, open `sample/Main.spl` from the `BusAlerts` project.
-
-Line 7 contains the line `composite BusAlerts\Main`.
-
-This is the *main composite* of this application. It is the application's entry point.
-
-Let's use this application to explore some Atom features.
+One of Atom's features is rich code completion and content assist. For example, open `sample/Main.spl` from the `BusAlerts` project. Line 7 contains the line `composite BusAlerts\Main`. This scope contains the *main composite* of this application. It is the application's entry point. This application will be used to explore some of Atom's features.
 
 #### Bracket matching
 Shows you the scope of a declaration:
 
 ![bracket-match](/streamsx.documentation/images/atom/jpg/brackets.jpg)
 
-
 #### Code Folding
 
-If the closing bracket isn't easily visible, collapse portions of code, as shown below:
+If the closing bracket isn't easily visible, collapse portions of code, as shown in the following image:
 
 <figure>
   <img src="/streamsx.documentation/images/atom/jpg/fold.gif" alt="code folding"/>
@@ -83,7 +69,7 @@ Anywhere a downwards caret ![caret](/streamsx.documentation/images/atom/jpg/care
 
 View an operator's documentation
 --------------------------------
-You can hover over any artifact, such as a parameter, stream, or operator, and its documentation will be displayed, if it is available.
+You can hover over any artifact, such as a parameter, stream, or operator, and its documentation will be displayed if it is available.
 
 For example, the first operator in the application is a `FileSource` operator. Hover over the operator to see its documentation:
 
@@ -97,10 +83,7 @@ Hover over the `initDelay` parameter to see what it does.
 
 Find References within a File
 ------------------------------
-To find out where a stream or operator is used within a file, you can click on it to highlight occurrences.
-
-For example, a stream called `BusDataFromFile` is the output of the `FileSource` above.
-Click on the `BusDataFromFile` stream to highlight occurrences:
+To find out where a stream or operator is used within a file, you can click on it to highlight occurrences. For example, a stream called `BusDataFromFile` is the output of the `FileSource` above. Click on the `BusDataFromFile` stream to highlight occurrences:
 
 ![found occurences](/streamsx.documentation/images/atom/jpg/ocurrences.jpg)
 
@@ -109,13 +92,11 @@ Find All References Within a Project
 
 Use **Find References** to find where an artifact is used within the whole project.
 
-Continuing the example above, the `BusDataFromFile` stream is used by the `ParseNextBusData` operator.
-To see where the `ParseNextBusData` operator is defined, right click and select **Find References** from the context menu.
+Continuing the preceeding example, the `BusDataFromFile` stream is used by the `ParseNextBusData` operator. To see where the `ParseNextBusData` operator is defined, right click and select **Find References** from the context menu.
 
 ![find refs](/streamsx.documentation/images/atom/jpg/refs.gif)
 
-This will open the **Symbol References** pane, which lists all references of this operator, including its definition.
-Click on a result in that pane to go to the corresponding file.
+This will open the **Symbol References** pane, which lists all references of this operator, including its definition. Click on a result in that pane to go to the corresponding file.
 
 **Note:** The **Go to Declaration** menu item is unsupported due to a
 limitation in Atom.
@@ -127,28 +108,27 @@ The editor also supports code completion. As you type, you can hit `CTRL+SPACE` 
 
 ![Content assist](/streamsx.documentation/images/atom/jpg/contentassist.gif)
 
-The screenshot above shows the list of parameters available for the `FileSource` operator.
+The preceeding screen capsure shows the list of parameters available for the `FileSource` operator.
 
 Operator Templates
 ---------------------
 
 You can also add operators using templates.
 
-Imagine that instead of the FileSource operator, we wanted to use the
-HDFS2FileSource operator to read data from Hadoop.
+Imagine that instead of the FileSource operator, we wanted to use the HDFS2FileSource operator to read data from Hadoop.
 
 To add a new HDFS2FileSource operator to our graph, type `CTRL + SPACE` on an empty line and search the available operator templates for *hdfs*:
 
 ![operator template content assist](/streamsx.documentation/images/atom/jpg/template.gif)
 
-A template exists, so use the down arrows to select *HDFS2FileSource for IBM Analytics Engine* and hit enter:
+A template exists, so use the down arrows to select *HDFS2FileSource for IBM Analytics Engine* and hit press the Enter key:
 The template for the operator is added to the file. Change the operator's parameters, stream type, and output type to suit your needs.
 
 
 Finding problems
 ---------------------
 
-The bottom left corner of the editor will show any compilation or syntax errors in your code:
+The lower left corner of the editor will show any compilation or syntax errors in your code:
 
 ![errors list](/streamsx.documentation/images/atom/jpg/error-list.jpg)
 
