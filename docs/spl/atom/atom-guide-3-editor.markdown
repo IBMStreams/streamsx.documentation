@@ -9,7 +9,7 @@ prev:
   title: Import your code into Atom
 next:
   file: atom-guide-4-create
-  title: Creating a new SPL project
+  title: Creating an SPL application
 ---
 
 This section covers some of the features in Atom that can be used when editing SPL code.
