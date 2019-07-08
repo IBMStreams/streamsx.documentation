@@ -154,11 +154,11 @@ Stop a running application
 
 Once you are finished with an application, stop it by clicking the **Cancel** button from anywhere in the Streams console.
 
- ![Streams console main](/streamsx.documentation/images/atom/jpg/cancel.jpg)
+![Streams console main](/streamsx.documentation/images/atom/jpg/cancel.jpg)
 
 Select the jobs to be cancelled and click Cancel Jobs.
 
-  ![Streams console main](/streamsx.documentation/images/atom/jpg/cancel-dialog.jpg)
+![Streams console main](/streamsx.documentation/images/atom/jpg/cancel-dialog.jpg)
 
 
 # Next steps
