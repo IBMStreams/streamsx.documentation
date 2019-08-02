@@ -17,7 +17,7 @@ After you configure Atom, you can start working with some code. In order to get 
 Import an Existing Project (Including Streams Studio Projects)
 --------------------------
 
-If you have an existing streams project in an archive, you can use atom to work on the project by doing the following:
+If you have an existing Streams project in an archive, you can use Atom to work on the project by doing the following:
 
 1. Extract the contents of the archive into a folder of your choice.
 2. From Atom go to **File > Open Folder** and navigate to the folder which contains your project, then press open.
