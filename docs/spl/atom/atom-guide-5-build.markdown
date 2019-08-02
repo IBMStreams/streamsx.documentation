@@ -100,12 +100,11 @@ The general steps to submit your application from Streams console is as follows:
 2.  Open the Streams Console, and upload the `.sab` file.
 3.  Set any needed parameters.
 
-Continuing with the bus application, your application has a parameter called '$agency'
-Let's continue with the example. In our case, our application has a parameter called which is set in the code.
+Continuing with the bus application, your application has a parameter called `$agency`, which is set in the code.
 
 ![param](/streamsx.documentation/images/atom/jpg/param-default.png)
 
- This parameter to changes your application to monitor buses in a different regions. The default value is `sf-muni`, so by default our application will monitor buses in the San Francisco Municipality. The default value also explains why we were able to submit the application the first time. When you use the **build and submit** option and then submit directly from Atom, the default values for any parameters are used, if there are no default values for some parameters the submission will fail. Your goal is setting the `$agency` parameter to _ttc_ when you submit the job.
+ This parameter changes the application to monitor buses in a different regions. The default value is `sf-muni`, so by default our application monitors buses in the San Francisco Municipality. The default value also explains why we were able to submit the application the first time. When you use the **Build and submit** option and then submit directly from Atom, the default values for any parameters are used, if there are no default values for some parameters the submission will fail. Your goal is setting the `$agency` parameter to _ttc_ when you submit the job.
 
 ### Use Build to create an executable
 In order to create the executable file, select the SPL file that contains your application, right click, and click **Build**. This will compile the application and save the executable file to the **output** folder of your project. If the build is successful, you will see a new folder within the project containing the following executable file.
