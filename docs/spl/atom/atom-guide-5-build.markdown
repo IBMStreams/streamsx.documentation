@@ -23,7 +23,7 @@ Here is an example.
 About the sample application
 ----------------------------
 
-The `BusAlerts` application displays alerts and advertisements within the city's public transit vehicles as they move through points of interest. For example, if there is a security incident, or if a participating local business is nearby, an alert about the incident or an ad for the business is displayed inside the bus as the bus approaches the region. To follow along you can download the application if you haven't already. [LINK TBD]
+The `BusAlerts` application displays alerts and advertisements inside the city's public transit vehicles as they move through points of interest. For example, if there is a security incident an alert about the incident is displayed inside the bus as the bus approaches the region.  Local businesses can also purchase advertising to be displayed when the bus is near the business. To follow along, you can download the application if you haven't already. [LINK TBD]
 
 Build the application
 ---------------------
