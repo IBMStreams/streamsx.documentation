@@ -12,7 +12,7 @@ next:
   title: Reviewing SPL code in Atom
 ---
 
-After you configure Atom, you can start working with some code. In order to get the most out of this guide, you can follow the instructions to import the sample application in the **Import an Existing Project** section. The archive file for the sample BusAlerts application can be downloaded by following this \[LINK\]
+After you configure Atom, you can start working with some code. In order to get the most out of this guide, you can follow the instructions to import the sample application in the **Import an Existing Project** section. The archive file for the sample BusAlerts application can be downloaded here[LINK TBD]
 
 Import an Existing Project (Including Streams Studio Projects)
 --------------------------
@@ -20,7 +20,7 @@ Import an Existing Project (Including Streams Studio Projects)
 If you have an existing Streams project in an archive, you can use Atom to work on the project by doing the following:
 
 1. Extract the contents of the archive into a folder of your choice.
-2. From Atom go to **File > Open Folder** and navigate to the folder which contains your project, then press open.
+2. From Atom go to **File > Open Folder** and navigate to the folder which contains your project, then click **Open**.
 
 Import a project from GitHub
 ----------------------------
