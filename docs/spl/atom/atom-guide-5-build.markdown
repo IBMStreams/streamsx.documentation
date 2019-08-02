@@ -12,18 +12,18 @@ next:
     title: Add a toolkit to your application
 ---
 
-When developing Streams applications by using Atom, the compilation and running is done in the cloud. From Atom, you can compile an SPL application using the **Build** or **Build and submit job** actions.
+When developing Streams applications by using Atom, the application is compiled and executed in the cloud. From Atom, you can compile an SPL application using the **Build** or **Build and submit job** actions.
 
 ![build-submit action](/streamsx.documentation/images/atom/jpg/build-submit.jpg)
 
 If you choose **Build,** the application will be compiled and the resulting `.sab` (Streams Application Bundle) file will be saved to the `output` folder of your project. If you choose **Build and submit job**, the application will be compiled and you will be prompted to submit the job to be run in the cloud.
 
-Let's look at an example.
+Here is an example.
 
 About the sample application
 ----------------------------
 
-The `BusAlerts` application displays alerts and advertisements within the city's public transit vehicles as they move through points of interest. For example, if there is a car accident, or if a local business has bought advertisements, an alert or ad will be displayed as the bus approaches the region. To follow along you can download the application if you haven't already. [LINK TBD]
+The `BusAlerts` application displays alerts and advertisements within the city's public transit vehicles as they move through points of interest. For example, if there is a security incident, or if a participating local business is nearby, an alert about the incident or an ad for the business is displayed inside the bus as the bus approaches the region. To follow along you can download the application if you haven't already. [LINK TBD]
 
 Build the application
 ---------------------
