@@ -29,7 +29,7 @@ Create an empty folder on your file system, e.g. `MyStreamsProject`. Then from A
 Create a toolkit information file
 ---------------------------------
 
-SPL projects are also called toolkits (similar to package or module). Each toolkit folder must include a file called `info.xml` in the **top level** of the project,  this file describes the toolkit and any other toolkits it depends on.
+SPL projects are also called toolkits.  Each toolkit folder must include a file called `info.xml` in the **top level** of the project,  this file describes the toolkit and any other toolkits it depends on.
 
 Create a file within the folder called `info.xml`.
     - To create a the info.xml file, right-click your project folder, and select **New File**, and enter `info.xml` as the file name.
