@@ -70,7 +70,7 @@ In order for Atom to connect to your Streaming Analytics instance, your build-ib
 Add a toolkits folder
 ---------------------
 
-Toolkits can be added to your project for extra functionality, see [extending your application with toolkits](/streamsx.documentation/docs/spl/atom/atom-guide-6-toolkits) to learn more. Before you can add toolkits into your applications, you need to complete the following:
+Streans toolkits provide extra functionality to your Streams applications, such as enabling you to connect to a data source like Kafka. See [extending your application with toolkits](/streamsx.documentation/docs/spl/atom/atom-guide-6-toolkits) to learn more. Before you can add toolkits into your applications, you need to complete the following:
 
 1. Designate an empty folder on your local filesystem as your toolkits directory. This folder will contain any additional toolkits that you want to use in your application.
 
