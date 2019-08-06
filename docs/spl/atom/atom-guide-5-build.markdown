@@ -104,7 +104,7 @@ Continuing with the bus application, your application has a parameter called `$a
 
 ![param](/streamsx.documentation/images/atom/jpg/param-default.png)
 
- This parameter changes the application to monitor buses in a different regions. The default value is `sf-muni`, so by default our application monitors buses in the San Francisco Municipality. The default value also explains why we were able to submit the application the first time. When you use the **Build and submit** option and then submit directly from Atom, the default values for any parameters are used, if there are no default values for some parameters the submission will fail. Your goal is setting the `$agency` parameter to _ttc_ when you submit the job.
+This parameter changes the application to monitor buses in a different regions. The default value is `sf-muni`, so by default our application monitors buses in the San Francisco Municipality. Your goal is to set the `$agency` parameter to _ttc_ when you submit the job.
 
 ### Use Build to create an executable
 In order to create the executable file, select the SPL file that contains your application, right click, and click **Build**. This will compile the application and save the executable file to the **output** folder of your project. If the build is successful, you will see a new folder within the project containing the following executable file.
@@ -140,7 +140,10 @@ Click **Submit**. You will be prompted with a list of all the application's para
 
   ![Parameter prompt](/streamsx.documentation/images/atom/jpg/params-in-console.jpg)
 
-You can change the `bus-agency` parameter to _ttc_ (Toronto Transit Commission) will cause this application to monitor buses in Toronto.
+When you change the `bus-agency` parameter to _ttc_ (Toronto Transit Commission), the application will to monitor buses in Toronto.
+
+Note: because the `bus-agency` parameter has a default value, `sf-muni` we were able to submit the application the first time. When you use the **Build and submit** option and then submit directly from Atom, the default values for any parameters are used, if there are no default values for some parameters the submission will fail. 
+
 
 ##### Setting parameters summary
 
