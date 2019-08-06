@@ -12,11 +12,11 @@ next:
   title: Build and run an application in Atom
 ---
 
-The general steps to create a new project are as follows:
-1. Create an empty folder on your filesystem and import it into Atom
-2. Create a toolkit information file
+The general steps to create a new SPL project are:
+1. Create an empty folder on your filesystem and import it into Atom.
+2. Create a toolkit information file.
 
-After you create your project, you can start creating applications. The entry point of any SPL application is called a _Main Composite_. You can create your first Main composite by doing the following:
+After you create your project, you can start creating applications. The entry point of any SPL application is called a _Main Composite_. You can create your first main composite by doing the following:
 
 1. Defining a namespace to organize your code
 2. Create a Main composite within an SPL file
@@ -29,10 +29,10 @@ Create an empty folder on your file system, e.g. `MyStreamsProject`. Then from A
 Create a toolkit information file
 ---------------------------------
 
-SPL projects are also called toolkits.  Each toolkit folder must include a file called `info.xml` in the **top level** of the project,  this file describes the toolkit and any other toolkits it depends on.
+SPL projects are also called toolkits.  Each toolkit folder must include a file called `info.xml` in the **top level** of the project. This file describes the toolkit and any other toolkits it depends on.
 
 Create a file within the folder called `info.xml`.
-    - To create a the info.xml file, right-click your project folder, and select **New File**, and enter `info.xml` as the file name.
+    - To create the `info.xml` file, right-click your project folder, and select **New File**, and enter `info.xml` as the file name.
 
 For your reference, the following snippet is an overview of the contents of what needs to be present in the file. You can copy the contents into your `info.xml` file to get started.
 
@@ -69,7 +69,7 @@ Learn more about the [toolkit information file in IBM Knowledge Center](https://
 Create a namespace
 ------------------------
 
-You can use Namespaces to organize your SPL code in a similar way to Python modules or Java packages. Any folder with an empty file called `.namespace` is treated as a SPL namespace.
+You can use namespaces to organize your SPL code in a similar way to Python modules or Java packages. Any folder with an empty file called `.namespace` is treated as a SPL namespace.
 
 Create a folder within your project with the target namespace with the following steps:
 1. Select the project, right click, and click **New Folder**.
@@ -134,7 +134,7 @@ When you develop Streams applications, first **break down the application into i
 Use operators to process data in steps
 --------------------------------------
 
-Remember Streams applications are made up of **operators**. Each operator performs a specific task with an **input stream** of data and then produces an **output stream** which is the result of the processing.
+Remember, Streams applications are made up of **operators**. Each operator performs a specific task with an **input stream** of data and then produces an **output stream** which is the result of the processing.
 
 **Sample operator invocation**
 The following image is a generic overview of an operator declaration, with the name of the operator that will be invoked, and its input and output. Every operator in your application will follow this format.
@@ -192,7 +192,7 @@ stream <rstring id, TimeMillis reportTime, float64 latitude, float64 longitude> 
 
 The output stream `ParsedDataStream` contains the individual attributes that describe the bus' location.
 
-Note: The `ParseNextBusData` is a special kind of operator called a _composite_  operator, because it is made up multiple operators. It handles the parsing by using the `XMLParse` operator. You can look at its source in `BusAlerts/sample/ParseNextBusData.spl`.
+The `ParseNextBusData` is a special kind of operator called a _composite_  operator. It is called a composite operator because it is made up multiple operators. It uses the `XMLParse` operator to parse the XML data. You can look at its source in `BusAlerts/sample/ParseNextBusData.spl`.
 
 
 Now that you have a stream of bus locations, you can use it to detect when a bus is near a point of interest (POI). The points of interest for our aapplication have been defined in another file, called `poi.csv`. The format of this data is as follows:
@@ -216,7 +216,7 @@ stream<rstring POI_ID, rstring locationWKT, rstring message> POI_FromFile = File
 ```
 Note that the output schema of the _POI_FromFile_ stream matches the format in the CSV file.
 
-Now you have two streams of data (`POI_FromFile` and `NextBusData_FromFile`) that you are ready to process in our next step. So far, you application graph looks like the following image:
+Now you have two streams of data (`POI_FromFile` and `NextBusData_FromFile`) that you are ready to process in our next step. So far, the application graph looks like the following image:
 
 ![step-1-graph](/streamsx.documentation/images/atom/jpg/step1-graph.png)
 
