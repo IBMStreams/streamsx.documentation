@@ -12,7 +12,7 @@ next:
   title: Reviewing SPL code in Atom
 ---
 
-After you configure Atom, you can start working with some code. In order to get the most out of this guide, you can follow the instructions to import the sample application in the **Import an Existing Project** section. The archive file for the sample BusAlerts application can be downloaded here[LINK TBD]
+After you configure Atom, you can start working with some code. In order to get the most out of this guide, you can follow the instructions to import the sample application in the **Import an Existing Project** section. The archive file for the [sample BusAlerts application can be downloaded here](https://streams-github-samples.mybluemix.net/?get=QuickStart%2FBusAlerts).
 
 Import an Existing Project (Including Streams Studio Projects)
 --------------------------

@@ -23,7 +23,7 @@ Here is an example.
 About the sample application
 ----------------------------
 
-The `BusAlerts` application displays alerts and advertisements inside the city's public transit vehicles as they move through points of interest. For example, if there is a security incident an alert about the incident is displayed inside the bus as the bus approaches the region.  Local businesses can also purchase advertising to be displayed when the bus is near the business. To follow along, you can download the application if you haven't already. [LINK TBD]
+The `BusAlerts` application displays alerts and advertisements inside the city's public transit vehicles as they move through points of interest. For example, if there is a security incident an alert about the incident is displayed inside the bus as the bus approaches the region.  Local businesses can also purchase advertising to be displayed when the bus is near the business. To follow along, you can [download the sample application](https://streams-github-samples.mybluemix.net/?get=QuickStart%2FBusAlerts) if you haven't already. 
 
 Build the application
 ---------------------
@@ -142,7 +142,7 @@ Click **Submit**. You will be prompted with a list of all the application's para
 
 When you change the `bus-agency` parameter to _ttc_ (Toronto Transit Commission), the application will to monitor buses in Toronto.
 
-Note: because the `bus-agency` parameter has a default value, `sf-muni` we were able to submit the application the first time. When you use the **Build and submit** option and then submit directly from Atom, the default values for any parameters are used, if there are no default values for some parameters the submission will fail. 
+Note: because the `bus-agency` parameter has a default value, `sf-muni` we were able to submit the application the first time. When you use the **Build and submit** option and then submit directly from Atom, the default values for any parameters are used, if there are no default values for some parameters the submission will fail.
 
 
 ##### Setting parameters summary
