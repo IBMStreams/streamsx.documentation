@@ -224,7 +224,7 @@ Step 2: Detect when a bus is near a POI
 -----------------------------------
 
 The next step is to detect when a bus is within 1km of any of the known points of interest.
-Note that this step simple form of the problems that the `Geofence` operator is designed to solve. But for demonstration purposes you will write the logic yourself.
+Note that the `Geofence` operator is designed to solve this exactly this type of problem. But for demonstration purposes you will write the logic yourself.
 
 Even though Streams provides dozens of built in operators, your unique needs might require you to write your own code.  You can write your own code by using the `Custom` operator. The `Custom` operator is, as the name implies, for custom code. Here is the operator's stub:
 ```
