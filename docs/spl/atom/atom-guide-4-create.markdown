@@ -195,7 +195,7 @@ The output stream `ParsedDataStream` contains the individual attributes that des
 Note: The `ParseNextBusData` is a special kind of operator called a _composite_  operator, because it is made up multiple operators. It handles the parsing by using the `XMLParse` operator. You can look at its source in `BusAlerts/sample/ParseNextBusData.spl`.
 
 
-Now that you have a stream of bus locations, you can use it to detect when a bus is near a point of interest (POI). T points of interest for our aapplication have been defined in another file, called `poi.csv`. The format of this data is as follows:
+Now that you have a stream of bus locations, you can use it to detect when a bus is near a point of interest (POI). The points of interest for our aapplication have been defined in another file, called `poi.csv`. The format of this data is as follows:
 
 ```
 #POI Name, Message to Bus, Location
@@ -205,7 +205,7 @@ Mission Dolores Park,"Security incident near Mission Dolores Park, road and side
 "Fairview Mall","Parade on Yonge Street from 10am to 6pm, expect major delays.","POINT (-79.3463243 43.7770863)"
 ```
 
-Each line describes a point of interest, the alert to send to the buses, and the location of the point of interest. Since the data is in a file, YOU need another `FileSource` to read this data:
+Each line describes a point of interest, the alert to send to the buses, and the location of the point of interest. Since the data is in a file, use another `FileSource` to read this data:
 
 ```
 stream<rstring POI_ID, rstring locationWKT, rstring message> POI_FromFile = FileSource()
