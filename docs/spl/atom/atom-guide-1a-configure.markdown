@@ -13,7 +13,7 @@ next:
 ---
 
 Download the Streams Packages for Atom
---------------------------------------------------
+--------------------------------------
 
 If necessary, [download and install Atom](https://atom.io). To install the Streams Packages for Atom:
 
@@ -37,7 +37,7 @@ If necessary, [download and install Atom](https://atom.io). To install the Strea
 * streams-light-syntax
 
 Create an instance of the Streaming Analytics service
----------------------
+-----------------------------------------------------
 
 Instead of downloading the tools to set up your own Streams environment, you can use the Streaming Analytics cloud service. Applications that are created in Atom can be sent to the Streaming Analytics service to be compiled and run.
 
@@ -49,7 +49,7 @@ To create a new instance of the Streaming Analytics service, you need to complet
 3. Enter the service name and then click **Create** to set up your service. The service dashboard opens and your service starts automatically. The service name appears as the title of the service dashboard.
 
 Add the credentials for your Streaming Analytics service
---------------------------
+--------------------------------------------------------
 
 In order for Atom to connect to your Streaming Analytics instance, your build-ibmstreams package needs to be configured with your instance's service credentials:
 
@@ -68,17 +68,17 @@ In order for Atom to connect to your Streaming Analytics instance, your build-ib
 6. Paste the credentials you copied in to the **Settings** text box.
 
 Add a toolkits folder
----------------------------
+---------------------
 
-Toolkits can be added to your project for extra functionality, see the section on [extending your application with toolkits](/streamsx.documentation/docs/spl/atom/atom-guide-6-toolkits) to learn more. Before you can add toolkits into your applications developed with Atom, you need to complete the following:
+Streans toolkits provide extra functionality to your Streams applications, such as enabling you to connect to a data source like Kafka. See [extending your application with toolkits](/streamsx.documentation/docs/spl/atom/atom-guide-6-toolkits) to learn more. Before you can add toolkits into your applications, you need to complete the following:
 
 1. Designate an empty folder on your local filesystem as your toolkits directory. This folder will contain any additional toolkits that you want to use in your application.
 
 2. If you are using a Mac, go to **Atom >  Preferences > Packages**. If you are using Windows&reg;, go to **File > Settings > Packages**. Find the **ide-ibmstreams** package and click **Settings**. Enter the path to the toolkit directory you just created in the **Toolkits Path**.
     ![Toolkit dir setting](/streamsx.documentation/images/atom/jpg/toolkit-dir.jpg)
 
-Switching from Streams Studio Development
-------------------------------
+Switch from Streams Studio Development
+-----------------------------------------
 If you have used Streams Studio, the following list summarizes some important things to look out for.
 
 - **SPL Projects from Streams Studio** can be used in Atom without having to make any changes. See the [importing your code section](/streamsx.documentation/docs/spl/atom/atom-guide-2-import-code/) for instructions.

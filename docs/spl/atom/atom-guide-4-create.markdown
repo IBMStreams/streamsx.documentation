@@ -1,6 +1,6 @@
 ---
 layout: docs
-title:  Creating a new SPL application
+title:  Creating an SPL application
 description:  How to create a new project from scratch
 navlevel: 2
 tag: atom
@@ -9,40 +9,32 @@ prev:
   title: Reviewing SPL code in Atom
 next:
   file: atom-guide-5-build
-  title: Build an run an application in Atom
+  title: Build and run an application in Atom
 ---
 
-The general steps to create a new project are:
-- Create an empty folder on your filesystem and import it into Atom
-- Create a toolkit information file
+The general steps to create a new SPL project are:
+1. Create an empty folder on your filesystem and import it into Atom.
+2. Create a toolkit information file.
 
-Once you create your project, you can start creating applications. The main entry point of any SPL application is called a _Main Composite_. So after creating your project, you can create your first Main composite by:
+After you create your project, you can start creating applications. The entry point of any SPL application is called a _Main Composite_. You can create your first main composite by doing the following:
 
-- Defining a namespace to organize your code (optional, but recommended)
-- Create a Main composite within a SPL file
+1. Defining a namespace to organize your code
+2. Create a Main composite within an SPL file
 
 
 Create the project folder
 ---------------------------
-Create an empty folder on your filesystem, e.g. `MyStreamsProject`
-
-From Atom, go to **File** \> **Add Project Folder** and select the project folder.
+Create an empty folder on your file system, e.g. `MyStreamsProject`. Then from Atom, go to **File > Add Project Folder** and select the project folder.
 
 Create a toolkit information file
 ---------------------------------
 
-SPL projects are also called toolkits. Each toolkit folder must include a file called `info.xml`.  This file describes the toolkit and any other toolkits it depends on.
-
-**This file must be in the top level of the project.**
+SPL projects are also called toolkits.  Each toolkit folder must include a file called `info.xml` in the **top level** of the project. This file describes the toolkit and any other toolkits it depends on.
 
 Create a file within the folder called `info.xml`.
-    - Right-click the `MyStreamsProject` folder, select **New File**, and enter `info.xml` as the file name.
+    - To create the `info.xml` file, right-click your project folder, and select **New File**, and enter `info.xml` as the file name.
 
-
-
-You can copy the contents of the following sample `info.xml` file to get you started.
-
-For your reference, below is an overview of the contents of what needs to be present in the file.
+For your reference, the following snippet is an overview of the contents of what needs to be present in the file. You can copy the contents into your `info.xml` file to get started.
 
   - `identity` tag contains general details about the project, name, version and required Streams version.
   - `dependencies` tag lists any toolkits you require.
@@ -72,28 +64,22 @@ For your reference, below is an overview of the contents of what needs to be pre
 </info:toolkitInfoModel>
 
 ```
-Learn more about the [toolkit information file in the Knowledge Center](https://www.ibm.com/support/knowledgecenter/SSCRJU_4.3.0/com.ibm.streams.dev.doc/doc/toolkitinformationmodelfile.html).
+Learn more about the [toolkit information file in IBM Knowledge Center](https://www.ibm.com/support/knowledgecenter/SSCRJU_4.3.0/com.ibm.streams.dev.doc/doc/toolkitinformationmodelfile.html).
 
 Create a namespace
 ------------------------
 
-Namespaces allow you to organize your SPL code, similar to Python
-modules or Java packages. Any folder with an empty file called `.namespace` will be treated as a SPL namespace.
+You can use namespaces to organize your SPL code in a similar way to Python modules or Java packages. Any folder with an empty file called `.namespace` is treated as a SPL namespace.
 
-Create a folder within your project with the target namespace:
--   Select the project, right click, and click **New Folder**.
+Create a folder within your project with the target namespace with the following steps:
+1. Select the project, right click, and click **New Folder**.
 
--   Enter a name for the namespace, e.g. `my.name.space`:
--   Create a new empty file within the `my.name.space` folder, call it
-    `.namespace`.
-
--   The final folder structure should look like this:
-
+2. Enter a name for the namespace, e.g. `my.name.space`:
+3. Create a new empty file within the `my.name.space` folder, call it `.namespace`. The final folder structure should look like this:
     - MyStreams project
       - `my.name.space`
         - `.namespace`
       - `info.xml`
-
 
 Now that your namespace is created, you can create your first SPL source
 file.
@@ -105,17 +91,17 @@ Main composites are defined in SPL source files. These files have a `.spl` exten
 
 **Create a source file within a namespace**:
 
--   Select the `my.name.space` folder, right-click and choose **New File**.
+1. Select the `my.name.space` folder, right-click and choose **New File**.
 
--   Enter the name for the new SPL file, `Main.spl`.
+2. Enter the name for the new SPL file, `Main.spl`.
 
--   Add the namespace declaration to the file with the following line:
+3. Add the namespace declaration to the file with the following line:
 
     `namespace my.name.space;`
 
 **Create a main composite**
 
-Executable SPL applications are called main composites. Below is a stub
+Executable SPL applications are called main composites. The following code is a stub
 for a new executable composite:
 
 ```
@@ -123,118 +109,93 @@ composite BusAlerts {
 }
 ```
 
-The final code should appear like this:
+The final code appears like the following image:
 
 ![stub app](/streamsx.documentation/images/atom/jpg/blank-app.jpg)
 
 Develop a simple application
 ---------------------------
-Now that you have created a project, let us walk through the creation of the BusAlerts application.
+Now that you created a project, the next step is to build the BusAlerts application.
 
+The main composite is the entry point for your application, so if you haven't already, create a new main composite for your application as explained in the previous section.
 
-**Create the Main Composite**
-
-The main composite is the entry point for your application, so if you haven't already, create a new main composite for your application. See above for instructions.
-
-
-
-What will the application do?
+What does the application do?
 -----------------------------
 
 Recall that this application will display alerts and advertisements within the city's public transit vehicles as they move around the city. The buses periodically report their location. When a bus is near an area with an alert, the application will detect this and send the alert.
 
-For example, if a bus comes within 1km of the Golden Gate Bridge in San Fransisco, we want to display this message inside the bus: "Approaching Golden Gate Bridge, pedestrian bridge is closed."
+For example, if a bus comes within 1km of the Golden Gate Bridge in San Francisco, you want to display this message inside the bus: "Approaching Golden Gate Bridge, pedestrian bridge is closed."
 
-We're going to develop the application in 3 steps:
+You will develop the application in three steps:
 ![application phases](/streamsx.documentation/images/atom/jpg/phases2.jpg)
 
-When developing Streams applications, first **break down the application into individual tasks, and then find one or more operators to perform each task.**
-
+When you develop Streams applications, first **break down the application into individual tasks, and then find one or more operators to perform each task.**
 
 Use operators to process data in steps
 --------------------------------------
 
-Remember that Streams applications are made up of **operators**. Each operator performs a specific task with an **input stream** of data and then produces an **output stream** which is the result of the processing.
+Remember, Streams applications are made up of **operators**. Each operator performs a specific task with an **input stream** of data and then produces an **output stream** which is the result of the processing.
 
 **Sample operator invocation**
-Below we have a generic overview of an operator declaration, with the name of the operator that will be invoked, and its input and output.
-Every operator in our application will follow this format.  
+The following image is a generic overview of an operator declaration, with the name of the operator that will be invoked, and its input and output. Every operator in your application will follow this format.
 
  - **Operator kind**
- - **Input Stream** (optional) - stream of data to be processed by the operator
- - **Output Stream** (optional)- the results of the operator's action on the incoming data.  
-   - **Output Stream Schema** - describing the content of each outgoing tuple
+ - **Input stream** (optional) - The stream of data to be processed by the operator
+ - **Output stream** (optional)- The results of the operator's action on the incoming data.
+   - **Output stream Schema** - Describe the content of each outgoing tuple
 
    ![operator definition](https://developer.ibm.com/streamsdev/wp-content/uploads/sites/15/2015/04/splOverivew2.gif)
-
 
 Step 1: Ingest data
 ====================
 
-All Streams applications start with ingesting the data that will be analyzed.
-
-In our case, the data we are processing is the location of each bus as it is reported.
-
-Our first task is to convert the data in the file to a stream that can be consumed by our data processing operators.
-
-
-We’ll use a `FileSource` operator to create a stream that contains the data from the file:
+All Streams applications start with ingesting the data that will be analyzed. In this case, the data you are processing is the location of each bus as it is reported. Your first task is to convert the data in the file to a stream that can be consumed by our data processing operators. You'll use a `FileSource` operator to create a stream that contains the data from the file:
 
 ```
 composite BusAlerts {
-graph
-
-	stream<xml locationXMLDoc> NextBusData_FromFile = FileSource()
-	{
-		param
-			file : getApplicationDir() + "/data/saved_BusLocations.txt" ;
-	}
-
+    graph
+    	stream<xml locationXMLDoc> NextBusData_FromFile = FileSource()
+    	{
+    		param
+    			file : getApplicationDir() + "/data/saved_BusLocations.txt" ;
+    	}
 }
 ```
 Streams applications are directed graphs of connected operators, so the first line in the composite is a `graph` clause, which denotes the beginning of the application. declaration.
 
-
-Next we have the operator invocation, with the following properties:
+Next you have the operator invocation, with the following properties:
 - **Operator kind**:  `FileSource` that reads data from a file
-- **Input Stream**: there is no input stream since it is the _start_ of our Streams application.
-- **Output Stream**: the output schema is `NextBusData_FromFile`, which is a stream of the lines in the input file.
-  - **Output Stream Schema** - each tuple is XML string from the file, with the following format:
+- **Input stream**: There is no input stream since it is the _start_ of our Streams application.
+- **Output stream**: The output schema is `NextBusData_FromFile`, which is a stream of the lines in the input file.
+  - **Output stream schema** - each tuple is XML string from the file, with the following format:
 
 ```
 <vehicle id="5764" routeTag="24" dirTag="24___I_F00"
  lat="37.734356" lon="-122.390739" secsSinceReport="9"
  predictable="true" heading="218" speedKmHr="0"\>
-
 ```
 
 #### Parse the XML data
 
+Now you have a stream of XML strings coming from the `NextBusData_FromFile` operator. But you need to extract the bus ID, latitude, and other information from this XML string.
 
-Now we have a stream of XML strings coming from the `NextBusData_FromFile` operator. But we need to extract the bus id, latitude, and so on from this XML string.
-
-For this step we will send the `NextBusData_FromFile` stream to an operator called `ParseNextBusData`:
+For this step you will send the `NextBusData_FromFile` stream to an operator called `ParseNextBusData`:
 
 ```
-stream
-     <rstring id, TimeMillis reportTime, float64 latitude, float64 longitude> /*Output schema*/
-    /*Output stream name*/ ParsedDataStream  =
-    /*Operator name*/  ParseNextBusData (NextBusData_FromFile /*input stream*/ )
-		{
-			param
-				agency : $agency ;
-		}
+stream <rstring id, TimeMillis reportTime, float64 latitude, float64 longitude> /*Output schema*/
+    ParsedDataStream /*Output stream name*/ = ParseNextBusData (NextBusData_FromFile /*input stream*/) /*Operator name*/  
+	{
+		param
+			agency : $agency ;
+	}
 ```
 
-The output stream `ParsedDataStream` contains the individual attributes describing the bus' location.
+The output stream `ParsedDataStream` contains the individual attributes that describe the bus' location.
 
-Note: The `ParseNextBusData` is a special kind of operator called a _composite_  operator, because it is made up multiple operators. It handles the parsing using the `XMLParse` operator. You can look at its source in `BusAlerts/sample/ParseNextBusData.spl`.
+The `ParseNextBusData` is a special kind of operator called a _composite_  operator. It is called a composite operator because it is made up multiple operators. It uses the `XMLParse` operator to parse the XML data. You can look at its source in `BusAlerts/sample/ParseNextBusData.spl`.
 
 
-Now we have a stream of bus locations, we can use it to detect when a bus is near a point of interest (POI).
-But what are the points of interest for our application?
-These have also been defined in another file, called `poi.csv`.
-The format of this data is as follows:
+Now that you have a stream of bus locations, you can use it to detect when a bus is near a point of interest (POI). The points of interest for our aapplication have been defined in another file, called `poi.csv`. The format of this data is as follows:
 
 ```
 #POI Name, Message to Bus, Location
@@ -244,23 +205,18 @@ Mission Dolores Park,"Security incident near Mission Dolores Park, road and side
 "Fairview Mall","Parade on Yonge Street from 10am to 6pm, expect major delays.","POINT (-79.3463243 43.7770863)"
 ```
 
-Each line describes a point of interest, the alert to send to the buses, and the location of the POI.
-
-Since the data is in a file, we need another `FileSource` to read this data:
+Each line describes a point of interest, the alert to send to the buses, and the location of the point of interest. Since the data is in a file, use another `FileSource` to read this data:
 
 ```
 stream<rstring POI_ID, rstring locationWKT, rstring message> POI_FromFile = FileSource()
 {
-  param
-    file : getApplicationDir() + "/data/poi.csv" ;
+    param
+        file : getApplicationDir() + "/data/poi.csv" ;
 }
 ```
 Note that the output schema of the _POI_FromFile_ stream matches the format in the CSV file.
 
-Now we have 2 streams of data, `POI_FromFile` and `NextBusData_FromFile` that we are ready to process in our next step.
-
-
-So far, our application graph looks like this:
+Now you have two streams of data (`POI_FromFile` and `NextBusData_FromFile`) that you are ready to process in our next step. So far, the application graph looks like the following image:
 
 ![step-1-graph](/streamsx.documentation/images/atom/jpg/step1-graph.png)
 
@@ -268,16 +224,11 @@ Step 2: Detect when a bus is near a POI
 -----------------------------------
 
 The next step is to detect when a bus is within 1km of any of the known points of interest.
-_Note: This is a simple form of the problems that the `Geofence` operator is designed to solve. But for demonstration purposes we will write the logic ourselves._
+Note that the `Geofence` operator is designed to solve this exactly this type of problem. But for demonstration purposes you will write the logic yourself.
 
-Even though Streams provides dozens of built in operators, your unique needs might require you to write your own code.  This can be done using the `Custom` operator.
-
-The `Custom` operator is, as the name implies, for custom code.
-
-
-Here is the operator's stub:
+Even though Streams provides dozens of built in operators, your unique needs might require you to write your own code.  You can write your own code by using the `Custom` operator. The `Custom` operator is, as the name implies, for custom code. Here is the operator's stub:
 ```
-stream<rstring id, rstring poi, rstring message, float64 distance> BusesToAlert  =
+stream<rstring id, rstring poi, rstring message, float64 distance> BusesToAlert =
       Custom(ParsedDataStream; POI_FromFile)
 {
     logic
@@ -292,31 +243,22 @@ stream<rstring id, rstring poi, rstring message, float64 distance> BusesToAlert 
 }
 ```
 
-Notice that the **input stream**  will be both the parsed stream of bus locations, `ParsedDataStream`, and the stream of POIs, `POI_FromFile`.
-When it detects that a bus is near the POI, it will submit a tuple of type `Alert` to the **output stream**, `BusesToAlert`.
+Notice that the **input stream**  is both the parsed stream of bus locations (`ParsedDataStream`), and the stream of POIs (`POI_FromFile`). When the operator detects that a bus is near the POI, it submits a tuple of type `Alert` to the **output stream**, `BusesToAlert`.
 
-
-The `Alert` type contains:
-  - `id` of the bus
-  - name of the `poi`
-  - `message` to send to the bus
-  - current computed `distance` from the POI.
+The `Alert` type contains the following information:
+  - The `id` of the bus.
+  - The name of the `poi`.
+  - The `message` to send to the bus.
+  - The current computed `distance` from the POI.
 
 
 The `Alert` type has the following definition:
 
 `type Alert = rstring id, rstring poi, rstring message, float64 distance;`
 
-Paste the above line at the top of the file, right before the line `composite BusAlerts`.
+Paste the preceeding line at the top of the file, right before the line `composite BusAlerts`. Next is a `logic` clause. On each tuple received by the operator, the `logic` clause is executed. Since you have two input streams, you have two `onTuple` clauses.
 
-Next is a `logic` clause.  
-
-On each tuple received by the operator, the `logic` clause is executed.
-Since we have 2 input streams, we have two `onTuple` clauses.
-
-
-If the tuple is from the `POI_FromFile` stream, the code within the `onTuple POI_FromFile` clause is executed, otherwise the code within the `onTuple ParsedDataStream` clause is executed.  
-
+If the tuple is from the `POI_FromFile` stream, the code within the `onTuple POI_FromFile` clause is executed. Otherwise the code within the `onTuple ParsedDataStream` clause is executed.  
 
 ```
 stream<Alert> BusesToAlert  = Custom(ParsedDataStream; POI_FromFile)
@@ -362,17 +304,16 @@ stream<Alert> BusesToAlert  = Custom(ParsedDataStream; POI_FromFile)
 }
 ```
 
-I have marked the code with lines of interest:
-1. The `state` clause is used to define 2 variables:  a list to keep track of the known points of interest and the max distance  from the POI.
-2. When we receive a tuple from the `POI_FromFile` stream, we add it to the list.
-3. When we receive a bus' location, then for each point of interest, we will use the `distance` function to compute the distance between the bus' current location and the POI.
-4. Check if the computed distance is within the predefined `radius` (1000.0 m)
+The code is marked with lines of interest:
+1. The `state` clause is used to define two variables:  a list to keep track of the known points of interest and the max distance  from the POI.
+2. When the operator receives a tuple from the `POI_FromFile` stream, it is added to the list.
+3. When the operator receives a bus' location, then for each point of interest, the `distance` function is used to compute the distance between the bus' current location and the POI.
+4. Check if the computed distance is within the predefined `radius` (1 km or 1000.0 m)
 5. If the bus is within the 1km radius, create and send an alert tuple
 
-We have now completed step 2 of our application
+You have now completed step 2 of our application
 
 ![step-2-graph](/streamsx.documentation/images/atom/jpg/step2-graph.png)
-
 
 Step 3: Send the alert
 ---------------------------
@@ -387,7 +328,6 @@ Last step is to send the alert. We will use  the `printStringLn` function in ano
     {
       printStringLn("Bus " + id + "  is near " + poi + ", message = " + message  );
     }
-
 }
 
 ```
@@ -406,29 +346,27 @@ To see this application in action, go to the next section to learn how to build 
 Key Takeaways
 ----------------------------
 
-From this basic application here are a couple of things I hope you would have noticed:
+From this basic application here are a couple of things to notice:
 
 #### Custom operators
 
-These are an important part of Streams development to do quick tasks such as printing data to console for verification, or other quick tasks for which no operator exists.
-The `BusAlerts` operator demonstrates the following:
+Custom operators are an important part of Streams development to do quick tasks such as printing data to console for verification, or other quick tasks for which no operator exists.
+The `BusAlerts` operator demonstrated the following functionality:
 - Using and iterating over a list
 - Handling multiple input streams
 - Submitting a tuple from a Custom operator
 
 #### Source and Sink operators
 
-Looking at the above graph again, notice the following:
+Looking at the preceeding graph again, notice the following points:
 - The `POI` and `NextBusData_FromFile` operators do not take any input, because they are **source operators**. They produce streams by reading data from external systems.
 - Conversely, the `AlertPrinter` operator does not produce any output, because it is a **sink operator**. Sink operators usually send the results of a Streams application to an external system, such as another file, or a database or a messaging system.
 
-
 #### Best practice: operator granularity
 
-You might have noticed that the last 2 operators in the graph are both `Custom` operators.  So you might wonder, why not just print the alert in the first operator instead of sending the data to a new operator whose only job is to print the message?
+You might notice that the last two operators in the graph are both `Custom` operators.  So you might wonder, why not print the alert in the first operator instead of sending the data to a new operator whose only job is to print the message?
 
-This is because it is good practice in Streams for **keep operators simple by performing one task per operator**.
-Separating the tasks improves performance because while one operator is performing the detection, the sink operator can spend time writing to the target system.
+The application uses two operators because it is good practice in Streams to **keep operators simple by performing one task per operator**. Separating the tasks improves performance because while one operator is performing the detection, the sink operator can spend time writing to the target system.
 
 
-Learn about operator granularity and other [Streams best practices in the Knowledge Center](https://www.ibm.com/support/knowledgecenter/SSCRJU_4.3.0/com.ibm.streams.dev.doc/doc/str_opgran.html).
+Learn about operator granularity and other [Streams best practices in IBM Knowledge Center](https://www.ibm.com/support/knowledgecenter/SSCRJU_4.3.0/com.ibm.streams.dev.doc/doc/str_opgran.html).
