@@ -10,7 +10,8 @@ prev:
 ---
 
 
-The following are some known issues and their workarounds.
+The following list contains some known issues and their workarounds.
+
 
 1.  You tried to open the Streams Console from Atom but got this error:
 
@@ -20,19 +21,14 @@ The following are some known issues and their workarounds.
     administrator to resolve the problem.
     ```
 
-    If this occurs, open the Streams Console from your browser:
-    1. Log in to the [IBM Cloud Dashboard](https://cloud.ibm.com)
+    If this error occurs, open the Streams Console from your browser:
+    1. Log in to the [IBM Cloud Dashboard](https://cloud.ibm.com).
 
-    2. Access the console through one of the following ways:
+    2. From the dashboard, click on your Streaming Analytics service instance under Services. Then from the instance page, click "Launch" to go to the console.
 
-      -   From the dashboard, click on your Streaming Analytics service
-          instance under Services. Then from the instance page, click
-          "Launch" to go to the console
+    After you are logged in, opening the Console from Atom will work.
 
-      Once you are logged in, opening the Console from Atom will work.
-
-      You can also find the console URL from the direct link available in the Atom Console pane.
-          Look for *Streaming Analytics Console URL*.
+    **Tip:** You can also find the console URL from the direct link available in the Atom Console pane. Look for *Streaming Analytics Console URL*.
 
 2.  Compiling an application fails with this message:
 
@@ -42,8 +38,8 @@ The following are some known issues and their workarounds.
       ../toolkits/com.ibm.streamsx.inet/com.ibm.streamsx.inet/InetSource/InetSource.xml.
 
     ```
-This error means a file in a toolkit you downloaded has changed.
-If you did not make any changes, this might be a bug that you can work around by doing the following:
+This error means that a file in a toolkit you downloaded has changed.
+If you did not make any changes, this might be a bug that you can work around as follows:
 
     a.  Open a terminal window and change to the toolkits directory where you copied additional toolkits:
 
@@ -57,4 +53,4 @@ If you did not make any changes, this might be a bug that you can work around by
 
     These commands are for a Mac.  On Linux the arguments to `xargs` might be slightly different.
 
-Try recompiling your application.
+    Try recompiling your application.
