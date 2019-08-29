@@ -481,6 +481,7 @@ quell
 <a id="views"></a>
 ## Viewing the contents of a stream
 TBD
+### Create a visualization from a stream
 
 
 <a id="sinks"></a>
