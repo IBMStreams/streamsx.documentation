@@ -17,37 +17,38 @@ Get started with the Python Application API by creating an application that read
 
 The Streaming Analytics service is built on IBM Streams technology. You don't need to install a local version of IBM Streams to build Python applications for the service.
 
-This tutorial requires a Python 3.5 environment. Familiarity with Python is recommended.
+This tutorial requires a Python 3.6 environment. Familiarity with Python is recommended.
 
 ## Setting up your Python environment
 
-Follow these steps to set up your Python development environment. These steps assume that you are installing Python 3.5 from Anaconda on a Linux workstation.
+
+Follow these steps to set up your Python development environment. These steps assume that you are installing Python 3.6 from Anaconda on a Linux workstation.
 
 1. Ensure that you have Java 8 installed and the JAVA_HOME environment variable is set. To set the JAVA_HOME variable, enter the following command on the command line, replacing "1.x.x" with
 your Java version:
    ```
    export JAVA_HOME="/usr/lib/jvm/java-1.x.x-openjdk"
    ```
-2. Ensure that you have Python 3.5 installed. For example, you can get Python 3.5 from [the Anaconda archive page](https://repo.continuum.io/archive/index.html). An Anaconda version that contains Python 3.5 is Anaconda3-4.2.x.
+2. Ensure that you have Python 3.6 installed. For example, you can get Python 3.6 from [the Anaconda archive page](https://repo.continuum.io/archive/index.html). An Anaconda version that contains Python 3.6 is Anaconda3-5.2.x.
 
-3. Follow these steps to activate your Anaconda Python 3.5 environment:
+3. Follow these steps to activate your Anaconda Python 3.6 environment:
 
-   1. Ensure that the bin directory is added to the `PATH` environment variable. If necessary, add the bin directory by entering the following command on the command line:
+   1. Ensure that the bin directory is added to the `PATH` environment variable. If necessary, add the `bin` directory by entering the following command on the command line:
 
        ```
        export PATH="~/anaconda3/bin:$PATH"
       ```
-   2. To use Python 3.5 for the current session, enter the following command on the command line:
+   2. To use Python 3.6 for the current session, enter the following command on the command line:
 
        ```
-       conda create –n py35 python=3.5
+       conda create –n py36 python=3.6
        ```
        Enter *y* to proceed.
 
-   3. Activate the 3.5 sub-environment with the following command on the command line:
+   3. Activate the 3.6 sub-environment with the following command on the command line:
 
        ```
-       source activate py35
+       source activate py36
        ```
 3. Install the latest streamsx package with *pip*, a package manager for Python, by entering the following command on the command line:
 
@@ -55,17 +56,21 @@ your Java version:
    pip install --user --upgrade streamsx
    ```
 
+
+**Note:** For the most up to date information regarding supported versions of Python, including when a local installation of Streams is required, see the [developer setup page of the streamsx project documentation](https://streamsxtopology.readthedocs.io/en/stable/pysetup.html).
+
+
 ## Starting a Streaming Analytics service
 
 Make sure that your Streaming Analytics service is running.
-* If you have a Streaming Analytics service in [IBM Cloud](https://console.ng.bluemix.net/), make sure that it is started and running.
+* If you have a Streaming Analytics service in [IBM Cloud](https://cloud.ibm.com/), make sure that it is started and running.
 * To create a new Streaming Analytics service:
-  1. Go to the [IBM Cloud web portal](https://www.ibm.com/cloud-computing/bluemix/) and sign in (or sign up for a free IBM Cloud account).
+  1. Go to the [IBM Cloud web portal](https://cloud.ibm.com) and sign in (or sign up for a free IBM Cloud account).
   2. Click **Catalog**, browse for the Streaming Analytics service, and then click it.
   3. Enter the service name and then click **Create** to set up your service. The service dashboard opens and your service starts automatically. The service name appears as the title of the service dashboard.
 
 ## Creating your application
-The remainder of this tutorial walks you through creating your application.  The steps are broken up so that they can be run from the Python interpreter.  If you prefer, you can copy the [complete application](#211-the-complete-application), save it to a file, and run it in the Python 3.5 environment.
+The remainder of this tutorial walks you through creating your application.  The steps are broken up so that they can be run from the Python interpreter.  If you prefer, you can copy the [complete application](#211-the-complete-application), save it to a file, and run it in the Python 3.6 environment.
 
 ## Setting up access to the service
 
