@@ -16,6 +16,11 @@ next:
 
 You can use the IBM® Streams Runner for Apache Beam I/O sample applications to learn how to use IBM Message Hub® for input and output. Message Hub sample applications are provided in the `$STREAMS_RUNNER_HOME/examples/io`directory.
 
+The following instructions describe how to submit to a Streaming
+Application Service instance, but the application can also be submitted to
+a local Streams 4.x instance or an IBM Cloud Pak for Data instance by using
+the `DISTRIBUTED` context.
+
 ## Before you start
 
 Before you run the Apache Beam 2.4 I/O sample applications, you must configure and run the following service on IBM Cloud®:

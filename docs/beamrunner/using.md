@@ -18,7 +18,7 @@ To use IBM® Streams Runner for Apache Beam, its libraries must be available to 
 
 ## Before you start
 
-After you develop your Apache Beam 2.4 application, you must package your app as a JAR file to use it with Streams Runner. For example, if you use the `jar` command, enter the following command:
+After you develop your Apache Beam application, you must package your app as a JAR file to use it with Streams Runner. For example, if you use the `jar` command, enter the following command:
 
 ```bash
 jar cf target.jar -C <path to class files>
@@ -34,10 +34,97 @@ To make the Streams Runner libraries available to the Beam application, you must
 
 After Streams Runner is accessible to your application, you must decide in which context you want to build and submit your application. Streams Runner has three contexts, and each has its own set of prerequisites and setup requirements. The three contexts are `STREAMING_ANALYTICS_SERVICE`, `DISTRIBUTED`, and `BUNDLE` and are  specified by using the `--contextType` parameter.
 
+### The `DISTRIBUTED` context
+Use this context both for IBM Cloud Pak for Data or a local installation of
+IBM Streams 4.x.
+
+#### Prerequisites
+* For Cloud Pak for Data, an instance of Streams provisioned and running.
+* For a local installation of Streams 4.x:
+  * A running Streams domain and instance. For more information, see [Creating an IBM Streams basic domain and instance](https://www.ibm.com/support/knowledgecenter/en/SSCRJU_4.2.1/com.ibm.streams.cfg.doc/doc/creating-basic-domain-and-instance.html).
+
+  **Tip:** You can obtain a local Streams installation by installing the [IBM Streams Quick Start Edition](../../../..//4.2/qse-intro/), which is a Red Hat Enterprise Linux virtual machine image that is preconfigured to create and start a Streams runtime environment.
+  * The environment variables `STREAMS_DOMAIN_ID` and `STREAMS_INSTANCE_ID`
+    must be set to this domain and instance, and `STREAMS_INSTALL` must be
+    set to the local install.
+
+#### Overview
+
+The `DISTRIBUTED` context is used for both Cloud Pack for Data instances
+as well as local installations of Streams 4.x. The steps are similar in
+both cases but there are some differences.
+
+For both environments the Streams job must be aware of your Beam application. To include your application and any dependencies, use the `--jarsToStage` option.
+
+For more information about this and other options, see [Streams Runner pipeline options](../reference/#streams-runner-pipeline-options).
+
+**Cloud Pak for Data Overview**
+
+When launching a Beam application to a Cloud Pak for Data instance the
+build may be done locally or remotely. If the `STREAMS_INSTALL` environment
+variable is set and points to a Streams version compatible with the
+instance on Cloud Pak for Data, the application will be built locally
+unless the `--forceRemoteBuild` runner option is given. For local builds,
+you may need to include the `com.ibm.streams.operator.samples.jar` located
+at `$STREAMS_INSTALL/lib` in the Java class path.
+
+**Unset** the environment variables `STREAMS_DOMAIN_ID` and
+`STREAMS_INSTANCE_ID` if you have a local Streams installation, as they 
+tell the runner to deploy to that instance instead of the Cloud Pak for
+Data instance.
+
+To identify and authenticate with the Cloud Pak for Data instance you must
+use the `--restUrl`, `--userName`, and `--userPassword` options.
+
+**Local Streams 4.x Overview**
+
+To launch a Beam application to a local, distributed Streams environment, set `DISTRIBUTED` as the
+context type. Additionally, because the Beam application is being built locally, you must include the `com.ibm.streams.operator.samples.jar` located at `$STREAMS_INSTALL/lib` in the Java class path.
+
+For a Beam application that interacts with the job after it is launched, the application must authenticate with the Streams domain to use the Streams REST API. The domain can be authenticated by using the `--restUrl`, `--userName`, and `--userPassword` parameters.
+
+**Important:** The local Streams Console uses a self-signed certificate, which also affects
+REST API authentication for some applications. To avoid any problems, generate and
+add a trusted certificate for the client host. For more information, see [Configuring security for the IBM Streams REST API](https://www.ibm.com/support/knowledgecenter/en/SSCRJU_4.2.1/com.ibm.streams.dev.doc/doc/restapi-cfgauth.html).
+
+The Streams application is submitted to the Streams domain and instance that are specified by
+the `STREAMS_DOMAIN_ID` and `STREAMS_INSTANCE_ID` environment variables. If the domain and instance are not started or do not exist, the application submission fails.
+
+#### Example with Cloud Pak for Data
+
+This example builds and submits `MyBeamApplication` to a Cloud Pak for Data
+instance.
+
+```bash
+java -cp $STREAMS_BEAM_TOOLKIT/lib/com.ibm.streams.beam.translation.jar::/home/beamuser/beamapp/lib/myapp.jar \
+    namespace.MyBeamApplication \
+    --runner=StreamsRunner \
+    --contextType=DISTRIBUTED \
+    --jarsToStage=/home/beamuser/beamapp/lib/myapp.jar \
+    --restUrl=https://myCP4Dhost:31843/ \
+    --userName=beamuser \
+    --userPassword=streams1
+```
+
+#### Example with local Streams 4.x
+
+This example builds and submits `MyBeamApplication` locally.
+
+```bash
+java -cp $STREAMS_BEAM_TOOLKIT/lib/com.ibm.streams.beam.translation.jar:$STREAMS_INSTALL/lib/com.ibm.streams.operator.samples.jar:/home/beamuser/beamapp/lib/myapp.jar \
+    namespace.MyBeamApplication \
+    --runner=StreamsRunner \
+    --contextType=DISTRIBUTED \
+    --jarsToStage=/home/beamuser/beamapp/lib/myapp.jar \
+    --restUrl=https://myStreamsHost:8443/streams/rest \
+    --userName=beamuser \
+    --userPassword=streams1
+```
+
 ### The `STREAMING_ANALYTICS_SERVICE` context
 Use this context to build and submit an application to a Streaming Analytics service on IBM Cloud (formerly IBM Bluemix). `STREAMING_ANALYTICS_SERVICE` is the default context type.
 
-**Tip:** This context is the simplest to use because it doesn't require you to install and configure Streams software; you can use the Streaming Analytics service, which includes the latest features and patches, that you created before you downloaded the Streams Runner toolkit.
+**Tip:** This context doesn't require you to install and configure Streams software; you can use the Streaming Analytics service, which includes the latest features and patches, that you created before you downloaded the Streams Runner toolkit.
 
 #### Prerequisites
 - A running Streaming Analytics service.
@@ -82,48 +169,6 @@ java -cp $STREAMS_BEAM_TOOLKIT/lib/com.ibm.streams.beam.translation.jar:/home/be
    For information about retrieving files from an IBM Cloud Object Storage service, see [Object storage on IBM Cloud](../io/#object-storage-on-bluemix-swift).
 - You can't download Streams application bundle (SAB) files of your Beam applications that are built remotely.
 
-### The `DISTRIBUTED` context
-Use this context to build an application locally and submit it to a local Streams instance.
-
-**Tip:**  To ensure that you're getting the latest features and patches, use the `STREAMING_ANALYTICS_SERVICE` context instead.
-
-#### Prerequisites
-* A local Streams installation (IBM Streams 4.2 or higher).
-* A running Streams domain and instance. For more information, see [Creating an IBM Streams basic domain and instance](https://www.ibm.com/support/knowledgecenter/en/SSCRJU_4.2.1/com.ibm.streams.cfg.doc/doc/creating-basic-domain-and-instance.html).
-
-**Tip:** You can obtain a local Streams installation by installing the [IBM Streams Quick Start Edition](../../../..//4.2/qse-intro/), which is a Red Hat Enterprise Linux virtual machine image that is preconfigured to create and start a Streams runtime environment.
-
-#### Overview
-To launch a Beam application to a local, distributed Streams environment, set `DISTRIBUTED` as the
-context type. Additionally, because the Beam application is being built locally, you must include the `com.ibm.streams.operator.samples.jar` located at `$STREAMS_INSTALL/lib` in the Java class path.
-
-When the application is launched in a distributed environment, the Streams job must be
-aware of your Beam application. To include your application and any dependencies, use the `--jarsToStage` option. For more information about this option, see [Streams Runner pipeline options](../reference/#streams-runner-pipeline-options).
-
-For a Beam application that interacts with the job after it is launched, the application must authenticate with the Streams domain to use the Streams REST API. The domain can be authenticated by using the `--restUrl`, `--userName`, and `--userPassword` parameters.
-
-**Important:** The Streams Console uses a self-signed certificate, which also affects
-REST API authentication for some applications. To avoid any problems, generate and
-add a trusted certificate for the client host. For more information, see [Configuring security for the IBM Streams REST API](https://www.ibm.com/support/knowledgecenter/en/SSCRJU_4.2.1/com.ibm.streams.dev.doc/doc/restapi-cfgauth.html).
-
-The Streams application is submitted to the Streams domain and instance that are specified by
-the `STREAMS_DOMAIN_ID` and `STREAMS_INSTANCE_ID` environment variables. If the domain and instance are not started or do not exist, the application submission fails.
-
-#### Example
-
-This example builds and submits `MyBeamApplication` locally.
-
-```bash
-java -cp $STREAMS_BEAM_TOOLKIT/lib/com.ibm.streams.beam.translation.jar:$STREAMS_INSTALL/lib/com.ibm.streams.operator.samples.jar:/home/beamuser/beamapp/lib/myapp.jar \
-    namespace.MyBeamApplication \
-    --runner=StreamsRunner \
-    --contextType=DISTRIBUTED \
-    --jarsToStage=/home/beamuser/beamapp/lib/myapp.jar \
-    --restUrl=https://myStreamsHost:8443/streams/rest \
-    --userName=beamuser \
-    --userPassword=streams1
-```
-
 ### The `BUNDLE` context
 Use this context to locally build an application that can be submitted to a Streams runtime environment later.
 
@@ -142,11 +187,11 @@ use the `--jarsToStage` option.
 If your Beam application uses the Beam [ValueProvider](https://beam.apache.org/documentation/sdks/javadoc/2.4.0/org/apache/beam/sdk/options/ValueProvider.html) types for custom pipeline options,
 Streams submission-time parameters are created for the application.
 
-After the application bundle file is created, it can be submitted along with any submission-time parameters to a Streaming Analytics service or local Streams environment through the Streams Console, Streaming Analytics REST API, or `streamtool` command. For more information about bundle submission, see the `$STREAMS_RUNNER_HOME/examples/README` file.
+After the application bundle file is created, it can be submitted along with any submission-time parameters to a Cloud Pak for Data instance, Streaming Analytics service, or local Streams environment through the Streams Console, Streaming Analytics REST API, or `streamtool` command. For more information about bundle submission, see the `$STREAMS_RUNNER_HOME/examples/README` file.
 
 #### Example
 
-This example builds `MyBeamApplication` locally and creates an application bundle file for later submission to a Streaming Analytics service or a local Streams instance.
+This example builds `MyBeamApplication` locally and creates an application bundle file for later submission to a Cloud Pak for Data instance, Streaming Analytics service, or a local Streams instance.
 
 ```bash
 java -cp $STREAMS_BEAM_TOOLKIT/lib/com.ibm.streams.beam.translation.jar:$STREAMS_INSTALL/lib/com.ibm.streams.operator.samples.jar:/home/beamuser/beamapp/lib/myapp.jar \

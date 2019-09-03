@@ -17,7 +17,7 @@ next:
 Installing IBM® Streams Runner for Apache Beam from an IBM Streaming Analytics service on IBM Cloud involves downloading and extracting the Streams Runner toolkit, configuring environment variables, and creating a credentials file for your Streaming Analytics service. You don't need to install IBM Streams to use Streams Runner.
 
 ## Before you start
-The Streaming Analytics installation of Streams Runner supports Apache Beam 2.1 applications, so your application must use the [Apache Beam SDK for Java API version 2.1](https://beam.apache.org/documentation/sdks/javadoc/2.1.0/)
+The Streaming Analytics installation of Streams Runner supports Apache Beam 2.4 applications, so your application must use the [Apache Beam SDK for Java API version 2.4](https://beam.apache.org/documentation/sdks/javadoc/2.4.0/)
 
 ## Creating a Streaming Analytics service on IBM Cloud
 

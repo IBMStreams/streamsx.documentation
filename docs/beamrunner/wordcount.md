@@ -16,6 +16,11 @@ next:
 
 You can use IBM® Streams Runner for Apache Beam to run the Apache Beam 2.4 Java™ SDK Quickstart WordCount sample application.
 
+The application can also be submitted to a local Streams 4.x instance or an
+IBM Cloud Pak for Data instance by using the `DISTRIBUTED` context. For
+Cloud Pak for Data, the supported version of Apache Beam is 2.14, so you
+must use `-DarchetypeVersion=2.14.0` instead of `2.4.0`.
+
 ## Before you start
 
 Before you run the `WordCount` sample application, you must configure and run the following services on IBM Cloud (formerly IBM Bluemix):
@@ -49,7 +54,7 @@ In addition, you must set up your Java Development Kit (JDK) and Maven environme
   mvn package
   ```
 
-1. Choose one of the following options to run the WordCount sample application. For more information about the `streams://` and `swift://` storage options, see [Input/output options for IBM Streams Runner for Apache Beam](../io/).
+1. Choose one of the following options to run the WordCount sample application. For more information about the `streams://` and `s3://` storage options, see [Input/output options for IBM Streams Runner for Apache Beam](../io/).
 
     - The following command uses `streams://` to provide the input, and writes the output to object storage.
 
@@ -71,8 +76,8 @@ In addition, you must set up your Java Development Kit (JDK) and Maven environme
       ```bash
       java -cp $STREAMS_BEAM_TOOLKIT/lib/com.ibm.streams.beam.translation.jar:target/original-word-count-beam-0.1.jar \
       org.apache.beam.examples.WordCount \
-          --inputFile=swift://beam-container/pom.xml \
-          --output=swift://beam-container/quickstart.out- \
+          --inputFile=s3://beam-container/pom.xml \
+          --output=s3://beam-container/quickstart.out- \
           --runner=StreamsRunner \
           --jarsToStage=target/original-word-count-beam-0.1.jar:$STREAMS_BEAM_TOOLKIT/lib/com.ibm.streams.beam.sdk.jar \
           --contextType=STREAMING_ANALYTICS_SERVICE \
@@ -81,11 +86,7 @@ In addition, you must set up your Java Development Kit (JDK) and Maven environme
       ```
 
 1. Inspect the results.  
-    After the pipeline completes, you can download the output through the Object Storage OpenStack Swift for Bluemix web management page or by using the Swift CLI client. Each output file contains up to 50,000 lines. If the output goes beyond that limit, multiple output files are created.
+    After the pipeline completes, you can download the output through the Cloud Object Storage web management page. Each output file contains up to 50,000 lines. If the output goes beyond that limit, multiple output files are created.
 
-    ```bash
-    swift download beam-container -p quickstart.out -D swift-output
-    cat swift-output/*
-    ```
 
  **Remember**: The job continues to run on the Streaming Analytics service to allow for inspection by the Streams Console. When you are done with the tutorial, make sure to use the Streams Console to cancel any jobs you started.

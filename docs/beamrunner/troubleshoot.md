@@ -17,7 +17,7 @@ next:
 You can troubleshoot any issues that occur when you launch, run, or monitor IBM® Streams Runner for Apache Beam applications. Streams Runner includes several pipeline parameters and componentized options to print more information and help narrow the scope to a specific component. 
 
 ## Ensure you have the latest fixes
-The latest Streams Runner version is 1.2.1. You can [download](../../../beamrunner-2b-sas/#creating-a-streaming-analytics-service-on-ibm-cloud) the latest Streams Runner installation archive from an IBM Streaming Analytics container-based service. 
+The latest Streams Runner version for IBM Cloud Pak for Data is 1.3 and for IBM Streaming analytcs is 1.2.2. See the [Install](../../../beamrunner-2-install/) section for information on downloading the Streams Runner.
 
 ## Check known problems and solutions
 See if your problem matches any issues in the [issues and limitations page](../issues).

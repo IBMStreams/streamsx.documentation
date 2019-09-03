@@ -134,4 +134,4 @@ options](../beamrunner-6-ref/#streams-runner-pipeline-options).
 Once your IBM Streams Runner for Apache Beam application is running on an
 IBM Streams instance, it is subject to the same performance considerations
 as any other IBM Streams application. See the IBM Streams documentation for
-more information on performance. **(TBD: LINK)**
+more information on performance.

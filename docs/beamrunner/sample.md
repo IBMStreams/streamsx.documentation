@@ -2,7 +2,7 @@
 layout: docs
 title: TemperatureSample sample application for IBM Streams Runner for Apache Beam
 navtitle: TemperatureSample sample app
-description:  You can use a simple application called `TemperatureSample` to learn how to submit and monitor an Apache Beam 2.4 application in the Streaming Analytics service on IBM Cloud.
+description:  You can use a simple application called `TemperatureSample` to learn how to submit and monitor an Apache Beam application in the Streaming Analytics service on IBM Cloud.
 weight:  10
 published: true
 tag: beam
@@ -15,6 +15,10 @@ next:
 ---
 
 You can use a simple application called `TemperatureSample` to learn how to submit and monitor an Apache Beam 2.4 application in the Streaming Analytics service on IBM Cloud (formerly IBM Bluemix).  The sample application is included with IBM® Streams Runner for Apache Beam. Some familiarity with Beam programming is helpful, though not required; the [Apache Beam website](https://beam.apache.org/) has a useful [Apache Beam Java SDK Quickstart](https://beam.apache.org/get-started/quickstart-java/) page and other documentation.
+
+The application can also be submitted to a local Streams 4.x instance or an
+IBM Cloud Pak for Data instance by using the `DISTRIBUTED` context. See the
+`README` in the `examples/transform` directory.
 
 For more information about this sample application, see [The TemperatureSample application](#the-temperaturesample-application).
 

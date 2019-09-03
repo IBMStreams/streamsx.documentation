@@ -16,6 +16,11 @@ next:
 
 You can use the IBM® Streams Runner for Apache Beam `FileStreamSample` sample application to learn how to use IBM Cloud object storage for file input and output.
 
+The following instructions describe how to submit to a Streaming
+Application Service instance, but the application can also be submitted to
+a local Streams 4.x instance or an IBM Cloud Pak for Data instance by using
+the `DISTRIBUTED` context.
+
 ## Before you start
 
 Before you run the Apache Beam 2.4 `FileStreamSample` sample application, you must configure and run the following services on IBM Cloud®:

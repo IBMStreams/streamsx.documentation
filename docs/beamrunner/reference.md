@@ -49,8 +49,7 @@ The Streams Runner package contains the following directories:
       <td><code class="highlighter-rouge">contextType</code></td>
       <td>The mode to run the application in:
       <ul><li><code class="highlighter-rouge">STREAMING_ANALYTICS_SERVICE</code>: Compile an application remotely and submit the translated application to a Streaming Analytics service on IBM Cloud (formerly IBM Bluemix).</li>
-      <li><code class="highlighter-rouge">DISTRIBUTED</code>: Submit the application to a Streams instance. The domain and instance are configured by the <code class="highlighter-rouge">STREAMS_DOMAIN_ID</code> and <code class="highlighter-rouge">STREAMS_INSTANCE_ID</code> environment variables.</li>
-      <li><code class="highlighter-rouge">DISTRIBUTED</code>: Submit the application to a Streams instance. The domain and instance are configured by the <code class="highlighter-rouge">STREAMS_DOMAIN_ID</code> and <code class="highlighter-rouge">STREAMS_INSTANCE_ID</code> environment variables.</li>
+      <li><code class="highlighter-rouge">DISTRIBUTED</code>: Submit the application to a Cloud Pak for Data or Streams 4.x instance. For Cloud Pak for Data the instance is configured with the <code class="highlighter-rouge">--restUrl</code> and <code class="highlighter-rouge">--instanceName</code> options. For Streams 4.x instances the domain and instance are configured by the <code class="highlighter-rouge">STREAMS_DOMAIN_ID</code> and <code class="highlighter-rouge">STREAMS_INSTANCE_ID</code> environment variables.</li>
       <li><code class="highlighter-rouge">BUNDLE</code>: Create a Streams application bundle (SAB) file for submission at a later time.</li></ul></td>
       <td><code class="highlighter-rouge">STREAMING_ANALYTICS_SERVICE</code></td>
     </tr>
@@ -111,11 +110,28 @@ For the full list of pipeline options, enter  `--help=StreamsPipelineOptions` on
 | `vcapServices` | The location of the Streaming Analytics VCAP file. This parameter is required when you use the `STREAMING_ANALYTICS_SERVICE` context type. This parameter can be omitted if the `$VCAP_SERVICES` environment variable is set to the path of the file. | [null] |
 | `serviceName` | The name of the Streaming Analytics service on IBM Cloud. This parameter is required when you use the   `STREAMING_ANALYTICS_SERVICE`  context type. | [null] |
 
-#### `DISTRIBUTED` context-specific pipeline options
+#### `DISTRIBUTED` context-specific pipeline options for Cloud Pak for Data
+
+Cloud Pak for Data is the default target for the `DISTRIBUTED` context
+unless the environment variables `STREAMS_DOMAIN_ID` and `STREAMS_INSTANCE_ID`
+are both set.
 
 | Parameter | Description | Default value |
 | --- | --- | --- |
-| `restUrl` | The URL for the REST API when you use the `DISTRIBUTED` context type. This parameter is required if you implement metrics in the application. | The return value of command `streamtool geturl` |
+| `restUrl` | The Cloud Pak for Data deployment URL. This parameter is required. | The value of the environment variable `CP4D_URL` if set, or [null] |
+| `instanceName` | The Cloud Pak for Data Streams instance name. This parameter is required. | The value of the environment variable `STREAMS_INSTANCE_ID` if set, or [null] |
+| `userName` | The user name for basic authentication with REST API when you use the `DISTRIBUTED` context type. This parameter is required. | The value of the `STREAMS_USERNAME` environment variable if set, or the `user.name` system property |
+| `userPassword` | A path to a file containing the user password (recommended) or a string containing the user password for basic authentication for REST API when you use the `DISTRIBUTED` context type. If the option value is a path to a readable file, the first line of the file will be used as the password. This parameter is required. | The value of the `STREAMS_PASSWORD` environment variable if set, or [null] |
+
+#### `DISTRIBUTED` context-specific pipeline options for Streams 4.x
+
+To use a Streams 4.x instance with the `DISTRIBUTED` context the
+`STREAMS_DOMAIN_ID` and `STREAMS_INSTANCE_ID` environment variables
+must both be set.
+
+| Parameter | Description | Default value |
+| --- | --- | --- |
+| `restUrl` | The URL for the REST API when you use the `DISTRIBUTED` context type. This parameter is required if you implement metrics in the application. | The return value of command `streamtool geturl`, or [null] |
 | `userName` | The user name for basic authentication with REST API when you use the `DISTRIBUTED` context type. | The `user.name` system property |
 | `userPassword` | A path to a file containing the user password (recommended) or a string containing the user password for basic authentication for REST API when you use the `DISTRIBUTED` context type. If the option value is a path to a readable file, the first line of the file will be used as the password. | [null] |
 
@@ -144,6 +160,25 @@ These environment variables are not required for Streams Runner to work; however
         <ul><li>Source the <code class="highlighter-rouge">$STREAMS_RUNNER_HOME/examples/bin/streams-runner-env.sh</code> file.</li>
         <li>Use the  <code class="highlighter-rouge">export</code> command.</li></ul></td>
       </tr>
+      <tr>
+        <td>CP4D_URL</td>
+        <td>The Cloud Pak for Data deployment URL. If this environment variable is set, the <code class="highlighter-rouge">--restUrl</code> parameter does not need to be specified on the command line with Cloud Pak for Data instances.</td>
+        <td>Set by using the <code class="highlighter-rouge">export</code> command.</td>
+      </tr>
+      <tr>
+        <td>STREAMS_INSTANCE_ID</td>
+        <td>The Cloud Pak for Data Streams instance name. If this environment variable is set, the <code class="highlighter-rouge">--instanceName</code> parameter does not need to be specified on the command line with Cloud Pak for Data instances.</td>
+        <td>Set by using the <code class="highlighter-rouge">export</code> command.</td>
+      </tr>
+      <tr>
+        <td>STREAMS_USERNAME</td>
+        <td>The Cloud Pak for Data Streams user name. If this environment variable is set, the <code class="highlighter-rouge">--userName</code> parameter does not need to be specified on the command line with Cloud Pak for Data instances.</td>
+        <td>Set by using the <code class="highlighter-rouge">export</code> command.</td>
+      </tr>
+      <tr>
+        <td>STREAMS_PASSWORD</td>
+        <td>The Cloud Pak for Data Streams user password or the path to a file containg the password. If this environment variable is set, the <code class="highlighter-rouge">--userPassword</code> parameter does not need to be specified on the command line with Cloud Pak for Data instances.</td>
+        <td>Set by using the <code class="highlighter-rouge">export</code> command.</td>
       <tr>
         <td>VCAP_SERVICES</td>
         <td>The path to the IBM Cloud credentials file. If this environment variable is set, the <code class="highlighter-rouge">--vcapServices</code> parameter does not need to be specified on the command line.<br /><br />For more information about the credentials file, see <a href="../../../beamrunner-2b-sas/#creating-a-credentials-file-for-your-streaming-analytics-service">Creating a credentials file for your Streaming Analytics service</a>.</td>

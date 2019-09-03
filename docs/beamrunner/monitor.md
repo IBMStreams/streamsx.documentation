@@ -2,7 +2,7 @@
 layout: docs
 title:  Monitoring IBM Streams Runner for Apache Beam
 navtitle: Monitoring
-description:  You can use the Apache Beam  2.4 metrics to insert information to monitor your IBM® Streams Runner for Apache Beam application.
+description:  You can use the Apache Beam metrics to insert information to monitor your IBM® Streams Runner for Apache Beam application.
 weight:  10
 published: true
 tag: beam
@@ -14,7 +14,7 @@ next:
   title: Runner reference
 ---
 
-You can use the Apache Beam  2.4 [metrics API](https://beam.apache.org/documentation/sdks/javadoc/2.4.0/org/apache/beam/sdk/metrics/package-summary.html) to insert information to monitor your IBM® Streams Runner for Apache Beam application. You can the `TemperatureSample` application that is included in IBM Streams Runner for Apache Beam to learn how Streams Runner makes metrics available for monitoring, both to the application itself and other monitoring tools.
+You can use the Apache Beam [metrics API](https://beam.apache.org/documentation/sdks/javadoc/2.4.0/org/apache/beam/sdk/metrics/package-summary.html) to insert information to monitor your IBM® Streams Runner for Apache Beam application. You can the `TemperatureSample` application that is included in IBM Streams Runner for Apache Beam to learn how Streams Runner makes metrics available for monitoring, both to the application itself and other monitoring tools.
 
 ## Adding metrics to your application
 
@@ -87,9 +87,5 @@ For example, if you submit the `TemperatureSample` application and monitor the j
 <img src="/streamsx.documentation/images/beamrunner/metricsingraph.jpg" alt="Metrics displayed in the Streams Graph" width="700" />
 
 This view shows both Beam metrics and Streams metrics. Beam metrics are named differently to distinguish them.
-
-Beam counters in namespace _NS_ and with name _NAME_ are shown as Streams metrics with the name **NS::NAME**, for example, **TemperatureSample::bad.total**.
-
-Beam distributions in namespace _NS_ and with name _DIST_ are associated with four separate Streams metrics. These metrics are grouped under **NS::DIST** and include `count`, `sum`, `min`, and `max`. For example, **TemperatureSample::good.device\_1** shows the four metrics and their corresponding values. From these values, the mean can be derived (that is, the sum divided by the count).
 
 These names are an implementation detail of Streams Runner and might change. If programmatic access to Beam metrics is required, the Beam [queryMetrics](https://beam.apache.org/documentation/sdks/javadoc/2.4.0/org/apache/beam/sdk/metrics/MetricResults.html#queryMetrics-org.apache.beam.sdk.metrics.MetricsFilter-) API must be used.

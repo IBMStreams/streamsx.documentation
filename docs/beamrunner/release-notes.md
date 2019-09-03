@@ -13,6 +13,26 @@ prev:
 ---
 View the features and changes of Streams Runner from release to release. Any items marked *Experimental* are subject to change between releases
 
+## v1.3
+Includes all features and bug fixes from v1.2.2.
+### New Functionality:
+* Support for Apache Beam 2.14 Java SDK
+* Support IBM Cloud Pak for Data
+
+### Improvements:
+* Performance improvements for bundle processing and parallel transforms
+* Treat unhealthy job or relaunched PE as pipeline failure
+* Allow submission-time setting of the `--bundleMillis`, `--bundleSize`,
+  and `--traceRuntime` pipeline options
+* Log more information about job submission
+* Make Beam metric name encoding more robust
+
+## v1.2.2
+Includes all features and bug fixes from v1.2.1
+
+### Improvements:
+* Add originator tag when using `STREAMING_ANALYTICS_SERVICE` build service
+
 ## v1.2.1
 Includes all features and bug fixes from v1.1.1
 ### New Functionality:

@@ -2,7 +2,7 @@
 layout: docs
 title:  Input/output options for IBM Streams Runner for Apache Beam
 navtitle: I/O options
-description:  Apache Beam 2.4 applications that use IBM® Streams Runner for Apache Beam have input/output options of standard output and errors, local file input, Publish and Subscribe transforms, and object storage and messages on IBM Cloud.
+description:  Apache Beam applications that use IBM® Streams Runner for Apache Beam have input/output options of standard output and errors, local file input, Publish and Subscribe transforms, and object storage and messages on IBM Cloud.
 weight:  10
 published: true
 tag: beam
@@ -14,7 +14,7 @@ next:
   title: TemperatureSample app
 ---
 
-Apache Beam 2.4 applications that use IBM® Streams Runner for Apache Beam have several options for input/output:
+Apache Beam applications that use IBM® Streams Runner for Apache Beam have several options for input/output:
 
 - [Standard output and errors](#standard-output-and-errors)
 - [Local file input](#local-file-input-streams)
