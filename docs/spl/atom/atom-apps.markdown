@@ -1,6 +1,6 @@
 ---
 layout: docs
-title:  Introduction
+title:  Developing SPL applications with Atom or Microsoft Visual Studio Code
 description:
 navlevel: 2
 tag: atom
