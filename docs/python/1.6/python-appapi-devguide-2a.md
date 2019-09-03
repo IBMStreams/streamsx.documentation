@@ -1,6 +1,6 @@
 ---
 layout: docs
-title:  Create your first application in the Streaming Analytics service
+title:  Create your first Python application in the Streaming Analytics service
 description:  Learn how to deploy a Python application in the IBM Streaming Analytics service on IBM Cloud, without installing IBM Streams.
 weight: 25
 published: true
