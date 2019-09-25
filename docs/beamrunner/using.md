@@ -35,11 +35,12 @@ To make the Streams Runner libraries available to the Beam application, you must
 After Streams Runner is accessible to your application, you must decide in which context you want to build and submit your application. Streams Runner has three contexts, and each has its own set of prerequisites and setup requirements. The three contexts are `STREAMING_ANALYTICS_SERVICE`, `DISTRIBUTED`, and `BUNDLE` and are  specified by using the `--contextType` parameter.
 
 ### The `DISTRIBUTED` context
-Use this context both for IBM Cloud Pak for Data or a local installation of
-IBM Streams 4.x.
+Use this context for IBM Cloud Pak for Data in both integrated and standalone
+configurations, or a local installation of IBM Streams 4.x.
 
 #### Prerequisites
-* For Cloud Pak for Data, an instance of Streams provisioned and running.
+* For Cloud Pak for Data integrated configurations, an instance of Streams provisioned and running.
+* For Cloud Pak for Data standalone configurations, an instance of Streams running.
 * For a local installation of Streams 4.x:
   * A running Streams domain and instance. For more information, see [Creating an IBM Streams basic domain and instance](https://www.ibm.com/support/knowledgecenter/en/SSCRJU_4.2.1/com.ibm.streams.cfg.doc/doc/creating-basic-domain-and-instance.html).
 
@@ -50,9 +51,10 @@ IBM Streams 4.x.
 
 #### Overview
 
-The `DISTRIBUTED` context is used for both Cloud Pack for Data instances
-as well as local installations of Streams 4.x. The steps are similar in
-both cases but there are some differences.
+The `DISTRIBUTED` context is used for both Cloud Pack for Data instances in
+both ingegrated and standalone configurations as well as local installations
+of Streams 4.x. The steps are similar in both cases but there are some
+differences.
 
 For both environments the Streams job must be aware of your Beam application. To include your application and any dependencies, use the `--jarsToStage` option.
 
@@ -73,8 +75,13 @@ at `$STREAMS_INSTALL/lib` in the Java class path.
 tell the runner to deploy to that instance instead of the Cloud Pak for
 Data instance.
 
-To identify and authenticate with the Cloud Pak for Data instance you must
-use the `--restUrl`, `--userName`, and `--userPassword` options.
+To identify and authenticate with the Cloud Pak for Data instance when using
+an integrated configuration you must use the `--restUrl`, `--userName`, and
+`--userPassword` options.
+
+For standalone integrations, the SWS service and build service URLs must be
+set with `--restUrl` and `--buildServiceUrl` options, and user authentication
+must be provided with `--userName` and `--userPassword` options.
 
 **Local Streams 4.x Overview**
 

@@ -26,7 +26,7 @@ the `DISTRIBUTED` context.
 Before you run the Apache Beam 2.4 I/O sample applications, you must configure and run the following service on IBM Cloud®:
 
 - IBM Message Hub.
-   - Create the service if you don't already have one. For more information, see [Creating a Message Hub service on IBM Cloud](../io/#creating-a-message-hub-service-on-ibm-cloud).
+   - Create the service if you do not already have one. For more information, see [Creating a Message Hub service on IBM Cloud](../io/#creating-a-message-hub-service-on-ibm-cloud).
    - Set up credentials for the service. **Remember**: Make sure the environment variables are configured. For more information, see [Setting up credentials for the Message Hub  service](../io/#setting-up-credentials-for-the-message-hub-service).
 
 ## Running the sample application

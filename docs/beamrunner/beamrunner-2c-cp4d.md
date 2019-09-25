@@ -14,10 +14,6 @@ next:
   title: Using
 ---
 
-** FIXME ** This page is a work-in-progress, as the final packaging has not
-yet been fixed. It is based on the assumption the beam package will be
-downloadable from the console, but this could change.
-
 Installing IBM® Streams Runner for Apache Beam from an installation of IBM Cloud Pak for Data involves downloading and extracting the Streams Runner toolkit, and configuring environment variables.
 
 ## Before you start
