@@ -7,7 +7,7 @@ published: true
 tag: py16
 prev:
   file: python-appapi-devguide-2b
-  title: Create an application for IBM Cloud Private for Data
+  title: Create an application for IBM Cloud Pak for Data
 next:
   file: python-appapi-devguide-4
   title: Common Streams transforms

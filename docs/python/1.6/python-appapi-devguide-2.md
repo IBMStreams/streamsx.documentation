@@ -24,7 +24,7 @@ Make sure you have the right version of Python for your Streams instance:
 
 * For the **[Streaming Analytics service](https://cloud.ibm.com/catalog/services/streaming-analytics)** in IBM Cloud, use Python **3.6**.
 * For **a local installation** of IBM Streams, Python **3.5, 3.6 or 3.7** are supported.
-* For **[IBM Cloud Private for Data](https://docs-icpdata.mybluemix.net/docs/content/SSQNUZ_current/com.ibm.icpdata.doc/streams/intro.html)**, use Python **3.6**.
+* For **[IBM Cloud Pak for Data](https://docs-icpdata.mybluemix.net/docs/content/SSQNUZ_current/com.ibm.icpdata.doc/streams/intro.html)**, use Python **3.6**.
 
 
 ##  Install the `streamsx` package
@@ -47,7 +47,7 @@ Choose one of the following tutorials to create your first application for:
 
 * The [**IBM Streaming Analytics service**](/streamsx.documentation/docs/python/1.6/python-appapi-devguide-2a/)
 * [**A local installation of IBM Streams**](/streamsx.documentation/docs/python/1.6/python-appapi-devguide-3/)
-* [**IBM Cloud Private for Data**](/streamsx.documentation/docs/python/1.6/python-appapi-devguide-2b/)
+* [**IBM Cloud Pak for Data**](/streamsx.documentation/docs/python/1.6/python-appapi-devguide-2b/)
 
 ## Learn more about the API
 

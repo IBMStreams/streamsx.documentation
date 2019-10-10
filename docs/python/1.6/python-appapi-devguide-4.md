@@ -282,7 +282,7 @@ Reading from a file or using a file within your Streams application can be done 
 
 However, you must use `Topology.add_file_dependency` to ensure that the file or its containing directory will be available at runtime.
 
-Note: If you are using **IBM Cloud Private for Data**, this [post discusses how to use a data set in your Streams Topology](https://developer.ibm.com/streamsdev/2019/04/23/tip-for-ibm-cloud-private-for-data-how-to-use-local-data-sets-in-your-streams-python-notebook/).
+Note: If you are using **IBM Cloud Pak for Data**, this [post discusses how to use a data set in your Streams Topology](https://developer.ibm.com/streamsdev/2019/04/23/tip-for-ibm-cloud-private-for-data-how-to-use-local-data-sets-in-your-streams-python-notebook/).
 
 ~~~ python
 topo = Topology("ReadFromFile")

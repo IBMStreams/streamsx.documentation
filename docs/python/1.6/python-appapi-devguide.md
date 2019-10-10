@@ -24,7 +24,7 @@ You can use the Python Application API to:
 You can run a streaming application in the following modes:
 
 * In a **Streaming Analytics service running on IBM Cloud** (STREAMING_ANALYTICS_SERVICE). In this mode, the application is run in the cloud in a Streaming Analytics service. The Streaming Analytics service is a cloud version of IBM Streams, so you don't need to install Streams to build Python applications for the service.
-* In the **IBM Streams add-on in IBM Cloud Private for Data** (DISTRIBUTED). The application is developed in a Jupyter notebook and deployed to the IBM Streams add-on instance.
+* In the **IBM Streams add-on in IBM Cloud Pak for Data** (DISTRIBUTED). The application is developed in a Jupyter notebook and deployed to the IBM Streams add-on instance.
 * As a **Streams distributed application** (DISTRIBUTED). When running in this mode, the application is deployed automatically on your local IBM Streams instance.
 * As a **Streams Application Bundle file** (BUNDLE). When running in this mode, the application produces a Streams Application Bundle (SAB) file that you can then deploy on your IBM Streams instance or Streaming Analytics service instance by using the `streamtool submitjob` command or by using the application console.
 * As a **stand-alone application** (STANDALONE).  When running in this mode, the application produces a SAB file, but rather than submitting the SAB file to an instance, the bundle is executed. The bundle runs within a single process and can be terminated with Ctrl-C interrupts.

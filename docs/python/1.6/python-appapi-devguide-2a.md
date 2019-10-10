@@ -10,7 +10,7 @@ prev:
   title: Installing Python APIs
 next:
   file: python-appapi-devguide-2b
-  title: Create an application for IBM Cloud Private for data
+  title: Create an application for IBM Cloud Pak for Data
 ---
 
 Get started with the Python Application API by creating an application that reads data from a temperature sensor and prints the output. The application runs as a job in your instance of the Streaming Analytics service on the IBM Cloud.
