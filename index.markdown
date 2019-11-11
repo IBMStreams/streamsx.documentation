@@ -39,7 +39,7 @@ The following are resources to help you get started developing applications usin
 
 {: .simple}
 * [Developing applications (v1.12)](/streamsx.documentation/docs/python/1.6/python-appapi-devguide/)
-* [API reference](http://ibmstreams.github.io/streamsx.topology/doc/pythondoc/index.html)
+* [API reference](https://streamsxtopology.readthedocs.io/en/stable/index.html)
 * [Older releases](https://github.com/IBMStreams/streamsx.topology/releases)
 
 
