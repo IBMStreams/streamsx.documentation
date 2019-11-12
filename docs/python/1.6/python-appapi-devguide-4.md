@@ -1063,58 +1063,56 @@ Let's see a concrete example of this problem first:
 
 1. Change the `Numbers` class so that it every 9th tuple has id 'A' and all other tuples have id 'B'. This is simulating a sensor B that reports  much more frequently than sensor A.
 
-~~~~ python
-def get_id(count):
-    if (count % 9 == 0):
-        return  "A"
-    else:
-        return  "B"
-    
-class Numbers(object):
-    def __call__(self):
-        for num in itertools.count(1):
-            # time.sleep(1.0)
-            yield {"value": num, "id": "id_" + get_id(num)}
+    ~~~~ python
+    def get_id(count):
+        if (count % 9 == 0):
+            return  "A"
+        else:
+            return  "B"
+        
+    class Numbers(object):
+        def __call__(self):
+            for num in itertools.count(1):
+                # time.sleep(1.0)
+                yield {"value": num, "id": "id_" + get_id(num)}
 
-~~~~~
+    ~~~~~
 
-1.  Modify the `Averages` class to  show the contents of each window by adding a `window_contents` attribute to show the ids of every tuple in the window:
+2.  Modify the `Averages` class to  show the contents of each window by adding a `window_contents` attribute to show the ids of every tuple in the window:
 
-~~~~ python
+    ~~~~ python
 
-class Averages:
-    def __call__(self, items_in_window):
-        ## create a list of all the ids in the window
-        ids_in_window = [item["id"] for item in items_in_window]
-        df = pd.DataFrame(items_in_window)
-        #group the data by id
-        readings_by_id = df.groupby("id")
-        summary_by_id = readings_by_id.agg(avg=('value',np.mean))
-        #return a list of tuples, one for each id
-        result = []
-        for id, row in summary_by_id.iterrows():
-            result.append({"average": int(row["avg"]), 
-                           "id": str(id), "window_contents": ids_in_window})
-        return result
-    
-~~~~~
+    class Averages:
+        def __call__(self, items_in_window):
+            ## create a list of all the ids in the window
+            ids_in_window = [item["id"] for item in items_in_window]
+            df = pd.DataFrame(items_in_window)
+            #group the data by id
+            readings_by_id = df.groupby("id")
+            summary_by_id = readings_by_id.agg(avg=('value',np.mean))
+            #return a list of tuples, one for each id
+            result = []
+            for id, row in summary_by_id.iterrows():
+                result.append({"average": int(row["avg"]), 
+                            "id": str(id), "window_contents": ids_in_window})
+            return result
+        
+    ~~~~~
 
 3. Run the application and look at its output.
 
+    | average	| id | 	window_contents
+    | --- | ---- | ---- |
+    |2115 |	id_A |	[id_B, id_B, id_B, id_B, id_B, **id_A**, id_B, id_B, id_B, id_B]
+    |2114 |	id_B |	[id_B, id_B, id_B, id_B, id_B, **id_A**, id_B, id_B, id_B, id_B]
 
 Looking at the `window_contents` attribute, the majority of the tuples in each window are from sensor B. 
-
-
-| average	| id | 	window_contents
-| --- | ---- | ---- |
-|2115 |	id_A |	[id_B, id_B, id_B, id_B, id_B, **id_A**, id_B, id_B, id_B, id_B]
-|2114 |	id_B |	[id_B, id_B, id_B, id_B, id_B, **id_A**, id_B, id_B, id_B, id_B]
 
 How can we get the average of the last 10 tuples received from sensor A?
 
 The solution is to use a *separate window for each sensor*. Doing so, you will only calculate the average for a sensor *when 10 tuples have been received from that sensor*.
 
-To create subwindows for each group, use [`Window.partition`](https://streamsxtopology.readthedocs.io/en/latest/streamsx.topology.topology.html#streamsx.topology.topology.Window.partition)  to configure a `Window` to use subwindows. Partitions and subwindows are used interchangeably.
+To create subwindows for each group, use [`Window.partition`](https://streamsxtopology.readthedocs.io/en/latest/streamsx.topology.topology.html#streamsx.topology.topology.Window.partition). Partitions and subwindows are used interchangeably.
 
 For example, a partitioned tumbling window of size 10:
 ~~~~~ python
@@ -1137,11 +1135,6 @@ All the subwindows share the defined size and trigger policy.
 3. Each subwindow will be processed when it is full, regardless of the state of the other subwindows.
 4. The processing callable will receive only the tuples for a specific subwindow.
    
-
-Continuing the example, 
-
-   - Since sensor B reports every second and the window is processed in batches of 10, the subwindow for sensor B will be full every 10 seconds and the `Averages` class will be invoked only with tuples for sensor A.
-   - Sensor A is reporting every minute, so its window will be full every 10 minutes, and the `Averages` class will be invoked with tuples from sensor B every 10 minutes.
 
 
 Modify the example and re-run it:
@@ -1260,7 +1253,7 @@ Results:
 | --- | ---- | ---- |  ---- | ---- | ---- | 
 10 |	30.2 | 25  |  35 | id_B |	[id_B, id_B, id_B, id_B, id_B, id_B, id_B, id_B, id_B, id_B]	
 10 |	31.3 | 26  |  36 | id_B |	[id_B, id_B, id_B, id_B, id_B, id_B, id_B, id_B, id_B, id_B]
-10 |	96.5  | 56 |  137	| id_A |** [id_A, id_A, id_A, id_A, id_A, id_A, id_A, id_A, id_A, id_A]**
+10 |	96.5  | 56 |  137	| id_A |**[id_A, id_A, id_A, id_A, id_A, id_A, id_A, id_A, id_A, id_A]**
 10 |  32.5	| 27	|	38 | id_B | [id_B, id_B, id_B, id_B, id_B, id_B, id_B, id_B, id_B, id_B]
 
 Now, we see from the `window_contents` column that all the tuples are divided among windows by `id`, even though one sensor reports more frequently than the other.
