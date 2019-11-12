@@ -31,6 +31,7 @@ This section will discuss how to use the most common functions and transforms in
     - [Example 2: Rolling average updated at intervals](#we2)
   - [Unique vs. overlapping windows](#wsliding)
     - [Example 3: `Stream.batch()` vs. `Stream.last()`](#we3)
+  - [Dividing the tuples in a window into groups](#grp_window)
 * [Transforming data with custom logic](#map)
 * [Keeping state information](#state)
 * [Splitting streams](#split)
@@ -550,8 +551,15 @@ As shown above, windows are made up of a finite number of tuples. They are repre
 ### Window size and duration
 
 Tuples are collected into the window based on the defined size of the window. The size of the window can be based on
-- Elapsed time, e.g. collect all the tuples in a 5 minute interval. Time elapsed is computed using system time.
+- Elapsed time, e.g. collect all the tuples in a 5 minute interval. Time elapsed is computed using system time.- 
+    `Stream.last(size=datetime.timedelta(minutes=5))` , or
+
+    `Stream.batch(size=datetime.timedelta(minutes=5))`
 - Number of tuples collected, e.g. collect 100 tuples regardless of how often the data arrives.
+ 
+    `Stream.batch(size=100) ` or
+
+    `Stream.last(size=100)`
 
 <a id="wtemplate"></a>
 ### Template for using windows
@@ -666,61 +674,59 @@ After submitting this application, use this code to connect to it and display th
   <div id="fullSource-1" class="tab-pane fade">
   <pre><code>
 
-  from streamsx.topology.topology import Topology
-  import streamsx.topology.context
-  import time
-  import random
+from streamsx.topology.topology import Topology
+from streamsx.topology import context
+import time
+import random
 
-  import itertools
+import itertools
 
-  class Average:
-      def __call__(self, tuples_in_window):
+
+class Average:
+    def __call__(self, tuples_in_window):
         values = [tpl["value"] for tpl in tuples_in_window]
-        mn =  min(values)
+        mn = min(values)
         mx = max(values)
         num_of_tuples = len(tuples_in_window)
-        average = sum(values)/len(tuples_in_window)                     
+        average = sum(values) / len(tuples_in_window)
         return {"count": num_of_tuples,
                 "avg": average,
                 "min": mn,
                 "max": mx}
 
 
-  class Numbers(object):
-      def __call__(self):
-              for num in itertools.count(1):
-                  #time.sleep(1.0)
-                  yield {"value": num, "id": "id_" + str(random.randint(0,10))}
-
-  topo = Topology("Rolling Average")
-  src = topo.source(Numbers())
-  window = src.last(size=10)
-
-  rolling_average = window.aggregate(Average())
-  #Create a view to access the result stream
-  results_view = rolling_average.view()
-
-  #submit the application
-  streamsx.topology.context.submit("DISTRIBUTED", topo)
+class Numbers(object):
+    def __call__(self):
+        for num in itertools.count(1):
+            # time.sleep(1.0)
+            yield {"value": num, "id": "id_" + str(random.randint(0, 10))}
 
 
-  results_view = rolling_average.view()
+topo = Topology("Rolling Average")
+src = topo.source(Numbers())
+window = src.last(size=10)
 
-  submission_result = streamsx.topology.context.submit("DISTRIBUTED",
-                                                            topo)
+rolling_average = window.aggregate(Average())
+# Create a view to access the result stream
+results_view = rolling_average.view()
+results_view = rolling_average.view()
+cfg = {}
+cfg[context.ConfigParams.SSL_VERIFY] = False
+# submit the application
+context.submit("DISTRIBUTED", topo, config=cfg)
 
-  import pandas as pd
+import pandas as pd
 
-  queue = results_view.start_data_fetch()
-  results = []
-  # get a few result tuples
-  for i in range(15):
-      results.append(queue.get())
-  results_view.stop_data_fetch()
+queue = results_view.start_data_fetch()
+results = []
+# get a few result tuples
+for i in range(15):
+    results.append(queue.get())
+results_view.stop_data_fetch()
 
-  #display as Pandas data frame
-  df = pd.DataFrame(results)
-  print(df)                                                        
+# display as Pandas data frame
+df = pd.DataFrame(results)
+print(df)                                           
 </code></pre>
   </div>
 </div>
@@ -883,7 +889,7 @@ Let's change our previous example to use a tumbling window by using `Stream.batc
 We do not have to change the callable function or the source function, but just the window declaration.
 We now have this code:
 
-~~~python
+~~~ python
 topo = Topology("Batch Average")
 src = topo.source(Numbers())
 
@@ -901,19 +907,371 @@ And this output:
 | 21 |	30 |	25.5 |	10 |
 | 31 |	40 |	35.5 |	10 |
 
-## Grouping with Windows
-So far we have discussed simple aggregation. You might want to aggregate results based on a group, e.g. you might want to get the maximum temperature reported for each sensor. You can do this kind of aggregation within your processing callable using any Python library, e.g. using Pandas.
+<a id="grp_window"></a>
+## Dividing tuples in a window into a group
+
+So far we have calcuated the average for all the tuples in a window.
+Sometimes you  want to divide the tuples in a window into groups and aggregate the data in the group.
+For example, you might want to calculate the maximum temperature reported by each sensor.
+There are two ways to do this:
+ **Simple grouping**: Group the tuples manually within your processing callable and then process each group iteratively. You can use a Python library like [Pandas](https://pandas.pydata.org/). 
+ **Partitioning**, or grouping using subwindows: create subwindows for each group, which will be processed independently, whenever a subwindow is full.
 
 
-### Using windows: review
+### Simple grouping 
 
+Continuing the previous example, let's change the `Averages` class to compute the average for each sensor based on the last 20 readings:
+
+<ul class="nav nav-tabs">
+  <li class="active"><a data-toggle="tab" href="#simpleSource-3">Code</a></li>
+  <li><a data-toggle="tab" href="#fullSource-3">Full Source</a></li>
+</ul>
+
+<div class="tab-content">
+  <div id="simpleSource-3" class="tab-pane fade in active">
+ <pre><code>
+
+import pandas as pd
+import numpy as np 
+class Averages:
+def __call__(self, items_in_window):
+    df = pd.DataFrame(items_in_window)
+    #group the data by id
+    readings_by_id = df.groupby("id")
+    #for each id, create a new DataFrame
+    # just computing min, max and avg for the value column
+    #using aggregation specifying agg_column=(column, aggfunc)
+    summary_by_id = readings_by_id.agg(max_val=('value',max), 
+                    avg=('value',np.mean), 
+                    min_val=('value',min))
+    #return a list of tuples, one for each id
+    result = []
+    for id, row in summary_by_id.iterrows():
+        result.append({"average": int(row["avg"]), 
+                        "min": int(row["min_val"]),
+                        "max": int(row["max_val"]),
+                    "id": str(id)})
+    return result
+
+       </code></pre>
+ </div>
+  <div id="fullSource-3" class="tab-pane fade">
+  <pre><code>
+from streamsx.topology.topology import Topology
+from streamsx.topology import context
+import time
+import random
+
+import itertools
+import pandas as pd
+import numpy as np 
+class Averages:
+def __call__(self, items_in_window):
+    df = pd.DataFrame(items_in_window)
+    #group the data by id
+    readings_by_id = df.groupby("id")
+    #for each id, create a new DataFrame
+    # just computing min, max and avg for the value column
+    #using aggregation specifying agg_column=(column, aggfunc)
+    summary_by_id = readings_by_id.agg(max_val=('value',max), 
+                        avg=('value',np.mean), 
+                        min_val=('value',min))
+    #return a list of tuples, one for each id
+    result = []
+    for id, row in summary_by_id.iterrows():
+        result.append({"average": int(row["avg"]), 
+                        "min": int(row["min_val"]),
+                        "max": int(row["max_val"]),
+                        "id": str(id)})
+
+
+    return result
+
+class Numbers(object):
+    def __call__(self):
+        for num in itertools.count(1):
+            # time.sleep(1.0)
+            yield {"value": num, "id": "id_" + str(random.randint(0, 10))}
+
+
+topo = Topology("Rolling Average With Grouping")
+src = topo.source(Numbers())
+window = src.last(size=20) #rolling average of last 20 readings, 
+
+rolling_average = window.aggregate(Averages()).flat_map()
+# Create a view to access the result stream
+results_view = rolling_average.view()
+cfg = {}
+cfg[context.ConfigParams.SSL_VERIFY] = False
+# submit the application
+result = context.submit("DISTRIBUTED", topo, config=cfg)
+print("Submitted topology successfully " + str(result))
+
+
+import pandas as pd
+
+queue = results_view.start_data_fetch()
+results = []
+# get a few result tuples
+for i in range(15):
+    results.append(queue.get())
+results_view.stop_data_fetch()
+
+# display as Pandas data frame
+df = pd.DataFrame(results)
+print(df)
+</code></pre>
+  </div>
+</div>
+
+- Using a Pandas `DataFrame`, we group the data by `id` 
+- Compute the average, minimum and maximum values reported for each `id` using the `agg` function
+- Then return a list of tuples, one for each unique `id` in the window. 
+
+The `Averages` class is now returning a `Stream` where each tuple is a list of values. 
+ Since want to work with individual tuples, use the `flat_map` function to convert that `Stream` to a `Stream` of individual tuples.
+  
+~~~~ python
+
+rolling_average = window.aggregate(Averages()).flat_map()
+# Create a view to access the result stream
+results_view = rolling_average.view()
+~~~~~
+
+Click *Full Source* above for the updated source code.
+After running the application, we'll get something like this:
+
+
+|   average     | min   |   max   |    id | 
+| --- | --- | --- | --- |
+|     72   | 71  |  73  |   id_3  | 
+|      74   | 72  |   77     | id_8  | 
+|    72  |  69  |  75  |    id_9   | 
+|     76   | 76  |  76    |  id_1  | 
+
+
+
+### Partitioning: dividing tuples into separate windows
+So far, we have only used one window, and when the `Averages` class was called, all the tuples in the window were passed to it for processing. 
+
+Imagine that you have 2 sensors reporting data. Sensor A, with id `id_A` is reporting a reading every minute, while sensor B, with id `id_B` only reports once every second.  Maybe sensor A is stuck on a slow network.
+
+If you created a window using `Stream.last(10)`, more often than not, every tuple in the window will be from sensor B, since it is reporting more frequently. It would be difficult to report the average of the last 10 readings for each sensor. 
+
+Let's see a concrete example of this problem first:
+
+
+1. Change the `Numbers` class so that it every 9th tuple has id 'A' and all other tuples have id 'B'. This is simulating a sensor B that reports  much more frequently than sensor A.
+
+~~~~ python
+def get_id(count):
+    if (count % 9 == 0):
+        return  "A"
+    else:
+        return  "B"
+    
+class Numbers(object):
+    def __call__(self):
+        for num in itertools.count(1):
+            # time.sleep(1.0)
+            yield {"value": num, "id": "id_" + get_id(num)}
+
+~~~~~
+
+1.  Modify the `Averages` class to  show the contents of each window by adding a `window_contents` attribute to show the ids of every tuple in the window:
+
+~~~~ python
+
+class Averages:
+    def __call__(self, items_in_window):
+        ## create a list of all the ids in the window
+        ids_in_window = [item["id"] for item in items_in_window]
+        df = pd.DataFrame(items_in_window)
+        #group the data by id
+        readings_by_id = df.groupby("id")
+        summary_by_id = readings_by_id.agg(avg=('value',np.mean))
+        #return a list of tuples, one for each id
+        result = []
+        for id, row in summary_by_id.iterrows():
+            result.append({"average": int(row["avg"]), 
+                           "id": str(id), "window_contents": ids_in_window})
+        return result
+    
+~~~~~
+
+3. Run the application and look at its output.
+
+
+Looking at the `window_contents` attribute, the majority of the tuples in each window are from sensor B. 
+
+
+| average	| id | 	window_contents
+| --- | ---- | ---- |
+|2115 |	id_A |	[id_B, id_B, id_B, id_B, id_B, **id_A**, id_B, id_B, id_B, id_B]
+|2114 |	id_B |	[id_B, id_B, id_B, id_B, id_B, **id_A**, id_B, id_B, id_B, id_B]
+
+How can we get the average of the last 10 tuples received from sensor A?
+
+The solution is to use a *separate window for each sensor*. Doing so, you will only calculate the average for a sensor *when 10 tuples have been received from that sensor*.
+
+To create subwindows for each group, use [`Window.partition`](https://streamsxtopology.readthedocs.io/en/latest/streamsx.topology.topology.html#streamsx.topology.topology.Window.partition)  to configure a `Window` to use subwindows. Partitions and subwindows are used interchangeably.
+
+For example, a partitioned tumbling window of size 10:
+~~~~~ python
+def getKeyForPartition(tpl):
+    return tpl["id"]
+
+# define topology, etc.
+window = src.batch(size=10).partition(key=getKeyForPartition)
+rolling_average = window.aggregate(Averages())
+~~~~~
+
+
+
+All the subwindows share the defined size and trigger policy.
+
+#### How it works:
+
+1. Tuples are assigned to a subwindow based on a user-defined `key`, which can be a Python callable. It can be a string if a [structured schema is being used](https://streamsxtopology.readthedocs.io/en/latest/streamsx.topology.schema.html#structured-schemas).
+2. When a tuple is received, the `key` is used to determine which subwindow the tuple belongs to. In this example, the `getKeyForPartition` function is called and the tuple's `id` is used as the key, so every tuple with that `id` will be put in the same window.
+3. Each subwindow will be processed when it is full, regardless of the state of the other subwindows.
+4. The processing callable will receive only the tuples for a specific subwindow.
+   
+
+Continuing the example, 
+
+   - Since sensor B reports every second and the window is processed in batches of 10, the subwindow for sensor B will be full every 10 seconds and the `Averages` class will be invoked only with tuples for sensor A.
+   - Sensor A is reporting every minute, so its window will be full every 10 minutes, and the `Averages` class will be invoked with tuples from sensor B every 10 minutes.
+
+
+Modify the example and re-run it:
+<ul class="nav nav-tabs">
+  <li class="active"><a data-toggle="tab" href="#simpleSource-4">Code</a></li>
+  <li><a data-toggle="tab" href="#fullSource-4">Full Source</a></li>
+</ul>
+
+<div class="tab-content">
+  <div id="simpleSource-4" class="tab-pane fade in active">
+ <pre><code>
+# Since the Averages callable will receive the tuples already in a group, 
+# we no longer need the grouping using Pandas
+class Averages:
+    def __call__(self, tuples_in_window):
+        ids_in_window = [item["id"] for item in tuples_in_window]
+        values = [tpl["value"] for tpl in tuples_in_window]
+        mn = min(values)
+        mx = max(values)
+        num_of_tuples = len(tuples_in_window)
+        average = sum(values) / len(tuples_in_window)
+        return {"count": num_of_tuples,
+                "avg": average,
+                "min": mn, "window_contents": ids_in_window,
+                "id":tuples_in_window[0]["id"],
+                "max": mx}
+
+# Define a function to be used as the partitioning function
+
+def getKey(tpl):
+    return tpl["id"]
+...
+#Modify window definition
+window = src.last(size=10).partition(key=getKey)
+rolling_average = window.aggregate(Averages())
+</code></pre>
+ </div>
+  <div id="fullSource-4" class="tab-pane fade">
+  <pre><code>
+
+from streamsx.topology.topology import Topology
+from streamsx.topology import context
+import time
+import random
+
+import itertools
+import pandas as pd
+import numpy as np 
+
+def getKey(tpl):
+    return tpl["id"]
+
+class Averages:
+    def __call__(self, tuples_in_window):
+        ids_in_window = [item["id"] for item in tuples_in_window]
+        values = [tpl["value"] for tpl in tuples_in_window]
+        mn = min(values)
+        mx = max(values)
+        num_of_tuples = len(tuples_in_window)
+        average = sum(values) / len(tuples_in_window)
+        return {"count": num_of_tuples,
+                "avg": average,
+                "min": mn, "window_contents": ids_in_window,
+                "id":tuples_in_window[0]["id"],
+                "max": mx}
+
+def get_id(count):
+    if (count % 9 == 0):
+        return  "A"
+    else:
+        return  "B"
+    
+class Numbers(object):
+    def __call__(self):
+        for num in itertools.count(1):
+            # time.sleep(1.0)
+            yield {"value": num, "id": "id_" + get_id(num)}
+
+
+topo = Topology("Partitioned Rolling Average")
+src = topo.source(Numbers())
+window = src.last(size=10).partition(key=getKey)
+
+rolling_average = window.aggregate(Averages())
+# Create a view to access the result stream
+results_view = rolling_average.view()
+cfg = {}
+cfg[context.ConfigParams.SSL_VERIFY] = False
+# submit the application
+result = context.submit("DISTRIBUTED", topo, config=cfg)
+print("Submitted topology successfully " + str(result))
+
+
+import pandas as pd
+
+queue = results_view.start_data_fetch()
+results = []
+# get a few result tuples
+for i in range(15):
+    results.append(queue.get())
+results_view.stop_data_fetch()
+
+# display as Pandas data frame
+df = pd.DataFrame(results)
+print(df)
+
+
+</code></pre>
+  </div>
+</div>
+
+
+Results:
+
+| 	count  | 	avg |  	min	 |  max  | 	id  | window_contents
+| --- | ---- | ---- |  ---- | ---- | ---- | 
+10 |	30.2 | 25  |  35 | id_B |	[id_B, id_B, id_B, id_B, id_B, id_B, id_B, id_B, id_B, id_B]	
+10 |	31.3 | 26  |  36 | id_B |	[id_B, id_B, id_B, id_B, id_B, id_B, id_B, id_B, id_B, id_B]
+10 |	96.5  | 56 |  137	| id_A |** [id_A, id_A, id_A, id_A, id_A, id_A, id_A, id_A, id_A, id_A]**
+10 |  32.5	| 27	|	38 | id_B | [id_B, id_B, id_B, id_B, id_B, id_B, id_B, id_B, id_B, id_B]
+
+Now, we see from the `window_contents` column that all the tuples are divided among windows by `id`, even though one sensor reports more frequently than the other.
+### Summary
 
 This section has covered the steps to use a window to transform streaming data:
 - Define the window using `Stream.batch` and `Stream.last`.
 - Defining a class or function that will perform your aggregation
 - Use `Window.aggregate()` to call your processing function with the window's contents
 - For sliding windows, set the trigger policy with `Window.trigger` to control when the processing function is called.
-
+- Use `Window.partition` to create subwindows for more fine grained aggregation
 
 
 <a id="map"></a>
