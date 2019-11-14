@@ -914,8 +914,9 @@ So far we have calcuated the average for all the tuples in a window.
 Sometimes you  want to divide the tuples in a window into groups and aggregate the data in the group.
 For example, you might want to calculate the maximum temperature reported by each sensor.
 There are two ways to do this:
- **Simple grouping**: Group the tuples manually within your processing callable and then process each group iteratively. You can use a Python library like [Pandas](https://pandas.pydata.org/). 
- **Partitioning**, or grouping using subwindows: create subwindows for each group, which will be processed independently, whenever a subwindow is full.
+
+- **Simple grouping**: Group the tuples manually within your processing callable and then process each group iteratively. You can use a Python library like [Pandas](https://pandas.pydata.org/). 
+- **Partitioning**, or grouping using subwindows: create subwindows for each group, which will be processed independently, whenever a subwindow is full.
 
 
 ### Simple grouping 
@@ -947,10 +948,10 @@ def __call__(self, items_in_window):
     #return a list of tuples, one for each id
     result = []
     for id, row in summary_by_id.iterrows():
-        result.append({"average": int(row["avg"]), 
-                        "min": int(row["min_val"]),
-                        "max": int(row["max_val"]),
-                    "id": str(id)})
+        result.append({"average": float(row["avg"]), 
+                        "min": float(row["min_val"]),
+                        "max": float(row["max_val"]),
+                    "id": id)})
     return result
 
        </code></pre>
@@ -979,10 +980,10 @@ def __call__(self, items_in_window):
     #return a list of tuples, one for each id
     result = []
     for id, row in summary_by_id.iterrows():
-        result.append({"average": int(row["avg"]), 
-                        "min": int(row["min_val"]),
-                        "max": int(row["max_val"]),
-                        "id": str(id)})
+        result.append({"average": float(row["avg"]), 
+                        "min": float(row["min_val"]),
+                        "max": float(row["max_val"]),
+                        "id": id})
 
 
     return result
@@ -1093,8 +1094,8 @@ Let's see a concrete example of this problem first:
             #return a list of tuples, one for each id
             result = []
             for id, row in summary_by_id.iterrows():
-                result.append({"average": int(row["avg"]), 
-                            "id": str(id), "window_contents": ids_in_window})
+                result.append({"average": float(row["avg"]), 
+                            "id": id, "window_contents": ids_in_window})
             return result
         
     ~~~~~
