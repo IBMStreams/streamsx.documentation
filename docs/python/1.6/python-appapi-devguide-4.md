@@ -967,26 +967,26 @@ import itertools
 import pandas as pd
 import numpy as np 
 class Averages:
-def __call__(self, items_in_window):
-    df = pd.DataFrame(items_in_window)
-    #group the data by id
-    readings_by_id = df.groupby("id")
-    #for each id, create a new DataFrame
-    # just computing min, max and avg for the value column
-    #using aggregation specifying agg_column=(column, aggfunc)
-    summary_by_id = readings_by_id.agg(max_val=('value',max), 
-                        avg=('value',np.mean), 
-                        min_val=('value',min))
-    #return a list of tuples, one for each id
-    result = []
-    for id, row in summary_by_id.iterrows():
-        result.append({"average": float(row["avg"]), 
-                        "min": float(row["min_val"]),
-                        "max": float(row["max_val"]),
-                        "id": id})
+    def __call__(self, items_in_window):
+        df = pd.DataFrame(items_in_window)
+        #group the data by id
+        readings_by_id = df.groupby("id")
+        #for each id, create a new DataFrame
+        # just computing min, max and avg for the value column
+        #using aggregation specifying agg_column=(column, aggfunc)
+        summary_by_id = readings_by_id.agg(max_val=('value',max), 
+                            avg=('value',np.mean), 
+                            min_val=('value',min))
+        #return a list of tuples, one for each id
+        result = []
+        for id, row in summary_by_id.iterrows():
+            result.append({"average": float(row["avg"]), 
+                            "min": float(row["min_val"]),
+                            "max": float(row["max_val"]),
+                            "id": id})
 
 
-    return result
+        return result
 
 class Numbers(object):
     def __call__(self):
