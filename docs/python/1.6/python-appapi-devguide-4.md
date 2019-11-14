@@ -941,10 +941,11 @@ def __call__(self, items_in_window):
     readings_by_id = df.groupby("id")
     #for each id, create a new DataFrame
     # just computing min, max and avg for the value column
-    #using aggregation specifying agg_column=(column, aggfunc)
-    summary_by_id = readings_by_id.agg(max_val=('value',max), 
-                    avg=('value',np.mean), 
-                    min_val=('value',min))
+    # using aggregation specifying a list of tuples specifying the aggregations
+    # of the format (''column_to_aggregate', aggfunc')
+    summary_by_id = readings_by_id["value"].agg([('max_val','max'), 
+                            ('avg','mean'), 
+                            ('min_val','min')])
     #return a list of tuples, one for each id
     result = []
     for id, row in summary_by_id.iterrows():
@@ -972,11 +973,11 @@ class Averages:
         #group the data by id
         readings_by_id = df.groupby("id")
         #for each id, create a new DataFrame
-        # just computing min, max and avg for the value column
-        #using aggregation specifying agg_column=(column, aggfunc)
-        summary_by_id = readings_by_id.agg(max_val=('value',max), 
-                            avg=('value',np.mean), 
-                            min_val=('value',min))
+        # using aggregation specifying a list of tuples specifying the aggregations
+        # of the format (''column_to_aggregate', aggfunc')
+        summary_by_id = readings_by_id["value"].agg([('max_val','max'), 
+                            ('avg','mean'), 
+                            ('min_val','min')])
         #return a list of tuples, one for each id
         result = []
         for id, row in summary_by_id.iterrows():
@@ -1090,7 +1091,7 @@ Let's see a concrete example of this problem first:
             df = pd.DataFrame(items_in_window)
             #group the data by id
             readings_by_id = df.groupby("id")
-            summary_by_id = readings_by_id.agg(avg=('value',np.mean))
+            summary_by_id = readings_by_id["value"].agg([('avg','mean')])
             #return a list of tuples, one for each id
             result = []
             for id, row in summary_by_id.iterrows():
