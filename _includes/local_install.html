@@ -1,0 +1,46 @@
+<!--- LOCAL INSTALLATION---->
+
+<h4>Developing for a local Streams installation</h4>
+These steps assume that you are installing Python 3.6 from Anaconda on a Linux workstation.<br/>
+        <ol>
+<li><p>Install version 4.2 or later of IBM Streams or the IBM Streams Quick Start Edition:</p>
+
+<ul>
+<li><p><a href="https://www.ibm.com/support/knowledgecenter/SSCRJU_4.3.0/com.ibm.streams.install.doc/doc/installstreams-container.html">IBM Streams Version 4.3.0 installation documentation</a></p></li>
+
+<li><p><a href="https://www.ibm.com/support/knowledgecenter/SSCRJU_4.3.0/com.ibm.streams.qse.doc/doc/installtrial-container.html">IBM Streams Quick Start Edition Version 4.3.0 installation documentation</a></p></li></ul></li>
+
+<li><p>(IBM Streams only, doesn't apply to the Quick Start Edition) If necessary, install a supported version of Python.  Python 3.5, 3.6 and 3.7 are supported. Python 2.7 support is currently deprecated.
+<strong>Important:</strong> Python 3.6 is required to build application bundles that can be submitted to your IBM Streaming Analytics service.</p>
+
+<p>You can choose from one of these options:</p>
+
+<ul>
+<li><p><em>(Recommended)</em> <a href="https://www.anaconda.com/distribution/#download-section">Anaconda</a></p></li>
+
+<li><p>CPython: <a href="https://www.python.org">https://www.python.org</a></p>
+
+<p>If you build Python from source, remember to pass <code>--enable-shared</code> as a parameter to  <code>configure</code>.  After installation, set the <code>LD_LIBRARY_PATH</code> environment variable to <code>Python_Install&gt;/lib</code>.</p></li></ul></li>
+
+<li><p>Streams also includes a version of the <code>streamsx</code> package, so to make sure you are using the latest version of streamsx and not the one bundled with Streams, you should either:</p>
+
+<ul>
+<li>Remove the <code>PYTHONPATH</code> environment variable, e.g <code>unset PYTHONPATH</code></li>
+
+<li>Or, make sure that <code>PYTHONPATH</code> does not include a path ending with <code>com.ibm.streamsx.topology/opt/python/package</code>.  </li></ul>
+
+<p><strong>Tip</strong>: Add the <code>unset PYTHONPATH</code> line to your <code>home-directory/.bashrc</code> shell initialization file. Otherwise, you'll have to enter the command every time you start IBM Streams.</p></li>
+
+<li><p>Set the <code>PYTHONHOME</code> application environment variable on your Streams instance by entering the following <code>streamtool</code> command on the command line:</p>
+
+<pre><code>streamtool setproperty -i &lt;INSTANCE_ID&gt; -d &lt;DOMAIN_ID&gt; --application-ev PYTHONHOME=&lt;path_to_python_install&gt;
+</code></pre>
+
+<p>For example, if using the Quick Start Edition:</p>
+
+<p>streamtool setproperty -i StreamsInstance -d StreamsDomain --application-ev PYTHONHOME=/opt/pyenv/versions/3.5.1 --embeddedzk</p>
+
+<p>You can also set the environment variable from the Streams Console in your service.</p></li>
+<li>Not required for the Quick Start Edition: Configure your Streams instance to use SSH keys instead of password authentication. See the <a href="https://www.ibm.com/support/knowledgecenter/SSCRJU_4.3.0/com.ibm.streams.cfg.doc/doc/ibminfospherestreams-user-security-authentication-rsa.html">documentation for details</a>.
+</li>
+</ol>

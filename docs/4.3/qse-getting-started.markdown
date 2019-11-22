@@ -188,7 +188,7 @@ To get started, see these development guides:
 
 * [Develop Streams Applications in Java](http://ibmstreams.github.io/streamsx.documentation/docs/java/java-appapi-devguide/)
 * [Develop Streams Applications in Scala](https://github.com/IBMStreams/streamsx.topology/wiki/Scala-Support)
-* Develop Streams Applications in Python [v1.6](http://ibmstreams.github.io/streamsx.documentation/docs/python/1.6/python-appapi-devguide/) , [v1.4](http://ibmstreams.github.io/streamsx.documentation/docs/python/1.4/python-appapi-devguide/)
+* Develop Streams Applications in Python [latest](http://ibmstreams.github.io/streamsx.documentation/docs/python/1.6/python-appapi-devguide/) , [v1.4](http://ibmstreams.github.io/streamsx.documentation/docs/python/1.4/python-appapi-devguide/)
 
 
 ### Developing applications by using Streams Processing Language (SPL)

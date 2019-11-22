@@ -111,6 +111,7 @@ div.tab-content {
     border-width: 2.0px;
     border-style: solid;
     border-color: aliceblue;
+    padding-left: 5px;
 }
 
 form.nav.navbar-nav.navbar-right {
@@ -152,6 +153,7 @@ div.sampleNav {
   padding-bottom: 10px;
 }
 
+
 a.button {
   width: 115px;
   height: 25px;
@@ -160,4 +162,8 @@ a.button {
   text-align: center;
   border-radius: 5px;
   color: white;
+}
+
+summary {
+  font-size: large;
 }

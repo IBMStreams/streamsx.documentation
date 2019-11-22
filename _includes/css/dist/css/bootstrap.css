@@ -4068,6 +4068,7 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
 }
 .nav-tabs > li {
   float: left;
+  font-size: larger;
   margin-bottom: -1px;
 }
 .nav-tabs > li > a {
