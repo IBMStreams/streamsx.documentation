@@ -7,7 +7,7 @@ published: true
 tag: py16
 prev:
   file: python-appapi-devguide-3
-  title: "Create an application with an IBM Streams installation"
+  title: "Create your first application"
 next:
   file: python-appapi-devguide-5
   title: "API features: User-defined parallelism"
@@ -38,24 +38,23 @@ This section will discuss how to use the most common functions and transforms in
 * [Joining streams](#union)
 * [Sharing data between Streams applications](#publish)
 
-Find detailed information about all available transforms in the documentation for the [Stream class](https://streamsxtopology.readthedocs.io/en/stable/streamsx.topology.topology.html#streamsx.topology.topology.Stream).
 
 
 <a id="intro"></a>
 
-# Introduction
+# Key concepts
 
-Streams applications are directed graphs of data. The start of the graph is a data source that produces a source [`Stream`](https://streamsxtopology.readthedocs.io/en/stable/streamsx.topology.topology.html#streamsx.topology.topology.Stream), which is processed and analyzed using various transforms, ultimately getting sent to a data sink such as a database or file.
+Streams applications is a directed graph that always starts with a source [`Stream`](https://streamsxtopology.readthedocs.io/en/stable/streamsx.topology.topology.html#streamsx.topology.topology.Stream). This `Stream` is processed and analyzed using various transforms, ultimately getting sent to a data sink such as a database or file. You might remember the following animation from the previous section:
 
 ![streams graph animation](/streamsx.documentation/images/python/streams-graph.gif)
 
 As shown above,
-1. The data source is a Python class or function that will produce the data to be analyzed. It could be data from Kafka, a file, database, etc.  That data is converted to a `Stream` object called the source `Stream`.
-2. The source `Stream` is processed by one or more transforms. A transform could be computing the average of the data on a `Stream`, or filtering out bad data, and so on.
+1. The data source is a Python class or function that will produce the data to be analyzed. It could be data from Kafka, a file, database, etc.  That data is converted to a `Stream` object and is called the source `Stream`.
+2. The source `Stream` is processed by one or more transforms. A transform might compute the average of the data on a `Stream`, filtering out bad data, and so on.
 3. Each transform produces another `Stream` as output, which is then forwarded to the next transform.  
 4. The last `Stream`, containing the results, is sent to a data sink, another function that will save the data to an external system.
 
-In the previous section, you created a very simple application that created a `Stream` of random numbers and printed it:
+Let's look at a very simple application that demonstrates this concept:
 
 ~~~~ python
 def get_readings():
@@ -65,7 +64,6 @@ def get_readings():
 topo = Topology("temperature_sensor")
 src = topo.source(get_readings) # create a source Stream
 src.for_each(print) # print the data on the stream
-streamsx.topology.context.submit("DISTRIBUTED", topo)
 ~~~~    
 
 Sample output:
@@ -73,7 +71,7 @@ Sample output:
 {"id": "sensor_1", "value":-0.11907886745291935}
 {"id": "sensor_1", "value":-0.24096558784475972}
 ...
-~~~~~~
+~~~~
 
 The preceding code defines a `Topology`, or application with the following graph:
 
@@ -84,6 +82,10 @@ Here, the `get_readings` function produces the data that will be analyzed. The `
 The source `Stream` is created by calling `Topology.source()` .
 
 In this example, there are no real transforms on the `src` `Stream`. The rest of this section will cover common transforms and best practices.
+
+### More information
+
+Find detailed information about [processing Streams of data in the documentation](https://streamsxtopology.readthedocs.io/en/stable/streamsx.topology.topology.html#stream-processing).
 
 ### A note about execution
 The Python API is used to _create_ an application that can be executed on the Streams runtime.  Thus, callables such as the `get_readings` function are not invoked until the created application is executed on the Streams runtime.

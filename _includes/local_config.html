@@ -1,0 +1,27 @@
+    <h4>Submit to  Streams v4.2 or v4.3</h4>
+
+Use these steps if Streams is installed locally, or if you are using the Streams Quick Start Edition (QSE).
+
+<p>If you are using the Streams Quick Start Edition, you do not have to modify the  code as it uses the default instance and domain ids.</p>
+
+<p>Otherwise, make sure that the <code>STREAMS_INSTANCE_ID</code> and <code>STREAMS_DOMAIN_ID</code> are set to match  your installation.</p>
+
+<h5>Copy this code snippet:</h5>
+    
+{% highlight python %}
+from streamsx.topology import context
+os.environ["STREAMS_INSTANCE_ID"]= "StreamsInstance" # change as needed
+os.environ["STREAMS_DOMAIN_ID"]= "StreamsDomain" # change as needed
+# These environment variables should be set as needed
+
+# os.environ["STREAMS_INSTALL"] =  # Location of a IBM Streams installation (4.2 or 4.3).
+# os.environ["STREAMS_ZKCONNECT"] = # (optional) ZooKeeper connection string (when not using an embedded ZooKeeper)
+# os.environ["STREAMS_USERNAME"] = # (optional) User name to submit the job as
+
+def submit_topology(topo):
+    contextType = context.ContextTypes.DISTRIBUTED
+    cfg = {}
+    cfg[context.ConfigParams.SSL_VERIFY] = False
+    return context.submit (contextType, topo, config = cfg)
+
+    {% endhighlight %}

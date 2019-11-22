@@ -1,0 +1,47 @@
+<h4>Submit to the Streaming Analytics service</h4>
+        To connect to the Streaming Analytics service in IBM cloud you need to get the <strong>service instance name</strong> and the <strong>service credentials</strong> from the Streaming Analytics service dashboard.</p>
+        <ul>
+        <li>Service instance name: This is the name of the service instance, at the top  of the service dashboard.</li>
+        
+        <li>Service credentials: To copy your service credentials, open the Streaming Analytics service dashboard click <strong>Service Credentials</strong>, then <strong>View Credentials</strong>, and copy the contents of the cell. Click <strong>Add new credentials</strong> if there are no credentials listed.</li>
+        </ul>
+        
+        <p>See the image below for an example. Click to enlarge.
+        <a href="https://developer.ibm.com/streamsdev/wp-content/uploads/sites/15/2019/11/copycredentials.png">
+        <img width="600" height="500" src="https://developer.ibm.com/streamsdev/wp-content/uploads/sites/15/2019/11/copycredentials.png"></a></p>
+        
+        <h5>Copy this code snippet:</h5>
+    
+        {% highlight python %}
+        
+from streamsx.topology.context import ConfigParams
+from streamsx.topology import context
+import json
+import getpass
+
+# Do not paste credentials here for security reasons.
+# Instead, when you submit the topology, you will be prompted to enter them
+SA_credentials = None 
+service_name = "" # Set to service name 
+
+if  SA_credentials is None: 
+    SA_credentials=getpass.getpass('Streaming Analytics credentials:')
+    service_name = service_name 
+
+def submit_topology(topo):
+    global SA_credentials
+    global service_name
+
+    vs={'streaming-analytics': [{'name': service_name, 'credentials': json.loads (SA_credentials)}]}
+    cfg = {}
+    cfg[ConfigParams.VCAP_SERVICES] = vs
+    cfg[ConfigParams.SERVICE_NAME] = service_name
+    cfg[context.ConfigParams.SSL_VERIFY] = False
+
+    # This specifies how the application will be deployed
+
+    contextType = context.ContextTypes.STREAMING_ANALYTICS_SERVICE
+
+    return context.submit (contextType, topo, config = cfg)
+
+    {% endhighlight %}    

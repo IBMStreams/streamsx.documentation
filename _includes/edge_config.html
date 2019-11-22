@@ -1,0 +1,47 @@
+<h4>Submit to a  Standalone Streams installation of Streams v5</h4>
+        In order to submit a Streams application you need the following information from the Streams instance:
+        
+        <ul>
+        <li><code>STREAMS_BUILD_URL</code>: Streams build service URL, e.g. when the service is exposed as node port:  <code>https://&lt;NODE-IP&gt;:&lt;NODE-PORT&gt;</code></li>
+        
+        <li><code>STREAMS_REST_URL</code>: Streams SWS service (REST API) URL</li>
+        
+        <li><code>STREAMS_USERNAME</code> : (optional) User name to submit the job as, defaulting to the current operating system user name.</li>
+        
+        <li><code>STREAMS_PASSWORD</code> : Password for authentication.</li>
+        </ul>
+        
+        <p>The documentation has the steps to retrieve the URLs for the Build and REST service.
+        Set the values for each variable where indicated in the code.</p>
+
+        <h5>Copy this code snippet:</h5>
+    
+        {% highlight python %}
+
+
+import os
+import getpass
+
+from streamsx.topology import context
+STREAMS_REST_URL = "Paste URL Here" # 
+STREAMS_BUILD_URL = # Paste URL here
+
+username = input("Streams username")
+password = getpass.getpass("Streams password")
+os.environ["STREAMS_BUILD_URL"]= STREAMS_BUILD_URL
+os.environ["STREAMS_REST_URL"]= STREAMS_REST_URL
+os.environ["STREAMS_USERNAME"]= username
+os.environ["STREAMS_PASSWORD"]= password
+
+
+
+def submit_topology(topo):
+    cfg = {}
+    cfg[context.ConfigParams.SSL_VERIFY] = False
+
+    # This specifies how the application will be deployed
+
+    contextType = context.ContextTypes.DISTRIBUTED
+    return context.submit (contextType, topo, config = cfg)
+
+    {% endhighlight %}

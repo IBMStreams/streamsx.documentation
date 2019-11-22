@@ -23,6 +23,15 @@ Streams applications can be developed in Python, Java, Scala, and the Streams Pr
 
 The following are resources to help you get started developing applications using your language and model of choice.
 
+### Developing Streams applications with Python
+
+{: .simple}
+* [Development guide for Python applications](/streamsx.documentation/docs/python/1.6/python-appapi-devguide/)
+* [API reference](https://streamsxtopology.readthedocs.io/en/stable/index.html)
+* [Older releases](https://github.com/IBMStreams/streamsx.topology/releases)
+
+
+
 ### Developing Streams applications with SPL
 
 {: .simple}
@@ -34,13 +43,6 @@ The following are resources to help you get started developing applications usin
 ### Developing Streams applications with Java
 
 {% include nav.html context="/docs/java/"%}
-
-### Developing Streams applications with Python
-
-{: .simple}
-* [Development guide for Python applications](/streamsx.documentation/docs/python/1.6/python-appapi-devguide/)
-* [API reference](https://streamsxtopology.readthedocs.io/en/stable/index.html)
-* [Older releases](https://github.com/IBMStreams/streamsx.topology/releases)
 
 
 ### Developing applications with Apache Beam
