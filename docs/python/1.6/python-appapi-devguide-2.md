@@ -95,13 +95,8 @@ Make sure you have the right version of Python for your Streams instance:
 
 # Create your first application
 
-To get started with the Python Application API, you'll create an application that reads data from a temperature sensor and prints the output.
-
-Choose one of the following tutorials to create your first application for:
-
-* The [**IBM Streaming Analytics service**](/streamsx.documentation/docs/python/1.6/python-appapi-devguide-2a/)
-* [**A local installation of IBM Streams**](/streamsx.documentation/docs/python/1.6/python-appapi-devguide-3/)
-* [**IBM Cloud Pak for Data**](/streamsx.documentation/docs/python/1.6/python-appapi-devguide-2b/)
+Go to the next section to [create your first application with the Streams Python API](/streamsx.documentation/docs/python/1.6/python-appapi-devguide-3/).
+The application will ingest temperature readings from a simulated sensor and compute the rolling average reading for each sensor.
 
 ## Learn more about the API
 
