@@ -1,0 +1,88 @@
+<div class="tab-content">
+    <div id="view-1" class="tab-pane fade in active">
+        <pre>
+                        <code>     
+      {% highlight python %}
+      
+      topo = Topology("ViewDemo")
+      src_stream  = topo.source(Numbers())
+      # create a view of the source data
+      src_view = src_stream.view(name="Numbers stream", description="Unfiltered input stream")
+      # Update each value in the stream by 10
+      increment_stream = src_stream.map(increment, name="Increment")
+      # Create a view to access the result stream
+      results_view = increment_stream.view(name="Increment_Stream", 
+                                           description="Incremented tuples",
+                                          start=True)
+      increment_stream.publish(topic="Increment")
+      
+      submit_topology(topo)
+      {% endhighlight %}
+
+      </code></pre>
+    </div>
+
+    <div id="view-full" class="tab-pane fade">
+        <pre>
+<code>
+{% highlight python %}
+from streamsx.topology.topology import Topology
+from streamsx.topology import context
+import time
+import random
+
+import itertools
+class Numbers(object):
+    
+    def __call__(self):
+        for num in itertools.count(1):
+            time.sleep(0.5)
+            yield {"value": num, "id": "id_0"}
+
+def submit_topology(topo):
+    cfg = {}
+    cfg[context.ConfigParams.SSL_VERIFY] = False
+    # submit the application
+    result = context.submit("DISTRIBUTED", topo, config=cfg)
+    print("Submitted topology successfully " + str(result))
+    
+def increment(tpl):
+    tpl["increment"] = tpl["value"] + 10
+    return tpl
+    
+topo = Topology("ViewDemo")
+src_stream  = topo.source(Numbers())
+# create a view of the source data
+src_view = src_stream.view(name="Numbers stream", description="Unfiltered input stream")
+# Update each value in the stream by 10
+increment_stream = src_stream.map(increment, name="Increment")
+# Create a view to access the result stream
+results_view = increment_stream.view(name="Increment_Stream", 
+                                    description="Incremented tuples",
+                                    start=True)
+increment_stream.publish(topic="Increment")
+
+submit_topology(topo)
+
+# Fetch tuples from the queue
+
+try:
+    print("Fetching data from view")
+    tuple_queue = results_view.start_data_fetch()
+    # Use this line to iterate indefinitely
+    # for tpl in iter(queue.get, None):
+
+    for i in range (0, 10):
+        tpl = tuple_queue.get()
+        print("Tuple from the stream: " + str(tpl))
+except:
+    raise
+finally:
+    results_view.stop_data_fetch()
+
+{% endhighlight %}
+</code></pre>
+
+    </div>
+
+</div>
