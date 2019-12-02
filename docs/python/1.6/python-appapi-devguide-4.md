@@ -634,9 +634,10 @@ We create 2 Views, one for the input and one for the result `Stream`.
         <li><a data-toggle="tab" href="#view-full">Full Source</a></li>
       </ul>
       
-   
+  <div class="tab-content">
+ 
 {% include code/python/views.html %}
-
+</div>
 
 
 ### Fetch data from the `View` 
@@ -658,7 +659,7 @@ except:
     raise
 finally:
     results_view.stop_data_fetch()
-~~~~~
+~~~~~~
 
 
 **Output:**
