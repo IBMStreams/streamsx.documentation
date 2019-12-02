@@ -9,6 +9,7 @@ Use these steps if Streams is installed locally, or if you are using the Streams
 <h5>Copy this code snippet:</h5>
     
 {% highlight python %}
+import os
 from streamsx.topology import context
 os.environ["STREAMS_INSTANCE_ID"]= "StreamsInstance" # change as needed
 os.environ["STREAMS_DOMAIN_ID"]= "StreamsDomain" # change as needed
@@ -18,10 +19,12 @@ os.environ["STREAMS_DOMAIN_ID"]= "StreamsDomain" # change as needed
 # os.environ["STREAMS_ZKCONNECT"] = # (optional) ZooKeeper connection string (when not using an embedded ZooKeeper)
 # os.environ["STREAMS_USERNAME"] = # (optional) User name to submit the job as
 
+cfg = {}
+cfg[context.ConfigParams.SSL_VERIFY] = False
+
 def submit_topology(topo):
+    global cfg
     contextType = context.ContextTypes.DISTRIBUTED
-    cfg = {}
-    cfg[context.ConfigParams.SSL_VERIFY] = False
     return context.submit (contextType, topo, config = cfg)
 
     {% endhighlight %}
