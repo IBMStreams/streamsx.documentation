@@ -554,27 +554,27 @@ A more practical way to do so is to use a [`View`](https://streamsxtopology.read
 A `View` is a connection to a particular `Stream` in a running 
 application.  `Views` provide a continuous sample of the data in a `Stream`.
 
-After a `View` is created, you can access the data programmatically, which will be covered in the subsequent section.
+Use the `View` object you create to fetch data from the Stream once teh application is running.
 
-You can also use the Streams Console or the Job Graph in IBM Cloud Pak for Data to examine the data from a `View`.
+You can also use the Streams Console or the Job Graph in IBM Cloud Pak for Data to inspect the data from the `Stream`.
 
 <h3 id="quickfactsaboutviews">Quick facts about views</h3>
 
 <ul>
 <li>Views provide a <em>sample</em> of the data on a Stream, and not all the tuples on the <code>Stream</code>.</li>
 
-<li>Views must be created before the application <code>Topology</code> is submitted. </li>
+<li>Create all Views before you submit the application <code>Topology</code>.</li>
 
-<li>The View can be used to fetch data from the Stream only while the application is running.</li>
+<li>Use a `View` to fetch data from a `Stream` only while the application is running.</li>
 
-<li>The data retrieved by the View is read-only, so you cannot use a View to modify the tuples on a <code>Stream</code>.</li>
+<li>The data retrieved by the View is read-only, so you cannot use a `View` to change the tuples on a <code>Stream</code>.</li>
 </ul>
 
 
 
 ### Creating a `View` 
 
-Given a `Stream` object, use `Str(eam.view()`]https://streamsxtopology.readthedocs.io/en/stable/streamsx.topology.topology.html#streamsx.topology.topology.Stream.view) to create a view for that `Stream`.
+Given a `Stream` object, use [`Stream.view()`]https://streamsxtopology.readthedocs.io/en/stable/streamsx.topology.topology.html#streamsx.topology.topology.Stream.view) to create a view for that `Stream`.
 
 ~~~~ python            
 input_stream = topo.source(my_src_function)
@@ -583,17 +583,18 @@ source_view = input_stream.view(name="Input", description="Sample of tuples in t
 ~~~~
 
 
+
 ### How to use a `View` 
 
 Once the application is running, use the `View` object you created to access the data on the `Stream`.
 
-1. The data retrieved from the View is placed on a `Queue`. Create this queue using `view.start_data_fetch`:
+1. The `View` stores the data it retrieves from the `Stream` on a `Queue`. Create this queue using `view.start_data_fetch`:
 
     ~~~~~~ python
     tuple_queue = my_results_view.start_data_fetch
     ~~~~~~
 
-2. Access the tuples:
+1. Access the tuples:
     Depending on your use case, you can:
     1. Fetch a group of tuples using `view.fetch_tuples()`:
     ~~~~~~ python
@@ -616,14 +617,14 @@ Once the application is running, use the `View` object you created to access the
     2. Create a live grid of data on the `Stream` using `view.display()`. This is only supported from a Jupyter notebook with ipywidgets installed.
     3. Examine the stream of data from the Streams Console or Job Graph.
     
-3. Call `view.stop_data_fetch` to stop fetching data from the `Stream`.  Views use HTTP connection to the running job, so this closes the connection.
+2. Call `view.stop_data_fetch` to stop fetching data from the `Stream`.  Views use HTTP connection to the running job, so this closes the connection.
   
 
 
 
 #### Sample application
 
-This application demonstrates creating a view and the various ways to use the data in the view. 
+This application demonstrates creating a `View` and printing the data it returns.
 
 The input is a stream of numbers. The application's goal is to increment each tuple by 10.
 We create 2 Views, one for the input and one for the result `Stream`.
@@ -740,15 +741,15 @@ Regardless of the tool you choose, the principles involved in visualizing Stream
 2. Submit the application for execution.
 3. Using the visualization library of your choice, create a graph or visualization object. This could be a `Figure` in Matplotlib.
 4. Use the `View` to start fetching data from the `Stream`.
-6. Update the graph with the tuples returned from the `View`.
+5. Update the graph with the tuples returned from the `View`.
 
 
-This example uses Matplotlib to plot the data from the `View` called `Increment_Stream` in the preceeding application.
+Since we already have an application, the following code demonstrates steps 3-5. 
+It uses Matplotlib to plot the data from the `results_view View` created in the preceeding application.
 
 #### 1. Define the function to create a graph
 
-This code creates the graph that will be displayed. The returned graph initially has no data as it will be populated when we start fetching data from the `Stream`.
-
+This code creates the graph that will be display the streaming data.
 See the matplotlib [`subplots` function](https://matplotlib.org/3.1.1/api/_as_gen/matplotlib.pyplot.subplots.html).
 
 ~~~~ python
@@ -808,13 +809,13 @@ finally:
 
 **Sample visualization created with Matplotlib**
 
-This image shows the above code running in a notebook graphing the contents of the `increment Stream`.
+This image shows the above code running in a notebook.
 ![animation showing matplot graph updating](/streamsx.documentation/images/python/matplotview.gif)
 
 
 #### Accessing the tuples in a Stream via the REST API
 
-If you wish to fetch data from a `View` but you do not have the `View` object, you can create one using the REST API. The [REST API](http://ibmstreams.github.io/streamsx.documentation/docs/python/1.6/python-appapi-devguide-6/#accessing-the-tuples-of-a-view) allows you to connect to a `View` in any running application.
+You can fetch data from a `View` in a running application even if you do not have the `View` object. Create a `View` object using the REST API. The [REST API](http://ibmstreams.github.io/streamsx.documentation/docs/python/1.6/python-appapi-devguide-6/#accessing-the-tuples-of-a-view) allows you to connect to a `View` in any running application.
 
 
 
