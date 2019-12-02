@@ -21,6 +21,7 @@ This section will discuss how to use the most common functions and transforms in
   - [Examples](#examples)
   - [Working with files](#files)
 * [Viewing the contents of a `Stream`](#views)
+  * [Visualizing Streaming data](#visualizing-data)
 * [Creating data sinks](#sink)
 * [Filtering data from the stream](#filter)
 * [Windows: transforming subsets of data ](#windows)
@@ -201,13 +202,14 @@ def wikipedia_stream():
 topo = Topology(name="TrackWikipediaEdits")
 source = topo.source(wikipedia_stream, name="WikipediaDataSource")
 source.print()
+
 ~~~~
 
 Or, a callable class:
 
 <a id="full-class"></a>
 
-~~~~~ python
+~~~~ python
 from sseclient import SSEClient
 import logging
 import json
@@ -250,7 +252,8 @@ class WikipediaReader(object):
                 # Check if the application has shut down between emitted events
                 if streamsx.ec.shutdown().wait(0.005): break
             except ValueError: continue
-~~~~~
+
+~~~~
 
 ### Advantages of using a callable class
 When you compare the two examples above shows that although  `WikipediaReader.__call__` is similar to the `wikipedia_stream` function, the `WikipediaReader` class also has `__enter__` and `__exit__` functions.
@@ -279,18 +282,19 @@ def get_log_files():
 **Note**: In the above example, the `logs.tar.gz` file must be present on the host where Streams is installed. The following section presents an example of using local files in your Streams application.
 
 <a id="files"></a>
+
 ## Working with files
 
 Reading from a file or using a file within your Streams application can be done using any of the built-in file handling functions in Python.
 
 However, you must use `Topology.add_file_dependency` to ensure that the file or its containing directory will be available at runtime.
 
-Note: If you are using **IBM Cloud Pak for Data**, this [post discusses how to use a data set in your Streams Topology](https://developer.ibm.com/streamsdev/2019/04/23/tip-for-ibm-cloud-private-for-data-how-to-use-local-data-sets-in-your-streams-python-notebook/).
+Note: If you are using **IBM Cloud Pak for Data** , this [post discusses how to use a data set in your Streams Topology](https://developer.ibm.com/streamsdev/2019/04/23/tip-for-ibm-cloud-private-for-data-how-to-use-local-data-sets-in-your-streams-python-notebook/).
 
-~~~ python
+~~~~~ python
 topo = Topology("ReadFromFile")
 topo.add_file_dependency("/home/streamsadmin/hostdir/mydata.txt" , "etc")
-~~~
+~~~~~
 
 This will place the file within the `etc` folder of the application bundle.
 
@@ -306,7 +310,7 @@ The following are some complete examples.
 ### Using data from a file as your data source
 
 This is a basic example of reading a file line by line:
-~~~ python
+~~~~~ python
 import streamsx.ec
 
 class FileReader:
@@ -326,22 +330,22 @@ topo.add_file_dependency("/home/streamsadmin/hostdir/" + file_name , "etc")
 lines_from_file = topo.source(FileReader(file_name))
 lines_from_file.print()
 
-~~~
+~~~~~
 
 The `FileReader` class uses `streamsx.ec.get_application_directory() ` to retrieve the path to the file on the Streams host, and then returns the file's contents one line at a time.
 
 **CSV Files**
 
 The `FileReader` class can easily be extended to read CSV data.  For example, if your CSV file had the following format:
-```
+~~~~ python
 timestamp,max,id,min
 1551729580087,18,"8756",8
 1551729396809,0,"6729",0
 1551729422809,25,"6508",5
-```
+~~~~ 
 
 You could define a new class to read each line into a `Stream` of `dicts` as follows:
-~~~ python
+~~~~~ python
 
 class CSVFileReader:
     def __init__(self, file_name):
@@ -363,14 +367,14 @@ topo.add_file_dependency("path/on/local/fs/mydata.txt" , "etc")
 lines = topo.source(CSVFileReader("mydata.txt"))
 lines.filter(lambda tpl: int(tpl["min"]) >= 5).print()  
 
-~~~~
+~~~~~
 
 Sample output:
 
-~~~~ python
+~~~~~ python
 {'min': '18', 'id': '8756', 'max': '26', 'timestamp': '1551729580087'}
 {'min': '5', 'id': '6508', 'max': '25', 'timestamp': '1551729422809'}
-~~~~
+~~~~~
 
 
 ### Itertools
@@ -406,7 +410,9 @@ def repeat_sequence():
 
 
 <a id="filter"></a>
+
 ## Filtering data
+
 You can invoke the `filter` transform on a `Stream` object when you want to selectively allow tuples to be passed and reject tuples from being passed to another stream. The filtering is done based on a provided callable object. The `Stream.filter()` function takes as input a callable object that takes a single tuple as an argument and returns True or False.
 
 Filtering is an immutable transform. When you filter a stream, the tuples are not altered. (If you want to alter the type or content of a tuple, see [Transforming data](#map).)
@@ -426,14 +432,15 @@ To achieve this:
         def does_not_contain_a(tuple):
            return "a" not in tuple
 
-~~~~
+~~~~~~
+
 1. Next, define a topology and a stream of Python strings in `filter_words.py`:
 
 ~~~~ python
         topo = Topology("filter_words")
         words = topo.source(words_in_dictionary)
 
-~~~~~
+~~~~
 
 1. Define a `Stream` object called `words_without_a` by passing the `does_not_contain_a` function to the `filter` method on the `words` Stream. This function is True if the tuple does not contain the letter "a" or False if it does.
 
@@ -442,15 +449,16 @@ To achieve this:
 ~~~~ python
         words = topo.source(words_in_dictionary)
         words_without_a = words.filter(does_not_contain_a)
-~~~~~
+~~~~
 
 The `Stream` object that is returned, `words_without_a`, contains only words that do not include a lowercase "a".
 
 
 ### The complete application
+
 Your complete application is contained in a single file, `filter_words.py`.
 
-~~~~ python
+~~~~~~ python
 from streamsx.topology.topology import Topology
 import streamsx.topology.context
 
@@ -476,20 +484,16 @@ Run the `python3 filter_words.py` script.
 
 The contents of your output looks like this:
 
-~~~~~~
+~~~~~
 quixotic
 quell
-~~~~~~
-
-<a id="views"></a>
-## Viewing the contents of a stream
-TBD
-### Create a visualization from a stream
+~~~~~
 
 
 <a id="sinks"></a>
 ## Creating data sinks
-If you have the data that you need from a particular `Stream` object, you must preserve the tuples on the `Stream` object as output. For example, you can use a Python module to write the tuple to a file, write the tuple to a log, or send the tuple to a TCP connection.
+
+Often, you want to preserve the tuples on the `Stream` object as output. For example, you can use a Python module to write the tuple to a file, write the tuple to a log, or send the tuple to a TCP connection.
 
 For example, you can create a `sink` function that writes the string representations of a tuple to a standard error message.
 
@@ -535,6 +539,286 @@ tuple1
 tuple2
 tuple3
 ~~~~~~
+
+
+
+
+<a id="views"></a>
+
+## Viewing the contents of a `Stream`
+
+
+You may have already used `Stream.print()` to see the data on a given `Stream`.
+
+A more practical way to do so is to use a [`View`](https://streamsxtopology.readthedocs.io/en/stable/streamsx.topology.topology.html#streamsx.topology.topology.View).
+A `View` is a connection to a particular `Stream` in a running 
+application.  `Views` provide a continuous sample of the data in a `Stream`.
+
+Use the `View` object you create to fetch data from the Stream once teh application is running.
+
+You can also use the Streams Console or the Job Graph in IBM Cloud Pak for Data to inspect the data from the `Stream`.
+
+<h3 id="quickfactsaboutviews">Quick facts about views</h3>
+
+<ul>
+<li>Views provide a <em>sample</em> of the data on a Stream, and not all the tuples on the <code>Stream</code>.</li>
+
+<li>Create all Views before you submit the application <code>Topology</code>.</li>
+
+<li>Use a `View` to fetch data from a `Stream` only while the application is running.</li>
+
+<li>The data retrieved by the View is read-only, so you cannot use a `View` to change the tuples on a <code>Stream</code>.</li>
+</ul>
+
+
+
+### Creating a `View` 
+
+Given a `Stream` object, use [`Stream.view()`](https://streamsxtopology.readthedocs.io/en/stable/streamsx.topology.topology.html#streamsx.topology.topology.Stream.view) to create a `View` object for that `Stream`.
+
+~~~~ python            
+input_stream = topo.source(my_src_function)
+
+source_view = input_stream.view(name="Input", description="Sample of tuples in the input stream")
+~~~~
+
+
+
+### How to use a `View` 
+
+Once the application is running, use the `View` object you created to access the data on the `Stream`.
+
+1. The `View` stores the data it retrieves from the `Stream` on a `Queue`. Create this queue using `view.start_data_fetch`:
+
+    ~~~~~~ python
+    tuple_queue = my_results_view.start_data_fetch
+    ~~~~~~
+
+1. Access the tuples:
+    1. Option 1: Fetch a group of tuples using `view.fetch_tuples()`:
+    ~~~~~~ python
+       tpls = view.fetch_tuples(max_tuples=10)
+       print("Received " + str(len(tpls)) + " tuples from the Stream")
+    ~~~~~~  
+    1. Option 2: Iterate over the items in the returned queue:
+      ~~~~~ python
+        try:
+            print("Fetching data from view")
+            tuple_queue = view.start_data_fetch()
+            for i in range (0, 100):
+                tpl = tuple_queue.get()
+                print("Tuple from the stream: " + str(tpl))
+        except:
+            raise
+        finally:
+            view.stop_data_fetch()
+      ~~~~~
+    2. Option 3: Create a live grid of data on the `Stream` using `view.display()`. This is only supported from a Jupyter notebook with [ipywidgets](https://ipywidgets.readthedocs.io/en/latest/)  installed.
+    3. Option 4: Examine the stream of data from the Streams Console or Job Graph.
+    
+2. Call `view.stop_data_fetch` to stop fetching data from the `Stream`.  Views use HTTP connection to the running job, so this closes the connection.
+  
+
+
+
+#### Sample application
+
+This application demonstrates creating a `View` and printing the data it returns.
+
+The input is a stream of numbers. The application's goal is to increment each tuple by 10.
+We create 2 Views, one for the input and one for the result `Stream`.
+
+<ul class="nav nav-tabs">
+        <li class="active"><a data-toggle="tab" href="#view-1">Code</a></li>
+        <li><a data-toggle="tab" href="#view-full">Full Source</a></li>
+      </ul>
+      
+  <div class="tab-content">
+ 
+{% include code/python/views.html %}
+</div>
+
+
+### Fetch data from the `View` 
+
+Once the applicaton is running, use the `View` to fetch data from the `Stream`:
+
+~~~~~~ python
+
+try:
+    print("Fetching data from view")
+    tuple_queue = results_view.start_data_fetch()
+    # Use this line to iterate indefinitely
+    # for tpl in iter(queue.get, None):
+
+    for i in range (0, 10):
+        tpl = tuple_queue.get()
+        print("Tuple from the stream: " + str(tpl))
+except:
+    raise
+finally:
+    results_view.stop_data_fetch()
+~~~~~~
+
+
+**Output:**
+
+~~~~~ python
+Tuple from the stream: {'value': 51, 'id': 'id_0', 'increment': 61}
+Tuple from the stream: {'value': 52, 'id': 'id_0', 'increment': 62}
+Tuple from the stream: {'value': 53, 'id': 'id_0', 'increment': 63}
+Tuple from the stream: {'value': 54, 'id': 'id_0', 'increment': 64}
+Tuple from the stream: {'value': 55, 'id': 'id_0', 'increment': 65}
+Tuple from the stream: {'value': 56, 'id': 'id_0', 'increment': 66}
+Tuple from the stream: {'value': 57, 'id': 'id_0', 'increment': 67}
+
+~~~~~
+
+
+<a id="visualizing-data"></a>
+
+### Visualizing data   
+
+
+You can use some of the built-in tools to create a simple grid, or chart of live data. Or, create your own visualizations with the data returned by the View.
+
+Live charts are available in the Streams Console, the Job Graph in IBM Cloud Pak for Data, and also from a Jupyter Notebook.
+
+
+####  Display a grid of live data
+
+Here are steps to display the data fetched by a `View` for the available tools.
+
+<details>
+
+<summary>Streams Console</summary>
+
+
+<ol>
+<li>From the top left menu, expand the Streams instance, then expand the <strong>Views</strong> item in the tree.</li>
+
+<li>Find the `View` using the name you gave it at creation time.</li>
+
+<li>Hover over the `View` and click <strong>Add view grid</strong>.</li>
+</ol>
+
+<p><img src="/streamsx.documentation/images/python/OpenAView.gif" alt="Views in console" /></p>
+
+</details>
+
+<details>
+<summary>IBM Cloud Pak for Data</summary>
+
+<ol>
+<li>From the main menu, go to <strong>My Instances > Jobs</strong>.</li>
+
+<li>Find your job based on the Job id or name.</li>
+
+<li>Select <strong>View graph</strong> from the context menu action for the running job.</li>
+
+<li>A grid listing any `Views` defined in the <code>Topology</code> will be displayed below the Streams graph. 
+<img src="/streamsx.documentation/images/python/OpenAViewCPD.gif" alt="Views in Job Graph" /></li>
+</ol>
+</details>
+
+<details>
+<summary>Jupyter Notebooks</summary>
+
+Use <code>View.display()</code>.
+Requires <a href="https://ipywidgets.readthedocs.io/en/latest/user_install.html">ipywidgets</a> and Pandas.
+
+You should see the following output:
+<img alt="Views in a notebook" src="/streamsx.documentation/images/python/OpenAViewNotebook.gif"></img>
+</details>
+
+
+### Create your own visualizations with streaming data
+
+
+There are several tools for visualizing data, such as [Bokeh](https://docs.bokeh.org/en/latest/index.html), and [Matplotlib](https://matplotlib.org/).
+Regardless of the tool you choose, the principles involved in visualizing Streaming data are the same. 
+1. Create a `View` for the `Stream` containing the data you want to visualize. See the preceeding instructions. 
+2. Submit the application for execution.
+3. Using the visualization library of your choice, create a graph or visualization object. This could be a `Figure` in Matplotlib.
+4. Use the `View` to start fetching data from the `Stream`.
+5. Update the graph with the tuples returned from the `View`.
+
+
+Since we already have an application, the following code demonstrates steps 3-5. 
+It uses Matplotlib to plot the data from the `results_view View` created in the preceeding application.
+
+#### 1. Define the function to create a graph
+
+This code creates the graph that will be display the streaming data.
+See the matplotlib [`subplots` function](https://matplotlib.org/3.1.1/api/_as_gen/matplotlib.pyplot.subplots.html).
+
+~~~~ python
+
+import numpy as np, math
+import matplotlib.pyplot as plt
+
+# Create a graph with the given x and y values
+# and the specified title, labels etc.
+# xlim and ylim are the upper boundaries of the graph
+
+def create_plot(xvalues, yvalues, title=None, xlabel=None, ylabel=None, xlim=None, ylim=None):
+
+    fig, ax = plt.subplots()
+    plt.title(title)
+    plt.ylabel(ylabel)
+    plt.xlabel(xlabel)
+    ax.set_xlim(*xlim)
+    ax.set_ylim(*ylim)
+    ax.plot(xvalues,
+            yvalues, "-b", linewidth = 2, label = 'target')
+    return fig,ax
+~~~~ 
+
+#### 2. Fetch data from the view and update the graph
+
+
+~~~~~~ python
+%matplotlib notebook
+
+xdata = []
+ydata = []
+    
+try:
+    tuple_queue = results_view.start_data_fetch()
+    # find boundaries of the graph
+    start = tuple_queue.get()["value"]
+    end = start + 100
+    fig, ax = create_plot([], [], title="Value vs Increment", xlabel = "Value", 
+            ylabel = "Incremented value", 
+                          xlim = (start, end), 
+                          ylim = (start, end + 50))
+
+    for i in range(50):
+        tpl = tuple_queue.get()
+        xdata.append(tpl["value"])
+        ydata.append(tpl["increment"])
+        ax.lines[0].set_xdata(xdata)
+        ax.lines[0].set_ydata(ydata)
+        fig.canvas.draw()
+except:
+    raise
+finally:
+    results_view.stop_data_fetch()
+
+~~~~~~
+
+**Sample visualization created with Matplotlib**
+
+This image shows the above code running in a notebook.
+![animation showing matplot graph updating](/streamsx.documentation/images/python/matplotview.gif)
+
+
+#### Accessing the tuples in a Stream via the REST API
+
+You can fetch data from a `View` in a running application even if you do not have the `View` object. Create a `View` object using the REST API. The [REST API](http://ibmstreams.github.io/streamsx.documentation/docs/python/1.6/python-appapi-devguide-6/#accessing-the-tuples-of-a-view) allows you to connect to a `View` in any running application.
+
+
+
 
 <a id="windows"></a>
 
@@ -643,7 +927,7 @@ class Average:
 
 Pass an instance of the `Average` class to the `aggregate` function. The `aggregate` function returns a new `Stream` with the computed rolling average.
 
-~~~ python
+~~~~ python
 rolling_average = window.aggregate(Average())
 #Create a view to access the result stream
 results_view = rolling_average.view()
@@ -676,6 +960,7 @@ After submitting this application, use this code to connect to it and display th
   <div id="fullSource-1" class="tab-pane fade">
   <pre><code>
 
+   {% highlight python %}
 from streamsx.topology.topology import Topology
 from streamsx.topology import context
 import time
@@ -711,7 +996,6 @@ window = src.last(size=10)
 rolling_average = window.aggregate(Average())
 # Create a view to access the result stream
 results_view = rolling_average.view()
-results_view = rolling_average.view()
 cfg = {}
 cfg[context.ConfigParams.SSL_VERIFY] = False
 # submit the application
@@ -728,7 +1012,9 @@ results_view.stop_data_fetch()
 
 # display as Pandas data frame
 df = pd.DataFrame(results)
-print(df)                                           
+print(df)     
+
+  {% endhighlight %}
 </code></pre>
   </div>
 </div>
@@ -812,6 +1098,8 @@ Let's change our window definition to set a trigger policy of `5` using [Window.
  </div>
   <div id="fullSource-2" class="tab-pane fade">
   <pre><code>
+
+   {% highlight python %}
   from streamsx.topology.topology import Topology
   import streamsx.topology.context
   import time
@@ -848,6 +1136,9 @@ Let's change our window definition to set a trigger policy of `5` using [Window.
 
   submission_result = streamsx.topology.context.submit("DISTRIBUTED",
                                                             topo)
+
+ {% endhighlight %}
+
 </code></pre>
   </div>
 </div>
@@ -961,6 +1252,7 @@ def __call__(self, items_in_window):
  </div>
   <div id="fullSource-3" class="tab-pane fade">
   <pre><code>
+   {% highlight python %}
 from streamsx.topology.topology import Topology
 from streamsx.topology import context
 import time
@@ -1024,6 +1316,8 @@ results_view.stop_data_fetch()
 # display as Pandas data frame
 df = pd.DataFrame(results)
 print(df)
+
+ {% endhighlight %}
 </code></pre>
   </div>
 </div>
@@ -1178,7 +1472,7 @@ rolling_average = window.aggregate(Averages())
  </div>
   <div id="fullSource-4" class="tab-pane fade">
   <pre><code>
-
+ {% highlight python %}
 from streamsx.topology.topology import Topology
 from streamsx.topology import context
 import time
@@ -1245,7 +1539,7 @@ results_view.stop_data_fetch()
 df = pd.DataFrame(results)
 print(df)
 
-
+ {% endhighlight %}
 </code></pre>
   </div>
 </div>
