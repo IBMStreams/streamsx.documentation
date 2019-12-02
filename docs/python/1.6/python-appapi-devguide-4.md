@@ -574,7 +574,7 @@ You can also use the Streams Console or the Job Graph in IBM Cloud Pak for Data 
 
 ### Creating a `View` 
 
-Given a `Stream` object, use [`Stream.view()`]https://streamsxtopology.readthedocs.io/en/stable/streamsx.topology.topology.html#streamsx.topology.topology.Stream.view) to create a view for that `Stream`.
+Given a `Stream` object, use [`Stream.view()`](https://streamsxtopology.readthedocs.io/en/stable/streamsx.topology.topology.html#streamsx.topology.topology.Stream.view) to create a `View` object for that `Stream`.
 
 ~~~~ python            
 input_stream = topo.source(my_src_function)
@@ -595,13 +595,12 @@ Once the application is running, use the `View` object you created to access the
     ~~~~~~
 
 1. Access the tuples:
-    Depending on your use case, you can:
-    1. Fetch a group of tuples using `view.fetch_tuples()`:
+    1. Option 1: Fetch a group of tuples using `view.fetch_tuples()`:
     ~~~~~~ python
        tpls = view.fetch_tuples(max_tuples=10)
        print("Received " + str(len(tpls)) + " tuples from the Stream")
     ~~~~~~  
-    1. Iterate over the items in the returned queue:
+    1. Option 2: Iterate over the items in the returned queue:
       ~~~~~ python
         try:
             print("Fetching data from view")
@@ -614,8 +613,8 @@ Once the application is running, use the `View` object you created to access the
         finally:
             view.stop_data_fetch()
       ~~~~~
-    2. Create a live grid of data on the `Stream` using `view.display()`. This is only supported from a Jupyter notebook with ipywidgets installed.
-    3. Examine the stream of data from the Streams Console or Job Graph.
+    2. Option 3: Create a live grid of data on the `Stream` using `view.display()`. This is only supported from a Jupyter notebook with [ipywidgets](https://ipywidgets.readthedocs.io/en/latest/)  installed.
+    3. Option 4: Examine the stream of data from the Streams Console or Job Graph.
     
 2. Call `view.stop_data_fetch` to stop fetching data from the `Stream`.  Views use HTTP connection to the running job, so this closes the connection.
   
@@ -642,7 +641,7 @@ We create 2 Views, one for the input and one for the result `Stream`.
 
 ### Fetch data from the `View` 
 
-Once the applicaton is running, you can use the view to fetch data from the `Stream`:
+Once the applicaton is running, use the `View` to fetch data from the `Stream`:
 
 ~~~~~~ python
 
@@ -673,7 +672,7 @@ Tuple from the stream: {'value': 55, 'id': 'id_0', 'increment': 65}
 Tuple from the stream: {'value': 56, 'id': 'id_0', 'increment': 66}
 Tuple from the stream: {'value': 57, 'id': 'id_0', 'increment': 67}
 
-~~~~~~
+~~~~~
 
 
 <a id="visualizing-data"></a>
@@ -686,21 +685,21 @@ You can use some of the built-in tools to create a simple grid, or chart of live
 Live charts are available in the Streams Console, the Job Graph in IBM Cloud Pak for Data, and also from a Jupyter Notebook.
 
 
-## Display a grid of live data
+####  Display a grid of live data
 
 Here are steps to display the data fetched by a `View` for the available tools.
 
 <details>
 
-<summary> Streams Console</summary>
+<summary>Streams Console</summary>
 
 
 <ol>
-<li>From the top left menu, expand the streams instance, and expand the <strong>Views</strong> item in the tree.</li>
+<li>From the top left menu, expand the Streams instance, then expand the <strong>Views</strong> item in the tree.</li>
 
-<li>Find the view you by the name you gave it at creation time.</li>
+<li>Find the `View` using the name you gave it at creation time.</li>
 
-<li>Hover over the view and click <strong>Add view grid</strong> in the tooltip that appears.</li>
+<li>Hover over the `View` and click <strong>Add view grid</strong>.</li>
 </ol>
 
 <p><img src="/streamsx.documentation/images/python/OpenAView.gif" alt="Views in console" /></p>
@@ -717,7 +716,7 @@ Here are steps to display the data fetched by a `View` for the available tools.
 
 <li>Select <strong>View graph</strong> from the context menu action for the running job.</li>
 
-<li>A grid listing any Views defined in the <code>Topology</code> will be displayed below the Streams graph. 
+<li>A grid listing any `Views` defined in the <code>Topology</code> will be displayed below the Streams graph. 
 <img src="/streamsx.documentation/images/python/OpenAViewCPD.gif" alt="Views in Job Graph" /></li>
 </ol>
 </details>
