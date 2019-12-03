@@ -1,0 +1,77 @@
+You interact with a running job through the Streams Console.  If you have IBM Cloud Pak for Data, you can also use the Job Graph. 
+
+Both tools allow you to view job logs and observe metrics such as throughput or resource utilization.
+<a id="monitor"></a>
+<br/>
+Choose the tab below to learn how to open the Job Graph or the Streams Console.
+
+<ul class="nav nav-tabs">
+   <li class="active"><a data-toggle="tab" href="#cpd"><b>Job Graph </b></a></li>
+  <li ><a data-toggle="tab" href="#console"><b>Streams Console</b></a></li>
+</ul>
+
+<div class="tab-content">
+
+  <div id="cpd" class="tab-pane fade   in active">
+  <h4>Monitoring a job in IBM Cloud Pak for Data</h4>
+To view job status and logs, first open the list of jobs:
+<ol>
+<li>From the main menu, go to <b>My Instances &gt; Jobs</b>. </li>
+<li>Find your job based on the <code>job id</code> displayed when you submitted the application.</li>
+</ol>
+<br/>
+
+{% include job_graph.html %}
+
+</div>
+
+  <div id="console" class="tab-pane fade ">
+  <h4>Monitoring a job with the Streams Console</h4>
+  To can access the Streams console through your browser, you need its URL.  Choose one of the following options for instructions to open the Console for your Streams instance.<br/>
+
+  <details>
+  <summary>IBM Cloud Pak for Data</summary>
+    <ol>
+    <li>From the navigation menu, click <strong>My instances</strong>.</li>
+    <li>Click the <strong>Provisioned Instances</strong> tab.</li>
+    <li>Find your Streams instance in the list.</li>
+    <li>From the context menu, click <b>View Details.</b></li>
+    <li>Under <b>Endpoints</b> find the Streams Console URL under <b>External Console endpoint.</b></li>
+    </ol>
+  <br/>  <br/>
+</details>
+  <details>
+   <summary>Open the Streams Console for Streams v5</summary>
+  Consult the documentation to get the Streams Console URL.
+  <br/>  <br/>
+</details>
+
+  <details>
+  <summary>Streaming Analytics service in IBM Cloud</summary>
+
+  <ol>
+    <li>Log in to the IBM Cloud dashboard.</li>
+    <li> Find your service instance, and click on it to go to its dashboard</li>
+    <li>Click <b>Launch</b> from the service dashboard page.  </li>
+    </ol>
+    <br/>  <br/>
+</details>
+
+  <details>
+  <summary>Local installation of Streams v4.2 or 4.3</summary>
+
+  From the command line, run: <code>streamtool geturl -d DOMAIN_NAME --console</code>
+  <p>For example, if the domain name is <code>StreamsDomain</code>:</p>
+<pre><code>$ streamtool geturl -d StreamsDomain --console </code></pre>
+ <p>Output:</p>
+ <pre><code> https://streamsqse.localdomain:8443/streams/domain/console
+  </code></pre>
+Open that URL in your browser, and log in to the console using the same username and password you used to submit the job.
+</details>
+
+{% include streams_console.html %}
+
+  </div>
+
+</div>
+
