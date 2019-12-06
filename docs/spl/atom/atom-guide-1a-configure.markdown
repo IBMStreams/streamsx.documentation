@@ -53,7 +53,9 @@ You may build and run your applications using one of the following cloud-based v
  - The Streaming Analytics service in the IBM Cloud, **or**
  - The Streams add-on in IBM Cloud Pak for Data.
 
-### Option 1: Connect to IBM Cloud Pak for Data
+<details>
+<summary>Option 1: Connect to IBM Cloud Pak for Data</summary>
+
 A provisioned IBM Streams add-on is required.
 If you need to provision an add-on, follow the steps in the [Streams add-on documentation](https://www.ibm.com/support/knowledgecenter/SSQNUZ_current/com.ibm.icpdata.doc/streams/intro.html).
 
@@ -62,8 +64,10 @@ If you need to provision an add-on, follow the steps in the [Streams add-on docu
 4. Under **Build and submit system**, choose **IBM Cloud Pak for Data Streams add-on** from the drop-down.
 5. Paste the URL from step 1 in the box labelled  **IBM Cloud Pak for Data url**.
 
+</details>
+<details>
 
-### Option 2: Connect to the Streaming Analytics service in IBM Cloud
+<summary>Option 2: Connect to the Streaming Analytics service in IBM Cloud</summary>
 
 If you already have an instance of Streaming Analytics service in [IBM Cloud](https://cloud.ibm.com/), make sure that it is started and running.
 
@@ -71,6 +75,8 @@ To create a new instance of the Streaming Analytics service, you need to complet
 1. Go to the [IBM Cloud web portal](https://cloud.ibm.com/) and sign in (or sign up for a free account).
 2. Go to the [Streaming Analytics service](https://console.bluemix.net/catalog/services/streaming-analytics) page within the Catalog.
 3. Enter the service name and then click **Create** to set up your service. The service dashboard opens and your service starts automatically. The service name appears as the title of the service dashboard.
+
+</details>
 
 #### Add the credentials for your Streaming Analytics service
 In order for Atom to connect to your Streaming Analytics instance, your build-ibmstreams package needs to be configured with your instance's service credentials:
@@ -111,6 +117,7 @@ If you have used Streams Studio, the following list summarizes some important th
 
 - **Streams installation, instance and domain management:** SPL plug-ins for Atom do not include any domain or instance management features because your Streams instance is created and managed in the cloud.
 
-- **Application Monitoring:** Applications that are started from Atom are executed in the cloud.
-  * If you are using the **Streaming Analytics service in the IBM Cloud**, you must use the Streams Console to view metrics, errors, and the application graph. To open the Streams Console for your service instance, go to the service details page and click **Launch**.
-  * To view a running job in the **Streams add-on in IBM Cloud Pak for Data**, go to **My instances > Jobs**, select the job you want to view, and click **View graph**.
+- **Application Monitoring:** 
+
+
+{% include monitor_jobs.html %}

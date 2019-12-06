@@ -11,7 +11,7 @@
         <li><code>STREAMS_PASSWORD</code> : Password for authentication.</li>
         </ul>
         
-        <p>The documentation has the steps to retrieve the URLs for the Build and REST service.
+        <p>The <a href="https://www.ibm.com/support/knowledgecenter/en/SSCRJU_5.2.0/com.ibm.streams.dev.doc/doc/find-dns-url.html">documentation</a> has the steps to retrieve the URLs for the Build and REST service.
         Set the values for each variable where indicated in the code.</p>
 
         <h5>Copy this code snippet:</h5>
@@ -32,15 +32,15 @@ os.environ["STREAMS_BUILD_URL"]= STREAMS_BUILD_URL
 os.environ["STREAMS_REST_URL"]= STREAMS_REST_URL
 os.environ["STREAMS_USERNAME"]= username
 os.environ["STREAMS_PASSWORD"]= password
+cfg = {}
+cfg[context.ConfigParams.SSL_VERIFY] = False
 
 
 
 def submit_topology(topo):
-    cfg = {}
-    cfg[context.ConfigParams.SSL_VERIFY] = False
-
+    
     # This specifies how the application will be deployed
-
+    global cfg
     contextType = context.ContextTypes.DISTRIBUTED
     return context.submit (contextType, topo, config = cfg)
 

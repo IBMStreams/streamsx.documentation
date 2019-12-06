@@ -61,36 +61,49 @@ _Submitting the job_ means launching the application on the Streams instance in 
 
 Click **Submit** and the application is be launched for you. You can also use the **Submit via Console** option if you need to configure your application before submitting. The **Submit via Console** option is discussed later on.
 
-View the running application in the Streams Console
----------------------------------------------------
 
-After the application is launched, you are prompted to view the application in the Streams Console.
+### See job status
 
-![Streams console prompt](/streamsx.documentation/images/atom/jpg/console-prompt.jpg)
+You interact with a running job through the Streams Console.  If you have IBM Cloud Pak for Data, you can also use the Job Graph. 
 
-Click **Open Streaming Analytics Console** to open the console in your browser.
+Both tools allow you to view job logs and observe metrics such as throughput or resource utilization.  You can open the Job Graph or Streams Console from Atom.
 
-Streams Console overview
-------------------------
+![open console or job graph](/streamsx.documentation/images/atom/jpg/open_console.jpg)
 
-You can manage and observe your running applications from the Streams Console. You can start, restart, and stop applications here. You can also view log data and observe metrics such as throughput or resource utilization.
+As shown above, to **open the Streams Console**, select any `.sab`. or `.spl` file, right-click, and select **IBM Streams > Open IBM Streams Console**.
 
-![Streams console main](/streamsx.documentation/images/atom/jpg/console-main.jpg)
+To **open the Job Graph in Cloud Pak for Data**:
+  - Open the IBM Cloud Pak for Data dashboard: Select any `.sab`. or `.spl` file, right-click, and select **IBM Streams > Open IBM Cloud Pak for Data dashboard**.
+  - Log in to IBM Cloud Pak for Data. Then from the main menu, go to  **My Instances > Jobs**.  This will bring you to the list of jobs.
 
-### Viewing the application's Logs
+<details>
+<summary> Job Graph overview </summary>
+{% include job_graph.html %}
+</details>
 
-Start by looking at the output of the application. For the bus application, whenever a bus should receive an alert, it just prints the alerts. Take a look at the output by going to the **Log Viewer**, which is opened from the menu options on the left.
 
-![open log viewer](/streamsx.documentation/images/atom/jpg/log-viewer.jpg)
+<details>
+<summary>Streams Console overview </summary>
+{% include streams_console.html %}
+</details>
+****
 
-Next, expand the application, select the `AlertPrinter` operator, and click **Console Log**. Click **Reload** if no data appears.
+#### View the output of the BusAlerts application
 
-![app logs](/streamsx.documentation/images/atom/jpg/operator-log.jpg)
+Whenever a bus is near a POI, the `BusAlerts` application just prints the alert that should be sent to the bus.
+Follow the instructions above for the Job Graph or Streams Console to view or download the logs for the `BusAlerts` application.
+
+You should see output like this: 
+
+~~~~~
+Bus N is near Mission Dolores Park, message = Security incident near Mission Dolores Park, road and sidewalk closures in effect.
+Bus 30  is near AT&T Park, message = If the Giants win, show your game ticket to get a discount on a GetThere taxi after the game. Goo giants!
+~~~~~
 
 Each line indicates the bus route, the business or area of interest, and the message that would be sent. For example, the first message would be to the N bus, stating that there is a security incident near Mission Dolores Park.
 
-Launching an application with parameters
-----------------------------------------
+
+## Launching an application with parameters
 
 If you have an application and would like to specify a parameter at runtime, you cannot submit the application from Atom after compilation.
 
@@ -114,8 +127,8 @@ The general steps to submit your application from Streams console are described 
 As shown in the video, the steps are as follows:
 
 1.	Create an executable file by using the **Build** option rather than the **Build and submit job** option. This option compiles the application and places an executable file called `myapp.sab` file in your project’s output directory.
-2.  Open the Streams Console, and upload the `myapp.sab` file.
-3.  Set any needed parameters.
+1.  Open the Streams Console, and upload the `myapp.sab` file.
+2.  Set any needed parameters.
 
 In this case, your application has a parameter called `$agency`, which is set in the code.
 
@@ -125,7 +138,7 @@ Use this parameter to change the application to monitor buses in a different reg
 
 The default value is `sf-muni`, so by default our application monitors buses in the San Francisco Municipality. Your goal is to set the `$agency` parameter to _ttc_, for Toronto Transit Commission. Using this value will change the application  to monitor buses in Toronto instead of San Francisco.
 
-### Use Build to create an executable
+### Use _Build_ to create an executable
 Right-click the SPL file and click **Build**.
 
 This option compiles the application and saves the executable file to the output folder of your project.
@@ -165,7 +178,7 @@ Click **Submit**. The application parameters are displayed.
 **Note**: because the `bus-agency` parameter has a default value, `sf-muni` we were able to submit the application the first time. When you use the **Build and submit** option and then submit directly from Atom, the default values for any parameters are used, if there are no default values for some parameters the submission will fail.
 
 
-##### Setting parameters summary
+#### Setting parameters summary
 
 * To set a parameter value when submitting an application, you must use the Streams Console to submit the application.
 
