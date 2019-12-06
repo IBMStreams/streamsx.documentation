@@ -22,7 +22,18 @@ For a quick overview about Streams and developing in Streams, see the following 
 Video:  Learn Streams in 5 min!
 </button>
 
-## Getting started - run your first Streams application
+
+
+**Developing applications in Java or Python**
+In addition to Streams Processing Language (SPL) discussed in the following section, Streams applications can be created in Java and Python.
+To get started with those languages, see these development guides:
+
+* [Develop Streams Applications in Java](/streamsx.documentation/docs/java/java-appapi-devguide/)
+* Develop Streams Applications in Python [latest](/streamsx.documentation/docs/python/1.6/python-appapi-devguide/)
+
+
+
+## Getting started with SPL 
 Run your first Streams application, "Hello, World!" using Streams Studio.
 
 ### Launch Streams Studio
@@ -42,153 +53,61 @@ Watch this 2-minute walkthrough on importing and running your first Streams appl
 </div>
 
 
-Now that you have got Streams Studio up and running, the following sections provide some resources to help you create your own applications in the language of your choice.
 
-### Developing applications in Java, Scala, or Python
-In addition to Streams Processing Language (SPL) discussed in the following section, Streams applications can be created in Java, Scala, and Python.
-
-Sample Streams application in Java, Scala, and Python:
-
-<ul class="nav nav-tabs">
+### Developing for IBM Cloud Pak for Data
+*Skip this section if you are not using IBM Cloud Pak for Data or Streams deployed in Kubernetes or Red Hat OpenShift.*
 
 
-  <li class="active" ><a data-toggle="tab" href="#java-0">Java</a></li>  
-  <li ><a data-toggle="tab" href="#scala-0">Scala</a></li>
-  <li><a data-toggle="tab" href="#python-0">Python</a></li>
-</ul>
+The concepts in this tutorial apply to developing for Streams v4.3. The video above showed launching an application to a local instance of Streams v4.3.
 
-<div class="tab-content">
+If your Streams instance is running in IBM Cloud Pak for Data or as a stand-alone deployment, the steps to launch the application are different. This is because you have Streams v5 or later.
 
-    <div id="java-0" class="tab-pane fade in active">
-  <pre><code>package simple;
+To launch the application in Streams v5+:
+- Compile the application as shown above
+- Instead of launching it to the local instance, you need to submit the application manually using the Streams Console.
 
-  import com.ibm.streamsx.topology.TStream;
-  import com.ibm.streamsx.topology.Topology;
-  import com.ibm.streamsx.topology.context.StreamsContextFactory;
-
-  public static void main(String[] args) throws Exception {
-
-          /*
-           * Create the container for the topology that will
-           * hold the streams of tuples.
-           */
-          Topology topology = new Topology(&quot;HelloWorld&quot;);
-
-          /*
-           * Declare a source stream (hw) with String tuples containing two tuples,
-           * &quot;Hello&quot; and &quot;World!&quot;.
-           */
-          TStream&lt;String&gt; hw = topology.strings(&quot;Hello&quot;, &quot;World!&quot;);
-
-          /*
-           * Sink hw by printing each of its tuples to System.out.
-           */
-          hw.print();
-
-          /*
-           * At this point the topology is declared with a single
-           * stream that is printed to System.out.
-           */
-
-          /*
-           * Now execute the topology by submitting to a StreamsContext.
-           * If no argument is provided then the topology is executed
-           * within this JVM (StreamsContext.Type.EMBEDDED).
-           * Otherwise the first and only argument is taken as the
-           * String representation of the desired context
-           */
-          if (args.length == 0)
-              StreamsContextFactory.getEmbedded().submit(topology).get();
-          else
-              StreamsContextFactory.getStreamsContext(args[0]).submit(topology)
-                  .get();
-      }
-  </code></pre>   
-    </div>
+#### Submit the job using the Streams Console
+1. You need to get the URL of the Streams Console for your Streams instance. 
+   - **Find the URL for Streams add-on in IBM Cloud Pak for Data:**
+     - From the navigation menu, click <strong>My instances</strong>.
+     - Click the <strong>Provisioned Instances</strong> tab.
+     - Find your Streams instance, and click **View details** from the context menu. Open the URL under **External console endpoint**.
+       
+   - **Find the URL for Streams stand-alone deployment:** [See the documentation](https://www.ibm.com/support/knowledgecenter/en/SSCRJU_5.2.0/com.ibm.streams.dev.doc/doc/find-dns-url.html#find-dns-url). Choose *finding the internal URL*  or *finding the external URL* depending on whether or not you will be accessing the Streams Console from within the Kubernetes cluster.
 
 
-    <div id="scala-0" class="tab-pane fade">
-    <pre><code>package simple
+2. From the Streams Console, submit the job by clicking **Submit job**:
+  <br/>
+![submit job](https://developer.ibm.com/streamsdev/wp-content/uploads/sites/15/2015/11/streams-submit-job.png)
 
-    import com.ibm.streamsx.topology.Topology
-    import com.ibm.streamsx.topology.streams.BeaconStreams
-    import com.ibm.streamsx.topology.context.StreamsContextFactory
+   * Browse to the location of the compiled application.  This will be a `.sab` file in the `output` folder of your project.
 
-    import java.util.concurrent.TimeUnit
-
-    import com.ibm.streamsx.topology.functions.FunctionConversions._
-
-    object HelloWorldScala {
-      def main(args: Array[String]) {
-        val topology = new Topology(&quot;HelloWorldScala&quot;)
-
-        var hw = topology.strings(&quot;Hello&quot;, &quot;World!&quot;)    
-        hw.print()
-
-       StreamsContextFactory.getStreamsContext(&quot;EMBEDDED&quot;).submit(topology).get()
-      }
-    }
-    </code></pre>
-      </div>
-  <div id="python-0" class="tab-pane fade">
-  <pre><code>import sys
-from streamsx.topology.topology import Topology
-import streamsx.topology.context
-import hello_world_functions
+   * Set any parameters, and submit the application.
 
 
-def main():
-    """
-    Sample Hello World topology application. This Python application builds a
-    simple topology that prints Hello World to standard output.
+<h5>Streams Console Overview</h5>
 
-    The application implements the typical pattern
-    of code that declares a topology followed by
-    submission of the topology to a Streams context.
+The following animation shows some of the useful features of the Streams Console.
 
-    This demonstrates the mechanics of declaring a topology and executing it.
-
-    Example:
-        python3 hello_world.py
-    Output:
-        Hello
-        World!
-    """
-
-    # Create the container for the topology that will hold the streams of tuples.
-    topo = Topology("hello_world")
-
-    # Declare a source stream (hw) with string tuples containing two tuples,
-    # "Hello" and "World!".
-    hw = topo.source(hello_world_functions.source_tuples)
-
-    # Sink hw by printing each of its tuples to standard output
-    hw.print()
-
-    # At this point the topology is declared with a single
-    # stream that is printed to standard output
-
-    # Now execute the topology by submitting to a standalone context.
-    streamsx.topology.context.submit("STANDALONE", topo.graph)
+<img alt="app in streams console" src="/streamsx.documentation/images/python/view-in-console-python.gif" />
 
 
-if __name__ == '__main__':
-    main()
-</code></pre>
-<pre><code>def source_tuples():
-    """
-    Returns an iterable of strings
-    """
-    return ["Hello", "World!"]
-</code></pre>
-  </div>
-</div>
+<br/><br/>
+<h5>Viewing the application’s logs</h5>
+See application logs by going to the <strong>Log Viewer</strong>, which is opened from the menu options on the left.
+<img alt="Streams console main" src="/streamsx.documentation/images/atom/jpg/console-main.jpg" />
+<br/>
+Next, expand the application, select the operator whose logs you want to inspect,  and click <strong>Console Log</strong>. Click <strong>Reload</strong> if no data appears.
 
-To get started, see these development guides:
+<img alt="app logs" src="/streamsx.documentation/images/atom/jpg/operator-log.jpg" />
+<br/>
 
-* [Develop Streams Applications in Java](http://ibmstreams.github.io/streamsx.documentation/docs/java/java-appapi-devguide/)
-* [Develop Streams Applications in Scala](https://github.com/IBMStreams/streamsx.topology/wiki/Scala-Support)
-* Develop Streams Applications in Python [latest](http://ibmstreams.github.io/streamsx.documentation/docs/python/1.6/python-appapi-devguide/) , [v1.4](http://ibmstreams.github.io/streamsx.documentation/docs/python/1.4/python-appapi-devguide/)
+
+<h3> More about the Streams Console</h3>
+<br/>
+See this <a href="https://developer.ibm.com/streamsdev/docs/streams-console-overview/">article on Streamsdev for an overview of the Streams Console</a>.
+
+You can follow the rest of the guides but keep these steps in mind for submitting applications for IBM Cloud Pak for Data.
 
 
 ### Developing applications by using Streams Processing Language (SPL)
