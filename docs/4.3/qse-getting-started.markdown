@@ -165,7 +165,7 @@ Below are some resources to help you get started.
 
 Streams is shipped with many toolkits out of the box to enable integration with some of the most popular systems like HDFS, HBase, Kafka, Active MQ and more.  To learn about the set of toolkits that are shipped as part of the Streams product, refer to the [Product Toolkits Overview](https://developer.ibm.com/streamsdev/docs/product-toolkits-overview/).
 
-[IBMStreams on Github](https://github.com/ibmstreams) provides a platform that enables Streams to rapidly deliver our support to emgerging technologies to you.  It is also a place for us to share sample applications and helpful utilities.  For a list of open-source projects hosted on Github, see: [IBM Streams Github Projects Overview](https://developer.ibm.com/streamsdev/docs/github-projects-overview/).
+[IBMStreams on GitHub](https://github.com/ibmstreams) provides a platform that enables Streams to rapidly deliver our support to emgerging technologies to you.  It is also a place for us to share sample applications and helpful utilities.  For a list of open-source projects hosted on GitHub, see: [IBM Streams GitHub Projects Overview](https://developer.ibm.com/streamsdev/docs/github-projects-overview/).
 
 ### Integration with IBM InfoSphere Data Governance Catalog
 
@@ -229,7 +229,7 @@ The following Streams resources can help you connect with the Streams community 
 * **[Streamsdev](https://developer.ibm.com/streamsdev/)** - This resource is a developer-to-developer website maintained by the Streams Development Team.  It contains many useful articles and getting started material.  Check back often for new articles, tips and best practises to this website.
 * **[Streams Tutorials Hub](http://ibmstreams.github.io/tutorials/)** A collection of available tutorials, labs and courses.
 * **[Streams Forum](https://www.ibmdw.net/answers/questions/?community=streamsdev&sort=newest&refine=none)** - This forum enables you to ask, and get answers to your questions, related to IBM Streams. If you have questions, start here.
-* **[IBMStreams on Github](http://ibmstreams.github.io)** - Streams is shipped with many useful toolkits out of the box.  IBMStreams on Github  contains many open-source toolkits.  For a list of available toolkits available on Github, see this web page:  [IBMStreams Github Toolkits](https://developer.ibm.com/streamsdev/docs/github-projects-overview/).
+* **[IBMStreams on GitHub](http://ibmstreams.github.io)** - Streams is shipped with many useful toolkits out of the box.  IBMStreams on GitHub  contains many open-source toolkits.  For a list of available toolkits available on GitHub, see this web page:  [IBMStreams GitHub Toolkits](https://developer.ibm.com/streamsdev/docs/github-projects-overview/).
 * **[IBM Streams Support](http://www.ibm.com/support/entry/portal/Overview/Software/Information_Management/InfoSphere_Streams)** - This website provides information about IBM Streams downloads, technical support tools, documentation, and other resources.
 * **[IBM Streams Product Site](http://www.ibm.com/analytics/us/en/technology/stream-computing/)** - This website provides a broad range of information and resources about Streams and related topics.
 
