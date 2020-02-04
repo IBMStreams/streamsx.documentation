@@ -53,13 +53,13 @@ Streams Processing Language is specifically designed for creating Streams applic
 * [Developing applications with Scala](https://github.com/IBMStreams/streamsx.topology/wiki/Scala-Support)
 
 ## Integrating with Streams
-There are dozens of toolkits available to help you integrate Streams with popular systems like [HDFS](https://github.com/IBMStreams/streamsx.hdfs) [HBase](https://github.com/IBMStreams/streamsx.hbase), [Kafka](https://github.com/IBMStreams/streamsx.kafka), and more.
-Some toolkits are included with Streams, and others are [available on Github](https://github.com/ibmstreams).
+There are dozens of toolkits available to help you integrate Streams with popular systems like [HDFS](https://github.com/IBMStreams/streamsx.hdfs), [HBase](https://github.com/IBMStreams/streamsx.hbase), [Kafka](https://github.com/IBMStreams/streamsx.kafka), and more.
+Some toolkits are included with Streams, and others are [available on GitHub](https://github.com/ibmstreams).
 
 {: .simple}
 
 * [Product toolkits overview](https://developer.ibm.com/streamsdev/docs/product-toolkits-overview/)
-* [Github projects overview](https://developer.ibm.com/streamsdev/docs/github-projects-overview/)
+* [GitHub projects overview](https://developer.ibm.com/streamsdev/docs/github-projects-overview/)
 
 #### Selected toolkit documentation
 Links to the documentation for more common toolkits
@@ -86,27 +86,27 @@ View the IBM Streams product documentation on IBM Knowledge Center.
 
 {: .simple}
 
-* [IBM Knowledge Center > IBM Streams (versions 1.2.1 - current)](http://www.ibm.com/support/knowledgecenter/SSCRJU/SSCRJU_welcome.html)
+* [IBM Knowledge Center > IBM Streams (versions 4.0.0 - current)](http://www.ibm.com/support/knowledgecenter/SSCRJU/SSCRJU_welcome.html)
 
 ## Need help?
 
 1.  Ask your questions on the [Streams Forum](https://developer.ibm.com/answers/smart-spaces/22/streamsdev.html).
-2.  If your project is on IBM Streams Github, open an issue to the related project.
+2.  If your project is on IBM Streams GitHub, open an issue to the related project.
 3.  Ask your questions on [StackOverflow](http://stackoverflow.com/questions/tagged/infosphere-spl).
 
 ## Contributing
 
-If you have ideas on how we can better document or explain some of the concepts, we would love to have your contribution.  The streamsx.documentation site uses Github Pages and Jekyll markdown.
+If you have ideas on how we can better document or explain some of the concepts, we would love to have your contribution.  The streamsx.documentation site uses GitHub Pages and Jekyll markdown.
 
 To contribute, you have two options:
 -   Clone this project locally, make your changes, and create a pull request.
 -   Click **Edit Me** and then click **Edit this file** to make changes directly in your browser.
 
-For more information about contributing to this project, see [Contribute to an IBM Streams Github project](https://developer.ibm.com/streamsdev/docs/contribute-github-project/).
+For more information about contributing to this project, see [Contribute to an IBM Streams GitHub project](https://developer.ibm.com/streamsdev/docs/contribute-github-project/).
 
-For more information about Github Markdown, see [Writing on Github](https://help.github.com/categories/writing-on-github).
+For more information about GitHub Markdown, see [Writing on GitHub](https://help.github.com/categories/writing-on-github).
 
-For more information about using Jekyll with Github Pages, see [Using Jekyll as a static site generator with GitHub Pages](https://help.github.com/articles/using-jekyll-with-pages/).
+For more information about using Jekyll with GitHub Pages, see [Using Jekyll as a static site generator with GitHub Pages](https://help.github.com/articles/using-jekyll-with-pages/).
 
 ### Providing feedback
 
