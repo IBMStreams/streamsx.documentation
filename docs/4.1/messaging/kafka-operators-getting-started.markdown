@@ -18,7 +18,7 @@ Readers of this guide are expected to have a basic understanding of Kafka and IB
 Prior to using Kafka operators, the following software must be installed and configured:
 
 * **IBM Streams** - A <a target="_blank" href="http://ibmstreams.github.io/streamsx.documentation//docs/4.1/qse-install-vm/">Quick Start Edition VM</a> is available for free. This guide assumes that you have a Streams domain and instance up and running. 
-* **Messaging Toolkit 4.0+** - You can download it from the IBM Streams Github Messaging Toolkit Repository <a target="_blank" href="https://github.com/IBMStreams/streamsx.messaging/releases">Release Page</a>.
+* **Messaging Toolkit 4.0+** - You can download it from the IBM Streams GitHub Messaging Toolkit Repository <a target="_blank" href="https://github.com/IBMStreams/streamsx.messaging/releases">Release Page</a>.
 * **Kafka Brokers** - This guide assumes you are using Kafka 0.9 or above. To quickly get a Kafka server up and running, follow <a target="_blank" href="http://kafka.apache.org/documentation.html#quickstart">these directions</a>. 
 
 ## Information to Collect

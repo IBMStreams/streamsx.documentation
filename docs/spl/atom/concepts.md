@@ -120,8 +120,8 @@ real-time analytics.
     Reference](http://www-01.ibm.com/support/knowledgecenter/SSCRJU_4.0.0/com.ibm.streams.ref.doc/doc/splstdtlkt-container.html?lang=en)
 -   For a list of available specialized toolkit:  [Product Toolkits
     Overview](https://developer.ibm.com/streamsdev/docs/product-toolkits-overview/)
--   For a list of available open-source specialized toolkit on Github:
-     [Github Projects
+-   For a list of available open-source specialized toolkit on GitHub:
+     [GitHub Projects
     Overview](https://developer.ibm.com/streamsdev/docs/github-projects-overview/)
 
 []{#spl_basics}
@@ -253,8 +253,8 @@ process stock trades from a CSV file.  The application will filter out
 some of the stocks based on ticker names.  It will then calculate the
 average, maximum and minimum ask price for each of the stocks.  The
 results will be written to a file. You may find this example in the
-Samples repository from Github. [TradeApp Sample on
-Github](https://github.com/IBMStreams/samples/tree/master/QuickStart/TradesApp)
+Samples repository from GitHub. [TradeApp Sample on
+GitHub](https://github.com/IBMStreams/samples/tree/master/QuickStart/TradesApp)
 To start writing a Streams application, you must have an understanding
 of the data that you are trying to process.  The csv file that we are
 going to process looks like this.

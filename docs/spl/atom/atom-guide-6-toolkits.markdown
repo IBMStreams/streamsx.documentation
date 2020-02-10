@@ -54,7 +54,7 @@ Your sample application uses input XML data that was saved in a file. You want t
 
 Instead of reading from a file using a `FileSource` operator, you now need to use the `HTTPGetXMLContent` operator from the [streamsx.inet toolkit](https://github.com/IBMStreams/streamsx.inet) to connect to NextBus.
 
-The toolkit is included in Streams but is developed in the open on GitHub.  So you can download the latest version from Github.
+The toolkit is included in Streams but is developed in the open on GitHub.  So you can download the latest version from GitHub.
 
 
 Step 1: Download and unpack the toolkit

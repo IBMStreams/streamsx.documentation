@@ -134,7 +134,7 @@ At this point, I would say we have gone through all the beginner topics.  Next s
 * Reduce function calls in the process method stack
 * Do not copy data
 * How to monitor performance - using metrics view and alerts
-* How to measure performance - may consider putting the FlowCalculator operator as a sample on Github.
+* How to measure performance - may consider putting the FlowCalculator operator as a sample on GitHub.
 * Reference to my document on StreamsDev
 
 ## Java Function Development Guide       
