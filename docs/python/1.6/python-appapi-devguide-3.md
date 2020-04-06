@@ -355,7 +355,7 @@ print("Fetching view data ...")
 queue = averages_view.start_data_fetch()
 try:
     for val in range(10):
-        print(queue.get())    
+        print(queue.get(timeout=60))    
 finally:
     averages_view.stop_data_fetch()
 ~~~~
