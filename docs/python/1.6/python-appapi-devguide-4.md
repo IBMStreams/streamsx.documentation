@@ -927,11 +927,17 @@ class Average:
 
 Pass an instance of the `Average` class to the `aggregate` function. The `aggregate` function returns a new `Stream` with the computed rolling average.
 
+
+
 ~~~~ python
+
 rolling_average = window.aggregate(Average())
-#Create a view to access the result stream
+# Create a view to access the result stream
 results_view = rolling_average.view()
-~~~
+
+~~~~
+
+
 
 After submitting this application, use this code to connect to it and display the contents:
 
@@ -1082,7 +1088,7 @@ Other example use cases include:
 
 ### Example 2: rolling average, updated at intervals
 We still want to compute the rolling average of the last 10 tuples, but this time we want to update this value every 5 tuples.
-Let's change our window definition to set a trigger policy of `5` using [Window.trigger](https://streamsxtopology.readthedocs.io/en/stable/streamsx.topology.topology.html?highlight=window#streamsx .topology.topology.Window.trigger):
+Let's change our window definition to set a trigger policy of `5` using [Window.trigger](https://streamsxtopology.readthedocs.io/en/stable/streamsx.topology.topology.html?highlight=window#streamsx.topology.topology.Window.trigger):
 
 <ul class="nav nav-tabs">
   <li class="active"><a data-toggle="tab" href="#simpleSource-2">Code</a></li>
@@ -1248,11 +1254,10 @@ def __call__(self, items_in_window):
                     "id": id)})
     return result
 
-       </code></pre>
+</code></pre>
  </div>
   <div id="fullSource-3" class="tab-pane fade">
   <pre><code>
-   {% highlight python %}
 from streamsx.topology.topology import Topology
 from streamsx.topology import context
 import time
@@ -1289,7 +1294,6 @@ class Numbers(object):
             # time.sleep(1.0)
             yield {"value": num, "id": "id_" + str(random.randint(0, 10))}
 
-
 topo = Topology("Rolling Average With Grouping")
 src = topo.source(Numbers())
 window = src.last(size=20) #rolling average of last 20 readings, 
@@ -1317,7 +1321,6 @@ results_view.stop_data_fetch()
 df = pd.DataFrame(results)
 print(df)
 
- {% endhighlight %}
 </code></pre>
   </div>
 </div>
@@ -1334,6 +1337,7 @@ The `Averages` class is now returning a `Stream` where each tuple is a list of v
 rolling_average = window.aggregate(Averages()).flat_map()
 # Create a view to access the result stream
 results_view = rolling_average.view()
+
 ~~~~~
 
 Click *Full Source* above for the updated source code.

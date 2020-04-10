@@ -1,56 +1,48 @@
-<h3>Submit to Streams on IBM Cloud Pak for Data </h3>
-<h4>Option 1:  Submit to Streams on Cloud Pak for Data  from a notebook</h4>
-    In this context you need to provide the name of the Streams instance.
+<h4>Code to submit to Streams on IBM Cloud Pak for Data</h4>
+<b>Option 1:  Submit to Streams on Cloud Pak for Data  from a notebook</b>
+
+<br/>
+In this context you need to provide the name of the Streams instance.
     <ol>
     <li>From the navigation menu, click <strong>My instances</strong>.</li>
-    
     <li>Click the <strong>Provisioned Instances</strong> tab.</li>
-    
-    <li>Update the value of <code>streams_instance_name</code> according to your Streams instance name.</li>
+    <li>Update the value of <code>streams_instance_name</code> below according to your Streams instance name.</li>
     </ol>
     
     <h5>Copy this code snippet:</h5>
-    
-        {% highlight python %}
+{% highlight python %}
 
 from icpd_core import icpd_util
 from streamsx.topology import context
 
 
-cfg=icpd_util.get_service_instance_details(name=streams_instance_name)
-# Disable SSL certificate verification if necessary
-cfg[context.ConfigParams.SSL_VERIFY] = False
-
 def submit_topology(topo):
-    global cfg
+    cfg=icpd_util.get_service_instance_details(name=streams_instance_name)
+    # Disable SSL certificate verification if necessary
+    cfg[context.ConfigParams.SSL_VERIFY] = False   
     streams_instance_name = "sample-streams" ## Change this to Streams instance
-      # Topology wil be deployed as a distributed app
+    # Topology wil be deployed as a distributed app
     contextType = context.ContextTypes.DISTRIBUTED
     return context.submit (contextType, topo, config = cfg)
 
-    {% endhighlight %}
+{% endhighlight %}
 
 
 
 
-    <h4>Option 2:    Submit to Streams on Cloud Pak for Data without a notebook  </h4>
+<h5>Option 2:    Submit to Streams on Cloud Pak for Data without a notebook  </h5>
 
 <p>Collect the following environment information. Set the values for each variable where indicated.</p>
 
 <ul>
 <li><p><code>CP4D_URL</code> - Cloud Pak for Data deployment URL, e.g. <code>https://cp4d_server:31843</code>. </p></li>
-
 <li><p><code>STREAMS_INSTANCE_ID</code>:</p>
-
 <ol>
 <li>From the navigation menu, click <strong>My instances</strong>.</li>
-
 <li>Click the <strong>Provisioned Instances</strong> tab.</li>
-
-<li>Select the Streams instance you want to use, and set the value of <code>STREAMS_INSTANCE_ID</code> where indicated in the code.</li></ol></li>
-
+<li>Select the Streams instance you want to use, and set the value of <code>STREAMS_INSTANCE_ID</code> where indicated in the code.</li>
+</ol></li>
 <li><p><code>STREAMS_USERNAME</code> - (optional) User name to submit the job as, defaulting to the current operating system user name.</p></li>
-
 <li><p><code>STREAMS_PASSWORD</code> - Password for authentication.</p></li>
 </ul>
 
@@ -60,22 +52,22 @@ def submit_topology(topo):
 
 <h5>Copy this code snippet:</h5>
 
-
 {% highlight python %}
 import os
 import getpass
 
 from streamsx.topology import context
-username = input("Streams username")
-password = getpass.getpass("Streams password")
-CP4D_URL = "Paste URL here"
-STREAMS_INSTANCE_ID = "my-instance" # Set instance name
-os.environ["STREAMS_USERNAME"] = username
-os.environ["STREAMS_PASSWORD"] = password
-os.environ["STREAMS_INSTANCE_ID"] = STREAMS_INSTANCE_ID
-os.environ["CP4D_URL"] = CP4D_URL
 
 def submit_topology(topo):
+     CP4D_URL = "Paste URL here"
+     username = input("Streams username")
+    password = getpass.getpass("Streams password")
+    STREAMS_INSTANCE_ID = "my-instance" # Set instance name
+    os.environ["STREAMS_USERNAME"] = username
+    os.environ["STREAMS_PASSWORD"] = password
+    os.environ["STREAMS_INSTANCE_ID"] = STREAMS_INSTANCE_ID
+    os.environ["CP4D_URL"] = CP4D_URL
+
     cfg ={}
     cfg[context.ConfigParams.SSL_VERIFY] = False
     # This specifies how the application will be deployed
@@ -83,4 +75,4 @@ def submit_topology(topo):
     return context.submit (contextType, topo, config = cfg)
 
 
-    {% endhighlight %}
+{% endhighlight %}

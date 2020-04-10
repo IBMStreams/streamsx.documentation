@@ -1,0 +1,27 @@
+<ul class="nav nav-tabs">
+    <li class="active"><a data-toggle="tab" href="#sas-code"><b>IBM Cloud Streaming Analytics service</b></a></li>
+    <li><a data-toggle="tab" href="#cpd-code"><b>Cloud Pak for Data</b></a></li>
+     <li><a data-toggle="tab" href="#local-code"><b>Local install</b></a></li>
+     <li><a data-toggle="tab" href="#edge-code"><b>Streams on Kubernetes or OpenShift</b></a></li>
+  </ul>
+  
+<div class="tab-content">
+  
+<div id="sas-code" class="tab-pane fade in active ">
+{% include sas_config.html%}
+</div>
+
+
+<div id="cpd-code" class="tab-pane fade">
+{% include cpd_config.html%}
+</div>
+
+
+<div id="local-code" class="tab-pane fade">
+{% include local_config.html%}
+</div>
+
+<div id="edge-code" class="tab-pane fade">
+{% include edge_config.html%}
+</div>
+</div>

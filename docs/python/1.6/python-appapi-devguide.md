@@ -15,17 +15,22 @@ The IBM Streams Python Application API enables you to create streaming analytics
 
 ## About streaming applications
 
-Streaming applications meet the need for continuous, real-time data processing. (This is in contrast to applications created for the Apache Hadoop framework, which are intended to terminate when a batch of data is successfully processed.)
+Streaming applications meet the need for continuous, real-time data processing. (This is in contrast to applications created for the Apache Hadoop framework, which are intended to terminate when a batch of data is processed.)
 
 For example, consider an application that scans temperature sensors across the world to determine weather patterns and trends. Because there is always a temperature, the application needs to perpetually process the data and will potentially run indefinitely.
 
-You can create such an application with the Streams Python API. The API supports:
+You can create such an application with the Streams Python API. 
+<form action="/streamsx.documentation/docs/python/1.6/python-appapi-devguide-2/" target="_blank"><input  type="submit" value="Create your first application"></form>
+
+
+### Streams Python API Features
+
+The API supports:
 
  - Data ingest from Apache Kafka, Apache HBase, IBM Db2 Warehouse, IBM Event Streams, and more.
  - [Streaming data analysis with Windows](/streamsx.documentation/docs/python/1.6//python-appapi-devguide-4/#windows)
  - [Parallel execution](/streamsx.documentation/docs/python/1.6/python-appapi-devguide-5/)
  - Data recovery in event of system failure.
-
 
 You can use the Python Application API to define the structure of a streaming application using Python.
 
@@ -35,7 +40,7 @@ This development guide will show you how to create streaming applications using 
 
 Applications created with the IBM Streams Python API are executed on an instance of IBM Streams. 
 
-##### How can I get an instance of Streams?
+#### How can I get an instance of Streams?
 
  There are several ways to get an instance of Streams:
 

@@ -79,32 +79,10 @@ To summarize:
 
 ## 1. Set up a connection to the Streams instance
 <a id="setup"></a>
-To submit the application for execution, you first have to connect to the Streams instance. Although the application is always the same, the information required to connect to the instance depends on the target installation of Streams.
-
-Therefore, choose your target Streams installation from the list below and use the code snippet provided to connect to the instance.
-
-Each snippet will define a function called `submit_topology` that will be used later on to submit the `Topology` once it is defined.
+To run a `Topology`, you submit it programmatically to the Streams instance.
 
 
-#### Choose a target installation
-
-<details>
-  <summary>Streams v5 in IBM Cloud Pak for Data</summary>
-{% include cpd_config.html%}
-</details>
-
-<details>
-  <summary>Streams v5 installed in a Kubernetes or OpenShift cluster</summary>
-    {% include edge_config.html%}
-</details>
-<details>
-  <summary>Streaming Analytics service/IBM Watson Studio</summary>
-  {% include sas_config.html%}
-</details>
-<details>
-  <summary>Local installation of Streams v4.2/4.3</summary>
-    {% include local_config.html%}
-</details>
+See the `submit_topology` function [from the previous section](/streamsx.documentation/docs/python/1.6/python-appapi-devguide-2/#connect).
 
 
 

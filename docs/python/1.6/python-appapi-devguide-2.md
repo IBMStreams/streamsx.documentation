@@ -21,19 +21,20 @@ These are the basic requirements to create Streams applications with Python:
 2. Set up your development environment:
   - [Install a supported version of Python](#python)
   - [Install the `streamsx` package](#streamsx)
-
+3. [Set up a connection to the Streams instance](#connect)
 
 ### Set up a Streams instance
 <a id="streams"></a>
 
 The Python API is used to create a **Topology**, or application that is executed by the Streams runtime.
 The Streams runtime can be in the public or private cloud or installed locally.
+
 Choose the tab that matches where your Streams instance is installed and follow the steps to install and/or configure the Streams instance.
 
 
 <ul class="nav nav-tabs">
-  <li class="active"><a data-toggle="tab" href="#cpd"><b>IBM Cloud Pak for Data</b></a></li>
-  <li><a data-toggle="tab" href="#sas"><b>Streaming Analytics service in IBM Cloud</b></a></li>
+  <li class="active"><a data-toggle="tab" href="#sas"><b>IBM Cloud Streaming Analytics service (Recommended)</b></a></li>
+  <li><a data-toggle="tab" href="#cpd"><b>IBM Cloud Pak for Data</b></a></li>
    <li><a data-toggle="tab" href="#local"><b>Local installation</b></a></li>
 </ul>
 
@@ -41,20 +42,21 @@ Choose the tab that matches where your Streams instance is installed and follow 
 
 
 
-  <div id="cpd" class="tab-pane fade  in active ">
-<!--- Cloud pak for data ---->
-
-{% include cpd_install.html%}
-
- </div>
 
 
-<div id="sas" class="tab-pane fade">
+<div id="sas" class="tab-pane fade in active">
 <!--- STREAMING ANALYTICS SERVICE ---->
 {% include sas_install.html%}
 
 
 </div>
+
+  <div id="cpd" class="tab-pane fade">
+<!--- Cloud pak for data ---->
+
+{% include cpd_install.html%}
+
+ </div>
 
 <div id="local" class="tab-pane fade">
 {% include local_install.html%}
@@ -68,6 +70,7 @@ Choose the tab that matches where your Streams instance is installed and follow 
 
 
 ## Set up your development environment
+njjh
 ### Install a supported version of Python
 <a id="python"></a>
 Make sure you have the right version of Python for your Streams instance:
@@ -93,9 +96,28 @@ Make sure you have the right version of Python for your Streams instance:
 **Note:** For the most up to date instructions regarding installation, including when a local installation of Streams is required, see the
  [developer setup page of the streamsx project documentation](https://streamsxtopology.readthedocs.io/en/stable/pysetup.html).
 
+<a id="connect"></a>
+
+## Set up a connection to the Streams instance
+
+A Python `Topology` must always be compiled and run on a Streams instance. 
+
+You must programmatically submit the `Topology` to the Streams instance to be compiled and run using the [`streamsx.topology.context.submit` function](https://streamsxtopology.readthedocs.io/en/stable/streamsx.topology.context.html#streamsx.topology.context.run).
+
+Below is a helper function called `submit_topology` that you can use when you are ready to submit your `Topology`.  So copy it now and add it to your Python script or as a cell in your notebook.
+
+
+
+
+{% include submit_overview.html%}
+
+
+
 # Create your first application
 
-Go to the next section to [create your first application with the Streams Python API](/streamsx.documentation/docs/python/1.6/python-appapi-devguide-3/).
+Now you are ready to [create your first application with the Streams Python API](/streamsx.documentation/docs/python/1.6/python-appapi-devguide-3/).
+
+
 The application will ingest temperature readings from a simulated sensor and compute the rolling average reading for each sensor.
 
 ## Learn more about the API
