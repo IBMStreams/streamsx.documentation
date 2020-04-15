@@ -9,7 +9,10 @@ tag: 43qse
 prev:
   file: qse-intro
   title:  Download Quick Start Edition
-
+next:
+  file: qse-quick-start-guide
+  title: Streams SPL Guide 
+  
 ---
 ## Download and install
 If you haven't already done so, download and install Streams Quick Start Edition. For instructions, see [Try IBM Streams v4.3 with Quick Start Edition](../qse-intro).
