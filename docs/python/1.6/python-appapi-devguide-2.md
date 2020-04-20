@@ -33,16 +33,12 @@ Choose the tab that matches where your Streams instance is installed and follow 
 
 
 <ul class="nav nav-tabs">
-  <li class="active"><a data-toggle="tab" href="#sas"><b>IBM Cloud Streaming Analytics service (Recommended)</b></a></li>
+  <li class="active"><a data-toggle="tab" href="#sas"><b>Streaming Analytics service</b></a></li>
   <li><a data-toggle="tab" href="#cpd"><b>IBM Cloud Pak for Data</b></a></li>
    <li><a data-toggle="tab" href="#local"><b>Local installation</b></a></li>
 </ul>
 
 <div class="tab-content">
-
-
-
-
 
 <div id="sas" class="tab-pane fade in active">
 <!--- STREAMING ANALYTICS SERVICE ---->
@@ -70,7 +66,8 @@ Choose the tab that matches where your Streams instance is installed and follow 
 
 
 ## Set up your development environment
-njjh
+
+
 ### Install a supported version of Python
 <a id="python"></a>
 Make sure you have the right version of Python for your Streams instance:
