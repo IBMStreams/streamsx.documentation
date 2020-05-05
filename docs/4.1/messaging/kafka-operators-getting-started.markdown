@@ -1,13 +1,13 @@
 ---
 layout: docs
 title: Getting Started with Kafka Operators
-description:  Getting Started Guide for IBM Streams Messaging Toolkit - Kafka operators
+description:  Getting Started Guide for IBM Streams Kafka Toolkit operators
 weight: 10
 published: true
 ---
 
 ## Introduction
-The IBM Streams Messaging Toolkit is designed to get you connected to your messaging servers as quickly as possible. Kafka is an ideal messaging server for stream computing. This guide will get you sending and receiving messages in no time, and will highlight some of the best practices. We will also cover how to get the Kafka operators running in a consistent region. 
+The IBM Streams Kafka Toolkit is designed to get you connected to your messaging servers as quickly as possible. Kafka is an ideal messaging server for stream computing. This guide will get you sending and receiving messages in no time, and will highlight some of the best practices. We will also cover how to get the Kafka operators running in a consistent region. 
 
 
 
@@ -18,7 +18,7 @@ Readers of this guide are expected to have a basic understanding of Kafka and IB
 Prior to using Kafka operators, the following software must be installed and configured:
 
 * **IBM Streams** - A <a target="_blank" href="http://ibmstreams.github.io/streamsx.documentation//docs/4.1/qse-install-vm/">Quick Start Edition VM</a> is available for free. This guide assumes that you have a Streams domain and instance up and running. 
-* **Messaging Toolkit 4.0+** - You can download it from the IBM Streams GitHub Messaging Toolkit Repository <a target="_blank" href="https://github.com/IBMStreams/streamsx.messaging/releases">Release Page</a>.
+* **Kafka Toolkit** - You can download it from the IBM Streams GitHub Kafka Toolkit Repository <a target="_blank" href="https://github.com/IBMStreams/streamsx.kafka/releases">Release Page</a>.
 * **Kafka Brokers** - This guide assumes you are using Kafka 0.9 or above. To quickly get a Kafka server up and running, follow <a target="_blank" href="http://kafka.apache.org/documentation.html#quickstart">these directions</a>. 
 
 ## Information to Collect
@@ -33,20 +33,20 @@ host.name=myhost.mycompany.com
 ~~~~~~
 
 ## Steps - Send and Receive Messages
-2. **Configure the SPL compiler to find the messaging toolkit directory. Use one of the following methods.**
+2. **Configure the SPL compiler to find the Kafka toolkit directory. Use one of the following methods.**
    * *Set the STREAMS_SPLPATH environment variable to the root directory of the toolkit (with : as a separator)*
 
-        `export STREAMS_SPLPATH=\<messaging-toolkit-location\>/com.ibm.streamsx.messaging:$STREAMS_SPLPATH`
+        `export STREAMS_SPLPATH=\<messaging-toolkit-location\>/com.ibm.streamsx.kafka:$STREAMS_SPLPATH`
 
    * *Specify the -t or --spl-path command parameter when you run the sc command.*
 
-     `sc -t $STREAMS_INSTALL/toolkits/com.ibm.streamsx.messaging -M MyMain`
+     `sc -t $STREAMS_INSTALL/toolkits/com.ibm.streamsx.kafka -M MyMain`
 
-   * *If  Streams Studio is used to compile and run SPL application, add messaging toolkit to toolkit locations in Streams Explorer by following [these directions](http://www.ibm.com/support/knowledgecenter/SSCRJU_4.1.1/com.ibm.streams.studio.doc/doc/tusing-working-with-toolkits-adding-toolkit-locations.html?lang=en).*
+   * *If  Streams Studio is used to compile and run SPL application, add Kafka toolkit to toolkit locations in Streams Explorer by following [these directions](http://www.ibm.com/support/knowledgecenter/SSCRJU_4.1.1/com.ibm.streams.studio.doc/doc/tusing-working-with-toolkits-adding-toolkit-locations.html?lang=en).*
 
-2. **Create an SPL application and add a toolkit dependency on the Messaging toolkit in your application.** You can do this by [editing the application dependency](http://www.ibm.com/support/knowledgecenter/SSCRJU_4.1.1/com.ibm.streams.studio.doc/doc/tcreating-spl-toolkit-app-elements-edit-toolkit-information-dependencies.html) in Streams Studio, or by creating/editing the info.xml for the application and adding the dependency directly (you can also just start with the <a target="_blank" href="https://github.com/IBMStreams/streamsx.messaging/tree/master/samples/KafkaSample">KafkaSample</a> to skip this and the following step). 
+2. **Create an SPL application and add a toolkit dependency on the Kafka toolkit in your application.** You can do this by [editing the application dependency](http://www.ibm.com/support/knowledgecenter/SSCRJU_4.1.1/com.ibm.streams.studio.doc/doc/tcreating-spl-toolkit-app-elements-edit-toolkit-information-dependencies.html) in Streams Studio, or by creating/editing the info.xml for the application and adding the dependency directly (you can also just start with the <a target="_blank" href="https://github.com/IBMStreams/streamsx.kafka/tree/master/samples/KafkaSample">KafkaSample</a> to skip this and the following step). 
 
-    Sample info.xml from the <a target="_blank" href="https://github.com/IBMStreams/streamsx.messaging/tree/master/samples/KafkaSample">KafkaSample</a>:
+    Sample info.xml from the <a target="_blank" href="https://github.com/IBMStreams/streamsx.kafka/tree/master/samples/KafkaSample">KafkaSample</a>:
    
    <pre><code>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
 &lt;info:toolkitInfoModel xmlns:common=&quot;http://www.ibm.com/xmlns/prod/streams/spl/common&quot; xmlns:info=&quot;http://www.ibm.com/xmlns/prod/streams/spl/toolkitInfo&quot;&gt;
@@ -58,22 +58,22 @@ host.name=myhost.mycompany.com
   &lt;/info:identity&gt; 
   <b style="color:blue">&lt;info:dependencies&gt;
         &lt;info:toolkit&gt;
-          &lt;common:name&gt;com.ibm.streamsx.messaging&lt;/common:name&gt;
+          &lt;common:name&gt;com.ibm.streamsx.kafka&lt;/common:name&gt;
           &lt;common:version&gt;[3.0.0,6.0.0)&lt;/common:version&gt;
         &lt;/info:toolkit&gt;
   &lt;/info:dependencies&gt;</b>
 &lt;/info:toolkitInfoModel&gt;
 </code></pre>
    
-3. **Add the Kafka operator use directives to your application.** If Streams Studio is used, this directive is automatically added when dragging and dropping a Kafka operator onto SPL application in the graphical editor (if you start with a sample from the messaging toolkit, this step is already done for you).  
+3. **Add the Kafka operator use directives to your application.** If Streams Studio is used, this directive is automatically added when dragging and dropping a Kafka operator onto SPL application in the graphical editor (if you start with a sample from the Kafka toolkit, this step is already done for you).  
 
-	`use com.ibm.streamsx.messaging.kafka::*;`
+	`use com.ibm.streamsx.kafka::*;`
 	
 	or
 	
-	`use com.ibm.streamsx.messaging.kafka::KafkaProducer;`
+	`use com.ibm.streamsx.kafka::KafkaProducer;`
 	
-	`use com.ibm.streamsx.messaging.kafka::KafkaConsumer;`
+	`use com.ibm.streamsx.kafka::KafkaConsumer;`
 
 5. **Configure the Kafka Producer to send messages to a Kafka Broker.** You must:
     * **Create a producer.properties file and place it in the `etc` directory of your application.** This ensures that it will be included in the .sab application bundle (important for cloud and HA deployment). The following is a sample producer.properties file. See <a target="_blank" href="http://kafka.apache.org/documentation.html#producerconfigs">here</a> for more producer configuration details.
@@ -85,7 +85,7 @@ host.name=myhost.mycompany.com
     * **Specify the Kafka topic to send messages to.** This can be done via the rstring topic attribute in the incoming tuple or you can specify this using the topic parameter in the KafkaProducer (see the highlighted code in the beacon operator below). 
 
 
-    Here is the sample beacon and KafkaProducer code from the <a target="_blank" href="https://github.com/IBMStreams/streamsx.messaging/tree/master/samples/KafkaSample">KafkaSample</a>:
+    Here is the sample beacon and KafkaProducer code from the <a target="_blank" href="https://github.com/IBMStreams/streamsx.kafka/tree/master/samples/KafkaSample">KafkaSample</a>:
 
     <pre><code>//create some messages and send to KafkaProducer
     stream&lt;<b style="color:blue">rstring topic, rstring key, rstring message</b>&gt; OutputStream = Beacon() {
@@ -121,7 +121,7 @@ group.id=mygroup</code></pre>
         
         `topic: "topic1" , "topic2" , "topic3";`
     
-	Here is the KafkaConsumer operator from the <a target="_blank" href="https://github.com/IBMStreams/streamsx.messaging/tree/master/samples/KafkaSample">KafkaSample</a>: 
+	Here is the KafkaConsumer operator from the <a target="_blank" href="https://github.com/IBMStreams/streamsx.kafka/tree/master/samples/KafkaSample">KafkaSample</a>: 
 
 	<pre class="source-code"><code>stream&lt;rstring key, rstring message&gt; KafkaStream = KafkaConsumer()
     {
@@ -191,6 +191,5 @@ If you would like to consume in parallel within a consistent region, check out t
 You can use the Streams Kafka operators to produce to and consume from the Kafka-based <a target="_blank" href="https://developer.ibm.com/messaging/message-hub/">Message Hub</a> Bluemix service. For a complete guide on how to do this, check out <a href="https://www.ibm.com/blogs/bluemix/2015/10/streaming-analytics-message-hub-2/" target="_blank">this great article</a>. 
 
 ## Additional Resources
-* <a target="_blank" href="http://ibmstreams.github.io/streamsx.messaging/com.ibm.streamsx.messaging/doc/spldoc/html/index.html">Streams Messaging Toolkit SPLDoc</a>
+* <a target="_blank" href="https://ibmstreams.github.io/streamsx.kafka/doc/spldoc/html/index.html">Streams Kafka Toolkit SPLDoc</a>
 * <a target="_blank" href="http://kafka.apache.org/documentation.html">Kafka Documentation website</a>
-* <a target="_blank" href="https://github.com/IBMStreams/streamsx.messaging/blob/master/performance/KafkaPerformanceSummary.pdf">Kafka Streams Performance Summary</a>
