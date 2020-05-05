@@ -7,7 +7,7 @@ publisehd: true
 ---
 
 ## Introduction
- Streams messaging toolkit provides operators for sending and receiving messages from WebSphere MQ. This article shows a simple sample for creating WebSphere MQ administered objects and generating bindings file.
+ Streams JMS toolkit provides operators for sending and receiving messages from WebSphere MQ. This article shows a simple sample for creating WebSphere MQ administered objects and generating bindings file.
 
 ## Skill Level
 Readers of this article is expected to have basic understanding WebSphere MQ.
