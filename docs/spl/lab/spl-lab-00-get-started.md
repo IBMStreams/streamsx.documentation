@@ -134,21 +134,40 @@ software is already installed on the Quick Start Edition image:
 
 -   CentOS Linux release 7.7 (64-bit)
 -   IBM Streams Quick Start Edition 4.3.1.1, including Streams Studio
-
-The Quick Start Edition Image has the following configuration:
-
-  Parameter                   Value
-  --------------------------- -------------------------------------------
-  Host name                   streamsqse (streamsqse.localdomain)
-  User and administrator ID   streamsadmin (logged in automatically)
-  User home directory         /home/streamsadmin
-  User password               passw0rd (password with a zero for the O)
-  root password               passw0rd
-  Streams domain              StreamsDomain (started automatically)
-  Streams instance            StreamsInstance (started automatically)
-
-\
-
+<table width="60%">
+<tbody><tr>
+<th>Parameter</th>
+<th>Value</th>
+</tr>
+<tr>
+<td>Host name</td>
+<td>streamsqse (streamsqse.localdomain)</td>
+</tr>
+<tr>
+<td>User and administrator ID</td>
+<td>streamsadmin (logged in automatically)</td>
+</tr>
+<tr>
+<td>User home directory</td>
+<td>/home/streamsadmin</td>
+</tr>
+<tr>
+<td>User password</td>
+<td>passw0rd (password with a zero for the O)</td>
+</tr>
+<tr>
+<td>root password</td>
+<td>passw0rd</td>
+</tr>
+<tr>
+<td>Streams domain</td>
+<td>StreamsDomain (started automatically)</td>
+</tr>
+<tr>
+<td>Streams instance</td>
+<td>StreamsInstance (started automatically)</td>
+</tr>
+</tbody></table>
 In the Quick Start Edition, a domain (StreamsDomain) and instance
 (StreamsInstance) are already created and automatically started. This
 means that everything you need to run and test your applications is
@@ -171,44 +190,39 @@ of domains and instances.
 
 System requirements
 -------------------
-
-+-----------------------+-----------------------+-----------------------+
-| Components            | Minimum requirements  | Comments              |
-+=======================+=======================+=======================+
-| Operating system      | 64-bit operating      | Docker is supported   |
-|                       | system that supports  | on the following      |
-|                       | VMDoware              | operating systems:    |
-|                       |                       |                       |
-|                       |                       | -   Apple Mac OS X    |
-|                       |                       | -   Linux             |
-|                       |                       | -   Microsoft Windows |
-+-----------------------+-----------------------+-----------------------+
-| Memory                | 8GB                   | The amount of memory  |
-|                       |                       | that is required by   |
-|                       |                       | IBM Streams depends   |
-|                       |                       | on the applications   |
-|                       |                       | that are developed    |
-|                       |                       | and deployed. This    |
-|                       |                       | minimum requirement   |
-|                       |                       | is based on the       |
-|                       |                       | memory requirements   |
-|                       |                       | of the Commodity      |
-|                       |                       | Purchasing sample     |
-|                       |                       | application and other |
-|                       |                       | samples that are      |
-|                       |                       | provided with the     |
-|                       |                       | product.              |
-+-----------------------+-----------------------+-----------------------+
-| Disk space            | 20GB                  |                       |
-+-----------------------+-----------------------+-----------------------+
-| Docker image          | Docker community      | Check the [Streams    |
-|                       | edition (Docker CE),  | QSE Docker            |
-|                       | available from Docker | page](https://hub.doc |
-|                       |                       | ker.com/r/ibmcom/stre |
-|                       |                       | ams-qse/)             |
-|                       |                       | for the latest        |
-|                       |                       | minimum requirements. |
-+-----------------------+-----------------------+-----------------------+
+<table>
+<tbody><tr>
+<th>Components</th>
+<th>Minimum requirements</th>
+<th>Comments</th>
+</tr>
+<tr>
+<td>Operating system</td>
+<td>64-bit operating system that supports VMDoware</td>
+<td>Docker is supported on the following operating systems: 
+<ul>
+<li>Apple Mac OS X</li>
+<li>Linux</li>
+<li>Microsoft Windows</li>
+</ul>
+</td>
+</tr>
+<tr>
+<td>Memory</td>
+<td>8GB</td>
+<td>The amount of memory that is required by IBM Streams depends on the applications that are developed and deployed. This minimum requirement is based on the memory requirements of the Commodity Purchasing sample application and other samples that are provided with the product.</td>
+</tr>
+<tr>
+<td>Disk space</td>
+<td>20GB</td>
+</tr>
+<tr>
+<td>Docker image</td>
+<td>Docker community edition (Docker CE), available from Docker</td>
+<td>Check the <a href="https://hub.docker.com/r/ibmcom/streams-qse/" target="_blank"> Streams QSE Docker page</a> for the latest minimum requirements.
+</td>
+</tr>
+</tbody></table>
 
 Before you begin
 ----------------

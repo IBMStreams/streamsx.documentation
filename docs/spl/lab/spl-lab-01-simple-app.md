@@ -311,14 +311,14 @@ Add operators to the application graph:
     is highlighted when you drop the next operator. If a Confirm
     Overwrite dialog appears, click **No** and try again.\
     If you drop the operator on the canvas outside the main composite,
-    the editor creates a new composite (called Comp\_1) and places the
+    the editor creates a new composite (called **Comp_1**) and places the
     operator inside. If that happens, undo the change (**Ctrl**+**Z** or
     click **Edit** \> **Undo Add Composite with Operator**) and try
     again.
 2.  Select each operator with a twisty (one at a time) and drag it into
     the **MyMainComposite** main composite. Ensure that the green
     handles appear before you let go. The editor names the operators
-    FileSink\_1, FileSource\_2, and Filter\_3.
+    **FileSink_1**, **FileSource_2**, and **Filter_3**.
 
 ## Add streams to your application graph
 
@@ -332,9 +332,9 @@ operator, which turns green when you hover over it, to complete the
 link. The two ports are now connected by a dashed line, which indicates
 that there is a stream, but its type is not yet defined.
 
-1.  Add a stream connecting FileSource\_2\'s output to Filter\_3\'s
+1.  Add a stream connecting **FileSource_2**\'s output to **Filter_3**\'s
     input.
-2.  Add another stream from Filter\_3 to FileSink\_1.
+2.  Add another stream from **Filter_3** to **FileSink_1**.
 3.  Click **Layout**, then **Fit to Content** to organize the graph.
 4.  Save your work (press **Ctrl**+**S** or the **Save** toolbar button,
     or click **File** \> **Save**).\
@@ -360,8 +360,8 @@ first. Tell the operators how to do their jobs later.
 
 To assign a name and a type to a stream:
 
-1.  Select the stream (dashed arrow) connecting FileSource\_2 and
-    Filter\_3. Sometimes you need to try a few times before the cursor
+1.  Select the stream (dashed arrow) connecting **FileSource_2** and
+    **Filter_3**. Sometimes you need to try a few times before the cursor
     catches the stream instead of selecting the enclosing main
     composite.
 
@@ -393,8 +393,8 @@ To assign a name and a type to a stream:
 5.  Under **Current Graph**, expand **Schemas**. This shows the
     LocationType type and the names of the two streams in the graph.
 6.  Select LocationType and drag it into the graph. Drop it onto the
-    Observations stream, which is the one between FileSource\_2 and
-    Filter\_3. Make sure that the stream's selection handles turn green
+    Observations stream, which is the one between **FileSource_2** and
+    **Filter_3**. Make sure that the stream's selection handles turn green
     as you hover before you let go as shown below:\
     ![](/streamsx.documentation/images/spl_lab_1/lab1step5-6dwc009.png)\
 
@@ -405,12 +405,12 @@ To assign a name and a type to a stream:
     entire schema with its attribute names and types.
 
 7.  Using the same drag and drop technique, assign the LocationType type
-    to the other stream between Filter\_3 and FileSink\_1. Select that
+    to the other stream between **Filter_3** and **FileSink_1**. Select that
     stream so that its properties show in the Properties view.
 8.  In the Properties view, General tab, rename the stream to
     `Filtered`.
 
-**Note**: There is still an error indicator on FileSink\_1 and because
+**Note**: There is still an error indicator on **FileSink_1** and because
 of that, on the main composite too. This is expected because you have
 not yet told the FileSink operator what file to write. You also need to
 provide details for the other operators.
@@ -418,7 +418,7 @@ provide details for the other operators.
 ## Specify operator properties
 With the streams fully defined, it is time to configure the operators.
 
-1.  In the graphical editor, select **FileSink\_1**.
+1.  In the graphical editor, select **FileSink_1**.
 2.  In the **Properties** view, click the **Param** tab.\
     This shows one mandatory parameter, file, with a placeholder value
     of `parameterValue` (not a valid value, hence the error marker).
@@ -440,7 +440,7 @@ With the streams fully defined, it is time to configure the operators.
     \
     ![](/streamsx.documentation/images/spl_lab_1/lab1step7-2dwc009.png)
 10. The FileSource operator needs to know what file to read. In the
-    graphical editor, select the **FileSource\_2** operator.
+    graphical editor, select the **FileSource_2** operator.
 11. In the **Properties** view (Param tab), click **Add**.
 12. In the **Select parameters** dialog, select **file** and **format**.
 13. Click **OK**.
@@ -451,7 +451,7 @@ With the streams fully defined, it is time to configure the operators.
 16. You have to tell the Filter operator what to filter on. Without a
     filter condition, it will simply copy every input tuple to the
     output.\
-    In the graphical editor, select **Filter\_3**.
+    In the graphical editor, select **Filter_3**.
 17. In the **Properties** view (Param tab), click **Add**.
 18. In the **Select parameters** dialog, select **filter**, and click
     **OK**.
@@ -546,7 +546,7 @@ Expand **default:StreamsInstance@StreamsDomain**. This shows a number
 of elements, but the only one you\'re interested in is the last one,
 which is the job you have just submitted (a running application is
 called a *job*):\
-0:my.name.space::MyMainComposite\_0.\
+0:my.name.space::MyMainComposite_0.\
 Its status should be Healthy. There is much information here about a job
 and its constituent operators and Processing Elements (PEs), but you are
 going to graphically explore it instead.\

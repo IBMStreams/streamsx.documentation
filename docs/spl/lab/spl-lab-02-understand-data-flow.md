@@ -59,7 +59,7 @@ To import the Streams project:
 10. In the editor palette, right-click **Toolkits**.
 11. In the context menu, clear **Show All Toolkits**.
 
-##  Add operators to enhance monitoring.html
+##  Add operators to enhance monitoring
 
 Two new operators are needed to make your application easier to monitor
 and debug. The Throttle operator copies tuples from input to output at a

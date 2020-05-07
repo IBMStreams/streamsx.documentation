@@ -116,17 +116,17 @@ avgSpeed float64</td>
 1.  Add the two required operators:
     1.  In the graphical editor\'s palette filter box, enter `agg`. Drag
         an **Aggregate** operator into the main composite. The editor
-        calls it Aggregate\_6. This is you main analytical operator.
+        calls it **Aggregate_6**. This is you main analytical operator.
     2.  In the palette filter, enter `filesink`. Drag a FileSink into
-        the main composite: FileSink\_7. This will let you write the
+        the main composite: **FileSink_7**. This will let you write the
         analytical results to a file.
 2.  Fold the two new operators into the graph by connecting one existing
     stream and adding another:
-    1.  Drag a stream from Filtered to Aggregate\_6. This means
-        Aggregate\_6 is tapping into the same stream that Writer is
+    1.  Drag a stream from Filtered to **Aggregate_6**. This means
+        **Aggregate_6** is tapping into the same stream that Writer is
         already consuming, so the schema is already defined. This is
         indicated in the editor by a solid arrow.
-    2.  Drag another stream from Aggregate\_6 to FileSink\_7. This
+    2.  Drag another stream from **Aggregate_6** to **FileSink_7**. This
         stream does not yet have a schema, so the arrow is dashed.
     3.  Click **Layout** and **Fit to Content**.
 3.  Rename the new stream and operators:
@@ -304,8 +304,8 @@ query to focus on just the jobs that are of interest to you.
 1.  In the title bar, click **Management Dashboard** \> **Open
     Dashboard** \> **Application Dashboard**.\
     \
-    <img src="/streamsx.documentation/images/spl_lab_1/lab3step3-1-bullet6dwc009.png" width="1000"></img>
-    height="900"}\
+    <img src="/streamsx.documentation/images/spl_lab_1/lab3step3-1-bullet6dwc009.png" width="1100" height="685"/>
+    <br/><br/>
     Some of the cards are equivalent to similar ones in the Management
     Dashboard:
     -   **Metrics Scatter Chart**: shows the same information as

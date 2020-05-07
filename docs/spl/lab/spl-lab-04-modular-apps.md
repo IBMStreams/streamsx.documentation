@@ -175,8 +175,8 @@ below.)
 5.  Configure the new FileSink operator. You\'ve used a FileSink in two
     previous labs, so refer to those if you forgot how to do it.
     1.  Rename the FileSink operator to `ErrWriter`.
-    2.  Set the following parameter values:\
-        \
+    2.  Set the following parameter values:
+        
 <table width="60%">
 		<tbody><tr>
 			<th>Parameter</th>
@@ -199,17 +199,9 @@ below.)
 			<td>false</td>
 		</tr>
 </tbody></table>
-        \
-        **Flushing buffered file writes**: FileSink performs buffered
-        file I/O, meaning that it writes to buffers maintained by system
-        libraries rather than directly to disk. These buffers are only
-        written out to disk (flushed) as they fill up, or when the
-        requesting application terminates. When the output is a slow
-        trickle, this can mean that you will not see anything in the
-        file for a long time. Setting flush to `2u` (the `u` is for
-        \"unsigned\" integer) guarantees that you will see data at least
-        in batches of two records.
-6.  Save, wait for the build to finish, launch the app, and verify that
+       
+  **Flushing buffered file writes**: FileSink performs buffered file I/O, meaning that it writes to buffers maintained by system libraries rather than directly to disk. These buffers are only written out to disk (flushed) as they fill up, or when the     requesting application terminates. When the output is a slow trickle, this can mean that you will not see anything in the file for a long time. Setting flush to `2u` (the `u` is for \"unsigned\" integer) guarantees that you will see data at least in batches of two records.
+6. Save, wait for the build to finish, launch the app, and verify that
     the original output files, filtered.cars and average.speeds, are
     being written to the data directory as before and that the new
     output file error.observations has at least two records in it after
@@ -230,17 +222,16 @@ outside world through file I/O, database connections, TCP ports, HTTP
 REST APIs, message queues, and so on.
 
 However, for Streams applications that run in the same instance, another
-mode of data exchange is possible: **Export** and **Import**. An
-application can export a stream, which makes it available to other
-applications running in the instance. One or more applications can
-import such a stream based on flexible criteria. After exported streams
-are connected, they behave like all the other streams that run between
+mode of data exchange is possible: **Export** and **Import**.
+
+1. An application *exports* a stream, making it available to other
+applications running in the instance. 
+2. One or more applications can *import* such a stream based on flexible criteria.
+3. After exported streams are connected, they behave like all the other streams that run between
 PEs in an application, and they are fast and flexible. It\'s only at the
 time a job is submitted or canceled that the runtime services get
 involved to see which links need to be made or broken. After that\'s
-done, there is no difference in runtime behavior (well, almost none, but
-the difference is beyond the scope of this lab), and there is no
-performance penalty.
+done, there is no performance impact. 
 
 But there is a tremendous gain in flexibility. Application stream
 connections can be made based on publish-and-subscribe criteria, and
@@ -308,14 +299,14 @@ Set up the new application (**FileIngest**) for stream export:
     completely arbitrary pairs of names and values. The idea is that an
     importing application can look for streams that satisfy a certain
     subscription, which is a set of properties that need to match.
-5.  The FileIngest application builds, but **MyMainComposite** still has
+5.  The **FileIngest** application builds, but **MyMainComposite** still has
     errors.
 
 Set up the original application for stream import:
 
 1.  In the palette, find the **Import** operator and drop it into the
     old main composite.
-2.  Drag a stream from Import\_11 to IDChecker**.**
+2.  Drag a stream from **Import_11** to **IDChecker**.
 3.  Assign a schema to this stream by dragging and dropping
     **LocationType** from the palette.
 4.  Rename the new stream to Observations. There is already another
