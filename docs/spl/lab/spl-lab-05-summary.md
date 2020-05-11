@@ -1,17 +1,17 @@
 ---
 layout: docs
-title:  Streams SPL Lab Summary
+title:  Tutorial Summary
 description: Summary and next steps
 weight:  60
 published: true
 tag: spl-lab
 prev:
   file: spl-lab-03-analytics
-  title: Lab 4 - Modularize your application 
+  title: Part 4 - Modularize your application 
 ---
 
 
-The labs in this course have barely scratched the surface of what
+This tutorial has barely scratched the surface of what
 Streams is capable of. Apart from a very small number of SPL
 expressions, no coding was involved in building a progressively more
 interesting application.
@@ -25,11 +25,11 @@ how the tuples flow, and setting some parameters in a property view,
 you've already crafted a simple yet reasonably powerful solution.
 
 ## Next steps
-After you complete the course, your next steps are to decide whether:
+After you complete the tutorial, your next steps are to decide whether:
 
 -   This application development platform for streaming data can help
     you build solutions that enhance your business
--   What you have seen in this course gives you a sense that it can help
+-   What you have seen in this tutorial gives you a sense that it can help
     solve problems you already encounter
 -   Your organization has access to the required development skills or
     should invest in building them

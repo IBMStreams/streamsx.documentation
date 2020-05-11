@@ -1,6 +1,6 @@
 ---
 layout: docs
-title: Streams SPL Lab 4 - Modularize your application
+title: Part 4 - Modularize your application
 description: Learn the best practice of using microservices to modularize your application.
 weight:  50
 published: true
@@ -10,7 +10,7 @@ next:
   title: Summary
 prev:
   file: spl-lab-03-analytics
-  title: Lab 3 - Apply advanced analytics
+  title: Part 3 - Apply advanced analytics
 ---
 
 Prepare for bringing in live streaming data by adding a test for
@@ -27,12 +27,11 @@ Watch this video for an overview.
 Prerequisites
 -------------
 
-If you successfully completed the previous lab, skip this section and go
-to Step 1.
+If you successfully completed the previous lab, skip to Step 1.
 
 If you did not successfully complete the previous lab, you can continue
 with this lab by importing a Streams project that has been prepared for
-you and that contains the expected results from Lab 3.
+you and that contains the expected results from Part 3.
 
 To import the Streams project:
 
@@ -173,7 +172,7 @@ below.)
         numbers with no suffix are 32-bit values and assigning one to a
         64-bit parameter would result in an error.
 5.  Configure the new FileSink operator. You\'ve used a FileSink in two
-    previous labs, so refer to those if you forgot how to do it.
+    previous sections, so refer to those if you forgot how to do it.
     1.  Rename the FileSink operator to `ErrWriter`.
     2.  Set the following parameter values:
         
@@ -240,7 +239,7 @@ module can evolve and be replaced, removed, or replicated without
 affecting the other modules. It keeps individual modules small and
 specialized.
 
-In the lab so far, you built a monolithic application, but there is a
+In this tutorial so far, you built a monolithic application, but there is a
 logical division. The front end of the application from DirectoryScan to
 Throttle reads data, in this case from files, and replays that data in a
 controlled fashion to make it look like a real-time feed.
@@ -250,7 +249,7 @@ out the results. If you split off the front end into a separate Ingest
 module, you can imagine that it\'s easy to have another module alongside
 it or as a replacement that produces tuples that have the same structure
 and similar contents but that come from a completely different source.
-And that is exactly what this lab will do: add another module that reads
+And that is exactly what this part of the tutorial  will do: add another module that reads
 a live data feed and makes the data available for processing by the rest
 of this application.
 
@@ -349,7 +348,7 @@ web services feed from NextBus.com and periodically (every 30 seconds)
 download the current locations, speeds, and headings of San Francisco
 Muni\'s buses and trams. That operator comes from a version of the
 com.ibm.streamsx.inet toolkit that is available only on GitHub. This
-toolkit was installed in your environment when you installed the lab
+toolkit was installed in your environment when you installed the tutorial
 files.
 
 The application parses, filters, and transforms the NextBus.com data and
@@ -456,8 +455,8 @@ about your data.
 ##  Optional_ Investigate back-pressure
 
 
-This section builds on your exploration of the Streams Console in Lab 3.
-It assumes that you have kept the job from Lab 3 running for at least 40
+This section builds on your exploration of the Streams Console in Part 3.
+It assumes that you have kept the job from Part 3 running for at least 40
 minutes. To proceed, go back to the Application Dashboard in the Streams
 Console.
 
@@ -514,7 +513,7 @@ You should also know how to use additional dynamically connected modules
 from an existing Streams project to connect to the live data source and
 to display the moving vehicles on a map.
 
-##  Lab 4 solution 
+##  Solution 
 
 ### Part 1
 <iframe src="https://youtube.com/embed/kUHorp8u3wE" height="420" width="750" ></iframe>

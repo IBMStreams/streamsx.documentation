@@ -1,7 +1,7 @@
 ---
 layout: docs
-title:  Streams SPL Lab - Overview
-description: Overview and getting started with the Streams Lab.
+title:  Streams and Streams Studio Tutorial
+description: Overview and getting started with SPL and Streams Studio
 weight:  10
 published: true
 tag: spl-lab
@@ -17,12 +17,10 @@ specifically, Streams Studio.
 You'll build and enhance a simple application based on a connected-car automotive scenario in which you
 track vehicle locations and speeds (and other variables).
 
-Although the underlying Streams Processing Language (SPL) code is always
-accessible, this course requires no programming and does not describe
-the syntax and other features of SPL.
+Although the underlying Streams Processing Language (SPL) code is always accessible, this tutorial requires no programming and does not describe the syntax and other features of SPL.
 
 ## Learning Objectives
-This course shows you:
+This tutorial shows you:
 
 -   The basics of stream computing, the fundamental concepts of IBM
     Streams, and the IBM Streams runtime environment
@@ -34,73 +32,70 @@ This course shows you:
 -   How to use the data visualization capabilities in the Streams
     Console
 
-This course includes four labs that help you to learn the capabilities
+This tutorial has four parts that help you to learn the capabilities
 of IBM Streams:
 
-**Lab 1**
+**Part 1**
 
-Build a simple IBM Streams application. Then, run it in the Streams
-runtime environment and inspect the results.
+Build a simple IBM Streams application. Then, run it in the Streams runtime environment and inspect the results.
 
-**Lab 2**
+**Part 2**
 
 Enhance the application by adding the ability to read multiple files
 from a given directory and slow down the flow so that you can watch
 things happen.
 
-**Lab 3**
+**Part 3**
 
 Add an operator to your application to compute the average speed every
 five observations, separately for two cars. Use the Streams Console to
 visualize results.
 
-**Lab 4**
+**Part 4**
 
 Use exported application streams to create a modular application. Bring
 in live vehicle location data. Show the live and simulated location data
 on a map.
 
 ## Prerequisites
-This course is for software developers who have a working knowledge of:
+This tutorial is for software developers who have a working knowledge of:
 
 -   At least one or more programming languages, such as Java, Go,
     JavaScript, C\#, Python, or Ruby
 -   Common data structures such as string and integer
 -   Database records and some SQL
 
-Download and install [IBM Streams Quick Start
-Edition](https://ibm.co/streamsqs). The Docker image Version 4.3 is the
-recommended version, you can download the Quick Start Edition native
-installation, Version 4.3.\
+Download and install [IBM Streams Quick Start Edition](https://ibm.co/streamsqs). The Docker image Version 4.3 is the
+recommended version, you can download the Quick Start Edition native installation, Version 4.3.
+
 You need an IBM id to download the Quick Start Editions, and you\'ll
 need to sign up for this offering.
 
-Then, install the [lab ZIP
+Then, install the [tutorial ZIP
 file](https://github.com/IBMStreams/tutorials/raw/master/OnlineCourse_IntroToStreams/labfiles.zip)
 from GitHub
 
 You aren\'t required to use the Quick Start Edition virtual machine. You
-can install and run the lab in any other environment with an IBM
+can install and run the application in any other environment with an IBM
 Streams, Version 4.3 installation.
 
 However, some components might look different, depending on how closely
 your environment matches the Quick Start virtual machine setup described
-in this course. Additionally, your environment might not have the
+in this tutorial. Additionally, your environment might not have the
 desktop launchers that are used to start the different tools used in
-this lab.
+this tutorial.
 
-The instructions for the labs are based on IBM Streams Quick Start
-Edition VM.
+The instructions are based on IBM Streams Quick Start Edition VM.
 
-To encourage experimentation and exploration, the lab package includes
-prebuilt projects that include the final working version of each lab.
+To encourage experimentation and exploration, the tutorial package includes
+prebuilt projects that include the final working version of each part.
 Therefore, you can experiment and get yourself in trouble any way that
-you like in any lab or section and still go on to the next lab simply by
+you like in any section and still go on to the next section simply by
 importing one of the provided projects.
 Overview
 --------
 
-To complete the labs in this course, you need to install version 4.3.1.l
+To complete the tutorials, you need to install version 4.3.1.l
 of the the IBM Streams v4 Quick Start Edition. You can choose one of the
 following options:
 
@@ -114,9 +109,9 @@ The Quick Start Edition is available only in English.
 Alternative environments
 ------------------------
 
-The instructions for these labs are based on IBM Streams Quick Start
+The instructions are based on IBM Streams Quick Start
 Edition (QSE). However, you aren\'t required to use the QSE Docker
-image. You can install and run the lab in any other environment with a
+image. You can install and run the tutorial in any other environment with a
 current Streams installation.
 
 If you don\'t use the QSE, some components might look different,
@@ -124,7 +119,7 @@ depending on how closely your environment matches the QSE virtual
 machine setup described above.
 
 Additionally, your environment might not have the launcher that is used
-to start the different tools used in these labs.
+to start the different tools used in these tutorial.
 
 ## Install the Quick Start Edition
 
@@ -185,8 +180,7 @@ where you can submit applications to. It consists of a small number of
 additional services, for example, a resource manager, an application
 manager, and a scheduler.
 
-The labs in this course do not explore the creation and administration
-of domains and instances.
+This tutorial doeds not explore the creation and administration of domains and instances. See the [documentation](https://www.ibm.com/support/knowledgecenter/en/SSCRJU/SSCRJU_welcome.html) for your Streams version for more information.
 
 System requirements
 -------------------
@@ -250,15 +244,14 @@ Procedure
 DockerHub](https://hub.docker.com/r/ibmcom/streams-qse) for installation
 instructions.
 
-## Install the lab
-After you start the Quick Start VM image, you need to install the lab
-projects, data files, and toolkits.
+## Install the tutorial projects
+After you start the Quick Start VM image, you need to install the needed projects, data files, and toolkits.
 
 You must have Internet access from your virtual machine (VM).
 
-To install the lab package on the Linux VM:
+To install the tutorial package on the Linux VM:
 
-1.  From your VM, download the [lab ZIP
+1.  From your VM, download the [tutorial ZIP
     file](https://github.com/IBMStreams/tutorials/raw/master/OnlineCourse_IntroToStreams/labfiles.zip)
     (GitHub). Then, extract the files.
 2.  Extract the files to streamsadmin home folder.
@@ -276,7 +269,7 @@ To install the lab package on the Linux VM:
     installation log, and an uninstall script in your home folder (in
     addition to any files already there before you started).\
     The uninstall script, IntroLab\_4.1.1\_Uninstall.sh, removes all
-    installed files related to this lab, including toolkits, data, and
+    installed files related to this tutorial, including toolkits, data, and
     desktop launchers. It does not remove any work you might have done
     in projects in your own Streams Studio workspace. Use this script if
     you want to clean up your environment later.
@@ -292,7 +285,7 @@ Ant](http://ant.apache.org/bindownload.cgi) (1.8 or later) or [Apache
 Maven](http://maven.apache.org/download.cgi#Installation) (3.2 or later)
 installed in your environment, the installation will fail. These two
 utilities are required to build the Internet Toolkit, which is used in
-the final lab. Explaining exactly how to install these utilities is
+the final tutorial. Explaining exactly how to install these utilities is
 beyond the scope of this document. Other causes of failure might be that
 files cannot be written into subdirectories due to such as permission
 problems, pre-existing files, and insufficient disk space.
@@ -310,7 +303,7 @@ and can help you to identify problems.
 
 ### Check your results
 
-If you successfully installed the lab files, your desktop should look
+If you successfully installed the tutorial files, your desktop should look
 like this:
 
 !<img src="/streamsx.documentation/images/spl_lab_1/labprereq_check_results-dwc009.png" width="600"></img>
@@ -428,7 +421,7 @@ quick navigation.
 in another view. You can change these values here.
 
 **Problems:** Logs problems or errors such as syntax errors, grouped by
-severity. This will not be used in this course.
+severity. This will not be used in this tutorial.
 
 ** **
 

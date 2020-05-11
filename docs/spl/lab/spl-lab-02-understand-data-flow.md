@@ -1,16 +1,16 @@
 ---
 layout: docs
-title:  Streams SPL Lab 2 - Understand the flow of data
+title: Part 2 - Understand the flow of data
 description: Learn how to observe streaming data as it moves through the application
 weight:  30
 published: true
 tag: spl-lab
 prev:
-  file: spl-lab-01-get-started
-  title: Prerequisites
+  file: spl-lab-01-simple-app
+  title: Part 1 - Develop a simple app
 next:
   file: spl-lab-03-analytics
-  title: Lab 3 - Add analytics
+  title: Part 3 - Add analytics
 ---
 
 
@@ -32,12 +32,11 @@ This video gives an introduction.
 Prerequisites
 -------------
 
-If you successfully completed the previous lab, skip this section and go
-to the next step, \"Add operators to enhance monitoring.\"
+If you successfully completed the previous tutorial, skip to the next step, \"Add operators to enhance monitoring.\"
 
 If you did not successfully complete the previous lab, you can import a
 Streams project that has been prepared for you and that contains the
-expected results from Lab 1.
+expected results from Part 1.
 
 To import the Streams project:
 
@@ -90,7 +89,7 @@ result.
     To straighten out the graph, click Layout and Fit to Content.
 6.  Rename the new stream to `Throttled`. Rename the operator to the
     name of the stream by blanking out its alias. (That\'s in the
-    General tab of the Properties view; review Lab 1 if you forgot how
+    General tab of the Properties view; review Part 1 if you forgot how
     to get there.)
 7.  Drag a stream from the output of DirectoryScan\_4 to the input of
     Observations.
@@ -236,6 +235,6 @@ for monitoring and examining the running application.
 You also know how to slow down the flow so that you can more easily view
 the data.
 
-## Lab solution
+## Part solution
 <iframe src="https://youtube.com/embed/eUqiSeP4MgI" height="420" width="750" ></iframe>
 

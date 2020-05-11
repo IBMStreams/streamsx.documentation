@@ -1,16 +1,16 @@
 ---
 layout: docs
-title:  Streams SPL Lab 3 - Apply enhanced analytics
+title:  Part 3 - Apply enhanced analytics
 description: Update the application to compute the rolling avearge speed for each vehicle.
 weight:  40
 published: true
 tag: spl-lab
 prev:
   file: spl-lab-02-understand-data-flow
-  title: Lab 2 - Understand the flow of data
+  title: Part 2 - Understand the flow of data
 next:
   file: spl-lab-04-modular-apps
-  title: Lab 4 - Modularize your application
+  title: Part 4 - Modularize your application
 ---
 
 In this lab, you will enhance the app you\'ve built by adding an
@@ -41,7 +41,7 @@ to Step 1.
 
 If you did not successfully complete the previous lab, you can continue
 with this lab by importing a Streams project that has been prepared for
-you and that contains the expected results from Lab 2.
+you and that contains the expected results from Part 2.
 
 To import the Streams project:
 
@@ -342,7 +342,7 @@ query to focus on just the jobs that are of interest to you.
 2.  Leave the job or jobs running.
 
 Continue with the next lab. You will come back to the Console and your
-running job at the end of Lab 4 to learn more about a concept called
+running job at the end of Part 4 to learn more about a concept called
 back-pressure, which is unique to stream processing.
 
 ## Monitor jobs 
@@ -367,7 +367,7 @@ back-pressure, which is unique to stream processing.
     affect throughput performance. A bottleneck is an operator that
     limits the flow of tuples, usually because it cannot process any
     more tuples per second with the CPU cycles it has. If you do the
-    optional section on back-pressure at the end of Lab 4, you will see
+    optional section on back-pressure at the end of Part 4, you will see
     that the Throttle operator is the cause of congestion that builds up
     over time.
 
@@ -378,7 +378,7 @@ adding an operator to compute an average speed over every five
 observations, separately for each vehicle tracked and how to monitor the
 results in the Streams Console.
 
-## Lab solution video 
+## Solution video 
 
 ### Part 1
 <iframe src="https://youtube.com/embed/RVKIGV_Wo4E" height="420" width="750" ></iframe>

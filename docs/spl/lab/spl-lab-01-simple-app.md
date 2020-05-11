@@ -1,6 +1,6 @@
 ---
 layout: docs
-title:  Streams SPL Lab 1 - Develop a simple application
+title:  Part 1 - Develop a simple application
 description: Create a streaming application 
 weight:  20
 published: true
@@ -10,10 +10,10 @@ prev:
   title: Prerequisites
 next:
   file: spl-lab-02-understand-data-flow
-  title: Lab 2 - Understand the flow of data
+  title: Part 2 - Understand the flow of data
 ---
 
-In this lab, you will develop an application for a simple scenario: read vehicle location,
+In this section, you will develop an application for a simple scenario: read vehicle location,
 speed, and other sensor data from a file, look for observations of a
 specific few vehicles, and write the selected observations to another
 file.
@@ -46,7 +46,7 @@ a main composite.
 
 In Streams, a main composite is an application. Usually, each main
 composite lives in its own source file (of the same name), but this is
-not required. This lab does not explore composite operators or what
+not required. This section does not explore composite operators or what
 distinguishes a main composite from any other composite.
 
 To create a project and a main composite:
@@ -80,7 +80,7 @@ To create a project and a main composite:
 
 **Tip for adding space**: If you want to give the editor more space,
 close the Outline view, and collapse the Layers and Color Schemes
-palettes. (This lab does not use them.)
+palettes. (This section does not use them.)
 
 ## Review the project explorer
 
@@ -105,7 +105,7 @@ all the projects in the workspace.
     contain descriptions of the current application or toolkit. (In
     Streams, toolkit and application are the same in terms of project
     organization and metadata.)\
-    The only directory you will use in this lab is the data directory.
+    The only directory you will use in this section is the data directory.
     By default, build configurations in Streams Studio specify this as
     the root for any relative path names (paths that do not begin with a
     forward slash \"/\") for input and output data files.
@@ -248,7 +248,7 @@ Filtered (after filter)</td>
 </tbody></table>
 
 With this information, you can create the entire application. You will
-use the graphical editor. There will be no SPL coding in this lab.
+use the graphical editor. There will be no SPL coding in this part of the tutorial.
 
 **Tip for seeing the code**: If you want to see SPL code for what you
 are creating, right-click anywhere in the graphical editor and select
@@ -286,7 +286,7 @@ in the toolbar to control the zoom level.
 Before you add to the graph, reduce some clutter in the palette.
 
 Initially, the list of toolkits is long because it shows all toolkits
-that Streams Studio knows about. The preconfigured lab workspace
+that Streams Studio knows about. The preconfigured tutorial  workspace
 includes all toolkits installed with Streams. For now, you will not use
 any of those toolkits (and you have not declared any dependencies), so
 it is not helpful to have them in the palette.
@@ -609,6 +609,6 @@ back to a position among the other tabs or close it.\
 \
 ![](/streamsx.documentation/images/spl_lab_1/lab1step8-8cdwc009.png)
 
-## Lab 1 solution
+## Part 1 solution
 
 <iframe src="https://youtube.com/embed/K_Iahz6y01c" height="420" width="750" ></iframe>
