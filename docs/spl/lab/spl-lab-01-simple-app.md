@@ -210,7 +210,7 @@ To define a stream type:
     capture:\
     \
     <img src="/streamsx.documentation/images/spl_lab_1/lab1step3-6dwc009.png" width="350"></img>
-    height="200"}\
+   
     The tuple type LocationType is now available for you to use as a
     stream type in any main composite within the namespace
     my.name.space.
