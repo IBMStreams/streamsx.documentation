@@ -58,60 +58,25 @@ in live vehicle location data. Show the live and simulated location data
 on a map.
 
 ## Prerequisites
+
 This tutorial is for software developers who have a working knowledge of:
 
 -   At least one or more programming languages, such as Java, Go,
-    JavaScript, C\#, Python, or Ruby
--   Common data structures such as string and integer
--   Database records and some SQL
+    JavaScript, C\#, Python, or Ruby.
+-   Common data structures such as string and integer.
+-   Database records and some SQL.
 
-Download and install [IBM Streams Quick Start Edition](https://ibm.co/streamsqs). The Docker image Version 4.3 is the
-recommended version, you can download the Quick Start Edition native installation, Version 4.3.
+### Required Software
 
-You need an IBM id to download the Quick Start Editions, and you\'ll
-need to sign up for this offering.
+#### (Optional) Install the Streams Quick Start Edition
 
-Then, install the [tutorial ZIP
-file](https://github.com/IBMStreams/tutorials/raw/master/OnlineCourse_IntroToStreams/labfiles.zip)
-from GitHub
+You need an instance of IBM Streams to complete the tutorial.
 
-You aren\'t required to use the Quick Start Edition virtual machine. You
-can install and run the application in any other environment with an IBM
-Streams, Version 4.3 installation.
+If you do not have one, you can download the free Streams Quick Start Edition.  
 
-However, some components might look different, depending on how closely
-your environment matches the Quick Start virtual machine setup described
-in this tutorial. Additionally, your environment might not have the
-desktop launchers that are used to start the different tools used in
-this tutorial.
+The instructions in this tutorial are based on the IBM Streams Quick Start Edition (QSE).
 
-The instructions are based on IBM Streams Quick Start Edition VM.
-
-To encourage experimentation and exploration, the tutorial package includes
-prebuilt projects that include the final working version of each part.
-Therefore, you can experiment and get yourself in trouble any way that
-you like in any section and still go on to the next section simply by
-importing one of the provided projects.
-Overview
---------
-
-To complete the tutorials, you need to install version 4.3.1.l
-of the the IBM Streams v4 Quick Start Edition. You can choose one of the
-following options:
-
--   [IBM Streams Quick Start Edition (QSE) Docker
-    Image](https://hub.docker.com/r/ibmcom/streams-qse/)(recommended)
--   [IBM Streams Quick Start Edition (QSE) native
-    installation](https://ibm.co/streamsqs)
-
-The Quick Start Edition is available only in English.
-
-Alternative environments
-------------------------
-
-The instructions are based on IBM Streams Quick Start
-Edition (QSE). However, you aren\'t required to use the QSE Docker
-image. You can install and run the tutorial in any other environment with a
+However, you aren\'t required to use the QSE Docker image. You can install and run the tutorial in any other environment with a
 current Streams installation.
 
 If you don\'t use the QSE, some components might look different,
@@ -121,14 +86,30 @@ machine setup described above.
 Additionally, your environment might not have the launcher that is used
 to start the different tools used in these tutorial.
 
-## Install the Quick Start Edition
 
-You have different options about what to install, but it\'s recommended
-that you install the Quick Start Edition virtual machine. The following
-software is already installed on the Quick Start Edition image:
+
+Choose one of the following options to install the IBM Streams Quick Start Edition:
+
+-   [IBM Streams Quick Start Edition (QSE) Docker
+    Image](/streamsx.documentation/docs/4.3/qse-install-docker/) (Recommended)
+-   [IBM Streams Quick Start Edition (QSE) native
+    installation](https://ibm.co/streamsqs)
+
+The Quick Start Edition is available only in English.
+
+
+Quick Start Edition information
+----------------
+
+After your installation is complete, your Streams ID for the Quick Start Edition is `streamsadmin`, and your
+password is `passw0rd`. The root ID password is also `passw0rd`.
+
+The following software is already installed on the Quick Start Edition image:
 
 -   CentOS Linux release 7.7 (64-bit)
 -   IBM Streams Quick Start Edition 4.3.1.1, including Streams Studio
+
+
 <table width="60%">
 <tbody><tr>
 <th>Parameter</th>
@@ -163,6 +144,9 @@ software is already installed on the Quick Start Edition image:
 <td>StreamsInstance (started automatically)</td>
 </tr>
 </tbody></table>
+
+<br/>
+
 In the Quick Start Edition, a domain (StreamsDomain) and instance
 (StreamsInstance) are already created and automatically started. This
 means that everything you need to run and test your applications is
@@ -180,95 +164,49 @@ where you can submit applications to. It consists of a small number of
 additional services, for example, a resource manager, an application
 manager, and a scheduler.
 
-This tutorial doeds not explore the creation and administration of domains and instances. See the [documentation](https://www.ibm.com/support/knowledgecenter/en/SSCRJU/SSCRJU_welcome.html) for your Streams version for more information.
+This tutorial does not explore the creation and administration of domains and instances. See the [documentation](https://www.ibm.com/support/knowledgecenter/en/SSCRJU/SSCRJU_welcome.html) for your Streams version for more information.
 
-System requirements
--------------------
-<table>
-<tbody><tr>
-<th>Components</th>
-<th>Minimum requirements</th>
-<th>Comments</th>
-</tr>
-<tr>
-<td>Operating system</td>
-<td>64-bit operating system that supports VMDoware</td>
-<td>Docker is supported on the following operating systems: 
-<ul>
-<li>Apple Mac OS X</li>
-<li>Linux</li>
-<li>Microsoft Windows</li>
-</ul>
-</td>
-</tr>
-<tr>
-<td>Memory</td>
-<td>8GB</td>
-<td>The amount of memory that is required by IBM Streams depends on the applications that are developed and deployed. This minimum requirement is based on the memory requirements of the Commodity Purchasing sample application and other samples that are provided with the product.</td>
-</tr>
-<tr>
-<td>Disk space</td>
-<td>20GB</td>
-</tr>
-<tr>
-<td>Docker image</td>
-<td>Docker community edition (Docker CE), available from Docker</td>
-<td>Check the <a href="https://hub.docker.com/r/ibmcom/streams-qse/" target="_blank"> Streams QSE Docker page</a> for the latest minimum requirements.
-</td>
-</tr>
-</tbody></table>
-
-Before you begin
-----------------
-
-Your Streams ID for the Quick Start Edition is `streamsadmin`, and your
-password is `passw0rd`. The root ID password is also `passw0rd`.
 
 ### Performance notes
 
--   By default, the Quick Start Edition virtual machine is configured to
+-   By default, the Quick Start Edition image is configured to
     have four processor cores and 8GB of memory. Depending on your
     system resources and the applications that you develop and deploy,
     you might be able to improve performance by allocating more
-    processor cores and memory to the virtual machine. You can adjust
-    the processor and memory configuration by updating your virtual
-    machine settings. For example, to update these settings for Docker,
+    processor cores and memory to the image. You can adjust
+    the processor and memory configuration by updating your settings. For example, to update these settings for Docker,
     click **Settings** \> **Resources**.
 
-Procedure
----------
 
-### Docker image
+## Install the tutorial projects 
 
-[See the Streams QSE page on
-DockerHub](https://hub.docker.com/r/ibmcom/streams-qse) for installation
-instructions.
+Next, you need to install the tutorial package that contains the needed projects, data files, and toolkits.
 
-## Install the tutorial projects
-After you start the Quick Start VM image, you need to install the needed projects, data files, and toolkits.
+To encourage experimentation and exploration, the tutorial package includes prebuilt projects that include the final working version of each part. Therefore, you can experiment and get yourself in trouble any way that you like in any section and still go on to the next section simply by importing one of the provided projects. 
 
-You must have Internet access from your virtual machine (VM).
+You must have Internet access from the system where Streams is installed. 
 
-To install the tutorial package on the Linux VM:
+
+To install the tutorial package on the QSE:
 
 1.  From your VM, download the [tutorial ZIP
     file](https://github.com/IBMStreams/tutorials/raw/master/OnlineCourse_IntroToStreams/labfiles.zip)
     (GitHub). Then, extract the files.
-2.  Extract the files to streamsadmin home folder.
-3.  Double-click the **IntroLab\_Install.sh** shell script. Then, click
-    **Run in terminal**.\
+2.  Extract the files to `streamsadmin` home folder.
+3.  Open a terminal to the folder where the  **IntroLab\_Install.sh** shell script from the package is saved.
+4.  Execute the script: ` ./IntroLab_Install.sh` 
     Detailed progress messages are written to the IntroLab\_Install.log
     file (in the same folder).\
     The installation will take about five minutes, depending on the
     speed of your Internet connection. The installation program builds a
     required toolkit, which involves downloading additional components.
-4.  When the installation is complete, press any key to terminate the
+5.  When the installation is complete, press any key to terminate the
     script and close the terminal.\
     The script removes itself and the installation files archive, so
     after successful completion you have only the downloaded file, the
     installation log, and an uninstall script in your home folder (in
     addition to any files already there before you started).\
-    The uninstall script, IntroLab\_4.1.1\_Uninstall.sh, removes all
+    The uninstall script, IntroLab\_Uninstall.sh, removes all
     installed files related to this tutorial, including toolkits, data, and
     desktop launchers. It does not remove any work you might have done
     in projects in your own Streams Studio workspace. Use this script if
@@ -280,7 +218,7 @@ If installation was not successful, check the installation log. After
 failure, the script cleans removes any files and directories it already
 installed.
 
-If you are not using the Quick Start VM and do not have [Apache
+If you are not using the QSE and do not have [Apache
 Ant](http://ant.apache.org/bindownload.cgi) (1.8 or later) or [Apache
 Maven](http://maven.apache.org/download.cgi#Installation) (3.2 or later)
 installed in your environment, the installation will fail. These two
@@ -303,16 +241,11 @@ and can help you to identify problems.
 
 ### Check your results
 
-If you successfully installed the tutorial files, your desktop should look
-like this:
+If you successfully installed the tutorial files, your desktop should look something like this:
 
-!<img src="/streamsx.documentation/images/spl_lab_1/labprereq_check_results-dwc009.png" width="600"></img>
-height="700"}
+!<img src="/streamsx.documentation/images/spl_lab_1/labprereq_check_results-dwc009.png" width="600" />
 
 Your domain and instance are ready to run your applications.
-
-## Prerequisite installation
-<iframe src="https://youtube.com/embed/30_YW08qt7M" height="420" width="750" ></iframe>
 
 ## Explore Streams
 
@@ -396,7 +329,7 @@ as a graph of connected operators.
 
 To see the Studio interface:
 
-1.  On the VM desktop, double-click the **Streams Studio**
+1.  On the QSE desktop, click **Applications** > **Favorites** > **Streams Studio**.
 2.  Accept the prepopulated workspace (/homes/streamsadmin/workspace)
     and click **OK**.
 
@@ -428,4 +361,4 @@ severity. This will not be used in this tutorial.
 All of these views together make up a *perspective* in Eclipse. When you
 open Streams Studio, it opens to the IBM Streams perspective.
 
-![](/streamsx.documentation/images/spl_lab_1/explore-streams-2nd-image-dwc009.png)
+<img src="/streamsx.documentation/images/spl_lab_1/explore-streams-2nd-image-dwc009.png" width="100%" height="100%"/>
