@@ -11,7 +11,7 @@ next:
 ---
 
 {: .simple}
-* [Try IBM Streams v4.3 with Quick Start Edition](qse-intro)
-  * [Installing Streams Quick Start Edition with Docker](qse-install-docker)
-  * [Installing Streams Quick Start Edition for Linux](qse-install-linux)
-* [Getting started with IBM Streams v4.3 with Quick Start Edition](qse-getting-started)
+* [Try IBM Streams v4.3 with Quick Start Edition](/streamsx.documentation/docs/4.3/qse-intro)
+  * [Installing Streams Quick Start Edition with Docker](/streamsx.documentation/docs/4.3/qse-install-docker)
+  * [Installing Streams Quick Start Edition for Linux](/streamsx.documentation/docs/4.3/qse-install-linux)
+* [Getting started with IBM Streams v4.3 with Quick Start Edition](/streamsx.documentation/docs/4.3/qse-getting-started)

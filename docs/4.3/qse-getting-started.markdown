@@ -1,6 +1,6 @@
 ---
 layout: docs
-title:  Getting started with IBM Streams v4.3 with Quick Start Edition
+title:  Getting started with the IBM Streams Quick Start Edition
 description:  Learn how to get started with IBM Streams Quick Start Edition
 weight:  50
 published: true
@@ -10,185 +10,50 @@ prev:
   file: qse-intro
   title:  Download Quick Start Edition
 next:
-  file: qse-quick-start-guide
-  title: Streams SPL Guide 
-  
+  file: qse-development-1
+  title: Run your first SPL application
 ---
+---
+
+## Table of Contents
+- [Download and install](#install)
+- [Start developing applications with SPL, Python or Java](#dev)
+- [Monitor applications with Streams Console](#console)
+- [Integrate with other systems and technologies](#extend)
+
+
+<a id="install"></a>
+
 ## Download and install
-If you haven't already done so, download and install Streams Quick Start Edition. For instructions, see [Try IBM Streams v4.3 with Quick Start Edition](../qse-intro).
 
-## Streams overview
+If you haven't already done so, download and install Streams Quick Start Edition. For instructions, see [Try IBM Streams Quick Start Edition](../qse-intro).
 
-For a quick overview about Streams and developing in Streams, see the following video:
 
-<button class="btn btn-primary btn-md" data-toggle="modal" data-target="#learnStreams">
-Video:  Learn Streams in 5 min!
-</button>
+<a id="dev"></a>
 
+## Getting started for developers
 
+Pick one of the development guides to learn how to develop applications with Python, Java or Streams Processing Language (SPL).
 
-**Developing applications in Java or Python**
-In addition to Streams Processing Language (SPL) discussed in the following section, Streams applications can be created in Java and Python.
-To get started with those languages, see these development guides:
+**SPL development**: Start here (/streamsx.documentation/docs/spl/quick-start/qse-development-1) to launch your first application using the QSE.
 
-* [Develop Streams Applications in Java](/streamsx.documentation/docs/java/java-appapi-devguide/)
-* Develop Streams Applications in Python [latest](/streamsx.documentation/docs/python/1.6/python-appapi-devguide/)
+**Java developers**: Create an application entirely in Java in the  [Java development guide](/streamsx.documentation/docs/java/java-appapi-devguide/)
 
+**Use Java code in SPL applications**
+If you have existing Java code, you can easily reuse your code within an SPL application by writing a Java operator or native Java functions.
 
+Some familiarity with SPL is required, so you need to learn about SPL first.  Then follow the [Java Operator Development Guide](../../java/java-op-dev-guide/)
 
-## Getting started with SPL 
-Run your first Streams application, "Hello, World!" using Streams Studio.
 
-### Launch Streams Studio
-**If you are using the Docker QSE:**
-  * [Start a VNC session](http://localhost:4000/streamsx.documentation/docs/4.3/qse-install-docker/#vnc).
+**Python developers**: [Python development guide](/streamsx.documentation/docs/python/1.6/python-appapi-devguide/).
 
-**If you are using the Native Streams installation:**
-  * [Install Streams Studio](https://www.ibm.com/support/knowledgecenter/SSCRJU_4.3.0/com.ibm.streams.install.doc/doc/tinstall-studio-linux.html)
-  * [Install and launch Streams Studio](https://www.ibm.com/support/knowledgecenter/SSCRJU_4.3.0/com.ibm.streams.install.doc/doc/tinstall-studio-linux.html)
-  * [Download the sample application project](https://streams-github-samples.mybluemix.net/?get=Examples-for-beginners%2F001_hello_world_in_spl)
 
-#### Import and run the applications
-Watch this 2-minute walkthrough on importing and running your first Streams application.
+<a id="console"></a>
 
-*Note: this video does not have narration.*
-<div class="modal-body"><iframe width="560" height="315" src="https://www.youtube.com/embed/EZm1yUpm-4M" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
-</div>
 
+## Streams management and administration
 
-
-### Developing for IBM Cloud Pak for Data
-*Skip this section if you are not using IBM Cloud Pak for Data or Streams deployed in Kubernetes or Red Hat OpenShift.*
-
-
-The concepts in this tutorial apply to developing for Streams v4.3. The video above showed launching an application to a local instance of Streams v4.3.
-
-If your Streams instance is running in IBM Cloud Pak for Data or as a stand-alone deployment, the steps to launch the application are different. This is because you have Streams v5 or later.
-
-To launch the application in Streams v5+:
-- Compile the application as shown above
-- Instead of launching it to the local instance, you need to submit the application manually using the Streams Console.
-
-#### Submit the job using the Streams Console
-1. You need to get the URL of the Streams Console for your Streams instance. 
-   - **Find the URL for Streams add-on in IBM Cloud Pak for Data:**
-     - From the navigation menu, click <strong>My instances</strong>.
-     - Click the <strong>Provisioned Instances</strong> tab.
-     - Find your Streams instance, and click **View details** from the context menu. Open the URL under **External console endpoint**.
-       
-   - **Find the URL for Streams stand-alone deployment:** [See the documentation](https://www.ibm.com/support/knowledgecenter/en/SSCRJU_5.2.0/com.ibm.streams.dev.doc/doc/find-dns-url.html#find-dns-url). Choose *finding the internal URL*  or *finding the external URL* depending on whether or not you will be accessing the Streams Console from within the Kubernetes cluster.
-
-
-2. From the Streams Console, submit the job by clicking **Submit job**:
-  <br/>
-![submit job](https://developer.ibm.com/streamsdev/wp-content/uploads/sites/15/2015/11/streams-submit-job.png)
-
-   * Browse to the location of the compiled application.  This will be a `.sab` file in the `output` folder of your project.
-
-   * Set any parameters, and submit the application.
-
-
-<h5>Streams Console Overview</h5>
-
-The following animation shows some of the useful features of the Streams Console.
-
-<img alt="app in streams console" src="/streamsx.documentation/images/python/view-in-console-python.gif" />
-
-
-<br/><br/>
-<h5>Viewing the application’s logs</h5>
-See application logs by going to the <strong>Log Viewer</strong>, which is opened from the menu options on the left.
-<img alt="Streams console main" src="/streamsx.documentation/images/atom/jpg/console-main.jpg" />
-<br/>
-Next, expand the application, select the operator whose logs you want to inspect,  and click <strong>Console Log</strong>. Click <strong>Reload</strong> if no data appears.
-
-<img alt="app logs" src="/streamsx.documentation/images/atom/jpg/operator-log.jpg" />
-<br/>
-
-
-<h3> More about the Streams Console</h3>
-<br/>
-See this <a href="https://developer.ibm.com/streamsdev/docs/streams-console-overview/">article on Streamsdev for an overview of the Streams Console</a>.
-
-You can follow the rest of the guides but keep these steps in mind for submitting applications for IBM Cloud Pak for Data.
-
-
-### Developing applications by using Streams Processing Language (SPL)
-
-Streams Processing Language is designed from the ground up for writing streaming applications.  To quickly get started, see the following resources:
-
-* Start with the [Streams Quick Start Guide](https://developer.ibm.com/streamsdev/?p=5686)
-* [Streams Hands-on Lab](https://developer.ibm.com/streamsdev/docs/streams-lab-introduction/)
-* [SPL Examples for Beginners](/streamsx.documentation/samples/)
-* [Search our samples catalog](https://ibmstreams.github.io/samples/)
-
-Streams is shipped with comprehensive development tooling.
-
-<img src="/streamsx.documentation/images/qse/streamsStudio.jpg" alt="Streams Studio" style="width: 60%;"/>
-
-To learn about how to develop using Streams Studio (our drag-and-drop IDE):
-
-* [Streams Studio Quick Start Guide](https://developer.ibm.com/streamsdev/docs/studio-quick-start/)
-
-<!-- Launch video in modal dialog -->
-<button class="btn btn-primary btn-md" data-toggle="modal" data-target="#streamsStudioInAction">
-Video:  Streams Studio in Action!
-</button>
-
-### Writing Java Operators
-
-If you have existing Java code, you can easily reuse your code by writing a Java operator or native Java functions.
-
-* [Java Operator Development Guide](../../java/java-op-dev-guide/)
-
-### SparkMLLib in Streams
-
-To get started, follow this development guide:
-
-* [SparkMLLib Getting Started Guide](https://developer.ibm.com/streamsdev/docs/getting-started-with-the-spark-mllib-toolkit/)
-
-### Apache Edgent (aka Open Embedded Streams) Integration
-
-Gather local, real-time analytics from equipment, vehicles, systems, appliances, devices and sensors of all kinds. To get started, check out the Apache Edgent website for more information and guides:
-
-* [Apache Edgent Official Website](https://edgent.incubator.apache.org/)
-
-## Getting started for the data engineer
-
-As a data engineer, you are responsible for:
-
-* Designing, building, and managing data and analytic systems to ensure they are secure, reliable, and scalable
-* Making all data, including data in motion, available for analysis by other team members such as data scientists and developers
-* Capturing data in motion and integrating it with data at rest
-* Leveraging the newest technologies for stream computing
-
-Below are some resources to help you get started.
-
-### Integrating with Streams
-
-Streams is shipped with many toolkits out of the box to enable integration with some of the most popular systems like HDFS, HBase, Kafka, Active MQ and more.  To learn about the set of toolkits that are shipped as part of the Streams product, refer to the [Product Toolkits Overview](https://developer.ibm.com/streamsdev/docs/product-toolkits-overview/).
-
-[IBMStreams on GitHub](https://github.com/ibmstreams) provides a platform that enables Streams to rapidly deliver our support to emgerging technologies to you.  It is also a place for us to share sample applications and helpful utilities.  For a list of open-source projects hosted on GitHub, see: [IBM Streams GitHub Projects Overview](https://developer.ibm.com/streamsdev/docs/github-projects-overview/).
-
-### Integration with IBM InfoSphere Data Governance Catalog
-
-With IBM InfoSphere Data Governance Catalog integration, developers can easily discover the data and schema that are available for use.  By building data lineage with your Streams application, you can quickly see and control how data is consumed.
-To get started, see the  [Streams Governance Quickstart Guide](../governance/governance-quickstart/).
-
-### Cybersecurity Toolkit
-
-
-The Cybersecurity Toolkit provides operators that are capable of analyzing network traffic and detecting suspicious behaviour. For more information about using the Cybersecurity Toolkit, see the [Cybersecurity Getting Started Guide](../cybersecurity/cybersecurity-getting-started/)
-
-### Streams and SPSS
-
-SPSS is analytic predictive software that enables you to build predictive models from your data.  Your application can perform real-time predictive scoring by running these predictive models using the SPSS operators.
-
-To learn about Streams can integrate with SPSS:  [Streams and SPSS Lab](https://developer.ibm.com/streamsdev/docs/spss-analytics-toolkit-lab/).
-
-### Streams domain management and administration
-
-Streams Console is the web-based administration console for monitoring and managing your Streams domain. Create customized dashboards to monitor your Streams domain, instances and applications.
+Streams Console is the web-based administration console for monitoring and managing your Streams instance. Create customized dashboards to monitor your Streams domain, instances and applications.
 
 <img src="/streamsx.documentation/images/qse/Application-Dashboard-4.1.png" alt="Streams Console" style="width: 60%;"/>
 
@@ -198,15 +63,28 @@ To familiarize yourself with Streams Console, see this video:
 Video:  Streams Console
 </button>
 
-## Getting started for the business user
+<a id="extend"></a>
 
-As a business user, you need to:
 
-* Identify patterns, trends, risks and opportunities in data
-* Build predictive analytic models
-* Use visualization tools to explore and uncover high value data.
+## Integrate with other technologies   
+You can connect to external data sources using toolkits.  A toolkit is a reusable artifact that provides function, for example, the Kafka toolkit provides functionality to connect  to Apache Kafka.
 
-Below are some resources to help you get started.
+Streams includes toolkits that support the most popular systems like [HDFS](https://github.com/IBMStreams/streamsx.hdfs), [HBase](https://github.com/IBMStreams/streamsx.hbase), [Kafka](https://ibmstreams.github.io/streamsx.kafka/docs/user/overview/), Active MQ and more. 
+
+Refer to the [Product Toolkits Overview](https://developer.ibm.com/streamsdev/docs/product-toolkits-overview/) for a full list of toolkits included in Streams.
+
+**Find more toolkits on GitHub**
+
+In addition to the toolkits included in the install, [IBMStreams on GitHub](https://github.com/ibmstreams) includes open sour a platform that enables Streams to rapidly add support for emgerging technologies.  It also includes sample applications and helpful utilities.  
+
+For a list of open-source projects hosted on GitHub, see: [IBM Streams GitHub Projects Overview](https://developer.ibm.com/streamsdev/docs/github-projects-overview/).
+
+### Streams and SPSS
+
+SPSS is analytic predictive software that enables you to build predictive models from your data.  Your application can perform real-time predictive scoring by running these predictive models using the SPSS operators.
+
+To learn about Streams can integrate with SPSS:  [Streams and SPSS Lab](https://developer.ibm.com/streamsdev/docs/spss-analytics-toolkit-lab/).
+
 
 ### Streams and Microsoft Excel
 
@@ -225,6 +103,25 @@ Video:  Streams and Excel Demo
 IBM Streams integrates with ODM rules, allowing you to create business rules, construct rule flows, and create and deploy rules applications to analyze data and automate decisions in real-time.  This article helps you get started:  [ODM Toolkit Lab](https://developer.ibm.com/streamsdev/docs/rules-toolkit-lab/)
 
 
+### Integration with IBM InfoSphere Data Governance Catalog
+
+With IBM InfoSphere Data Governance Catalog integration, developers can easily discover the data and schema that are available for use.  By building data lineage with your Streams application, you can quickly see and control how data is consumed.
+To get started, see the  [Streams Governance Quickstart Guide](../governance/governance-quickstart/).
+
+
+### SparkMLLib in Streams
+
+To get started, follow this development guide:
+
+* [SparkMLLib Getting Started Guide](https://developer.ibm.com/streamsdev/docs/getting-started-with-the-spark-mllib-toolkit/)
+
+### Apache Edgent (aka Open Embedded Streams) Integration
+
+Gather local, real-time analytics from equipment, vehicles, systems, appliances, devices and sensors of all kinds. To get started, check out the Apache Edgent website for more information and guides:
+
+* [Apache Edgent Official Website](https://edgent.incubator.apache.org/)
+
+
 
 ## Streams Community
 The following Streams resources can help you connect with the Streams community and get support when you need it:
@@ -238,22 +135,6 @@ The following Streams resources can help you connect with the Streams community 
 
 
 <!-- Modal -->
-<div class="modal fade" id="learnStreams" tabindex="-1" role="dialog" aria-labelledby="learn-streams-in-5-min" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-        <h4 class="modal-title" id="learn-streams-in-5-min">Learn Streams in 5 Min</h4>
-      </div>
-      <div class="modal-body">
-        <iframe width="480" height="298" src="https://www.youtube.com/embed/HLHGRy7Hif4" frameborder="0" allowfullscreen></iframe>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-      </div>
-    </div>
-  </div>
-</div>
 
 <div class="modal fade" id="streamsStudioInAction" tabindex="-1" role="dialog" aria-labelledby="streams-studio-in-action" aria-hidden="true">
   <div class="modal-dialog">
