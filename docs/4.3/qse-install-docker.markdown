@@ -587,6 +587,28 @@ these steps:
 
 ## Known issues
 
+
+
+#### **Description:**  Firefox crashes often
+
+**Workaround**:
+
+- Open Firefox and type `about:config` in the address bar. Accept the warning message.
+- Search for `browser.tabs.remote.autostart` and set it to `false`.
+- Repeat the above for the `browser.tabs.remote.autostart.2`, set it to `false`.
+- Restart Firefox.
+
+
+**Workaround #2**:
+
+If that still does not help, try installing and using Google Chrome.
+    
+
+    wget https://dl.google.com/linux/direct/google-chrome-stable_current_x86_64.rpm
+    sudo yum localinstall google-chrome-stable_current_x86_64.rpm
+
+
+
 #### **Description**: Running `streamsdockerInstall.sh` fails with the following message:
 
   ```
