@@ -11,22 +11,7 @@ prev:
 ---
 
 
-The Streams Quick Start Guide is intended to help you get up and running with IBM Streams quickly. We will first introduce the basic concepts and building blocks. And then we will write a very simple Streams application, and demonstrate how you can run and monitor this application in the Streams distributed runtime environment.
-
-*   [Overview](#overview)
-*   [Basic Building Blocks](#basic_building_blocks)
-*   [Simple Streams Application](#simple_streams_application)
-*   [SPL Basics](#spl_basics)
-*   [Streams Application Pattern](#streams_application_pattern)
-*   [Building Streams Applications](#building_streams_applications)
-*   [Streams Domain and Instance](#streams_domain_and_instance)
-*   [Setting up a Development Domain and Instance](#setting_up_a_development_domain_and_instance)
-*   [Running Streams Applications in Distributed Mode](#running_streams_applications_in_distributed_mode)
-*   [Querying for Job Status](#querying_for_job_status)
-*   [Sample Application Output](#sample_application_output)
-*   [Streams Console](#streams_console)
-*   [Streams Studio](#streams_studio)
-*   [What's Next](#whats_next)
+The Streams Quick Start Guide is intended to help you get up and running with IBM Streams quickly. We will first introduce the basic concepts and building blocks. And then we will write a very simple Streams application.
 
 <a name="overview"></a>
 
@@ -82,14 +67,13 @@ To ingest this data, you use a special operator called a **Source Adapter** to c
 
 There are hundreds of built-in operators that you can reuse to build your application, or you can write your own. Streams includes source adapters for popular systems, like Kafka and Db2.
 
-Below is an sample of a Streams graph that reads streaming data from Kafka filters it, scores an R model and saves the data to Db2 Event Store, using  built-in operators:
+You could create a Streams application that reads streaming data from Kafka, filters it, scores an R model and saves the data to Db2 Event Store, all using  built-in operators:
 
 -  a `KafkaSource` operator to read the data, 
 -  a `Filter` operator to include only elements of interest
 -  the `RScript` operator to score the filtered data,
 -  and the `EventStoreSink` operator to save the scored results. 
 
- ![streams graph](/streamsx.documentation/images/qse/sample-app-animation.gif)
 
 <div class="alert alert-info" role="alert">
 The available operators are grouped into tooklits. See the documentation for a <a href="https://www.ibm.com/support/knowledgecenter/en/SSCRJU_4.3.0/com.ibm.streams.toolkits.doc/spldoc/dita/toolkits/toolkits.html">list of available and toolkits</a>
@@ -107,8 +91,9 @@ The application will:
 1. For each stock, calculate the latest average, maximum and minimum ask price. 
 1. Verify the calculation
 1. Print the results to `stdout`.
+1. Save the results to a file.
 
-Here is the application's graph in Streams Studio:
+Here is the application's graph:
 Each operator in the graph corresponds to one of the steps above.
 
 ![application graph](/streamsx.documentation/images/qse/sampleApp4.gif)
@@ -116,7 +101,7 @@ Each operator in the graph corresponds to one of the steps above.
 You ran the completed version of this application in the previous section.
 [TODO LINK]
 
-You may find this example in the samples repository from Github. [TradeApp Sample on Github](https://github.com/IBMStreams/samples/tree/master/QuickStart/TradesApp).
+You may find this example in the samples repository from Github.  [TradeApp Sample on Github](https://github.com/IBMStreams/samples/tree/master/QuickStart/TradesApp).
 
 #### Input data overview
 
@@ -137,7 +122,7 @@ Here is a sample of the CSV data that we are going to process:
 "IOO","27-DEC-2019","14:13:20.873",64.02
 "AU","27-DEC-2019","14:13:32.877",49
 "CAJ","27-DEC-2019","14:14:17.938",60
-"EWZ","27-DEC-2019","14:14:46.039",33.25</pre>
+"EWZ","27-DEC-2019","14:14:46.039",33.25
 ```
 
 ## 1. Create the main composite
@@ -293,7 +278,7 @@ composite TradesAppCloud
 *  Operator Kind: **Filter**.  This operator consumes the <strong><span style="color: #333399;">Quotes</span></strong> stream from the **FileSource** operator.
 *  The Filter operator produces an **output stream** named <span style="color: #3366ff;"><strong>FilteredQuotes.</strong></span>
 *   The **Filter** operator defines a parameter named <strong><span style="color: #008000;">filter</span></strong>. This parameter specifies the condition to allow a tuple to pass through the filter:
-    *   If the ticker name is not **GLD**, then the tuple will be included in the output stream, **FilteredQuotes**.  Otherwise, it will not be included in the output stream.
+    *   If the ticker name is not *GLD*, then the tuple will be included in the output stream, **FilteredQuotes**.  Otherwise, it will not be included in the output stream.
 * For a **Filter** operator, the ** output stream schema** is always the same as the input stream schema Therefore, we do not need an output clause to perform manual output attribute assignment. If a tuple is allowed to pass through in the Filter operator, attributes from the input stream will automatically be assigned to the same attributes on the output stream.
 
 
@@ -308,14 +293,14 @@ Use another built-in operator called  **Aggregate** operator to calculate the mi
 However, before we can configure this operator, we need to learn more about the available clauses for operator configuration.
 So far, we have used the **param** clause to specify parameters for an operator, for example, we used the **param** clause for the **FileSource** operator and added the `file` parameter to indicate which file we want to read.  There are several other clauses that can be used in an operator's invocation.
 
-## More operator with clauses
+## More operator clauses
 
 Recall that an operator invocation starts by defining the output schema and name of the output stream, as well as the name of the operator being invoked and its input stream.
 So far, we have used the **param ** clause to specify any operator parameters but there are additional clauses available.
 
 Consider the example below.
 
-<pre> stream<rstring name>  Operator2_output = SomeOperator (Operator1_output)
+<pre> stream&lt;rstring name>  Operator2_output = SomeOperator (Operator1_output)
  {
      <span style="color: #800080;"><strong>logic</strong></span>
        onTuple Operator1_output :
@@ -337,74 +322,174 @@ Consider the example below.
 
 
 
-In addition to the **param** clause, there are other clauses available, logic, window, output and config.
-
+In addition to the **param** clause, there are other clauses available: logic, window, output and config.
 
 If used, the clauses must be specified in the order as shown.
 
-*   **logic -** The **logic** clause is called each time the operator receives a tuple. You may write custom SPL code here to process the input tuple. 
-*   **window** -The **window** clause allows you specify the kind of window the operator should use, and its trigger and eviction policy.
-*   **params** - Each of the operators define a set of parameters to help you customize its behaviour.The **params** clause allows you to specify the values of the parameters.
+* **logic**: To add additional processing for every incoming tuple, use the **logic** clause. The **logic** clause is called each time the operator receives a tuple. You may write custom SPL code here to process the input tuple, for example, printing the tuple as shown above.
+* **window**: To process groups of tuples at a time instead of each individual tuples, use a **window** clause.  A *window* is a way to divide tuples into groups for processing. 
+* 
+![window example](/streamsx.documentation/images/python/window.jpg)
+
+
+
+You use this clause to configure:
+  * Window size: how many tuples to add to the window
+  * Eviction policy: When to remove a tuple from the window 
+  * Trigger policy: When to process the tuples in the window.
+  
+For example, to compute the average price of the last 2 tuples, we need to create a window of size 2. When the window has 2 tuples, the average will be computed and submitted to the output stream, and the 2 tuples will be removed from the window since they have been processed.
+
+*  **params** - Each of the operators define a set of parameters to help you customize its behaviour.The **params** clause allows you to specify the values of the parameters.
+  
 *   **output** -The **output** clause allows you to customize attribute assignments of the output tuple. By default, if the input stream and the output stream contains an attribute of the same name and same type, the attribute value of the input stream will be automatically assigned to the same attribute on the output stream. In addition, you may customize output attribute assignment by specifying custom assignment expressions in the **output** clause. If the output stream contains an attribute that is not present in the input stream, you must specify an assignment for that attribute in the output clause.
+
 *   **config** - The **config** clause allows you to specify various operator / process configurations supported by Streams. For example, you may use the config clause to control if two operators should run in the same process. You may also use the config clause to control which resource / host to run the process on.
 
 
 
-<pre> stream&lt;rstring ticker, float64 min, float64 max, float64 average&gt;<span style="color: #666699;"><strong>AvPrice</strong></span> = Aggregate(<span style="color: #3366ff;"><strong>FilteredQuotes</strong></span> as inPort0Alias)
+<pre> stream&lt;rstring ticker, float64 min, float64 max, float64 average&gt;<span style="color: #666699;"><strong>AvgPrice</strong></span> = Aggregate(<span style="color: #3366ff;"><strong>FilteredQuotes</strong></span> as inPort0Alias)
  {
-      <strong><span style="color: #800080;">window</span>
-          <span style="color: #800080;"><strong>inPort0Alias : tumbling, count(5), partitioned ;
-     param
+     <<strong><span style="color: #800080;">window</span>
+          <span style="color: #800080;">inPort0Alias : tumbling, count(5), partitioned ;
+     param</strong>
           partitionBy : ticker ;</strong></span>
-      output
-          AvPrice : min = Min(askprice), max = Max(askprice), average =Average(askprice) ;
+      <strong>output</strong>
+          AvgPrice : min = Min(askprice), max = Max(askprice), average =Average(askprice) ;
  }</pre>
 
-The **Aggregate** operator consumes data from the <strong><span style="color: #3366ff;">FilteredQuotes</span></strong> stream and produces a stream named <strong><span style="color: #666699;">AvPrice.</span></strong>
+The **Aggregate** operator consumes data from the <strong><span style="color: #3366ff;">FilteredQuotes</span></strong> stream and produces a stream named <strong><span style="color: #666699;">AvgPrice.</span></strong>
 
-There is a new clause in this operator invocation, the **window** clause.  **Aggregate** operator operates on a window of data. We have set up a tumbling window with a count of 5. The window is partitioned by ticker. With a partitioned window, the operator maintains a separate window for each of the stocks it encounters. For example, the operator maintains a window of 5 tuples for IBM stock. At the same time, a separate window is maintained for the last 5 stock prices from Apple.</span> <span style="color: #000000;">When the window is filled with 5 tuples (i.e. the trigger policy is met), the operator looks at the output functions specified in the **Output** clause. In this case, the user wants the operator to calculate the min, max and average askprice of the tuples in the window. The operator runs the output functions ( Min, Max and Average) and assign the results to the output attributes as specified. Since this is a **tumbling** window, the window will be emptied once the trigger policy is met.</span> The SPL language has two kinds of windows, tumbling and sliding. They both store tuples while they preserve the order of arrival, but differ in how they handle tuple evictions. Rather than keeping all the tuples ever inserted, windows are configured to evict expired tuples. In this respect, tumbling windows operate in batches. When a <dfn class="term">tumbling</dfn> window fills up, all the tuples in the window are evicted. This process is called a window <dfn class="term">flush</dfn>. Conversely, sliding windows operate in an incremental fashion. When a <dfn class="term">sliding</dfn> window fills up, the future tuple insertions result in evicting the oldest tuples in the window. The details of tuple eviction are defined by the eviction policy.
+There are a couple of new clauses in this operator invocation, **window** and **output**. What do they do?
+
+**Window clause**
+
+Streams is great because it processes each individual tuple quickly. But sometimes, you need to process tuples as a group, so you have to wait for them to arrive. For example, to calculate the average price of the last 5 tuples, we need to wait till we have 5 tuples, then compute the average.
+While we wait for the other tuples to arrive, we store them in a *Window*.
+
+**What is a window?** 
+
+
+A window is a way to divide the stream of tuples into subsets. Tuples are stored in order of arrival. In our example, we create a window of size 5. When the window is "full", that is when there are 5 tuples in the window, the operator will do some processing on the tuples in the window, produce output, and remove one or more of the tuples from the window.
+
+![window example](/streamsx.documentation/images/python/window.jpg)
+
+The window clause specifies what kind of window we will create, how many tuples to collect in the window before processing, and any further subdivisions on the window.. 
+
+Let's look at the different components:
+
+<pre> <span style="color: #800080;">inPort0Alias : tumbling, count(5), partitioned ;</span></pre>
+
+* **inPort0Alias**: This is the alias we gave to the input stream. So this is saying we want to configure a window on the input stream. This is helpful because sometimes an operator might have more than one input stream.
+
+* **tumbling**: This means we want a tumbling window. Using a tumbling window means that when all tuples in the window are processed at once and removed afterwards. This is effectively a form of batch processing. The other kind of window is a *sliding* window, which process all the tuples in the window but only remove the oldest. What constitues oldest and other details are beyond the scope of this article. [LINK]
+ 
+* **count(5**): The window size is specified here as a count-based window, with a count of 5. This simply means that whenever there are 5 tuples in the window, the operator will process all of them and empty the window. The tuples are said to *tumble* out, which is why it is called a tumbling window. 
+
+The last component is the partitioned flag.
+
+**Partitioning a window**
+
+Defining a window as **partitioned**  will divide the tuples in the window into smaller windows based on an attribute.  These sub-windows are called partitions.  Why do we need this? 
+
+Remember that we want to compute the min, max and average price for each stock ticker. Let's say this list represents the first 5 tuples the operator receives:
+
+        ticker, date, time, price
+        "AU","27-DEC-2019","14:13:32.877",49
+        "CAJ","27-DEC-2019","14:14:17.938",60
+        "EWZ","27-DEC-2019","14:14:46.039",33.25
+        "AU","27-DEC-2019","14:15:32.877",47
+        "AWZ","27-DEC-2019","14:16:46.039",33.1
+
+We have 5 tuples, but we only have 1 or 2 tuples for each stock ticker. So creating a simple window of 5 tuples will not work.
+
+Thus, we partition the window by the `ticker` attribute. This will create sub-windows, or partitions, for each ticker. Thus each tuple with the same ticker will be in the same partition, and the min, max and average will be computed *for each ticker when its partition is full, that is, when it has 5 tuples.*
+
+For example, when the first tuple in the list above arrives, the operator creates a window of 5 tuples for the "AU" stock. With the next tuple, a separate window is created for the last 5 stock prices for the "CAJ" stock, and so on.  Each window is maintained simultaneously for each unique stock ticker.
+
+**The output clause**
+
+The **output** clause is used when you need to define attributes that will be on each tuple in the output stream.
+
+Since the Aggregate operator is using a window, when a partition has 5 tuples, the operator produces output based on what is defined in the output clause.
+
+Recall the output clause we're using:
+<pre>
+<strong>output</strong>
+         AvgPrice : min = Min(askprice), max = Max(askprice), average = Average(askprice) ;
+  </pre>
+This says that the **AvgPrice** stream is the output stream, and that it will have 3 attributes: `min, max and average.` 
+
+The min, max and average of the `askprice`  will be computed using the the output functions ( `Min`, `Max` and `Average`) and assigned to respective output attributes.. 
+
 
 ### 2.4 Print the Results with a **Custom** operator
 
-Finally, we will add a **Custom** operator to do some special processing with the TradesSummary data. The **Custom** operator is a special logic-related operator that can receive and send to any number of streams and does not do anything by itself. Thus, it offers a blank slate for customization in SPL. 
+Finally, we will add a **Custom** operator to do some special processing with the data in the **AvgPrice** stream. The **Custom** operator is a special logic-related operator that can receive and send to any number of streams and does not do anything by itself. Thus, it offers a blank slate for customization in SPL. 
 
-![sampleApp3](/streamsx.documentation/images/qse/sampleApp3.gif)
 
-<pre>(stream<rstring ticker, float64 min, float64 max, float64 average>
- CheckedTradesSummary) as CustomProcess = Custom(<span style="color: #0000ff;"><strong>TradesSummary</strong></span>)
+<pre>stream&lt;rstring ticker, float64 min, float64 max, float64 average&gt;
+ PrintAvPrice = Custom(<span style="color: #0000ff;"><strong>AvgPrice</strong></span>)
 {
      <span style="color: #800080;"><strong>logic</strong></span>
-         onTuple <span style="color: #0000ff;"><strong>TradesSummary</strong></span>: {
+         onTuple <span style="color: #0000ff;"><strong>AvgPrice</strong></span>: {
              if (average == 0.0l)
              {
                   printStringLn("ERROR: " + ticker);
              }
              else 
             {
-                  submit(TradesSummary, CheckedTradesSummary);
+                printStringLn("Average asking price for " + ticker + "  is " +(rstring)
+							average) ;
+               submit(AvgPrice, PrintAvPrice);
             }
         }
  }</pre>
 
-To write custom SPL logic, we add a **logic** clause in the **Custom** operator. On each tuple received by the operator, the logic clause is executed. In our logic clause, we check the average ask price for the stock. We flag an error with the data if the average ask price is zero and will not submit the tuple to the output port. If the average ask prices is greater than zero, then we submit the tuple to the CheckedTradesSummary output stream. Finally, we add a **FileSink** operator to write our analysis results to a file. ![sampleApp4](/streamsx.documentation/images/qse/sampleApp4.gif)
+To write custom SPL logic, we add a **logic** clause in the **Custom** operator. On each tuple received by the operator, the logic clause is executed. In our logic clause, we check the average ask price for the stock. We flag an error with the data if the average ask price is zero and will not submit the tuple to the output port. If the average ask prices is greater than zero, then we submit the tuple to the `PrintAvPrice` output stream.
+This is a very simple example of some of the checking you could add with a **Custom**. 
 
-<pre> () as CheckedTradesSummaryFile = FileSink(<span style="color: #333399;"><strong>CheckedTradesSummary</strong></span>)
- {
+Our application graph has now been extended:
+
+![sampleApp3](/streamsx.documentation/images/qse/sampleApp3.gif)
+
+### 2.5: Writing results to a file (optional)
+This part is marked optional because if you are running the application in the cloud you might not have access to the file system to be able to see the results file.
+
+If you wanted to write the  output to a file, you could use a **FileSink** operator. 
+It consumes the output stream, <span style="color: #333399;"><strong>PrintAvPrice</strong></span>, from the **Custom** operator and saves it to a file.
+
+Notice that the **FileSink** does not define an output stream because it does not produce any output.
+
+<pre> () as PrintToFile = FileSink(<span style="color: #333399;"><strong>PrintAvPrice</strong></span>)
      param
-          file : "/homes/myuserid/data/tradesSummary.csv" ;
+          file : "/tmp/tradesSummary.csv" ;
           flush : 1u ;
           format : csv ;
  }</pre>
 
-The **FileSink** consumes the output stream, <span style="color: #333399;"><strong>CheckedTradesSummary</strong></span>, from the **Custom** operator. The operator writes output to a file named, "/homes/myuserid/data/tradesSummary.csv". The **flush** parameter controls how often the operator will flush content to the file system. In this case, the operator will flush after each tuple is received. The format parameter tells the operator the format to write the data in. In our example, the output file will be written in csv format. Here's the source code for this application:
+**FileSink parameters**
+The operator writes output to a **file** named `/tmp/tradesSummary.csv`.
 
-<pre> /** Main composite for stock processing application
-  *  
-  */
+The **flush** parameter controls how often the operator will flush content to the file system. In this case, the operator will flush after each tuple is received. 
+
+The **format** parameter tells the operator to write the data to the file as `csv`, comma-separated values.
+
+See the documenation. [LINK]
+
+
+That is it!! We have created an application that computes the average, min and max price of the stock tickers and prints the result.
+
+<a id="fullSource"></a>
+## Complete application source
+
+Here's the source code for this application:
+
+<pre> 
 composite TradesAppCloud
 {
     graph
-         <span style="color: #000000;">(stream<rstring ticker, rstring date, rstring time, float64 askprice> <span style="color: #333399;"><strong>Quotes</strong></span>) 
+        stream&lt;rstring ticker, rstring date, rstring time, float64 askprice&gt; <span style="color: #333399;"><strong>Quotes</strong></span>) 
          as TradeQuoteSrc = FileSource()
          {
              param
@@ -412,75 +497,68 @@ composite TradesAppCloud
                  format: csv;
          }</span>
 
-         <span style="color: #000000;">(stream<rstring ticker, rstring date, rstring time, float64 askprice> FilteredQuotes) 
-         as FilteredTrade = Filter(Quotes)
+         <span style="color: #000000;">stream&lt;rstring ticker, rstring date, rstring time, float64 askprice&gt;  FilteredQuotes = Filter(Quotes)
          {
              param
                  filter: ticker != "GLD";
          }</span> 
-        (stream<rstring ticker, float64 min, float64 max, float64 average>
-         TradesSummary) as AggregateTrades = Aggregate(FilteredQuotes as inPort0Alias)
+        
+        stream&lt;rstring ticker, float64 min, float64 max, float64 average&gt; 
+        AvgPrice = Aggregate(FilteredQuotes as inPort0Alias)
         {
             window
                 inPort0Alias : tumbling, count(5), partitioned ;
             param
                 partitionBy : ticker ;
             output
-                TradesSummary : average =Average(askprice), min = Min(askprice), max = Max(askprice) ;
+                AvgPrice : average =Average(askprice), min = Min(askprice), max = Max(askprice) ;
         }
 
-        (stream<rstring ticker, float64 min, float64 max, float64 average>
-         CheckedTradesSummary) as CustomProcess = Custom(TradesSummary)
+        stream&lt;rstring ticker, float64 min, float64 max, float64 average&gt;
+         PrintAvPrice = Custom(AvgPrice)
         {
             logic
-                onTuple TradesSummary: {
+                onTuple AvgPrice: {
                     if (average == 0.0l)
                     {
                        printStringLn("ERROR: " + ticker);
                     }
                     else 
-                    {
-                       submit(TradesSummary, CheckedTradesSummary);
+                    {//
+                        printStringLn("Average asking price for " + ticker + "  is " +(rstring)
+							average) ;
+                       //example showing how to copy input stream to output in a Custom
+                       submit(AvgPrice, PrintAvPrice);
                     }
                 }
          }
 
-         () as CheckedTradesSummaryFile = FileSink(<span style="color: #000000;">CheckedTradesSummary</span>)
+         () as PrintToFile = FileSink(<span style="color: #000000;">PrintAvPrice</span>)
          {
             param
-               file : "/homes/myuserid/data/tradesSummary.csv" ;
+               file : "/tmp/tradesSummary.csv" ;
                flush : 1u ;
                format : csv ;
          }
 }</pre>
 
-<a name="spl_basics"></a>
 
-## SPL Basics
+## Review
 
-Although Streams applications can be developed using [Java](http://ibmstreams.github.io/streamsx.documentation/docs/4.1/java/java-appapi-devguide/) and [Python](http://ibmstreams.github.io/streamsx.documentation/docs/python/1.6/python-appapi-devguide/index.html), Streams Processing Language (SPL) is still a great option for writing Streams applications because it has been designed specifically for that purpose. You use it to describe the directed flow graph, define the schema on each of the streams; and customize the behaviour of each of the operators in the graph. This section is intended to help you get a high-level understanding of SPL.
-
-### Main Composite
-
-The entry point of a Streams application is a **main composite**. A **composite** operator is a graph of operators. A **main composite** is a special composite operator that has no input port and output port. Think of this as the _main_ method from a Java / C++ program. A main composite is represented in SPL as follows:
-
-<pre>// Main composite: SampleMain
-// This special composite has no input port and no output port.
-composite SampleMain
-{
-}</pre>
-
-To write a directed flow graph in the main composite, we add a **graph clause** into the main composite. A **graph** **clause** is a section in the composite that describes a list of operators in the graph, how the operators are connected, and what data is sent between the operators. ![splOverivew1](/streamsx.documentation/images/qse/splOverivew2.gif) 
+So far, we have created a SPL application using some of the built-in operators: **FileSource, Filter, Aggregate, Custom and FileSink.**
 
 
-An operator invocation starts by defining the schema and the name of the output stream that the operator is going to produce. In the example above, the name of the stream for **Operator1**, is **Operator1_output**. The stream is defined with a schema of **<rstring name>**. Next, the operator invocation block defines the operator to call. In the example above, we are invoking an operator named **Functor** from the _SPL Standard Toolkit_. Finally, an operator invocation block defines an input stream feeding into the operator. This is done by specifying the name of the output stream of another operator. In the example above, **Operator1** consumes data from a stream named FileSrcOutput. You may customize the behavior of an operator by writing additional clauses in an operator invocation:
+Recall that an operator invocation starts by defining the output schema and name of the output stream, as well as the name of the operator being invoked and its input stream.
 
-<pre> (stream<rstring name> Operator2_output) as Operator2 = Operator(Operator1_output)
+### Operator invocation clause review
+
+
+<pre> stream&lt;rstring name>  Operator2_output = SomeOperator (Operator1_output)
  {
-    logic
-       onTuple FileSrcOutput :
+     <span style="color: #800080;"><strong>logic</strong></span>
+       onTuple Operator1_output :
       {
-        printStringLn(FileSrcOutput.name) ;
+        printStringLn(Operator1_output.name) ;
       }
 
     <span style="color: #800080;"><strong>window</strong></span>
@@ -489,31 +567,27 @@ An operator invocation starts by defining the schema and the name of the output 
        param1 : "param1Val";
        param2 : "param2Val";
     <span style="color: #800080;"><strong>output</strong></span>
-       Operator1_output : name = name + " newName" ;
+       Operator2_output : name = name + " newName" ;
     <span style="color: #800080;"><strong>config</strong></span>
        placement : partitionColocation("pe1") ;
  }
 </pre>
 
-The clauses must be specified in the order as shown.
 
-*   **logic -** The **logic** clause is called each time the operator receives a tuple. You may write custom SPL code here to process the input tuple.
-*   **window** -The **window** clause allows you specify the kind of window the operator should use, and its trigger and eviction policy.
-*   **params** - Each of the operators define a set of parameters to help you customize its behaviour.The **params** clause allows you to specify the values of the parameters.
+
+In addition to the **param** clause, there are other clauses available: logic, window, output and config.
+
+If used, the clauses must be specified in the order as shown.
+
+* **logic**: To add additional processing for every incoming tuple, use the **logic** clause. The **logic** clause is called each time the operator receives a tuple. You may write custom SPL code here to process the input tuple, for example, printing the tuple as shown above.
+  
+* **window**: To process groups of tuples at a time instead of each individual tuples, use a **window** clause.  A *window* is a way to divide tuples into groups for processing. For example, to compute the average price of the last 10uples, we need to create a window of size 10. When the window has 10 tuples, the average will be computed and submitted to the output stream, and the 10 tuples will be removed from the window since they have been processed.
+
+*  **params** - Each of the operators define a set of parameters to help you customize its behaviour.The **params** clause allows you to specify the values of the parameters.
+  
 *   **output** -The **output** clause allows you to customize attribute assignments of the output tuple. By default, if the input stream and the output stream contains an attribute of the same name and same type, the attribute value of the input stream will be automatically assigned to the same attribute on the output stream. In addition, you may customize output attribute assignment by specifying custom assignment expressions in the **output** clause. If the output stream contains an attribute that is not present in the input stream, you must specify an assignment for that attribute in the output clause.
+
 *   **config** - The **config** clause allows you to specify various operator / process configurations supported by Streams. For example, you may use the config clause to control if two operators should run in the same process. You may also use the config clause to control which resource / host to run the process on.
-
-This is a very high-level overview of the SPL language. For more details, refer to the [SPL Programming Reference](http://www-01.ibm.com/support/knowledgecenter/SSCRJU_4.0.0/com.ibm.streams.ref.doc/doc/spl-container.html?lang=en) from the Knowledge Center.
-
-## **Choosing a development environment for SPL**
-
-You can use [Atom](http://atom.io), [Microsoft VS Code](https://code.visualstudio.com/), or Streams Studio to create SPL applications. Streams Studio has been designed specifically for creating applications with SPL. In addition to its SPL editor, it also includes a drag and drop Graphical Editor for constructing Streams applications. You can simply drag and drop operators and connect them up in the SPL Graphical Editor. **The remainder of this guide focuses on Streams Studio.** **To start [developing applications using Atom or VS Code instead, follow this guide](http://ibmstreams.github.io/streamsx.documentation/docs/spl/atom/atom-apps/).**
-
-*   To see a demo of Streams Studio, see this video: [InfoSphere Streams Studio in Action](https://www.youtube.com/watch?v=7kQqQSa2iSw&list=PLCF04A48C22F34B19&index=12)
-*   To see a demo of the SPL Graphical Editor, on how to design and implement a Streams application, see this video: [Introduction to SPL Graphical Editor](https://developer.ibm.com/streamsdev/videos/infosphere-streams-v3-streams-studio-graphical-program-development-skill-builder/)
-
-<a name="simple_streams_application"></a>
-
 
 
 <a name="streams_application_pattern"></a>
@@ -529,6 +603,82 @@ The sample Streams application demonstrates a common Streams application pattern
 *   **Act:** In this stage, we act on the decision made from the previous stage. You may send the analysis result to a data visualization server. You may decide to send an alert to someone about the anomaly detected in the data. You may publish the results to a list of subscribers.
 
 <a name="building_streams_applications"></a>
+
+
+
+
+### Running the application
+
+This is a slightly modified version of the application you launched in the previous section [LINK].
+
+Regardless of the IDE you are using, you have to follow these steps to create and compile a Streams application:
+- Create a project, 
+- Create a namespace (optionally)
+- Create a main composite in a `.spl` source file in the project
+- Define the application graph like we did in this section
+- Compile the main composite.
+
+
+
+### 1. Create a project and a main composite
+
+<ul class="nav nav-tabs">
+  <li class="active"><a data-toggle="tab" href="#vscode"><b>VS Code</b></a></li>
+   <li><a data-toggle="tab" href="#studio"><b>Streams Studio</b></a></li>
+</ul>
+
+<div class="tab-content">
+
+<div id="vscode" class="tab-pane fade in active">
+<!--- STREAMING ANALYTICS SERVICE ---->
+{% include atom_create.md %}
+
+</div>
+
+  <div id="studio" class="tab-pane fade">
+
+{% include studio_project.md %}
+
+
+This automatically opens the graphical editor, but in this tutorial we're going to be working directly with SPL code so open the SPL Editor:
+
+<img alt="empty composite" src="/streamsx.documentation/images/qse/new-composite.jpg"/>
+
+ </div>
+
+### 2. Copy the application code in the a main composite
+
+Copy and paste the [full application source](#fullSource) in the `.spl`  file you created. Save the file.
+
+### 3. Launch the application
+
+This is a summary of the same steps you followed when you ran the sample application in the previous section. [LINK]/
+<ul class="nav nav-tabs">
+  <li class="active"><a data-toggle="tab" href="#vscode2"><b>VS Code</b></a></li>
+   <li><a data-toggle="tab" href="#studio2"><b>Streams Studio</b></a></li>
+</ul>
+
+<div class="tab-content">
+
+<div id="vscode2" class="tab-pane fade in active">
+Right click from within the `.spl` source file and click <strong>Build and submit job</strong>.
+
+<br/>
+
+
+<img alt="empty composite" src="/images/qse/build-vscode.jpg"/>
+
+</div>
+
+<div id="studio2" class="tab-pane fade">
+The application should automatically be built if you are using Streams Studio, so you are ready to launch it.
+For Streams Studio, follow the instructions in the previous section on how to launch an application.
+
+If your application does not build automatically, right click the project in the Project Explorer and click <strong>Build Active Configurations</strong>.
+
+Then follow the instructions to launch the application.
+ </div>
+
 
 ## Building Streams Applications
 
@@ -649,7 +799,7 @@ To see the result of the sample application, open the file as specified in the _
 <pre>() as CheckedTradesSummaryFile = FileSink(<span style="color: #000000;">CheckedTradesSummary</span>)
 {
     param
-        file : <strong><span style="color: #800080;">"/homes/myuserid/data/tradesSummary.csv"</span></strong>;
+        file : <strong><span style="color: #800080;">"/tmp/tradesSummary.csv"</span></strong>;
         flush : 1u ;
         format : csv ;
 }
