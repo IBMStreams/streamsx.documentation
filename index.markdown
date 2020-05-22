@@ -26,25 +26,31 @@ The following are resources to help you get started developing applications usin
 ### Developing Streams applications with SPL
 
 
-Streams Processing Language is specifically designed for creating Streams applications. You can use Microsoft Visual Studio Code (VS Code) or Atom, or Streams Studio to get started.  Streams Studio provides a full IDE with a graphical drag-and-drop editor.
-
+Streams Processing Language is specifically designed for creating Streams applications. You can use Microsoft Visual Studio Code (VS Code) or Streams Studio to get started.  Streams Studio provides a full IDE with a graphical drag-and-drop editor.
 
 {: .simple}
 
-- [Developing for IBM Cloud or IBM Cloud Pak for Data using Atom/VS Code](/streamsx.documentation/docs/spl/atom/atom-apps/). (*No download required.*)
+* **Start here**:  If you are new to SPL, [start with this guide](/streamsx.documentation/docs/spl/quick-start/qs-0).
 
-- [Developing with a local installation of Streams](/streamsx.documentation/docs/4.3/qse-intro).
+
+#### Useful links
+
+{: .simple}
+
+- [Download the Streams Quick Start Edition](/streamsx.documentation/docs/4.3/qse-intro)
+
+- [Search our samples catalog](https://ibmstreams.github.io/samples/)
   
+- [Streams Studio Tutorial](/streamsx.documentation/docs/spl/lab/spl-lab-00-get-started/)
+  
+- [Streams in IBM Cloud Pak for Data](https://www.ibm.com/support/producthub/icpdata/docs/content/SSQNUZ_current/cpd/svc/streams/developing-intro.html)
+ 
+- [Streams Knowledge Center](http://www.ibm.com/support/knowledgecenter/SSCRJU/SSCRJU_welcome.html)
 
-#### Learn more
-* [Streams Hands-on Lab](https://developer.ibm.com/streamsdev/docs/streams-lab-introduction/)
-* [SPL Examples for Beginners](/streamsx.documentation/samples/)
-* [Search our samples catalog](https://ibmstreams.github.io/samples/)
 
 ### Developing Streams applications with Java
 
 {% include nav.html context="/docs/java/"%}
-
 
 
 ### Developing Streams applications with Scala

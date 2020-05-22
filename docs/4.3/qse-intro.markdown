@@ -17,7 +17,7 @@ IBM Streams offers a continuous, complete and connected solution.  IBM Streams i
 
 ## Download and installation instructions
 
-There are several ways to try Streams Quick Start Edition:
+There are 2 ways to try Streams Quick Start Edition:
 
 | Quick Start Edition  | Description         | Installation instructions |
 | -------------------- | -------------------- | ----------------|
@@ -26,4 +26,4 @@ There are several ways to try Streams Quick Start Edition:
 
 ## What to do next
 
-Explore Streams Quick Start Edition by following the [Getting started with IBM Streams v4.3](/streamsx.documentation/docs/4.3/qse-getting-started/)
+After installing the Quick start edition, visit the [Getting started with IBM Streams](/streamsx.documentation/docs/4.3/qse-getting-started/) page for next steps.
