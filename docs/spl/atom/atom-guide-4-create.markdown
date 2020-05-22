@@ -13,7 +13,7 @@ next:
 ---
 
 
-{% include atom_create.md %}
+{% include atom_create.html %}
 
 Develop the sample application
 ---------------------------

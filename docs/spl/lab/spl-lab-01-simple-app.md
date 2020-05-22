@@ -36,7 +36,11 @@ application graph.
 
 ## Create a project
 
-{% include studio_project.md %}
+<p>You're ready to start building your application. First, you'll create
+a Streams project, which is a collection of files in a directory tree in
+the Eclipse workspace, and then an application in that project.</p>
+
+{% include studio_project.html %}
 
 **Tip for adding space**: If you want to give the editor more space,
 close the Outline view, and collapse the Layers and Color Schemes

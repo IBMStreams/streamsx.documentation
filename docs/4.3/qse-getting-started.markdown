@@ -9,13 +9,10 @@ tag: 43qse
 prev:
   file: qse-intro
   title:  Download Quick Start Edition
-next:
-  file: qse-development-1
-  title: Run your first SPL application
----
 ---
 
 ## Table of Contents
+
 - [Download and install](#install)
 - [Start developing applications with SPL, Python or Java](#dev)
 - [Monitor applications with Streams Console](#console)
@@ -28,24 +25,81 @@ next:
 
 If you haven't already done so, download and install Streams Quick Start Edition. For instructions, see [Try IBM Streams Quick Start Edition](../qse-intro).
 
+## Quick Start Edition overview
 
+The Quick Start Guide comes with a Streams domain and instance already configured. 
+
+The following software is already installed on the Quick Start Edition image:
+
+-   CentOS Linux release 7.7 (64-bit)
+-   IBM Streams Quick Start Edition 4.3.1.1, including Streams Studio
+
+
+<table width="60%">
+<tbody><tr>
+<th>Parameter</th>
+<th>Value</th>
+</tr>
+<tr>
+<td>Host name</td>
+<td>streamsqse (streamsqse.localdomain)</td>
+</tr>
+<tr>
+<td>User and administrator ID</td>
+<td>streamsadmin (logged in automatically)</td>
+</tr>
+<tr>
+<td>User home directory</td>
+<td>/home/streamsadmin</td>
+</tr>
+<tr>
+<td>User password</td>
+<td>passw0rd (password with a zero for the O)</td>
+</tr>
+<tr>
+<td>root password</td>
+<td>passw0rd</td>
+</tr>
+<tr>
+<td>Streams domain</td>
+<td>StreamsDomain (started automatically)</td>
+</tr>
+<tr>
+<td>Streams instance</td>
+<td>StreamsInstance (started automatically)</td>
+</tr><tr>
+<td>Streams Console (used to administer the domain and instance)</td>
+<td>https://streamsqse.localdomain:8443/streams/domain/console</td>
+</tr>
+</tbody></table>
+
+<br/>
 <a id="dev"></a>
 
 ## Getting started for developers
 
 Pick one of the development guides to learn how to develop applications with Python, Java or Streams Processing Language (SPL).
 
-**SPL development**: Start here (/streamsx.documentation/docs/spl/quick-start/qse-development-1) to launch your first application using the QSE.
+### Learn Streams Processing Language (SPL)
 
-**Java developers**: Create an application entirely in Java in the  [Java development guide](/streamsx.documentation/docs/java/java-appapi-devguide/)
+**[Start here](/streamsx.documentation/docs/spl/quick-start/qs-0)** to launch your first application using the QSE.
+  
+Next, get familiar with Streams Studio in the [Streams Studio tutorial](/streamsx.documentation/docs/spl/lab/spl-lab-00-get-started/).
 
-**Use Java code in SPL applications**
+### Python developers
+Follow the [Python development guide](/streamsx.documentation/docs/python/1.6/python-appapi-devguide/).
+
+
+###  Java developers
+
+Create an application entirely in Java in the  [Java development guide](/streamsx.documentation/docs/java/java-appapi-devguide/)
+
+#### Use Java code in SPL applications
+
 If you have existing Java code, you can easily reuse your code within an SPL application by writing a Java operator or native Java functions.
 
 Some familiarity with SPL is required, so you need to learn about SPL first.  Then follow the [Java Operator Development Guide](../../java/java-op-dev-guide/)
 
-
-**Python developers**: [Python development guide](/streamsx.documentation/docs/python/1.6/python-appapi-devguide/).
 
 
 <a id="console"></a>

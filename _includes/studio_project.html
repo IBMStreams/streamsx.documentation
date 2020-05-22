@@ -1,0 +1,41 @@
+
+<p>The New SPL Application Project wizard takes care of a number of steps
+in one pass: it creates a project, a namespace, an SPL source file, and
+a main composite.</p>
+<p>In Streams, a main composite is an application. Usually, each main
+composite lives in its own source file (of the same name), but this is
+not required. This section does not explore composite operators or what
+distinguishes a main composite from any other composite.</p>
+<p>To create a project and a main composite:</p>
+<ol>
+<li>Click <strong>File</strong> > <strong>New</strong> > <strong>Project</strong>. Alternatively, right-click
+in the Project Explorer and select <strong>New</strong> > <strong>Project</strong>.</li>
+<li>In the New Project dialog, expand <strong>IBM Streams Studio</strong>, and select
+<strong>SPL Application Project</strong>.</li>
+<li>Click <strong>Next</strong>.</li>
+<li>In the New SPL Application Project wizard, enter the following
+information:<ul>
+<li><strong>Project name</strong>: <code>MyProject</code></li>
+<li><strong>Namespace</strong>: <code>my.name.space</code></li>
+<li><strong>Main Composite Name</strong>: <code>MyMainComposite</code></li>
+</ul>
+</li>
+<li>Click <strong>Next</strong>.</li>
+<li>On the SPL Project Configuration panel, change the <strong>Toolkit</strong> name
+to <code>MyToolkit</code>.</li>
+<li>In the <strong>Dependencies</strong> field, clear <strong>Toolkit Locations</strong>.</li>
+<li>Click <strong>Finish</strong>.
+<strong>Project dependencies</strong>: In the <strong>Dependencies</strong> field you can
+signal that an application requires operators or other resources
+from one or more toolkits---a key aspect of the extensibility that
+makes Streams such a flexible and powerful platform. For now, you
+will use only building blocks from the built-in Standard Toolkit.</li>
+<li>Check your results.
+You should see the following items in Streams Studio:<ul>
+<li>The new project shows in the Project Explorer view on the left.</li>
+<li>The code module named MyMainComposite.spl opens in the graphical
+editor with an empty composite named <strong>MyMainComposite</strong> in the
+canvas.</li>
+</ul>
+</li>
+</ol>

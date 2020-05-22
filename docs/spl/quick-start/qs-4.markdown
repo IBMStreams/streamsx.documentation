@@ -1,9 +1,17 @@
 ---
 layout: docs
 title:  Tips for creating Streams applications
-description:  
+description:
+weight: 70
+published: true
+tag: spl-qs
 navlevel: 2
+prev:
+  file: qs-3
+  title:  FAQ
 ---
+
+
 **[Work in progress]**
 
 You have an idea of what your application should do, e.g. "Detect when a moving bus passes the known points of interest and send any alerts to the bus".
@@ -87,61 +95,87 @@ View the full list of [supported toolkits in the Streaming Analytics service](ht
 
 ### Define the incoming schema and use it with the source operator
 
-Define the output schema that describes each incoming tuple:
+1. Define the output schema that describes each incoming tuple:
 
-For example:
+    For example, a type for tuples representing information about a bus:
+    
+     `type Bus = rstring id, rstring name, int32 id, timestamp last_seen, float32 latitude, floa32 longitude;`
 
-* SQL Database row: `type Bus = rstring id, rstring name, int32 id, timestamp last_seen;`
+2. Data conversion
 
-1c) If your data is in a different format, such as JSON or XML string, or a binary blob, it will need to be converted to Streams tuples.
+    If your data is in a different format, such as JSON or XML string, or a binary blob, it will need to be converted to Streams tuples.
 
-For example, if you have JSON data, use the `JSONToTuple` operator to convert the JSON string to SPL tuples. The `XMLParse` operator is used to convert XML text to tuples.
+    - JSON data: Use the [JSONToTuple`](https://github.com/IBMStreams/streamsx.json/wiki/JSONToTuple-Operator) operator to convert the JSON string to SPL tuples.
 
-1d) Verify the data is correct. Create a small application that ingests the data and then prints it to console with a `Custom` operator.
+    - XML: Use the `XMLParse` operator to convert XML text to tuples.
 
-Example 1: no parsing needed
+    - Binary data: Parse operator converts data from `blob` type.
+  
+    - Apache Avro: **AvroToJSON** operator in the [Avro toolkit](https://github.com/IBMStreams/streamsx.avro)
 
-//change this to match the tuples you expect
 
-type RawDataType = int32 id, rstring name, rstring timestamp;
+3. Verify the data is correct. Create a small application that ingests the data and then prints it to console with a `Custom` operator.
 
-    composite MyApp {
+    Example 1: no parsing needed
 
-    graph
+    //change this to match the tuples you expect
 
-      stream\<RawDataType\> DataFromXYZ = XYZSource() {
+    type RawDataType = int32 id, rstring name, rstring timestamp;
 
-      }
+        composite MyApp {
 
-      () as DataPrinter = Custom(DataFromXYZ as port0) {
+        graph
 
-        logic
+        stream<RawDataType> DataFromXYZ = XYZSource() {
 
-        onTuple port0: {
-
-            printStringLn("New Tuple : " + (rstring)port0.id + " " + port0.name);
-
-          }
         }
+
+        () as DataPrinter = Custom(DataFromXYZ as port0) {
+
+            logic
+
+            onTuple port0: {
+
+              printStringLn("New Tuple : " + ((rstring)(port0)));
+
+            }
+            }
 
 The `DataPrinter` operator will almost always be more or less the same as shown above.
 
-If you are not using the Streaming Analytics service and you have access to the local filesystem, you could also write the incoming data to a file using a FileSink and verify the output file's contents.
+If you are not using the Streaming Analytics service and you have access to the local filesystem, you could also write the incoming data to a file using a **FileSink** and verify the output file's contents.
 
-Example 2
-
-Adding a parsing step and using a FileSink
 
 ### Generating data
 
--   Use a Beacon to generate data](https://github.com/IBMStreams/samples/blob/master/Examples-for-beginners/003_sink_at_work/sample/sink_at_work.spl#L16)
+Sometimes you have to generate data to test your application.
 
--   More complex samples can be generated using a `Custom` operator:
 
-    https://github.com/IBMStreams/samples/blob/master/Geospatial/MapViewerSample/com.ibm.streamsx.mapviewer/Main.spl#L27>
+-   Use a **Beacon** operator to [generate data](https://github.com/IBMStreams/samples/blob/master/Examples-for-beginners/003_sink_at_work/sample/sink_at_work.spl#L16)
 
-    Helper functions defined here:
-    https://github.com/IBMStreams/samples/blob/master/Geospatial/MapViewerSample/com.ibm.streamsx.mapviewer.gen/GeospatialGen.spl
+-   More complex samples can be generated using a `Custom` operator. This example will create a stream called `SampleData` and will run until the application is terminated.
+    
+    	stream<rstring id, float64 temp>  SampleData = Custom()
+		{
+			logic
+				onProcess :
+				{
+					while (! isShutdown()) { //run indefinitely
+						// Randomly generate entities in Hong Kong
+						float64 maxTemp = 50.0;
+						float64 temperature = (random() * maxTemp);
+                        float64 range = 100.0;
+						float64 randomNum = random();
+	                    rstring user_id = "User_" + ((rstring)((int32)(randomNum * range))) ;
+						// submit tuple
+						submit({ id = user_id, 
+                                temp = temperature}, SampleData) ;
+						block(0.1) ; //wait 0.1 seconds before submitting a new tuple
+					}
+				}
+
+		}
+
 
 ## Where to find examples
 

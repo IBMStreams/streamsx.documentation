@@ -1,15 +1,9 @@
-You\'re ready to start building your application. First, you\'ll create
-a Streams project, which is a collection of files in a directory tree in
-the Eclipse workspace, and then an application in that project.
+After running a sample, you might be ready to start building your application. First, you need to create a Streams project, which is a collection of files in a directory tree in the Eclipse workspace, and then an application in that project.
 
-The New SPL Application Project wizard takes care of a number of steps
-in one pass: it creates a project, a namespace, an SPL source file, and
+The New SPL Application Project wizard takes care of a number of steps in one pass: it creates a project, a namespace, an SPL source file, and
 a main composite.
 
-In Streams, a main composite is an application. Usually, each main
-composite lives in its own source file (of the same name), but this is
-not required. This section does not explore composite operators or what
-distinguishes a main composite from any other composite.
+In Streams, a main composite is an application. Usually, each main composite lives in its own source file (of the same name).
 
 To create a project and a main composite:
 
@@ -39,3 +33,5 @@ To create a project and a main composite:
     -   The code module named MyMainComposite.spl opens in the graphical
         editor with an empty composite named **MyMainComposite** in the
         canvas.
+
+

@@ -17,7 +17,7 @@ IBM Streams offers a continuous, complete and connected solution.  IBM Streams i
 
 ## Download and installation instructions
 
-There are several ways to try Streams Quick Start Edition:
+There are 2 ways to try Streams Quick Start Edition:
 
 | Quick Start Edition  | Description         | Installation instructions |
 | -------------------- | -------------------- | ----------------|
