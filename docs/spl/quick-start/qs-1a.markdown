@@ -34,7 +34,7 @@ Launching instructions depend on how you installed the Streams QSE. Following ar
 
   {: .simple}
 
-  * [Start a VNC session](http://localhost:4000/streamsx.documentation/docs/4.3/qse-install-docker/#vnc).
+  * [Start a VNC session](/streamsx.documentation/docs/4.3/qse-install-docker/#vnc).
   
   * Launch Streams Studio:
     * Click the Streams Studio by clicking **Applications** > **Streams Studio**   from the desktop.
@@ -50,7 +50,15 @@ Launching instructions depend on how you installed the Streams QSE. Following ar
     
       <img alt="launch studio" src="/streamsx.documentation/images/qse/SelectDomain.gif"/>
 
+   * Afterwards, Streams Studio will open in the *IBM Streams* perspective, which is a collection of panes to make development easier.
+ 
+      ![streams studio](explore-streams-2nd-image-dwc009.png) 
+              
+      **Project Explorer:** Shows project contents and details.
 
+      **Streams Explorer:** Shows domain and instance information, including any jobs that are running.
+
+      **
 
 ### Users with a Native Streams installation 
 
@@ -62,7 +70,7 @@ Launching instructions depend on how you installed the Streams QSE. Following ar
 ## Import the sample application
 
 
-The application we will use is called **TradesAppCloud** in the **TradesApp** project. It processes a stream of stock quotes for various companies, each identified by a ticker.
+The `TradesApp` sample application processes a stream of stock quotes for various companies, each identified by an id, or ticker.
 It computes the rolling average price for each unique stock ticker and prints it to standard out.
 
 1. From the QSE, open a browser and download the sample application project using this URL: `https://streams-github-samples.mybluemix.net/?get=QuickStart%2FTradesApp`
@@ -72,23 +80,25 @@ It computes the rolling average price for each unique stock ticker and prints it
    2. In the dialog that appears, select **General** > **Existing Projects into Workspace**. Click **Next**.
    3. Make sure **Select archive file** is selected, then click **Browse**, and navigate to the location of the zip file you downloaded. 
    4. Click **Finish**.
-3. After the project is imported, it will complile automatically. This might take a few seconds. In the **Console** pane you should see a message like `---- SPL Build for project TradesApp completed in 70.366 seconds ----`.
+## Compiling the application
+
+
+ After the project is imported, it will compile automatically. This might take a few seconds. In the **Console** pane you should see a message like `---- SPL Build for project TradesApp completed in 70.366 seconds ----`.
 
 <img alt="build complete" src="/streamsx.documentation/images/qse/build.jpg"/>
 
-## Compiling the application
 
-The application should compile automatically, but here are steps to compile it if that does not happen.
+If you do not see the `SPL Build ` message in the Console view as mentioned, here are the steps to compile the sample.
 
 You need a build configuration to compile SPL applications in Streams Studio. 
-
-This project should already have a build configuration: In the Project Explorer, expand the **TradesApp** project and then expand the **application** node, and the  **TradesAppCloud** node under it.
+The `TradesApp` project should already have a build configuration, so in the Project Explorer, expand the **TradesApp** project and then expand the **application** node, and the  **TradesAppCloud** node under it. 
 
 The **TradesAppCloud** node represents the main application we will be running.
 
 <img alt="build complete" src="/streamsx.documentation/images/qse/build-config.jpg"/>
 
-As shown in the image there should be an item called *BuildConfig* in the project. This is the build configuration.
+As shown in the preceding image there should be an item called *BuildConfig* in the project. This is the build configuration. 
+If one does not exist, select the **TradesAppCloud** node, and choose  **New > Build Configuration**. Accept the defaults, and click **OK**.
 
 Select the build configuration and click **Build** from the context menu. The **TradesAppCloud** application should now compile.
 
@@ -96,12 +106,12 @@ Compiling will generate a few artifacts in the `output` folder.  The most import
 
 ## Run the application
 
-Now that the application is built, you can run it in the following ways:
+Now that the application is built, you can run it as a single process locally. This is called standalone mode. You could also run it as a distributed job on the Streams instance. In distributed mode, the application can be run across multiple processes and hosts. 
 
-- [locally as a standalone application, meaning it is executed as a single process](#standalone)
-- As a distributed application:
-  -  [in the Streams instance in the Quick Start Edition](#dist),
-  -  [On a Streams instance in IBM Cloud Pak for Data](#cpd).
+- Run [locally as a standalone application](#standalone)
+- Run in distributed mode:
+  -  [on the Streams instance in the Quick Start Edition](#dist),
+  -  [on a Streams instance in IBM Cloud Pak for Data](#cpd).
 
 
 <a id="standalone"></a>
@@ -136,51 +146,54 @@ Click the terminate button in the Console pane to stop the application.
 
 <a id="dist"></a>
 
-## Option 2: Run as a distributed application on the local Streams instance
+## Option 2: Run in distributed mode on a local Streams instance
 
-Now, let's try deploying the application on the Streams instance.
+Now, let's try deploying the application in distributed mode.
 
-Return to thhe Project Explorer, expand the **TradesApp** project. Expand the **application** node, right-click **TradesAppCloud**, but this time select **Launch** \> **Launch Active Build Config To Running Instance**. 
+In the Project Explorer, expand the **TradesApp** project. Expand the **application** node, right-click **TradesAppCloud**, and select **Launch** \> **Launch Active Build Config To Running Instance**. 
 
 In the **Edit Configuration** dialog, click **Apply**, and then click **Launch**.
 
 Streams Studio will send the executable SAB file to the Streams instance for execution.
 
-You can observe this in the **Console** view. Click the **Display Selected Console** button on the right to switch consoles to the Streams Studio Console.\
-\
+You can observe this in the **Console** view. Click the **Display Selected Console** button on the right to switch consoles to the Streams Studio Console.
+
 ![](/streamsx.documentation/images/spl_lab_1/lab1step8-3dwc009.png)
 
 You should see some output like: `Submitted: StreamsInstance@StreamsDomain job id: 1 name: application::TradesAppCloud_1`.
 
 
-This shows that a new application was submitted to the instance.  A running Streams application is called a *job*.
+This shows that a job was submitted to the instance, because a running Streams application is called a *job*. 
+Streams Studio includes tools to manage a running job,  and we'll use a handful of these in the next few sections.
 
 
 ### View the running job in Streams Studio
 
-After launching the application in distributed mode, follow these steps to view the running application. 
+Follow these steps to view the running job. You can observe its health, view the data it is processing and other performance metrics.
 
 1. Switch to the **Streams Explorer**, which is the second tab in the view on the left, behind the Project Explorer.
 2. Expand the **StreamsInstances** folder, and right-click the **default@StreamsInstance** instance and choose **Show instance graph**.
 
 <img alt="app output" src="/streamsx.documentation/images/qse/graph.jpg"/>
 
-A new view called the **Instance Graph** should open.  This view shows a graph that represents the application we launched. Streams applications are really directed graphs that analyze data as it is processed. Each node in the graph is an **operator** that processes data, and each arrow represents a **stream** of live data. Don't worry about the colors on each node for now.
+A new view called the **Instance Graph** should open.  This view shows all the running jobs in the instance as graphs.
+
+This is because Streams applications are really directed graphs that analyze data as it is processed. Each node in the graph is an **operator** that processes data, and each arrow represents a **stream** of live data. 
+You can hover over an operator or a stream to view metrics.
+The color of each operator can be used to provide helpful information, but we won't cover that here.
 
 <img alt="app output" src="/streamsx.documentation/images/qse/graph-view.jpg"/>
 
 
 
-This view shows all the running applications in the instance, so if you were to launch this application again, it would shortly appear in the graph. 
-
 
 ### Observe the data flowing through the job in real time
 
-You can look at the data on a given Stream to observe the data that is being processed or produced by an operator. For example, the **Quotes** operator
+You can look at the data on a stream to observe the data that is being processed or produced by an operator. For example, the `Quotes` operator
 produces a stream of stock quotes. Let's take a look at the data.
 
-- Select the stream that comes out of the **Quotes** operator, right-click, and click - **Show Data**.
-- Accept the default attributes in dialog that appears and you should soon see a second view showing the tuples in the stream produced by the **Quotes** operator. 
+- Select the stream that comes out of the `Quotes` operator, right-click, and click - **Show Data**.
+- Accept the default attributes in dialog that appears and you should soon see a second view showing the tuples in the stream produced by the `Quotes` operator. 
 
 The following animation shows the sequence of steps.
 
@@ -191,15 +204,20 @@ The following animation shows the sequence of steps.
 
 All application output, including messages printed to standard out, errors and trace data are sent to the logs. To view an operator's logs, select the operator and click **Show Log**.
 
-In this application, the output is generated by the **PrintAvPrice** operator.
+In this application, the output is generated by the `PrintAvPrice` operator.
 
-To view the printed output, select the **PrintAvPrice** operator in the **Instance Graph**, right click it, and click **Show Log** > **Show all PE Logs**.
+To view the printed output, select the `PrintAvPrice` operator in the **Instance Graph**, right click it, and click **Show Log** > **Show all PE Logs**.
 
 The logs for the operator will be retrieved and displayed.
 
 <img alt="application logs" src="/streamsx.documentation/images/qse/logs.jpg"/>
 
-[Skip to the conclusion](#summary).
+
+### Cancel the job
+
+So far we have launched an application and examined it briefly. Now to cancel the job, go to the Streams Explorer view. Expand the **Streams Jobs** node, select the `TradesAppCloud` job you launched, and choose **Cancel job** from the context menu.
+
+You're done! Go to the [summary section](#summary) for next steps, or continue to learn how to submit the application on IBM C  1q   loud Pak for Data.
 
 <a id="cpd"></a>
 
@@ -207,7 +225,7 @@ The logs for the operator will be retrieved and displayed.
 
 If you have a Streams instance in IBM Cloud Pak for Data or in Kubernetes/OpenShift, the steps to launch the application are different. 
 
-As mentioned earlier, compiling the application creates an executable called a Streams Application Bundle (SAB) file. To run the application on Cloud Pak for Data, you need need to upload the application using the Streams Console.
+As mentioned earlier, compiling the application creates an executable called a Streams Application Bundle (SAB) file. To run the application on Cloud Pak for Data, you need to upload the executable file using the Streams Console.
 
 ### Launch the application using the Streams Console
 
@@ -219,9 +237,10 @@ Next, from the Streams Console, click **Submit job**:
 ![submit job](/streamsx.documentation/images/qse/streams-submit-job.png)
 
    * Browse to the location of the compiled application.  This will be a `.sab` file in the `output` folder of your project.
-   * Set any parameters, and submit the application.
+   * Click **Submit**.
+   * Set any parameters if prompted.
 
-You should see a popup like this once submission is successfull:
+You should see a popup like this once submission is successful:
 
 <img alt="job success" src="/streamsx.documentation/images/qse/submit-console.png"/>
 
@@ -231,13 +250,15 @@ Keep these steps in mind for submitting applications for IBM Cloud Pak for Data 
 
 ### View the running job in Cloud Pak for Data
 
-After launching the application in the Streams Console you can go to the Job Graph in Cloud Pak for Data to view the running application. 
+After launching the application in the Streams Console you can go to the Job Graph in Cloud Pak for Data to view the running job. 
 
 1. From the main menu, go to **My Instances** > **Jobs**. This will bring you to the list of jobs.
 2. Find your job in the list  based on its name, and from the context menu of the job, click **View job graph**.
 
 A new page called the Job Graph should open. 
-This shows a graph that represents the application we launched. Streams applications are really directed graphs that analyze data as it is processed. Each node in the graph is an **operator** that processes data, and each arrow represents a **stream** of live data. 
+This shows a graph that represents the application we launched. 
+
+Streams applications are really directed graphs that analyze data as it is processed. Each node in the graph is an **operator** that processes data, and each arrow represents a **stream** of live data. 
 
 <img alt="job graph in cpd" src="/streamsx.documentation/images/qse/graph-cpd.jpg"/>
 
@@ -245,26 +266,25 @@ This shows a graph that represents the application we launched. Streams applicat
 
 ### Observe the data flowing through the job in real time
 
-You can look at the data on a given Stream to observe the data that is being processed or produced by an operator. For example, the **Quotes** operator produces a stream of stock quotes. Let's take a look at the data.
+You can look at the data on a given Stream to observe the data that is being processed or produced by an operator. For example, the `Quotes` operator produces a stream of stock quotes. Let's take a look at the data.
 
-Select the stream that comes out of the **Quotes** operator, right-click and click **View Data** > **Create new view**.
+Select the stream that comes out of the `Quotes` operator, right-click and click **View Data** > **Create new view**.
 
-A new pane will appear that shows the data in the stream produced by the **Quotes** operator.  Notice that the view is processed as new data arrives.
+A new pane will appear that shows the data in the stream produced by the `Quotes` operator.  Notice that the view is updated as new data arrives.
 
 <img alt="view data in cpd" src="/streamsx.documentation/images/qse/showdata-cpd.gif"/>
 
 
 ### View job logs
 
-The application prints output to standard out. This output, errors and trace data are all sent to the logs. To view an operator's logs, go back tto the list of jobs:  **My instances** > **Jobs**.
+The application prints output to standard out. This output, errors and trace data are all sent to the logs. To view an operator's logs, go back to the list of jobs:  **My instances** > **Jobs**.
 
-Find the job in the list and click **Download Logs** from the job's context menu:
+Find the job in the list and click **Download Logs** from the job's context menu.
 
-<img alt="view data in cpd" src="/streamsx.documentation/images/qse/logs-cpd.png"/>
+The logs will be downloaded as an archive.
 
 
-### Summary
-You've just launched a Streams application using Streams studio. In the next section you will learn Streams concepts and how to create this application.
+You've just launched a Streams application using Streams studio. In the next section, you will learn Streams concepts and how to create this application.
 
 But first, cancel the running job.
 

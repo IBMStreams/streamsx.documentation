@@ -27,9 +27,7 @@ If you haven't already done so, download and install Streams Quick Start Edition
 
 ## Quick Start Edition overview
 
-The Quick Start Guide comes with a Streams domain and instance already configured. 
-
-The following software is already installed on the Quick Start Edition image:
+The Quick Start Guide comes with the following software already installed:
 
 -   CentOS Linux release 7.7 (64-bit)
 -   IBM Streams Quick Start Edition 4.3.1.1, including Streams Studio
@@ -92,7 +90,7 @@ Follow the [Python development guide](/streamsx.documentation/docs/python/1.6/py
 
 ###  Java developers
 
-Create an application entirely in Java in the  [Java development guide](/streamsx.documentation/docs/java/java-appapi-devguide/)
+Create an application entirely in Java in the  [Java development guide](/streamsx.documentation/docs/java/java-appapi-devguide/).
 
 #### Use Java code in SPL applications
 
@@ -129,7 +127,7 @@ Refer to the [Product Toolkits Overview](https://developer.ibm.com/streamsdev/do
 
 **Find more toolkits on GitHub**
 
-In addition to the toolkits included in the install, [IBMStreams on GitHub](https://github.com/ibmstreams) includes open sour a platform that enables Streams to rapidly add support for emgerging technologies.  It also includes sample applications and helpful utilities.  
+In addition to the toolkits included in the install, [IBMStreams on GitHub](https://github.com/ibmstreams) includes open sour a platform that enables Streams to rapidly add support for emerging technologies.  It also includes sample applications and helpful utilities.  
 
 For a list of open-source projects hosted on GitHub, see: [IBM Streams GitHub Projects Overview](https://developer.ibm.com/streamsdev/docs/github-projects-overview/).
 
@@ -144,7 +142,7 @@ To learn about Streams can integrate with SPSS:  [Streams and SPSS Lab](https://
 
 <img src="/streamsx.documentation/images/qse/BargainIndex1.jpg" alt="Streams and Excel" style="width: 60%;"/>
 
-IBM Streams integrates with Microsoft Excel, allowing you to see, analyze and visulize live streaming data in an Excel worksheet.  This article helps you get started:  [Streams for Microsoft Excel](https://developer.ibm.com/streamsdev/docs/streams-4-0-streams-for-microsoft-excel/)
+IBM Streams integrates with Microsoft Excel, allowing you to see, analyze and visualize live streaming data in an Excel worksheet.  This article helps you get started:  [Streams for Microsoft Excel](https://developer.ibm.com/streamsdev/docs/streams-4-0-streams-for-microsoft-excel/)
 
 In the following demo, we demonstrate how you may build a marketing dashboard from real-time data using Excel.
 
@@ -160,7 +158,7 @@ IBM Streams integrates with ODM rules, allowing you to create business rules, co
 ### Integration with IBM InfoSphere Data Governance Catalog
 
 With IBM InfoSphere Data Governance Catalog integration, developers can easily discover the data and schema that are available for use.  By building data lineage with your Streams application, you can quickly see and control how data is consumed.
-To get started, see the  [Streams Governance Quickstart Guide](../governance/governance-quickstart/).
+To get started, see the  [Streams Governance Quick Start Guide](../governance/governance-quickstart/).
 
 
 ### SparkMLLib in Streams
@@ -180,8 +178,7 @@ Gather local, real-time analytics from equipment, vehicles, systems, appliances,
 ## Streams Community
 The following Streams resources can help you connect with the Streams community and get support when you need it:
 
-* **[Streamsdev](https://developer.ibm.com/streamsdev/)** - This resource is a developer-to-developer website maintained by the Streams Development Team.  It contains many useful articles and getting started material.  Check back often for new articles, tips and best practises to this website.
-* **[Streams Tutorials Hub](http://ibmstreams.github.io/tutorials/)** A collection of available tutorials, labs and courses.
+* **[Streamsdev](https://developer.ibm.com/streamsdev/)** - This resource is a developer-to-developer website maintained by the Streams Development Team.  It contains many useful articles and getting started material.  Check back often for new articles, tips and best practices to this website.
 * **[Streams Forum](https://www.ibmdw.net/answers/questions/?community=streamsdev&sort=newest&refine=none)** - This forum enables you to ask, and get answers to your questions, related to IBM Streams. If you have questions, start here.
 * **[IBMStreams on GitHub](http://ibmstreams.github.io)** - Streams is shipped with many useful toolkits out of the box.  IBMStreams on GitHub  contains many open-source toolkits.  For a list of available toolkits available on GitHub, see this web page:  [IBMStreams GitHub Toolkits](https://developer.ibm.com/streamsdev/docs/github-projects-overview/).
 * **[IBM Streams Support](http://www.ibm.com/support/entry/portal/Overview/Software/Information_Management/InfoSphere_Streams)** - This website provides information about IBM Streams downloads, technical support tools, documentation, and other resources.
