@@ -1,6 +1,6 @@
 ---
 layout: docs
-title: Streams Quick Start
+title: IBM Streams Quick Start
 description:
 weight: 10
 published: true

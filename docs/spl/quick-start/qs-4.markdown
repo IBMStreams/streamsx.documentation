@@ -12,7 +12,7 @@ prev:
 ---
 
 
-**[Work in progress]**
+*This document is a work in progress. Feel free to add tips here*.
 
 You have an idea of what your application should do, e.g. "Detect when a moving bus passes the known points of interest and send any alerts to the bus".
 
@@ -27,7 +27,11 @@ All Streams applications have this basic pattern: ingest the data, filter/discar
 Each stage in the diagram above is handled by one or more operators.
 
 
-For example, in the `BusAlerts` application:
+For example, an application called `BusAlerts` tracks public transit vehicles as the vehicles move around the city. The buses periodically report their location. When a bus is near an area with a point of interest (POI), the application detects this and sends an alert.
+
+For example, if a bus comes within 1km of the Golden Gate Bridge in San Francisco, you want to display this message inside the bus: “Approaching Golden Gate Bridge, pedestrian bridge is closed.”
+
+The [`BusAlerts` application](https://developer.ibm.com/streamsdev/docs/common-patterns-tracking-moving-objects-streams-part-2-geofencing/) might be broken down into these phases:
 
 ![](/streamsx.documentation/images/atom/jpg/phases2.jpg)
 
@@ -99,7 +103,7 @@ View the full list of [supported toolkits in the Streaming Analytics service](ht
 
     For example, a type for tuples representing information about a bus:
     
-     `type Bus = rstring id, rstring name, int32 id, timestamp last_seen, float32 latitude, floa32 longitude;`
+     `type Bus = rstring id, rstring name, int32 id, timestamp last_seen, float32 latitude, float32 longitude;`
 
 2. Data conversion
 
