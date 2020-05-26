@@ -1,0 +1,32 @@
+<br />
+<div>
+  <p>
+    An IBM Streams instance is required. If you need to install an instance, start <a href="https://www.ibm.com/support/knowledgecenter/en/SSCRJU_5.2.0/com.ibm.streams.install.doc/doc/install-container.html">here</a> and follow the instructions.
+  </p>
+
+  <p>
+    To add an instance in VS Code, either:
+
+    <ul>
+      <li>Bring up the <strong>Streams Explorer</strong> view by clicking on the Streams icon on the left side of VS Code. Then, click on the <strong>+</strong> button.</li>
+      <li>Run the <strong>IBM Streams: Add Instance</strong> command.</li>
+    </ul>
+  </p>
+
+  <p>
+    You must provide the following information in order for this extension to connect to your instance.
+
+    <ul>
+      <li><strong>IBM Streams instance REST service URL</strong>: IBM Streams provides a REST API that can be used to retrieve information about the instance. This service has a URL associated with it. For example, when the service is exposed as a node port: <code>https://123.45.67.89:30001</code>.</li>
+      <li><strong>IBM Streams instance build service URL</strong> (optional): IBM Streams provides an optional build service for compiling and building Streams applications. This service has a URL associated with it. For example, when the service is exposed as a node port: <code>https://123.45.67.89:30002</code>. If not specified, you will not be able to build your Streams applications.</li>
+      <li><strong>IBM Streams instance Console URL</strong> (optional): IBM Streams includes an integrated console that you can use to view the health of the instance and its applications. You can manage instances and resources, configure security, and monitor jobs from a single location. If not specified, the Console URL will be retrieved from the Streams REST API.</li>
+      <li><strong>IBM Streams instance credentials</strong>: These are the credentials (username and password) used to authenticate to the IBM Streams instance.</li>
+    </ul>
+  </p>
+
+  <img src="/streamsx.documentation/images/vs-code/vs-code-add-instance-streams-standalone.png" alt="Add instance: IBM Streams standalone deployment" class="vs-code-img" />
+
+  <p>
+    Once you add the instance, you can view the instance by clicking on the IBM Streams icon on the left side to bring up the <strong>Streams Explorer</strong> view.
+  </p>
+</div>

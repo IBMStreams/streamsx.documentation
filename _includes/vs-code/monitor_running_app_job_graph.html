@@ -1,0 +1,97 @@
+<br />
+<div>
+  <details open class="vs-code-details">
+    <summary>Job graph overview</summary>
+    <br />
+    <div>
+      <p>
+        The job graph allows you to easily visualize and monitor your Streams jobs. Streams applications are really directed graphs that analyze data as it is processed. Each node in the graph is an operator that processes data, and each link represents a stream of live data.
+      </p>
+  
+      <p>Some of the useful features include:
+        <ul>
+          <li>Monitor metrics and flow rates</li>
+          <li>View flowing data</li>
+          <li>Highlight nodes by branch, upstream, or downstream</li>
+          <li>Color nodes by PE</li>
+          <li>Set the trace level for a PE</li>
+          <li>Download operator trace data</li>
+          <li>Restart PE(s)</li>
+          <li>Delete job(s)</li>
+        </ul>
+      </p>
+  
+      <p>
+        The following animation demonstrates a few of these features.
+      </p>
+      
+      <img src="/streamsx.documentation/images/vs-code/vs-code-job-graph-features.gif" alt="Job graph features" class="vs-code-img" />
+    </div>
+  </details>
+  
+  <details class="vs-code-details">
+    <summary>Launching the job graph</summary>
+    <br />
+    <div>
+      <p>
+        You may launch the job graph in VS Code in one of the following ways.
+      </p>
+    
+      <ul>
+        <li>
+          Execute the <strong>Show Job Graph</strong> command from the <a href="https://code.visualstudio.com/docs/getstarted/userinterface#_command-palette">Command Palette</a>. This will display an empty graph in the context of the default Streams instance and you may select a job from the dropdown at the top.
+          <img src="/streamsx.documentation/images/vs-code/vs-code-launch-job-graph-option-1.png" alt="Launch job graph: Show Job Graph command" class="vs-code-img" />
+        </li>
+        <li>
+          In the <strong>Streams Explorer</strong> view, hover over a job node and then click on the <strong>Show Job Graph</strong> icon that appears on the right. This will display the graph for the selected job.
+          <img src="/streamsx.documentation/images/vs-code/vs-code-launch-job-graph-option-2.png" alt="Launch job graph: Streams Explorer" class="vs-code-img" />
+        </li>
+        <li>
+          After you successfully submit an application, a notification will be displayed in the bottom right corner of VS Code. Click on the <strong>Show Job Graph</strong> button in the notification to display the graph for the newly submitted job.
+          <img src="/streamsx.documentation/images/vs-code/vs-code-launch-job-graph-option-3.png" alt="Launch job graph: Submit application notification" class="vs-code-img" />
+        </li>
+      </ul>
+
+      <p>
+        To switch the job that is displayed in the graph, simply select a different job from the dropdown at the top. You may also open multiple graph instances at a time using any of the methods above.
+      </p>
+  
+      <img src="/streamsx.documentation/images/vs-code/vs-code-job-graph.png" alt="VS Code: Job graph" class="vs-code-img" />
+    </div>
+  </details>
+  
+  <details class="vs-code-details">
+    <summary>Observe the data flowing through the job in real time</summary>
+    <br />
+    <div>
+      You can look at the data on a given stream to observe the data that is being processed or produced by an operator. For example, the <code>Quotes</code> operator produces a stream of stock quotes. Let’s take a look at the data.
+  
+      <p>
+        <ol>
+          <li>Hover over the link that comes out of the <code>Quotes</code> node and right-click.</li>
+          <li>Select <strong>View data</strong> > <strong>Create new view</strong>.</li>
+          <li>A panel appears at the bottom that displays the tuples in the stream produced by the <code>Quotes</code> operator. Notice that the view is processed as new data arrives.</li>
+        </ol>
+      </p>
+     
+      <img src="/streamsx.documentation/images/vs-code/vs-code-job-graph-view.gif" alt="Job graph: observe the data flowing through the job in real time" class="vs-code-img" />
+    </div>
+  </details>
+  
+  <details class="vs-code-details">
+    <summary>View application logs</summary>
+    <br />
+    <div>
+      <p>
+        All application output, including messages printed to standard out, errors, and trace data are sent to the logs.
+      </p>
+  
+      <ul>
+        <li>To view an operator’s logs, click on the trace icon in the bottom left corner of a node.</li>
+        <li>To view the logs for an entire job, bring up the <strong>Streams Explorer</strong> view. Hover over a job node and then click on the <strong>Download Job Logs</strong> icon that appears on the right.</li>
+      </ul>
+  
+      <img src="/streamsx.documentation/images/vs-code/vs-code-job-graph-view-logs.png" alt="Job graph: view application logs" class="vs-code-img" />
+    </div>
+  </details>  
+</div>

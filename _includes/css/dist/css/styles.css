@@ -166,3 +166,27 @@ a.button {
 summary {
   font-size: large;
 }
+
+.vs-code-img {
+  width: 100%;
+}
+
+.vs-code-details:not(:last-of-type) {
+  padding-bottom: 20px;
+}
+
+.vs-code-details > summary {
+  font-size: unset;
+}
+
+.vs-code-details > div {
+  padding-left: 15px
+}
+
+.vs-code-tabs .nav-tabs a {
+  font-size: smaller;
+}
+
+.vs-code-tabs .tab-content {
+  border: none;
+}

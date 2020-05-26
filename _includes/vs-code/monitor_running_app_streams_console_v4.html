@@ -1,0 +1,85 @@
+<br />
+<div>
+  <details open class="vs-code-details">
+    <summary>Streams Console overview</summary>
+    <br />
+    <div>
+      <p>
+        The Streams Console is an integrated console that runs in your browser. You can use it to manage your instance and resources, configure security, and monitor jobs from a single location. Its sleek and efficient interface lets you quickly gain insights into the health, metrics, issues, and performance of your Streams instance.
+      </p>
+
+      <img src="/streamsx.documentation/images/vs-code/vs-code-streams-console-v4.png" alt="Streams Console" class="vs-code-img" />
+    </div>
+  </details>
+
+  <details class="vs-code-details">
+    <summary>Launching the Streams Console</summary>
+    <br />
+    <div>
+      <p>
+        You may launch the Streams Console in one of the following ways.
+      </p>
+
+      <ul>
+        <li>
+          Execute the <strong>Open IBM Streaming Analytics Console</strong> command from the <a href="https://code.visualstudio.com/docs/getstarted/userinterface#_command-palette">Command Palette</a>. This will open the Streams Console in your browser.
+          <img src="/streamsx.documentation/images/vs-code/vs-code-launch-streams-console-option-1-v4.png" alt="Launch Streams Console: Open IBM Streaming Analytics Console command" class="vs-code-img" />
+        </li>
+        <li>
+          In the <strong>Streams Explorer</strong> view, hover over an instance node and then click on the <strong>Open IBM Streaming Analytics Console</strong> icon that appears on the right. This will open the Streams Console in your browser.
+          <img src="/streamsx.documentation/images/vs-code/vs-code-launch-streams-console-option-2-v4.png" alt="Launch Streams Console: Streams Explorer" class="vs-code-img" />
+        </li>
+        <li>
+          After you successfully submit an application, a notification will be displayed in the bottom right corner of VS Code. Click on the <strong>Open Streams Console</strong> button in the notification to open the Streams Console in your browser.
+          <img src="/streamsx.documentation/images/vs-code/vs-code-launch-streams-console-option-3-v4.png" alt="Launch Streams Console: Submit application notification" class="vs-code-img" />
+        </li>
+      </ul>
+
+      <p>
+        To view the graph for a job, expand the <strong>Streams Graph</strong> card.
+      </p>
+
+      <img src="/streamsx.documentation/images/vs-code/vs-code-streams-console-graph-v4.png" alt="Streams Console graph" class="vs-code-img" />
+    </div>
+  </details>
+
+  <details class="vs-code-details">
+    <summary>Observe the data flowing through the job in real time</summary>
+    <br />
+    <div>
+      You can look at the data on a given stream to observe the data that is being processed or produced by an operator. For example, the <code>Quotes</code> operator produces a stream of stock quotes. Let’s take a look at the data.
+
+      <p>
+        <ol>
+          <li>In the <strong>Application Dashboard</strong>, find the <strong>Streams Graph</strong> card and expand it.</li>
+          <li>Hover over the stream that comes out of the <code>Quotes</code> operator and right-click.</li>
+          <li>Select <strong>Create Dashboard View</strong>.</li>
+          <li>Accept the default options and click on the <strong>OK</strong> button.</li>
+          <li>Minimize the <strong>Streams Graph</strong> card.</li>
+          <li>A new card is created in the dashboard that displays the tuples in the stream produced by the <code>Quotes</code> operator. Notice that the view is processed as new data arrives.</li>
+        </ol>
+      </p>
+
+      <img src="/streamsx.documentation/images/vs-code/vs-code-streams-console-view-v4.gif" alt="Streams Console: observe the data flowing through the job in real time" class="vs-code-img" />
+    </div>
+  </details>
+
+  <details class="vs-code-details">
+    <summary>View application logs</summary>
+    <br />
+    <div>
+      <p>
+        All application output, including messages printed to standard out, errors, and trace data are sent to the logs.
+      </p>
+
+      <ul>
+        <li>To view logs, click on the <strong>Log Viewer</strong> icon on the left side.</li>
+        <li>Drill down to the object that you want to view the logs for.</li>
+        <li>Choose one of the log types and the log data will be displayed.</li>
+        <li>If you want to see the latest logs, click <strong>Reload</strong>.</li>
+      </ul>
+
+      <img src="/streamsx.documentation/images/vs-code/vs-code-streams-console-log-viewer-v4.png" alt="Streams Console: view application logs" class="vs-code-img" />
+    </div>
+  </details>
+</div>

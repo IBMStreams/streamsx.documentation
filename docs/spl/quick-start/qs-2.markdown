@@ -689,7 +689,7 @@ For example, if your application is ingesting JSON data, you might need to conve
 
 ### Using the Job Graph in VS Code
 
-(Coming soon)
+{% include vs-code/monitor_running_app_job_graph.html %}
 
 ### Using the Streams Console
 
