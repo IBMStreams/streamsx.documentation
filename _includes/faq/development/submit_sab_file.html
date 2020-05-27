@@ -1,0 +1,54 @@
+<div>
+  <p>
+    A Streams application bundle (<code>.sab</code>) file is a single, relocatable file that contains all the artifacts that are needed to run your application. Learn more about application bundle files <a href="https://www.ibm.com/support/knowledgecenter/en/SSCRJU_4.3.0/com.ibm.streams.dev.doc/doc/applicationbundle.html">here</a>.
+  </p>
+
+  <p>
+    To submit a <code>.sab</code> file to run on an instance, you have a few options.
+  </p>
+
+  <details class="details-styled">
+    <summary>IBM Streams extension for Visual Studio Code</summary>
+
+    <div>
+      {% include faq/development/vs-code-prereq.html %}
+
+      <ol>
+        <li>
+          Import the project folder containing the <code>.sab</code> file if you haven't already. To import a project, follow the instructions <a href="/streamsx.documentation/docs/spl/quick-start/qs-3/#how-do-i-import-a-project-in-visual-studio-code-or-streams-studio">here</a>.
+        </li>
+        <li>
+          Bring up the <strong><a href="https://code.visualstudio.com/docs/getstarted/userinterface#_explorer">Explorer</a></strong> view.
+        </li>
+        <li>
+          Right-click on the <code>.sab</code> file and select <strong>Submit Job</strong>.
+        </li>
+        <li>
+          You will prompted for the job configuration before the job is submitted. This is optional (unless the application requires values for submission-time parameters). You may specify the job name, job group, tracing, and data directory. For a more advanced configuration, you may upload a <a href="https://www.ibm.com/support/knowledgecenter/SSCRJU_4.3.0/com.ibm.streams.admin.doc/doc/job_configuration_overlays.html">job configuration overlay</a> JSON file. When you have finished the configuration, click on the <strong>Submit</strong> button.
+        </li>
+      </ol>
+    </div>
+  </details>
+
+  <details class="details-styled">
+    <summary>IBM Streams Console</summary>
+
+    <div>
+      <p>
+        To access the Streams Console, follow the instructions <a href="/streamsx.documentation/docs/spl/quick-start/qs-3/#how-do-i-open-the-streams-console">here</a>.
+      </p>
+
+      <ol>
+        <li>
+          Click on the play icon in the header bar at the top.
+        </li>
+        <li>
+          Choose one of the options and point to your <code>.sab</code> file.
+        </li>
+        <li>
+          To configure the job submission, click on the <strong>Configure</strong> button. To submit the job with the default configuration, click on the <strong>Submit</strong> button.
+        </li>
+      </ol>
+    </div>
+  </details>
+</div>

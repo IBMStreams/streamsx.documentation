@@ -171,16 +171,57 @@ summary {
   width: 100%;
 }
 
-.vs-code-details:not(:last-of-type) {
+.details-styled[open]:not(:last-of-type) {
   padding-bottom: 20px;
 }
 
-.vs-code-details > summary {
-  font-size: unset;
+.details-styled:not([open]):not(:last-of-type) {
+  padding-bottom: 5px;
 }
 
-.vs-code-details > div {
+.details-styled summary::-webkit-details-marker {
+  display: none;
+}
+
+.details-styled:not([open]) > summary:before {
+  content: "\276f";
+  margin-right: 8px;
+}
+
+.details-styled[open] > summary:before {
+  display: inline-block;
+  content: "\276f";
+  -webkit-transform: rotate(90deg);
+  -moz-transform: rotate(90deg);
+  -o-transform: rotate(90deg);
+  -ms-transform: rotate(90deg);
+  transform: rotate(90deg);
+  margin-right: 8px;
+}
+
+.details-styled summary {
+  font-size: unset;
+  cursor: pointer;
+}
+
+.details-styled summary:focus {
+  outline: none;
+}
+
+.details-styled summary h4 {
+  display: inline-block;
+  font-weight: 400;
+  padding-top: 0;
+  margin-bottom: 0;
+}
+
+.details-styled > div {
   padding-left: 15px
+}
+
+.details-styled ol.list-less-padding,
+.details-styled ul.list-less-padding {
+  padding-inline-start: 15px;
 }
 
 .vs-code-tabs .nav-tabs a {
@@ -189,4 +230,35 @@ summary {
 
 .vs-code-tabs .tab-content {
   border: none;
+}
+
+.faq-details:hover {
+  color: #555555;
+  background-color: #f5f5f5;
+}
+
+.faq-details > summary {
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.faq-details > summary::-webkit-details-marker {
+  display: none;
+}
+
+.faq-details > summary:focus {
+  outline: none;
+}
+
+.faq-details .details-styled[open]:not(:last-of-type) {
+  padding-bottom: 10px;
+}
+
+.faq-details .details-styled:not([open]):not(:last-of-type) {
+  padding-bottom: 0;
+}
+
+.faq-details .details-styled:not([open]):not(:last-of-type) summary,
+.faq-details .details-styled[open] summary {
+  padding-bottom: 10px;
 }
