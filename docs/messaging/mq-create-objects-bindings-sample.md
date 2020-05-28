@@ -4,13 +4,14 @@ title: WebSphere MQ - Sample steps for creating queues and bindings file
 description:  Sample scripts for creating MQ objects and bindings.
 weight: 80
 published: true
+navlevel: 2
 ---
 
 ## Introduction
- Streams JMS toolkit provides operators for sending and receiving messages from WebSphere MQ. This article shows a simple sample for creating WebSphere MQ administered objects and generating bindings file.
+The Streams JMS toolkit provides operators for sending and receiving messages from WebSphere MQ. This article shows a simple sample for creating WebSphere MQ administered objects and generating bindings file.
 
 ## Skill Level
-Readers of this article is expected to have basic understanding WebSphere MQ.
+Readers of this article is expected to have a basic understanding of WebSphere MQ.
 
 ## Requirements
 - You must have already installed WebSphere MQ. A evaluation version of [WebSphere MQ](https://www-01.ibm.com/marketing/iwm/iwm/web/pick.do?pkgid=&S_SRCID=ESD-WSMQ-EVAL&source=ESD-WSMQ-EVAL&S_TACT=109J84RW&S_PKG=CR9H9ML&lang=en_US&lang=en_US) is available.
@@ -39,31 +40,31 @@ Readers of this article is expected to have basic understanding WebSphere MQ.
 
 	  `setmqaut -m QM1 -n "Q1" -t q -p "streamsadmin" +passall +passid +setall +setid +browse +get +inq +put +set`
 
-  12. perform a security refresh in MQSC command line `refresh security TYPE (AUTHSERV)`.
+  12. Perform a security refresh in MQSC command line `refresh security TYPE (AUTHSERV)`.
 
 
 * Generate bindings file using JMSAdmin script
   1. Log into the WebSphere MQ server as mqm user.
-  2. Open MQ_INSTALLATION_PATH/java/bin/JMSAdmin.config file with text editor.
-  3. Edit the following lines. Choose a accessible directory for the PROVIDER_URL parameter, where the .bindings file will be generated.
+  2. Open `MQ_INSTALLATION_PATH/java/bin/JMSAdmin.config` file with text editor.
+  3. Edit the following lines. Choose a accessible directory for the `PROVIDER_URL` parameter, where the `.bindings` file will be generated.
 
      `INITIAL_CONTEXT_FACTORY=com.sun.jndi.fscontext.RefFSContextFactory`
 
      `PROVIDER_URL=file:///homes/user/bindings`
 
-  4. Set the CLASSPATH for running JMSAdmin tool
+  4. Set the `CLASSPATH` for running JMSAdmin tool
 
      `export CLASSPATH=$CLASSPATH:/opt/mqm/java/lib:/opt/mqm/java/lib/com.ibm.mq.jar:/opt/mqm/java/lib/com.ibm.mq.jms.Nojndi.jar:/opt/mqm/java/lib/com.ibm.mq.soap.jar:/opt/mqm/java/lib/com.ibm.mqetclient.jar:/opt/mqm/java/lib/com.ibm.mqjms.jar`
 
   5. Run JMSAdmin tool `MQ_INSTALLATION_PATH/java/bin/JMSAdmin`
-  6. Run following commands in JMSAdmin tool for defining queue connection factory and queue. Replace <host name> with the actual host name.
+  6. Run following commands in JMSAdmin tool for defining queue connection factory and queue. Replace `<host name>` with the actual host name.
 
      `DEFINE QCF(confact) QMGR(QM1) tran(client) chan(JMS.STREAMS.SVRCONN) host(<host name>) port(1416)`
 
      `DEFINE Q(dest) QUEUE(Q1) QMGR(QM1)`
 
      `end`
-  7. A file named .bindings has been generated under the directory specified for the PROVIDER_URL parameter.
+  7. A file named `.bindings` has been generated under the directory specified for the `PROVIDER_URL` parameter.
 
 ## Additional Resources
 [WebSphere MQ Knowledge Center](https://www-01.ibm.com/support/knowledgecenter/SSFKSJ_8.0.0/com.ibm.mq.helphome.v80.doc/WelcomePagev8r0.htm?lang=en)

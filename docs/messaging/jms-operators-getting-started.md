@@ -4,19 +4,26 @@ title: Getting Started with JMS operators
 description:  Getting Started Guide for IBM Streams JMS Toolkit operators
 weight: 10
 published: true
+navlevel: 1
 ---
 
 ## Introduction
 IBM  Streams JMS toolkit provides several operators allowing users to source and sink messages from and to JMS messaging systems. This article will focus on explaining how to configure JMS operators to work with either WebSphere MQ or ActiveMQ messaging systems.
 
 ## Skill Level
-Readers of this article is expected to have basic understanding in JMS and WebSphere MQ or ActiveMQ.
+Readers of this article is expected to have basic understanding in JMS and WebSphere MQ or ActiveMQ.  
+
+If you are new to Streams, [follow the Quick Start for an overview](/streamsx.documentation/docs/spl/quick-start/qs-0/)
+
+
 
 ## Requirements
 Prior to using JMS operators, the following software must be installed and configured.
 
--  Streams - a quick start edition VM is available, see the [Installing Streams Quick Start Edition VM Image](http://ibmstreams.github.io/streamsx.documentation//docs/4.2/qse-install-vm/) for more information.
+-  Streams - a quick start edition VM is available, see the [Installing Streams Quick Start Edition VM Image](/streamsx.documentation/docs/latest/qse-intro/) for more information.  
+  
 - JMS Toolkit - a official version of the toolkit is shipped with  Streams or download it from [IBM Streams GitHub JMS Toolkit Repository](https://github.com/IBMStreams/streamsx.jms)
+
 - Messaging server and client - JMS operators support both WebSphere MQ and ActiveMQ, depending on the target messaging system, install either WebSphere MQ or ActiveMQ. If  Streams is running on a different machine than the messaging server, install WebSphere MQ client libraries for Java or ActiveMQ on the same machine where Streams is running as JMS operators look up certain jar files from these messaging clients at runtime.
   - WebSphere MQ: a trial version of [WebSphere MQ](https://www-01.ibm.com/marketing/iwm/iwm/web/pick.do?pkgid=&S_SRCID=ESD-WSMQ-EVAL&source=ESD-WSMQ-EVAL&S_TACT=109J84RW&S_PKG=CR9H9ML&lang=en_US&lang=en_US) is available.
   - ActiveMQ: download a supported version of [ActiveMQ](http://activemq.apache.org/download.html)
@@ -147,6 +154,9 @@ Information about provider_url, connection_factory and destination identifier mu
 9. Run the application. You can submit the application as a job by using the `streamtool submitjob` command or by using Streams Studio.
 
 ## Additional Resources
-* [IBM MQ Knowledge Center](http://www-01.ibm.com/support/knowledgecenter/SSFKSJ_8.0.0/com.ibm.mq.helphome.v80.doc/WelcomePagev8r0.htm)
-* [ActiveMQ website](http://activemq.apache.org/)
+
 * [Streams JMS Toolkit GitHub IO page](http://ibmstreams.github.io/streamsx.jms)
+
+*  [IBM MQ Knowledge Center](http://www-01.ibm.com/support/knowledgecenter/SSFKSJ_8.0.0/com.ibm.mq.helphome.v80.doc/WelcomePagev8r0.htm)
+ 
+* [ActiveMQ website](http://activemq.apache.org/)

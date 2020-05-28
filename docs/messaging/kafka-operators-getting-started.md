@@ -7,18 +7,25 @@ published: true
 ---
 
 ## Introduction
+
 The IBM Streams Kafka Toolkit is designed to get you connected to your messaging servers as quickly as possible. Kafka is an ideal messaging server for stream computing. This guide will get you sending and receiving messages in no time, and will highlight some of the best practices. We will also cover how to get the Kafka operators running in a consistent region. 
 
 
 
 ## Skill Level
-Readers of this guide are expected to have a basic understanding of Kafka and IBM Streams terminology. To get up to speed on Kafka basics, run through their great <a target="_blank" href="http://kafka.apache.org/documentation.html#quickstart">Quick Start guide</a>. To get a basic understanding of IBM Streams, you can read our <a target="_blank" href="https://developer.ibm.com/streamsdev/docs/streams-quick-start-guide/">Quick Start</a>.
+
+Readers of this guide are expected to have a basic understanding of Kafka and IBM Streams terminology. To get up to speed on Kafka basics, run through their great [Quick Start guide](http://kafka.apache.org/documentation.html#quickstart).
+
+If you are new to Streams, [follow the Quick Start for an overview](/streamsx.documentation/docs/spl/quick-start/qs-0/).
+
 
 ## Requirements
 Prior to using Kafka operators, the following software must be installed and configured:
 
-* **IBM Streams** - A <a target="_blank" href="http://ibmstreams.github.io/streamsx.documentation//docs/4.1/qse-install-vm/">Quick Start Edition VM</a> is available for free. This guide assumes that you have a Streams domain and instance up and running. 
+* **IBM Streams** - A <a target="_blank" href="/streamsx.documentation//docs/latest/qse-intro/">Quick Start Edition</a> is available for free. This guide assumes that you have a Streams domain and instance up and running.
+
 * **Kafka Toolkit** - You can download it from the IBM Streams GitHub Kafka Toolkit Repository <a target="_blank" href="https://github.com/IBMStreams/streamsx.kafka/releases">Release Page</a>.
+
 * **Kafka Brokers** - This guide assumes you are using Kafka 0.9 or above. To quickly get a Kafka server up and running, follow <a target="_blank" href="http://kafka.apache.org/documentation.html#quickstart">these directions</a>. 
 
 ## Information to Collect
@@ -36,7 +43,7 @@ host.name=myhost.mycompany.com
 2. **Configure the SPL compiler to find the Kafka toolkit directory. Use one of the following methods.**
    * *Set the STREAMS_SPLPATH environment variable to the root directory of the toolkit (with : as a separator)*
 
-        `export STREAMS_SPLPATH=\<messaging-toolkit-location\>/com.ibm.streamsx.kafka:$STREAMS_SPLPATH`
+        `export STREAMS_SPLPATH=\<kafka-toolkit-location\>/com.ibm.streamsx.kafka:$STREAMS_SPLPATH`
 
    * *Specify the -t or --spl-path command parameter when you run the sc command.*
 
@@ -187,9 +194,19 @@ If you would like to consume in parallel within a consistent region, check out t
 ## Advanced Parallel Processing
 **This section is under construction**
 
-## Connecting to Message Hub in the Cloud
-You can use the Streams Kafka operators to produce to and consume from the Kafka-based <a target="_blank" href="https://developer.ibm.com/messaging/message-hub/">Message Hub</a> Bluemix service. For a complete guide on how to do this, check out <a href="https://www.ibm.com/blogs/bluemix/2015/10/streaming-analytics-message-hub-2/" target="_blank">this great article</a>. 
+
+
+
+
+## Connecting to IBM Event Streams
+
+<a href="https://cloud.ibm.com/catalog/services/event-streams#about">IBM Event Streams</a> is IBM’s Kafka as a service offering. You can use the [Message Hub toolkit](https://github.com/IBMStreams/streamsx.messagehub) to connect to it. The Message Hub toolkit is based on the Kafka toolkit but simplifies connection to the service.
+
+<p>See this article on how to <a href="https://www.ibm.com/cloud/blog/get-started-streaming-analytics-message-hub" target="_blank">connect to Event Streams</a>.</p>
 
 ## Additional Resources
+* <a target="_blank" href="https://ibmstreams.github.io/streamsx.kafka/">Streams Kafka toolkit project page</a> 
+ 
 * <a target="_blank" href="https://ibmstreams.github.io/streamsx.kafka/doc/spldoc/html/index.html">Streams Kafka Toolkit SPLDoc</a>
+
 * <a target="_blank" href="http://kafka.apache.org/documentation.html">Kafka Documentation website</a>
