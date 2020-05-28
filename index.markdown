@@ -33,7 +33,19 @@ Streams Processing Language is specifically designed for creating Streams applic
 * **Start here**:  If you are new to SPL, [start with this guide](/streamsx.documentation/docs/spl/quick-start/qs-0).
 
 
-#### Useful links
+
+### Developing Streams applications with Java
+
+{% include nav.html context="/docs/java/"%}
+
+
+### Developing Streams applications with Scala
+
+{: .simple}
+* [Developing applications with Scala](https://github.com/IBMStreams/streamsx.topology/wiki/Scala-Support)
+
+
+#### Quick links
 
 {: .simple}
 
@@ -48,37 +60,24 @@ Streams Processing Language is specifically designed for creating Streams applic
 - [Streams Knowledge Center](http://www.ibm.com/support/knowledgecenter/SSCRJU/SSCRJU_welcome.html)
 
 
-### Developing Streams applications with Java
-
-{% include nav.html context="/docs/java/"%}
-
-
-### Developing Streams applications with Scala
-
-{: .simple}
-* [Developing applications with Scala](https://github.com/IBMStreams/streamsx.topology/wiki/Scala-Support)
-
 ## Integrating with Streams
-There are dozens of toolkits available to help you integrate Streams with popular systems like [HDFS](https://github.com/IBMStreams/streamsx.hdfs), [HBase](https://github.com/IBMStreams/streamsx.hbase), [Kafka](https://github.com/IBMStreams/streamsx.kafka), and more.
-Some toolkits are included with Streams, and others are [available on GitHub](https://github.com/ibmstreams).
+There are toolkits available to help you integrate Streams with popular systems like [JMS](https://github.com/IBMStreams/streamsx.jms), [Kafka](https://github.com/IBMStreams/streamsx.kafka), and more.
+
+Some toolkits are included with Streams, and others are [available on GitHub](https://github.com/IBMStreams).
 
 {: .simple}
-
+* [Connect to Apache Kafka using the Kafka toolkit](/streamsx.documentation/docs/messaging/kafka-operators-getting-started)
+  
+* [Get started with the JMS toolkit](/streamsx.documentation/docs/messaging/kafka-operators-getting-started)
+  
 * [Product toolkits overview](https://developer.ibm.com/streamsdev/docs/product-toolkits-overview/)
+  
 * [GitHub projects overview](https://developer.ibm.com/streamsdev/docs/github-projects-overview/)
 
-#### Selected toolkit documentation
-Links to the documentation for more common toolkits
-
-{: .simple}
-
-* [Get started with the Messaging toolkit](/streamsx.documentation/docs/4.2/messaging/)
-* [Cybersecurity toolkit documentation](/streamsx.documentation/docs/4.2/cybersecurity)
 * [Monitor access to your data with IBM Information Governance catalog](/streamsx.documentation/docs/4.2/governance/)
 
-## Additional resources
+## Streams 4.2 and 4.1
 
-### Streams 4.2 and 4.1
 
 View tutorials and guides for older versions of IBM Streams.
 
@@ -86,13 +85,14 @@ View tutorials and guides for older versions of IBM Streams.
 
 * [Tutorials and guides for older versions of IBM Streams](/streamsx.documentation/docs/previous/).
 
-### Streams product documentation
+## Further documentation
 
 View the IBM Streams product documentation on IBM Knowledge Center.
 
 {: .simple}
 
 * [IBM Knowledge Center > IBM Streams (versions 4.0.0 - current)](http://www.ibm.com/support/knowledgecenter/SSCRJU/SSCRJU_welcome.html)
+
 
 ## Need help?
 
