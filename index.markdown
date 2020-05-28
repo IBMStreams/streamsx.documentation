@@ -65,21 +65,32 @@ There are toolkits available to help you integrate Streams with popular systems 
 
 Some toolkits are included with Streams, and others are [available on GitHub](https://github.com/IBMStreams).
 
+### Links to common toolkits
+
 {: .simple}
+
 * [Connect to Apache Kafka using the Kafka toolkit](/streamsx.documentation/docs/messaging/kafka-operators-getting-started)
   
 * [Get started with the JMS toolkit](/streamsx.documentation/docs/messaging/kafka-operators-getting-started)
   
+* [HBase toolkit](https://github.com/IBMStreams/streamsx.hbase)
+  
+* [HDFS toolkit](https://github.com/IBMStreams/streamsx.hdfs)
+
+* [JDBC toolkit](https://github.com/IBMStreams/streamsx.jdbc)
+
+* [Monitor access to your data with IBM Information Governance catalog](/streamsx.documentation/docs/4.2/governance/)
+
+### Full list of available toolkits
+  
+{: .simple}
+
 * [Product toolkits overview](https://developer.ibm.com/streamsdev/docs/product-toolkits-overview/)
   
 * [GitHub projects overview](https://developer.ibm.com/streamsdev/docs/github-projects-overview/)
 
-* [Monitor access to your data with IBM Information Governance catalog](/streamsx.documentation/docs/4.2/governance/)
 
 ## Streams 4.2 and 4.1
-
-
-View tutorials and guides for older versions of IBM Streams.
 
 {: .simple}
 
@@ -96,7 +107,7 @@ View the IBM Streams product documentation on IBM Knowledge Center.
 
 ## Need help?
 
-1.  Ask your questions on the [Streams Forum](https://developer.ibm.com/answers/smart-spaces/22/streamsdev.html).
+1.  Ask your questions on the [Streams Forum](https://www.ibm.com/mysupport/s/forumsproduct?language=en_US&name=Streams&id=0TO50000000IQN0GAO).
 2.  If your project is on IBM Streams GitHub, open an issue to the related project.
 3.  Ask your questions on [StackOverflow](http://stackoverflow.com/questions/tagged/infosphere-spl).
 
