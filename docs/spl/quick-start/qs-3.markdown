@@ -14,18 +14,23 @@ next:
   title:  Tips for creating a Streams application
 ---
 
+<div class="btn-group faq-btn-group" role="group">
+  <button type="button" class="btn btn-default faq-expand-all">Expand all</button>
+  <button type="button" class="btn btn-default faq-collapse-all">Collapse all</button>
+</div>
+
 ### Development
 
 <div class="list-group">
-  {% include faq/question.html question="How do I import a project in Visual Studio Code or Streams Studio?" html="development/import_a_project" %}
-  {% include faq/question.html question="How do I add a toolkit as a dependency?" html="development/add_toolkit_dependency" %}
-  {% include faq/question.html question="How do I build (or compile) an application?" html="development/build_application" %}
-  {% include faq/question.html question="How do I submit a <code>.sab</code> file?" html="development/submit_sab_file" %}
-  {% include faq/question.html question="How do I open the Streams Console?" html="development/open_streams_console" %}
+  {% include faq/question.html question="How do I import a project in Visual Studio Code or Streams Studio?" html="faq/development/import_a_project.html" %}
+  {% include faq/question.html question="How do I add a toolkit as a dependency?" html="faq/development/add_toolkit_dependency.html" %}
+  {% include faq/question.html question="How do I build (or compile) an application?" html="faq/development/build_application.html" %}
+  {% include faq/question.html question="How do I submit a <code>.sab</code> file?" html="faq/development/submit_sab_file.html" %}
+  {% include faq/question.html question="How do I open the Streams Console?" html="faq/development/open_streams_console.html" %}
 </div>
 
 ### Connectors
 
 <div class="list-group">
-  {% include faq/question.html question="Does Streams connect to my database or messaging system?" html="connectors/connect_to_database_messaging_system" %}
+  {% include faq/question.html question="Does Streams connect to my database or messaging system?" md="qs/data-sources.md" %}
 </div>

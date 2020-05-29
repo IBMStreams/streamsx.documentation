@@ -1,5 +1,13 @@
-<details class="faq-details list-group-item">
-  <summary>{{ include.question }}</summary>
-  <br />
-  {% include faq/{{ include.html }}.html %}
-</details>
+<button class="faq-accordion">
+  <h2>{{ include.question }}</h2>
+</button>
+<div class="faq-accordion-panel">
+  <p>
+    {% if include.html %}
+      {% include {{ include.html }} %}
+    {% elsif include.md %}
+      {% capture md_include %}{% include {{ include.md }} %}{% endcapture %}
+      {{ md_include | markdownify }}
+    {% endif %}
+  </p>
+</div>

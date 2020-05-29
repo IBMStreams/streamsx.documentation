@@ -59,7 +59,7 @@ The application we will use is called **TradesAppCloud** in the **TradesApp** pr
     <img src="/streamsx.documentation/images/vs-code/vs-code-build-app-options.png" alt="Compile application options" class="vs-code-img" />
 1.  Select **Build**.
 
-This will build the application using the Streams instance you added previously. As the build progresses, you will see notifications appear in the bottom right corner and the build output will displayed in the application's output channel in the **OUTPUT** panel at the bottom.
+This will build the application using the Streams instance you added previously. As the build progresses, you will see notifications appear in the bottom right corner and the build output will be displayed in the application's output channel in the **OUTPUT** panel at the bottom.
 
 <img src="/streamsx.documentation/images/vs-code/vs-code-build-app.png" alt="Compiling the application" class="vs-code-img" />
 
@@ -74,7 +74,7 @@ To run the application, you will need to submit the bundle file from the previou
 1.  You will prompted for the job configuration before the job is submitted. This is optional (unless the application requires values for submission-time parameters; this application does not). You may specify the job name, job group, tracing, and data directory. For a more advanced configuration, you may upload a job configuration overlay JSON file. Click on the **Submit** button.
     <img src="/streamsx.documentation/images/vs-code/vs-code-configure-job-submission.png" alt="Configure the job submission" class="vs-code-img" />
 
-This will submit the application to the Streams instance you added previously. As the submission progresses, you will see notifications appear in the bottom right corner and the submission output will displayed in the **IBM Streams** output channel in the **OUTPUT** panel at the bottom.
+This will submit the application to the Streams instance you added previously. As the submission progresses, you will see notifications appear in the bottom right corner and the submission output will be displayed in the **IBM Streams** output channel in the **OUTPUT** panel at the bottom.
 
 <img src="/streamsx.documentation/images/vs-code/vs-code-submit-app.png" alt="Run the application" class="vs-code-img" />
 
