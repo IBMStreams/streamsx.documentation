@@ -67,7 +67,7 @@ If you do not yet have data to ingest, you can skip to the "generating sample da
 
 ### Pick a source operator
 
-{% include qs/data-sources.md %}
+{% include faq/answers/data-sources.html %}
 
 
 ### Define the incoming schema and use it with the source operator

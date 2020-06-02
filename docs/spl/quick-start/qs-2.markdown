@@ -23,7 +23,9 @@ This tutorial is intended to help you get up and running with IBM Streams quickl
 
 Streams is an advanced analytics platform that allows you to develop applications that analyze data in real-time. You can ingest, analyze and correlate information as it arrives from thousands of real-time sources.
 
-This tutorial will cover the basics of creating a Streams application with SPL, Streams Processing Language.  You can also create Streams application with [Java](http://ibmstreams.github.io/streamsx.documentation/docs/4.1/java/java-appapi-devguide/) and [Python](http://ibmstreams.github.io/streamsx.documentation/docs/python/1.6/python-appapi-devguide/index.html).
+Although you can create Streams application with [Java](http://ibmstreams.github.io/streamsx.documentation/docs/4.1/java/java-appapi-devguide/) and [Python](http://ibmstreams.github.io/streamsx.documentation/docs/python/1.6/python-appapi-devguide/index.html), this tutorial focuseson Streams Processing Language (SPL).
+
+In this tutorial, we will cover the basics of creating a Streams application with SPL by creating an application that processes a stream of stock prices.  
 
 <a name="basic_building_blocks"></a>
 
@@ -384,7 +386,7 @@ This says that the `AvgPrice` stream is the output stream, and that it will have
 
 The min, max and average of the `askprice`  will be computed using the output functions ( `Min`, `Max` and `Average`) and assigned to respective output attributes.. 
 
-# 2.4 Print the Results with a `Custom` operator
+## 2.4 Print the Results with a `Custom` operator
 
 Add a `Custom` operator to do some special processing with the data in the `AvgPrice` stream. The `Custom` operator is a special logic-related operator that can receive and send to any number of streams and does not do anything by itself. Thus, it offers a blank slate for customization in SPL. 
 
@@ -414,7 +416,7 @@ Our application graph has now been extended:
 
 ![sampleApp3](/streamsx.documentation/images/qse/sampleApp3.gif)
 
-### 2.5: Writing results to a file
+## 2.5: Writing results to a file
 
 Note: If you are running the application in the cloud you might not have access to the file system, so you might not be able to see the results file.
 
