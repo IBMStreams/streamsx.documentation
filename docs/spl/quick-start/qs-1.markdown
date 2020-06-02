@@ -15,11 +15,11 @@ prev:
 ---
 
 
-Run your first Streams application using Streams Studio or Microsoft Visual Studio Code (VS Code):
+Run your first Streams application using Streams Studio or Visual Studio Code (VS Code):
 
 {: .simple}
 
 - [Launch an application with Streams Studio](/streamsx.documentation/docs/spl/quick-start/qs-1a)
   
-- [Launch an application with Microsoft VS Code](/streamsx.documentation/docs/spl/quick-start/qs-1b)
+- [Launch an application with Visual Studio Code](/streamsx.documentation/docs/spl/quick-start/qs-1b)
 

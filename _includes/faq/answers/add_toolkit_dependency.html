@@ -1,0 +1,62 @@
+<div>
+  <p>
+    A SPL toolkit is a collection of artifacts that are organized into a package. A toolkit includes one or more namespaces, which contain the operators, functions, and types that are packaged as part of the toolkit, all of which can then be reused in other applications. Learn more about toolkits <a href="https://www.ibm.com/support/knowledgecenter/en/SSCRJU_4.3.0/com.ibm.streams.dev.doc/doc/toolkits.html">here</a>.
+  </p>
+
+  <p>
+    Adding a toolkit dependency depends on your development environment.
+  </p>
+
+  <details class="details-styled">
+    <summary>IBM Streams extension for Visual Studio Code</summary>
+
+    <div>
+      {% include faq/answers/vs-code-prereq.html %}
+
+      <ol>
+        <li>
+          Ensure that your toolkit folder contains a <code>toolkit.xml</code> file.
+        </li>
+        <li>
+          Execute the <strong>Set IBM Streams Toolkit Paths</strong> command from the <a href="https://code.visualstudio.com/docs/getstarted/userinterface#_command-palette">Command Palette</a>.
+        </li>
+        <li>
+          Enter the absolute path to your toolkit folder and press <strong>Enter</strong>. You may also specify multiple toolkit folder paths using commas (<code>,</code>) or semicolons (<code>;</code>) as separators.
+        </li>
+      </ol>
+    </div>
+  </details>
+
+  <details class="details-styled">
+    <summary>IBM Streams Studio</summary>
+
+    <div>
+      <ol class="list-less-padding">
+        <li>
+          In the <strong>Streams Explorer</strong> view, expand the <strong>IBM Streams Installations</strong> folder and find your installation. Expand the installation and right-click on <strong>Toolkit Locations</strong>. Then, select <strong>Add Toolkit Location...</strong>.
+        </li>
+        <li>
+          In the <strong>Add Toolkit Location</strong> window, choose one of the following methods:
+          <ul>
+            <li>
+              In the <strong>Toolkit location</strong> field, specify the name of a toolkit location file or a directory where toolkits are located.
+            </li>
+            <li>
+              Click <strong>File...</strong> to browse for an XML file that defines a set of toolkit locations.
+            </li>
+            <li>
+              Click <strong>Directory...</strong> to browse for a directory where toolkits are located.
+            </li>
+          </ul>
+        </li>
+        <li>
+          Click <strong>OK</strong>.
+        </li>
+      </ol>
+
+      <p>
+        You can learn more about working with toolkits in Streams Studio <a href="https://www.ibm.com/support/knowledgecenter/en/SSCRJU_4.3.0/com.ibm.streams.studio.doc/doc/tusing-working-with-toolkits.html">here</a>.
+      </p>
+    </div>
+  </details>
+</div>

@@ -1,0 +1,22 @@
+<br />
+<div>
+  <p>
+    You may either use the job graph or the Streams Console to monitor the running job.
+  </p>
+
+  <div>
+    <ul class="nav nav-pills nav-justified">
+      <li role="presentation" class="active"><a data-toggle="tab" href="#job-graph">Job graph</a></li>
+      <li role="presentation"><a data-toggle="tab" href="#streams-console">Streams Console</a></li>
+    </ul>
+
+    <div class="tab-content">
+      <div id="job-graph" class="tab-pane fade in active">
+        {% include vs-code/monitor_running_app_job_graph.html %}
+      </div>
+      <div id="streams-console" class="tab-pane fade">
+        {% include vs-code/monitor_running_app_streams_console_v5.html %}
+      </div>
+    </div>
+  </div>
+</div>

@@ -166,3 +166,120 @@ a.button {
 summary {
   font-size: large;
 }
+
+.vs-code-img {
+  width: 100%;
+}
+
+.details-styled[open]:not(:last-of-type) {
+  padding-bottom: 20px;
+}
+
+.details-styled:not([open]):not(:last-of-type) {
+  padding-bottom: 5px;
+}
+
+.details-styled summary::-webkit-details-marker {
+  display: none;
+}
+
+.details-styled:not([open]) > summary:before {
+  content: "\276f";
+  margin-right: 8px;
+}
+
+.details-styled[open] > summary:before {
+  display: inline-block;
+  content: "\276f";
+  -webkit-transform: rotate(90deg);
+  -moz-transform: rotate(90deg);
+  -o-transform: rotate(90deg);
+  -ms-transform: rotate(90deg);
+  transform: rotate(90deg);
+  margin-right: 8px;
+}
+
+.details-styled summary {
+  font-size: unset;
+  cursor: pointer;
+}
+
+.details-styled summary:focus {
+  outline: none;
+}
+
+.details-styled summary h4 {
+  display: inline-block;
+  font-weight: 400;
+  padding-top: 0;
+  margin-bottom: 0;
+}
+
+.details-styled > div {
+  padding-left: 15px
+}
+
+.details-styled ol.list-less-padding,
+.details-styled ul.list-less-padding {
+  padding-inline-start: 15px;
+}
+
+.vs-code-tabs .nav-tabs a {
+  font-size: smaller;
+}
+
+.vs-code-tabs .tab-content {
+  border: none;
+}
+
+.faq-btn-group {
+  padding-bottom: 15px;
+}
+
+.faq-accordion {
+  background-color: #eeeeee;
+  color: #444444;
+  cursor: pointer;
+  padding: 14px;
+  width: 100%;
+  border: none;
+  text-align: left;
+  outline: none;
+  font-size: 15px;
+  transition: 0.4s;
+}
+
+.faq-accordion:not(:last-of-type) {
+  border-bottom: 1px solid white;
+}
+
+.faq-accordion.active,
+.faq-accordion:hover {
+  background-color: #d3d3d3;
+}
+
+.faq-accordion:after {
+  content: "\002B";
+  color: #777777;
+  font-weight: bold;
+  float: right;
+  margin-left: 5px;
+}
+
+.faq-accordion.active:after {
+  content: "\2212";
+}
+
+.faq-accordion h2 {
+  font-size: 14px;
+  font-weight: 400;
+  padding: 0;
+  margin: 0;
+  display: inline-block;
+}
+
+.faq-accordion-panel {
+  padding: 0 14px;
+  max-height: 0;
+  overflow: hidden;
+}

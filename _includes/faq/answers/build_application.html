@@ -1,0 +1,95 @@
+<div>
+  <p>
+    A stream processing application is a collection of operators, all of which process streams of data. You may build an application in Visual Studio Code or the Streams Studio integrated development environment.
+  </p>
+
+  <details class="details-styled">
+    <summary>IBM Streams extension for Visual Studio Code</summary>
+
+    <div>
+      {% include faq/answers/vs-code-prereq.html %}
+
+      <ol>
+        <li>
+          Bring up the <strong><a href="https://code.visualstudio.com/docs/getstarted/userinterface#_explorer">Explorer</a></strong> view on the left side and locate your SPL application file.
+        </li>
+        <li>
+          Then, either:
+          <ul>
+            <li>
+              Right-click on the <code>.spl</code> file.
+            </li>
+            <li>
+              Double-click on the <code>.spl</code> file to open it in the editor and right-click in the editor.
+            </li>
+          </ul>
+        </li>
+        <li>
+          Choose from one of the two build options:
+          <ul>
+            <li>
+              <strong>Build</strong>: Builds your Streams application and downloads the application bundle (<code>.sab</code>) to the application’s <code>output</code> folder.
+            </li>
+            <li>
+              <strong>Build and Submit Job</strong>: Builds your Streams application and submits it directly to a Streams instance of your choice.
+            </li>
+          </ul>
+        </li>
+      </ol>
+    </div>
+  </details>
+
+  <details class="details-styled">
+    <summary>IBM Streams Studio</summary>
+
+    <div>
+      <p>
+        After a project is imported and whenever your project changes, a build is performed automatically. This might take a few seconds. In the SPL Build <strong>Console</strong> view, you should see a message like:
+        <pre>---- SPL Build for project XXX completed in XXX.XXX seconds ----</pre>
+      </p>
+
+      <div class="alert alert-info" role="alert">
+        <strong>Note</strong>: A build is performed automatically only if the Eclipse auto-build setting is turned on. By default, this setting is turned on. This setting builds your projects whenever changes are detected that might affect it. It is recommended that you leave this setting on.
+      </div>
+
+      <p>
+        If you do not see the <code>SPL Build</code> message in the <strong>Console</strong> view or you would like to manually perform a build, follow these steps:
+      </p>
+
+      <ul>
+        <li>
+          To manually start a build for all active build configurations in a project:
+          <ol>
+            <li>
+              Select and right-click on the SPL project.
+            </li>
+            <li>
+              Select <strong>Build Active Configurations</strong> from the menu.
+            </li>
+            <li>
+              All main composites are built with their active build configurations. Any main composite without an active build configuration is not built.
+            </li>
+          </ol>
+        </li>
+        <li>
+          To manually build a main composite:
+          <ol>
+            <li>
+              If the main composite does not have any build configurations, you must first create one by following the instructions <a href="https://www.ibm.com/support/knowledgecenter/en/SSCRJU_4.3.0/com.ibm.streams.studio.doc/doc/tbuilding-projects-building-main-composites.html">here</a>.
+            </li>
+            <li>
+              Expand the main composite in the <strong>Project Explorer</strong> view.
+            </li>
+            <li>
+              Select the build configuration (or multiple build configurations) that you want to build, right-click, and select <strong>Build</strong> from the menu.
+            </li>
+          </ol>
+        </li>
+      </ul>
+
+      <p>
+        Learn more about building applications in Streams Studio <a href="https://www.ibm.com/support/knowledgecenter/en/SSCRJU_4.3.0/com.ibm.streams.studio.doc/doc/tbuilding-projects.html">here</a>.
+      </p>
+    </div>
+  </details>
+</div>

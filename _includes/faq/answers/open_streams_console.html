@@ -1,0 +1,130 @@
+<div>
+  <p>
+    The Streams Console is an integrated console that runs in your browser. You can use it to manage your instance and resources, configure security, and monitor jobs from a single location. Its sleek and efficient interface lets you quickly gain insights into the health, metrics, issues, and performance of your Streams instance.
+  </p>
+
+  <p>
+    Opening the Streams Console will depend on your environment.
+  </p>
+
+  <details class="details-styled">
+    <summary>IBM Cloud Pak for Data deployment</summary>
+
+    <div>
+      <p>
+        These instructions assume that you already have an IBM Streams service instance in <a href="https://www.ibm.com/support/producthub/icpdata/docs/content/SSQNUZ_current/cpd/svc/streams/developing-intro.html">IBM Cloud Pak for Data</a>. If you need to provision a service instance, start <a href="https://www.ibm.com/support/producthub/icpdata/docs/content/SSQNUZ_current/cpd/svc/streams/intro.html">here</a> and follow the instructions.
+      </p>
+
+      <ol>
+        <li>
+          In the IBM Cloud Pak for Data web client, open the navigation menu and click on <strong>My instances</strong>.
+        </li>
+        <li>
+          Click on the <strong>Provisioned instances</strong> tab.
+        </li>
+        <li>
+          Find your Streams instance in the list. If your IBM Cloud Pak for Data version is 3.0+, click on the instance. Otherwise, open the context menu for the instance and click on <strong>View details</strong>. You will be brought to the instance details page.
+        </li>
+        <li>
+          In the <strong>Endpoints</strong> section, find the property called <strong>External Console endpoint</strong> and click on the corresponding link.
+        </li>
+      </ol>
+    </div>
+  </details>
+
+  <details class="details-styled">
+    <summary>IBM Streams standalone deployment</summary>
+
+    <div>
+      <p>
+        These instructions assume that you already have an IBM Streams instance. If you need to install an instance, start <a href="https://www.ibm.com/support/knowledgecenter/en/SSCRJU_5.2.0/com.ibm.streams.install.doc/doc/install-container.html">here</a> and follow the instructions.
+      </p>
+
+      To find the Console URL, see the <a href="https://www.ibm.com/support/knowledgecenter/en/SSCRJU_5.2.0/com.ibm.streams.dev.doc/doc/find-dns-url.html#find-dns-url">documentation</a>. Choose <strong>Finding the internal URLs for IBM Streams services</strong> or <strong>Finding the external URLs for IBM Streams services</strong> depending on whether or not you will be accessing the Streams Console from within the Kubernetes cluster.
+    </div>
+  </details>
+
+  <details class="details-styled">
+    <summary>IBM Streaming Analytics on IBM Cloud</summary>
+
+    <div>
+      <p>
+        These instructions assume that you already have a running <a href="https://cloud.ibm.com/docs/services/StreamingAnalytics?topic=StreamingAnalytics-gettingstarted#gettingstarted">IBM Streaming Analytics</a> service. If you need to create a service, start <a href="https://cloud.ibm.com/catalog/services/streaming-analytics">here</a> and follow the instructions.
+      </p>
+
+      <ol>
+        <li>
+          Navigate to the <a href="https://cloud.ibm.com/resources">Resource list</a> in IBM Cloud.
+        </li>
+        <li>
+          In the <strong>Services</strong> section, find your Streaming Analytics service in the list and click on it. You will be brought to the service's details page.
+        </li>
+        <li>
+          Click on the <strong>Launch</strong> button.
+        </li>
+      </ol>
+    </div>
+  </details>
+
+  <details class="details-styled">
+    <summary>IBM Streams Quick Start Edition</summary>
+
+    <div>
+      <p>
+        These instructions assume that you already have the IBM Streams Quick Start Edition installed. If not, start <a href="/streamsx.documentation/docs/4.3/qse-intro/">here</a> and follow the instructions.
+      </p>
+
+      <p>
+        There two ways to open the Streams Console:
+      </p>
+
+      <ul>
+        <li>
+          Using the bookmark:
+          <ol>
+            <li>
+              From the <strong>Applications</strong> menu, go to <strong>Favorites</strong> > <strong>Streams Console</strong>.
+            </li>
+          </ol>
+        </li>
+        <li>
+          Using the command line:
+          <ol>
+            <li>
+              From the <strong>Applications</strong> menu, go to <strong>Favorites</strong> > <strong>Terminal</strong>.
+            </li>
+            <li>
+              Run the following commands:
+              <pre>
+$ source $STREAMS_INSTALL/bin/streamsprofile.sh
+$ streamtool geturl
+https://streamsqse.localdomain:8443/streams/domain/console</pre>
+              Open this URL in the Mozilla Firefox browser.
+            </li>
+          </ol>
+        </li>
+      </ul>
+
+      <p>
+        Use the following credentials to log in: <code>streamsadmin</code>/<code>passw0rd</code>.
+      </p>
+    </div>
+  </details>
+
+  <details class="details-styled">
+    <summary>IBM Streams extension for Visual Studio Code</summary>
+
+    <div>
+      {% include faq/answers/vs-code-prereq.html %}
+
+      <ol>
+        <li>
+          Click on the IBM Streams icon on the left side to bring up the <strong>Streams Explorer</strong> view.
+        </li>
+        <li>
+          Hover over an instance node and then click on the <strong>Open IBM Streams Console</strong> icon that appears on the right. This will open the Streams Console in your browser.
+        </li>
+      </ol>
+    </div>
+  </details>
+</div>

@@ -26,7 +26,7 @@ The following are resources to help you get started developing applications usin
 ### Developing Streams applications with SPL
 
 
-Streams Processing Language is specifically designed for creating Streams applications. You can use Microsoft Visual Studio Code (VS Code) or Streams Studio to get started.  Streams Studio provides a full IDE with a graphical drag-and-drop editor.
+Streams Processing Language is specifically designed for creating Streams applications. You can use Visual Studio Code (VS Code) or Streams Studio to get started.  Streams Studio provides a full IDE with a graphical drag-and-drop editor.
 
 {: .simple}
 
