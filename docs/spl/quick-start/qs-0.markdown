@@ -30,7 +30,7 @@ Learn how to compile and deploy a Streams application. You can run your applicat
 
 ## 2. Learn Streams Concepts
 
-  Follow the [SPL Quick Start](/streamsx.documentation/docs/spl/quick-start/spl-quick-start) to learn how to create a Streams application from scratch using SPL.
+  Follow the [SPL Quick Start](/streamsx.documentation/docs/spl/quick-start/qs-2/) to learn how to create a Streams application from scratch using SPL.
 
 
 
