@@ -29,7 +29,7 @@ Follow the steps in the previous section to [install the Python API and set up y
 
     If you have IBM Watson Studio, IBM Cloud Pak for Data, or Jupyter notebooks installed, this tutorial is available as a notebook. 
     Click the link below, and then click **Save Page** in your browser to save the notebook.
-      <form action="https://raw.githubusercontent.com/IBMStreams/sample.starter_notebooks/CP4D-2.5.0.0/Streams-RollingAverageSample.ipynb" target="_blank">
+      <form action="https://raw.githubusercontent.com/IBMStreams/sample.starter_notebooks/latest/Streams-RollingAverageSample.ipynb" target="_blank">
           <input type="submit" value="Download this tutorial as a notebook">
       </form>
 
@@ -38,7 +38,7 @@ Follow the steps in the previous section to [install the Python API and set up y
    To get the latest version of this tutorial as a Python (`.py`) file, open the  the notebook in Jupyter Notebook Viewer, click **View as code**, then click **Save Page** in your browser.
    ![save notebook](/streamsx.documentation/images/python/save_nb.png)
    
-   <form action="https://nbviewer.jupyter.org/github/IBMStreams/sample.starter_notebooks/blob/master/Streams-RollingAverageSample.ipynb" target="_blank">
+   <form action="https://nbviewer.jupyter.org/github/IBMStreams/sample.starter_notebooks/blob/latest/Streams-RollingAverageSample.ipynb" target="_blank">
           <input type="submit" value="Download this tutorial as a Python file">
       </form>
 
