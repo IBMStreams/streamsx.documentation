@@ -18,10 +18,15 @@ from streamsx.topology import context
 
 
 def submit_topology(topo):
-    cfg=icpd_util.get_service_instance_details(name=streams_instance_name)
+    streams_instance_name = "sample-streams" ## Change this to Streams instance
+
+    try:
+        cfg=icpd_util.get_service_instance_details(name=streams_instance_name, instance_type="streams")
+    except TypeError:
+        cfg=icpd_util.get_service_instance_details(name=streams_instance_name)
+
     # Disable SSL certificate verification if necessary
     cfg[context.ConfigParams.SSL_VERIFY] = False   
-    streams_instance_name = "sample-streams" ## Change this to Streams instance
     # Topology wil be deployed as a distributed app
     contextType = context.ContextTypes.DISTRIBUTED
     return context.submit (contextType, topo, config = cfg)
