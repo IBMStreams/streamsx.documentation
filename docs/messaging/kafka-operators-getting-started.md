@@ -88,7 +88,7 @@ host.name=myhost.mycompany.com
         <pre><code>bootstrap.servers=broker.host.1:9092,broker.host.2:9092,broker.host.3:9092</code></pre>
     * **Specify the location of the producer.properties file in the KafkaProducer operator using the propertiesFile parameter.** You can specify either an absolute or a relative file path, where the path is relative to the application directory:
 
-        `propertiesFile : etc/producer.properties;`
+        `propertiesFile : "etc/producer.properties";`
     * **Specify the Kafka topic to send messages to.** This can be done via the rstring topic attribute in the incoming tuple or you can specify this using the topic parameter in the KafkaProducer (see the highlighted code in the beacon operator below).
 
 
@@ -122,7 +122,7 @@ host.name=myhost.mycompany.com
         <pre><code>bootstrap.servers=broker.host.1:9092,broker.host.2:9092,broker.host.3:9092</code></pre>
     * **Specify the location of the consumer.properties file in the KafkaConsumer operator using the propertiesFile parameter:**
 
-        `propertiesFile : etc/consumer.properties`
+        `propertiesFile : "etc/consumer.properties";`
     * **Specify the Kafka topic (or topics) to subscribe to receive messages from.** Do this using the rstring topic parameter in the KafkaConsumer. You can subscribe to multiple topics by using a comma separated list:
 
         `topic: "topic1" , "topic2" , "topic3";`
@@ -182,7 +182,7 @@ Here is a simple example of using three consumers to read from a 3-partition top
         param
             propertiesFile : &quot;etc/consumer.properties&quot; ;
             topic : $topic ;
-            <b style="color:blue">groupId : "myGroupId" ;</b>
+            <b style="color:blue">groupId : &quot;myGroupId&quot; ;</b>
     }
 </code></pre>
 
