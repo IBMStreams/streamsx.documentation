@@ -40,16 +40,18 @@ host.name=myhost.mycompany.com
 ~~~~~~
 
 ## Steps - Send and Receive Messages
-2. **Configure the SPL compiler to find the Kafka toolkit directory. Use one of the following methods.**
+1. **Configure the SPL compiler to find the Kafka toolkit directory. Use one of the following methods.**
    * *Set the STREAMS_SPLPATH environment variable to the root directory of the toolkit (with : as a separator)*
 
-        `export STREAMS_SPLPATH=\<kafka-toolkit-location\>/com.ibm.streamsx.kafka:$STREAMS_SPLPATH`
+       `export STREAMS_SPLPATH=\<kafka-toolkit-location\>/com.ibm.streamsx.kafka:$STREAMS_SPLPATH`
 
    * *Specify the -t or --spl-path command parameter when you run the sc command.*
 
-     `sc -t \<kafka-toolkit-location\>/com.ibm.streamsx.kafka -M MyMain`
+       `sc -t \<kafka-toolkit-location\>/com.ibm.streamsx.kafka -M MyMain`
 
-   * *If  Streams Studio is used to compile and run SPL application, add Kafka toolkit to toolkit locations in Streams Explorer by following [these directions](https://www.ibm.com/support/knowledgecenter/SSCRJU_4.3.0/com.ibm.streams.studio.doc/doc/tusing-working-with-toolkits-adding-toolkit-locations.html).*
+   * *If Streams Studio is used to compile and run SPL application, add Kafka toolkit to toolkit locations in Streams Explorer by following [these directions](https://www.ibm.com/support/knowledgecenter/SSCRJU_4.3.0/com.ibm.streams.studio.doc/doc/tusing-working-with-toolkits-adding-toolkit-locations.html).*
+
+   * *If you develop your applications with the IBM Streams extension for Visual Studio Code, follow [this guide](https://ibmstreams.github.io/streamsx.documentation/docs/spl/quick-start/qs-3/#how-do-i-add-a-toolkit-as-a-dependency).*
 
 
 2. **Create an SPL application and add a toolkit dependency on the Kafka toolkit in your application.** You can do this by [editing the application dependency](https://www.ibm.com/support/knowledgecenter/SSCRJU_4.3.0/com.ibm.streams.studio.doc/doc/tcreating-spl-toolkit-app-elements-edit-toolkit-information-dependencies.html) in Streams Studio, or by creating/editing the info.xml for the application and adding the dependency directly (you can also just start with the <a target="_blank" href="https://github.com/IBMStreams/streamsx.kafka/tree/develop/samples/KafkaSample">KafkaSample</a> to skip this and the following step).
