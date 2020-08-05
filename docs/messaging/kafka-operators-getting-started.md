@@ -26,7 +26,7 @@ Prior to using Kafka operators, the following software must be installed and con
 
 * **Kafka Toolkit** - You can download it from the IBM Streams GitHub Kafka Toolkit Repository <a target="_blank" href="https://github.com/IBMStreams/streamsx.kafka/releases">Release Page</a>.
 
-* **Kafka Brokers** - This guide assumes you are using Kafka 0.10.2 or above. To quickly get a Kafka server up and running, follow <a target="_blank" href="http://kafka.apache.org/documentation.html#quickstart">these directions</a>.
+* **Kafka Brokers** - This guide assumes you are using Kafka 0.11 or above. To quickly get a Kafka server up and running, follow <a target="_blank" href="http://kafka.apache.org/documentation.html#quickstart">these directions</a>.
 
 ## Information to Collect
 Once you have your Kafka server (or servers) set up, you will need their hostnames and listener ports. You can find them in your configuration file for each server (default is `<Kafka-Install>/config/server.properties`):
