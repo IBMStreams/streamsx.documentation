@@ -71,7 +71,7 @@ Some toolkits are included with Streams, and others are [available on GitHub](ht
 
 * [Connect to Apache Kafka using the Kafka toolkit](/streamsx.documentation/docs/messaging/kafka-operators-getting-started)
   
-* [Get started with the JMS toolkit](/streamsx.documentation/docs/messaging/kafka-operators-getting-started)
+* [Get started with the JMS toolkit](/streamsx.documentation/docs/messaging/jms-operators-getting-started)
   
 * [HBase toolkit](https://github.com/IBMStreams/streamsx.hbase)
   
