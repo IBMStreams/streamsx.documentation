@@ -202,6 +202,8 @@ You find more information about the common consumer patterns for parallel proces
 <p>See this article on how to <a href="https://www.ibm.com/cloud/blog/get-started-streaming-analytics-message-hub" target="_blank">connect to Event Streams</a>.</p>
 
 ## Additional Resources
+* <a target="_blank" href="https://ibmstreams.github.io/streamsx.documentation/docs/spl/quick-start/qs-3/">FAQ page</a>
+
 * <a target="_blank" href="https://ibmstreams.github.io/streamsx.kafka/">Streams Kafka toolkit project page</a>
 
 * <a target="_blank" href="https://ibmstreams.github.io/streamsx.kafka/doc/spldoc/html/index.html">Streams Kafka Toolkit SPLDoc</a>
