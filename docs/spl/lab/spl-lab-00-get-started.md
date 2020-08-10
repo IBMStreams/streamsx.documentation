@@ -190,7 +190,7 @@ You must have Internet access from the system where Streams is installed.
 To install the tutorial package on the QSE:
 
 1.  From your VM, download the [tutorial ZIP
-    file](https://github.com/IBMStreams/tutorials/raw/master/OnlineCourse_IntroToStreams/labfiles.zip)
+    file](https://github.com/IBMStreams/tutorials/raw/main/OnlineCourse_IntroToStreams/labfiles.zip)
     (GitHub). Then, extract the files.
 2.  Extract the files to `streamsadmin` home folder.
 3.  Open a terminal to the folder where the  **IntroLab\_Install.sh** shell script from the package is saved.

@@ -716,7 +716,7 @@ def delay(v):
    return True
 ~~~~~
 
-This example is based on the `pubsub` sample in GitHub. If you want more information about how this application works, see [https://github.com/IBMStreams/streamsx.topology/tree/master/samples/python/topology/pubsub](https://github.com/IBMStreams/streamsx.topology/tree/master/samples/python/topology/pubsub)
+This example is based on the `pubsub` sample in GitHub. If you want more information about how this application works, see [https://github.com/IBMStreams/streamsx.topology/tree/develop/samples/python/topology/pubsub](https://github.com/IBMStreams/streamsx.topology/tree/develop/samples/python/topology/pubsub)
 
 
 ## 3.9 Subscribing to streams
@@ -817,7 +817,7 @@ To create a connector, you must specify the URI of the MQTT server (`serverURI`)
 
 If you need to authenticate to the server, you can specify a user ID (`userID`) and password (`password`).
 
-Additionally, you can specify other configuration parameters, such as a message queue size (`messageQueueSize`) or the fully qualified path of a key store (`keyStore`). For more information about the optional configuration parameters, see [https://github.com/IBMStreams/streamsx.topology/blob/master/com.ibm.streamsx.topology/opt/python/packages/streamsx/topology/mqtt.py](https://github.com/IBMStreams/streamsx.topology/blob/master/com.ibm.streamsx.topology/opt/python/packages/streamsx/topology/mqtt.py)
+Additionally, you can specify other configuration parameters, such as a message queue size (`messageQueueSize`) or the fully qualified path of a key store (`keyStore`). For more information about the optional configuration parameters, see [https://github.com/IBMStreams/streamsx.topology/blob/develop/com.ibm.streamsx.topology/opt/python/packages/streamsx/topology/mqtt.py](https://github.com/IBMStreams/streamsx.topology/blob/develop/com.ibm.streamsx.topology/opt/python/packages/streamsx/topology/mqtt.py)
 
 For more information about the MQTT implementation, see MQTT support at [http://ibmstreams.github.io/streamsx.topology/experimental/python/doc/spldoc/html/tk%24com.ibm.streamsx.topology/ns$com.ibm.streamsx.topology.python$5.html](http://ibmstreams.github.io/streamsx.topology/experimental/python/doc/spldoc/html/tk%24com.ibm.streamsx.topology/ns$com.ibm.streamsx.topology.python$5.html)
 
