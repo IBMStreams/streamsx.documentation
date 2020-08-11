@@ -58,6 +58,7 @@ host.name=myhost.mycompany.com
 
     Sample info.xml from the <a target="_blank" href="https://github.com/IBMStreams/streamsx.kafka/tree/develop/samples/KafkaSample">KafkaSample</a>:
 
+
    <pre><code>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
 &lt;info:toolkitInfoModel xmlns:common=&quot;http://www.ibm.com/xmlns/prod/streams/spl/common&quot; xmlns:info=&quot;http://www.ibm.com/xmlns/prod/streams/spl/toolkitInfo&quot;&gt;
   &lt;info:identity&gt;
@@ -153,6 +154,7 @@ To start a consistent region with a KafkaConsumer, you must:
 
 * **Specify triggerCount parameter for operatorDriven trigger** - The trigger count gives you control over the approximate number of messages between checkpointing. If you are using a periodic trigger for your consistent region, you do not need to specify this.
 Here is the KafkaConsumer from the <a target="_blank" href="https://github.com/IBMStreams/streamsx.kafka/tree/develop/samples/KafkaConsumerGroupWithConsistentRegion">KafkaConsumerGroupWithConsistentRegion</a> sample:
+
 <pre class="source-code"><code>    //Read in from a kafka server and start consistent region
     <b style="color:blue">@consistent (trigger=periodic, period=60.0 /*seconds*/)</b>
     stream <rstring message, int32 partition, rstring key> ConsumedMsgs = KafkaConsumer()
@@ -189,6 +191,7 @@ Here is a simple example of using three consumers to read from a 3-partition top
 </code></pre>
 
 If you would like to consume in parallel within a consistent region, check out this <a target="_blank" href="https://github.com/IBMStreams/streamsx.kafka/tree/develop/samples/KafkaConsumerGroupWithConsistentRegion">KafkaConsumerGroupWithConsistentRegion sample</a>.
+
 
 You find more information about the common consumer patterns for parallel processing  in the
 <a target="_blank" href="https://ibmstreams.github.io/streamsx.kafka/docs/user/overview/"> user documentation</a> of the streamsx.kafka toolkit for the

@@ -80,7 +80,7 @@ If you find that you need to write your own operator, you can also do so using J
 - [Java operator guide](/streamsx.documentation/docs/java/java-op-dev-guide/) 
 - [Python classes and functions as SPL operators](https://streamsxtopology.readthedocs.io/en/stable/streamsx.spl.spl.html#overview)
 - C++ operators:
-    - [Example](https://github.com/IBMStreams/samples/tree/master/Examples-for-beginners/048_source_operator_with_control_port)
+    - [Example](https://github.com/IBMStreams/samples/tree/main/Examples-for-beginners/048_source_operator_with_control_port)
     - [Reference](https://www.ibm.com/support/knowledgecenter/en/SSCRJU_4.3.0/com.ibm.streams.dev.doc/doc/str_optypenativec.html)
 
 But it is a good idea to first try creating a Streams application.
@@ -106,7 +106,7 @@ Each operator in the graph corresponds to one of the steps above.
 
 If you haven't already, see [the previous section](/streamsx.documentation/spl/quick-start/qs-1) to run a completed version of this application.
 
-You may find this example in the samples repository from GitHub:  [TradesApp Sample on GitHub](https://github.com/IBMStreams/samples/tree/master/QuickStart/TradesApp), or [download the zip file](https://streams-github-samples.mybluemix.net/?get=QuickStart%2FTradesApp).
+You may find this example in the samples repository from GitHub:  [TradesApp Sample on GitHub](https://github.com/IBMStreams/samples/tree/main/QuickStart/TradesApp), or [download the zip file](https://streams-github-samples.mybluemix.net/?get=QuickStart%2FTradesApp).
 
 #### Input data overview
 

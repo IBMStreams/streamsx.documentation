@@ -51,9 +51,9 @@ host.name=myhost.mycompany.com
 
    * *If  Streams Studio is used to compile and run SPL application, add messaging toolkit to toolkit locations in Streams Explorer by following [these directions](http://www.ibm.com/support/knowledgecenter/SSCRJU_4.2.0/com.ibm.streams.studio.doc/doc/tusing-working-with-toolkits-adding-toolkit-locations.html?lang=en).*
 
-2. **Create an SPL application and add a toolkit dependency on the Messaging toolkit in your application.** You can do this by [editing the application dependency](http://www.ibm.com/support/knowledgecenter/SSCRJU_4.2.0/com.ibm.streams.studio.doc/doc/tcreating-spl-toolkit-app-elements-edit-toolkit-information-dependencies.html) in Streams Studio, or by creating/editing the info.xml for the application and adding the dependency directly (you can also just start with the <a target="_blank" href="https://github.com/IBMStreams/streamsx.messaging/tree/master/samples/KafkaSample">KafkaSample</a> to skip this and the following step).
+2. **Create an SPL application and add a toolkit dependency on the Messaging toolkit in your application.** You can do this by [editing the application dependency](http://www.ibm.com/support/knowledgecenter/SSCRJU_4.2.0/com.ibm.streams.studio.doc/doc/tcreating-spl-toolkit-app-elements-edit-toolkit-information-dependencies.html) in Streams Studio, or by creating/editing the info.xml for the application and adding the dependency directly (you can also just start with the <a target="_blank" href="https://github.com/IBMStreams/streamsx.messaging/tree/develop/samples/KafkaSample">KafkaSample</a> to skip this and the following step).
 
-    Sample info.xml from the <a target="_blank" href="https://github.com/IBMStreams/streamsx.messaging/tree/master/samples/KafkaSample">KafkaSample</a>:
+    Sample info.xml from the <a target="_blank" href="https://github.com/IBMStreams/streamsx.messaging/tree/develop/samples/KafkaSample">KafkaSample</a>:
 
    <pre><code>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
 &lt;info:toolkitInfoModel xmlns:common=&quot;http://www.ibm.com/xmlns/prod/streams/spl/common&quot; xmlns:info=&quot;http://www.ibm.com/xmlns/prod/streams/spl/toolkitInfo&quot;&gt;
@@ -92,7 +92,7 @@ host.name=myhost.mycompany.com
     * **Specify the Kafka topic to send messages to.** This can be done via the rstring topic attribute in the incoming tuple or you can specify this using the topic parameter in the KafkaProducer (see the highlighted code in the beacon operator below).
 
 
-    Here is the sample beacon and KafkaProducer code from the <a target="_blank" href="https://github.com/IBMStreams/streamsx.messaging/tree/master/samples/KafkaSample">KafkaSample</a>:
+    Here is the sample beacon and KafkaProducer code from the <a target="_blank" href="https://github.com/IBMStreams/streamsx.messaging/tree/develop/samples/KafkaSample">KafkaSample</a>:
 
     <pre><code>//create some messages and send to KafkaProducer
     stream&lt;<b style="color:blue">rstring topic, rstring key, rstring message</b>&gt; OutputStream = Beacon() {
@@ -128,7 +128,7 @@ group.id=mygroup</code></pre>
 
         `topic: "topic1" , "topic2" , "topic3";`
 
-	Here is the KafkaConsumer operator from the <a target="_blank" href="https://github.com/IBMStreams/streamsx.messaging/tree/master/samples/KafkaSample">KafkaSample</a>:
+	Here is the KafkaConsumer operator from the <a target="_blank" href="https://github.com/IBMStreams/streamsx.messaging/tree/develop/samples/KafkaSample">KafkaSample</a>:
 
 	<pre class="source-code"><code>stream&lt;rstring key, rstring message&gt; KafkaStream = KafkaConsumer()
     {
@@ -153,7 +153,7 @@ To start a consistent region with a KafkaConsumer, you must:
 
 * **Specify the partition parameter**  - The partition refers to the Kafka topic partition that we will maintain exactly-once processing for. This example is for a single-partition topic, but for a three-partition topic you can simple specify: `partition: 0,1,2;`
 * **Specify triggerCount parameter for operatorDriven trigger** - The trigger count gives you control over the approximate number of messages between checkpointing. If you are using a periodic trigger for your consistent region, you do not need to specify this.
-Here is the KafkaConsumer from the <a target="_blank" href="https://github.com/IBMStreams/streamsx.messaging/tree/master/samples/KafkaConsistentRegionConsumerSimple">KafkaConsistentRegionConsumerSimple</a> sample:
+Here is the KafkaConsumer from the <a target="_blank" href="https://github.com/IBMStreams/streamsx.messaging/tree/develop/samples/KafkaConsistentRegionConsumerSimple">KafkaConsistentRegionConsumerSimple</a> sample:
 <pre class="source-code"><code>    //Read in from a kafka server and start consistent region
     <b style="color:blue">@consistent(trigger = operatorDriven)</b>
     stream&lt;rstring message, rstring key&gt; KafkaConsumerOut = KafkaConsumer()
@@ -182,7 +182,7 @@ The easiest way to consume from a single topic in parallel is to:
 
     `partition : getChannel();`
 
-Here is a simple example of using three consumers to read from a 3-partition topic using <a href="https://www-01.ibm.com/support/knowledgecenter/SSCRJU_4.2.0/com.ibm.streams.dev.doc/doc/udpoverview.html" target="_blank">User Defined Parallelism</a> (from the <a target="_blank" href="https://github.com/IBMStreams/streamsx.messaging/blob/master/samples/KafkaParallelConsumers/application/KafkaParallelConsumers.spl">KafkaParallelConsumers sample</a>):
+Here is a simple example of using three consumers to read from a 3-partition topic using <a href="https://www-01.ibm.com/support/knowledgecenter/SSCRJU_4.2.0/com.ibm.streams.dev.doc/doc/udpoverview.html" target="_blank">User Defined Parallelism</a> (from the <a target="_blank" href="https://github.com/IBMStreams/streamsx.messaging/blob/develop/samples/KafkaSample/com.ibm.streamsx.messaging.sample.kafka/KafkaSample.spl">KafkaSample sample</a>):
 
 <pre class="source-code"><code>    <b style="color:blue">@parallel(width = 3)</b>
     stream&lt;rstring message, rstring key&gt; KafkaConsumerOut = KafkaConsumer()
@@ -194,7 +194,7 @@ Here is a simple example of using three consumers to read from a 3-partition top
     }
 </code></pre>
 
-If you would like to consume in parallel within a consistent region, check out this <a target="_blank" href="https://github.com/IBMStreams/streamsx.messaging/tree/master/samples/KafkaConsistentRegionConsumerParallel">KafkaConsistentRegionConsumerParallel sample</a>.
+If you would like to consume in parallel within a consistent region, check out this <a target="_blank" href="https://github.com/IBMStreams/streamsx.messaging/tree/develop/samples/KafkaConsistentRegionConsumerParallel">KafkaConsistentRegionConsumerParallel sample</a>.
 
 <div class="alert alert-danger" role="alert"><b>Warning: </b>Do not rely on Kafka consumer rebalancing to consume in parallel. We have experienced many issues with failed rebalancing, and there is no way to know ahead of time which partitions each consumer will be reading from.</div>
 
@@ -213,4 +213,4 @@ You can use the Streams Kafka operators to produce to and consume from the Kafka
 ## Additional Resources
 * <a target="_blank" href="http://ibmstreams.github.io/streamsx.messaging/com.ibm.streamsx.messaging/doc/spldoc/html/index.html">Streams Messaging Toolkit SPLDoc</a>
 * <a target="_blank" href="http://kafka.apache.org/documentation.html">Kafka Documentation website</a>
-* <a target="_blank" href="https://github.com/IBMStreams/streamsx.messaging/blob/master/performance/KafkaPerformanceSummary.pdf">Kafka Streams Performance Summary</a>
+* <a target="_blank" href="https://github.com/IBMStreams/streamsx.messaging/blob/develop/performance/KafkaPerformanceSummary.pdf">Kafka Streams Performance Summary</a>
