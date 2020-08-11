@@ -36,8 +36,7 @@ Streams Processing Language is specifically designed for creating Streams applic
 
 ### Developing Streams applications with Java
 
-{% include nav.html context="/docs/java/"%}
-
+{% include java.md%}
 
 ### Developing Streams applications with Scala
 
