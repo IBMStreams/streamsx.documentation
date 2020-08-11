@@ -1992,7 +1992,7 @@ if __name__ == '__main__':
 ~~~~~
 
 
-This example is based on the `pubsub` sample in GitHub. For more information about how this application works, see [https://github.com/IBMStreams/streamsx.topology/tree/master/samples/python/topology/pubsub](https://github.com/IBMStreams/streamsx.topology/tree/master/samples/python/topology/pubsub)
+This example is based on the `pubsub` sample in GitHub. For more information about how this application works, see [https://github.com/IBMStreams/streamsx.topology/tree/develop/samples/python/topology/pubsub](https://github.com/IBMStreams/streamsx.topology/tree/develop/samples/python/topology/pubsub)
 
 
 ## Subscribing to streams

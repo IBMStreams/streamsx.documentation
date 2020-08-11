@@ -85,7 +85,7 @@ Step 2: Add a dependency to the toolkit to your project:
 
 d.  Open the `info.xml` of your project:
 
-  If your project does not have an `info.xml` file, create one using the [sample](https://github.com/IBMStreams/samples/blob/master/QuickStart/BusAlerts/sampleinfo.xml).
+  If your project does not have an `info.xml` file, create one using the [sample](https://github.com/IBMStreams/samples/blob/main/QuickStart/BusAlerts/sampleinfo.xml).
 
 e.  In the XML file, add a dependency to the new toolkit under the `dependencies` node:
 
@@ -183,7 +183,7 @@ Adding a toolkit: summary
 2.  Put the toolkit folder into the toolkit directory you created during the initial setup.
     Recall that you specified this path in  **the ide-ibmstreams** package settings.
 
-3.	If the toolkit does not already have one, create a toolkit information file called info.xml for your project. [Download a sample here](https://github.com/IBMStreams/samples/blob/master/QuickStart/BusAlerts/sampleinfo.xml).
+3.	If the toolkit does not already have one, create a toolkit information file called info.xml for your project. [Download a sample here](https://github.com/IBMStreams/samples/blob/main/QuickStart/BusAlerts/sampleinfo.xml).
 
 4.  Edit the `info.xml` file to add a dependency to the toolkit you need:
 

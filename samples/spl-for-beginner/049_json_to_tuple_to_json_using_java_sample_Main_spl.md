@@ -34,10 +34,10 @@ read all the details inside of that example.
 The streamsx.json toolkit was obtained from the Streams GitHub. Then, that toolkit was
 built on a RHEL6 server which already had Streams 4.x installed in it.
 After building it, the resulting jar file inside that toolkit directory
-(streamsx.json-master/com.ibm.streamsx.json/impl/lib/com.ibm.streamsx.json.jar) was 
+(streamsx.json-develop/com.ibm.streamsx.json/impl/lib/com.ibm.streamsx.json.jar) was 
 manually copied to this SPL example project's impl/lib directory. In the same way, 
 a directory inside that toolkit containing the new operator model XML files  
-(streamsx.json-master/com.ibm.streamsx.json/com.ibm.streamsx.json) was 
+(streamsx.json-develop/com.ibm.streamsx.json/com.ibm.streamsx.json) was 
 manually copied into this SPL example project directory.
 
 SPL code below in this application demonstrates how to use those two

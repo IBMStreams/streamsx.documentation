@@ -128,7 +128,7 @@ If you are not using the Streaming Analytics service and you have access to the 
 Sometimes you have to generate data to test your application.
 
 
--   Use a **Beacon** operator to [generate data](https://github.com/IBMStreams/samples/blob/master/Examples-for-beginners/003_sink_at_work/sample/sink_at_work.spl#L16)
+-   Use a **Beacon** operator to [generate data](https://github.com/IBMStreams/samples/blob/main/Examples-for-beginners/003_sink_at_work/sample/sink_at_work.spl#L16)
 
 -   More complex samples can be generated using a `Custom` operator. This example will create a stream called `SampleData` and will run until the application is terminated.
     
