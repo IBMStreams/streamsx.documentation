@@ -17,7 +17,15 @@ The primary goals of the Java Application API are to enable the developer to:
 
 Each of these points is covered in further detail in the tutorials on this site and in the example here where we create an application that processes temperature readings from a device.
 
-The Java Application API is fully compatible with IBM Streams version 4.0.0 and later. The API is open source and is available for download from our [streamsx.topology project on GitHub](http://ibmstreams.github.io/streamsx.topology/).
+The Java Application API is fully compatible with IBM Streams version 4.0.0 and later. The API is open source and is available for download from our [streamsx.topology project on GitHub](https://ibmstreams.github.io/streamsx.topology/).
+
+
+## Quick Links
+
+If you are already familiar with the Java Application API, the following pages might prove helpful:
+  - [Working with files and other resources](/streamsx.documentation/docs/java/java-appapi-files-in-app-bundle)
+  - [Setting submission time parameters](/streamsx.documentation/docs/java/java-appapi-setting-parameters)
+
 
 ## Setting up environment
 
@@ -521,7 +529,7 @@ Windows can be used inside of parallel regions. Lastly, Windows can be used insi
 
 Since the applications written with the Java Application API are capable of running on the IBM Streams platform, it's natural that the API would integrate with SPL primitive operators and toolkits. IBM Streams comes with a number of toolkits that provide functionality such as text analysis, HDFS integration, and GeoSpatial processing. Furthermore, if you're currently working with IBM Streams, it's possible that you've implemented your own toolkits that you'd like to utilize.
 
-The purpose of this guide is to demonstrate the basics of interfacing the Java Application API with such toolkits. This is important not only for backward compatibility, but also because it shows that that API can interact with C++ operators in addition to Java ones. Although it isn't assumed that the reader has an understanding of SPL and the structure of toolkits, consulting [the IBM Knowledge Center](http://www-01.ibm.com/support/knowledgecenter/SSCRJU_4.2.0/com.ibm.streams.dev.doc/doc/creating_toolkits.html?lang=en) may prove informative.
+The purpose of this guide is to demonstrate the basics of interfacing the Java Application API with such toolkits. This is important not only for backward compatibility, but also because it shows that that API can interact with C++ operators in addition to Java ones. Although it isn't assumed that the reader has an understanding of SPL and the structure of toolkits, consulting [the IBM Knowledge Center](https://www-01.ibm.com/support/knowledgecenter/SSCRJU_4.2.0/com.ibm.streams.dev.doc/doc/creating_toolkits.html?lang=en) may prove informative.
 
 #### Background about Streams Toolkit
 
@@ -529,7 +537,7 @@ Before the Java Application API was released, developing IBM Streams was a two-s
 
 Yet the primitive operators are still very useful. For one thing, many primitive operators are organized into *toolkits* which come packaged with any IBM Streams release to provide tools for machine learning, statistical analysis, and pattern recognition. In addition, since primitive operators can be written in C++, a developer using Java Application API can have certain portions of the application written in C++ if so desired.
 
-In this tutorial, we will not cover [the development of C++ or Java primitive operators](http://www-01.ibm.com/support/knowledgecenter/SSCRJU_4.2.0/com.ibm.streams.dev.doc/doc/developing_primitive_operators.html?lang=en), however the process for utilizing an already existing toolkit is outlined below.
+In this tutorial, we will not cover [the development of C++ or Java primitive operators](https://www-01.ibm.com/support/knowledgecenter/SSCRJU_4.2.0/com.ibm.streams.dev.doc/doc/developing_primitive_operators.html?lang=en), however the process for utilizing an already existing toolkit is outlined below.
 
 #### Sample toolkit and operator
 To begin, suppose that we have a 'myTk' toolkit in the home directory. In the 'myTk' toolkit, there is one package named 'myPackageName', and one operator named 'myOperatorName':
