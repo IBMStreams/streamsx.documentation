@@ -72,6 +72,8 @@ Some toolkits are included with Streams, and others are [available on GitHub](ht
   
 * [Get started with the JMS toolkit](/streamsx.documentation/docs/messaging/jms-operators-getting-started)
   
+* [Use models created with SPSS Modeler in a Streams application](/streamsx.documentation/docs/spss/)
+
 * [HBase toolkit](https://github.com/IBMStreams/streamsx.hbase)
   
 * [HDFS toolkit](https://github.com/IBMStreams/streamsx.hdfs)
