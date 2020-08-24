@@ -44,6 +44,12 @@ Streams Processing Language is specifically designed for creating Streams applic
 * [Developing applications with Scala](https://github.com/IBMStreams/streamsx.topology/wiki/Scala-Support)
 
 
+### Developing Streams applications for edge analytics
+
+{: .simple}
+
+* [Developing applications for edge analytics](/streamsx.documentation/docs/edgeanalytics/)
+
 #### Quick links
 
 {: .simple}
@@ -89,7 +95,6 @@ Some toolkits are included with Streams, and others are [available on GitHub](ht
 * [Product toolkits overview](https://developer.ibm.com/streamsdev/docs/product-toolkits-overview/)
   
 * [GitHub projects overview](https://developer.ibm.com/streamsdev/docs/github-projects-overview/)
-
 
 ## Streams 4.2 and 4.1
 
