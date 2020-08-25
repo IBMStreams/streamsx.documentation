@@ -24,7 +24,7 @@ The rest of this document will cover how to install and deploy several flavors o
 
 ## Using an existing Kafka deployment
 
-If a user already has a Kafka environment ready, use that environment by [configuring](https://ibmstreams.github.io/streamsx.kafka/docs/user/overview/) their `KafkaConsumer` and `KafkaProducer` operators and their property file for their Streams application to access the existing Kafka environment.
+If you already have a Kafka environment ready, use that environment by [configuring](http://ibmstreams.github.io/streamsx.documentation/docs/messaging/kafka-operators-getting-started/#connecting-to-ibm-event-streams) your `KafkaConsumer` and `KafkaProducer` operators and your property file for the Streams application to access the existing Kafka environment.
 
 * **Python applications**: see [Connection examples](https://streamsxkafka.readthedocs.io/en/latest/#connection-examples).
 * **SPL applications**: see [`streamsx.kafka` samples](https://ibmstreams.github.io/streamsx.kafka/docs/user/overview/#samples).
@@ -128,7 +128,8 @@ For more information, see [Using streamsx.kafka with Red Hat AMQ Streams](https:
 1. Log in to [IBM Cloud](https://cloud.ibm.com) or create an account if you do not have one.
 1. Visit [Event Streams](https://cloud.ibm.com/catalog/services/event-streams) in the catalog.
 1. Select a region (e.g. Dallas, Frankfurt)
-1. Select a plan (e.g. Lite)
+1. Select a plan (e.g. Lite).
+   * **Important**: The Lite plan only allows one topic which may not be enough for some samples to work.
 1. Enter in a service name (e.g. Event Streams for Edge)
 1. Click 'Create'
 
@@ -159,7 +160,7 @@ Use the copied credentials to save them to a file or create a [Streams applicati
 
 ## Vanilla Apache Kafka
 
-Apache Kafka can be deployed on bare metal/VM systems as well as Kubernetes and OpenShift.
+Apache Kafka can be deployed on bare-metal or VM systems as well as Kubernetes, or OpenShift environments. Edge applications can leverage these Kafka installations; however, the edge systems where the edge application will be running must be able to connect to the system or environment where Kafka is running. Additionally, any cloud services or applications that consume Kafka topics must be able to access the system or environment.
 
 Because users should already have access to a Kubernetes-like environment, the following install section will cover Helm charts and Operators to deploy Kafka servers.
 
