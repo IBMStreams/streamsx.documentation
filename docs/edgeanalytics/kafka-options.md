@@ -24,7 +24,7 @@ The rest of this document will cover how to install and deploy several flavors o
 
 ## Using an existing Kafka deployment
 
-If you already has a Kafka environment ready, use that environment by [configuring](https://ibmstreams.github.io/streamsx.kafka/docs/user/overview/) your `KafkaConsumer` and `KafkaProducer` operators and your property file for the Streams application to access the existing Kafka environment.
+If you already have a Kafka environment ready, use that environment by [configuring](http://ibmstreams.github.io/streamsx.documentation/docs/messaging/kafka-operators-getting-started/#connecting-to-ibm-event-streams) your `KafkaConsumer` and `KafkaProducer` operators and your property file for the Streams application to access the existing Kafka environment.
 
 * **Python applications**: see [Connection examples](https://streamsxkafka.readthedocs.io/en/latest/#connection-examples).
 * **SPL applications**: see [`streamsx.kafka` samples](https://ibmstreams.github.io/streamsx.kafka/docs/user/overview/#samples).
