@@ -45,11 +45,18 @@ To write a Streams application, you need to first understand the basic building 
 ![streams graph](/streamsx.documentation/images/qse/streams-graph-animation.gif)  
 As shown in the animation above, each node in the graph is an operator, and the connection between each node is a stream. Streams carry tuples, which in turn, contain the data to be processed. This is a simplification, as the graphs can grow very complex:
 
-![large streams graph](/streamsx.documentation/images/qse/large-streamsgraph.png)  
+<img alt="large streams graph" src="/streamsx.documentation/images/qse/large-streamsgraph.png" width="900" />
 
 ###  Build applications by connecting operators
 
 To create a Streams application, you connect multiple operators in order of processing. This chain of operators makes up the application and is called the **Streams graph**.
+
+Each graph starts with a **source adapter**, which produces the data to be analyzed, and the results are sent to a *sink adapter* (database, messaging system, etc) for storage or further processing outside Streams.
+
+Each stream has a **schema** which describes the kind of data in each tuple.
+
+
+<img alt="building blocks" src="/streamsx.documentation/images/qse/buildingBlockApp.gif" width="900"/>
 
 
 
