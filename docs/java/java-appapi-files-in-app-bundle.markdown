@@ -1,9 +1,16 @@
 ---
 layout: docs
-title:   Using external JARs and files in the Java Application API
+title:   Working with external files, JARs and other resources in the Java Application API
 description: Using external resources such as files and archives with the Java API
-weight: 2
+weight: 3
 published: true
+tag: java-app
+next:
+    file: java-appapi-setting-parameters
+    title: Setting parameter values when invoking operators
+prev:
+    file: java-appapi-devguide
+    title: Java Application development
 ---
 
 

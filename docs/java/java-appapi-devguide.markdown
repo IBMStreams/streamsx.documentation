@@ -2,7 +2,14 @@
 layout: docs
 title:  Java Application API Development Guide
 description: IBM Streams Java Application API Development Guide
-weight: 1
+weight: 2
+tag: java-app
+prev:
+    file: index
+    title: Java Development
+next:
+    file: java-appapi-files-in-app-bundle
+    title: Working with files and other resources
 published: true
 ---
 If you're viewing this page, it's likely that you haven't worked with the Java Application API before, or possibly streaming applications in general. In this document, we discuss at a high level the general principles behind streaming application development and the benefits of the Java Application API, and  we demonstrate these in a sample application.

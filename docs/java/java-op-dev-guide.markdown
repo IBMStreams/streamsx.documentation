@@ -4,6 +4,14 @@ title:  Java Operator Development Guide
 description:  IBM Streams Java Operator Development Guide
 weight: 10
 published: true
+tag: java-op
+prev:
+  file: index
+  title: Java Development
+next:
+  file: java-op-dev-pd
+  title: Debugging Java Operators with Eclipse/Streams Studio
+
 ---
 Java is a deeply integrated part of Streams. Making Java easy in Streams has been a priority for years because of its extensive libraries and ubiquitous developer base. The goal of this guide is to take a two-tiered approach. The videos and instructions are going to help you get your Java operators up and running as quickly and easily as possible (Tier 1). However, Streams Studio abstracts many details away from the developer to make their life easy, so we also go more into depth on how Java and Streams work together under the cover (Tier 2). Following the CLI versions of instructions will give you a deeper understanding of Java operators in Streams, while following the videos and Streams Studio instructions will get your code running as fast as possible.
 
@@ -176,7 +184,7 @@ MyJavaOp/impl/java/bin/
 	<li>Index the toolkit from the SPL toolkit directory. This will generate the operator model and build the toolkit directory structure.  </li>
 	<pre><code>spl-make-toolkit -i ./</code></pre>
 </ol>  
-<div class="alert alert-info" role="alert"><b>Best Practice: </b>In our example, we used com.ibm.streams.operator.jar to demonstrate key concepts with Java primitive operator.  As a best practice, you should include the com.ibm.streams.operator.samples.jar in the classpath.  This jar provides common patterns, like source and sink operators, that you can extend when implementing your Java primitive operator.   For more details, refer to <a href="https://www-01.ibm.com/support/knowledgecenter/#!/SSCRJU_4.2.0/com.ibm.streams.spl-java-operators.doc/samples/overview-summary.html">Java Primitive Operator Sample Javadoc</a></div>
+<div class="alert alert-info" role="alert"><b>Best Practice: </b>In our example, we used com.ibm.streams.operator.jar to demonstrate key concepts with Java primitive operator.  As a best practice, you should include the com.ibm.streams.operator.samples.jar in the classpath.  This jar provides common patterns, like source and sink operators, that you can extend when implementing your Java primitive operator.   For more details, refer to <a href="https://www.ibm.com/support/knowledgecenter/SSCRJU_5.3/com.ibm.streams.spl-java-operators.doc/samples/overview-summary.html">Java Primitive Operator Sample Javadoc</a></div>
   </div>
   <div id="studio-0" class="tab-pane fade">
   <br>
@@ -298,7 +306,7 @@ For your test application to be able to access the Java primitive operator, the 
                 <ol>  
                     <li>Expand the SPL Application Project that you want to add a dependency to.</li>
                     <li>Right-click on Dependencies and select Edit Dependencies...</li>
-                    <li>Click Add... and select the toolkit dependency you want to add. Note: If you don't see the toolkit that you want to add a dependency on, then you probably haven't added the toolkit location to your workspace. Read how to do that <a href="http://www-01.ibm.com/support/knowledgecenter/SSCRJU_4.2.0/com.ibm.streams.studio.doc/doc/tusing-working-with-toolkits-adding-toolkit-locations.html" target="_blank">here</a>.</li>      
+                    <li>Click Add... and select the toolkit dependency you want to add. Note: If you don't see the toolkit that you want to add a dependency on, then you probably haven't added the toolkit location to your workspace. Read how to do that <a href="http://www-01.ibm.com/support/knowledgecenter/SSCRJU_5.3/com.ibm.streams.studio.doc/doc/tusing-working-with-toolkits-adding-toolkit-locations.html" target="_blank">here</a>.</li>      
                 </ol>
         </ol>
   </div>
@@ -427,7 +435,7 @@ When the Java primitive operator is executed, the operator code must be able to 
 
 	{% include bestpractices.html text= "External JARS should be stored in the <code>toolkit_root/opt</code> directory.  The opt directory is packaged into the application bundle by default."%}
 
-	For more information about application bundles, refer to this documentation: <a target="_blank" href="http://www-01.ibm.com/support/knowledgecenter/?lang=en#!/SSCRJU_4.2.0/com.ibm.streams.dev.doc/doc/applicationbundle.html">Application bundle files</a>.
+	For more information about application bundles, refer to this documentation: <a target="_blank" href="http://www-01.ibm.com/support/knowledgecenter/SSCRJU_5.3/com.ibm.streams.dev.doc/doc/applicationbundle.html">[Application bundle files](http://www-01.ibm.com/support/knowledgecenter/SSCRJU_5.3/com.ibm.streams.dev.doc/doc/applicationbundle.html)</a>.
 
 2.  **Using Environment Variables**
 
@@ -565,7 +573,7 @@ Below are the general steps to create a parameter for a Java primitive operator:
 **Note:** The default name for a parameter is the portion of the setter method name after "set". For example, setReverseString defaults to an SPL parameter name of reverseString if the name property is not specified.
 1. Modify your operator logic/code to honor the parameter value.
 
-To learn more about the different kinds of parameters and the supported SPL types, refer to this documentation: <a href="http://www-01.ibm.com/support/knowledgecenter/#!/SSCRJU_4.2.0/com.ibm.streams.spl-java-operators.doc/api/com/ibm/streams/operator/model/Parameter.html" target="_blank">Parameter Annotation Javadoc</a>
+To learn more about the different kinds of parameters and the supported SPL types, refer to this documentation: <a href="http://www-01.ibm.com/support/knowledgecenter/SSCRJU_5.3/com.ibm.streams.spl-java-operators.doc/api/com/ibm/streams/operator/model/Parameter.html" target="_blank">Parameter Annotation Javadoc</a>
 
 ### Example Parameter
 
@@ -941,7 +949,7 @@ Key things to note from this example:
 	* Disconnect from the server
 	* Always call super.shutdown() in the shutdown method
 
-This covers the basics of creating a source operator.  Streams Java Operator APIs come with many useful patterns and samples.  You may extend from these patterns when implementing the source operator.  To have access to these patterns, include the com.ibm.streams.operator.sample.jar in your classpath.  For more information about these samples and patterns, refer to this documentation:  <a target="_blank" href="http://www-01.ibm.com/support/knowledgecenter/#!/SSCRJU_4.2.0/com.ibm.streams.spl-java-operators.doc/samples/overview-summary.html">Java Operator Samples</a>
+This covers the basics of creating a source operator.  Streams Java Operator APIs come with many useful patterns and samples.  You may extend from these patterns when implementing the source operator.  To have access to these patterns, include the com.ibm.streams.operator.sample.jar in your classpath.  For more information about these samples and patterns, refer to this documentation:  <a target="_blank" href="http://www-01.ibm.com/support/knowledgecenter/SSCRJU_5.3/com.ibm.streams.spl-java-operators.doc/samples/overview-summary.html">Java Operator Samples</a>
 
 ## Creating a Sink Operator
 Sink operators are unique because they don't send output tuples (unless there is an error port). Sink operators are typically used to send data to an external system such as a database or messaging server.
@@ -1127,7 +1135,7 @@ Key things to note from this example:
 	* Disconnect from the server
 	* Always call super.shutdown() in the shutdown method
 
-This covers the basics of creating a sink operator.  Streams Java Operator APIs come with patterns and samples that you can extend when implementing a sink operator. For more information about these samples and patterns, refer to this documentation:  <a target="_blank" href="http://www-01.ibm.com/support/knowledgecenter/#!/SSCRJU_4.2.0/com.ibm.streams.spl-java-operators.doc/samples/overview-summary.html">Java Operator Samples</a>
+This covers the basics of creating a sink operator.  Streams Java Operator APIs come with patterns and samples that you can extend when implementing a sink operator. For more information about these samples and patterns, refer to this documentation:  <a target="_blank" href="http://www-01.ibm.com/support/knowledgecenter/SSCRJU_5.3/com.ibm.streams.spl-java-operators.doc/samples/overview-summary.html">Java Operator Samples</a>
 
 ## Handling Errors
 Your Streams operator should never crash unless you want it to. There are cases where an exception will be thrown because of a loss of connection or other normal error causes, but it is important to handle those errors so that your operator can continue to process data.
@@ -1317,7 +1325,7 @@ Windows are an important part of most Streams applications. Intelligent use of w
 * **Tumbling** - Tumbling windows operate in batches. When a tumbling window fills up, all of the tuples in the window are evicted.
 * **Sliding** - Sliding windows operate in an incremental fashion. When a sliding window fills up, the future tuple insertions result in evicting the oldest tuples in the window.
 
-For more details, read [Window Handling](http://www-01.ibm.com/support/knowledgecenter/SSCRJU_4.2.0/com.ibm.streams.dev.doc/doc/windowhandling.html?lang=en).
+For more details, read [Window Handling](http://www-01.ibm.com/support/knowledgecenter/SSCRJU_5.3/com.ibm.streams.dev.doc/doc/windowhandling.html?lang=en).
 
 #### General strategy for implementing a windowed operator:
 
@@ -1375,7 +1383,7 @@ For more details, read [Window Handling](http://www-01.ibm.com/support/knowledge
 
 ### Window Example
 
-In the example below, we implement a tumbling window operator that submits the alphabetic minimium String for a given window. The operator maintains a List\<String\> that is cleared every time the window tumbles. Read more details about [tumbling](http://www-01.ibm.com/support/knowledgecenter/SSCRJU_4.2.0/com.ibm.streams.dev.doc/doc/tumblingwindowoperator.html) and [sliding](http://www-01.ibm.com/support/knowledgecenter/SSCRJU_4.2.0/com.ibm.streams.dev.doc/doc/slidingwindow.html) windows by clicking on the links.
+In the example below, we implement a tumbling window operator that submits the alphabetic minimium String for a given window. The operator maintains a List\<String\> that is cleared every time the window tumbles. Read more details about [tumbling](http://www-01.ibm.com/support/knowledgecenter/SSCRJU_5.3/com.ibm.streams.dev.doc/doc/tumblingwindowoperator.html) and [sliding](http://www-01.ibm.com/support/knowledgecenter/SSCRJU_5.3/com.ibm.streams.dev.doc/doc/slidingwindow.html) windows by clicking on the links.
 
 <ul class="nav nav-tabs">
   <li class="active"><a data-toggle="tab" href="#minimum-3">Operator Code</a></li>
@@ -1570,9 +1578,9 @@ There are three kinds of metrics:
 * **Gauge** indicates a value that is continuously variable with time.
 * **Time** indicates a metric that represents a point in time.
 
-Live feed of the system metrics and operator custom metrics can be viewed in Streams Studio and the Streams Console.  You may retrieve the latest metrics using the Streams REST APIs.  This allows you to monitor your Streams domain, and your applications using your favorite monitoring tools.  Refer to this documentation about the <a target="_blank" href="http://www-01.ibm.com/support/knowledgecenter/#!/SSCRJU_4.2.0/com.ibm.streams.restapi.doc/doc/restapis-metrics.html">Metrics REST APIs</a>.
+Live feed of the system metrics and operator custom metrics can be viewed in Streams Studio and the Streams Console.  You may retrieve the latest metrics using the Streams REST APIs.  This allows you to monitor your Streams domain, and your applications using your favorite monitoring tools.  Refer to this documentation about the <a target="_blank" href="https://www.ibm.com/support/knowledgecenter/SSCRJU_5.3/com.ibm.streams.cmnapi.doc/topics/doc/restservice/streamsrest.json">REST APIs</a>.
 
-For more information about metrics, refer to the <a target="_blank" href="http://www-01.ibm.com/support/knowledgecenter/#!/SSCRJU_4.2.0/com.ibm.streams.spl-java-operators.doc/api/com/ibm/streams/operator/metrics/Metric.html">Metrics Javadoc</a>.
+For more information about metrics, refer to the <a target="_blank" href="https://www.ibm.com/support/knowledgecenter/SSCRJU_5.3/com.ibm.streams.spl-java-operators.doc/api/com/ibm/streams/operator/metrics/Metric.html">Metrics Javadoc</a>.
 
 This section will show you how to add your a custom metric to your Java operator.
 
@@ -1650,10 +1658,10 @@ Here is the path that most Streams developers take to determine if their operato
 3. If you still don't have the information you need, increase the level of logging (this can be set during application launch) and look through the Operator Trace:
 	**right click on your operator -> Show Log -> Show Operator Trace**
 
-You can also use the Eclipse Java Debugger by following [these instructions](https://developer.ibm.com/streamsdev/2013/12/11/debug-java-operator-using-eclipse-java-debugger/).
+You can also use the Eclipse Java Debugger by following [these instructions](/streamsx.documentation/docs/java/java-op-dev-pd/).
 
 ## SPL to Java Type Mapping
-It's not always obvious which SPL types map to which Java types. It's important to get this mapping right when you are defining parameters, reading from input tuples, and writing to output tuples. Follow this link for a comprehensive [table of type mapping](http://www-01.ibm.com/support/knowledgecenter/SSCRJU_4.2.0/com.ibm.streams.dev.doc/doc/workingwithspltypes.html).
+It's not always obvious which SPL types map to which Java types. It's important to get this mapping right when you are defining parameters, reading from input tuples, and writing to output tuples. Follow this link for a comprehensive [table of type mapping](http://www-01.ibm.com/support/knowledgecenter/SSCRJU_5.3/com.ibm.streams.dev.doc/doc/workingwithspltypes.html).
 
 ## Improving Performance
 As we mentioned at the beginning of this guide, your performance will depend on the efficiency of your **process(...)** or **produceTuples(...)** methods (in the case of a windowed operator, it will be in your window handler).
@@ -1672,6 +1680,6 @@ Here are some things to keep in mind:
 
 ## Next steps
 
-This covers the basics of writing a Java primitive operator.  To learn more about the details, refer to the <a target="_blank" href="http://www-01.ibm.com/support/knowledgecenter/#!/SSCRJU_4.2.0/com.ibm.streams.spl-java-operators.doc/api/overview-summary.html">knowledge center</a>.
+This covers the basics of writing a Java primitive operator.  To learn more about the details, refer to the <a target="_blank" href="http://www-01.ibm.com/support/knowledgecenter/SSCRJU_5.3/com.ibm.streams.spl-java-operators.doc/api/overview-summary.html">knowledge center</a>.
 
 We will continue to improve this development guide.  If you have any feedback, please click on the **Feedback** button at the top and let us know what you think!

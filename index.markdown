@@ -36,7 +36,10 @@ Streams Processing Language is specifically designed for creating Streams applic
 
 ### Developing Streams applications with Java
 
-{% include java.md%}
+{: .simple}
+
+
+* [Create a Java operator or a complete Streams application in Java](/streamsx.documentation/docs/java)
 
 ### Developing Streams applications with Scala
 

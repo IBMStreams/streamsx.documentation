@@ -1,9 +1,16 @@
 ---
 layout: docs
-title:  Setting parameter values in the Java Application API
+title:  Setting parameter values when invoking non-Java operators
 description:  IBM Streams Java Operator Development Guide
-weight: 3
+weight: 4
 published: true
+tag: java-app
+next:
+    file: java-appapi-use-debugger
+    title: Debugging with Eclipse
+prev:
+    file: java-appapi-files-in-app-bundle
+    title: Working with files and other resources
 ---
 
 The Java Application API provides the ability to invoke operators from any of the dozens of toolkits included in Streams and [available on GitHub](https://github.com/IBMStreams), regardless of whether the operator is written in Java, C++ Python, or SPL. 
