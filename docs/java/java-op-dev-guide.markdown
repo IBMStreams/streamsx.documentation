@@ -6,7 +6,7 @@ weight: 10
 published: true
 tag: java-op
 prev:
-  file: index
+  file: ../java
   title: Java Development
 next:
   file: java-op-dev-pd

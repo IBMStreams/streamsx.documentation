@@ -5,7 +5,7 @@ description: IBM Streams Java Application API Development Guide
 weight: 2
 tag: java-app
 prev:
-    file: index
+    file: ../java
     title: Java Development
 next:
     file: java-appapi-files-in-app-bundle
