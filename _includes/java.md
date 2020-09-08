@@ -16,5 +16,8 @@ Use the Java API to create complete Streams applications using only Java.
 You can create an operator with Java and then invoke it from an SPL composite.
 
   -  Learn how by following the  [Java Operator Development Guide](/streamsx.documentation/docs/java/java-op-dev-guide).
+ 
   -  How to [debug a Java operator with Eclipse](/streamsx.documentation/docs/java/java-op-dev-pd)
+  
+  -  [Performance Tuning for Java Operators](/streamsx.documentation/docs/java/java-op-dev-perf)
 

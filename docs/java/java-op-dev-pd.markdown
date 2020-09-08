@@ -8,6 +8,10 @@ tag: java-op
 prev:
   file: java-op-dev-guide
   title: Java Operator Development Guide
+next:
+  file: java-op-dev-perf
+  title: Performance Tuning for Java Operators
+
 ---
 
 

@@ -184,11 +184,19 @@ MyJavaOp/impl/java/bin/
 	<li>Index the toolkit from the SPL toolkit directory. This will generate the operator model and build the toolkit directory structure.  </li>
 	<pre><code>spl-make-toolkit -i ./</code></pre>
 </ol>  
-<div class="alert alert-info" role="alert"><b>Best Practice: </b>In our example, we used com.ibm.streams.operator.jar to demonstrate key concepts with Java primitive operator.  As a best practice, you should include the com.ibm.streams.operator.samples.jar in the classpath.  This jar provides common patterns, like source and sink operators, that you can extend when implementing your Java primitive operator.   For more details, refer to <a href="https://www.ibm.com/support/knowledgecenter/SSCRJU_5.3/com.ibm.streams.spl-java-operators.doc/samples/overview-summary.html">Java Primitive Operator Sample Javadoc</a></div>
+<div class="alert alert-info" role="alert"><b>Best Practice: </b>In our example, we used com.ibm.streams.operator.jar to demonstrate key concepts with Java primitive operator.  As a best practice, you should include the com.ibm.streams.operator.samples.jar in the classpath.  This jar provides common patterns, like source and sink operators, that you can extend when implementing your Java primitive operator.   For more details, refer to <a href="https://www.ibm.com/support/knowledgecenter/SSCRJU_5.3/com.ibm.streams.spl-java-operators.doc/samples/overview-summary.html">Java Primitive Operator Sample Javadoc.</a>
+
+<p>
+Java source files and compiled classes for samples are contained in <code>$STREAMS_INSTALL/lib/com.ibm.streams.operator.samples.jar</code>
+
+A SPL sample toolkit for Java operators is provided in <code>$STREAMS_INSTALL/samples/spl/feature/JavaOperators.</code>
+</p>
+
+</div>
   </div>
   <div id="studio-0" class="tab-pane fade">
   <br>
-   The steps for building the simple Java primitive operator using Streams Studio are as follows:
+   The steps for building the sample Java primitive operator using Streams Studio are as follows:
 <br><br>
 <ol>
 	<li>	File -> New -> Project</li>   
