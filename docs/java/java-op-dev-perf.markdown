@@ -1,7 +1,7 @@
 ---
 layout: docs
-title:  How to Debug Java Operators with Eclipse/Streams Studio
-description: Steps to connect an operator in a running Streams application to the Eclipse Debugger
+title:  Performance Tuning for Java Operators
+description: How to improve performance
 weight: 15
 published: true
 tag: java-op
