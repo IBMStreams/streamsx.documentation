@@ -1,6 +1,6 @@
 ---
 layout: docs
-title: IBM Streams Quick Start
+title: IBM Streams Quick Start for SPL
 description:
 weight: 10
 published: true
@@ -12,7 +12,7 @@ next:
 ---
 
 
-This guide will help you get up and running with Streams and Streams Processing Language.
+This guide will help you get up and running with Streams and Streams Processing Language (SPL).
 
 ## 1. Run your first application
 
