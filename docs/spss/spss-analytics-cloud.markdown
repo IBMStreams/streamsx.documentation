@@ -27,7 +27,7 @@ As with all streams applications to be run in the cloud you must first develop, 
 
 To support SPSS, the Streaming Analytics Service provisions the SPSS Solution Publisher product in the following location in the cloud environment:
 
-    /usr/IBM/SPSS/ModelerSolutionPublisher/17.0
+    /usr/IBM/SPSS/ModelerSolutionPublisher/18.2/
 
 To enable your _Streams with SPSS _application for the IBM Cloud environment, you need to be careful with the installation path of the SPSS Solution Publisher product in your development environment.  **You must install the SPSS Solution Publisher product in the same location as it is provisioned in the cloud. **Otherwise, your Streams application will not be able to find the SPSS modeler solution runtime when it is being executed.
 
