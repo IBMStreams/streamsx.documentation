@@ -1,4 +1,5 @@
 1.  Download and install the [Visual Studio Code](https://code.visualstudio.com/Download) editor.
+1.  (Optional, required for syntax highlighting and code completion) Set the `JAVA_HOME` environment variable to a Java JRE or JDK/SDK version 8 or higher.
 2.  Install the **IBM Streams** extension:
     1.  In VS Code, bring up the [**Extensions**](https://code.visualstudio.com/docs/editor/extension-gallery) view by clicking on the Extensions icon in the [**Activity Bar**](https://code.visualstudio.com/docs/getstarted/userinterface) on the left side.
     1.  Search for the **IBM Streams** extension and install it.
