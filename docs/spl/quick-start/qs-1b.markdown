@@ -15,7 +15,7 @@ next:
 ---
 
 
-You can use [Microsoft Visual Studio Code](https://code.visualstudio.com/) (VS Code) to edit and deploy Streams applications. You do not need to download the Streams runtime, but only the Streams extension for VS Code. 
+You can use [Microsoft Visual Studio Code](https://code.visualstudio.com/) (VS Code) to edit and deploy Streams applications. You do not need to download the Streams runtime, but only the [Streams extension for VS Code](https://github.com/IBMStreams/vscode-ide/wiki). 
 
 This guide will walk you through the steps needed to install the extension and connect to your Streams instance in IBM  Cloud Pak for Data or IBM Cloud. Next, you'll learn how to deploy and monitor an application from VS Code.
 
