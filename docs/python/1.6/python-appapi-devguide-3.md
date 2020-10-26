@@ -311,14 +311,14 @@ A running Streams application is called a *job*.  Use this code to submit the `T
 
 ~~~~python
 # The submission_result object contains information about the running application, or job
-print("Submitting Topology to Streams for execution..")
+print("Submitting topology to Streams for execution...")
 submission_result = submit_topology(topo)
 
 if submission_result.job:
   streams_job = submission_result.job
-  print ("JobId: ", streams_job.id , "\nJob name: ", streams_job.name)
+  print ("Job ID: ", streams_job.id , "\nJob name: ", streams_job.name)
 else:
-  print("Submission failed: "   + str(submssion_result))
+  print("Submission failed: "   + str(submission_result))
 ~~~~
 
 
@@ -329,7 +329,7 @@ Now that the job is started, use the `averages_view` object you created in step 
 
 ~~~~python
 # Connect to the view and display the data
-print("Fetching view data ...")
+print("Fetching view data...")
 queue = averages_view.start_data_fetch()
 try:
     for val in range(10):
@@ -374,7 +374,7 @@ Streams jobs run indefinitely, so make sure you cancel the job once you are fini
 If you are using a notebook, run this line:
 ~~~~ python
 if submission_result.job.cancel():
-  print("Sucessfull cancelled the job")
+  print("Successfully cancelled the job")
 
 ~~~~
 Otherwise, cancel the job from Streams Console or the Job graph.
