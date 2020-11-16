@@ -12,3 +12,6 @@ docs/spl/atom/~$omguide-2.docx
 docs/spl/atom/design.docx
 .jekyll*/*
 .jekyll-metadata
+
+.DS_Store
+/**/.DS_Store
