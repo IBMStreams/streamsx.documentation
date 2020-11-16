@@ -24,6 +24,7 @@ This section will discuss how to use the most common functions and transforms in
   * [Visualizing Streaming data](#visualizing-data)
 * [Creating data sinks](#sink)
 * [Filtering data from the stream](#filter)
+  - [Split the stream into matching and non-matching streams] (#filter_split)
 * [Windows: transforming subsets of data ](#windows)
   - [Window size and duration](#wsize)
   - [Template for using windows](#wtemplate)
@@ -488,6 +489,65 @@ The contents of your output looks like this:
 quixotic
 quell
 ~~~~~
+
+### Reference
+* [Topology.Stream.filter](https://streamsxtopology.readthedocs.io/en/stable/streamsx.topology.topology.html#streamsx.topology.topology.Stream.filter)
+
+<a id="filter_split"></a>
+
+## Filtering data and split the stream into matching and non-matching streams
+
+You can invoke the `filter` transform on a `Stream` object when you want to split tuples to a matching stream and non-matching stream.
+In the former sample [Filtering data from the stream](#filter) the non-matching tuples are rejected. In this section the sample application demonstrates how to split the stream into 2 streams, one stream contains the tuples matching the filter condition and the second stream contains the other tuples.
+
+To achieve this:
+
+1. Add the parameter `non_matching=True` to the `filter` method on the `words` Stream and define two output streams called `words_without_a` and `words_with_a`.
+
+~~~~ python
+        words_without_a, words_with_a = words.filter(does_not_contain_a, non_matching=True)
+~~~~~~
+
+### The complete application
+
+Your complete application is contained in a single file, `filter_words_split.py`.
+
+~~~~~~ python
+from streamsx.topology.topology import Topology
+import streamsx.topology.context
+
+def words_in_dictionary():
+   return {"qualify", "quell", "quixotic", "quizzically"}
+
+def does_not_contain_a(tuple):
+   return "a" not in tuple
+
+def main():
+    topo = Topology("filter_words")
+    words = topo.source(words_in_dictionary)
+    words_without_a, words_with_a = words.filter(does_not_contain_a, non_matching=True)
+    words_without_a.print(tag='MATCHING')
+    words_with_a.print(tag='NON_MATCHING')
+    streamsx.topology.context.submit("STANDALONE", topo)
+
+if __name__ == '__main__':
+    main()
+~~~~~~
+
+### Sample output
+Run the `python3 filter_words_split.py` script.
+
+The contents of your output looks like this:
+
+~~~~~
+NON_MATCHING: quizzically
+MATCHING: quell
+NON_MATCHING: qualify
+MATCHING: quixotic
+~~~~~
+
+### Reference
+* [Topology.Stream.filter](https://streamsxtopology.readthedocs.io/en/stable/streamsx.topology.topology.html#streamsx.topology.topology.Stream.filter)
 
 
 <a id="sinks"></a>
@@ -1866,6 +1926,70 @@ print1 tuple2
 print2 tuple3
 print1 tuple3
 ~~~~~~
+
+## Splitting to dedicated streams 
+
+Another option is to split tuples from a stream into multiple independent streams using the `split` method on a stream.
+
+A visual representation of this code would look something like this:
+
+![Visual representation of splitting a stream](../../../../images/python/stream_split_func.png)
+
+The following example shows splitting a stream based upon message severity.
+Each `sink` function receives routed tuples from the `source` `Stream`. The split category is given within the function applied to the `split` method.
+Tuples from a `source` function are split to three streams, each stream representing a severity of the message.
+
+### Sample application
+Include the following code in the `split_func.py` file:
+
+~~~~~~
+from streamsx.topology.topology import Topology
+import streamsx.topology.context
+
+def read_messages():
+   return {"M-a-message", "L-another-message", "H-v-i-m", "L-any-message"}
+
+def get_severity(tuple):
+   SEVS = {'H':0, 'M':1, 'L':2}
+   return SEVS.get(tuple[0])
+
+def main():
+   topo = Topology("split-streams")
+   msgs = topo.source(read_messages)
+   
+   severities = msgs.split(3, get_severity, names=['high','medium','low'], name='SeveritySplit')
+
+   high_severity = severities.high
+   high_severity.print(tag='HIGH')
+
+   medium_severity = severities.medium
+   medium_severity.print(tag='MEDIUM')
+
+   low_severity = severities.low
+   low_severity.print(tag='LOW')
+
+   streamsx.topology.context.submit("STANDALONE", topo)
+
+if __name__ == '__main__':
+   main()
+
+~~~~~~
+
+### Sample output
+Run the `python3 split_func.py` script.
+
+The contents of your output looks something like this:
+
+~~~~~~
+LOW: L-another message
+HIGH: H-vim
+LOW: L-any message
+MEDIUM: M-a message
+~~~~~~
+
+### Reference
+* [Topology.Stream.filter](https://streamsxtopology.readthedocs.io/en/stable/streamsx.topology.topology.html#streamsx.topology.topology.Stream.split)
+
 
 <a id="union"></a>
 ## Joining streams (union)
