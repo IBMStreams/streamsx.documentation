@@ -24,7 +24,7 @@ This section will discuss how to use the most common functions and transforms in
   * [Visualizing Streaming data](#visualizing-data)
 * [Creating data sinks](#sink)
 * [Filtering data from the stream](#filter)
-  - [Split the stream into matching and non-matching streams] (#filter_split)
+  - [Split the stream into matching and non-matching streams](#filter_split)
 * [Windows: transforming subsets of data ](#windows)
   - [Window size and duration](#wsize)
   - [Template for using windows](#wtemplate)
@@ -37,6 +37,7 @@ This section will discuss how to use the most common functions and transforms in
 * [Transforming data with custom logic](#map)
 * [Keeping state information](#state)
 * [Splitting streams](#split)
+  - [Split the stream into dedicated streams](#split_func)
 * [Joining streams](#union)
 * [Sharing data between Streams applications](#publish)
 
@@ -1927,6 +1928,8 @@ print2 tuple3
 print1 tuple3
 ~~~~~~
 
+<a id="split_func"></a>
+<br/>
 ## Splitting to dedicated streams 
 
 Another option is to split tuples from a stream into multiple independent streams using the `split` method on a stream.
@@ -1988,7 +1991,7 @@ MEDIUM: M-a message
 ~~~~~~
 
 ### Reference
-* [Topology.Stream.filter](https://streamsxtopology.readthedocs.io/en/stable/streamsx.topology.topology.html#streamsx.topology.topology.Stream.split)
+* [Topology.Stream.split](https://streamsxtopology.readthedocs.io/en/stable/streamsx.topology.topology.html#streamsx.topology.topology.Stream.split)
 
 
 <a id="union"></a>
