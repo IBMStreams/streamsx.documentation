@@ -310,7 +310,7 @@ world!
 
 Going line by line, `queue = view.start_data_fetch()` begins fetching stream data from the remote view to populate the created `queue object`. Next, `for item in iter(queue.get, None)` creates an iterator that uses the queue, and iterates over its values and prints them to the screen with `print(item)`. For the sake of this example, data is consumed until the user sends an interrupt with Control-C, although the user is free to decide when and how data stops being consumed. Lastly, when the user sends an interrupt, `view.stop_data_fetch()` is invoked, which terminates the background thread, and data ceases to be retrieved from the remote view.
 
-The ability to obtain live stream data from a running job has proved valuable for real-time data visualization. For example, the stream might send temperature readings an from engine to be analyzed by a mechanic. High temperature readings can be a signal to limit the engine's maximum RPMs. Jupyter notebooks provide an ideal platform for performing this kind of visualization.
+The ability to obtain live stream data from a running job has proved valuable for real-time data visualization. For example, the stream might send temperature readings from an engine to be analyzed by a mechanic. High temperature readings can be a signal to limit the engine's maximum RPMs. Jupyter notebooks provide an ideal platform for performing this kind of visualization.
 
 
 # Reference
