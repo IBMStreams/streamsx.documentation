@@ -55,6 +55,10 @@ for j in job_list:
             print("Metric "+m[0].name + ": "+str(m[0].value))
 ```
 
+### Reference
+* [of_endpoint()](https://streamsxtopology.readthedocs.io/en/stable/streamsx.rest_primitives.html#streamsx.rest_primitives.Instance.of_endpoint)
+
+
 ## Integrated configuration within project
 
 Connect to an IBM Streams service instance running in Cloud Pak for Data inside a notebook running in Cloud Pak for Data.
@@ -82,6 +86,8 @@ instance = Instance.of_service(cfg)
 The sample notebook demonstrates how to connect and retrieve operator metrics from a Streams job when job and notebook are running in running in Cloud Pak for Data:
 [Streams-EventStoreSample.ipynb](https://github.com/IBMStreams/sample.starter_notebooks/blob/latest/Streams-EventStoreSample.ipynb)
 
+### Reference
+* [of_service()](https://streamsxtopology.readthedocs.io/en/stable/streamsx.rest_primitives.html#streamsx.rest_primitives.Instance.of_service)
 
 # Connecting with Streams (4.2, 4.3)
 
