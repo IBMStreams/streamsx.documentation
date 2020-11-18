@@ -15,13 +15,13 @@ next:
 
 This section will discuss how to scale your processing and about fault tolerance of your application.
 
-* [Scalability](#udp)
+* [Parallel processing](#parallel)
 * [Fault tolerance](#consistent_region)
 
 
-<a id="udp"></a>
+<a id="parallel"></a>
 
-# Scalablity
+# Parallel processing
 
 If a particular portion of your graph is causing congestion because the application needs additional throughput at that point, you can define a **parallel region** in your graph. A parallel region enables the application to use multiple channels to run transforms (such as filtering or modifying data) concurrently.
 
@@ -90,15 +90,13 @@ By default any state is reset to its initial state after a processing element (P
 * a parallel region width change (IBM Streams 4.3 or later)
 
 The application or a portion of it may be configured to maintain state after a PE restart by the mechanism **consistent region**.
-
 A **consistent region** is a subgraph where the states of callables become consistent by processing all the tuples at least once within defined points on a stream.
-
 On a failure, a region is reset to its last successfully persisted state, and source callable of a region can replay any tuples submitted after the restored state.
 
 ![cr_reset](/streamsx.documentation/images/python/cr_reset.png)
 
 
-The consistent region feature requires a configured **checkpoint repository** in the Streams instance and Streams **applications must be submitted in DISTRIBUTED context**.
+The consistent region feature requires a configured [checkpoint repository](https://www.ibm.com/support/knowledgecenter/SSCRJU_5.3/com.ibm.streams.cfg.doc/doc/ibminfospherestreams-configuring-checkpoint-data-store.html) in the Streams instance and Streams applications must be submitted in [DISTRIBUTED](https://streamsxtopology.readthedocs.io/en/stable/streamsx.topology.context.html#streamsx.topology.context.ContextTypes.DISTRIBUTED) context.
 
 This section will discuss how to create stream processing applications with the consistent region feature:
 
@@ -108,7 +106,7 @@ This section will discuss how to create stream processing applications with the 
 
 
 <a id="configure"></a>
-## Configures a consistent region
+## Configure a consistent region
 
 * [streamsx.topology.topology.Stream.set_consistent()](https://streamsxtopology.readthedocs.io/en/stable/streamsx.topology.topology.html#streamsx.topology.topology.Stream.set_consistent)
 * [ConsistentRegionConfig](https://streamsxtopology.readthedocs.io/en/stable/streamsx.topology.state.html#streamsx.topology.state.ConsistentRegionConfig)
@@ -125,7 +123,7 @@ Example of a periodic consistent region configuration, IBM Streams runtime will 
 s.set_consistent(ConsistentRegionConfig.periodic(period=30, drain_timeout=40, reset_timeout=40, max_consecutive_attempts=6))
 ```
 
-# Reference
+Reference
 * [streamsx.topology.state](https://streamsxtopology.readthedocs.io/en/stable/streamsx.topology.state.html#module-streamsx.topology.state)
 
 <a id="stateful"></a>
@@ -240,8 +238,7 @@ if __name__ == '__main__':
 
 It is recommended to have a complete consistent region from *Source* (**start** of a region) to *Sink* (**end** of a region) callables (SPL operators).
 
-A good example of SPL operator acting as **start** of a consistent region is [streamsx.kafka.KafkaConsumer](https://streamsxkafka.readthedocs.io/en/latest/#streamsx.kafka.KafkaConsumer).
-In SPL these callables are toolkit operators that can be invoked
+A proved SPL operator acting as **start** of a consistent region is [streamsx.kafka.KafkaConsumer](https://streamsxkafka.readthedocs.io/en/latest/#streamsx.kafka.KafkaConsumer).
 
 Find below a list of packages, that integrate SPL operators supporting consistent region:
 * [streamsx.kafka](http://streamsxkafka.readthedocs.io/)
@@ -253,7 +250,7 @@ Find below a list of packages, that integrate SPL operators supporting consisten
 Sample application with exactly once semantics reading messages from Event Streams (Kafka) and writing objects in parquet format to Cloud Object Storage:
 * [exactly.once.semantics.demo](https://github.com/IBMStreams/streamsx.objectstorage/blob/develop/demo/data.historian.event.streams.cos.exactly.once.semantics.demo/python/dh.py)
 
-## References
+References
 * [Guaranteed tuple processing in Streams with consistent regions](https://community.ibm.com/community/user/cloudpakfordata/viewdocument/guaranteed-tuple-processing-in-stre?CommunityKey=c0c16ff2-10ef-4b50-ae4c-57d769937235&tab=librarydocuments)
 * [Consistent region overview](https://www.ibm.com/support/knowledgecenter/en/SSCRJU_4.3.0/com.ibm.streams.dev.doc/doc/consistentregions.html)
 
