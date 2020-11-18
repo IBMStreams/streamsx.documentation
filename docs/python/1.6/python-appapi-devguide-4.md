@@ -10,7 +10,7 @@ prev:
   title: "Create your first application"
 next:
   file: python-appapi-devguide-5
-  title: "API features: API features: Scalability, fault tolerance"
+  title: "API features: Scalability, fault tolerance"
 ---
 
 This section will discuss how to use the most common functions and transforms in the Streams Python API to analyze your data.
@@ -54,7 +54,7 @@ Streams applications is a directed graph that always starts with a source [`Stre
 As shown above,
 1. The data source is a Python class or function that will produce the data to be analyzed. It could be data from Kafka, a file, database, etc.  That data is converted to a `Stream` object and is called the source `Stream`.
 2. The source `Stream` is processed by one or more transforms. A transform might compute the average of the data on a `Stream`, filtering out bad data, and so on.
-3. Each transform produces another `Stream` as output, which is then forwarded to the next transform.  
+3. Each transform produces another `Stream` as output, which is then forwarded to the next transform.
 4. The last `Stream`, containing the results, is sent to a data sink, another function that will save the data to an external system.
 
 Let's look at a very simple application that demonstrates this concept:
@@ -67,10 +67,10 @@ def get_readings():
 topo = Topology("temperature_sensor")
 src = topo.source(get_readings) # create a source Stream
 src.for_each(print) # print the data on the stream
-~~~~    
+~~~~
 
 Sample output:
-~~~~    
+~~~~
 {"id": "sensor_1", "value":-0.11907886745291935}
 {"id": "sensor_1", "value":-0.24096558784475972}
 ...
@@ -367,7 +367,7 @@ class CSVFileReader:
 topo = Topology(name="CSVFileReader")
 topo.add_file_dependency("path/on/local/fs/mydata.txt" , "etc")
 lines = topo.source(CSVFileReader("mydata.txt"))
-lines.filter(lambda tpl: int(tpl["min"]) >= 5).print()  
+lines.filter(lambda tpl: int(tpl["min"]) >= 5).print()
 
 ~~~~~
 
@@ -381,7 +381,7 @@ Sample output:
 
 ### Itertools
 
-The Python module [itertools](https://docs.python.org/3/library/itertools.html) implements a number of iterator building blocks that can therefore be used with the `source` transform.  
+The Python module [itertools](https://docs.python.org/3/library/itertools.html) implements a number of iterator building blocks that can therefore be used with the `source` transform.
 
 #### Infinite counting sequence
 
@@ -637,7 +637,7 @@ You can also use the Streams Console or the Job Graph in IBM Cloud Pak for Data 
 
 Given a `Stream` object, use [`Stream.view()`](https://streamsxtopology.readthedocs.io/en/stable/streamsx.topology.topology.html#streamsx.topology.topology.Stream.view) to create a `View` object for that `Stream`.
 
-~~~~ python            
+~~~~ python
 input_stream = topo.source(my_src_function)
 
 source_view = input_stream.view(name="Input", description="Sample of tuples in the input stream")
@@ -660,7 +660,7 @@ Once the application is running, use the `View` object you created to access the
     ~~~~~~ python
        tpls = view.fetch_tuples(max_tuples=10)
        print("Received " + str(len(tpls)) + " tuples from the Stream")
-    ~~~~~~  
+    ~~~~~~
     1. Option 2: Iterate over the items in the returned queue:
       ~~~~~ python
         try:
@@ -976,7 +976,7 @@ class Average:
       mn =  min(values)
       mx = max(values)
       num_of_tuples = len(tuples_in_window)
-      average = sum(values)/len(tuples_in_window)                     
+      average = sum(values)/len(tuples_in_window)
       return {"count": num_of_tuples,
               "avg": average,
               "min": mn,
@@ -1079,7 +1079,7 @@ results_view.stop_data_fetch()
 
 # display as Pandas data frame
 df = pd.DataFrame(results)
-print(df)     
+print(df)
 
   {% endhighlight %}
 </code></pre>
