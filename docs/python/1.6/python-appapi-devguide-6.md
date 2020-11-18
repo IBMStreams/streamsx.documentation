@@ -17,9 +17,81 @@ Depending on the problem at hand, a developer might choose to create an IBM Stre
 * Metrics of a stream, such as flow rate or congestion.
 * Individual tuples on a stream, potentially for purposes of data visualization.
 
-This information is exposed through the Python REST API in the `streamsx.rest` module. Furthermore, the REST API is not strictly read-only, as you can also use it to cancel remote jobs. This guide walks through some of the most common use cases for the API, and also aims to give users a more general understanding for types of applications that can be written.
+This information is exposed through the Python REST API in the [streamsx.rest](https://streamsxtopology.readthedocs.io/en/stable/streamsx.rest.html) module. Furthermore, the REST API is not strictly read-only, as you can also use it to cancel remote jobs. This guide walks through some of the most common use cases for the API, and also aims to give users a more general understanding for types of applications that can be written.
 
-# Connecting with the `StreamsConnection` class
+
+# Connecting with Streams in IBM Cloud Pak for Data (Streams 5)
+
+## External connection to Cloud Pak for Data
+
+Connect to an IBM Streams service instance running in Cloud Pak for Data from a Python script running outside Cloud Pak for Data. 
+
+* `of_endpoint()` is the entry point to using the Streams REST API bindings, returning an Instance.
+
+Sample code to connect and collect all metrics of all running jobs:
+
+```
+try:
+    from streamsx.rest_primitives import Instance
+except ImportError:
+    # streamsx < 1.15.1
+    from streamsx.rest import Instance
+
+# Streams instance object
+instance = Instance.of_endpoint(verify=False)
+# Get list of all running jobs in the Streams instance
+job_list = instance.get_jobs()
+for j in job_list:
+    job_id = j.id
+    job_name = j.name
+    print("JobId: "+job_id + " Name: "+ job_name)
+    # Loop over each operator of the job
+    op_list = j.get_operators()
+    for op in op_list:
+        print("Operator name:" + op.name + " kind: " + op.operatorKind)
+        # List all metrics of the operator
+        m = op.get_metrics()
+        if len(m) > 0:
+            print("Metric "+m[0].name + ": "+str(m[0].value))
+```
+
+### Reference
+* [of_endpoint()](https://streamsxtopology.readthedocs.io/en/stable/streamsx.rest_primitives.html#streamsx.rest_primitives.Instance.of_endpoint)
+
+
+## Integrated configuration within project
+
+Connect to an IBM Streams service instance running in Cloud Pak for Data inside a notebook running in Cloud Pak for Data.
+
+* `of_service()` is the entry point to using the Streams REST API bindings, returning an Instance.
+
+Sample code to retrieve the Instance object:
+
+```
+try:
+    from streamsx.rest_primitives import Instance
+except ImportError:
+    # streamsx < 1.15.1
+    from streamsx.rest import Instance
+
+# Select the service instance
+from icpd_core import ipcd_util
+cfg = icpd_util.get_service_details(name='instanceName', instance_type='streams')
+# Disable SSL certificate verification if necessary
+cfg[context.ConfigParams.SSL_VERIFY] = False
+# Streams instance object
+instance = Instance.of_service(cfg)
+```
+
+The sample notebook demonstrates how to connect and retrieve operator metrics from a Streams job when job and notebook are running in running in Cloud Pak for Data:
+[Streams-EventStoreSample.ipynb](https://github.com/IBMStreams/sample.starter_notebooks/blob/latest/Streams-EventStoreSample.ipynb)
+
+### Reference
+* [of_service()](https://streamsxtopology.readthedocs.io/en/stable/streamsx.rest_primitives.html#streamsx.rest_primitives.Instance.of_service)
+
+# Connecting with Streams (4.2, 4.3)
+
+## Connecting with the `StreamsConnection` class - IBM Streams On-premises (4.2, 4.3)
 
 The primary abstraction in the Python REST API is the `StreamsConnection` class. Every application that seeks to use the REST API must first create an instance of this class. 
 
@@ -39,7 +111,9 @@ sc.session.verify = False
 If the URL is omitted, the `StreamsConnection` instance connects to a locaL Streams installation.
 By default, SSL authentication is enabled. To disable it, enter `sc.session.verify = False` immediately after you create your `StreamsConnection` instance.
 
+
 ## Connecting to the IBM Streaming Analytics service on IBM Cloud
+
 In this case, the first step is to instantiate a subclass of `StreamsConnection` called `StreamingAnalyticsConnection`. Instead of a user name and password, the constructor arguments include the path to a `vcap` file and the name of the Streaming Analytics service:
 
 ```
@@ -49,8 +123,7 @@ sc.session.verify = False
 
 ```
 
-
-# Retrieving resources elements
+## Retrieving resources elements
 
 The `StreamsConnection` object represents the root in a tree of resource elements, where each node in the tree is a resource that can be queried to retrieve its state. If you look at the methods exposed by the `StreamsConnection` object, you see several methods related to obtaining a resource element:
 
@@ -58,8 +131,8 @@ The `StreamsConnection` object represents the root in a tree of resource element
 sc.get_instance()
 sc.get_instances()
 sc.get_resources()
-sc.get_domain()               
-sc.get_domains()            
+sc.get_domain()
+sc.get_domains()
 sc.get_installations()
 ```
 
@@ -129,12 +202,12 @@ inst.get_exported_streams(      inst.get_resource_allocations(
 inst.get_hosts(                 inst.get_views(
 inst.get_imported_streams(
 inst.get_job(                   inst.refresh(
-inst.get_jobs(                  
-inst.get_operator_connections(  
-inst.get_operators(             
-inst.get_pe_connections(        
-inst.get_active_services(       inst.get_pes(                   
-inst.get_domain(                inst.get_published_topics(  
+inst.get_jobs(
+inst.get_operator_connections(
+inst.get_operators(
+inst.get_pe_connections(
+inst.get_active_services(       inst.get_pes(
+inst.get_domain(                inst.get_published_topics(
 ```
 
 The presence of the `get_jobs` method indicates that the `job` resource is a child of the `instance` resource. Furthermore, the `operator` resource is a child of the `job` resource. The following script finds the names of all operators that are associated with an instance:
@@ -155,7 +228,7 @@ periodicSource
 print_flush
 ```
 
-# Canceling jobs
+## Canceling jobs
 
 The Python REST API is not strictly read-only; you can also use the REST API to cancel jobs. This functionality is exposed through the `job.cancel()` method. A user who wants to cancel a job can do so as follows:
 
@@ -174,7 +247,7 @@ The job was successfully canceled.
 
 Canceling remote jobs has the benefit of freeing up resources.
 
-# Accessing the tuples of a view
+## Accessing the tuples of a view
 
 Streaming applications process unbounded amounts of data in real time. Naturally, users might want to have access to the data stream for purposes of visualization or additional monitoring. To this end, you can use the Python REST API to retrieve the tuples of any stream that is created with a view. In the Python Application API, a view is created on a stream by calling the `view` method:
 
@@ -238,3 +311,8 @@ world!
 Going line by line, `queue = view.start_data_fetch()` begins fetching stream data from the remote view to populate the created `queue object`. Next, `for item in iter(queue.get, None)` creates an iterator that uses the queue, and iterates over its values and prints them to the screen with `print(item)`. For the sake of this example, data is consumed until the user sends an interrupt with Control-C, although the user is free to decide when and how data stops being consumed. Lastly, when the user sends an interrupt, `view.stop_data_fetch()` is invoked, which terminates the background thread, and data ceases to be retrieved from the remote view.
 
 The ability to obtain live stream data from a running job has proved valuable for real-time data visualization. For example, the stream might send temperature readings from an engine to be analyzed by a mechanic. High temperature readings can be a signal to limit the engine's maximum RPMs. Jupyter notebooks provide an ideal platform for performing this kind of visualization.
+
+
+# Reference
+* [streamsx.rest](https://streamsxtopology.readthedocs.io/en/stable/streamsx.rest.html)
+
