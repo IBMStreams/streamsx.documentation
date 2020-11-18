@@ -10,7 +10,7 @@ prev:
   title: "Create your first application"
 next:
   file: python-appapi-devguide-5
-  title: "API features: User-defined parallelism"
+  title: "API features: API features: Scalability, fault tolerance"
 ---
 
 This section will discuss how to use the most common functions and transforms in the Streams Python API to analyze your data.

@@ -7,7 +7,7 @@ published: true
 tag: py16
 prev:
   file: python-appapi-devguide-5
-  title: "API features: User-defined parallelism"
+  title: "API features: Scalability, fault tolerance"
 ---
 
 Depending on the problem at hand, a developer might choose to create an IBM Streams application in a particular programming language. To this end, the 'streamsx.topology' project supports APIs in Java, Scala, Python, and IBM Streams Processing Language (SPL). Regardless of the language used to develop and submit the application, however, it becomes necessary to monitor the application while it is running. By monitoring the application, you can observe runtime information regarding the application or its environment, for example:
