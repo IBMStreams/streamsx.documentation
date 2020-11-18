@@ -29,8 +29,8 @@ The API supports:
 
  - Data ingest from Apache Kafka, Apache HBase, IBM Db2 Warehouse, IBM Event Streams, and more.
  - [Streaming data analysis with Windows](/streamsx.documentation/docs/python/1.6//python-appapi-devguide-4/#windows)
- - [Parallel processing](/streamsx.documentation/docs/python/1.6/python-appapi-devguide-5/#parallel-processing)
- - [Data recovery in event of system failure.](/streamsx.documentation/docs/python/1.6/python-appapi-devguide-5/#fault-tolerance)
+ - [Parallel processing](/streamsx.documentation/docs/python/1.6/python-appapi-devguide-5/#parallel-region)
+ - [Data recovery in event of system failure.](/streamsx.documentation/docs/python/1.6/python-appapi-devguide-5/#consistent-region)
 
 You can use the Python Application API to define the structure of a streaming application using Python.
 

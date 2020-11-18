@@ -1,6 +1,6 @@
 ---
 layout: docs
-title: "API features: User-defined parallelism"
+title: "API features: Scalability, fault tolerance"
 description: "A parallel region enables the application to use multiple channels to run transforms (such as filtering or modifying data) concurrently."
 weight:  50
 published: true
@@ -15,13 +15,13 @@ next:
 
 This section will discuss how to scale your processing and about fault tolerance of your application.
 
-* [Parallel processing](#parallel)
-* [Fault tolerance](#consistent_region)
+* Scalability: [Parallel region](#parallel_region)
+* Fault tolerance: [Consistent region](#consistent_region)
 
 
-<a id="parallel"></a>
+<a id="parallel_region"></a>
 
-# Parallel processing
+# Parallel region
 
 If a particular portion of your graph is causing congestion because the application needs additional throughput at that point, you can define a **parallel region** in your graph. A parallel region enables the application to use multiple channels to run transforms (such as filtering or modifying data) concurrently.
 
@@ -81,13 +81,16 @@ Any transforms that are performed on the parallelized `Stream` object occur in p
 
 <a id="consistent_region"></a>
 
-# Fault tolerance
+# Consistent region
 
+Because of business requirements, some applications require that all tuples in an application are processed at least once.
 By default any state is reset to its initial state after a processing element (PE) restart. A restart may occur due to:
 
 * a failure in the PE or its resource,
 * a explicit PE restart request,
 * a parallel region width change (IBM Streams 4.3 or later)
+
+You can use a consistent region in your stream processing applications to avoid data loss due to software or hardware failure and meet your requirements for at-least-once processing.
 
 The application or a portion of it may be configured to maintain state after a PE restart by the mechanism **consistent region**.
 A **consistent region** is a subgraph where the states of callables become consistent by processing all the tuples at least once within defined points on a stream.
@@ -245,10 +248,8 @@ Find below a list of packages, that integrate SPL operators supporting consisten
 * [streamsx.database](http://streamsxdatabase.readthedocs.io/)
 * [streamsx.eventstore](http://streamsxeventstore.readthedocs.io/)
 * [streamsx.elasticsearch](http://streamsxelasticsearch.readthedocs.io/)
-* [streamsx.objecstorage](http://streamsxobjecstorage.readthedocs.io/)
+* [streamsx.objectstorage](http://streamsxobjectstorage.readthedocs.io/)
 
-Sample application with exactly once semantics reading messages from Event Streams (Kafka) and writing objects in parquet format to Cloud Object Storage:
-* [exactly.once.semantics.demo](https://github.com/IBMStreams/streamsx.objectstorage/blob/develop/demo/data.historian.event.streams.cos.exactly.once.semantics.demo/python/dh.py)
 
 References
 * [Guaranteed tuple processing in Streams with consistent regions](https://community.ibm.com/community/user/cloudpakfordata/viewdocument/guaranteed-tuple-processing-in-stre?CommunityKey=c0c16ff2-10ef-4b50-ae4c-57d769937235&tab=librarydocuments)
