@@ -126,13 +126,13 @@ If you want to process data from one of the following systems, you can use the c
 
 | Application/System        | Package          |
 | ------------- | ------------- |
-| CSV File on local file system      | Python standard libraries, see the [Working with files section](#files) |
+| CSV File on local file system      | [streamsx.standard](https://streamsxstandard.readthedocs.io/en/latest/) and Python standard libraries, see the [Working with files section](#files) |
 | Hadoop File System (HDFS)    | [streamsx.hdfs](https://streamsxhdfs.readthedocs.io/en/latest/)      |
-| Kafka | [streamsx.kafka](https://streamsxkafka.readthedocs.io/en/latest/)      |
-| IBM Event Streams | [streamsx.eventstreams](https://streamsxeventstreams.readthedocs.io/en/1.0.0/)      |
-| IBM Cloud Object Storage | [streamsx.objectstorage](https://streamsxobjectstorage.readthedocs.io/en/latest)      |
+| Kafka (IBM Event Streams) | [streamsx.kafka](https://streamsxkafka.readthedocs.io/en/latest/)      |
+| MQTT | [streamsx.mqtt](https://streamsxmqtt.readthedocs.io/en/latest/)      |
+| S3 Object Storage (IBM Cloud Object Storage) | [streamsx.objectstorage](https://streamsxobjectstorage.readthedocs.io/en/latest)      |
 | HTTP servers | [streamsx.inet](https://streamsxinet.readthedocs.io/en/latest/)      |
-| JDBC  Database  | [streamsx.database](https://streamsxdatabase.readthedocs.io/en/latest/)      |
+| JDBC Database  | [streamsx.database](https://streamsxdatabase.readthedocs.io/en/latest/)      |
 
 
 **Note:**
@@ -376,6 +376,64 @@ Sample output:
 ~~~~~ python
 {'min': '18', 'id': '8756', 'max': '26', 'timestamp': '1551729580087'}
 {'min': '5', 'id': '6508', 'max': '25', 'timestamp': '1551729422809'}
+~~~~~
+
+### Using streamsx.standard for reading and writing of files
+
+Another option to work with files in your streaming application is offered by the Python module [streamsx.standard](https://streamsxstandard.readthedocs.io/en/latest/generated/streamsx.standard.files.html#module-streamsx.standard.files).
+
+In the following sample, the [streamsx.standard.files.CSVReader](https://streamsxstandard.readthedocs.io/en/latest/generated/streamsx.standard.files.html#streamsx.standard.files.CSVReader) is used to read a file in the source callable. For this, we import the python module like below:
+
+~~~~~ python
+import streamsx.standard.files as files
+~~~~~
+
+The [streamsx.standard.files.CSVReader](https://streamsxstandard.readthedocs.io/en/latest/generated/streamsx.standard.files.html#streamsx.standard.files.CSVReader) accepts the file parameter either set as relative path to application directory or as absolute path.
+In this sample the file is added application bundle and the Streams application reads this file at runtime from the application directory.
+
+For example, if your CSV file had the following format:
+~~~~ python
+1551729580087,18,"8756",8
+1551729396809,0,"6729",0
+1551729422809,25,"6508",5
+~~~~ 
+
+Your complete application is contained in a single file, `csv_reader_sample.py`.
+
+~~~~~ python
+from streamsx.topology.topology import Topology
+from streamsx.topology import context
+from streamsx.topology.context import submit, ContextTypes
+import streamsx.standard.files as files
+from typing import NamedTuple
+
+topo = Topology(name="CSVFileReader")
+
+input_file = 'path/on/local/fs/mydata.csv'
+
+# add sample file to etc dir in bundle
+topo.add_file_dependency(input_file, 'etc')
+
+# schema of the CSV file
+class SampleSchema(NamedTuple):
+    time_stamp: int 
+    max: int
+    id: str
+    min: int
+
+# use file name relative to application dir
+lines = topo.source(files.CSVReader(schema=SampleSchema, file='etc/mydata.csv'))
+lines.filter(lambda tpl: int(tpl.min) >= 5).print()
+
+# submit the application
+context.submit(ContextTypes.STANDALONE, topo)
+~~~~~
+
+Sample output:
+
+~~~~~ python
+SampleSchema(time_stamp=1551729580087, max=18, id='8756', min=8)
+SampleSchema(time_stamp=1551729422809, max=25, id='6508', min=5)
 ~~~~~
 
 
@@ -2079,8 +2137,6 @@ The schema that you specify determines the type of objects that are published:
 
    String is a common interchange format between all languages that are supported by IBM Streams (SPL, Java, Scala, and Python).
 
-For more information about topics, see [namespace:com.ibm.streamsx.topology.topic].
-<!--- pl  TBD? --->
 
 
 ### Sample code
@@ -2164,9 +2220,6 @@ Python supports the following SPL attribute types:
 | set | set | The set type can't be published to JSON. |
 
 
-For more information about topics, see [namespace:com.ibm.streamsx.topology.topic].
-<!--- pl TBD? --->
-
 ### Sample code
 The `Topology.subscribe()` function takes as input the name of the topic that you want to subscribe to and the schema describing the stream. The function returns a `Stream` object whose tuples have been published to the topic by an IBM Streams application.
 
@@ -2203,3 +2256,6 @@ The contents of your output file look something like this:
 12395
 ...
 ~~~~~
+
+For more information, see [Publish-subscribe overview](https://streamsxtopology.readthedocs.io/en/stable/streamsx.topology.html#publish-subscribe-overview).
+
