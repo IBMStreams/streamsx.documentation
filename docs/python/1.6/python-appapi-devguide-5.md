@@ -33,7 +33,7 @@ Your application is contained in two files.
 
 The following code is in the 'temperature_sensor.py' file:
 
-~~~~~~
+~~~python
 from streamsx.topology.topology import Topology
 import streamsx.topology.context
 import temperature_sensor_functions
@@ -55,7 +55,7 @@ def main():
 
 if __name__ == '__main__':
     main()
-~~~~~~
+~~~
 
 
 Converting a temperature reading from Celsius to Kelvin is not a resource-intensive task. However, you can use this example to see how using a parallel region can help distribute processing across resources when a transform is resource-intensive or inefficient and is causing a bottleneck in your application.
@@ -66,7 +66,7 @@ To end parallel processing, invoke `.end_parallel()` on the parallelized `Stream
 
 The previous example is replaced with the following code:
 
-~~~~~~
+~~~python
 def main():
     topo = Topology("temperature_sensor")
     source = topo.source(temperature_sensor_functions.readings)
@@ -74,7 +74,7 @@ def main():
     end = kelvin.end_parallel()
     end.for_each(print)
     streamsx.topology.context.submit("STANDALONE", topo)
-~~~~~~
+~~~
 
 Any transforms that are performed on the parallelized `Stream` object occur in parallel to the degree that is specified in the `.parallel()` function. In this example, you specified 4, which means that four channels process the data in the parallel region on the graph.
 
@@ -121,14 +121,14 @@ The recommended way to create a `ConsistentRegionConfig` is to call either `oper
 ---
 
 For example, set a source stream `s` to be a the start of an operator driven consistent region with a drain timeout of 60 seconds and a reset timeout of 90 seconds:
-```
+~~~python
 s.set_consistent(ConsistentRegionConfig.operatorDriven(drain_timeout=60, reset_timeout=90))
-```
+~~~
 
 Example of a periodic consistent region configuration, IBM Streams runtime will trigger a drain and checkpoint every 30 seconds:
-```
+~~~python
 s.set_consistent(ConsistentRegionConfig.periodic(period=30, drain_timeout=120, reset_timeout=120, max_consecutive_attempts=6))
-```
+~~~
 
 Reference
 * [streamsx.topology.state](https://streamsxtopology.readthedocs.io/en/stable/streamsx.topology.state.html#module-streamsx.topology.state)
@@ -150,7 +150,7 @@ The sample class `TimeCounter` implements `__getstate__` and `__enter__` in orde
 
 The following code is in the 'cr-sample.py' file:
 
-~~~~~~
+~~~python
 from streamsx.topology.topology import Topology
 import streamsx.topology.context
 from streamsx.topology.state import ConsistentRegionConfig
@@ -238,7 +238,7 @@ def main():
 
 if __name__ == '__main__':
    main()
-~~~~~~
+~~~
 
 <a id="spl_cr"></a>
 ## Use SPL operators supporting consistent region
