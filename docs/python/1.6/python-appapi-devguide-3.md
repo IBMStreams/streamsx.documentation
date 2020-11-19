@@ -90,7 +90,7 @@ See the `submit_topology` function [from the previous section](/streamsx.documen
 
 All Streams applications start with  a `Topology` object, so start by creating one:
 
-~~~~ python
+~~~~python
 from streamsx.topology.topology import Topology
 
 topo = Topology(name="SensorAverages")
@@ -243,7 +243,7 @@ Use `Stream.map()`. The `map` transfrom uses a function you provide to convert e
 
 In our case, for each tuple on the `rolling_average Stream`,  we will update it to include the geographical coordinates of the sensor.
 
-~~~~ python 
+~~~~python 
 
 # Modify this tuple with the coordinates of the sensor
 # Returns the original tuple with a new `coords` attribute
@@ -372,7 +372,7 @@ averages_view.display(duration=30)
 Streams jobs run indefinitely, so make sure you cancel the job once you are finished running the sample.
 
 If you are using a notebook, run this line:
-~~~~ python
+~~~~python
 if submission_result.job.cancel():
   print("Successfully cancelled the job")
 

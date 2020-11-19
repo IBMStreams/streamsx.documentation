@@ -22,7 +22,7 @@ This section will discuss how to use the most common functions and transforms in
   - [Working with files](#files)
 * [Viewing the contents of a `Stream`](#views)
   * [Visualizing Streaming data](#visualizing-data)
-* [Creating data sinks](#sink)
+* [Creating data sinks](#sinks)
 * [Filtering data from the stream](#filter)
   - [Split the stream into matching and non-matching streams](#filter_split)
 * [Windows: transforming subsets of data ](#windows)
@@ -59,7 +59,7 @@ As shown above,
 
 Let's look at a very simple application that demonstrates this concept:
 
-~~~~ python
+~~~python
 def get_readings():
     while True:
         yield {"id": "sensor_1", "value": random.gauss(0.0, 1.0)}
@@ -67,7 +67,7 @@ def get_readings():
 topo = Topology("temperature_sensor")
 src = topo.source(get_readings) # create a source Stream
 src.for_each(print) # print the data on the stream
-~~~~
+~~~
 
 Sample output:
 ~~~~
@@ -108,7 +108,7 @@ To create the source `Stream`:
 2. Create your source `Stream` by passing the callable to `Topology.source()`
 
 Example of the basic pattern:
-~~~~~~ python
+~~~python
 class DbAdapter
   def __call__(self):
     #connect to db/site/e.t.c
@@ -116,7 +116,7 @@ class DbAdapter
 
 topo = Topology()
 incoming_data = topo.source(DbAdapter())
-~~~~~~
+~~~
 
 Before we discuss source functions further, note that adapters exist for common systems, which you can use instead of writing your own function.
 
@@ -155,7 +155,7 @@ The callable passed to `Topology.source()` must:
 #### Example: Fetch data repeatedly using a blocking source
 If you have to repeatedly connect to an external system for data, use `yield` within a loop to repeatedly fetch and return data:
 
-~~~~~~ python
+~~~python
 class Readings(object):
   def __call__(self):
     while True:
@@ -164,7 +164,7 @@ class Readings(object):
 
 topo = Topology("readings")
 incoming_data = topo.source(Readings())
-~~~~~~
+~~~
 
 ### Functions vs. callable classes
 
@@ -176,7 +176,7 @@ Our use case is tracking recent changes to Wikipedia. The data source, [Wikipedi
 We could use a simple function:
 
 <a id="full-fn"></a>
-~~~~ python
+~~~python
 from sseclient import SSEClient
 import logging
 import json
@@ -205,13 +205,13 @@ topo = Topology(name="TrackWikipediaEdits")
 source = topo.source(wikipedia_stream, name="WikipediaDataSource")
 source.print()
 
-~~~~
+~~~
 
 Or, a callable class:
 
 <a id="full-class"></a>
 
-~~~~ python
+~~~python
 from sseclient import SSEClient
 import logging
 import json
@@ -255,7 +255,7 @@ class WikipediaReader(object):
                 if streamsx.ec.shutdown().wait(0.005): break
             except ValueError: continue
 
-~~~~
+~~~
 
 ### Advantages of using a callable class
 When you compare the two examples above shows that although  `WikipediaReader.__call__` is similar to the `wikipedia_stream` function, the `WikipediaReader` class also has `__enter__` and `__exit__` functions.
@@ -271,7 +271,7 @@ Note that  `__enter__`  is invoked at a different time from the constructor, `__
 
 Used when you have a finite set of data to analyze, e.g. a list. The iterable is returned directly by the function passed to `Topology.source()`.
 
-~~~~ python
+~~~python
 # Open a tar file and return list of file names
 def get_log_files():
     file_names = []
@@ -279,7 +279,7 @@ def get_log_files():
         tar_file.extractall()
         file_names =  tar_file.getnames()
     return file_names
-~~~~
+~~~
 
 **Note**: In the above example, the `logs.tar.gz` file must be present on the host where Streams is installed. The following section presents an example of using local files in your Streams application.
 
@@ -293,16 +293,16 @@ However, you must use `Topology.add_file_dependency` to ensure that the file or 
 
 Note: If you are using **IBM Cloud Pak for Data** , this [post discusses how to use a data set in your Streams Topology](https://developer.ibm.com/streamsdev/2019/04/23/tip-for-ibm-cloud-private-for-data-how-to-use-local-data-sets-in-your-streams-python-notebook/).
 
-~~~~~ python
+~~~python
 topo = Topology("ReadFromFile")
 topo.add_file_dependency("/home/streamsadmin/hostdir/mydata.txt" , "etc")
-~~~~~
+~~~
 
 This will place the file within the `etc` folder of the application bundle.
 
 At runtime, the full path to `mydata.txt` will be:
 
-~~~ python
+~~~python
 streamsx.ec.get_application_directory() + "/etc/mydata.txt`
 ~~~
 
@@ -312,7 +312,7 @@ The following are some complete examples.
 ### Using data from a file as your data source
 
 This is a basic example of reading a file line by line:
-~~~~~ python
+~~~python
 import streamsx.ec
 
 class FileReader:
@@ -332,22 +332,22 @@ topo.add_file_dependency("/home/streamsadmin/hostdir/" + file_name , "etc")
 lines_from_file = topo.source(FileReader(file_name))
 lines_from_file.print()
 
-~~~~~
+~~~
 
 The `FileReader` class uses `streamsx.ec.get_application_directory() ` to retrieve the path to the file on the Streams host, and then returns the file's contents one line at a time.
 
 **CSV Files**
 
 The `FileReader` class can easily be extended to read CSV data.  For example, if your CSV file had the following format:
-~~~~ python
+~~~
 timestamp,max,id,min
 1551729580087,18,"8756",8
 1551729396809,0,"6729",0
 1551729422809,25,"6508",5
-~~~~ 
+~~~ 
 
 You could define a new class to read each line into a `Stream` of `dicts` as follows:
-~~~~~ python
+~~~python
 
 class CSVFileReader:
     def __init__(self, file_name):
@@ -369,11 +369,11 @@ topo.add_file_dependency("path/on/local/fs/mydata.txt" , "etc")
 lines = topo.source(CSVFileReader("mydata.txt"))
 lines.filter(lambda tpl: int(tpl["min"]) >= 5).print()
 
-~~~~~
+~~~
 
 Sample output:
 
-~~~~~ python
+~~~~~
 {'min': '18', 'id': '8756', 'max': '26', 'timestamp': '1551729580087'}
 {'min': '5', 'id': '6508', 'max': '25', 'timestamp': '1551729422809'}
 ~~~~~
@@ -384,15 +384,15 @@ Another option to work with files in your streaming application is offered by th
 
 In the following sample, the [streamsx.standard.files.CSVReader](https://streamsxstandard.readthedocs.io/en/latest/generated/streamsx.standard.files.html#streamsx.standard.files.CSVReader) is used to read a file in the source callable. For this, we import the python module like below:
 
-~~~~~ python
+~~~python
 import streamsx.standard.files as files
-~~~~~
+~~~
 
 The [streamsx.standard.files.CSVReader](https://streamsxstandard.readthedocs.io/en/latest/generated/streamsx.standard.files.html#streamsx.standard.files.CSVReader) accepts the file parameter either set as relative path to application directory or as absolute path.
 In this sample the file is added to the application bundle and the Streams application reads this file at runtime from the application directory.
 
 For example, if your CSV file had the following format:
-~~~~ python
+~~~~
 1551729580087,18,"8756",8
 1551729396809,0,"6729",0
 1551729422809,25,"6508",5
@@ -400,7 +400,7 @@ For example, if your CSV file had the following format:
 
 Your complete application is contained in a single file, `csv_reader_sample.py`.
 
-~~~~~ python
+~~~python
 from streamsx.topology.topology import Topology
 from streamsx.topology import context
 from streamsx.topology.context import submit, ContextTypes
@@ -427,14 +427,14 @@ lines.filter(lambda tpl: int(tpl.min) >= 5).print()
 
 # submit the application
 context.submit(ContextTypes.STANDALONE, topo)
-~~~~~
+~~~
 
 Sample output:
 
-~~~~~ python
+~~~
 SampleSchema(time_stamp=1551729580087, max=18, id='8756', min=8)
 SampleSchema(time_stamp=1551729422809, max=25, id='6508', min=5)
-~~~~~
+~~~
 
 
 ### Itertools
@@ -446,23 +446,23 @@ The Python module [itertools](https://docs.python.org/3/library/itertools.html) 
 The function [count()](https://docs.python.org/3/library/itertools.html#itertools.count) can be used to provide an infinite stream
 that is a numeric sequence. The following example uses the default start of 0 and step of 1 to produce a stream of `1,2,3,4,5,...`.
 
-~~~~ python
+~~~python
 import itertools
 def infinite_sequence():
     return itertools.count()
-~~~~
+~~~
 
 #### Infinite repeating sequence
 
 The function [repeat()](https://docs.python.org/3/library/itertools.html#itertools.repeat) produces an iterator that repeats the same value,
 either for a limited number of times or infiintely.
 
-~~~~ python
+~~~python
 import itertools
 # Infinite sequence of tuples with value A
 def repeat_sequence():
     return itertools.repeat("A")
-~~~~
+~~~
 
 ### Reference
 * [Topology.source](https://streamsxtopology.readthedocs.io/en/stable/streamsx.topology.topology.html#streamsx.topology.topology.Topology.source)
@@ -482,34 +482,25 @@ For example, you have a `source` function that returns a set of four words from 
 To achieve this:
 
 1. Define a `Stream` object called `words` that is created by calling a function that generates a list of four words. (For simplicity, specify a `source` function that returns only four words.)
+   Define the following functions in the `filter_words.py` file:
+   ~~~python
+   def words_in_dictionary():
+      return {"qualify", "quell", "quixotic", "quizzically"}
 
-    Define the following functions in the `filter_words.py` file:
-
-~~~~ python
-        def words_in_dictionary():
-           return {"qualify", "quell", "quixotic", "quizzically"}
-
-        def does_not_contain_a(tuple):
-           return "a" not in tuple
-
-~~~~~~
-
+   def does_not_contain_a(tuple):
+      return "a" not in tuple
+   ~~~
 1. Next, define a topology and a stream of Python strings in `filter_words.py`:
-
-~~~~ python
-        topo = Topology("filter_words")
-        words = topo.source(words_in_dictionary)
-
-~~~~
-
+   ~~~python
+   topo = Topology("filter_words")
+   words = topo.source(words_in_dictionary)
+   ~~~
 1. Define a `Stream` object called `words_without_a` by passing the `does_not_contain_a` function to the `filter` method on the `words` Stream. This function is True if the tuple does not contain the letter "a" or False if it does.
-
-    Include the following code in the `filter_words.py` file:
-
-~~~~ python
-        words = topo.source(words_in_dictionary)
-        words_without_a = words.filter(does_not_contain_a)
-~~~~
+   Include the following code in the `filter_words.py` file:
+   ~~~python
+   words = topo.source(words_in_dictionary)
+   words_without_a = words.filter(does_not_contain_a)
+   ~~~
 
 The `Stream` object that is returned, `words_without_a`, contains only words that do not include a lowercase "a".
 
@@ -518,7 +509,7 @@ The `Stream` object that is returned, `words_without_a`, contains only words tha
 
 Your complete application is contained in a single file, `filter_words.py`.
 
-~~~~~~ python
+~~~python
 from streamsx.topology.topology import Topology
 import streamsx.topology.context
 
@@ -537,7 +528,7 @@ def main():
 
 if __name__ == '__main__':
     main()
-~~~~~~
+~~~
 
 ### Sample output
 Run the `python3 filter_words.py` script.
@@ -562,16 +553,15 @@ In the former sample [Filtering data from the stream](#filter) the non-matching 
 To achieve this:
 
 1. Add the parameter `non_matching=True` to the `filter` method on the `words` Stream and define two output streams called `words_without_a` and `words_with_a`.
-
-~~~~ python
-        words_without_a, words_with_a = words.filter(does_not_contain_a, non_matching=True)
-~~~~~~
+   ~~~python
+   words_without_a, words_with_a = words.filter(does_not_contain_a, non_matching=True)
+   ~~~
 
 ### The complete application
 
 Your complete application is contained in a single file, `filter_words_split.py`.
 
-~~~~~~ python
+~~~python
 from streamsx.topology.topology import Topology
 import streamsx.topology.context
 
@@ -591,7 +581,7 @@ def main():
 
 if __name__ == '__main__':
     main()
-~~~~~~
+~~~
 
 ### Sample output
 Run the `python3 filter_words_split.py` script.
@@ -624,7 +614,7 @@ To achieve this:
 
 Include the following code in the `sink_stderr.py` file:
 
-~~~~~~ python
+~~~python
 from streamsx.topology.topology import Topology
 import streamsx.topology.context
 import sys
@@ -644,7 +634,7 @@ def main():
 
 if __name__ == '__main__':
     main()
-~~~~~~
+~~~
 
 Tip: If the `for_each` transform prints to the console, ensure the output to stdout or stderr is flushed afterward by calling `sys.stdout.flush()` or `sys.stderr.flush()`.
 
@@ -695,11 +685,11 @@ You can also use the Streams Console or the Job Graph in IBM Cloud Pak for Data 
 
 Given a `Stream` object, use [`Stream.view()`](https://streamsxtopology.readthedocs.io/en/stable/streamsx.topology.topology.html#streamsx.topology.topology.Stream.view) to create a `View` object for that `Stream`.
 
-~~~~ python
+~~~python
 input_stream = topo.source(my_src_function)
 
 source_view = input_stream.view(name="Input", description="Sample of tuples in the input stream")
-~~~~
+~~~
 
 
 
@@ -715,12 +705,12 @@ Once the application is running, use the `View` object you created to access the
 
 1. Access the tuples:
     1. Option 1: Fetch a group of tuples using `view.fetch_tuples()`:
-    ~~~~~~ python
+       ~~~python
        tpls = view.fetch_tuples(max_tuples=10)
        print("Received " + str(len(tpls)) + " tuples from the Stream")
-    ~~~~~~
+       ~~~
     1. Option 2: Iterate over the items in the returned queue:
-      ~~~~~ python
+       ~~~python
         try:
             print("Fetching data from view")
             tuple_queue = view.start_data_fetch()
@@ -731,7 +721,7 @@ Once the application is running, use the `View` object you created to access the
             raise
         finally:
             view.stop_data_fetch()
-      ~~~~~
+      ~~~
     2. Option 3: Create a live grid of data on the `Stream` using `view.display()`. This is only supported from a Jupyter notebook with [ipywidgets](https://ipywidgets.readthedocs.io/en/latest/)  installed.
     3. Option 4: Examine the stream of data from the Streams Console or Job Graph.
     
@@ -762,7 +752,7 @@ We create 2 Views, one for the input and one for the result `Stream`.
 
 Once the applicaton is running, use the `View` to fetch data from the `Stream`:
 
-~~~~~~ python
+~~~python
 
 try:
     print("Fetching data from view")
@@ -777,12 +767,12 @@ except:
     raise
 finally:
     results_view.stop_data_fetch()
-~~~~~~
+~~~
 
 
 **Output:**
 
-~~~~~ python
+~~~~~
 Tuple from the stream: {'value': 51, 'id': 'id_0', 'increment': 61}
 Tuple from the stream: {'value': 52, 'id': 'id_0', 'increment': 62}
 Tuple from the stream: {'value': 53, 'id': 'id_0', 'increment': 63}
@@ -871,7 +861,7 @@ It uses Matplotlib to plot the data from the `results_view View` created in the 
 This code creates the graph that will be display the streaming data.
 See the matplotlib [`subplots` function](https://matplotlib.org/3.1.1/api/_as_gen/matplotlib.pyplot.subplots.html).
 
-~~~~ python
+~~~python
 
 import numpy as np, math
 import matplotlib.pyplot as plt
@@ -891,12 +881,12 @@ def create_plot(xvalues, yvalues, title=None, xlabel=None, ylabel=None, xlim=Non
     ax.plot(xvalues,
             yvalues, "-b", linewidth = 2, label = 'target')
     return fig,ax
-~~~~ 
+~~~
 
 #### 2. Fetch data from the view and update the graph
 
 
-~~~~~~ python
+~~~python
 %matplotlib notebook
 
 xdata = []
@@ -924,7 +914,7 @@ except:
 finally:
     results_view.stop_data_fetch()
 
-~~~~~~
+~~~
 
 **Sample visualization created with Matplotlib**
 
@@ -981,7 +971,7 @@ The tuples in the window will be passed to this callable when it is invoked.
 
 The basic code pattern is this:
 
-~~~~ python
+~~~python
 def compute_average(tuples_in_window): # This is the callable
   ... #process data in window
 
@@ -990,7 +980,7 @@ incoming_data = topo.source(my_src_func)
 # src.last() creates a window with the last 10 tuples
 rolling_average = incoming_data.last(size=10).aggregate(compute_average)
 rolling_average.print()
-~~~~
+~~~
 
 Let's look at a detailed example.
 <a id="we1"></a>
@@ -999,7 +989,7 @@ Let's look at a detailed example.
 This example involves taking a stream of consecutive integers and computing the average, maximum and minimum of the last 10 numbers.
 Here is the data source:
 
-~~~~ python
+~~~python
 from streamsx.topology.topology import Topology
 import streamsx.topology.context
 import streamsx.ec
@@ -1010,24 +1000,24 @@ class Numbers:
     def __call__(self):
         for num in itertools.count(1):
             yield {"value": num, "id": "id_" + str(random.randint(0,10))}
-~~~~
+~~~
 
 The `Numbers` class produces a stream of consecutively increasing integers.
 #### Step 1: Define the Window using `Stream.last()`
 
 This topology uses the `Numbers` class as a data source and defines a window of the last 10 tuples:
-~~~~ python
+~~~python
 topo = Topology("Rolling Average")
 src = topo.source(Numbers())
 window = src.last(size=10)
-~~~~
+~~~
 
 #### Step 2: Define the processing callable
 
 When it is time to process the tuples in a window, a list of the tuples in the window are passed to this class. The   `Average` class takes a list of tuples in the window and return a new tuple that describes the max, min, and average of the tuples in that window:
 
 
-~~~~ python
+~~~python
 class Average:
     def __call__(self, tuples_in_window):
       values = [tpl["value"] for tpl in tuples_in_window]
@@ -1040,7 +1030,7 @@ class Average:
               "min": mn,
               "max": mx}
 
-~~~~
+~~~
 
 #### Step 3: Compute the result using `Window.aggregate()`
 
@@ -1048,13 +1038,13 @@ Pass an instance of the `Average` class to the `aggregate` function. The `aggreg
 
 
 
-~~~~ python
+~~~python
 
 rolling_average = window.aggregate(Average())
 # Create a view to access the result stream
 results_view = rolling_average.view()
 
-~~~~
+~~~
 
 
 
@@ -1068,6 +1058,8 @@ After submitting this application, use this code to connect to it and display th
 <div class="tab-content">
   <div id="simpleSource-1" class="tab-pane fade in active">
  <pre><code>
+
+   {% highlight python %}
  import pandas as pd
 
  queue = results_view.start_data_fetch()
@@ -1080,6 +1072,7 @@ After submitting this application, use this code to connect to it and display th
  #display as Pandas data frame
  df = pd.DataFrame(results)
  print(df)
+  {% endhighlight %}
 </code></pre>
  </div>
   <div id="fullSource-1" class="tab-pane fade">
@@ -1173,17 +1166,17 @@ The window size was set to `10`, so we would expect that the `Average` callable 
 The previous example computed the rolling average for the last 10 tuples, but as shown above, there are initially less than 10 tuples in the window.  This is because the average is being calculated  whenever a new tuple arrives, even when there are less than 10 tuples in the window.
 We can adjust this by setting the trigger policy. The trigger policy controls how often the processing callable is invoked, i.e. when a new calculation is triggered. This is set using `Window.trigger()`:
 
-~~~~
+~~~python
 window  = src.last().trigger().
-~~~~
+~~~
 
 If the trigger policy is not specified, a window defined using `Stream.last()` has a default trigger of 1.
 So in our example, this code:
-~~~
+~~~python
 window = src.last(size=10)
 ~~~
 is equivalent to
-~~~
+~~~python
 window = src.last(size=10).trigger(1)
 ~~~
 
@@ -1217,8 +1210,11 @@ Let's change our window definition to set a trigger policy of `5` using [Window.
 <div class="tab-content">
   <div id="simpleSource-2" class="tab-pane fade in active">
  <pre><code>
+
+   {% highlight python %}
  src = topo.source(Numbers())
  window = src.last(size=10).trigger(5) #Use trigger(datetime.timedelta(seconds=10)) to use a time based trigger
+   {% endhighlight %}
 </code></pre>
  </div>
   <div id="fullSource-2" class="tab-pane fade">
@@ -1307,14 +1303,14 @@ Let's change our previous example to use a tumbling window by using `Stream.batc
 We do not have to change the callable function or the source function, but just the window declaration.
 We now have this code:
 
-~~~ python
+~~~python
 topo = Topology("Batch Average")
 src = topo.source(Numbers())
 
 batch_average = src.batch(size=10).aggregate(Average())
 batch_average.print()
 results_view = batch_average.view()
-~~~~
+~~~
 
 And this output:
 
@@ -1350,6 +1346,7 @@ Continuing the previous example, let's change the `Averages` class to compute th
   <div id="simpleSource-3" class="tab-pane fade in active">
  <pre><code>
 
+   {% highlight python %}
 import pandas as pd
 import numpy as np 
 class Averages:
@@ -1372,11 +1369,13 @@ def __call__(self, items_in_window):
                         "max": float(row["max_val"]),
                     "id": id)})
     return result
-
+  {% endhighlight %}
 </code></pre>
  </div>
   <div id="fullSource-3" class="tab-pane fade">
   <pre><code>
+
+   {% highlight python %}
 from streamsx.topology.topology import Topology
 from streamsx.topology import context
 import time
@@ -1439,7 +1438,7 @@ results_view.stop_data_fetch()
 # display as Pandas data frame
 df = pd.DataFrame(results)
 print(df)
-
+  {% endhighlight %}
 </code></pre>
   </div>
 </div>
@@ -1451,13 +1450,13 @@ print(df)
 The `Averages` class is now returning a `Stream` where each tuple is a list of values. 
  Since want to work with individual tuples, use the `flat_map` function to convert that `Stream` to a `Stream` of individual tuples.
   
-~~~~ python
+~~~python
 
 rolling_average = window.aggregate(Averages()).flat_map()
 # Create a view to access the result stream
 results_view = rolling_average.view()
 
-~~~~~
+~~~
 
 Click *Full Source* above for the updated source code.
 After running the application, we'll get something like this:
@@ -1484,7 +1483,7 @@ Let's see a concrete example of this problem first:
 
 1. Change the `Numbers` class so that it every 9th tuple has id 'A' and all other tuples have id 'B'. This is simulating a sensor B that reports  much more frequently than sensor A.
 
-    ~~~~ python
+    ~~~python
     def get_id(count):
         if (count % 9 == 0):
             return  "A"
@@ -1497,11 +1496,11 @@ Let's see a concrete example of this problem first:
                 # time.sleep(1.0)
                 yield {"value": num, "id": "id_" + get_id(num)}
 
-    ~~~~~
+    ~~~
 
 2.  Modify the `Averages` class to  show the contents of each window by adding a `window_contents` attribute to show the ids of every tuple in the window:
 
-    ~~~~ python
+    ~~~python
 
     class Averages:
         def __call__(self, items_in_window):
@@ -1518,7 +1517,7 @@ Let's see a concrete example of this problem first:
                             "id": id, "window_contents": ids_in_window})
             return result
         
-    ~~~~~
+    ~~~
 
 3. Run the application and look at its output.
 
@@ -1536,14 +1535,14 @@ The solution is to use a *separate window for each sensor*. Doing so, you will o
 To create subwindows for each group, use [`Window.partition`](https://streamsxtopology.readthedocs.io/en/latest/streamsx.topology.topology.html#streamsx.topology.topology.Window.partition). Partitions and subwindows are used interchangeably.
 
 For example, a partitioned tumbling window of size 10:
-~~~~~ python
+~~~python
 def getKeyForPartition(tpl):
     return tpl["id"]
 
 # define topology, etc.
 window = src.batch(size=10).partition(key=getKeyForPartition)
 rolling_average = window.aggregate(Averages())
-~~~~~
+~~~
 
 
 
@@ -1567,6 +1566,8 @@ Modify the example and re-run it:
 <div class="tab-content">
   <div id="simpleSource-4" class="tab-pane fade in active">
  <pre><code>
+
+   {% highlight python %}
 # Since the Averages callable will receive the tuples already in a group, 
 # we no longer need the grouping using Pandas
 class Averages:
@@ -1591,6 +1592,7 @@ def getKey(tpl):
 #Modify window definition
 window = src.last(size=10).partition(key=getKey)
 rolling_average = window.aggregate(Averages())
+   {% endhighlight %}
 </code></pre>
  </div>
   <div id="fullSource-4" class="tab-pane fade">
@@ -1690,7 +1692,8 @@ This section has covered the steps to use a window to transform streaming data:
 
 <a id="map"></a>
 ## Modifying data
-You can invoke `map` or `flat_map` on a `Stream` object when you want to:
+
+You can invoke `map` or `flat_map` on a `Stream` object when you want to:
 
 * Modify the contents of the tuple.
 * Change the type of the tuple.
@@ -1711,7 +1714,7 @@ To achieve this:
 
 Include the following code in the `transform_substring.py` file:
 
-~~~~~~ python
+~~~python
 from streamsx.topology.topology import Topology
 import streamsx.topology.context
 
@@ -1730,7 +1733,7 @@ def main():
 
 if __name__ == '__main__':
     main()
-~~~~~~
+~~~
 
 #### Sample output
 Run the `python3 transform_substring.py` script.
@@ -1759,7 +1762,7 @@ To achieve this:
 
 Include the following code in the `transform_type.py` file:
 
-~~~~~~
+~~~python
 from streamsx.topology.topology import Topology
 import streamsx.topology.context
 
@@ -1781,7 +1784,7 @@ def main():
 
 if __name__ == '__main__':
     main()
-~~~~~~
+~~~
 
 #### Sample output
 Run the `python3 transform_type.py` script.
@@ -1813,7 +1816,7 @@ To achieve this:
 
 Include the following code in the `multi_transform_lines.py` file:
 
-~~~~~~
+~~~python
 from streamsx.topology.topology import Topology
 import streamsx.topology.context
 
@@ -1826,7 +1829,7 @@ def main():
 
 if __name__ == '__main__':
     main()
-~~~~~~
+~~~
 
 #### Sample output
 Run the `python3 multi_transform_lines.py` script.
@@ -1849,7 +1852,9 @@ snow
 
 As you can see, the `flat_map` transform broke each of the original tuples into the component pieces, in this case, the component words, and maintained the order of the pieces in the resulting tuples.
 
+---
 **Tip:** You can use the `flat_map` transform with any list of Python objects that is serializable with the pickle module. The members of the list can be different classes, such as strings and integers, user-defined classes, or classes provided by a third-party module.
+---
 
 <a id="state"></a>
 ## Keeping track of state information across tuples
@@ -1867,7 +1872,7 @@ To achieve this:
 
 Add the following code in the `transform_stateful.py` file:
 
-~~~~~~
+~~~python
 from streamsx.topology.topology import Topology
 import streamsx.topology.context
 import random
@@ -1895,7 +1900,7 @@ def main():
 
 if __name__ == '__main__':
     main()
-~~~~~~
+~~~
 
 ### Sample output
 Run the `python3 transform_stateful.py` script.
@@ -1915,7 +1920,9 @@ The contents of your output file looks something like this:
 
 In this example, `AvgLastN.n`, which is initialized from the user-defined parameter n, and `AvgLastN.last_n` are examples of data whose state is kept in between tuples.
 
+---
 **Tip:** Any type of transform (source, filter, map, and sink) can accept callable objects that maintain stateful data.
+---
 
 You can also create a user-defined function that refers to global variables. Unlike variables that are defined within a function, global variables persist in the runtime process. However, this approach is **not recommended** because the way in which the processing elements are fused can change how global variables are shared across functions or callable objects.
 
@@ -1932,10 +1939,10 @@ You can split a stream by using any operator. Each time you call a function, suc
 
 For example, the following code snippet splits the `stream1` `Stream` object into two streams:
 
-~~~~~~
+~~~python
 stream2 = stream1.filter(...)
 stream3 = stream1.filter(...)
-~~~~~~
+~~~
 
 A visual representation of this code would look something like this:
 
@@ -1946,7 +1953,7 @@ The following example shows how you can distribute tuples from a `source` functi
 ### Sample application
 Include the following code in the `split_source.py` file:
 
-~~~~~~
+~~~python
 from streamsx.topology.topology import Topology
 import streamsx.topology.context
 
@@ -1968,7 +1975,7 @@ def main():
 
 if __name__ == '__main__':
     main()
-~~~~~~
+~~~
 
 
 ### Sample output
@@ -1976,7 +1983,7 @@ Run the `python3 split_source.py` script.
 
 The contents of your output file looks something like this:
 
-~~~~~~
+~~~
 ...
 print2 tuple1
 print1 tuple1
@@ -1984,7 +1991,7 @@ print2 tuple2
 print1 tuple2
 print2 tuple3
 print1 tuple3
-~~~~~~
+~~~
 
 <a id="split_func"></a>
 <br/>
@@ -2003,7 +2010,7 @@ Tuples from a `source` function are split to three streams, each stream represen
 ### Sample application
 Include the following code in the `split_func.py` file:
 
-~~~~~~
+~~~python
 from streamsx.topology.topology import Topology
 import streamsx.topology.context
 
@@ -2034,7 +2041,7 @@ def main():
 if __name__ == '__main__':
    main()
 
-~~~~~~
+~~~
 
 ### Sample output
 Run the `python3 split_func.py` script.
@@ -2063,7 +2070,7 @@ To achieve this:
 
 Include the following code in the `union_source.py` file:
 
-~~~~~~
+~~~python
 from streamsx.topology.topology import Topology
 import streamsx.topology.context
 
@@ -2094,7 +2101,7 @@ def main():
 
 if __name__ == '__main__':
     main()
-~~~~~~
+~~~
 
 ### Sample output
 Run the `python3 union_source.py` script.
@@ -2117,7 +2124,9 @@ You can make an output stream available to applications by using the `publish` t
 
 To receive the tuples, an application must subscribe to the topic that you publish by specifying the same topic and schema. For more information, see [Subscribing to streams](#39-subscribing-to-streams).
 
+---
 **Restrictions:** The `publish` transform does not work in STANDALONE mode. Additionally, the application that publishes and the one that subscribes must be running in the same instance of IBM Streams.
+---
 
 For example, you can use the `publish` transform to make tuples from a Python streams-processing application available to an IBM Streams Processing Language (SPL) streams-processing application.
 
@@ -2148,7 +2157,7 @@ To achieve this:
 
 Include the following lines in the `publish.py` file:
 
-~~~~~
+~~~python
 from streamsx.topology.topology import *
 from streamsx.topology.schema import *
 import streamsx.topology.context
@@ -2172,7 +2181,7 @@ def main():
 
 if __name__ == '__main__':
    main()
-~~~~~
+~~~
 
 
 This example is based on the `pubsub` sample in GitHub. For more information about how this application works, see [https://github.com/IBMStreams/streamsx.topology/tree/develop/samples/python/topology/pubsub](https://github.com/IBMStreams/streamsx.topology/tree/develop/samples/python/topology/pubsub)
@@ -2181,7 +2190,9 @@ This example is based on the `pubsub` sample in GitHub. For more information abo
 ## Subscribing to streams
 If an application publishes a stream to a topic, you can use the `subscribe` transform to pull that data into your application.
 
+---
 **Remember:** The `subscribe` transform must be running in the same instance of IBM Streams as the application that is publishing data.
+---
 
 To subscribe to a topic, use the `Topology.subscribe` function, specifying the same topic and schema as the corresponding `Topology.publish` function. The application that published the topic can be written in any language that IBM Streams supports.
 
@@ -2227,7 +2238,7 @@ For example, you want to subscribe to the stream that you published in [Publishi
 
 To achieve this, include the following lines in the `subscribe.py` file:
 
-~~~~~
+~~~python
 from streamsx.topology.topology import *
 import streamsx.topology.context
 
@@ -2239,7 +2250,7 @@ def main():
 
 if __name__ == '__main__':
    main()
-~~~~~
+~~~
 
 
 ### Sample output

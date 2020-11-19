@@ -30,7 +30,7 @@ Connect to an IBM Streams service instance running in Cloud Pak for Data from a 
 
 Sample code to connect and collect all metrics of all running jobs:
 
-```
+~~~python
 try:
     from streamsx.rest_primitives import Instance
 except ImportError:
@@ -53,7 +53,7 @@ for j in job_list:
         m = op.get_metrics()
         if len(m) > 0:
             print("Metric "+m[0].name + ": "+str(m[0].value))
-```
+~~~
 
 ### Reference
 * [of_endpoint()](https://streamsxtopology.readthedocs.io/en/stable/streamsx.rest_primitives.html#streamsx.rest_primitives.Instance.of_endpoint)
@@ -67,7 +67,7 @@ Connect to an IBM Streams service instance running in Cloud Pak for Data inside 
 
 Sample code to retrieve the Instance object:
 
-```
+~~~python
 try:
     from streamsx.rest_primitives import Instance
 except ImportError:
@@ -81,7 +81,7 @@ cfg = icpd_util.get_service_details(name='instanceName', instance_type='streams'
 cfg[context.ConfigParams.SSL_VERIFY] = False
 # Streams instance object
 instance = Instance.of_service(cfg)
-```
+~~~
 
 The sample notebook demonstrates how to connect and retrieve operator metrics from a Streams job when job and notebook are running in running in Cloud Pak for Data:
 [Streams-EventStoreSample.ipynb](https://github.com/IBMStreams/sample.starter_notebooks/blob/latest/Streams-EventStoreSample.ipynb)
@@ -101,12 +101,12 @@ The `StreamsConnection` instance retrieves runtime information about your applic
 Which will print out a url: `https://10.51.4.141:8443/streams/rest/resources`
 Use that url and a valid Streams user name and password to create an instance of the `StreamsConnection` class.
 
-```
+~~~python
 from streamsx import rest
 
 sc = rest.StreamsConnection(username="streamsadmin", password="passw0rd", resource_url=url)
 sc.session.verify = False
-```
+~~~
 
 If the URL is omitted, the `StreamsConnection` instance connects to a locaL Streams installation.
 By default, SSL authentication is enabled. To disable it, enter `sc.session.verify = False` immediately after you create your `StreamsConnection` instance.
@@ -116,25 +116,25 @@ By default, SSL authentication is enabled. To disable it, enter `sc.session.veri
 
 In this case, the first step is to instantiate a subclass of `StreamsConnection` called `StreamingAnalyticsConnection`. Instead of a user name and password, the constructor arguments include the path to a `vcap` file and the name of the Streaming Analytics service:
 
-```
+~~~python
 from streamsx import rest
 sc = rest.StreamingAnalyticsConnection("/home/streamsadmin/vcap.json", "Streaming Analytics-be")
 sc.session.verify = False
 
-```
+~~~
 
 ## Retrieving resources elements
 
 The `StreamsConnection` object represents the root in a tree of resource elements, where each node in the tree is a resource that can be queried to retrieve its state. If you look at the methods exposed by the `StreamsConnection` object, you see several methods related to obtaining a resource element:
 
-```
+~~~python
 sc.get_instance()
 sc.get_instances()
 sc.get_resources()
 sc.get_domain()
 sc.get_domains()
 sc.get_installations()
-```
+~~~
 
 Each of these methods, when invoked, retrieves up-to-date information about a resource in the form of a Python object. For example, an IBM Streams instance is the container in which jobs are executed. The `get_instance` method retrieves the resource element that contains current information about an instance, including the instance's owner, status, and the time it was started.
 
