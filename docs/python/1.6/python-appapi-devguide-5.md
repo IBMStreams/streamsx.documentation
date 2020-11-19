@@ -117,6 +117,7 @@ The recommended way to create a `ConsistentRegionConfig` is to call either `oper
 
 ---
 **Note:** `operator_driven()` cannot be used when a Python callable is the begin of the consistent region (CR) as there is no Python API to trigger the region as we have for C++ or Java SPL operators. When SPL operators (Java or C++) are the start of a CR, the operator dictates when the region is made consistent, i.e. drained and checkpointed. Often additional operator parameters are required to control when the operator is supposed to trigger the region becoming consistent.
+
 ---
 
 For example, set a source stream `s` to be a the start of an operator driven consistent region with a drain timeout of 60 seconds and a reset timeout of 90 seconds:
