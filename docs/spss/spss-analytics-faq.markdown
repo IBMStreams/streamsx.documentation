@@ -44,7 +44,7 @@ It supports all the mode types available in the SPSS Modeler palette, and you ca
 
 In addition the SPSS Toolkit provides operators that interact with the SPSS model repository. Specifically the following operators are provided:
 
-*   **SPSSScoring** – integrates with SPSS Modeler Solution Publisher to the enable the scoring of your SPSS Modeler designed predictive models in Streams applications
+*   **SPSSScoring** – integrates with SPSS Modeler Solution Publisher to enable the scoring of your SPSS Modeler designed predictive models in Streams applications.
 *   **SPSSPublish** – automates the SPSS Modeler Solution Publisher ‘publish’ function which generates the required executable images needed to refresh the model used in your Streams applications from the logical definition of an SPSS Modeler scoring branch defined in a SPSS Modeler file
 *   **SPSSRepository** – detects notification events indicating changes to the deployed models managed in the SPSS Collaboration and Deployment Services repository and retrieves the indicated Modeler file version for automated publish and preparation for use in your Streams applications
 
