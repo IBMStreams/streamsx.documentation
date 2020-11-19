@@ -22,7 +22,7 @@ This section will discuss how to use the most common functions and transforms in
   - [Working with files](#files)
 * [Viewing the contents of a `Stream`](#views)
   * [Visualizing Streaming data](#visualizing-data)
-* [Creating data sinks](#sink)
+* [Creating data sinks](#sinks)
 * [Filtering data from the stream](#filter)
   - [Split the stream into matching and non-matching streams](#filter_split)
 * [Windows: transforming subsets of data ](#windows)
