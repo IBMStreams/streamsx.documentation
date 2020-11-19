@@ -13,6 +13,7 @@ published: true
 * [Create your first application](python-appapi-devguide-3)
 * Develop applications
   * [Process data with common Streams transforms](python-appapi-devguide-4)
-  * [Improve performance with parallelism](python-appapi-devguide-5)
+  * [Improve performance with parallelism](python-appapi-devguide-5#parallel-region)
+  * [At-least-once processing](python-appapi-devguide-5#consistent-region)
   * [The Python REST API](python-appapi-devguide-6)
 * [Complete API Reference](https://streamsxtopology.readthedocs.io/en/stable/)
