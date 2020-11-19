@@ -46,7 +46,7 @@ Applications created with the IBM Streams Python API are executed on an instance
 
  - Use the **Streaming Analytics service running on IBM Cloud**: The Streaming Analytics service is a cloud version of IBM Streams, so you don't need to install Streams to build Python applications for the service. [Create a free instance of the Streaming Analytics service here](https://cloud.ibm.com/catalog/services/streaming-analytics).  The applications you create will run in the IBM Cloud.
 
- -  Enable the **IBM Streams add-on in IBM Cloud Pak for Data**: IBM Streams is included as an add-on in for IBM Cloud Pak for Data. Contact your administrator to enable the add-on.  Streams can also be installed as a stand-alone deployment on Red Hat OpenShift or Kubernetes environments.
+ - Enable the **IBM Streams add-on in IBM Cloud Pak for Data**: IBM Streams is included as an add-on for IBM Cloud Pak for Data. Contact your administrator to enable the add-on.  Streams can also be installed as a stand-alone deployment on Red Hat OpenShift or Kubernetes environments.
   
  - A **local installation of the Streams runtime**:  [Install version 4.2 or later of IBM Streams](https://www.ibm.com/support/knowledgecenter/SSCRJU_4.3.0/com.ibm.streams.install.doc/doc/installstreams-container.html) or the free [Streams Quick Start Edition](https://www.ibm.com/support/knowledgecenter/SSCRJU_4.3.0/com.ibm.streams.qse.doc/doc/installtrial-container.html). 
 

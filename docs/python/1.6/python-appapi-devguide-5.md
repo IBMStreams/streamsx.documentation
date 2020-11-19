@@ -88,7 +88,6 @@ By default any state is reset to its initial state after a processing element (P
 
 * a failure in the PE or its resource,
 * a explicit PE restart request,
-* a parallel region width change (IBM Streams 4.3 or later)
 
 You can use a consistent region in your stream processing applications to avoid data loss due to software or hardware failure and meet your requirements for at-least-once processing.
 
@@ -116,14 +115,18 @@ This section will discuss how to create stream processing applications with the 
 
 The recommended way to create a `ConsistentRegionConfig` is to call either `operator_driven()` or `periodic()`.
 
-For example, set a source stream `s` to be a the start of an operator driven consistent region with a drain timeout of five seconds and a reset timeout of twenty seconds:
+---
+**Note:** `operator_driven()` cannot be used when a Python callable is the begin of the consistent region (CR) as there is no Python API to trigger the region as we have for C++ or Java SPL operators. When SPL operators (Java or C++) are the start of a CR, the operator dictates when the region is made consistent, i.e. drained and checkpointed. Often additional operator parameters are required to control when the operator is supposed to trigger the region becoming consistent.
+---
+
+For example, set a source stream `s` to be a the start of an operator driven consistent region with a drain timeout of 60 seconds and a reset timeout of 90 seconds:
 ```
-s.set_consistent(ConsistentRegionConfig.operatorDriven(drain_timeout=5, reset_timeout=20))
+s.set_consistent(ConsistentRegionConfig.operatorDriven(drain_timeout=60, reset_timeout=90))
 ```
 
 Example of a periodic consistent region configuration, IBM Streams runtime will trigger a drain and checkpoint every 30 seconds:
 ```
-s.set_consistent(ConsistentRegionConfig.periodic(period=30, drain_timeout=40, reset_timeout=40, max_consecutive_attempts=6))
+s.set_consistent(ConsistentRegionConfig.periodic(period=30, drain_timeout=120, reset_timeout=120, max_consecutive_attempts=6))
 ```
 
 Reference
@@ -134,7 +137,7 @@ Reference
 
 Use of a class instance allows a transformation to be stateful by maintaining state in instance attributes across invocations.
 
-When the callable is in a consistent region then it is serialized using dill.
+When the callable is in a consistent region it is serialized using dill.
 
 * The default serialization may be modified by using the standard Python pickle mechanism of `__getstate__` and `__setstate__`.
 * If the callable has `__enter__` and `__exit__` context manager methods then `__enter__` is called after the object has been deserialized by dill.

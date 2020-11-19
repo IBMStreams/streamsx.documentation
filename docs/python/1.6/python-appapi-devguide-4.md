@@ -389,7 +389,7 @@ import streamsx.standard.files as files
 ~~~~~
 
 The [streamsx.standard.files.CSVReader](https://streamsxstandard.readthedocs.io/en/latest/generated/streamsx.standard.files.html#streamsx.standard.files.CSVReader) accepts the file parameter either set as relative path to application directory or as absolute path.
-In this sample the file is added application bundle and the Streams application reads this file at runtime from the application directory.
+In this sample the file is added to the application bundle and the Streams application reads this file at runtime from the application directory.
 
 For example, if your CSV file had the following format:
 ~~~~ python
