@@ -482,34 +482,25 @@ For example, you have a `source` function that returns a set of four words from 
 To achieve this:
 
 1. Define a `Stream` object called `words` that is created by calling a function that generates a list of four words. (For simplicity, specify a `source` function that returns only four words.)
+   Define the following functions in the `filter_words.py` file:
+   ~~~python
+   def words_in_dictionary():
+      return {"qualify", "quell", "quixotic", "quizzically"}
 
-    Define the following functions in the `filter_words.py` file:
-
-~~~python
-        def words_in_dictionary():
-           return {"qualify", "quell", "quixotic", "quizzically"}
-
-        def does_not_contain_a(tuple):
-           return "a" not in tuple
-
-~~~
-
+   def does_not_contain_a(tuple):
+      return "a" not in tuple
+   ~~~
 1. Next, define a topology and a stream of Python strings in `filter_words.py`:
-
-~~~python
-        topo = Topology("filter_words")
-        words = topo.source(words_in_dictionary)
-
-~~~
-
+   ~~~python
+   topo = Topology("filter_words")
+   words = topo.source(words_in_dictionary)
+   ~~~
 1. Define a `Stream` object called `words_without_a` by passing the `does_not_contain_a` function to the `filter` method on the `words` Stream. This function is True if the tuple does not contain the letter "a" or False if it does.
-
-    Include the following code in the `filter_words.py` file:
-
-~~~python
-        words = topo.source(words_in_dictionary)
-        words_without_a = words.filter(does_not_contain_a)
-~~~
+   Include the following code in the `filter_words.py` file:
+   ~~~python
+   words = topo.source(words_in_dictionary)
+   words_without_a = words.filter(does_not_contain_a)
+   ~~~
 
 The `Stream` object that is returned, `words_without_a`, contains only words that do not include a lowercase "a".
 
@@ -562,10 +553,9 @@ In the former sample [Filtering data from the stream](#filter) the non-matching 
 To achieve this:
 
 1. Add the parameter `non_matching=True` to the `filter` method on the `words` Stream and define two output streams called `words_without_a` and `words_with_a`.
-
-~~~python
-        words_without_a, words_with_a = words.filter(does_not_contain_a, non_matching=True)
-~~~
+   ~~~python
+   words_without_a, words_with_a = words.filter(does_not_contain_a, non_matching=True)
+   ~~~
 
 ### The complete application
 
@@ -1068,6 +1058,8 @@ After submitting this application, use this code to connect to it and display th
 <div class="tab-content">
   <div id="simpleSource-1" class="tab-pane fade in active">
  <pre><code>
+
+   {% highlight python %}
  import pandas as pd
 
  queue = results_view.start_data_fetch()
@@ -1080,6 +1072,7 @@ After submitting this application, use this code to connect to it and display th
  #display as Pandas data frame
  df = pd.DataFrame(results)
  print(df)
+  {% endhighlight %}
 </code></pre>
  </div>
   <div id="fullSource-1" class="tab-pane fade">
@@ -1217,8 +1210,11 @@ Let's change our window definition to set a trigger policy of `5` using [Window.
 <div class="tab-content">
   <div id="simpleSource-2" class="tab-pane fade in active">
  <pre><code>
+
+   {% highlight python %}
  src = topo.source(Numbers())
  window = src.last(size=10).trigger(5) #Use trigger(datetime.timedelta(seconds=10)) to use a time based trigger
+   {% endhighlight %}
 </code></pre>
  </div>
   <div id="fullSource-2" class="tab-pane fade">
@@ -1350,6 +1346,7 @@ Continuing the previous example, let's change the `Averages` class to compute th
   <div id="simpleSource-3" class="tab-pane fade in active">
  <pre><code>
 
+   {% highlight python %}
 import pandas as pd
 import numpy as np 
 class Averages:
@@ -1372,11 +1369,13 @@ def __call__(self, items_in_window):
                         "max": float(row["max_val"]),
                     "id": id)})
     return result
-
+  {% endhighlight %}
 </code></pre>
  </div>
   <div id="fullSource-3" class="tab-pane fade">
   <pre><code>
+
+   {% highlight python %}
 from streamsx.topology.topology import Topology
 from streamsx.topology import context
 import time
@@ -1439,7 +1438,7 @@ results_view.stop_data_fetch()
 # display as Pandas data frame
 df = pd.DataFrame(results)
 print(df)
-
+  {% endhighlight %}
 </code></pre>
   </div>
 </div>
@@ -1567,6 +1566,8 @@ Modify the example and re-run it:
 <div class="tab-content">
   <div id="simpleSource-4" class="tab-pane fade in active">
  <pre><code>
+
+   {% highlight python %}
 # Since the Averages callable will receive the tuples already in a group, 
 # we no longer need the grouping using Pandas
 class Averages:
@@ -1591,6 +1592,7 @@ def getKey(tpl):
 #Modify window definition
 window = src.last(size=10).partition(key=getKey)
 rolling_average = window.aggregate(Averages())
+   {% endhighlight %}
 </code></pre>
  </div>
   <div id="fullSource-4" class="tab-pane fade">
@@ -1690,7 +1692,8 @@ This section has covered the steps to use a window to transform streaming data:
 
 <a id="map"></a>
 ## Modifying data
-You can invoke `map` or `flat_map` on a `Stream` object when you want to:
+
+You can invoke `map` or `flat_map` on a `Stream` object when you want to:
 
 * Modify the contents of the tuple.
 * Change the type of the tuple.
@@ -1849,7 +1852,9 @@ snow
 
 As you can see, the `flat_map` transform broke each of the original tuples into the component pieces, in this case, the component words, and maintained the order of the pieces in the resulting tuples.
 
+---
 **Tip:** You can use the `flat_map` transform with any list of Python objects that is serializable with the pickle module. The members of the list can be different classes, such as strings and integers, user-defined classes, or classes provided by a third-party module.
+---
 
 <a id="state"></a>
 ## Keeping track of state information across tuples
@@ -1915,7 +1920,9 @@ The contents of your output file looks something like this:
 
 In this example, `AvgLastN.n`, which is initialized from the user-defined parameter n, and `AvgLastN.last_n` are examples of data whose state is kept in between tuples.
 
+---
 **Tip:** Any type of transform (source, filter, map, and sink) can accept callable objects that maintain stateful data.
+---
 
 You can also create a user-defined function that refers to global variables. Unlike variables that are defined within a function, global variables persist in the runtime process. However, this approach is **not recommended** because the way in which the processing elements are fused can change how global variables are shared across functions or callable objects.
 
@@ -2117,7 +2124,9 @@ You can make an output stream available to applications by using the `publish` t
 
 To receive the tuples, an application must subscribe to the topic that you publish by specifying the same topic and schema. For more information, see [Subscribing to streams](#39-subscribing-to-streams).
 
+---
 **Restrictions:** The `publish` transform does not work in STANDALONE mode. Additionally, the application that publishes and the one that subscribes must be running in the same instance of IBM Streams.
+---
 
 For example, you can use the `publish` transform to make tuples from a Python streams-processing application available to an IBM Streams Processing Language (SPL) streams-processing application.
 
@@ -2181,7 +2190,9 @@ This example is based on the `pubsub` sample in GitHub. For more information abo
 ## Subscribing to streams
 If an application publishes a stream to a topic, you can use the `subscribe` transform to pull that data into your application.
 
+---
 **Remember:** The `subscribe` transform must be running in the same instance of IBM Streams as the application that is publishing data.
+---
 
 To subscribe to a topic, use the `Topology.subscribe` function, specifying the same topic and schema as the corresponding `Topology.publish` function. The application that published the topic can be written in any language that IBM Streams supports.
 
