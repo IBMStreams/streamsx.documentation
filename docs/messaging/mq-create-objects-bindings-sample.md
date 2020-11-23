@@ -46,11 +46,16 @@ Readers of this article is expected to have a basic understanding of WebSphere M
 * Generate bindings file using JMSAdmin script
   1. Log into the WebSphere MQ server as mqm user.
   2. Open `MQ_INSTALLATION_PATH/java/bin/JMSAdmin.config` file with text editor.
-  3. Edit the following lines. Choose a accessible directory for the `PROVIDER_URL` parameter, where the `.bindings` file will be generated.
+  3. Edit the following lines. Choose an accessible directory for the `PROVIDER_URL` parameter, where the `.bindings` file will be generated.
 
      `INITIAL_CONTEXT_FACTORY=com.sun.jndi.fscontext.RefFSContextFactory`
 
      `PROVIDER_URL=file:///homes/user/bindings`
+     
+     An alternative to editing this file directly is to do the following:
+     * Copy MQ_INSTALLATION_PATH/java/bin/JMSAdmin.config to a different directory
+     * Make the file writable: `chmod u+w /path/to/JMSAdmin.config`
+     * Run JMSAdmin with the -cfg flag: `MQ_INSTALLATION_PATH/java/bin/JMSAdmin -cfg /path/to/JMSAdmin.config`
 
   4. Set the `CLASSPATH` for running JMSAdmin tool
 
