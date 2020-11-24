@@ -95,9 +95,9 @@ Some toolkits are included with Streams, and others are [available on GitHub](ht
   
 {: .simple}
 
-* [Product toolkits overview](https://developer.ibm.com/streamsdev/docs/product-toolkits-overview/)
-  
-* [GitHub projects overview](https://developer.ibm.com/streamsdev/docs/github-projects-overview/)
+* [Product toolkits](https://www.ibm.com/support/knowledgecenter/de/SSCRJU_4.3.0/com.ibm.streams.ref.doc/doc/spltoolkits_intro.html)
+
+* [List of all open source toolkits on GitHub](https://github.com/search?q=topic%3Atoolkit+org%3AIBMStreams&type=Repositories)
 
 ## Streams 4.2 and 4.1
 
@@ -111,7 +111,7 @@ View the IBM Streams product documentation on IBM Knowledge Center.
 
 {: .simple}
 
-* [IBM Knowledge Center > IBM Streams (versions 4.0.0 - current)](http://www.ibm.com/support/knowledgecenter/SSCRJU/SSCRJU_welcome.html)
+* [IBM Knowledge Center > IBM Streams](http://www.ibm.com/support/knowledgecenter/SSCRJU/SSCRJU_welcome.html)
 
 
 ## Need help?
@@ -128,7 +128,7 @@ To contribute, you have two options:
 -   Clone this project locally, make your changes, and create a pull request.
 -   Click **Edit Me** and then click **Edit this file** to make changes directly in your browser.
 
-For more information about contributing to this project, see [Contribute to an IBM Streams GitHub project](https://developer.ibm.com/streamsdev/docs/contribute-github-project/).
+For more information about contributing to this project, see [Contribute to an IBM Streams GitHub project](https://github.com/IBMStreams/administration/blob/develop/contribute.md).
 
 For more information about GitHub Markdown, see [Writing on GitHub](https://help.github.com/categories/writing-on-github).
 
