@@ -19,8 +19,6 @@ The following are resources to help you get started developing applications usin
 {: .simple}
 * [Development guide for Python applications](/streamsx.documentation/docs/python/1.6/python-appapi-devguide/)
 * [API reference](https://streamsxtopology.readthedocs.io/en/stable/index.html)
-* [Older releases](https://github.com/IBMStreams/streamsx.topology/releases)
-
 
 
 ### Developing Streams applications with SPL
@@ -60,12 +58,12 @@ Streams Processing Language is specifically designed for creating Streams applic
 - [Download the Streams Quick Start Edition](/streamsx.documentation/docs/4.3/qse-intro)
 
 - [Search our samples catalog](https://ibmstreams.github.io/samples/)
-  
-- [Streams Studio Tutorial](/streamsx.documentation/docs/spl/lab/spl-lab-00-get-started/)
-  
+    
 - [Streams in IBM Cloud Pak for Data](https://www.ibm.com/support/producthub/icpdata/docs/content/SSQNUZ_current/cpd/svc/streams/developing-intro.html)
  
 - [Streams Knowledge Center](http://www.ibm.com/support/knowledgecenter/SSCRJU/SSCRJU_welcome.html)
+
+- [Streams Studio Tutorial](/streamsx.documentation/docs/spl/lab/spl-lab-00-get-started/)
 
 
 ## Integrating with Streams
@@ -89,7 +87,7 @@ Some toolkits are included with Streams, and others are [available on GitHub](ht
 
 * [JDBC toolkit](https://github.com/IBMStreams/streamsx.jdbc)
 
-* [Monitor access to your data with IBM Information Governance catalog](/streamsx.documentation/docs/4.2/governance/)
+
 
 ### Full list of available toolkits
   
@@ -110,6 +108,8 @@ Some toolkits are included with Streams, and others are [available on GitHub](ht
 View the IBM Streams product documentation on IBM Knowledge Center.
 
 {: .simple}
+
+* [Monitor access to your data with IBM Information Governance catalog](/streamsx.documentation/docs/4.2/governance/)
 
 * [IBM Knowledge Center > IBM Streams](http://www.ibm.com/support/knowledgecenter/SSCRJU/SSCRJU_welcome.html)
 
