@@ -2303,7 +2303,9 @@ The table below contains examples of the schema definition and the corresponding
 | Json| `outputSchema = CommonSchema.Json` | ```tuple<rstring jsonString>``` |
 | StreamsSchema | `outputSchema = 'tuple<int64 intAttribute, rstring strAttribute>'` | ```tuple<int64 intAttribute, rstring strAttribute>``` |
 
+
 It is recommended to use a structured Streams schema when writing an application using different kinds of callables (Streams SPL operators), because the Python schema is not supported in SPL Java primitive and SPL C++ primitive operators.
+
 
 ### Strucutured Schema
 
@@ -2316,4 +2318,45 @@ Structured schema can be declared a number of ways:
 
 Structured schemas provide type-safety and efficient network serialization when compared to passing a dict using Python streams.
 
+#### Topology.source()
+
+* **No** support of explicit schema definition
+* Generates **CommonSchema.Python** by **default**
+* Use type hint at the "source" callable to generate a structured schema stream
+
+In the sample below, the **type hint** `-> Iterable[SampleSourceSchema]` is added to the `__call__(self)` method in the class used as callable in your source.
+The structured schema `SampleSourceSchema` is defined a named tuple.
+
+~~~python
+from streamsx.topology.topology import Topology
+import streamsx.topology.context
+from typing import Iterable, NamedTuple
+import itertools, random
+
+class SampleSourceSchema(NamedTuple):
+    num: int
+    id: str
+
+# Callable of the Source
+class SampleSource(object):
+    def __call__(self) -> Iterable[SampleSourceSchema]: 
+        for num in itertools.count(1):
+            yield {"id": str(num), "num" : random.randint(0,num)}
+
+topo = Topology("sample-source-structured-stream")
+src = topo.source(SampleSource())
+src.print()
+streamsx.topology.context.submit("STANDALONE", topo)
+~~~
+
+#### Structured schema passing styles
+
+How tuples are passed into callables (`map()` `flat_map()` `filter()` `for_each()`) depends on the passing style.
+
+* **dict** - Stream tuples are passed as a dict with the key being the attribute name and and the value the attribute value. This is the default, but can be get with the method `as_dict()` on stream.
+* **namedtuple** - Stream tuples are passed as a named tuple with the value being the attributes value in order. Field names correspond to the attribute names of the schema. A schema is set to pass stream tuples as named tuples using as_tuple(name='mySchema').
+
+`as_tuple()` and `as_dict()` are methods on a StreamSchema, so being at generating side. But styles take effect on receiving side only! Under the hood the style is a parameter to the wrapper operator of the callable downstream!
+
+For more information, see [StreamSchema.as_dict](https://streamsxtopology.readthedocs.io/en/stable/streamsx.topology.schema.html#streamsx.topology.schema.StreamSchema.as_dict) and [StreamSchema.as_tuple](https://streamsxtopology.readthedocs.io/en/stable/streamsx.topology.schema.html#streamsx.topology.schema.StreamSchema.as_tuple)
 
