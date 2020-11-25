@@ -2298,10 +2298,10 @@ The table below contains examples of the schema definition and the corresponding
 
 | Schema type | Schema in Python | Schema in generated SPL |
 | ------------- | ------------- | ------------- |
-| Python| `outputSchema = CommonSchema.Python` | tuple<blob __spl_po> |
-| String | `outputSchema = CommonSchema.String` | tuple<rstring string> |
-| Json| `outputSchema = CommonSchema.Json` | tuple<rstring jsonString> |
-| StreamsSchema | `outputSchema = 'tuple<int64 intAttribute, rstring strAttribute>'` | tuple<int64 intAttribute, rstring strAttribute> |
+| Python| `outputSchema = CommonSchema.Python` | ```tuple<blob __spl_po>``` |
+| String | `outputSchema = CommonSchema.String` | ```tuple<rstring string>``` |
+| Json| `outputSchema = CommonSchema.Json` | ```tuple<rstring jsonString>``` |
+| StreamsSchema | `outputSchema = 'tuple<int64 intAttribute, rstring strAttribute>'` | ```tuple<int64 intAttribute, rstring strAttribute>``` |
 
 It is recommended to use a structured Streams schema when writing an application using different kinds of callables (Streams SPL operators), because the Python schema is not supported in SPL Java primitive and SPL C++ primitive operators.
 
