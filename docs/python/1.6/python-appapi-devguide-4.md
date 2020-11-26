@@ -2307,7 +2307,7 @@ The table below contains examples of the schema definition and the corresponding
 It is recommended to use a structured Streams schema when writing an application using different kinds of callables (Streams SPL operators), because the Python schema is not supported in SPL Java primitive and SPL C++ primitive operators.
 
 
-### Strucutured Schema
+### Structured Schema
 
 Structured schema can be declared a number of ways:
 
@@ -2334,8 +2334,8 @@ from typing import Iterable, NamedTuple
 import itertools, random
 
 class SampleSourceSchema(NamedTuple):
-    num: int
     id: str
+    num: int
 
 # Callable of the Source
 class SampleSource(object):
@@ -2349,14 +2349,118 @@ src.print()
 streamsx.topology.context.submit("STANDALONE", topo)
 ~~~
 
-#### Structured schema passing styles
+#### Structured schema passing styles (dict vs. named tuple)
 
-How tuples are passed into callables (`map()` `flat_map()` `filter()` `for_each()`) depends on the passing style.
+In the former example the source callable returned a *dict*. You can also return *named tuple* objects and in both cases the downstream callable tuples are passed in *named tuple* style. 
 
-* **dict** - Stream tuples are passed as a dict with the key being the attribute name and and the value the attribute value. This is the default, but can be get with the method `as_dict()` on stream.
-* **namedtuple** - Stream tuples are passed as a named tuple with the value being the attributes value in order. Field names correspond to the attribute names of the schema. A schema is set to pass stream tuples as named tuples using as_tuple(name='mySchema').
+~~~python
+from streamsx.topology.topology import Topology
+import streamsx.topology.context
+from typing import Iterable, NamedTuple
+import itertools, random
 
-`as_tuple()` and `as_dict()` are methods on a StreamSchema, so being at generating side. But styles take effect on receiving side only! Under the hood the style is a parameter to the wrapper operator of the callable downstream!
+class SampleSourceSchema(NamedTuple):
+    id: str
+    num: int
 
-For more information, see [StreamSchema.as_dict](https://streamsxtopology.readthedocs.io/en/stable/streamsx.topology.schema.html#streamsx.topology.schema.StreamSchema.as_dict) and [StreamSchema.as_tuple](https://streamsxtopology.readthedocs.io/en/stable/streamsx.topology.schema.html#streamsx.topology.schema.StreamSchema.as_tuple)
+# Callable of the Source
+class SampleSource(object):
+    def __call__(self) -> Iterable[SampleSourceSchema]: 
+        for num in itertools.count(1):
+            output_event = SampleSourceSchema(
+                id = str(num),
+                num = random.randint(0,num)
+            )
+            yield output_event
+
+class SampleMapSchema(NamedTuple):
+    idx: str
+    number: int
+
+def map_namedtuple_to_namedtuple(tpl) -> SampleMapSchema:
+    out = SampleMapSchema(
+       idx = 'x-' + tpl.id,
+       number = tpl.num + 1
+    )
+    return out
+
+topo = Topology("sample-namedtuple-structured-stream1")
+stream1 = topo.source(SampleSource())
+stream2 = stream1.map(map_namedtuple_to_namedtuple)
+stream2.print()
+streamsx.topology.context.submit("STANDALONE", topo)
+~~~
+
+Find below the same sample using *dict* style in "source" callable, but the type hint with *named tuple* schema causes that tuples are passed in *named tuple* style to map() callable. 
+
+~~~python
+from streamsx.topology.topology import Topology
+import streamsx.topology.context
+from typing import Iterable, NamedTuple
+import itertools, random
+
+class SampleSourceSchema(NamedTuple):
+    id: str
+    num: int
+
+# Callable of the Source
+class SampleSource(object):
+    def __call__(self) -> Iterable[SampleSourceSchema]: 
+        for num in itertools.count(1):
+            yield {"id": str(num), "num" : random.randint(0,num)}
+
+class SampleMapSchema(NamedTuple):
+    idx: str
+    number: int
+
+def map_namedtuple_to_namedtuple(tpl) -> SampleMapSchema:
+    out = SampleMapSchema(
+       idx = 'x-' + tpl.id,
+       number = tpl.num + 1
+    )
+    return out
+
+topo = Topology("sample-namedtuple-structured-stream2")
+stream1 = topo.source(SampleSource())
+stream2 = stream1.map(map_namedtuple_to_namedtuple)
+stream2.print()
+streamsx.topology.context.submit("STANDALONE", topo)
+~~~
+
+
+The following samples uses a SPL operator [streamsx.standard.utility.Sequence](https://streamsxstandard.readthedocs.io/en/latest/generated/streamsx.standard.utility.html#streamsx.standard.utility.Sequence) generating a structured schema [streamsx.standard.utility.SEQUENCE_SCHEMA](https://streamsxstandard.readthedocs.io/en/latest/generated/streamsx.standard.utility.html#streamsx.standard.utility.SEQUENCE_SCHEMA)
+Here you see the difference to the previous sample, that the tuples are passed to the Python callable in *dict* style (see `Delta()` class used in `streams1.map(Delta())`. Furthermore this sample demonstrates how to extend a structured schema with [streamsx.topology.schema.StreamSchema.extend](https://streamsxtopology.readthedocs.io/en/stable/streamsx.topology.schema.html#streamsx.topology.schema.StreamSchema.extend) function. In the `map()` callable the new attribute `d` is set. 
+
+~~~python
+from streamsx.topology.topology import Topology
+import streamsx.topology.context
+from typing import Iterable, NamedTuple
+import streamsx.standard.utility as U
+from streamsx.topology.schema import StreamSchema
+
+class Delta(object):
+    def __init__(self):
+        self._last = None
+    def __call__(self, v):
+        if v['seq'] == 0:
+            self._last = v['ts']
+            return None
+        else:
+            v['d'] = v['ts'].time() - self._last.time()
+            return v
+
+topo = Topology("sample-dict-structured-stream")
+stream1 = topo.source(U.Sequence(iterations=50, period=0.2)) # output schema: tuple<uint64 seq, timestamp ts>
+E = U.SEQUENCE_SCHEMA.extend(StreamSchema('tuple<float64 d>'))
+stream2 = stream1.map(Delta(), schema=E) # output schema: tuple<uint64 seq, timestamp ts, float64 d>
+stream2.print()
+streamsx.topology.context.submit("STANDALONE", topo)
+~~~
+
+Summary:
+ - Passing style (dict/named tuple) in your callable depends on the predecessor callable/operator.
+ - When **named tuple** schema is defined in predecessor callable/operator, then expect passing style named tuple in your Python callable.
+ - Use either **name tuple** schema or **StreamsSchema** between SPL operators and Python callables.
+
+
 
