@@ -2287,6 +2287,8 @@ The application below uses the `Stream.map()` callable between a data source and
 
 ![Stream schema](../../../../images/python/stream_schema.png)
 
+The diagram contains labels for `stream1`, `stream2` and `outputSchema` since they are used in the code block and table below. Each SPL operator output port and corresponding stream are defined by a schema. In a Python toplogy application the `CommonSchema.Python` is the default schema for Python operators.
+
 In this sample the output schema is defined with the `schema` parameter of the `map()` function. 
 
 ~~~python
@@ -2303,9 +2305,13 @@ The table below contains examples of the schema definition and the corresponding
 | Json| `outputSchema = CommonSchema.Json` | ```tuple<rstring jsonString>``` |
 | StreamsSchema | `outputSchema = 'tuple<int64 intAttribute, rstring strAttribute>'` | ```tuple<int64 intAttribute, rstring strAttribute>``` |
 
+So far in this *development guide*, we don't use schemas explicitly. But in a large application it is good design to define structured schema(s).
 
-It is recommended to use a structured Streams schema when writing an application using different kinds of callables (Streams SPL operators), because the Python schema is not supported in SPL Java primitive and SPL C++ primitive operators.
+And in certain cases, you must have a schema different than `CommonSchema.Python`:
 
+* when writing an application using different kinds of callables (Streams SPL operators), because the Python schema is not supported in SPL Java primitive and SPL C++ primitive operators.
+* when using **publish** and **subscribe** between different applications (if one application is **not** using Python operators)
+* when creating a job as service endpoint to consume/produce data via REST using **EndpointSink** or **EndpointSource** [streamsx.service](https://streamsxtopology.readthedocs.io/en/stable/streamsx.service.html)
 
 ### Structured Schema
 
@@ -2390,6 +2396,10 @@ stream2 = stream1.map(map_namedtuple_to_namedtuple)
 stream2.print()
 streamsx.topology.context.submit("STANDALONE", topo)
 ~~~
+
+*Does a type hint replace the use of specifying the schema parameter when calling the map transform?*
+
+If `schema` is set, then the return type is defined by the schema parameter. Otherwise if `schema` is not set then the return type hint on `func` define the schema of the returned stream, defaulting to `CommonSchema.Python` if no type hints are present.
 
 Find below the same sample using *dict* style in "source" callable, but the type hint with *named tuple* schema causes that tuples are passed in *named tuple* style to map() callable. 
 
