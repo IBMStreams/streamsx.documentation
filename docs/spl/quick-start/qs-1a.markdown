@@ -14,9 +14,7 @@ next:
   title: Overview of Streams concepts
 ---
 
-After [downloading and installing the Streams Quick Start Edition (QSE)](/streamsx.documentation/docs/4.3/qse-intro), you are ready to compile and run an application using Streams Studio.
-
-This is a good way to get familiar with the environment.
+This tutorial will show you how to compile and run an application using Streams Studio and get familiar with the environment.
 
 In this tutorial, you'll learn how to:
 
@@ -25,6 +23,10 @@ In this tutorial, you'll learn how to:
 -  Launch it as a standalone, or distributed application.
 -  View the data on a stream
 -  Download logs from a running application, which is called a job.
+
+## Prerequisites
+
+You should have followed the steps to [download and install the Streams Quick Start Edition (QSE)](/streamsx.documentation/docs/4.3/qse-intro).
 
 ## Launch Streams Studio
 

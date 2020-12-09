@@ -10,7 +10,7 @@ To preview the changes you've made, you can clone the repository and run Jekyll 
 - From a terminal window,
     ```
     cd streamsx.documentation
-    jekyll serve
+    jekyll serve --incremental
     ```
   This should produce some output:
   ```
