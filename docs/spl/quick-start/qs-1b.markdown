@@ -15,28 +15,36 @@ next:
 ---
 
 
-You can use [Microsoft Visual Studio Code](https://code.visualstudio.com/) (VS Code) to edit and deploy Streams applications. You do not need to download the Streams runtime, but only the [Streams extension for VS Code](https://github.com/IBMStreams/vscode-ide/wiki). 
+You can use [Microsoft Visual Studio Code](https://code.visualstudio.com/) (VS Code) to edit and deploy Streams applications. You do not need to download the Streams runtime, but only the [Streams extension for VS Code](https://ibmstreams.github.io/vscode-ide/). 
 
-This guide will walk you through the steps needed to install the extension and connect to your Streams instance in IBM  Cloud Pak for Data or IBM Cloud. Next, you'll learn how to deploy and monitor an application from VS Code.
+This guide will walk you through deploying and monitoring a Streams application from using VS Code.
 
 
-## Installation and setup
+## Prerequisites
 
-{% include vs-code/installation_and_setup.md %}
+- You need access to an instance of IBM Streams on Cloud Pak for Data or the Streaming Analytics service.
+  
+- You should have set up the Streams extension for VS Code. Specifically, follow the [steps in the documentation](https://ibmstreams.github.io/vscode-ide/docs/) to:
 
-## Add a Streams instance
+  -  [Install VS Code and the Streams extension](https://ibmstreams.github.io/vscode-ide/docs/quick-start-guide/#installation-and-setup)
 
-{% include vs-code/add_instance.html %}
+  -  [Add your Streams instance](https://ibmstreams.github.io/vscode-ide/docs/streams-explorer/#adding-an-instance)
+
+
+After completing these steps, you're ready to run and import the sample.
+
 
 ## Import the sample application
 
-The application we will use is called **TradesAppCloud** in the **TradesApp** project. It processes a stream of stock quotes for various companies, each identified by a ticker. It computes the rolling average price for each unique stock ticker and prints it to standard out.
+
+The `TradesApp` sample application processes a stream of stock quotes for various companies, each identified by an id, or ticker.
+It computes the rolling average price for each unique stock ticker and prints it to standard out.
 
 1.  Download the sample application project from [here](https://streams-github-samples.mybluemix.net/?get=QuickStart%2FTradesApp).
-1.  Extract the zip files into a folder.
-1.  Import the application into VS Code:
+2.  Extract the zip files into a folder.
+3.  Import the application into VS Code:
     1.  Go to **File** > **Open...** (or **Add Folder to Workspace...**).
-    1.  Browse to the project folder and click on **Open** (or **Add**).
+    2.  Browse to the project folder and click on **Open** (or **Add**).
 
 <img src="/streamsx.documentation/images/vs-code/vs-code-import-sample-app.png" alt="Install sample application" class="vs-code-img" />
 
@@ -51,6 +59,7 @@ The application we will use is called **TradesAppCloud** in the **TradesApp** pr
 
     - **Build**: Builds your Streams application and downloads the application bundle (`.sab`) to the application's `output` folder.
     - **Build and Submit Job**: Builds your Streams application and submits it directly to a Streams instance of your choice.
+- 
 
     <img src="/streamsx.documentation/images/vs-code/vs-code-build-app-options.png" alt="Compile application options" class="vs-code-img" />
 1.  Select **Build**.
@@ -67,8 +76,15 @@ To run the application, you will need to submit the bundle file from the previou
 
 1.  Bring up the [Explorer](https://code.visualstudio.com/docs/getstarted/userinterface#_explorer) view on the left and expand the `output` folder.
 1.  Right-click on the `application.TradesAppCloud.sab` file and select **Submit Job**.
-1.  You will prompted for the job configuration before the job is submitted. This is optional (unless the application requires values for submission-time parameters; this application does not). You may specify the job name, job group, tracing, and data directory. For a more advanced configuration, you may upload a job configuration overlay JSON file. Click on the **Submit** button.
-    <img src="/streamsx.documentation/images/vs-code/vs-code-configure-job-submission.png" alt="Configure the job submission" class="vs-code-img" />
+1.  You will prompted for the job configuration before the job is submitted. 
+    1.    If you are using Cloud Pak for Data v3.5 or newer, you will need to specify a **job definition name**. This is the name that is used to group all executions of this job in Cloud Pak for Data. 
+    2.   You can also optionally specify a **Streams job name**. This is to identify the job within the Streams instance.
+    3.  For more advanced configuration options, click **Show all options** to  upload a job configuration overlay JSON file, provide a description for the job, and more.
+
+2.   This application has no parameters, so click **Submit job.** 
+   <br/> <img src="/streamsx.documentation/images/vs-code/vs-code-configure-job-submission.png" alt="Configure the job submission" class="vs-code-img" />
+  *Submit Job page. The job submission options depend on the Streams instance you are using.*
+
 
 This will submit the application to the Streams instance you added previously. As the submission progresses, you will see notifications appear in the bottom right corner and the submission output will be displayed in the **IBM Streams** output channel in the **OUTPUT** panel at the bottom.
 
@@ -86,11 +102,7 @@ Once your application is running, you may want to monitor the job. The steps to 
 
 ## Cancel the job
 
-In VS Code, there are two ways to cancel a running job:
-
-1.  In the job graph, right-click on the graph background and select **Delete job** from the context menu.
-    <img src="/streamsx.documentation/images/vs-code/vs-code-cancel-job-graph.png" alt="Cancel job: job graph" class="vs-code-img" />
-1.  Bring up the **Streams Explorer** view. Hover over a job node and then click on the **Cancel Job** icon that appears on the right.
+Bring up the **Streams Explorer** view. Hover over the job node and then click on the **Cancel Job** icon that appears on the right.
     <img src="/streamsx.documentation/images/vs-code/vs-code-cancel-job-streams-explorer.png" alt="Cancel job: Streams Explorer" class="vs-code-img" />
 
 ## Summary
@@ -108,6 +120,7 @@ In this section, you learned how to:
 In the next section, you'll learn how to create the sample application that you've been working with.
 
 ## References
+- [Streams extension for VS Code](https://ibmstreams.github.io/vscode-ide/)
 - [IBM Streams for IBM Cloud Pak for Data documentation](https://www.ibm.com/support/producthub/icpdata/docs/content/SSQNUZ_current/cpd/svc/streams/developing-intro.html)
 - [IBM Streams standalone documentation](https://www.ibm.com/support/knowledgecenter/en/SSCRJU_5.2.0/com.ibm.streams.welcome.doc/doc/kc-homepage.html)
 - [IBM Streaming Analytics in IBM Cloud documentation](https://cloud.ibm.com/docs/StreamingAnalytics?topic=StreamingAnalytics-gettingstarted)

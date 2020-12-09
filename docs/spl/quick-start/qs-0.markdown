@@ -18,15 +18,18 @@ This guide will help you get up and running with Streams and Streams Processing 
 
 Learn how to compile and deploy a Streams application. You can run your application with a local installation of Streams or with Streams running in IBM Cloud or IBM Cloud Pak for Data.
 
-  - **Option 1: Local installation**
+  - **Option 1: Use a Streams instance in the IBM Cloud, IBM Cloud Pak for Data, or standalone** (Recommended)
+  
+    - Install the [Visual Studio Code](https://code.visualstudio.com/Download) (VS Code) editor
+    -  Download and install the [Streams extension for Microsoft VS Code](https://ibmstreams.github.io/vscode-ide/docs/quick-start-guide/).
+    - Next, [launch your first Streams application](/streamsx.documentation/docs/spl/quick-start/qs-1b) using VS Code
+    - 
+  - **Option 2: Local installation**
 
     - Install the free [Streams Quick Start Edition](/streamsx.documentation/docs/4.3/qse-intro)
     - Next, [launch your first Streams application](/streamsx.documentation/docs/spl/quick-start/qs-1a) using Streams Studio
 
-  - **Option 2: Use a Streams instance in the IBM Cloud, IBM Cloud Pak for Data, or standalone**
   
-    - Install the [Visual Studio Code](https://code.visualstudio.com/Download) (VS Code) editor
-    - Next, [launch your first Streams application](/streamsx.documentation/docs/spl/quick-start/qs-1b) using VS Code
 
 ## 2. Learn Streams Concepts
 

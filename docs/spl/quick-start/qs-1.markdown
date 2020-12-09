@@ -19,7 +19,9 @@ Run your first Streams application using Streams Studio or Visual Studio Code (V
 
 {: .simple}
 
+- [Launch an application with Visual Studio Code](/streamsx.documentation/docs/spl/quick-start/qs-1b) (_Recommended_).
+
 - [Launch an application with Streams Studio](/streamsx.documentation/docs/spl/quick-start/qs-1a)
   
-- [Launch an application with Visual Studio Code](/streamsx.documentation/docs/spl/quick-start/qs-1b)
+
 
