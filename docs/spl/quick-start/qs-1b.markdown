@@ -120,6 +120,7 @@ In this section, you learned how to:
 In the next section, you'll learn how to create the sample application that you've been working with.
 
 ## References
+- [Streams extension for VS Code](https://ibmstreams.github.io/vscode-ide/)
 - [IBM Streams for IBM Cloud Pak for Data documentation](https://www.ibm.com/support/producthub/icpdata/docs/content/SSQNUZ_current/cpd/svc/streams/developing-intro.html)
 - [IBM Streams standalone documentation](https://www.ibm.com/support/knowledgecenter/en/SSCRJU_5.2.0/com.ibm.streams.welcome.doc/doc/kc-homepage.html)
 - [IBM Streaming Analytics in IBM Cloud documentation](https://cloud.ibm.com/docs/StreamingAnalytics?topic=StreamingAnalytics-gettingstarted)
