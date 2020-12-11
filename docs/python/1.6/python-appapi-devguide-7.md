@@ -35,7 +35,7 @@ Python packages that wrap SPL toolkits and provide an API to use in your Python 
 * Cloud Object Storage integration - [streamsx.objectstorage](https://streamsxobjectstorage.readthedocs.io/)
 * Streaming primitives - [streamsx.standard](https://streamsxstandard.readthedocs.io/)
 
-A full list of available packages is at: https://pypi.org/search?q=streamsx
+A full list of available packages is at: [https://pypi.org/search?q=streamsx](https://pypi.org/search?q=streamsx)
 
 # Adding toolkits to your application
 
