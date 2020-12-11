@@ -13,12 +13,29 @@ prev:
 
 If you are familiar with Streams Processing Language (SPL) and want instructions to use SPL composites and operators, use the [Streams-SPLToolkitsTutorial.ipynb](https://github.com/IBMStreams/sample.starter_notebooks/blob/latest/Streams-SPLToolkitsTutorial.ipynb) notebook.
 
-Run this tutorial notebook in a Cloud Pak for Data project. The tutorial notebook includes the following tasks:
+Run this [tutorial](https://github.com/IBMStreams/sample.starter_notebooks/blob/latest/Streams-SPLToolkitsTutorial.ipynb) notebook in a Cloud Pak for Data project. The tutorial notebook includes the following tasks:
 
 * Discover toolkits that are installed on the Streams build service
 * Launch the SPL main composite
 * Work with microservices
 * Integrate SPL operators in a Python topology
+
+IBM Streams provide adapters to external systems, analytics and streaming primitives in SPL toolkits shipped with the IBM Streams product.
+
+*When do you need to integrate SPL toolkits in your Python topology?*
+
+Integrate existing SPL toolkits in your Python topology to speed up development of your streaming application. When you need to use C++ or Java libraries for a certain adapter or analytics task, create your custom SPL toolkit with operators invoking specialized libraries.
+
+Python packages that wrap SPL toolkits and provide an API to use in your Python Topology:
+
+* Apache Kafka integration - [streamsx.kafka](https://streamsxkafka.readthedocs.io/)
+* Database integration - [streamsx.database](https://streamsxdatabase.readthedocs.io/)
+* Geospatial analytics- [streamsx.geospatial](https://streamsxgeospatial.readthedocs.io/)
+* MQTT integration - [streamsx.mqtt](https://streamsxmqtt.readthedocs.io/)
+* Cloud Object Storage integration - [streamsx.objectstorage](https://streamsxobjectstorage.readthedocs.io/)
+* Streaming primitives - [streamsx.standard](https://streamsxstandard.readthedocs.io/)
+
+A full list of available packages is at: https://pypi.org/search?q=streamsx
 
 # Adding toolkits to your application
 
