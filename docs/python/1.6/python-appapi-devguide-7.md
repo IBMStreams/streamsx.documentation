@@ -98,20 +98,17 @@ The following steps are an example, how to download the 'com.ibm.streamsx.iot' t
 1. Download the [toolkit 1.3.0 tarball](https://github.com/IBMStreams/streamsx.iot/releases/download/v1.3.0/streamsx.iot.toolkits-1.3.0-20201208-1147.tgz) from the [toolkits release page](https://github.com/IBMStreams/streamsx.iot/releases/) on GitHub.
 
 2. Change the directory to your download location and unpack the downloaded tarball: 
-
-```
-tar -zxf streamsx.iot.toolkits-1.3.0-20201208-1147.tgz
-```
+   ```
+   tar -zxf streamsx.iot.toolkits-1.3.0-20201208-1147.tgz
+   ```
 
 3. Upload the toolkit: 
-
-```
-streamsx-streamtool [--disable-ssl-verify] uploadtoolkit --path com.ibm.streamsx.iot
-```
+   ```
+   streamsx-streamtool [--disable-ssl-verify] uploadtoolkit --path com.ibm.streamsx.iot
+   ```
 
 4. You can verify that the new version is present, with 
-
-```
-streamsx-streamtool [--disable-ssl-verify] lstoolkit --name com.ibm.streamsx.iot 
-```
+   ```
+   streamsx-streamtool [--disable-ssl-verify] lstoolkit --name com.ibm.streamsx.iot 
+   ```
 
