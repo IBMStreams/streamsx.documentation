@@ -156,7 +156,7 @@ IBM Streams integrates with ODM rules, allowing you to create business rules, co
 ### Integration with IBM InfoSphere Data Governance Catalog
 
 With IBM InfoSphere Data Governance Catalog integration, developers can easily discover the data and schema that are available for use.  By building data lineage with your Streams application, you can quickly see and control how data is consumed.
-To get started, see the  [Streams Governance Quick Start Guide](../4.2/governance/governance-quickstart/).
+To get started, see the  [Streams Governance Quick Start Guide](https://ibmstreams.github.io/streamsx.documentation/docs/4.2/governance/governance-quickstart/).
 
 
 ### Apache Edgent (aka Open Embedded Streams) Integration

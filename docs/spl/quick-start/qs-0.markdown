@@ -66,10 +66,7 @@ Learn how to compile and deploy a Streams application. You can run your applicat
     -  **Most toolkits on GitHub** will have a `samples` folder included in the release.  Download the toolkit release and import one or more of the samples into your IDE. Most toolkits will have information in the `README.md` on how to run the samples.
 
 
-    -   Search **[Streamsdev](https://developer.ibm.com/streamsdev)** for articles and tutorials, which often include samples.
-
-
 ## 4. Getting help
 
-- [Streamsdev community](https://developer.ibm.com/streamsdev)
+- [Streams community](https://ibm.biz/streams-community)
 - Ask a question on the [Streams forums](https://www.ibm.com/mysupport/s/forumsproduct?language=en_US&name=Streams&id=0TO50000000IQN0GAO)

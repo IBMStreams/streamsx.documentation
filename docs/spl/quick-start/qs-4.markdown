@@ -163,4 +163,3 @@ Sometimes you have to generate data to test your application.
     download zip to download the sample that you can import into Streams
     Studio, Atom or VSCode.
 
--   [Streamsdev](https://developer.ibm.com/streamsdev) also has articles and tutorials, search there.
