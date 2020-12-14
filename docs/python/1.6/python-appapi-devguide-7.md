@@ -20,7 +20,7 @@ Run this [tutorial](https://github.com/IBMStreams/sample.starter_notebooks/blob/
 * Work with microservices
 * Integrate SPL operators in a Python topology
 
-IBM Streams provide adapters to external systems, analytics and streaming primitives in SPL toolkits shipped with the IBM Streams product.
+IBM Streams provides adapters to external systems, analytics and streaming primitives in SPL toolkits shipped with the IBM Streams product.
 
 *When do you need to integrate SPL toolkits in your Python topology?*
 
@@ -59,7 +59,7 @@ add_toolkit(topo, nlp_tk)
 ~~~
 
 When you build your application more frequent or other users shall use the new|custom|updated toolkit, then it might make sense to upload the toolkit to the build service.
-As soon the toolkit has been uploaded to the Streams build service, it will be known when building your Streams application.
+As soon as the toolkit has been uploaded to the Streams build service, it will be known when building your Streams application.
 
 # Uploading toolkits to the Streams Build Service
 
