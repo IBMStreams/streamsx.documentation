@@ -231,7 +231,7 @@ As mentioned earlier, compiling the application creates an executable called a S
 
 ### Launch the application using the Streams Console
 
-{%  include qs/open-streams-console.md %}
+{%  include spl/console/open-console-cpd.html %}
 
 
 Next, from the Streams Console, click **Submit job**:
@@ -246,11 +246,11 @@ You should see a popup like this once submission is successful:
 
 <img alt="job success" src="/streamsx.documentation/images/qse/submit-console.png"/>
 
-Notice that a running Streams application is called a *job*.
+Notice that a running Streams application is called a *job*.  
 
 Keep these steps in mind for submitting applications for IBM Cloud Pak for Data when developing with Streams Studio.
 
-### View the running job in Cloud Pak for Data
+### View the running application in Cloud Pak for Data
 
 After launching the application in the Streams Console you can go to the Job Graph in Cloud Pak for Data to view the running job. 
 
@@ -292,7 +292,7 @@ But first, cancel the running job.
 
 ## Cancel the job
 
-In the job list, select **Delete** from the job's context menu.
+Back in Streams Studio, click the job in the Streams Explorer and select **Cancel job** from the job's context menu.
 
 <a id="summary"></a>
 

@@ -9,6 +9,10 @@ navlevel: 2
 prev:
   file: qs-3
   title:  FAQ
+
+next:
+  file: qs-6-console
+  title:  Streams Console
 ---
 
 

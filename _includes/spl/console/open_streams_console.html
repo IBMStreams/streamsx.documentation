@@ -1,0 +1,57 @@
+<div>
+
+  <p>
+    Opening the Streams Console will depend on your environment.
+  </p>
+
+  <details class="details-styled">
+    <summary>IBM Cloud Pak for Data deployment</summary>
+
+    <div><br/>
+     {%  include spl/console/open-console-cpd.html %}
+    </div>
+  </details>
+
+  <details class="details-styled">
+    <summary>IBM Streams standalone deployment</summary>
+
+    <div>
+      <br/>
+      {%  include spl/console/open-console-standalone.html %}
+
+         </div>
+  </details>
+
+  <details class="details-styled">
+    <summary>IBM Streaming Analytics on IBM Cloud</summary>
+
+    <div><br/>
+      {%  include spl/console/open-console-sas.html %}
+    </div>
+  </details>
+
+  <details class="details-styled">
+    <summary>Local installation of Streams v4.x</summary>
+
+    <div><br/>
+      {%  include spl/console/open-console-local.html %}
+    </div>
+  </details>
+
+  <details class="details-styled">
+    <summary>IBM Streams extension for Visual Studio Code</summary>
+
+    <div><br/>
+      {% include faq/answers/vs-code-prereq.html %}
+
+      <ol>
+        <li>
+          Click on the IBM Streams icon on the left side to bring up the <strong>Streams Explorer</strong> view.
+        </li>
+        <li>
+          Hover over an instance node and then click on the <strong>Open IBM Streams Console</strong> icon that appears on the right. This will open the Streams Console in your browser.
+        </li>
+      </ol>
+    </div>
+  </details>
+</div>

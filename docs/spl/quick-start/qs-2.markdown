@@ -702,19 +702,9 @@ For example, if your application is ingesting JSON data, you might need to conve
 
 ### Using the Streams Console
 
-You can also look at your job status and monitor the health of your Streams cluster using the Streams Console. Streams Console is a web-based admin console that allows you to monitor and administer your Streams instance. 
+You can also look at your job status and monitor the health of your Streams cluster using the Streams Console. Streams Console is a web-based admin console that allows you to monitor and administer your Streams applications and instance. 
 
-{% include qs/open-streams-console.md %} 
-
-You will then see a dashboard like this: 
-
-![quikStartConsole](/streamsx.documentation/images/qse/quikStartConsole.gif) 
-
-For more information about the Streams Console, see the following:
-
-*   [Streams Console Overview](https://developer.ibm.com/streamsdev/docs/streams-console-overview/)
-*   Videos from [Streams V4.0 Info](https://developer.ibm.com/streamsdev/docs/streams-v4-0-info/)
-
+For more information about the Streams Console and its features, see this page](/streamsx.documentation/docs/spl/quick-start/qs-6-console)
 
 
 ## What's Next?
