@@ -16,7 +16,7 @@ next:
 ---
 
 
-*This document is a work in progress. Feel free to add tips here*.
+*This document is a work in progress*.
 
 You have an idea of what your application should do, e.g. "Detect when a moving bus passes the known points of interest and send any alerts to the bus".
 

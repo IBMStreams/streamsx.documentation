@@ -7,8 +7,8 @@ published: true
 tag: spl-qs
 navlevel: 2
 prev:
-  file: qs-4
-  title:  Tips for development
+  file: qs-5-cpd
+  title:  Monitoring with Cloud Pak for Data
 ---
 
 The Streams Console is a web application that allows you to easily monitor and manage your Streams instance and jobs. You can quickly gain insights on the health, metrics, issues and performance of your applications and the systems they are running on.  
@@ -32,13 +32,6 @@ _Streams Console_
 ## Opening the Streams Console
 
 {% include spl/console/open_streams_console.html %}
-
-### IBM Streams extension for Visual Studio Code
-
-These instructions assume that you already have the [IBM Streams extension](https://marketplace.visualstudio.com/items?itemName=IBM.ibm-streams) for Visual Studio Code installed. If not, start [here](https://ibmstreams.github.io/streamsx.documentation/docs/spl/quick-start/qs-1b/#installation-and-setup) and follow the instructions.
-
-1.  Click on the IBM Streams icon on the left side to bring up the **Streams Explorer** view.
-2.  Hover over an instance node and then click on the **Open IBM Streams Console** icon that appears on the right. This will open the Streams Console in your browser.
 
 <a id="submit"></a>
 
@@ -82,8 +75,8 @@ These steps are demonstrated in the following animation.
 You can hover over an operator, a job, or a Stream to see available actions. You can perform actions like:  
 
 *   Set application trace
-*   Restart PEs,
-*   Submit job
+*   Restart PEs
+*   Submit a job
 *   View PE restart recommendations
 *   Download operator and PE logs
 *   Modify parallel regions
@@ -92,13 +85,13 @@ You can hover over an operator, a job, or a Stream to see available actions. You
 
 ### Adding Metric/Health charts and grids:
 
-Monitor metrics and health through various configurable charts like pie charts, bar charts, scatter charts, etc and grids.  
+Monitor metrics and health through various configurable charts like pie charts, bar charts, scatter charts, etc. and grids.  
 
 **How to do** **it:**
 1. Click **Add card** in the console  
     <img src="/streamsx.documentation/images/qse/add-card-action.png" alt="add card action" height="60%" width="60%"/>
 
-2. In **Visualization Settings** tab, choose a type of metric, e.g PE memory consumption, and in the **Card Properties,** select the type of graph, e.g. bar chart.  
+2. In **Visualization Settings** tab, choose a type of metric, e.g. PE memory consumption, and in the **Card Properties,** select the type of graph, e.g. bar chart.  
 
     <img src="/streamsx.documentation/images/qse/add-card.png" alt="add card dialog" height="80%" width="80%"/>
 
@@ -110,7 +103,7 @@ Analyze application trace, product and console logs through a reader friendly vi
 
 **How to use it:**
 
-1. Open the log viewer from the far right pane of the Streams Console.
+1. Open the log viewer from the far-right pane of the Streams Console.
 
    ![open log viewer](/streamsx.documentation/images/qse/log-viewer.png)
 

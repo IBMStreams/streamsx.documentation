@@ -527,6 +527,8 @@ Regardless of the IDE you are using, you have to follow these steps to create an
 
 ### 1. Create a project and a main composite
 
+You can use the Streams extension for Microsoft Visual Studio Code (VS Code) or Streams Studio.
+
 <ul class="nav nav-tabs">
   <li class="active"><a data-toggle="tab" href="#vscode"><b>VS Code</b></a></li>
    <li><a data-toggle="tab" href="#studio"><b>Streams Studio</b></a></li>
@@ -694,30 +696,35 @@ For example, if your application is ingesting JSON data, you might need to conve
 *   **Act:** In this stage, we act on the decision made from the previous stage. You may send the analysis result to a data visualization server. You may decide to send an alert to someone about the anomaly detected in the data. You may publish the results to a list of subscribers.
 
 
+
 ## Monitoring and managing your applications
 
-### Using the Job Graph in VS Code
+Streams applications can be monitored using the Job Graph or the Streams Console. The tool you'll use depends on your development environment and/or preference. The Job Graph is only available in Cloud Pak for Data, but the Streams Console is included with all versions of Streams.
 
-{% include vs-code/monitor_running_app_job_graph.html %}
+### Using the Job Graph
+
+The Job Graph is available in the Streams extension for VS Code and in the CPD web interface.
+
+To learn more about the [Job Graph in VS Code, see the documentation](https://ibmstreams.github.io/vscode-ide/docs/building-running-applications/#job-graph).
+
+For the [Job Graph in CPD, see this section](/streamsx.documentation/docs/spl/quick-start/qs-5-cpd).
 
 ### Using the Streams Console
 
-You can also look at your job status and monitor the health of your Streams cluster using the Streams Console. Streams Console is a web-based admin console that allows you to monitor and administer your Streams applications and instance. 
-
-For more information about the Streams Console and its features, see this page](/streamsx.documentation/docs/spl/quick-start/qs-6-console)
+If you are not using Streams in CPD or are looking for a more advanced alternative to the Job Graph, you can [monitor the health of your Streams application and cluster using the Streams Console](streamsx.documentation/docs/spl/quick-start/qs-6-console).
 
 
-## What's Next?
+## Next steps
 
 
-*  Learn more about creating applications with Streams Studio:
+*  Review the [tips for creating SPL applications](/streamsx.documentation/docs/spl/quick-start/qs-3).  
 
-   *  To get started with Streams Studio, try out the [Streams Studio Quick Start Guide](https://developer.ibm.com/streamsdev/docs/studio-quick-start/)
+*  Follow a hands-on tutorial for creating SPL applications:
 
+   * **With VS Code**: [See the SPL application guide](https://ibmstreams.github.io/vscode-ide/docs/spl-application-guide/).
 
-   *  Next, follow the [Streams Studio Hands-on tutorial](/streamsx.documentation/docs/spl/lab/spl-lab-00-get-started/)
+   * **With Streams Studio**: Follow the [Streams Studio Hands-on tutorial](/streamsx.documentation/docs/spl/lab/spl-lab-00-get-started/).
   
-*  Review the [tips for creating SPL applications](/streamsx.documentation/docs/spl/quick-start/qs-3)  
 
 
 ## Reference information

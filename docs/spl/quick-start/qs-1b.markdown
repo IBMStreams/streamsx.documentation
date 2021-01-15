@@ -82,13 +82,14 @@ To run the application, you will need to submit the bundle file from the previou
     3.  For more advanced configuration options, click **Show all options** to  upload a job configuration overlay JSON file, provide a description for the job, and more.
 
 2.   This application has no parameters, so click **Submit job.** 
-   <br/> <img src="/streamsx.documentation/images/vs-code/vs-code-configure-job-submission.png" alt="Configure the job submission" class="vs-code-img" />
-  *Submit Job page. The job submission options depend on the Streams instance you are using.*
+   <br/> <img src="/streamsx.documentation/images/vs-code/vs-code-configure-job-submission.png" alt="Configure the job submission" />
+
+    *Submit Job page. The job submission options depend on the Streams instance you are using.*
 
 
 This will submit the application to the Streams instance you added previously. As the submission progresses, you will see notifications appear in the bottom right corner and the submission output will be displayed in the **IBM Streams** output channel in the **OUTPUT** panel at the bottom.
 
-<img src="/streamsx.documentation/images/vs-code/vs-code-submit-app.png" alt="Run the application" class="vs-code-img" />
+<img src="/streamsx.documentation/images/vs-code/vs-code-submit-app.png" alt="Run the application"  />
 
 Once the submission finishes successfully, the **TradesAppCloud** application will be running in your instance! The success notification in the bottom right corner will show you some options to work with your new job. We'll cover them in the next step.
 

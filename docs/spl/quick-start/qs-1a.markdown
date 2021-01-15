@@ -54,13 +54,11 @@ Launching instructions depend on how you installed the Streams QSE. Following ar
 
    * Afterwards, Streams Studio will open in the *IBM Streams* perspective, which is a collection of panes to make development easier.
  
-      ![streams studio](explore-streams-2nd-image-dwc009.png) 
+      ![streams studio](/streamsx.documentation/images/spl_lab_1/explore-streams-2nd-image-dwc009.png) 
               
       **Project Explorer:** Shows project contents and details.
 
       **Streams Explorer:** Shows domain and instance information, including any jobs that are running.
-
-      **
 
 ### Users with a Native Streams installation 
 
@@ -82,6 +80,8 @@ It computes the rolling average price for each unique stock ticker and prints it
    2. In the dialog that appears, select **General** > **Existing Projects into Workspace**. Click **Next**.
    3. Make sure **Select archive file** is selected, then click **Browse**, and navigate to the location of the zip file you downloaded. 
    4. Click **Finish**.
+
+
 ## Compiling the application
 
 
@@ -108,19 +108,12 @@ Compiling will generate a few artifacts in the `output` folder.  The most import
 
 ## Run the application
 
-Now that the application is built, you can run it as a single process locally. This is called standalone mode. You could also run it as a distributed job on the Streams instance. In distributed mode, the application can be run across multiple processes and hosts. 
-
-- Run [locally as a standalone application](#standalone)
-- Run in distributed mode:
-  -  [on the Streams instance in the Quick Start Edition](#dist),
-  -  [on a Streams instance in IBM Cloud Pak for Data](#cpd).
-
-
+Now that the application is built, you can run it as a single process locally. This is called standalone mode. 
 <a id="standalone"></a>
 
-## Option 1: Run the application as a standalone application 
+## Run the application in standalone mode
 
-This means that you run the application as a single process. This is useful for debugging and testing. 
+Running the application in standlone mode is useful for debugging and testing. 
 
 In the Project Explorer, expand the **TradesApp** project. Expand the **application** node, right-click **TradesAppCloud**. Select **Launch** \> **Launch Active Build Config as Standalone**.
 
@@ -145,12 +138,20 @@ Click the terminate button in the Console pane to stop the application.
 
 <img alt="app output" src="/streamsx.documentation/images/qse/terminate.jpg"/>
 
+Streams is a distributed platform, so although running the application standalone mode is useful for development, in production environments you'll run applications in distributed mode.
+
+In distributed mode, the application is spread across multiple processes and hosts. 
+
+- You can run in distributed mode:
+  -  [on the Streams instance in the Quick Start Edition](#dist)
+  -  [on a Streams instance in IBM Cloud Pak for Data](#cpd)
+  -  [on the Streaming Analytics service in IBM Cloud](#sas)  
 
 <a id="dist"></a>
 
-## Option 2: Run in distributed mode on a local Streams instance
+## Option 1: Run in distributed mode on a local Streams instance
 
-Now, let's try deploying the application in distributed mode.
+Let's try deploying the application in distributed mode.
 
 In the Project Explorer, expand the **TradesApp** project. Expand the **application** node, right-click **TradesAppCloud**, and select **Launch** \> **Launch Active Build Config To Running Instance**. 
 
@@ -223,17 +224,22 @@ You're done! Go to the [summary section](#summary) for next steps, or continue t
 
 <a id="cpd"></a>
 
-## Option 3: Run on a Streams instance in IBM Cloud Pak for Data
+## Option 2: Run on a Streams instance in IBM Cloud Pak for Data
 
-If you have a Streams instance in IBM Cloud Pak for Data or in Kubernetes/OpenShift, the steps to launch the application are different. 
+If you have a Streams instance in IBM Cloud Pak for Data (CPD) or in Kubernetes/OpenShift, the steps to launch the application are different. 
 
-As mentioned earlier, compiling the application creates an executable called a Streams Application Bundle (SAB) file. To run the application on Cloud Pak for Data, you need to upload the executable file using the Streams Console.
+As mentioned earlier, compiling the application creates an executable called a Streams Application Bundle (SAB) file. To run the application on CPD, you need to upload the executable file using the Streams Console.
+
+These instructions assume that you have already [provisioned an IBM Streams service instance](https://www.ibm.com/support/producthub/icpdata/docs/content/SSQNUZ_latest/svc-welcome/streams.html) in CPD.
 
 ### Launch the application using the Streams Console
 
+
+First, open the Streams Console by following the instructions for your version of CPD.
+
 {%  include spl/console/open-console-cpd.html %}
 
-
+<br/>
 Next, from the Streams Console, click **Submit job**:
   <br/>
 ![submit job](/streamsx.documentation/images/qse/streams-submit-job.png)
@@ -248,29 +254,26 @@ You should see a popup like this once submission is successful:
 
 Notice that a running Streams application is called a *job*.  
 
-Keep these steps in mind for submitting applications for IBM Cloud Pak for Data when developing with Streams Studio.
+Keep these steps in mind for submitting applications for CPD when developing with Streams Studio.
 
 ### View the running application in Cloud Pak for Data
 
-After launching the application in the Streams Console you can go to the Job Graph in Cloud Pak for Data to view the running job. 
+After launching the application in the Streams Console you can go to the Job Graph in CPD to view the running job. 
 
-1. From the main menu, go to **My Instances** > **Jobs**. This will bring you to the list of jobs.
-2. Find your job in the list  based on its name, and from the context menu of the job, click **View job graph**.
+To open the Job Graph, [follow the instructions on this page](/streamsx.documentation/docs/spl/quick-start/qs-5-cpd#open).
 
-A new page called the Job Graph should open. 
-This shows a graph that represents the application we launched. 
+Once you have the Job Graph open, you will see the application graph.
 
-Streams applications are really directed graphs that analyze data as it is processed. Each node in the graph is an **operator** that processes data, and each arrow represents a **stream** of live data. 
+Streams applications are directed graphs that analyze data as it is processed. Each node in the graph is an **operator** that processes data, and each arrow represents a **stream** of live data. 
 
-<img alt="job graph in cpd" src="/streamsx.documentation/images/qse/graph-cpd.jpg"/>
-
+<img alt="Job Graph in CPD" src="/streamsx.documentation/images/qse/graph-cpd.jpg"/>
 
 
 ### Observe the data flowing through the job in real time
 
-You can look at the data on a given Stream to observe the data that is being processed or produced by an operator. For example, the `Quotes` operator produces a stream of stock quotes. Let's take a look at the data.
+From the Job Graph, you can look at the data on a given stream to observe the data that is being processed or produced by an operator. For example, the `Quotes` operator produces a stream of stock quotes.
 
-Select the stream that comes out of the `Quotes` operator, right-click and click **View Data** > **Create new view**.
+**To view a sample of the streaming data**: Select the stream that comes out of the `Quotes` operator, right-click and click **View Data** > **Create new view**.
 
 A new pane will appear that shows the data in the stream produced by the `Quotes` operator.  Notice that the view is updated as new data arrives.
 
@@ -279,37 +282,82 @@ A new pane will appear that shows the data in the stream produced by the `Quotes
 
 ### View job logs
 
-The application prints output to standard out. This output, errors and trace data are all sent to the logs. To view an operator's logs, go back to the list of jobs:  **My instances** > **Jobs**.
+The application prints output to standard out. This output, errors and trace data are all sent to the logs.
 
-Find the job in the list and click **Download Logs** from the job's context menu.
+To download an operator's logs, follow the steps [on this page](/streamsx.documentation/docs/spl/quick-start/qs-5-cpd#logs).
 
-The logs will be downloaded as an archive.
+#### More about Streams applications in Cloud Pak for Data
+
+See the [monitoring Streams applications with Cloud Pak for Data](/streamsx.documentation/docs/spl/quick-start/qs-5-cpd) page for more information.
 
 
-You've just launched a Streams application using Streams studio. In the next section, you will learn Streams concepts and how to create this application.
 
-But first, cancel the running job.
+<a id="sas"></a>
+
+## Option 3: Run on the Streaming Analytics service in IBM Cloud
+
+
+As mentioned earlier, compiling the application creates an executable called a Streams Application Bundle (SAB) file. To run the application on CPD, you need to upload the executable file using the Streams Console.
+
+
+### Launch the application using the Streams Console
+
+**Open the Streams Console**:
+  <p>
+  {% include spl/console/open-console-sas.html %}
+  </p>
+
+
+**Launch the application**
+1. From the Streams Console, click **Submit job**:
+  <br/>
+    
+    ![submit job](/streamsx.documentation/images/qse/streams-submit-job.png)
+
+    * Browse to the location of the compiled application.  This will be a `.sab` file in the `output` folder of your project.
+    * Click **Submit**.
+    * Set any parameters if prompted.
+
+2. You should see a popup like this once submission is successful:
+
+   <img alt="job success" src="/streamsx.documentation/images/qse/submit-console.png"/>
+
+Notice that a running Streams application is called a *job*.  
+
+
+### View the running application in Streams Console
+
+
+{% include vs-code/monitor_running_app_streaming_analytics.html %}
+
+
 
 ## Cancel the job
+Once you have finished examining the job and looking at logs, cancel the job.
 
-Back in Streams Studio, click the job in the Streams Explorer and select **Cancel job** from the job's context menu.
-
+- In Streams Studio, click the job in the Streams Explorer and select **Cancel job** from the job's context menu.
+- In Cloud Pak for Data: from the job details page, select **Cancel** from the job run menu (CPD v.3.5+) or **Delete** (CPD v2.5+) from the job's context menu.
+- In IBM Cloud: From the Streams Console, click the **Cancel job** button at the top of the page. Select the job and click **Cancel**.
 <a id="summary"></a>
 
 ## Summary
+
 
 In this section, you learned how to:
 
 -  Import a project into Streams Studio
 -  Compile the application
--  Launch it as a standalone, or distributed application.
+-  Create a new project and a new main composite
+-  Launch it as a standalone, or distributed application
 -  View the data on a stream
--  Download logs from a running application, which is called a job.
+-  Download logs from a running application, which is called a job
 
-You also created a new project and a new main composite, which will come in handy as you try to create the application you just ran in the next section.
+
+In the next section, you will learn Streams concepts and how to recreate this application.
 
 
 ### References
+
 - [Streams Studio documentation](https://www.ibm.com/support/knowledgecenter/SSCRJU_4.3.0/com.ibm.streams.studio.doc/doc/studio-container.html)
  
 - [Streams in Cloud Pak for Data documentation](https://www.ibm.com/support/producthub/icpdata/docs/content/SSQNUZ_current/cpd/svc/streams/developing-intro.html)
