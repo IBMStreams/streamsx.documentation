@@ -699,20 +699,8 @@ For example, if your application is ingesting JSON data, you might need to conve
 
 ## Monitoring and managing your applications
 
-Streams applications can be monitored using the Job Graph or the Streams Console. The tool you'll use depends on your development environment and/or preference. The Job Graph is only available in Cloud Pak for Data, but the Streams Console is included with all versions of Streams.
-
-### Using the Job Graph
-
-The Job Graph is available in the Streams extension for VS Code and in the CPD web interface.
-
-To learn more about the [Job Graph in VS Code, see the documentation](https://ibmstreams.github.io/vscode-ide/docs/building-running-applications/#job-graph).
-
-For the [Job Graph in CPD, see this section](/streamsx.documentation/docs/spl/quick-start/qs-5-cpd).
-
-### Using the Streams Console
-
-If you are not using Streams in CPD or are looking for a more advanced alternative to the Job Graph, you can [monitor the health of your Streams application and cluster using the Streams Console](streamsx.documentation/docs/spl/quick-start/qs-6-console).
-
+{% include monitor_jobs.html %}
+<p><a href="https://ibmstreams.github.io/vscode-ide/docs/building-running-applications/#job-graph">The Job Graph is also available</a> in the Streams extension for VS Code.</p>
 
 ## Next steps
 

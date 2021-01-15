@@ -27,19 +27,10 @@ Follow the steps in the previous section to [install the Python API and set up y
 ### Download this tutorial
   - **As a notebook:**
 
-    If you have IBM Watson Studio, IBM Cloud Pak for Data, or Jupyter notebooks installed, this tutorial is available as a notebook. 
+    If you have Cloud Pak for Data as a Service (CPDaaS), IBM Cloud Pak for Data, or Jupyter notebooks installed, this tutorial is available as a notebook. 
     Click the link below, and then click **Save Page** in your browser to save the notebook.
       <form action="https://raw.githubusercontent.com/IBMStreams/sample.starter_notebooks/latest/Streams-RollingAverageSample.ipynb" target="_blank">
           <input type="submit" value="Download this tutorial as a notebook">
-      </form>
-
- - **As a Python file:**
-
-   To get the latest version of this tutorial as a Python (`.py`) file, open the  the notebook in Jupyter Notebook Viewer, click **View as code**, then click **Save Page** in your browser.
-   ![save notebook](/streamsx.documentation/images/python/save_nb.png)
-   
-   <form action="https://nbviewer.jupyter.org/github/IBMStreams/sample.starter_notebooks/blob/latest/Streams-RollingAverageSample.ipynb" target="_blank">
-          <input type="submit" value="Download this tutorial as a Python file">
       </form>
 
 
@@ -365,7 +356,7 @@ averages_view.display(duration=30)
 
 ## 4.2 See job status 
 
-{% include monitor_jobs.html %}
+  {% include monitor_jobs.html %}
 
 # 5. Cancel the job
 

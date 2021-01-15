@@ -1,44 +1,5 @@
-<h4>Code to submit to Streams on IBM Cloud Pak for Data</h4>
-<b>Option 1:  Submit to Streams on Cloud Pak for Data  from a notebook</b>
-
-<br/>
-In this context you need to provide the name of the Streams instance.
-    <ol>
-    <li>From the navigation menu, click <strong>My instances</strong>.</li>
-    <li>Click the <strong>Provisioned Instances</strong> tab.</li>
-    <li>Update the value of <code>streams_instance_name</code> below according to your Streams instance name.</li>
-    </ol>
-    
-<strong>Copy this code snippet:</strong>
-
-{% highlight python %}
-
-from icpd_core import icpd_util
-from streamsx.topology import context
-
-
-def submit_topology(topo):
-    streams_instance_name = "sample-streams" ## Change this to Streams instance
-
-    try:
-        cfg=icpd_util.get_service_instance_details(name=streams_instance_name, instance_type="streams")
-    except TypeError:
-        cfg=icpd_util.get_service_instance_details(name=streams_instance_name)
-
-    # Disable SSL certificate verification if necessary
-    cfg[context.ConfigParams.SSL_VERIFY] = False   
-    # Topology wil be deployed as a distributed app
-    contextType = context.ContextTypes.DISTRIBUTED
-    return context.submit (contextType, topo, config = cfg)
-
-{% endhighlight %}
-
-
-
-
-<h5>Option 2:    Submit to Streams on Cloud Pak for Data without a notebook  </h5>
-
-<p>Collect the following environment information. Set the values for each variable where indicated.</p>
+<h4>   Submit without using a Cloud Pak for Data project</h4>
+<p>Collect the following information. Set the values for each variable where indicated.</p>
 
 <ul>
 <li><p><code>CP4D_URL</code> - Cloud Pak for Data deployment URL, e.g. <code>https://cp4d_server:31843</code>. </p></li>
