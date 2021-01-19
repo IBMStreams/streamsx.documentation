@@ -65,7 +65,7 @@ The SPSS scoring operator also supports dynamic model refresh using a second opt
 
 In the cloud environment, for security reasons, clients are not allowed to arbitrarily write files onto the file system.  Therefore, special techniques are required to send a new model PIM file to your Streams application:
 
-1.  **Use FileSink to write new file** – In this approach, submit a second job to use a Filesink operator to write the new PIM file.  See this for details:  [Use of FileSink to write output data](https://developer.ibm.com/streamsdev/docs/getting-spl-application-ready-cloud/)
+1.  **Use FileSink to write new file** – In this approach, submit a second job to use a Filesink operator to write the new PIM file.  See this for details:  [Use of FileSink to write output data](https://cloud.ibm.com/docs/StreamingAnalytics?topic=StreamingAnalytics-spl_cloud_ready)
    
 2.  **Use SPSS Publish Operator** – In this approach, use the SPSSPublish operator from the SPSS toolkit to publish a new PIM file.  See the next section for more details.
 
