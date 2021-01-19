@@ -35,16 +35,20 @@ Learn how to compile and deploy a Streams application. You can run your applicat
 
   What's an operator? What is a tuple? Follow the [SPL Quick Start](/streamsx.documentation/docs/spl/quick-start/qs-2/) to learn key Streams and SPL concepts.
 
+## 3. Learn how to monitor your applications
+  
+  [Learn about the tools for managing a running application](/streamsx.documentation/docs/spl/quick-start/qs-4).
 
 
-## 3. Start developing your own application
+
+## 4. Start developing your own application
 
   {: .simple }
-  - ### Tips for creating SPL applications from scratch
+  - #### Tips for creating SPL applications from scratch
 
-    Now that you have followed a sample and are a bit familiar with the IDE, review these [guidelines on how to create your own applications](/streamsx.documentation/docs/spl/quick-start/qs-4).
+    Now that you have followed a sample and are a bit familiar with the IDE, review these [guidelines on how to create your own applications](/streamsx.documentation/docs/spl/quick-start/qs-5).
 
-  - ### Hands-on tutorials
+  - #### Hands-on tutorials
 
     Step by step instructions to create a Streams application. Complete the tutorial for your IDE:
 
@@ -53,7 +57,7 @@ Learn how to compile and deploy a Streams application. You can run your applicat
     - [Streams Studio tutorial](/streamsx.documentation/docs/spl/lab).
 
 
-  - ### Finding sample code
+  - #### Finding sample code
 
     Once you are more comfortable with SPL development, where can you find sample code to create your own applications?
 
@@ -70,7 +74,7 @@ Learn how to compile and deploy a Streams application. You can run your applicat
     -   Visit **[the Streams page on IBM Community](https://ibm.biz/streams-community)** for articles and tutorials.
 
 
-## 4. Getting help
+## 5. Getting help
 
 - Visit the [Streams community](https://ibm.biz/streams-community).
 - Ask a question on the [Streams forums](https://www.ibm.com/mysupport/s/forumsproduct?language=en_US&name=Streams&id=0TO50000000IQN0GAO).

@@ -260,7 +260,7 @@ Keep these steps in mind for submitting applications for CPD when developing wit
 
 After launching the application in the Streams Console you can go to the Job Graph in CPD to view the running job. 
 
-To open the Job Graph, [follow the instructions on this page](/streamsx.documentation/docs/spl/quick-start/qs-5-cpd#open).
+To open the Job Graph, [follow the instructions on this page](/streamsx.documentation/docs/spl/quick-start/qs-4a-cpd#open).
 
 Once you have the Job Graph open, you will see the application graph.
 
@@ -284,11 +284,11 @@ A new pane will appear that shows the data in the stream produced by the `Quotes
 
 The application prints output to standard out. This output, errors and trace data are all sent to the logs.
 
-To download an operator's logs, follow the steps [on this page](/streamsx.documentation/docs/spl/quick-start/qs-5-cpd#logs).
+To download an operator's logs, follow the steps [on this page](/streamsx.documentation/docs/spl/quick-start/qs-4a-cpd#logs).
 
 #### More about Streams applications in Cloud Pak for Data
 
-See the [monitoring Streams applications with Cloud Pak for Data](/streamsx.documentation/docs/spl/quick-start/qs-5-cpd) page for more information.
+See the [monitoring Streams applications with Cloud Pak for Data](/streamsx.documentation/docs/spl/quick-start/qs-4a-cpd) page for more information.
 
 
 

@@ -9,9 +9,10 @@ navlevel: 2
 prev:
   file: qs-2
   title:  Overview of Streams Concepts
+
 next:
   file: qs-4
-  title:  Tips for creating a Streams application
+  title:  Monitoring Streams applications  
 ---
 
 <div class="btn-group faq-btn-group" role="group">
