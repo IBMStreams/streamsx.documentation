@@ -9,9 +9,10 @@ navlevel: 2
 prev:
   file: qs-2
   title:  Overview of Streams Concepts
+
 next:
   file: qs-4
-  title:  Tips for creating a Streams application
+  title:  Monitoring Streams applications  
 ---
 
 <div class="btn-group faq-btn-group" role="group">
@@ -25,8 +26,8 @@ next:
   {% include faq/question.html question="How do I import a project in Visual Studio Code or Streams Studio?" html="faq/answers/import_a_project.html" %}
   {% include faq/question.html question="How do I add a toolkit as a dependency?" html="faq/answers/add_toolkit_dependency.html" %}
   {% include faq/question.html question="How do I build (or compile) an application?" html="faq/answers/build_application.html" %}
+  {% include faq/question.html question="How do I open the Streams Console?" html="spl/console/open_streams_console.html" %}
   {% include faq/question.html question="How do I submit a <code>.sab</code> file?" html="faq/answers/submit_sab_file.html" %}
-  {% include faq/question.html question="How do I open the Streams Console?" html="faq/answers/open_streams_console.html" %}
 </div>
 
 ### Connectors

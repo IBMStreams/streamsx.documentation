@@ -132,12 +132,13 @@ If you want to process data from one of the following systems, you can use the c
 | MQTT | [streamsx.mqtt](https://streamsxmqtt.readthedocs.io/en/latest/)      |
 | S3 Object Storage (IBM Cloud Object Storage) | [streamsx.objectstorage](https://streamsxobjectstorage.readthedocs.io/en/latest)      |
 | HTTP servers | [streamsx.inet](https://streamsxinet.readthedocs.io/en/latest/)      |
+|              | [streamsx.service](https://streamsxtopology.readthedocs.io/en/stable/streamsx.service.html), Cloud Pak for Data 3.5+   |
 | JDBC Database  | [streamsx.database](https://streamsxdatabase.readthedocs.io/en/latest/)      |
 
 
 **Note:**
 
-These packages are not part of the streamsx package and must be installed using `pip`.
+With the exception of the streamsx.service module, these packages are not part of the streamsx package and must be installed using `pip`.
 Also, the list above does not include adapters that only support writing *to* the external system or other general utilities. See [the IBM Streams page on PyPi](https://pypi.org/user/ibmstreams/) for the most up to date list of available packages.
 
 ## Creating your own source function/callable
@@ -657,29 +658,11 @@ tuple3
 ## Viewing the contents of a `Stream`
 
 
-You may have already used `Stream.print()` to see the data on a given `Stream`.
+You may have already used `Stream.print()` to see the data on a given `Stream`.  A more practical way to do so is to use a [`View`](https://www.ibm.com/support/knowledgecenter/SSCRJU_4.3.0/com.ibm.streams.welcome.doc/doc/ibminfospherestreams-adminconsole-applications-visualizing-terminology.html).
 
-A more practical way to do so is to use a [`View`](https://streamsxtopology.readthedocs.io/en/stable/streamsx.topology.topology.html#streamsx.topology.topology.View).
-A `View` is a connection to a particular `Stream` in a running 
-application.  `Views` provide a continuous sample of the data in a `Stream`.
+{% include spl/views_overview.md %}
 
-Use the `View` object you create to fetch data from the Stream once teh application is running.
-
-You can also use the Streams Console or the Job Graph in IBM Cloud Pak for Data to inspect the data from the `Stream`.
-
-<h3 id="quickfactsaboutviews">Quick facts about views</h3>
-
-<ul>
-<li>Views provide a <em>sample</em> of the data on a Stream, and not all the tuples on the <code>Stream</code>.</li>
-
-<li>Create all Views before you submit the application <code>Topology</code>.</li>
-
-<li>Use a `View` to fetch data from a `Stream` only while the application is running.</li>
-
-<li>The data retrieved by the View is read-only, so you cannot use a `View` to change the tuples on a <code>Stream</code>.</li>
-</ul>
-
-
+**Limitation**: Once the application is running, you cannot add a view on any Streams that do not use a Structured Schema.
 
 ### Creating a `View` 
 
@@ -695,7 +678,9 @@ source_view = input_stream.view(name="Input", description="Sample of tuples in t
 
 ### How to use a `View` 
 
-Once the application is running, use the `View` object you created to access the data on the `Stream`.
+To simply view or observe the data in a View, you can use [the Streams Console](/streamsx.documentation/docs/spl/quick-start/qs-4b-console/) or [the Job Graph in Cloud Pak for Data](/streamsx.documentation/docs/spl/quick-start/qs-4a-cpd/). 
+
+You can also programmatically access the data in a View once the application is running using the `View` object you created.
 
 1. The `View` stores the data it retrieves from the `Stream` on a `Queue`. Create this queue using `view.start_data_fetch`:
 

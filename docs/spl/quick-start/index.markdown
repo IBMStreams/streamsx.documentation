@@ -5,7 +5,7 @@ description:
 weight: 45
 published: true
 next:
-  file: quick-start/qs-0
+  file: qs-0
   title: IBM Streams Quick Start
 ---
 

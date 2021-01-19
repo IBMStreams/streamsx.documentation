@@ -27,19 +27,10 @@ Follow the steps in the previous section to [install the Python API and set up y
 ### Download this tutorial
   - **As a notebook:**
 
-    If you have IBM Watson Studio, IBM Cloud Pak for Data, or Jupyter notebooks installed, this tutorial is available as a notebook. 
+    If you have Cloud Pak for Data as a Service (CPDaaS), IBM Cloud Pak for Data, or Jupyter notebooks installed, this tutorial is available as a notebook. 
     Click the link below, and then click **Save Page** in your browser to save the notebook.
       <form action="https://raw.githubusercontent.com/IBMStreams/sample.starter_notebooks/latest/Streams-RollingAverageSample.ipynb" target="_blank">
           <input type="submit" value="Download this tutorial as a notebook">
-      </form>
-
- - **As a Python file:**
-
-   To get the latest version of this tutorial as a Python (`.py`) file, open the  the notebook in Jupyter Notebook Viewer, click **View as code**, then click **Save Page** in your browser.
-   ![save notebook](/streamsx.documentation/images/python/save_nb.png)
-   
-   <form action="https://nbviewer.jupyter.org/github/IBMStreams/sample.starter_notebooks/blob/latest/Streams-RollingAverageSample.ipynb" target="_blank">
-          <input type="submit" value="Download this tutorial as a Python file">
       </form>
 
 
@@ -93,32 +84,45 @@ All Streams applications start with  a `Topology` object, so start by creating o
 ~~~~python
 from streamsx.topology.topology import Topology
 
-topo = Topology(name="SensorAverages")
+topo = Topology(name="SensorAverages", namespace="sample")
 ~~~~
 
 ## 2.1 Define  sources
 
 Your application needs some data to analyze, so the first step is to define a data source that produces the data to be analyzed. 
 
-Next, use the data source to create a `Stream` object. A `Stream` is a potentially infinite sequence of tuples containing the data to be analyzed.
+Next, use the data source to create a `Stream` object. A `Stream` is a potentially infinite sequence of **tuples** containing the data to be analyzed.
 
-Tuples are Python objects by default. Other supported formats include JSON. [See the doc for all supported formats](https://streamsxtopology.readthedocs.io/en/stable/streamsx.topology.topology.html#stream).
+A tuple can be any Python object.  However, it is recommended to use [NamedTuples](https://docs.python.org/3.6/library/typing.html?highlight=typing#typing.NamedTuple) to describe a tuple's attributes. 
+
+[See the doc for all supported formats](https://streamsxtopology.readthedocs.io/en/stable/streamsx.topology.topology.html#stream).
+
 
 ### 2.1.1 Define a source class
 
-Define a callable class that will produce the data to be analyzed.
+The following cell defines the schema for the data to be analyzed, and a callable class that will produce the data.
 
-This example class simulates readings from sensors.
-
+This example class called `SensorReadingSource` generates a `Stream` of readings from sensors. Each tuple on the `Stream` is an instance of the `SensorReading` class.
 
 ~~~~python
 import random 
 import time
 from datetime import datetime, timedelta
 
+from typing import Iterable, NamedTuple
+
+## Define the schema of the tuples
+# each tuple will have a value, sensor id and timestamp
+class SensorReading(NamedTuple):
+    sensor_id: str
+    value: float
+    ts: int
+        
 # Define a callable source 
 class SensorReadingsSource(object):
-    def __call__(self):
+    # function that generates the data
+    # notice the type hint is an Iterable of the schema
+    def __call__(self) -> Iterable[SensorReading]:
         # This is just an example of using generated data, 
         # Here you could connect to db
         # generate data
@@ -126,12 +130,11 @@ class SensorReadingsSource(object):
         # open file
         while True:
             time.sleep(0.001)
-            sensor_id = random.randint(1,100)
-            reading = {}
-            reading ["sensor_id"] = "sensor_" + str(sensor_id)
-            reading ["value"] =  random.random() * 3000
-            reading["ts"] = int((datetime.now().timestamp())) 
-            yield reading 
+            random_id = random.randint(1,100)
+            sensor_id = "sensor_" + str(random_id)
+            value =  random.random() * 3000
+            ts = int((datetime.now().timestamp())) 
+            yield SensorReading(sensor_id, value, ts) 
 ~~~~
 
 ### 2.1.2  Create a source `Stream`
@@ -172,11 +175,11 @@ Use `Stream.filter()` to remove data that doesn't match a certain condition.
 ~~~~python
 # Accept only values greater than 100
 
-valid_readings = readings.filter(lambda x : x["value"] > 100,
+valid_readings = readings.filter(lambda x : x.value > 100,
                                  name="ValidReadings")
 
 # You could create another stream of the invalid data:
-# invalid_readings = readings.filter(lambda x : x["value"] <= 100,)
+# invalid_readings = readings.filter(lambda x : x.value <= 100)
 ~~~~
 
 ### 2.2.2  Compute averages on the  `Stream`  
@@ -190,9 +193,17 @@ See the numbered steps in the code below.
 ~~~~python
 import pandas as pd
 
-# 1. Define aggregation function
+# 1. Define schema of aggregation result
+
+class AverageReadings(NamedTuple):
+    average: float
+    sensor_id: str
+    period_end: str
     
-def average_reading(items_in_window):
+# 2. Define aggregation function, note type hint
+# this function returns a list of averages
+# one for each sensor
+def average_reading(items_in_window) -> Iterable[AverageReadings]:
     df = pd.DataFrame(items_in_window)
     readings_by_id = df.groupby("sensor_id")
     
@@ -201,13 +212,11 @@ def average_reading(items_in_window):
 
     result = []
     for id, avg in averages.iteritems():
-        result.append({"average": avg,
-                "sensor_id": id,
-                "period_end": time.ctime(period_end)})
+        result.append(AverageReadings(avg, id, time.ctime(period_end)))
                
     return result
 
-# 2. Define window: e.g. a 30 second rolling average, updated every second
+# 3. Define window: e.g. a 30 second rolling average, updated every second
 
 interval = timedelta(seconds=30)
 window = valid_readings.last(size=interval).trigger(when=timedelta(seconds=1))
@@ -217,7 +226,6 @@ window = valid_readings.last(size=interval).trigger(when=timedelta(seconds=1))
 # average_reading returns a list of the averages for each sensor,
 # use flat map to convert it to individual tuples, one per sensor
 rolling_average = window.aggregate(average_reading).flat_map()
-
 ~~~~
 
 <div class="alert alert-success" role="alert"><br/>
@@ -230,35 +238,44 @@ See the [Window class documentation]()  for details.
 </div>
 
 
+
 ### 2.2.3 Enrich the data on the `Stream`
 
-Each tuple on the `rolling_average Stream` has the following format: 
+Each tuple on the `rolling_average Stream` will have the following format: 
 
 `{'average': 1655.1009278955999, 'sensor_id': 'sensor_17', 'period_end': 'Tue Nov 19 22:07:02 2019'}
-`. (See the average_reading function above).
+`. (See the `average_reading` function above).
 
 Imagine that you want to add the geographical coordinates of the sensor to each tuple. This information might come from a different data source, such as a database.
 
-Use `Stream.map()`. The `map` transfrom uses a function you provide to convert each tuple on the `Stream` into a new tuple.
+Use `Stream.map()`. The `map` transform uses a function you provide to convert each tuple on the `Stream` into a new tuple.
 
-In our case, for each tuple on the `rolling_average Stream`,  we will update it to include the geographical coordinates of the sensor.
+In our case, for each tuple on the `rolling_average Stream`,  we will update it to include the geographical coordinates of the sensor. The tuples produced by the `enrich` function will have a new schema, `AverageWithLocation`, which extends the `AverageReadings` schema.
+
 
 ~~~~python 
 
-# Modify this tuple with the coordinates of the sensor
-# Returns the original tuple with a new `coords` attribute
-# representing the latitude and longitude of the sensor
-def enrich(tpl):
-    # use simulated data, but you could make a database call, 
-    lat = round(random.random() + 39.8338515, 4)
-    lon = round(-74.871826 + random.random(), 4)
-    # update the tuple with new data
 
-    tpl["coords"] = (lat, lon)
-    return tpl
+class AverageWithLocation(NamedTuple):
+    average: float
+    sensor_id: str
+    period_end: str
+    latitude: float
+    longitude: float
+
+# Modify this tuple with the coordinates of the sensor
+# Returns the original tuple with a new coords attribute
+# representing the latitude and longitude of the sensor
+def enrich(tpl) -> AverageWithLocation:
+    # use simulated data, but you could make a database call, 
+    latitude = round(random.random() + 39.8338515, 4)
+    longitude = round(-74.871826 + random.random(), 4)
+    # update the tuple with new data
+    enriched_tpl = AverageWithLocation(*tpl, latitude, longitude)
+    return enriched_tpl
 
 # Update the data on the rolling_average stream with the map transform
-enriched_average = rolling_average.map(enrich)
+enriched_average = rolling_average.map(enrich, schema=AverageWithLocation)
 
 ~~~~
 
@@ -283,13 +300,21 @@ You can <a href="/streamsx.documentation/docs/python/1.6/python-appapi-devguide-
 
 # 2.4 Define output
 
-You could also enable a microservices based architecture by publishing the results so that other Streams applications can connect to it.
+# 2.4 Define output
 
-Use `Stream.publish()` to make the `enriched_average Stream` available to other applications. 
+You have several options for defining the output of your Streams application. 
 
-To send the stream to another database or system, use a sink function (similar to the source function) and invoke it using `Stream.for_each`.
+You could:
 
+ - Print the contents of a `Stream` to the application logs.
+ - Enable a microservices based architecture by publishing the contents of a `Stream`. Other Streams applications can connect to the published `Stream`.
+ - Send the stream to another database or system.
+ - Create a REST service for the Streams application that will make data available via HTTP requests. *(Cloud Pak for Data 3.5+ only)*.
 
+This sample will:
+
+- Use `Stream.publish()` to make the `enriched_average Stream` available to other applications
+- Create a REST endpoint.
 
 
 ~~~~python
@@ -298,11 +323,40 @@ import json
 enriched_average.publish(topic="AverageReadings",
                         schema=json, 
                         name="PublishAverage")
-
 # Other options include:
 # invoke another sink function:
-# enriched_average.for_each(func=send_to_db)
+# rolling_average.for_each(func=send_to_db)
+# print the data: enriched_average.print()
 ~~~~
+
+
+<a name="rest"></a>
+
+##  2.5 (Optional)  Create a REST service to access the data 
+
+*Skip this step if you are not using Cloud Pak for Data 3.5 or newer*.
+
+In Cloud Pak for Data (CPD) version 3.5+, you can [add a REST endpoint to a Streams application](https://ibm.biz/streams-job-service) so that you can connect to it to retrieve tuples from a `Stream`. 
+
+
+How does it work?
+- First, use `Stream.for_each` to send every tuple on the target `Stream` to an instance of the `EndpointSink` class.
+- The [`EndpointSink`](https://streamsxtopology.readthedocs.io/en/stable/streamsx.service.html#streamsx.service.EndpointSink) class creates a new service in the Cloud Pak for Data instance.
+-  When the service receives a HTTP `GET` request, it will respond with the tuples on the `Stream`.
+
+To do so,  comment out the following code and run it if you are using CPD 3.5 or newer.
+
+~~~~ python
+
+#from streamsx.service import EndpointSink
+
+# send each tuple on the enriched_average stream to the EndpointSink operator
+# this operator will create a REST endpoint that you can use to access the data from the stream. 
+# enriched_average.for_each(EndpointSink(), name="REST Service")
+
+~~~~
+
+
 
 
 # 3. Submit the application
@@ -343,16 +397,19 @@ finally:
 If you are using a notebook, the application should have been submitted when you ran step 3. Otherwise, if you are using the Python interpreter, running the above code should produce output like this:
 ~~~~
 JobId:  7 
-Job name:  notebook::SensorAverages_7
-{'average': 1503.8703753120099, 'sensor_id': 'sensor_1', 'period_end': 'Thu Nov 21 22:22:41 2019', 'coords': [40.7013, -74.2747]}
-{'average': 1430.7707245569663, 'sensor_id': 'sensor_10', 'period_end': 'Thu Nov 21 22:22:41 2019', 'coords': [40.7474, -74.0083]}
-{'average': 1574.5588234099662, 'sensor_id': 'sensor_100', 'period_end': 'Thu Nov 21 22:22:41 2019', 'coords': [40.6807, -74.3725]}
-{'average': 1457.2224636625913, 'sensor_id': 'sensor_11', 'period_end': 'Thu Nov 21 22:22:41 2019', 'coords': [40.2518, -74.6188]}
-{'average': 1651.968830163488, 'sensor_id': 'sensor_12', 'period_end': 'Thu Nov 21 22:22:41 2019', 'coords': [40.2845, -74.6882]}
+Job name:  sample::SensorAverages_7
+{'average': 1623.4117399203453, 'latitude': 40.1713, 'longitude': -73.9916, 'period_end': 'Mon Jan 18 21:58:13 2021', 'sensor_id': 'sensor_1'}
+{'average': 1524.975990123786, 'latitude': 40.8136, 'longitude': -74.0563, 'period_end': 'Mon Jan 18 21:58:13 2021', 'sensor_id': 'sensor_10'}
+{'average': 1490.6267900345765, 'latitude': 40.6964, 'longitude': -74.4742, 'period_end': 'Mon Jan 18 21:58:13 2021', 'sensor_id': 'sensor_100'}
+{'average': 1572.332897576422, 'latitude': 40.256, 'longitude': -74.7667, 'period_end': 'Mon Jan 18 21:58:13 2021', 'sensor_id': 'sensor_11'}
+{'average': 1578.6578550390263, 'latitude': 40.5148, 'longitude': -74.4141, 'period_end': 'Mon Jan 18 21:58:13 2021', 'sensor_id': 'sensor_12'}
+{'average': 1574.873196796899, 'latitude': 40.3255, 'longitude': -74.0681, 'period_end': 'Mon Jan 18 21:58:13 2021', 'sensor_id': 'sensor_13'}
+{'average': 1588.6722650277177, 'latitude': 40.6826, 'longitude': -74.1985, 'period_end': 'Mon Jan 18 21:58:13 2021', 'sensor_id': 'sensor_14'}
 ~~~~
 
 
 ## 4.1 (Optional) Display the results in real time
+
 **Note: This code only works in a notebook that has [ipywidgets](https://ipywidgets.readthedocs.io/en/latest/) enabled.**
 
 Calling `View.display()` from the notebook displays the results of the view in a table that is updated in real-time.
@@ -365,7 +422,16 @@ averages_view.display(duration=30)
 
 ## 4.2 See job status 
 
-{% include monitor_jobs.html %}
+  {% include monitor_jobs.html %}
+
+
+## 4.3 (Optional) Access the streaming data via REST 
+ 
+
+If you enabled the REST service in [section 2.5](#rest), you will now have a service in your Cloud Pak for Data instance that you can use to retrieve the data from the application. 
+
+You will need the job id, which was [printed in section 3](#launch) when you submitted the job and the name of the deployment space for your Cloud Pak for Data instance. 
+Follow these steps to [find the endpoint and use it](https://community.ibm.com/community/user/cloudpakfordata/communities/community-home/all-news/viewdocument?DocumentKey=7fcd0b55-86fa-4e23-a804-808d3416f902&Step=1&CommunityKey=d55fdf2f-0d75-46ed-8459-afaaa00fc067&ReturnUrl=#find).
 
 # 5. Cancel the job
 
@@ -377,22 +443,17 @@ if submission_result.job.cancel():
   print("Successfully cancelled the job")
 
 ~~~~
-Otherwise, cancel the job from Streams Console or the Job graph.
+Otherwise, cancel the job from Streams Console or the Job Graph.
 
 #### Cancel the job from the Streams Console:
 
-- Click the Cancel Job button in the toolbar.
-- Select the job 
-- Click **Cancel**
+- Click the **Cancel Job** button in the toolbar.
+- Select the job.
+- Click **Cancel**.
 
 #### Cancel the job from the Job Graph:
 
-<ol>
-<li>From the main menu, go to <b>My Instances &gt; Jobs</b>. </li>
-<li>Find your job based on the <code>JobId</code> printed when you submitted the topology.</li>
-<li>Select <b>Delete</b> from the context menu action for the running job.</li>
-</ol>
-
+With the Job Graph open, right click anywhere and select <b>Delete job</b>. </li>
 
 # Summary
 
@@ -406,4 +467,5 @@ After submitting the application to the Streams service, we used the `enriched_a
 # Next Steps
 
 - **Find more samples**: There are several sample notebooks available in the [starter notebooks repository on GitHub](https://github.com/IBMStreams/sample.starter_notebooks). Visit the repository for examples of how to connect to common data sources, including Apache Kafka, IBM, and Db2 Warehouse. 
+
 - Learn more about how to use the API from the [common Streams transforms](/streamsx.documentation/docs/python/1.6/python-appapi-devguide-4/) section.

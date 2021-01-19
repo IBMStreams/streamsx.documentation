@@ -119,5 +119,6 @@ If you have used Streams Studio, the following list summarizes some important th
 
 - **Application Monitoring:** 
 
+You can monitor 
 
 {% include monitor_jobs.html %}

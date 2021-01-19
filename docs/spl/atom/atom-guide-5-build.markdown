@@ -62,36 +62,15 @@ _Submitting the job_ means launching the application on the Streams instance in 
 Click **Submit** and the application is be launched for you. You can also use the **Submit via Console** option if you need to configure your application before submitting. The **Submit via Console** option is discussed later on.
 
 
-### See job status
+## Monitoring jobs
+  {% include monitor_jobs.html %}
 
-You interact with a running job through the Streams Console.  If you have IBM Cloud Pak for Data, you can also use the Job Graph. 
-
-Both tools allow you to view job logs and observe metrics such as throughput or resource utilization.  You can open the Job Graph or Streams Console from Atom.
-
-![open console or job graph](/streamsx.documentation/images/atom/jpg/open_console.jpg)
-
-As shown above, to **open the Streams Console**, select any `.sab`. or `.spl` file, right-click, and select **IBM Streams > Open IBM Streams Console**.
-
-To **open the Job Graph in Cloud Pak for Data**:
-  - Open the IBM Cloud Pak for Data dashboard: Select any `.sab`. or `.spl` file, right-click, and select **IBM Streams > Open IBM Cloud Pak for Data dashboard**.
-  - Log in to IBM Cloud Pak for Data. Then from the main menu, go to  **My Instances > Jobs**.  This will bring you to the list of jobs.
-
-<details>
-<summary> Job Graph overview </summary>
-{% include job_graph.html %}
-</details>
-
-
-<details>
-<summary>Streams Console overview </summary>
-{% include streams_console.html %}
-</details>
-****
 
 #### View the output of the BusAlerts application
 
 Whenever a bus is near a POI, the `BusAlerts` application just prints the alert that should be sent to the bus.
-Follow the instructions above for the Job Graph or Streams Console to view or download the logs for the `BusAlerts` application.
+
+To view or download the logs for the `BusAlerts` application, see the instructions for the Job Graph or [Streams Console](/streamsx.documentation/docs/spl/quick-start/qs-4b-console/#logs).
 
 You should see output like this: 
 

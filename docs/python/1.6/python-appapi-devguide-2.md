@@ -18,9 +18,7 @@ next:
 These are the basic requirements to create Streams applications with Python:
 
 1. [Set up a Streams instance](#streams)
-2. Set up your development environment:
-  - [Install a supported version of Python](#python)
-  - [Install the `streamsx` package](#streamsx)
+2. Set up your development environment(#setup)
 3. [Set up a connection to the Streams instance](#connect)
 
 ### Set up a Streams instance
@@ -29,46 +27,30 @@ These are the basic requirements to create Streams applications with Python:
 The Python API is used to create a **Topology**, or application that is executed by the Streams runtime.
 The Streams runtime can be in the public or private cloud or installed locally.
 
-Choose the tab that matches where your Streams instance is installed and follow the steps to install and/or configure the Streams instance.
+Choose the option that matches your desired Streams runtime, and follow the steps to install and/or configure the Streams instance.
 
 
-<ul class="nav nav-tabs">
-  <li class="active"><a data-toggle="tab" href="#sas"><b>Streaming Analytics service</b></a></li>
-  <li><a data-toggle="tab" href="#cpd"><b>IBM Cloud Pak for Data</b></a></li>
-   <li><a data-toggle="tab" href="#local"><b>Local installation</b></a></li>
-</ul>
-
-<div class="tab-content">
-
-<div id="sas" class="tab-pane fade in active">
-<!--- STREAMING ANALYTICS SERVICE ---->
-{% include sas_install.html%}
 
 
-</div>
 
-  <div id="cpd" class="tab-pane fade">
-<!--- Cloud pak for data ---->
-
-{% include cpd_install.html%}
-
- </div>
-
-<div id="local" class="tab-pane fade">
-{% include local_install.html%}
- </div>
-
-
- </div>
+{% include python/install/install_overview.html%}
 
 <br/><br/>
-**Note**: You must install Streams on your computer (local installation) if your applications are a mix of Python and SPL (Streams Processing Language) code.
+**Note**: If your applications are a mix of Python and SPL (Streams Processing Language) code, a local installation of Streams is required.
 
+<a id="setup"></a>
 
 ## Set up your development environment
 
+To get your development environment ready:
 
-### Install a supported version of Python
+1. Install Python on your local development environment. <b>The version of Python you install must be supported by the Streams instance.</b> 
+2. Install the `streamsx` Python package.
+3. Install a Java 1.8 JRE, if you do not already have one. 
+
+See the following sections for more information on these steps.
+
+### Install a supported version of Python 
 <a id="python"></a>
 Make sure you have the right version of Python for your Streams instance:
 
@@ -90,24 +72,23 @@ Make sure you have the right version of Python for your Streams instance:
           pip install --upgrade streamsx
 2. Set the `JAVA_HOME` environment variable to a Java 1.8 JRE or JDK/SDK.
 
-**Note:** For the most up to date instructions regarding installation, including when a local installation of Streams is required, see the
+**For the most complete instructions regarding installation**, including when a local installation of Streams is required, see the
  [developer setup page of the streamsx project documentation](https://streamsxtopology.readthedocs.io/en/stable/pysetup.html).
 
 <a id="connect"></a>
 
 ## Set up a connection to the Streams instance
 
-A Python `Topology` must always be compiled and run on a Streams instance. 
+A Streams Python application, or `Topology`, must always be compiled and run on a Streams instance. 
 
-You must programmatically submit the `Topology` to the Streams instance to be compiled and run using the [`streamsx.topology.context.submit` function](https://streamsxtopology.readthedocs.io/en/stable/streamsx.topology.context.html#streamsx.topology.context.run).
+After defining the application, **you programmatically submit the `Topology` to the Streams instance** to be compiled and run using the [`streamsx.topology.context.submit` function](https://streamsxtopology.readthedocs.io/en/stable/streamsx.topology.context.html#streamsx.topology.context.run).
 
-Below is a helper function called `submit_topology` that you can use when you are ready to submit your `Topology`.  So copy it now and add it to your Python script or as a cell in your notebook.
+Below is sample code that you can use to connect to the Streams instance and submit your `Topology`.  So copy it now and add it to your Python script or as a cell in your notebook.
+
+You will see an example of how this sample code is used later in this tutorial.
 
 
-
-
-{% include submit_overview.html%}
-
+{% include python/config/submit_overview.html%}
 
 
 # Create your first application

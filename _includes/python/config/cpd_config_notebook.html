@@ -1,0 +1,38 @@
+<h4> Submit an application from a notebook in Cloud Pak for Data</h4>
+
+<br/>
+In this context you need to provide the name of the Streams instance.
+<br/>
+To find your Streams instance name:
+<ol>
+    <li>From the navigation menu, click <strong>Services > Instances</strong>.</li>
+    <li>Select the Streams instance you want to use, and set the value of <code>STREAMS_INSTANCE_ID</code> where indicated in the code.</li>
+</ol></li>
+
+<strong>Copy this code snippet:</strong>
+
+{% highlight python %}
+
+from icpd_core import icpd_util
+from streamsx.topology import context
+
+
+def submit_topology(topo):
+    streams_instance_name = "sample-streams" ## Change this to Streams instance
+
+    try:
+        cfg=icpd_util.get_service_instance_details(name=streams_instance_name, instance_type="streams")
+    except TypeError:
+        cfg=icpd_util.get_service_instance_details(name=streams_instance_name)
+
+    # Set the deployment space, CPD 3.5+ only
+    # cfg[context.ConfigParams.SPACE_NAME] = "myspacename"  
+    
+    # Disable SSL certificate verification if necessary
+    
+    cfg[context.ConfigParams.SSL_VERIFY] = False   
+    # Topology wil be deployed as a distributed app
+    contextType = context.ContextTypes.DISTRIBUTED
+    return context.submit (contextType, topo, config = cfg)
+
+{% endhighlight %}
