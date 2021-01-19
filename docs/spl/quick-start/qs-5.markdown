@@ -164,4 +164,4 @@ Sometimes you have to generate data to test your application.
     download zip to download the sample that you can import into Streams
     Studio or VSCode.
 
--  Search the [Streams Community](https://ibm.biz/streams-community) for articles and tutorials, search there.
+-  Search the [Streams Community](https://ibm.biz/streams-community) for articles and tutorials.
