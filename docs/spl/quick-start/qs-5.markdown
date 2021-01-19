@@ -162,6 +162,6 @@ Sometimes you have to generate data to test your application.
 
 -   You can also search the [Streams Samples catalog](https://ibmstreams.github.io/samples) for examples. Click
     download zip to download the sample that you can import into Streams
-    Studio, Atom or VSCode.
+    Studio or VSCode.
 
--   [Streamsdev](https://developer.ibm.com/streamsdev) also has articles and tutorials, search there.
+-  Search the [Streams Community](https://ibm.biz/streams-community) for articles and tutorials, search there.
