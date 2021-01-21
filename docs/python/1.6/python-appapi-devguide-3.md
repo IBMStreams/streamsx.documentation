@@ -300,8 +300,6 @@ You can <a href="/streamsx.documentation/docs/python/1.6/python-appapi-devguide-
 
 # 2.4 Define output
 
-# 2.4 Define output
-
 You have several options for defining the output of your Streams application. 
 
 You could:
@@ -344,15 +342,15 @@ How does it work?
 - The [`EndpointSink`](https://streamsxtopology.readthedocs.io/en/stable/streamsx.service.html#streamsx.service.EndpointSink) class creates a new service in the Cloud Pak for Data instance.
 -  When the service receives a HTTP `GET` request, it will respond with the tuples on the `Stream`.
 
-To do so,  comment out the following code and run it if you are using CPD 3.5 or newer.
+Run the following code if you are using CPD 3.5 or newer.
 
 ~~~~ python
 
-#from streamsx.service import EndpointSink
+from streamsx.service import EndpointSink
 
 # send each tuple on the enriched_average stream to the EndpointSink operator
 # this operator will create a REST endpoint that you can use to access the data from the stream. 
-# enriched_average.for_each(EndpointSink(), name="REST Service")
+enriched_average.for_each(EndpointSink(), name="REST Service")
 
 ~~~~
 
