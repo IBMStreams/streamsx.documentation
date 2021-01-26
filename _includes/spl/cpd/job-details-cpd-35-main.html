@@ -1,6 +1,29 @@
 <p>A running Streams job corresponds to a <em>job run</em> in Cloud Pak for Data. </p>
+<h3>1. Open the job details page</h3>
 <p>To download logs from a Streams job in Cloud Pak for Data (CPD) 3.5+, you must first find the job run in CPD. The steps to find the job run depend on how the job was submitted.</p>
-<p><strong>If the Streams job was launched from a Python notebook in a CPD project:</strong></p>
+
+<details class="details-styled">
+    <summary>Jobs launched from a notebook in a CPD project:</summary>
 <p>{% include spl/cpd/cpd35-job-details-notebook.html %}</p>
-<p><strong>All other scenarios:</strong></p>
-<p>{% include spl/cpd/cpd35-job-details.html %}</p>
+</details>
+<details class="details-styled">
+
+<summary>All other scenarios:</summary>
+{% include spl/cpd/cpd35-job-details.html %}
+</details>
+<h3>2. Job details: logs and the Job Graph </h3>
+
+    <p>Once you have opened the job details page, you can see job related information and open the job graph.</p>
+    <ul>
+        <li>
+            <p>To open the Job Graph, click the <strong>Streams job graph</strong> link.</p>
+        </li>
+        <li>
+            <p>To download logs, click the <strong>Logs</strong> tab to create a log snapshot and download it.
+                
+            </p>
+            
+        </li>
+    </ul>
+    <br/>
+    <img alt="job details page" src="/streamsx.documentation/images/qse/job-details.png" width="100%" height="100%"/>
