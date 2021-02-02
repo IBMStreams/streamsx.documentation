@@ -15,6 +15,15 @@ Use the Java API to create complete Streams applications using only Java.
 
 You can create an operator with Java and then invoke it from an SPL composite.
 
+**With Microsoft Visual Studio Code (VS Code) and Streams v5.x**:
+
+  1. Follow the Quick Start Guide to [install and configure the VS Code extension for Streams](https://ibmstreams.github.io/vscode-ide/docs/quick-start-guide/)
+
+  2. Learn how to create Java operators with the [Java Development Guide](https://ibmstreams.github.io/vscode-ide/docs/java-primitive-operator-guide/)
+
+
+**With Streams Studio**: 
+
   -  Learn how by following the  [Java Operator Development Guide](/streamsx.documentation/docs/java/java-op-dev-guide).
  
   -  How to [debug a Java operator with Eclipse](/streamsx.documentation/docs/java/java-op-dev-pd)
