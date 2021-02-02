@@ -40,6 +40,16 @@ This tutorial demonstrates creating a Streams Python application to perform some
 
 The application simulates a data hub that receives readings from sensors. It computes the 30 second rolling average of the reported readings using [Pandas](https://pandas.pydata.org/).  
 
+
+### Video walkthrough
+
+If you are not ready to run the tutorial, this video is a walkthrough of creating and running the application in IBM Cloud Pak for Data 3.5.
+
+<div class="modal-body">
+<iframe width="560" height="315" src="https://www.youtube.com/embed/MCtCWwC_NoI" frameborder="0" allowfullscreen></iframe>
+</div>
+
+
 ## Streams Python application basics
 A Streams Python application processes a continuous and potentially infinite stream of data. The data is processed in memory and is not stored in a database first.
 A Streams application is a directed flow graph of data called a `Topology`.  Data is ingested and then processed using *transforms*, which are either built-in or user-defined functions.
