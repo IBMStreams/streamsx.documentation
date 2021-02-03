@@ -109,11 +109,7 @@ Streams Console is the web-based administration console for monitoring and manag
 
 <img src="/streamsx.documentation/images/qse/Application-Dashboard-4.1.png" alt="Streams Console" style="width: 60%;"/>
 
-To familiarize yourself with Streams Console, see this video:
-
-<button class="btn btn-primary btn-md" data-toggle="modal" data-target="#streamsConsole">
-Video:  Streams Console
-</button>
+To familiarize yourself with Streams Console, [see this page](/streamsx.documentation/docs/spl/quick-start/qs-4b-console/).
 
 <a id="extend"></a>
 
