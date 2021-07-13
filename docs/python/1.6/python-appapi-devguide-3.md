@@ -46,7 +46,7 @@ The application simulates a data hub that receives readings from sensors. It com
 If you are not ready to run the tutorial, this video is a walkthrough of creating and running the application in IBM Cloud Pak for Data 3.5.
 
 <div class="modal-body">
-<iframe width="560" height="315" src="https://www.youtube.com/embed/MCtCWwC_NoI" frameborder="0" allowfullscreen></iframe>
+<iframe width="480" height="270" src="https://www.ustream.tv/embed/recorded/129286521" scrolling="no" allowfullscreen webkitallowfullscreen frameborder="0" style="border: 0 none transparent;"></iframe>
 </div>
 
 
