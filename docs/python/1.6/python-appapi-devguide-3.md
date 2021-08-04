@@ -242,9 +242,8 @@ rolling_average = window.aggregate(average_reading).flat_map()
 A <code>Window</code> is a subset of the potentially infinite data on a <code>Stream</code>. When you use a <code>Window</code> to process a subset of  your data, the data is not stored on disk or in a database, but is processed in memory.
 
 
-<ul><li><a href="/streamsx.documentation/docs/python/1.6/python-appapi-devguide-4/#windows">Learn more about Windows</a></li><li><a href="(https://streamsxtopology.readthedocs.io/en/stable/streamsx.topology.topology.html#streamsx.topology.topology.Window">Window class documentation</a></li></ul>
-Learn more about windowing
-See the [Window class documentation]()  for details.
+<ul><li><a href="/streamsx.documentation/docs/python/1.6/python-appapi-devguide-4/#windows">Learn more about Windows</a></li><li><a href="https://streamsxtopology.readthedocs.io/en/stable/streamsx.topology.topology.html#streamsx.topology.topology.Window">Window class documentation</a></li></ul>
+
 </div>
 
 
