@@ -47,7 +47,7 @@ This section will discuss how to use the most common functions and transforms in
 
 # Key concepts
 
-Streams applications is a directed graph that always starts with a source [`Stream`](https://streamsxtopology.readthedocs.io/en/stable/streamsx.topology.topology.html#streamsx.topology.topology.Stream). This `Stream` is processed and analyzed using various transforms, ultimately getting sent to a data sink such as a database or file. You might remember the following animation from the previous section:
+A Streams application is a directed graph that always starts with a source [`Stream`](https://streamsxtopology.readthedocs.io/en/stable/streamsx.topology.topology.html#streamsx.topology.topology.Stream). This `Stream` is processed and analyzed using various transforms, ultimately getting sent to a data sink such as a database or file. You might remember the following animation from the previous section:
 
 ![streams graph animation](/streamsx.documentation/images/python/streams-graph.gif)
 
