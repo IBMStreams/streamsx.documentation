@@ -93,7 +93,7 @@ Find detailed information about [processing Streams of data in the documentation
 ### A note about execution
 The Python API is used to _create_ an application that can be executed on the Streams runtime.  Thus, callables such as the `get_readings` function are not invoked until the created application is executed on the Streams runtime.
 
-It is especially important to remember this if the Python sapplication is created on a different host than the host where it will be executed, that is, where Streams is installed. For example, if the `get_readings` function opens a file, that file must actually exist on the host where Streams is running. See [Working with files](#files) for an example of using local files.
+It is especially important to remember this if the Python application is created on a different host than the host where it will be executed, that is, where Streams is installed. For example, if the `get_readings` function opens a file, that file must actually exist on the host where Streams is running. See [Working with files](#files) for an example of using local files.
 
 
 <a id="source"></a>
@@ -738,7 +738,6 @@ We create 2 Views, one for the input and one for the result `Stream`.
 Once the applicaton is running, use the `View` to fetch data from the `Stream`:
 
 ~~~python
-
 try:
     print("Fetching data from view")
     tuple_queue = results_view.start_data_fetch()
