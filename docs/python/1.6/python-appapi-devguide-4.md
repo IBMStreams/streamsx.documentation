@@ -55,7 +55,7 @@ As shown above,
 1. The data source is a Python class or function that will produce the data to be analyzed. It could be data from Kafka, a file, database, etc.  That data is converted to a `Stream` object and is called the source `Stream`.
 2. The source `Stream` is processed by one or more transforms. A transform might compute the average of the data on a `Stream`, filtering out bad data, and so on.
 3. Each transform produces another `Stream` as output, which is then forwarded to the next transform.
-4. The last `Stream`, containing the results, is sent to a data sink, another function that will save the data to an external system.
+4. The last `Stream`, containing the results, is sent to a data sink, another function that saves the data to an external system.
 
 Let's look at a very simple application that demonstrates this concept:
 
@@ -101,7 +101,7 @@ It is especially important to remember this if the Python application is created
 <br/>
 ## Creating data sources
 
-As mentioned, applications always begin by creating a source `Stream` that contains the data you want to process.
+As mentioned, applications always begin by creating a source `Stream` containing the data you want to process.
 To create the source `Stream`:
 
 1. Write a callable, such as a function or a class, that will connect to the external system and return an [iterable](https://docs.python.org/3/glossary.html#term-iterable).
@@ -149,7 +149,8 @@ The callable passed to `Topology.source()` must:
 
 ### How it works
 
-* When the Streams runtime begins running your application, the callable, (e.g. the `get_readings` function) is invoked and it returns an iterable. The runtime then iterates through the available data by repeatedly calling [__next__](https://docs.python.org/3/library/stdtypes.html#iterator.__next__) on the iterable. Each returned item that is not `None` is submitted as a tuple for downstream processing.
+* When the Streams runtime begins running your application, the callable, (e.g. the `get_readings` function) is invoked and it returns an iterable. 
+* The runtime then iterates through the available data by repeatedly calling [__next__](https://docs.python.org/3/library/stdtypes.html#iterator.__next__) on the iterable. Each returned item that is not `None` is submitted as a tuple for downstream processing.
 * When or if the iterator throws a `StopException`, no more tuples appear on the source stream.
 
 <a id="examples"></a>
@@ -259,7 +260,7 @@ class WikipediaReader(object):
 ~~~
 
 ### Advantages of using a callable class
-When you compare the two examples above shows that although  `WikipediaReader.__call__` is similar to the `wikipedia_stream` function, the `WikipediaReader` class also has `__enter__` and `__exit__` functions.
+A comparison of the preceeding two examples shows that although  `WikipediaReader.__call__` is similar to the `wikipedia_stream` function, the `WikipediaReader` class also has `__enter__` and `__exit__` functions.
 
 - The `__enter__` function is called by the Streams runtime whenever the process executing your application is started or restarted.  This allows you to perform any necessary initialization, such as creating a connection to a database. In our example we initialized the `SSEClient` object. You could also define metrics, or, in the case of a restart due to system outage, restore any previously saved state.
 
@@ -474,11 +475,11 @@ def repeat_sequence():
 
 ## Filtering data
 
-You can invoke the `filter` transform on a `Stream` object when you want to selectively allow tuples to be passed and reject tuples from being passed to another stream. The filtering is done based on a provided callable object. The `Stream.filter()` function takes as input a callable object that takes a single tuple as an argument and returns True or False.
+To select which tuples from on a `Stream` are passed on to the next transform, use the `filter` transform on a `Stream` object. The filtering is done based on a provided callable object. The `Stream.filter()` function takes as input a callable object that takes a single tuple as an argument and returns True or False.
 
 Filtering is an immutable transform. When you filter a stream, the tuples are not altered. (If you want to alter the type or content of a tuple, see [Transforming data](#map).)
 
-For example, you have a `source` function that returns a set of four words from the English dictionary. However, you want to create a `Stream` object of words that do not contain the letter "a".
+For example, say you have a `source` function that returns a set of four words from the English dictionary. However, you want to create a `Stream` object of words that do not contain the letter "a".
 
 To achieve this:
 
@@ -546,7 +547,7 @@ quell
 
 <a id="filter_split"></a>
 
-## Filtering data and split the stream into matching and non-matching streams
+## Split a stream into matching and non-matching streams
 
 You can invoke the `filter` transform on a `Stream` object when you want to split tuples to a matching stream and non-matching stream.
 In the former sample [Filtering data from the stream](#filter) the non-matching tuples are rejected. In this section the sample application demonstrates how to split the stream into 2 streams, one stream contains the tuples matching the filter condition and the second stream contains the other tuples.
@@ -678,9 +679,11 @@ source_view = input_stream.view(name="Input", description="Sample of tuples in t
 
 ### How to use a `View` 
 
-To simply view or observe the data in a View, you can use [the Streams Console](/streamsx.documentation/docs/spl/quick-start/qs-4b-console/) or [the Job Graph in Cloud Pak for Data](/streamsx.documentation/docs/spl/quick-start/qs-4a-cpd/). 
+To view or observe the data in a `View`, you can use [the Streams Console](/streamsx.documentation/docs/spl/quick-start/qs-4b-console/) or [the Job Graph in Cloud Pak for Data](/streamsx.documentation/docs/spl/quick-start/qs-4a-cpd/). 
 
-You can also programmatically access the data in a View once the application is running using the `View` object you created.
+You can also programmatically access the data in a `View` once the application is running using the `View` object you created.
+
+Here are the basic steps.
 
 1. The `View` stores the data it retrieves from the `Stream` on a `Queue`. Create this queue using `view.start_data_fetch`:
 
@@ -720,7 +723,7 @@ You can also programmatically access the data in a View once the application is 
 This application demonstrates creating a `View` and printing the data it returns.
 
 The input is a stream of numbers. The application's goal is to increment each tuple by 10.
-We create 2 Views, one for the input and one for the result `Stream`.
+We create two Views, one for the input and one for the result `Stream`.
 
 <ul class="nav nav-tabs">
         <li class="active"><a data-toggle="tab" href="#view-1">Code</a></li>
@@ -773,7 +776,7 @@ Tuple from the stream: {'value': 57, 'id': 'id_0', 'increment': 67}
 ### Visualizing data   
 
 
-You can use some of the built-in tools to create a simple grid, or chart of live data. Or, create your own visualizations with the data returned by the View.
+You can use some of the built-in tools to create a simple grid, or chart of live data. Or, create your own visualizations with the data returned by the `View`.
 
 Live charts are available in the Streams Console, the Job Graph in IBM Cloud Pak for Data, and also from a Jupyter Notebook.
 
@@ -829,7 +832,8 @@ You should see the following output:
 
 
 There are several tools for visualizing data, such as [Bokeh](https://docs.bokeh.org/en/latest/index.html), and [Matplotlib](https://matplotlib.org/).
-Regardless of the tool you choose, the principles involved in visualizing Streaming data are the same. 
+Regardless of the tool you choose, the principles involved in visualizing Streaming data are the same:
+
 1. Create a `View` for the `Stream` containing the data you want to visualize. See the preceeding instructions. 
 2. Submit the application for execution.
 3. Using the visualization library of your choice, create a graph or visualization object. This could be a `Figure` in Matplotlib.
@@ -906,11 +910,9 @@ This image shows the above code running in a notebook.
 ![animation showing matplot graph updating](/streamsx.documentation/images/python/matplotview.gif)
 
 
-#### Accessing the tuples in a Stream via the REST API
+#### Accessing the tuples in a `Stream` via REST
 
 You can fetch data from a `View` in a running application even if you do not have the `View` object. Create a `View` object using the REST API. The [REST API](http://ibmstreams.github.io/streamsx.documentation/docs/python/1.6/python-appapi-devguide-6/#accessing-the-tuples-of-a-view) allows you to connect to a `View` in any running application.
-
-
 
 
 <a id="windows"></a>
@@ -924,17 +926,17 @@ These subsets of the tuples in the stream of data (last 100 readings, data for 1
 
 ![Window diagram](/streamsx.documentation/images/python/window.jpg)
 
-As shown above, windows are made up of a finite number of tuples. They are represented by the `Window` class in this API. You create a new `Window` by calling `Stream.last()` or `Stream.batch`, specifying the window size or duration as a parameter.
+As shown above, windows are made up of a finite number of tuples. They are represented by the `Window` class in this API. You create a new `Window` by calling `Stream.last()` or `Stream.batch()`, specifying the window size or duration as a parameter.
 <a id="wsize"></a>
 
 ### Window size and duration
 
 Tuples are collected into the window based on the defined size of the window. The size of the window can be based on
-- Elapsed time, e.g. collect all the tuples in a 5 minute interval. Time elapsed is computed using system time.- 
+- Elapsed time, e.g. _collect all the tuples in a 5 minute interval_. Time elapsed is computed using system time.
     `Stream.last(size=datetime.timedelta(minutes=5))` , or
 
     `Stream.batch(size=datetime.timedelta(minutes=5))`
-- Number of tuples collected, e.g. collect 100 tuples regardless of how often the data arrives.
+- Number of tuples collected, e.g. _collect 100 tuples regardless of how often the data arrives._
  
     `Stream.batch(size=100) ` or
 
@@ -943,13 +945,14 @@ Tuples are collected into the window based on the defined size of the window. Th
 <a id="wtemplate"></a>
 ### Template for using windows
 
-Aggregating the tuples in a window and get a new stream of results involves 3 steps:
-1. Given a `Stream` of tuples, create a `Window` using  using `Stream.last()` or `Stream.batch()`.
-2. Write a callable to process the tuples in a window and return one or more tuples containing the results.  For example, if you want to compute the average of the tuples in a window, you would write a callable that takes as a parameter a list of tuples and returns a value representing the computed average.  This function is called either when
-  - The window is full, that is, when its size or time requirement is met,
-  - Or when its trigger policy is met. We will discuss the trigger policy shortly.
-The tuples in the window will be passed to this callable when it is invoked.
+Using Windows involves 3 steps:
 
+1. Given a `Stream` of tuples, create a `Window` using  using `Stream.last()` or `Stream.batch()`.
+2. Write a callable to process the tuples in a window and return one or more tuples containing the results.  For example, if you want to compute the average of the tuples in a window, you would write a callable that takes as a parameter a list of tuples and returns a value representing the computed average.  This function is called either when: 
+  - The window is full, that is, when its size or time requirement is met,
+  - Or, when its trigger policy is met. We will discuss the trigger policy shortly.
+
+The tuples in the window will be passed to this callable when it is invoked.
 
 3. Call `Window.aggregate()`, passing the function from step 1. This will generate a new `Stream` containing the result tuples.
 
@@ -969,7 +972,8 @@ rolling_average.print()
 Let's look at a detailed example.
 <a id="we1"></a>
 
-### Simple example: Compute a rolling average
+### Simple example: compute a rolling average
+
 This example involves taking a stream of consecutive integers and computing the average, maximum and minimum of the last 10 numbers.
 Here is the data source:
 
@@ -998,8 +1002,7 @@ window = src.last(size=10)
 
 #### Step 2: Define the processing callable
 
-When it is time to process the tuples in a window, a list of the tuples in the window are passed to this class. The   `Average` class takes a list of tuples in the window and return a new tuple that describes the max, min, and average of the tuples in that window:
-
+We'll use a callable class called `Average` to handle the processing. When it is time to process the tuples in a window, a list of the tuples in the window are passed to this class. The `Average` class takes a list of tuples in the window and return a new tuple with 4 attributes: `max`, `min`,`average`, and `count`. These attributes represent the max, min, average and number of the tuples in that window, respectively.
 
 ~~~python
 class Average:
@@ -1019,8 +1022,6 @@ class Average:
 #### Step 3: Compute the result using `Window.aggregate()`
 
 Pass an instance of the `Average` class to the `aggregate` function. The `aggregate` function returns a new `Stream` with the computed rolling average.
-
-
 
 ~~~python
 
@@ -1147,8 +1148,8 @@ The window size was set to `10`, so we would expect that the `Average` callable 
 <a id="wtrigger"></a>
 
 ### Trigger policy: when to update the rolling average
-The previous example computed the rolling average for the last 10 tuples, but as shown above, there are initially less than 10 tuples in the window.  This is because the average is being calculated  whenever a new tuple arrives, even when there are less than 10 tuples in the window.
-We can adjust this by setting the trigger policy. The trigger policy controls how often the processing callable is invoked, i.e. when a new calculation is triggered. This is set using `Window.trigger()`:
+The previous example computed the rolling average for the last 10 tuples, but as shown above, there are initially less than 10 tuples in the window.  This is because the average is being calculated whenever a new tuple arrives, even when there are less than 10 tuples in the window.
+We can adjust this by setting the **trigger policy**. The trigger policy controls how often the processing callable is invoked, i.e. when a new calculation is triggered. This is set using `Window.trigger()`:
 
 ~~~python
 window  = src.last().trigger().
@@ -1177,9 +1178,10 @@ This explains why the number of tuples in the window starts at 1 and progressive
 
 
 Using a trigger policy helps if there is a lot of noise in the data.
-Other example use cases include:
-- Calculate the rolling average of values from the last hour, but only calculate it every 5 minutes. You would use a window size of 1 hour but a trigger policy of 5 minutes.
-- Compute the maximum reported reading of the last 200 tuples but with a trigger policy of every 30 seconds.
+
+Other example use cases for the trigger policy are:
+- You'd like to calculate the rolling average of values from the last hour, but only calculate it every 5 minutes. You would use a window size of 1 hour but a trigger policy of 5 minutes.
+- You want to compute the maximum reported reading of the last 200 tuples, but update this value every 30 seconds. You'd use a window size of 200 with a trigger policy of 30 seconds.
 <a id="we2"></a>
 
 ### Example 2: rolling average, updated at intervals
@@ -1258,16 +1260,17 @@ All the remaining code stays the same. Re-running this application we get this o
 | 10|  11|  20|  15.5|
 
 
-Since the values in the window are consecutive integers, it is easy to determine which tuples were in each window. For example, the first window has a min of 1, a max of 5 and a count of 5, so it is obvious it contains the integers from 1 to 5. The next window has the 10 numbers from 1 to 10, and the
-This lead to another observation, that the values in each window are not unique.
+Since the values in the window are consecutive integers, it is easy to determine which tuples were in each window. For example, the first window has a min of 1, a max of 5 and a count of 5, so it is obvious it contains the integers from 1 to 5. The next window has the 10 numbers from 1 to 10, the next, from 6 to 15, and so on.
+
+This leads to another observation, that the values in each window are not unique.
 
 This is because the window we created is a _sliding window_. `Stream.last()` always creates a sliding window. The other kind of window is a tumbling window, which is created using `Stream.batch()`. What is the difference?
 <a id="wsliding"></a>
 
 ### Unique vs. overlapping windows
-If you create a window using `Stream.last()`, this window is a **sliding window**. Tuples in sliding windows can appear in more than one window. This is useful in our example above where we wish to create a average the last 10 tuples that is updated every 5 tuples.
+If you create a window using `Stream.last()`, this window is a **sliding window**. Tuples in sliding windows can appear in more than one window. This is useful in our example above, where we are calculating the average of the last 10 tuples, every 5 tuples.
 
-If, instead, you wish to perform the aggregation in batches, e.g. in groups of 10 tuples or once per hour, then you would use a **tumbling window**. Tumbling windows are created using `Stream.batch()` and do not have a trigger policy.
+If, instead, you wish to perform the aggregation in batches, e.g. in groups of 10 unique tuples, or once per hour, then you would use a **tumbling window**. Tumbling windows are created using `Stream.batch()` and do not have a trigger policy.
 
 With tumbling windows, the contents of the window are unique between windows. When the size requirement is reached, all the tuples in a tumbling window are processed and removed from the window. By comparison, tuples in a sliding window are processed when the trigger policy is met.
 
@@ -1309,7 +1312,7 @@ And this output:
 ## Dividing tuples in a window into a group
 
 So far we have calcuated the average for all the tuples in a window.
-Sometimes you  want to divide the tuples in a window into groups and aggregate the data in the group.
+Sometimes, you want to divide the tuples in a window into groups and aggregate the data in the group.
 For example, you might want to calculate the maximum temperature reported by each sensor.
 There are two ways to do this:
 
@@ -1427,12 +1430,13 @@ print(df)
   </div>
 </div>
 
+The preceeding code does the following:
+
 - Using a Pandas `DataFrame`, we group the data by `id` 
 - Compute the average, minimum and maximum values reported for each `id` using the `agg` function
 - Then return a list of tuples, one for each unique `id` in the window. 
-
-The `Averages` class is now returning a `Stream` where each tuple is a list of values. 
- Since want to work with individual tuples, use the `flat_map` function to convert that `Stream` to a `Stream` of individual tuples.
+- The `Averages` class is now returning a `Stream` where each tuple is a list of values. 
+- Since we want to work with individual tuples, we use the `flat_map` function to convert that `Stream` to a `Stream` of individual tuples.
   
 ~~~python
 
@@ -1456,7 +1460,7 @@ After running the application, we'll get something like this:
 
 
 ### Partitioning: dividing tuples into separate windows
-So far, we have only used one window, and when the `Averages` class was called, all the tuples in the window were passed to it for processing. 
+So far, we have only used one window, and when the `Averages` class was called, all the tuples in the window were passed to it for processing. This works, but sometimes is not sufficient.
 
 Imagine that you have 2 sensors reporting data. Sensor A, with id `id_A` is reporting a reading every minute, while sensor B, with id `id_B` only reports once every second.  Maybe sensor A is stuck on a slow network.
 
@@ -1465,7 +1469,7 @@ If you created a window using `Stream.last(10)`, more often than not, every tupl
 Let's see a concrete example of this problem first:
 
 
-1. Change the `Numbers` class so that it every 9th tuple has id 'A' and all other tuples have id 'B'. This is simulating a sensor B that reports  much more frequently than sensor A.
+1. Change the `Numbers` class to simulate a sensor B that reports  much more frequently than sensor A. Modify it so that every 9th tuple has id 'A' and all other tuples have id 'B'.
 
     ~~~python
     def get_id(count):
@@ -1667,11 +1671,11 @@ Now, we see from the `window_contents` column that all the tuples are divided am
 ### Summary
 
 This section has covered the steps to use a window to transform streaming data:
-- Define the window using `Stream.batch` and `Stream.last`.
+- Define the window using `Stream.batch` and `Stream.last`, for tumbling(unique) or sliding windows, respectively.
 - Defining a class or function that will perform your aggregation
 - Use `Window.aggregate()` to call your processing function with the window's contents
-- For sliding windows, set the trigger policy with `Window.trigger` to control when the processing function is called.
-- Use `Window.partition` to create subwindows for more fine grained aggregation
+- For overlapping, or sliding windows, set the trigger policy with `Window.trigger` to control when the processing function is called.
+- Use `Window.partition` to create subwindows for more fine grained aggregation.
 
 
 <a id="map"></a>
