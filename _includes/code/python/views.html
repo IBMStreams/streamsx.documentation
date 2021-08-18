@@ -1,7 +1,6 @@
     <div id="view-1" class="tab-pane fade in active">
         <pre>
                         <code>     
-    {% highlight python %}
 
 topo = Topology("ViewDemo")
 src_stream  = topo.source(Numbers())
@@ -16,14 +15,12 @@ results_view = increment_stream.view(name="Increment_Stream",
 increment_stream.publish(topic="Increment")
 
 submit_topology(topo)
-    {% endhighlight %}
 
       </code></pre>
     </div>
 
     <div id="view-full" class="tab-pane fade">
         <pre><code>
-{% highlight python %}
 from streamsx.topology.topology import Topology
 from streamsx.topology import context
 import time
@@ -78,7 +75,6 @@ except:
 finally:
     results_view.stop_data_fetch()
 
-{% endhighlight %}
 </code></pre>
 
     </div>

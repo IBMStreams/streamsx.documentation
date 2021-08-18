@@ -118,7 +118,7 @@ topo = Topology()
 incoming_data = topo.source(DbAdapter())
 ~~~
 
-Before we discuss source functions further, note that adapters exist for common systems, which you can use instead of writing your own function.
+Note that adapters exist for common systems, which you can use instead of writing your own function.
 
 <a id="adapters"></a>
 ### Ingesting data from popular systems
@@ -173,9 +173,11 @@ incoming_data = topo.source(Readings())
 You can implement your source callable as a function or a callable class.  Using a callable class is the recommended option because it allows you to keep state and also restore state in the event of an outage.
 Let's see an example of the difference.
 
-Our use case is tracking recent changes to Wikipedia. The data source, [Wikipedia event streams](https://stream.wikimedia.org/?doc#!/Streams), is a live stream of recent updates and changes. We will use the [Python Server Side Event (SSE) client](https://github.com/btubbs/sseclient) to retrieve the Wikipedia data.
+The use case is tracking recent changes to Wikipedia. The data source, [Wikipedia event streams](https://stream.wikimedia.org/?doc#!/Streams), is a live stream of recent updates and changes. The source callable will use the [Python Server Side Event (SSE) client](https://github.com/btubbs/sseclient) to retrieve the data from Wikipedia.
 
-We could use a simple function:
+The source callable could be a simple function or a callable class.
+
+Here's an example of a simple function:
 
 <a id="full-fn"></a>
 ~~~python
@@ -209,7 +211,7 @@ source.print()
 
 ~~~
 
-Or, a callable class:
+Callable class example:
 
 <a id="full-class"></a>
 
@@ -262,7 +264,7 @@ class WikipediaReader(object):
 ### Advantages of using a callable class
 A comparison of the preceeding two examples shows that although  `WikipediaReader.__call__` is similar to the `wikipedia_stream` function, the `WikipediaReader` class also has `__enter__` and `__exit__` functions.
 
-- The `__enter__` function is called by the Streams runtime whenever the process executing your application is started or restarted.  This allows you to perform any necessary initialization, such as creating a connection to a database. In our example we initialized the `SSEClient` object. You could also define metrics, or, in the case of a restart due to system outage, restore any previously saved state.
+- The `__enter__` function is called by the Streams runtime whenever the process executing your application is started or restarted.  This allows you to perform any necessary initialization, such as creating a connection to a database. This example initialized the `SSEClient` object. You could also define metrics, or, in the case of a restart due to system outage, restore any previously saved state.
 
 - Similarly, the `__exit__` function allows you to handle exceptions that occurred in the `__call__` function, and also perform any cleanup when the process is shutting down.
 
@@ -384,7 +386,7 @@ Sample output:
 
 Another option to work with files in your streaming application is offered by the Python module [streamsx.standard](https://streamsxstandard.readthedocs.io/en/latest/generated/streamsx.standard.files.html#module-streamsx.standard.files).
 
-In the following sample, the [streamsx.standard.files.CSVReader](https://streamsxstandard.readthedocs.io/en/latest/generated/streamsx.standard.files.html#streamsx.standard.files.CSVReader) is used to read a file in the source callable. For this, we import the python module like below:
+In the following sample, the [streamsx.standard.files.CSVReader](https://streamsxstandard.readthedocs.io/en/latest/generated/streamsx.standard.files.html#streamsx.standard.files.CSVReader) is used to read a file in the source callable. For this, import the python module like below:
 
 ~~~python
 import streamsx.standard.files as files
@@ -1043,8 +1045,6 @@ After submitting this application, use this code to connect to it and display th
 <div class="tab-content">
   <div id="simpleSource-1" class="tab-pane fade in active">
  <pre><code>
-
-   {% highlight python %}
  import pandas as pd
 
  queue = results_view.start_data_fetch()
@@ -1057,13 +1057,10 @@ After submitting this application, use this code to connect to it and display th
  #display as Pandas data frame
  df = pd.DataFrame(results)
  print(df)
-  {% endhighlight %}
 </code></pre>
  </div>
   <div id="fullSource-1" class="tab-pane fade">
-  <pre><code>
-
-   {% highlight python %}
+ <pre><code>
 from streamsx.topology.topology import Topology
 from streamsx.topology import context
 import time
@@ -1116,8 +1113,6 @@ results_view.stop_data_fetch()
 # display as Pandas data frame
 df = pd.DataFrame(results)
 print(df)
-
-  {% endhighlight %}
 </code></pre>
   </div>
 </div>
@@ -1197,16 +1192,13 @@ Let's change our window definition to set a trigger policy of `5` using [Window.
   <div id="simpleSource-2" class="tab-pane fade in active">
  <pre><code>
 
-   {% highlight python %}
  src = topo.source(Numbers())
  window = src.last(size=10).trigger(5) #Use trigger(datetime.timedelta(seconds=10)) to use a time based trigger
-   {% endhighlight %}
 </code></pre>
  </div>
   <div id="fullSource-2" class="tab-pane fade">
   <pre><code>
 
-   {% highlight python %}
   from streamsx.topology.topology import Topology
   import streamsx.topology.context
   import time
@@ -1244,7 +1236,6 @@ Let's change our window definition to set a trigger policy of `5` using [Window.
   submission_result = streamsx.topology.context.submit("DISTRIBUTED",
                                                             topo)
 
- {% endhighlight %}
 
 </code></pre>
   </div>
@@ -1333,7 +1324,6 @@ Continuing the previous example, let's change the `Averages` class to compute th
   <div id="simpleSource-3" class="tab-pane fade in active">
  <pre><code>
 
-   {% highlight python %}
 import pandas as pd
 import numpy as np 
 class Averages:
@@ -1356,13 +1346,11 @@ def __call__(self, items_in_window):
                         "max": float(row["max_val"]),
                     "id": id)})
     return result
-  {% endhighlight %}
 </code></pre>
  </div>
   <div id="fullSource-3" class="tab-pane fade">
   <pre><code>
 
-   {% highlight python %}
 from streamsx.topology.topology import Topology
 from streamsx.topology import context
 import time
@@ -1425,7 +1413,6 @@ results_view.stop_data_fetch()
 # display as Pandas data frame
 df = pd.DataFrame(results)
 print(df)
-  {% endhighlight %}
 </code></pre>
   </div>
 </div>
@@ -1555,7 +1542,6 @@ Modify the example and re-run it:
   <div id="simpleSource-4" class="tab-pane fade in active">
  <pre><code>
 
-   {% highlight python %}
 # Since the Averages callable will receive the tuples already in a group, 
 # we no longer need the grouping using Pandas
 class Averages:
@@ -1580,12 +1566,10 @@ def getKey(tpl):
 #Modify window definition
 window = src.last(size=10).partition(key=getKey)
 rolling_average = window.aggregate(Averages())
-   {% endhighlight %}
 </code></pre>
  </div>
   <div id="fullSource-4" class="tab-pane fade">
   <pre><code>
- {% highlight python %}
 from streamsx.topology.topology import Topology
 from streamsx.topology import context
 import time
@@ -1652,7 +1636,6 @@ results_view.stop_data_fetch()
 df = pd.DataFrame(results)
 print(df)
 
- {% endhighlight %}
 </code></pre>
   </div>
 </div>
@@ -2293,7 +2276,7 @@ The table below contains examples of the schema definition and the corresponding
 | Json| `outputSchema = CommonSchema.Json` | ```tuple<rstring jsonString>``` |
 | StreamsSchema | `outputSchema = 'tuple<int64 intAttribute, rstring strAttribute>'` | ```tuple<int64 intAttribute, rstring strAttribute>``` |
 
-So far in this *development guide*, we don't use schemas explicitly. But in a large application it is good design to define structured schema(s).
+So far, schemas are not used explicitly in this guide. But in a large application it is good design to define structured schema(s).
 
 And in certain cases, you must have a schema different than `CommonSchema.Python`:
 
