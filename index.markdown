@@ -59,7 +59,7 @@ Streams Processing Language is specifically designed for creating Streams applic
 
 - [Search our samples catalog](https://ibmstreams.github.io/samples/)
     
-- [Streams in IBM Cloud Pak for Data](https://www.ibm.com/support/producthub/icpdata/docs/content/SSQNUZ_current/cpd/svc/streams/developing-intro.html)
+- [Streams in IBM Cloud Pak for Data](https://www.ibm.com/docs/en/cloud-paks/cp-data/3.5.0?topic=models-streams)
  
 - [Streams Knowledge Center](http://www.ibm.com/support/knowledgecenter/SSCRJU/SSCRJU_welcome.html)
 
