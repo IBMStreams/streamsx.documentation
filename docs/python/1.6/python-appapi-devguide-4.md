@@ -26,7 +26,7 @@ This section will discuss how to use the most common functions and transforms in
 * [Viewing the contents of a `Stream`](#views)
   * [Visualizing Streaming data](#visualizing-data) 
 * [Windows: transforming subsets of data ](#windows)
-  - [Window size and duration](#wsize)
+  - [How many tuples will the window contain?](#wsize)
   - [Template for using windows](#wtemplate)
     - [Example 1: Simple rolling average](#we1)
   - [Trigger policy](#wtrigger)
@@ -934,25 +934,29 @@ These subsets of the tuples in the stream of data (last 100 readings, data for 1
 
 ![Window diagram](/streamsx.documentation/images/python/window.jpg)
 
-As shown above, windows are made up of a finite number of tuples. They are represented by the `Window` class in this API. You create a new `Window` by calling `Stream.last()` or `Stream.batch()`, specifying the window size or duration as a parameter.
+As shown above, windows are made up of a finite number of tuples. They are represented by the `Window` class in this API. You create a new `Window` by calling `Stream.last()` or `Stream.batch()`.
 
 The difference between `Stream.last()` and `Stream.batch()` will be covered [later in this guide](#wsliding). For now, the examples will use `Stream.last()`.
 
 
 <a id="wsize"></a>
 
-### Window size and duration
+### How many tuples will the window contain?
 
-Tuples are collected into the window based on the defined size of the window. The size of the window can be based on
-- Elapsed time, e.g. _collect all the tuples in a 5 minute interval_. Time elapsed is computed using system time.
-    `Stream.last(size=datetime.timedelta(minutes=5))` , or
+You specify how many tuples are collected into the window based on your application's needs. 
+You have 2 options. You can create the windows based on the number of tuples that have arrived (count-based) or on how much time elapses between tuple arrivals (time-based). 
 
-    `Stream.batch(size=datetime.timedelta(minutes=5))`
-- Number of tuples collected, e.g. _collect 100 tuples regardless of how often the data arrives._
- 
-    `Stream.batch(size=100) ` or
+Here are examples of each option:
+
+- Collect the last 100 tuples, regardless of how often the data arrives. This is a **count-based** window.
 
     `Stream.last(size=100)`
+    
+- Collect all the tuples that arrive in a 5 minute interval. This is a **time-based** window.
+    
+    `Stream.last(size=datetime.timedelta(minutes=5))` 
+    
+   Elapsed time is computed using system time. The number of tuples collected will depend on how many tuples arrive in the specified   interval.
 
 <a id="wtemplate"></a>
 ### Template for using windows
