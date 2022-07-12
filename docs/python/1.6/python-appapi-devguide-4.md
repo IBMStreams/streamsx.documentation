@@ -935,6 +935,10 @@ These subsets of the tuples in the stream of data (last 100 readings, data for 1
 ![Window diagram](/streamsx.documentation/images/python/window.jpg)
 
 As shown above, windows are made up of a finite number of tuples. They are represented by the `Window` class in this API. You create a new `Window` by calling `Stream.last()` or `Stream.batch()`, specifying the window size or duration as a parameter.
+
+The difference between `Stream.last()` and `Stream.batch()` will be covered [later in this guide](#wsliding). For now, the examples will use `Stream.last()`.
+
+
 <a id="wsize"></a>
 
 ### Window size and duration
