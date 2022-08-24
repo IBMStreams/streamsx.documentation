@@ -15,7 +15,7 @@ prev:
 ---
 
 
-This tutorial is intended to help you get up and running with IBM Streams quickly. We will first introduce the basic concepts and building blocks. And then we will write a very simple Streams application. You can follow along with Streams Studio or Microsoft Visual Studio Code to create the application. 
+This tutorial is intended to help you get up and running with IBM Streams quickly. It will introduce the basic concepts and building blocks of a Streams application. You can follow along with Streams Studio or Microsoft Visual Studio Code to create the application. 
 
 <a name="overview"></a>
 
@@ -25,7 +25,7 @@ Streams is an advanced analytics platform that allows you to develop application
 
 Although you can create Streams application with [Java](http://ibmstreams.github.io/streamsx.documentation/docs/4.1/java/java-appapi-devguide/) and [Python](http://ibmstreams.github.io/streamsx.documentation/docs/python/1.6/python-appapi-devguide/index.html), this tutorial focuseson Streams Processing Language (SPL).
 
-In this tutorial, we will cover the basics of creating a Streams application with SPL by creating an application that processes a stream of stock prices.  
+This tutorial will cover the basics of creating a Streams application with SPL by creating an application that processes a stream of stock prices.  
 
 <a name="basic_building_blocks"></a>
 
