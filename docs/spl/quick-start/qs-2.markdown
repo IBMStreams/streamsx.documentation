@@ -68,7 +68,7 @@ The first Stream you create is the Stream containing the data you want to analyz
 To ingest this data, you use a special operator called a **Source Adapter** to connect to the external data source. The source adapter produces a stream of tuples that represent each event or message in the external data source. 
 
 ### How do I create an Operator?
-You can use one of the hundreds of built-in operators in your application, or you can write your own
+You can use one of the hundreds of built-in operators in your application, or you can write your own.
 
 Streams includes adapters for common scenarios and source adapters for popular systems, like Kafka and IBM Db2.
 
