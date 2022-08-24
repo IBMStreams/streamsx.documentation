@@ -94,7 +94,7 @@ But it is a good idea to first try creating a Streams application.
 
 ## Create your first Streams application in SPL
 
-Now that we have gone through the basics, we are going to write a simple application that covers these concepts. 
+Now, it's time to write an application that covers the basic concepts. 
 
 The application will:
 
