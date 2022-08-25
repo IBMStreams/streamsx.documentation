@@ -16,7 +16,7 @@ prev:
   title:  Monitoring Streams applications
 ---
 
-If you submitted a job to run on an IBM Streams instance in IBM Cloud Pak for Data (CPD), you can monitor and manage the application from the (CPD) user interface.  This page discusses some of the features available and how to use them.
+If you submitted a job to run on an IBM Streams instance in IBM Cloud Pak for Data (CPD), you can monitor and manage the application from the CPD user interface.  This page discusses some of the features available and how to use them.
 
 To monitor an application using the Streams extension for VS Code instead, [see the documentation](https://ibmstreams.github.io/vscode-ide/docs/building-running-applications/#job-graph)
 
