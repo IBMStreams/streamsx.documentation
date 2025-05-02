@@ -7,7 +7,7 @@ weight: 1
 
 # IBM Streams SPL Samples for Beginners
 
-It contains 100 readily usable IBM Streams examples ranging from simple to advanced. It was created by Senthil Nathan. He is now an independent software consultant. Using this set of examples and his private collection of even more targeted examples, he trained around 1000 engineers in many customer locations since 2007. His immersive classroom sessions run for a week to enable customers to start using their learnings in creating highly impactful streaming data analytics applications to help their enterprises derive value from their data. Customers interested in IBM Streams classroom training can email senthil@moonraytech.com to reach him. Thank you.
+It contains 100 readily usable IBM Streams examples ranging from simple to advanced. It was created by Senthil Nathan. He is now an independent software consultant. Using this set of examples and his private collection of even more practically relevant examples, he trained around 1000 engineers in many customer locations since 2007. His comprehensive hands-on classroom sessions run for a week to enable customers to start using their learnings in creating highly impactful streaming data analytics applications. Many customers praise that his coaching helped their enterprises derive value from their data. Customers interested in IBM Streams classroom training can email senthil@moonraytech.com to reach him. Thank you.
 
 Download a copy of these examples from the [releases page](https://github.com/IBMStreams/samples/releases) of the samples project.
 
